@@ -39,6 +39,12 @@ bundled with Dolphin and used if they're not installed on your system. CMake
 will inform you if a bundled library is used or if you need to install any
 missing packages yourself.
 
+## Installation for OpenEmu
+To build Dolphin for OpenEmu you'll need the OpenEmu-SDK (https://github.com/OpenEmu/OpenEmu-SDK) and a copy of the file OEGCSystemResponderClient.h (https://github.com/OpenEmu/OpenEmu/blob/master/OpenEmu/GameCube/OEGCSystemResponderClient.h).
+Currently Dolphin also needs a copy of ffmpeg that should be installed using the brew (http://brew.sh) command ```brew install ffmpeg```. 
+
+### The Dolphin Core for OpenEmu is not working at the moment
+
 ### Build Steps:
 1. `mkdir Build`
 2. `cd Build`
