@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>922F9121-00F1-47ED-905B-CBBB221FEBCB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>dolphin-emu</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9A047C158727B80F588F7722FD3120E4E5B96C4C</key>
+		<string>https://github.com/dolphin-emu/dolphin.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>dolphin-emu.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9A047C158727B80F588F7722FD3120E4E5B96C4C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/dolphin-emu/dolphin.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9A047C158727B80F588F7722FD3120E4E5B96C4C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9A047C158727B80F588F7722FD3120E4E5B96C4C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>dolphin</string>
+		</dict>
+	</array>
+</dict>
+</plist>
