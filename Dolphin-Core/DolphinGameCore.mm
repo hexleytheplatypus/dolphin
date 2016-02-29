@@ -62,7 +62,6 @@
     bool _isInitialized;
     bool _shouldReset;
     float _frameInterval;
-    
 }
 
 @property (copy) NSString *filePath;
@@ -71,15 +70,11 @@
 __weak DolphinGameCore *_current = 0;
 
 @implementation DolphinGameCore
-
-
 - (id)init
 {
-    if((self = [super init]))
-    {
+    if(self = [super init])
         gc_host = DolHost::GetInstance();
-    }
-    
+
     _current = self;
     return self;
 }
@@ -88,12 +83,9 @@ __weak DolphinGameCore *_current = 0;
 {
     delete gc_host;
     free(_soundBuffer);
-    
 }
 
-
 # pragma mark - Execution
-
 - (BOOL)loadFileAtPath:(NSString *)path
 {
     gc_host->Init();
@@ -105,7 +97,6 @@ __weak DolphinGameCore *_current = 0;
 - (void)setPauseEmulation:(BOOL)flag
 {
     gc_host->Pause(flag);
-    
 }
 
 - (void)stopEmulation
@@ -113,7 +104,6 @@ __weak DolphinGameCore *_current = 0;
     gc_host->RequestStop();
     
     [super stopEmulation];
-   
 }
 
 - (void) startEmulation
@@ -129,15 +119,14 @@ __weak DolphinGameCore *_current = 0;
 
 - (void)executeFrame
 {
-
-    if(!_isInitialized){
+    if(!_isInitialized)
+    {
         const char * cpath = [[self filePath] cStringUsingEncoding:NSUTF8StringEncoding];
     
         if(gc_host->LoadFileAtPath(cpath))
             _isInitialized=true;
     }
     gc_host->UpdateFrame();
-    
 }
 
 
@@ -175,7 +164,6 @@ __weak DolphinGameCore *_current = 0;
 }
 
 # pragma mark - Video
-
 - (OEGameCoreRendering)gameCoreRendering
 {
     return OEGameCoreRenderingOpenGL3Video;
@@ -226,9 +214,7 @@ __weak DolphinGameCore *_current = 0;
     return GL_RGBA;
 }
 
-
 # pragma mark - Audio
-
 - (NSUInteger)channelCount
 {
     return 2;
@@ -240,19 +226,15 @@ __weak DolphinGameCore *_current = 0;
 }
 
 # pragma mark - Save States
-
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-    
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-    
 }
 
 # pragma mark - Input
-
 - (oneway void)didMoveGCJoystickDirection:(OEGCButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
     gc_host->SetAxis(button, value, player);
@@ -265,5 +247,4 @@ __weak DolphinGameCore *_current = 0;
 {
     gc_host->SetButtonState(button, 0, player);
 }
-
 @end

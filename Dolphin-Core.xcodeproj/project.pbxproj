@@ -5765,22 +5765,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/xxhash,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -5840,26 +5840,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
+					$SRCROOT/Externals/libusb/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -5969,23 +5969,23 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/dolphin/Externals/SFML/src,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/libusb/libusb,
+					$SRCROOT/Externals/SFML/src,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6048,22 +6048,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6289,15 +6289,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 					$SRCROOT/dolphinExternals/miniupnpc/include,
 				);
 				INSTALL_PATH = "";
@@ -6385,22 +6385,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6508,22 +6508,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6701,15 +6701,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 					$SRCROOT/dolphinExternals/miniupnpc/include,
 				);
 				INSTALL_PATH = "";
@@ -6750,22 +6750,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6943,22 +6943,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6993,22 +6993,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7068,26 +7068,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7179,11 +7179,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Externals/enet/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7226,11 +7226,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Externals/enet/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7273,11 +7273,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Externals/enet/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7320,11 +7320,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Externals/enet/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7372,11 +7372,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/mbedtls/include,
+					$SRCROOT/Externals/mbedtls/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7419,11 +7419,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/mbedtls/include,
+					$SRCROOT/Externals/mbedtls/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7466,11 +7466,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/mbedtls/include,
+					$SRCROOT/Externals/mbedtls/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7513,11 +7513,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
-					$SRCROOT/dolphin/Externals/mbedtls/include,
+					$SRCROOT/Externals/mbedtls/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7633,16 +7633,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7802,16 +7802,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7901,22 +7901,22 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/xxhash,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7977,21 +7977,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8097,16 +8097,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8329,22 +8329,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8406,16 +8406,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8525,22 +8525,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8572,26 +8572,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
+					$SRCROOT/Externals/libusb/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8651,10 +8651,10 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
+					$SRCROOT/Source/Core,
 					$SRCROOT/dolopin/Externals/Bochs_disasm,
 				);
 				INSTALL_PATH = "";
@@ -8713,7 +8713,7 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
 					"'USER_DIR=\".dolphin-emu\"'",
@@ -8741,22 +8741,22 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8816,16 +8816,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8983,23 +8983,23 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/dolphin/Externals/SFML/src,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/libusb/libusb,
+					$SRCROOT/Externals/SFML/src,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9061,10 +9061,10 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
+					$SRCROOT/Source/Core,
 					$SRCROOT/dolopin/Externals/Bochs_disasm,
 				);
 				INSTALL_PATH = "";
@@ -9189,7 +9189,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -9203,7 +9203,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
@@ -9247,7 +9247,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -9256,7 +9256,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
@@ -9300,7 +9300,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -9309,7 +9309,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
@@ -9353,7 +9353,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -9362,7 +9362,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
@@ -9758,21 +9758,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9882,22 +9882,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10052,10 +10052,10 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
+					$SRCROOT/Source/Core,
 					$SRCROOT/dolopin/Externals/Bochs_disasm,
 				);
 				INSTALL_PATH = "";
@@ -10116,26 +10116,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
+					$SRCROOT/Externals/libusb/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10198,21 +10198,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10270,26 +10270,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
+					$SRCROOT/Externals/libusb/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10415,26 +10415,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10497,22 +10497,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10572,26 +10572,26 @@
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/enet/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10701,21 +10701,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10778,21 +10778,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10855,21 +10855,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10932,22 +10932,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11010,23 +11010,23 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/dolphin/Externals/SFML/src,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/libusb/libusb,
+					$SRCROOT/Externals/SFML/src,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11091,22 +11091,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11141,22 +11141,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11290,21 +11290,21 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11478,15 +11478,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 					$SRCROOT/dolphinExternals/miniupnpc/include,
 				);
 				INSTALL_PATH = "";
@@ -11526,16 +11526,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11765,22 +11765,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11814,16 +11814,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11935,22 +11935,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12012,10 +12012,10 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
+					$SRCROOT/Source/Core,
 					$SRCROOT/dolopin/Externals/Bochs_disasm,
 				);
 				INSTALL_PATH = "";
@@ -12101,15 +12101,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 					$SRCROOT/dolphinExternals/miniupnpc/include,
 				);
 				INSTALL_PATH = "";
@@ -12148,16 +12148,16 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/src,
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/src,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12220,21 +12220,21 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12341,23 +12341,23 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/dolphin/Externals/SFML/src,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/libusb/libusb,
+					$SRCROOT/Externals/SFML/src,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12421,22 +12421,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/xxhash,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12593,22 +12593,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/mbedtls/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/gtest/include,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/mbedtls/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12674,22 +12674,22 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT/dolphin/Externals/SFML/include,
-					$SRCROOT/dolphin/Externals/GL,
+					$SRCROOT/Externals/SFML/include,
+					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/Bochs_disasm,
-					$SRCROOT/dolphin/Externals/LZO,
-					$SRCROOT/dolphin/Externals/libpng,
-					$SRCROOT/dolphin/Externals,
-					$SRCROOT/dolphin/Externals/miniupnpc/src,
-					$SRCROOT/dolphin/Externals/polarssl/include,
-					$SRCROOT/dolphin/Externals/SOIL,
-					$SRCROOT/dolphin/Externals/wxWidgets3,
-					$SRCROOT/dolphin/Externals/wxWidgets3/include,
-					$SRCROOT/dolphin/Source/Core/Common,
-					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/Source/Core,
+					$SRCROOT/Externals/Bochs_disasm,
+					$SRCROOT/Externals/LZO,
+					$SRCROOT/Externals/libpng,
+					$SRCROOT/Externals,
+					$SRCROOT/Externals/miniupnpc/src,
+					$SRCROOT/Externals/polarssl/include,
+					$SRCROOT/Externals/SOIL,
+					$SRCROOT/Externals/wxWidgets3,
+					$SRCROOT/Externals/wxWidgets3/include,
+					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Externals/xxhash,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;

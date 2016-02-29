@@ -26,49 +26,38 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "DolHost.h"
 #include "OE_OSXJoystick.h"
-#include "Common/Common.h"
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
 #import  <Cocoa/Cocoa.h>
-
-#include "Common/CommonTypes.h"
-#include "Common/Event.h"
-#include "Common/MsgHandler.h"
-#include "Common/Logging/LogManager.h"
 
 #include "Core/BootManager.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
 #include "Core/Host.h"
 #include "Core/State.h"
-
 #include "Core/HW/GCPadEmu.h"
 #include "Core/HW/Wiimote.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_Device_usb.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_WiiMote.h"
 #include "Core/PowerPC/PowerPC.h"
-
+#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+#include "Common/Event.h"
+#include "Common/MsgHandler.h"
+#include "Common/Logging/LogManager.h"
 #include "Common/GL/GLInterfaceBase.h"
-
-
-
 #include "UICommon/UICommon.h"
-
 #include "VideoCommon/VideoBackendBase.h"
 #include "VideoCommon/VideoConfig.h"
 #include "Videobackends/OGL/FramebufferManager.h"
-
 #include "InputCommon/ControllerInterface/Device.h"
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 #include "InputCommon/ControllerInterface/ExpressionParser.h"
 #include "AudioCommon/AudioCommon.h"
 
-
 DolHost* DolHost::m_instance = nullptr;
-
 static bool running = true;
 static Common::Event updateMainFrameEvent;
-
 
 DolHost* DolHost::GetInstance()
 {
@@ -94,7 +83,6 @@ void DolHost::Init()
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().m_Volume = 50;
     Core::SetState(Core::CORE_RUN);
-    
 }
 
 bool DolHost::LoadFileAtPath(const std::string& cpath)
@@ -150,7 +138,10 @@ void DolHost::UpdateFrame()
 void DolHost::SetButtonState(int button,int state, int player)
 {
     std::string dolButton;
-    
+    std::string qualifier = "OE_GameDev" + std::to_string(player);
+    ciface::Core::Device::Input* input;
+    std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
+
     switch (button)
     {
         case OEGCButtonUp:
@@ -173,7 +164,6 @@ void DolHost::SetButtonState(int button,int state, int player)
             dolButton = "Button Dpad_Right";
             break;
         }
-        
         case OEGCAnalogUp:
         {
             dolButton = "Axis Y+";
@@ -259,27 +249,20 @@ void DolHost::SetButtonState(int button,int state, int player)
             
             break;
         }
-            }
-    
-    std::string qualifier;
-    
-    ciface::Core::Device::Input* input;
-    
-    qualifier = "OE_GameDev" + std::to_string(player);
+    }
 
-    std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
-    
     for (auto& d : devices)
     {
-     if (d->GetName() == qualifier)
-     {
-          input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
-         
-         if (input != NULL){
-             input->SetState(state);
+         if (d->GetName() == qualifier)
+         {
+             input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
+             
+             if (input != NULL)
+             {
+                 input->SetState(state);
+                 break;
+             }
          }
-         break;
-     }
     }
 }
 
@@ -294,7 +277,6 @@ void DolHost::SetAxis(int button, float value, int player)
 //case OEGCAnalogCLeft,
 //case OEGCAnalogCRight,
 }
-
 
 // Dolphin Render callback functions
 void* DolHost::GetRenderHandle()
@@ -312,26 +294,16 @@ bool DolHost::GetRenderFocus()
     return true;
 }
 
-void DolHost::SetRenderFocus(bool focus)
-{
-}
-
 bool DolHost::GetRenderFullscreen()
 {
     return false;
 }
 
-void DolHost::SetRenderFullscreen(bool fullscreen)
-{
-}
-
-void DolHost_Message(int id)
-{
-}
-
+void DolHost::SetRenderFullscreen(bool fullscreen){}
+void DolHost_Message(int id){}
+void DolHost::SetRenderFocus(bool focus){}
 
 //  Dolphin Call back functions
-
 void* Host_GetRenderHandle()
 {
     return DolHost::GetInstance()->GetRenderHandle();

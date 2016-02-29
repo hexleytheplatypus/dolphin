@@ -248,7 +248,7 @@ bool Init()
 	s_window_handle = Host_GetRenderHandle();
 
 	// Start the emu thread
-	s_emu_thread = std::thread(EmuThread);
+	//s_emu_thread = std::thread(EmuThread);  //  OE Commented out for OE
 
 	return true;
 }
