@@ -1176,7 +1176,6 @@
 		3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_CoreAudio.h; path = "Dolphin-Core/OE_CoreAudio.h"; sourceTree = "<group>"; };
 		3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_CoreAudio.mm; path = "Dolphin-Core/OE_CoreAudio.mm"; sourceTree = "<group>"; };
 		3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_GCpadEmu.mm; path = "Dolphin-Core/OE_GCpadEmu.mm"; sourceTree = "<group>"; };
-		3E3D702A1C82AF2A00091C4D /* OE_GPadEmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_GPadEmu.h; path = "Dolphin-Core/OE_GPadEmu.h"; sourceTree = "<group>"; };
 		3E3D702B1C82AF2A00091C4D /* OE_OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSX.h; path = "Dolphin-Core/OE_OSX.h"; sourceTree = "<group>"; };
 		3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_OSX.mm; path = "Dolphin-Core/OE_OSX.mm"; sourceTree = "<group>"; };
 		3E3D702D1C82AF2A00091C4D /* OE_OSXJoystick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSXJoystick.h; path = "Dolphin-Core/OE_OSXJoystick.h"; sourceTree = "<group>"; };
@@ -2380,7 +2379,6 @@
 				3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */,
 				3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */,
 				3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */,
-				3E3D702A1C82AF2A00091C4D /* OE_GPadEmu.h */,
 				3E3D702B1C82AF2A00091C4D /* OE_OSX.h */,
 				3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */,
 				3E3D702D1C82AF2A00091C4D /* OE_OSXJoystick.h */,
