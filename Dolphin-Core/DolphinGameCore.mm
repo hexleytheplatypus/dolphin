@@ -89,6 +89,11 @@ __weak DolphinGameCore *_current = 0;
 - (BOOL)loadFileAtPath:(NSString *)path
 {
     gc_host->Init();
+
+    NSString *resourcePath = [[[self owner] bundle] resourcePath];
+    NSString *supportDirectoryPath = [self supportDirectoryPath];
+    
+    gc_host->Init([supportDirectoryPath UTF8String] );
     self.filePath = path;
     
     return YES;

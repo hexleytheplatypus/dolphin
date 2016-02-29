@@ -70,9 +70,9 @@ DolHost::DolHost()
 {
 }
 
-void DolHost::Init()
+void DolHost::Init(std::string supportDirectoryPath)
 {
-    UICommon::SetUserDirectory("");
+    UICommon::SetUserDirectory(supportDirectoryPath);
     UICommon::CreateDirectories();
     UICommon::Init();
     

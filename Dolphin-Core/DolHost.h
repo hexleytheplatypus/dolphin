@@ -70,6 +70,7 @@ public:
     void RequestRenderSize(int w, int h);
     
     void Init();
+    void Init(std::string supportDirectoryPath);
     void RunCore();
     void StopEmulator();
     
