@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Common/CommonTypes.h"
+#include "DiscIO/Blob.h"
 #include "DiscIO/Volume.h"
 
 namespace File { struct FSTEntry; }
@@ -39,16 +40,20 @@ public:
 
 	std::string GetMakerID() const override;
 
-	std::vector<std::string> GetNames() const override;
+	u16 GetRevision() const override { return 0; }
+	std::string GetInternalName() const override;
+	std::map<IVolume::ELanguage, std::string> GetNames(bool prefer_long) const override;
+	std::vector<u32> GetBanner(int* width, int* height) const override;
 	void SetName(const std::string&);
 
-	u32 GetFSTSize() const override;
+	u64 GetFSTSize() const override;
 
 	std::string GetApploaderDate() const override;
-	bool IsWiiDisc() const override;
+	EPlatform GetVolumeType() const override;
 
 	ECountry GetCountry() const override;
 
+	BlobType GetBlobType() const override;
 	u64 GetSize() const override;
 	u64 GetRawSize() const override;
 
@@ -73,12 +78,12 @@ private:
 	void Write32(u32 data, u32 offset, std::vector<u8>* const buffer);
 
 	// FST creation
-	void WriteEntryData(u32& entryOffset, u8 type, u32 nameOffset, u64 dataOffset, u32 length);
+	void WriteEntryData(u32& entryOffset, u8 type, u32 nameOffset, u64 dataOffset, u64 length);
 	void WriteEntryName(u32& nameOffset, const std::string& name);
 	void WriteEntry(const File::FSTEntry& entry, u32& fstOffset, u32& nameOffset, u64& dataOffset, u32 parentEntryNum);
 
 	// returns number of entries found in _Directory
-	u32 AddDirectoryEntries(const std::string& _Directory, File::FSTEntry& parentEntry);
+	u64 AddDirectoryEntries(const std::string& _Directory, File::FSTEntry& parentEntry);
 
 	std::string m_rootDirectory;
 
@@ -108,7 +113,7 @@ private:
 		u32 debug_flag;
 		u32 track_location;
 		u32 track_size;
-		u32 countrycode;
+		u32 country_code;
 		u32 unknown;
 		u32 unknown2;
 
@@ -121,7 +126,7 @@ private:
 			debug_flag = 0;
 			track_location = 0;
 			track_size = 0;
-			countrycode = 0;
+			country_code = 0;
 			unknown = 0;
 			unknown2 = 0;
 		}
@@ -135,13 +140,14 @@ private:
 	u64 m_fst_address;
 	u64 m_dol_address;
 
-	static const u8 ENTRY_SIZE = 0x0c;
-	static const u8 FILE_ENTRY = 0;
-	static const u8 DIRECTORY_ENTRY = 1;
-	static const u64 DISKHEADER_ADDRESS = 0;
-	static const u64 DISKHEADERINFO_ADDRESS = 0x440;
-	static const u64 APPLOADER_ADDRESS = 0x2440;
-	static const u32 MAX_NAME_LENGTH = 0x3df;
+	static constexpr u8 ENTRY_SIZE = 0x0c;
+	static constexpr u8 FILE_ENTRY = 0;
+	static constexpr u8 DIRECTORY_ENTRY = 1;
+	static constexpr u64 DISKHEADER_ADDRESS = 0;
+	static constexpr u64 DISKHEADERINFO_ADDRESS = 0x440;
+	static constexpr u64 APPLOADER_ADDRESS = 0x2440;
+	static const size_t MAX_NAME_LENGTH = 0x3df;
+	static const size_t MAX_ID_LENGTH = 6;
 };
 
 } // namespace

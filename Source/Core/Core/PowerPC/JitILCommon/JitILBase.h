@@ -1,17 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "Core/ConfigManager.h"
-#include "Core/Core.h"
-#include "Core/CoreTiming.h"
-#include "Core/HW/GPFifo.h"
-#include "Core/HW/Memmap.h"
-#include "Core/PowerPC/PowerPC.h"
+#include "Common/CommonTypes.h"
+#include "Core/PowerPC/Gekko.h"
 #include "Core/PowerPC/PPCAnalyst.h"
-#include "Core/PowerPC/PPCTables.h"
 #include "Core/PowerPC/JitCommon/JitBase.h"
 #include "Core/PowerPC/JitILCommon/IR.h"
 
@@ -32,7 +27,6 @@ public:
 	virtual const CommonAsmRoutinesBase *GetAsmRoutines() = 0;
 
 	// OPCODES
-	virtual void unknown_instruction(UGeckoInstruction inst) = 0;
 	virtual void FallBackToInterpreter(UGeckoInstruction inst) = 0;
 	virtual void DoNothing(UGeckoInstruction inst) = 0;
 	virtual void HLEFunction(UGeckoInstruction inst) = 0;
@@ -54,6 +48,7 @@ public:
 	// LoadStore
 	void lXzx(UGeckoInstruction inst);
 	void lhax(UGeckoInstruction inst);
+	void lhaux(UGeckoInstruction inst);
 	void stXx(UGeckoInstruction inst);
 	void lmw(UGeckoInstruction inst);
 	void stmw(UGeckoInstruction inst);
@@ -61,6 +56,7 @@ public:
 	void lXz(UGeckoInstruction inst);
 	void lbzu(UGeckoInstruction inst);
 	void lha(UGeckoInstruction inst);
+	void lhau(UGeckoInstruction inst);
 
 	// System Registers
 	void mtspr(UGeckoInstruction inst);
@@ -93,19 +89,15 @@ public:
 
 	void reg_imm(UGeckoInstruction inst);
 
-	void ps_sel(UGeckoInstruction inst);
-	void ps_mr(UGeckoInstruction inst);
-	void ps_sign(UGeckoInstruction inst); //aggregate
 	void ps_arith(UGeckoInstruction inst); //aggregate
 	void ps_mergeXX(UGeckoInstruction inst);
 	void ps_maddXX(UGeckoInstruction inst);
-	void ps_rsqrte(UGeckoInstruction inst);
 	void ps_sum(UGeckoInstruction inst);
 	void ps_muls(UGeckoInstruction inst);
 
 	void fp_arith_s(UGeckoInstruction inst);
 
-	void fcmpx(UGeckoInstruction inst);
+	void fcmpX(UGeckoInstruction inst);
 	void fmrx(UGeckoInstruction inst);
 
 	void cmpXX(UGeckoInstruction inst);
@@ -113,7 +105,9 @@ public:
 	void cntlzwx(UGeckoInstruction inst);
 
 	void lfs(UGeckoInstruction inst);
+	void lfsu(UGeckoInstruction inst);
 	void lfd(UGeckoInstruction inst);
+	void lfdu(UGeckoInstruction inst);
 	void stfd(UGeckoInstruction inst);
 	void stfs(UGeckoInstruction inst);
 	void stfsx(UGeckoInstruction inst);

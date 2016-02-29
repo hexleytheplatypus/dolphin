@@ -1,15 +1,12 @@
 // Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <wx/checkbox.h>
 #include <wx/dialog.h>
-#include <wx/event.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
-#include <wx/string.h>
 #include <wx/textctrl.h>
-#include <wx/window.h>
 
 #include "Core/ActionReplay.h"
 #include "Core/ConfigManager.h"
@@ -89,9 +86,9 @@ void CreateCodeDialog::PressOK(wxCommandEvent& ev)
 
 	// pretty hacky - add the code to the gameini
 	{
-	CISOProperties isoprops(SConfig::GetInstance().m_LastFilename, this);
+	CISOProperties isoprops(GameListItem(SConfig::GetInstance().m_LastFilename, std::unordered_map<std::string, std::string>()), this);
 	// add the code to the isoproperties arcode list
-	arCodes.push_back(new_cheat);
+	isoprops.AddARCode(new_cheat);
 	// save the gameini
 	isoprops.SaveGameConfig();
 	isoprops.ActionReplayList_Load(); // loads the new arcodes

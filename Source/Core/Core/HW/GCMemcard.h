@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -7,10 +7,10 @@
 #include <algorithm>
 #include <string>
 
-#include "Common/CommonPaths.h"
+#include "Common/CommonFuncs.h"
 #include "Common/CommonTypes.h"
 #include "Common/NandPaths.h"
-#include "Common/StringUtil.h"
+#include "Common/NonCopyable.h"
 
 #include "Core/HW/EXI_DeviceIPL.h"
 #include "Core/HW/Sram.h"
@@ -75,7 +75,7 @@ public:
 	virtual void ClearBlock(u32 address) = 0;
 	virtual void ClearAll() = 0;
 	virtual void DoState(PointerWrap &p) = 0;
-	u32 GetCardId() { return nintendo_card_id; }
+	u32 GetCardId() const { return nintendo_card_id; }
 	bool IsAddressInBounds(u32 address) const
 	{
 		return address <= (memory_card_size - 1);
@@ -116,7 +116,7 @@ struct Header           //Offset    Size    Description
 	// end Serial in libogc
 	u8 deviceID[2];     //0x0020    2       0 if formated in slot A 1 if formated in slot B
 	u8 SizeMb[2];       //0x0022    2       Size of memcard in Mbits
-	u16 Encoding;       //0x0024    2       Encoding (ASCII or japanese)
+	u16 Encoding;       //0x0024    2       Encoding (ASCII or Japanese)
 	u8 Unused1[468];    //0x0026    468     Unused (0xff)
 	u16 UpdateCounter;  //0x01fa    2       Update Counter (?, probably unused)
 	u16 Checksum;       //0x01fc    2       Additive Checksum
@@ -139,7 +139,7 @@ struct Header           //Offset    Size    Description
 
 	// Nintendo format algorithm.
 	// Constants are fixed by the GC SDK
-	// Changing the constants will break memorycard support
+	// Changing the constants will break memory card support
 	Header(int slot = 0, u16 sizeMb = MemCard2043Mb, bool ascii = true)
 	{
 		memset(this, 0xFF, BLOCK_SIZE);
@@ -302,11 +302,11 @@ class GCIFile
 {
 public:
 	bool LoadSaveBlocks();
-	bool HasCopyProtection()
+	bool HasCopyProtection() const
 	{
-		if ((strcmp((char *)m_gci_header.Filename, "PSO_SYSTEM") == 0) ||
-			(strcmp((char *)m_gci_header.Filename, "PSO3_SYSTEM") == 0) ||
-			(strcmp((char *)m_gci_header.Filename, "f_zero.dat") == 0))
+		if ((strcmp((char*)m_gci_header.Filename, "PSO_SYSTEM") == 0) ||
+			(strcmp((char*)m_gci_header.Filename, "PSO3_SYSTEM") == 0) ||
+			(strcmp((char*)m_gci_header.Filename, "f_zero.dat") == 0))
 			return true;
 		return false;
 	}
@@ -360,7 +360,7 @@ public:
 	u16 GetFreeBlocks() const;
 
 	// If title already on memcard returns index, otherwise returns -1
-	u8 TitlePresent(DEntry d) const;
+	u8 TitlePresent(const DEntry& d) const;
 
 	bool GCI_FileName(u8 index, std::string &filename) const;
 	// DEntry functions, all take u8 index < DIRLEN (127)

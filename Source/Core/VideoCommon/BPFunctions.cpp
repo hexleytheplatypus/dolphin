@@ -1,17 +1,17 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
 
 #include "Core/ConfigManager.h"
-#include "Core/HW/Memmap.h"
 
 #include "VideoCommon/BPFunctions.h"
+#include "VideoCommon/BPMemory.h"
 #include "VideoCommon/RenderBase.h"
-#include "VideoCommon/TextureCacheBase.h"
 #include "VideoCommon/VertexManagerBase.h"
-#include "VideoCommon/VertexShaderManager.h"
+#include "VideoCommon/VideoCommon.h"
 #include "VideoCommon/VideoConfig.h"
 
 namespace BPFunctions
@@ -24,7 +24,7 @@ namespace BPFunctions
 
 void FlushPipeline()
 {
-	VertexManager::Flush();
+	VertexManagerBase::Flush();
 }
 
 void SetGenerationMode()
@@ -83,18 +83,6 @@ void SetLogicOpMode()
 void SetColorMask()
 {
 	g_renderer->SetColorMask();
-}
-
-void CopyEFB(u32 dstAddr, const EFBRectangle& srcRect,
-	     unsigned int dstFormat, PEControl::PixelFormat srcFormat,
-	     bool isIntensity, bool scaleByHalf)
-{
-	// bpmem.zcontrol.pixel_format to PEControl::Z24 is when the game wants to copy from ZBuffer (Zbuffer uses 24-bit Format)
-	if (g_ActiveConfig.bEFBCopyEnable)
-	{
-		TextureCache::CopyRenderTargetToTexture(dstAddr, dstFormat, srcFormat,
-			srcRect, isIntensity, scaleByHalf);
-	}
 }
 
 /* Explanation of the magic behind ClearScreen:

@@ -1,14 +1,18 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cinttypes>
 #include <string>
 
+#include "Common/CommonFuncs.h"
 #include "Common/CommonTypes.h"
-#include "Common/StringUtil.h"
+#include "Common/JitRegister.h"
 #include "Common/x64ABI.h"
-#include "Core/HW/Memmap.h"
+#include "Common/x64Analyzer.h"
+#include "Common/x64Emitter.h"
+#include "Core/PowerPC/PowerPC.h"
+#include "Core/PowerPC/JitCommon/Jit_Util.h"
 #include "Core/PowerPC/JitCommon/JitBase.h"
 #include "Core/PowerPC/JitCommon/TrampolineCache.h"
 
@@ -65,16 +69,16 @@ const u8* TrampolineCache::GenerateReadTrampoline(const InstructionInfo &info, B
 	switch (info.operandSize)
 	{
 	case 8:
-		CALL((void *)&Memory::Read_U64);
+		CALL((void*)&PowerPC::Read_U64);
 		break;
 	case 4:
-		CALL((void *)&Memory::Read_U32);
+		CALL((void*)&PowerPC::Read_U32);
 		break;
 	case 2:
-		CALL((void *)&Memory::Read_U16);
+		CALL((void*)&PowerPC::Read_U16);
 		break;
 	case 1:
-		CALL((void *)&Memory::Read_U8);
+		CALL((void*)&PowerPC::Read_U8);
 		break;
 	}
 
@@ -95,6 +99,8 @@ const u8* TrampolineCache::GenerateReadTrampoline(const InstructionInfo &info, B
 		MOVZX(dataRegSize, info.operandSize * 8, dataReg, R(ABI_RETURN));
 
 	JMP(returnPtr, true);
+
+	JitRegister::Register(trampoline, GetCodePtr(), "JIT_ReadTrampoline");
 	return trampoline;
 }
 
@@ -151,16 +157,16 @@ const u8* TrampolineCache::GenerateWriteTrampoline(const InstructionInfo &info, 
 	switch (info.operandSize)
 	{
 	case 8:
-		CALL((void *)&Memory::Write_U64);
+		CALL((void *)&PowerPC::Write_U64);
 		break;
 	case 4:
-		CALL((void *)&Memory::Write_U32);
+		CALL((void *)&PowerPC::Write_U32);
 		break;
 	case 2:
-		CALL((void *)&Memory::Write_U16);
+		CALL((void *)&PowerPC::Write_U16);
 		break;
 	case 1:
-		CALL((void *)&Memory::Write_U8);
+		CALL((void *)&PowerPC::Write_U8);
 		break;
 	}
 
@@ -172,5 +178,6 @@ const u8* TrampolineCache::GenerateWriteTrampoline(const InstructionInfo &info, 
 	}
 	JMP(returnPtr, true);
 
+	JitRegister::Register(trampoline, GetCodePtr(), "JIT_WriteTrampoline_%x", pc);
 	return trampoline;
 }

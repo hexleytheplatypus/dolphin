@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -11,22 +11,16 @@
 #include <wx/button.h>
 #include <wx/checkbox.h>
 #include <wx/choice.h>
-#include <wx/defs.h>
 #include <wx/dialog.h>
-#include <wx/event.h>
 #include <wx/msgdlg.h>
 #include <wx/radiobut.h>
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
-#include <wx/string.h>
-#include <wx/translation.h>
-#include <wx/window.h>
 
 #include "Common/CommonTypes.h"
 #include "Common/SysConf.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
-#include "Core/CoreParameter.h"
 #include "DolphinWX/PostProcessingConfigDiag.h"
 #include "DolphinWX/WxUtils.h"
 #include "VideoCommon/PostProcessing.h"
@@ -71,8 +65,6 @@ private:
 	T& m_setting;
 };
 
-typedef IntegerSetting<u32> U32Setting;
-
 class SettingChoice : public wxChoice
 {
 public:
@@ -90,8 +82,9 @@ public:
 protected:
 	void Event_Backend(wxCommandEvent &ev)
 	{
-		VideoBackend* new_backend = g_available_video_backends[ev.GetInt()];
-		if (g_video_backend != new_backend)
+		auto& new_backend = g_available_video_backends[ev.GetInt()];
+
+		if (g_video_backend != new_backend.get())
 		{
 			bool do_switch = !Core::IsRunning();
 			if (new_backend->GetName() == "Software Renderer")
@@ -107,8 +100,8 @@ protected:
 				// reopen the dialog
 				Close();
 
-				g_video_backend = new_backend;
-				SConfig::GetInstance().m_LocalCoreStartupParameter.m_strVideoBackend = g_video_backend->GetName();
+				g_video_backend = new_backend.get();
+				SConfig::GetInstance().m_strVideoBackend = g_video_backend->GetName();
 
 				g_video_backend->ShowConfig(GetParent());
 			}
@@ -128,7 +121,7 @@ protected:
 	void Event_ProgressiveScan(wxCommandEvent &ev)
 	{
 		SConfig::GetInstance().m_SYSCONF->SetData("IPL.PGS", ev.GetInt());
-		SConfig::GetInstance().m_LocalCoreStartupParameter.bProgressive = ev.IsChecked();
+		SConfig::GetInstance().bProgressive = ev.IsChecked();
 
 		ev.Skip();
 	}
@@ -174,7 +167,12 @@ protected:
 
 	void Event_StereoConvergence(wxCommandEvent &ev)
 	{
-		vconfig.iStereoConvergence = ev.GetInt();
+		// Snap the slider
+		int value = ev.GetInt();
+		if (90 < value && value < 110)
+			conv_slider->SetValue(100);
+
+		vconfig.iStereoConvergencePercentage = conv_slider->GetValue();
 
 		ev.Skip();
 	}
@@ -200,13 +198,13 @@ protected:
 		choice_aamode->Enable(vconfig.backend_info.AAModes.size() > 1);
 		text_aamode->Enable(vconfig.backend_info.AAModes.size() > 1);
 
-		// EFB copy
-		efbcopy_texture->Enable(vconfig.bEFBCopyEnable);
-		efbcopy_ram->Enable(vconfig.bEFBCopyEnable);
 
 		// XFB
 		virtual_xfb->Enable(vconfig.bUseXFB);
 		real_xfb->Enable(vconfig.bUseXFB);
+
+		// custom textures
+		cache_hires_textures->Enable(vconfig.bHiresTextures);
 
 		// Repopulating the post-processing shaders can't be done from an event
 		if (choice_ppshader && choice_ppshader->IsEmpty())
@@ -250,6 +248,8 @@ protected:
 	void Evt_LeaveControl(wxMouseEvent& ev);
 	void CreateDescriptionArea(wxPanel* const page, wxBoxSizer* const sizer);
 	void PopulatePostProcessingShaders();
+	void PopulateAAList();
+	void OnAAChanged(wxCommandEvent& ev);
 
 	wxChoice* choice_backend;
 	wxChoice* choice_adapter;
@@ -259,7 +259,8 @@ protected:
 	wxStaticText* label_adapter;
 
 	wxStaticText* text_aamode;
-	SettingChoice* choice_aamode;
+	wxChoice* choice_aamode;
+	wxSlider* conv_slider;
 
 	wxStaticText* label_display_resolution;
 
@@ -268,11 +269,10 @@ protected:
 	SettingCheckBox* borderless_fullscreen;
 	SettingCheckBox* render_to_main_checkbox;
 
-	SettingRadioButton* efbcopy_texture;
-	SettingRadioButton* efbcopy_ram;
-
 	SettingRadioButton* virtual_xfb;
 	SettingRadioButton* real_xfb;
+
+	SettingCheckBox* cache_hires_textures;
 
 	wxCheckBox* progressive_scan_checkbox;
 
@@ -282,5 +282,6 @@ protected:
 	std::map<wxWindow*, wxStaticText*> desc_texts; // maps dialog tabs (which are the parents of the setting controls) to their description text objects
 
 	VideoConfig &vconfig;
-	std::string ininame;
+
+	size_t m_msaa_modes;
 };

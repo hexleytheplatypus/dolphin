@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -11,27 +11,6 @@ namespace MMIO { class Mapping; }
 
 namespace VideoInterface
 {
-// NTSC is 60 FPS, right?
-// Wrong, it's about 59.94 FPS. The NTSC engineers had to slightly lower
-// the field rate from 60 FPS when they added color to the standard.
-// This was done to prevent analog interference between the video and
-// audio signals. PAL has no similar reduction; it is exactly 50 FPS.
-//#define NTSC_FIELD_RATE  (60.0f / 1.001f)
-#define NTSC_FIELD_RATE    60
-#define NTSC_LINE_COUNT    525
-// These line numbers indicate the beginning of the "active video" in a frame.
-// An NTSC frame has the lower field first followed by the upper field.
-// TODO: Is this true for PAL-M? Is this true for PAL60?
-#define NTSC_LOWER_BEGIN    21
-#define NTSC_UPPER_BEGIN    283
-
-//#define PAL_FIELD_RATE      50.0f
-#define PAL_FIELD_RATE      50
-#define PAL_LINE_COUNT      625
-// These line numbers indicate the beginning of the "active video" in a frame.
-// A PAL frame has the upper field first followed by the lower field.
-#define PAL_UPPER_BEGIN     23
-#define PAL_LOWER_BEGIN     336
 
 // VI Internal Hardware Addresses
 enum
@@ -326,33 +305,35 @@ union UVIHorizontalStepping
 	};
 };
 
-	// urgh, ugly externs.
-	extern u32 TargetRefreshRate;
+// For BS2 HLE
+void Preset(bool _bNTSC);
 
-	// For BS2 HLE
-	void Preset(bool _bNTSC);
+void Init();
+void SetRegionReg(char region);
+void DoState(PointerWrap &p);
 
-	void Init();
-	void SetRegionReg(char region);
-	void DoState(PointerWrap &p);
+void RegisterMMIO(MMIO::Mapping* mmio, u32 base);
 
-	void RegisterMMIO(MMIO::Mapping* mmio, u32 base);
+// returns a pointer to the current visible xfb
+u32 GetXFBAddressTop();
+u32 GetXFBAddressBottom();
 
-	// returns a pointer to the current visible xfb
-	u32 GetXFBAddressTop();
-	u32 GetXFBAddressBottom();
+// Update and draw framebuffer
+void Update();
 
-	// Update and draw framebuffer
-	void Update();
+// UpdateInterrupts: check if we have to generate a new VI Interrupt
+void UpdateInterrupts();
 
-	// UpdateInterrupts: check if we have to generate a new VI Interrupt
-	void UpdateInterrupts();
+// Change values pertaining to video mode
+void UpdateParameters();
 
-	// Change values pertaining to video mode
-	void UpdateParameters();
+u32 GetTargetRefreshRate();
+u32 GetTicksPerSample();
+u32 GetTicksPerHalfLine();
+u32 GetTicksPerField();
 
-	unsigned int GetTicksPerLine();
-	unsigned int GetTicksPerFrame();
+// Get the aspect ratio of VI's active area.
+// This function only deals with standard aspect ratios. For widescreen aspect ratios, multiply the result by 1.33333..
+float GetAspectRatio();
 
-	int GetNumFields();
-}
+} // namespace VideoInterface

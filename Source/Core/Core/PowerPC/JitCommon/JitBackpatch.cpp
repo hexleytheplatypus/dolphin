@@ -1,11 +1,20 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cinttypes>
+#include <string>
 
 #include "disasm.h"
 
+#include "Common/AssertInt.h"
+#include "Common/BitSet.h"
+#include "Common/CommonFuncs.h"
+#include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
+#include "Common/x64Analyzer.h"
+#include "Common/x64Emitter.h"
+#include "Core/HW/Memmap.h"
 #include "Core/PowerPC/JitCommon/JitBase.h"
 
 using namespace Gen;
@@ -30,8 +39,11 @@ static void BackPatchError(const std::string &text, u8 *codePtr, u32 emAddress)
 bool Jitx86Base::HandleFault(uintptr_t access_address, SContext* ctx)
 {
 	// TODO: do we properly handle off-the-end?
-	if (access_address >= (uintptr_t)Memory::base && access_address < (uintptr_t)Memory::base + 0x100010000)
-		return BackPatch((u32)(access_address - (uintptr_t)Memory::base), ctx);
+	if (access_address >= (uintptr_t)Memory::physical_base && access_address < (uintptr_t)Memory::physical_base + 0x100010000)
+		return BackPatch((u32)(access_address - (uintptr_t)Memory::physical_base), ctx);
+	if (access_address >= (uintptr_t)Memory::logical_base && access_address < (uintptr_t)Memory::logical_base + 0x100010000)
+		return BackPatch((u32)(access_address - (uintptr_t)Memory::logical_base), ctx);
+
 
 	return false;
 }
@@ -73,8 +85,8 @@ bool Jitx86Base::BackPatch(u32 emAddress, SContext* ctx)
 
 	BitSet32 registersInUse = it->second;
 
-	u8* exceptionHandler = NULL;
-	if (jit->js.memcheck)
+	u8* exceptionHandler = nullptr;
+	if (jit->jo.memcheck)
 	{
 		auto it2 = exceptionHandlerAtLoc.find(codePtr);
 		if (it2 != exceptionHandlerAtLoc.end())
@@ -83,33 +95,35 @@ bool Jitx86Base::BackPatch(u32 emAddress, SContext* ctx)
 
 	// Compute the start and length of the memory operation, including
 	// any byteswapping.
-	int totalSize;
+	int totalSize = info.instructionSize;
 	u8 *start = codePtr;
 	if (!info.isMemoryWrite)
 	{
-		int bswapNopCount;
-		if (info.byteSwap || info.operandSize == 1)
-			bswapNopCount = 0;
-		// Check the following BSWAP for REX byte
-		else if ((codePtr[info.instructionSize] & 0xF0) == 0x40)
-			bswapNopCount = 3;
-		else
-			bswapNopCount = 2;
-
-		totalSize = info.instructionSize + bswapNopCount;
-		if (info.operandSize == 2 && !info.byteSwap)
+		// MOVBE and single bytes don't need to be swapped.
+		if (!info.byteSwap && info.operandSize > 1)
 		{
+			// REX
 			if ((codePtr[totalSize] & 0xF0) == 0x40)
+				totalSize++;
+
+			// BSWAP
+			if (codePtr[totalSize] == 0x0F && (codePtr[totalSize + 1] & 0xF8) == 0xC8)
+				totalSize += 2;
+
+			if (info.operandSize == 2)
 			{
-				++totalSize;
+				// operand size override
+				if (codePtr[totalSize] == 0x66)
+					totalSize++;
+				// REX
+				if ((codePtr[totalSize] & 0xF0) == 0x40)
+					totalSize++;
+				// SAR/ROL
+				_assert_(codePtr[totalSize] == 0xC1 && (codePtr[totalSize + 2] == 0x10 ||
+				                                        codePtr[totalSize + 2] == 0x08));
+				info.signExtend = (codePtr[totalSize + 1] & 0x10) != 0;
+				totalSize += 3;
 			}
-			if (codePtr[totalSize] != 0xc1 || codePtr[totalSize + 2] != 0x10)
-			{
-				PanicAlert("BackPatch: didn't find expected shift %p", codePtr);
-				return nullptr;
-			}
-			info.signExtend = (codePtr[totalSize + 1] & 0x10) != 0;
-			totalSize += 3;
 		}
 	}
 	else
@@ -117,7 +131,6 @@ bool Jitx86Base::BackPatch(u32 emAddress, SContext* ctx)
 		if (info.byteSwap || info.hasImmediate)
 		{
 			// The instruction is a MOVBE but it failed so the value is still in little-endian byte order.
-			totalSize = info.instructionSize;
 		}
 		else
 		{
@@ -143,7 +156,7 @@ bool Jitx86Base::BackPatch(u32 emAddress, SContext* ctx)
 				break;
 			}
 			start = codePtr - bswapSize;
-			totalSize = info.instructionSize + bswapSize;
+			totalSize += bswapSize;
 		}
 	}
 
@@ -165,7 +178,7 @@ bool Jitx86Base::BackPatch(u32 emAddress, SContext* ctx)
 		if (it3 == pcAtLoc.end())
 		{
 			PanicAlert("BackPatch: no pc entry for address %p", codePtr);
-			return nullptr;
+			return false;
 		}
 
 		u32 pc = it3->second;

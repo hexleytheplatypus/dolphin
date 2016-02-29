@@ -1,11 +1,10 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include <cstddef>
-#include <cstring>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -43,21 +42,20 @@ public:
 
 	virtual ~IFileSystem();
 	virtual bool IsValid() const = 0;
-	virtual size_t GetFileList(std::vector<const SFileInfo *> &_rFilenames) = 0;
+	virtual const std::vector<SFileInfo>& GetFileList() = 0;
 	virtual u64 GetFileSize(const std::string& _rFullPath) = 0;
-	virtual u64 ReadFile(const std::string& _rFullPath, u8* _pBuffer, size_t _MaxBufferSize) = 0;
+	virtual u64 ReadFile(const std::string& _rFullPath, u8* _pBuffer, u64 _MaxBufferSize, u64 _OffsetInFile = 0) = 0;
 	virtual bool ExportFile(const std::string& _rFullPath, const std::string& _rExportFilename) = 0;
 	virtual bool ExportApploader(const std::string& _rExportFolder) const = 0;
 	virtual bool ExportDOL(const std::string& _rExportFolder) const = 0;
 	virtual const std::string GetFileName(u64 _Address) = 0;
-	virtual bool GetBootDOL(u8* &buffer, u32 DolSize) const = 0;
-	virtual u32 GetBootDOLSize() const = 0;
+	virtual u64 GetBootDOLOffset() const = 0;
+	virtual u32 GetBootDOLSize(u64 dol_offset) const = 0;
 
-	virtual const IVolume *GetVolume() const { return m_rVolume; }
 protected:
 	const IVolume *m_rVolume;
 };
 
-IFileSystem* CreateFileSystem(const IVolume *_rVolume);
+std::unique_ptr<IFileSystem> CreateFileSystem(const IVolume* volume);
 
 } // namespace

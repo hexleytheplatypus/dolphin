@@ -1,5 +1,5 @@
-// Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 // This is a test program for running code on the Wii DSP, with full control over input
@@ -9,17 +9,17 @@
 // Use Dolphin's dsptool to generate a new dsp_code.h.
 // Originally written by duddie and modified by FIRES. Then further modified by ector.
 
+#include <debug.h>
+#include <fat.h>
+#include <fcntl.h>
 #include <gccore.h>
 #include <malloc.h>
+#include <network.h>
+#include <ogcsys.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <network.h>
-#include <ogcsys.h>
 #include <time.h>
-#include <fat.h>
-#include <fcntl.h>
-#include <debug.h>
 
 #include <unistd.h>
 #include <ogc/color.h>
@@ -33,6 +33,8 @@
 #ifdef HW_RVL
 #include <wiiuse/wpad.h>
 #include <sdcard/wiisd_io.h>
+#else
+#include <sdcard/gcsd.h>
 #endif
 
 #include "ConsoleHelper.h"
@@ -218,7 +220,6 @@ void UpdateLastMessage(const char* msg)
 
 void DumpDSP_ROMs(const u16* rom, const u16* coef)
 {
-#ifdef HW_RVL
 	char filename[260] = {0};
 	sprintf(filename, "sd:/dsp_rom.bin");
 	FILE *fROM = fopen(filename, "wb");
@@ -241,10 +242,6 @@ void DumpDSP_ROMs(const u16* rom, const u16* coef)
 		fclose(fROM);
 	if (fCOEF)
 		fclose(fCOEF);
-#else
-	// Allow to connect to gdb (dump ram... :s)
-	_break();
-#endif
 }
 
 void ui_pad_sel(void)
@@ -552,6 +549,9 @@ void InitGeneral()
 	__io_wiisd.startup();
 	fatMountSimple("sd", &__io_wiisd);
 #else
+	// Initialize FAT so we can write to SD Gecko in slot B.
+	fatMountSimple("sd", &__io_gcsdb);
+
 	// Init debug over BBA...change IPs to suite your needs
 	tcp_localip="192.168.1.103";
 	tcp_netmask="255.255.255.0";
@@ -562,8 +562,8 @@ void InitGeneral()
 
 void ExitToLoader()
 {
-#ifdef HW_RVL
 	fatUnmount("sd");
+#ifdef HW_RVL
 	__io_wiisd.shutdown();
 #endif
 

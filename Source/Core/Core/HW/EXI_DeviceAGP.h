@@ -1,13 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2015 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include <deque>
-#include <queue>
+#include <string>
+#include <vector>
 
 #include "Core/HW/EXI_Device.h"
+
+class PointerWrap;
 
 class CEXIAgp
 	: public IEXIDevice
@@ -15,7 +17,7 @@ class CEXIAgp
 public:
 	CEXIAgp(const int index);
 	virtual ~CEXIAgp() override;
-	bool IsPresent() override { return true; }
+	bool IsPresent() const override { return true; }
 	void ImmWrite(u32 _uData, u32 _uSize) override;
 	u32  ImmRead(u32 _uSize) override;
 	void DoState(PointerWrap &p) override;
@@ -23,9 +25,10 @@ public:
 private:
 	enum
 	{
-		HASH_SIZE = 256,
-		HASH_MASK = (HASH_SIZE - 1),
-		EE_READ   = 0x80
+		EE_IGNORE_BITS = 0x4,
+		EE_DATA_BITS   = 0x40,
+		EE_READ_FALSE  = 0xA,
+		EE_READ_TRUE   = 0xB,
 	};
 
 	int m_slot;
@@ -37,26 +40,27 @@ private:
 	u32 m_eeprom_mask = 0;
 	std::vector<u8> m_rom;
 	std::vector<u8> m_eeprom;
-	std::array<u8, HASH_SIZE> m_hash_array;
 
 	//! Helper
 	u32 m_position = 0;
 	u32 m_address = 0;
 	u32 m_rw_offset = 0;
 	u64 m_eeprom_data = 0;
-	u8  m_eeprom_pos = 0;
-	u16 m_eeprom_cmd = 0;
+	u16 m_eeprom_pos = 0;
+	u32 m_eeprom_cmd = 0;
+	u16 m_eeprom_add_end = 0;
+	u16 m_eeprom_add_mask = 0;
+	u16 m_eeprom_read_mask = 0;
+	u32 m_eeprom_status_mask = 0;
+	bool m_eeprom_write_status = false;
 
-	void LoadFileToROM(std::string filename);
-	void LoadFileToEEPROM(std::string filename);
-	void SaveFileFromEEPROM(std::string filename);
-	void LoadHash();
+	void LoadFileToROM(const std::string& filename);
+	void LoadFileToEEPROM(const std::string& filename);
+	void SaveFileFromEEPROM(const std::string& filename);
 	void LoadRom();
-	void DoHash(u8* data, u32 size);
+	void CRC8(u8* data, u32 size);
 
 	u8 m_hash = 0;
 	u32 m_current_cmd = 0;
 	u32 m_return_pos = 0;
-
-	bool m_rom_hash_loaded = false;
 };

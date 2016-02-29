@@ -1,7 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/CommonFuncs.h"
+#include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
+#include "Common/Logging/Log.h"
+#include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/Interpreter/Interpreter.h"
 
 void Interpreter::Helper_UpdateCR0(u32 value)
@@ -81,7 +86,7 @@ void Interpreter::andi_rc(UGeckoInstruction _inst)
 
 void Interpreter::andis_rc(UGeckoInstruction _inst)
 {
-	rGPR[_inst.RA] = rGPR[_inst.RS] & ((u32)_inst.UIMM<<16);
+	rGPR[_inst.RA] = rGPR[_inst.RS] & ((u32)_inst.UIMM << 16);
 	Helper_UpdateCR0(rGPR[_inst.RA]);
 }
 
@@ -157,7 +162,7 @@ void Interpreter::twi(UGeckoInstruction _inst)
 	    (((u32)a <(u32)b) && (TO & 0x02)) ||
 	    (((u32)a >(u32)b) && (TO & 0x01)))
 	{
-		Common::AtomicOr(PowerPC::ppcState.Exceptions, EXCEPTION_PROGRAM);
+		PowerPC::ppcState.Exceptions |= EXCEPTION_PROGRAM;
 		PowerPC::CheckExceptions();
 		m_EndBlock = true; // Dunno about this
 	}
@@ -220,16 +225,17 @@ void Interpreter::cmp(UGeckoInstruction _inst)
 {
 	s32 a = (s32)rGPR[_inst.RA];
 	s32 b = (s32)rGPR[_inst.RB];
-	int fTemp = 0x8; // a < b
+	int fTemp;
 
-	// if (a < b) fTemp = 0x8; else
-	if (a > b)
+	if (a < b)
+		fTemp = 0x8;
+	else if (a > b)
 		fTemp = 0x4;
-	else if (a == b)
+	else // Equals
 		fTemp = 0x2;
 
 	if (GetXER_SO())
-		PanicAlert("cmp getting overflow flag"); // fTemp |= 0x1
+		fTemp |= 0x1;
 
 	SetCRField(_inst.CRFD, fTemp);
 }
@@ -238,16 +244,17 @@ void Interpreter::cmpl(UGeckoInstruction _inst)
 {
 	u32 a = rGPR[_inst.RA];
 	u32 b = rGPR[_inst.RB];
-	u32 fTemp = 0x8; // a < b
+	u32 fTemp;
 
-	// if (a < b)  fTemp = 0x8;else
-	if (a > b)
+	if (a < b)
+		fTemp = 0x8;
+	else if (a > b)
 		fTemp = 0x4;
-	else if (a == b)
+	else // Equals
 		fTemp = 0x2;
 
 	if (GetXER_SO())
-		PanicAlert("cmpl getting overflow flag"); // fTemp |= 0x1;
+		fTemp |= 0x1;
 
 	SetCRField(_inst.CRFD, fTemp);
 }
@@ -423,7 +430,7 @@ void Interpreter::tw(UGeckoInstruction _inst)
 	    (((u32)a <(u32)b) && (TO & 0x02)) ||
 	    (((u32)a >(u32)b) && (TO & 0x01)))
 	{
-		Common::AtomicOr(PowerPC::ppcState.Exceptions, EXCEPTION_PROGRAM);
+		PowerPC::ppcState.Exceptions |= EXCEPTION_PROGRAM;
 		PowerPC::CheckExceptions();
 		m_EndBlock = true; // Dunno about this
 	}

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2015 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -7,7 +7,8 @@
 #include <string>
 
 #include "InputCommon/ControllerEmu.h"
-#include "InputCommon/KeyboardStatus.h"
+
+struct KeyboardStatus;
 
 class GCKeyboard : public ControllerEmu
 {

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 
@@ -17,12 +17,16 @@
    0x30 - 0x3f   Input    This file: Update() */
 
 #include <fstream>
+#include <queue>
 #include <string>
 #include <vector>
 
+#include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
-
+#include "Common/MsgHandler.h"
+#include "Common/Logging/Log.h"
+#include "Core/Core.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
 #include "Core/HW/WiimoteEmu/Attachment/Attachment.h"
@@ -180,7 +184,7 @@ void Wiimote::SendAck(u8 _reportID)
 	ack->reportID = _reportID;
 	ack->errorID = 0;
 
-	Core::Callback_WiimoteInterruptChannel( m_index, m_reporting_channel, data, sizeof(data));
+	Core::Callback_WiimoteInterruptChannel(m_index, m_reporting_channel, data, sizeof(data));
 }
 
 void Wiimote::HandleExtensionSwap()
@@ -275,7 +279,7 @@ void Wiimote::WriteData(const wm_write_data* const wd)
 			{
 				// writing the whole mii block each write :/
 				std::ofstream file;
-				OpenFStream(file, File::GetUserPath(D_WIIUSER_IDX) + "mii.bin", std::ios::binary | std::ios::out);
+				OpenFStream(file, File::GetUserPath(D_SESSION_WIIROOT_IDX) + "/mii.bin", std::ios::binary | std::ios::out);
 				file.write((char*)m_eeprom + 0x0FCA, 0x02f0);
 				file.close();
 			}
@@ -417,7 +421,7 @@ void Wiimote::ReadData(const wm_read_data* const rd)
 			{
 				// reading the whole mii block :/
 				std::ifstream file;
-				file.open((File::GetUserPath(D_WIIUSER_IDX) + "mii.bin").c_str(), std::ios::binary | std::ios::in);
+				file.open((File::GetUserPath(D_SESSION_WIIROOT_IDX) + "/mii.bin").c_str(), std::ios::binary | std::ios::in);
 				file.read((char*)m_eeprom + 0x0FCA, 0x02f0);
 				file.close();
 			}
@@ -590,7 +594,7 @@ void Wiimote::DoState(PointerWrap& p)
 	p.Do(m_status);
 	p.Do(m_adpcm_state);
 	p.Do(m_ext_key);
-	p.DoArray(m_eeprom, sizeof(m_eeprom));
+	p.DoArray(m_eeprom);
 	p.Do(m_reg_motion_plus);
 	p.Do(m_reg_ir);
 	p.Do(m_reg_ext);
@@ -603,7 +607,11 @@ void Wiimote::DoState(PointerWrap& p)
 		{
 			//clear
 			while (!m_read_requests.empty())
+			{
+				delete[] m_read_requests.front().data;
 				m_read_requests.pop();
+			}
+
 
 			p.Do(size);
 			while (size--)

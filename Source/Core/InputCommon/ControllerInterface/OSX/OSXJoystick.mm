@@ -1,5 +1,5 @@
 // Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <sstream>
@@ -23,8 +23,8 @@ Joystick::Joystick(IOHIDDeviceRef device, std::string name, int index)
 {
 	// Buttons
 	NSDictionary *buttonDict = @{
-		@kIOHIDElementTypeKey      : [NSNumber numberWithInteger: kIOHIDElementTypeInput_Button],
-		@kIOHIDElementUsagePageKey : [NSNumber numberWithInteger: kHIDPage_Button]
+		@kIOHIDElementTypeKey      : @(kIOHIDElementTypeInput_Button),
+		@kIOHIDElementUsagePageKey : @(kHIDPage_Button)
 	};
 
 	CFArrayRef buttons = IOHIDDeviceCopyMatchingElements(m_device,
@@ -45,7 +45,7 @@ Joystick::Joystick(IOHIDDeviceRef device, std::string name, int index)
 
 	// Axes
 	NSDictionary *axisDict = @{
-		@kIOHIDElementTypeKey : [NSNumber numberWithInteger: kIOHIDElementTypeInput_Misc]
+		@kIOHIDElementTypeKey : @(kIOHIDElementTypeInput_Misc)
 	};
 
 	CFArrayRef axes = IOHIDDeviceCopyMatchingElements(m_device,
@@ -227,11 +227,21 @@ Joystick::Hat::Hat(IOHIDElementRef element, IOHIDDeviceRef device, direction dir
 ControlState Joystick::Hat::GetState() const
 {
 	IOHIDValueRef value;
-	int position;
 
 	if (IOHIDDeviceGetValue(m_device, m_element, &value) == kIOReturnSuccess)
 	{
-		position = IOHIDValueGetIntegerValue(value);
+		int position = IOHIDValueGetIntegerValue(value);
+		int min = IOHIDElementGetLogicalMin(m_element);
+		int max = IOHIDElementGetLogicalMax(m_element);
+
+		// if the position is outside the min or max, don't register it as a valid button press
+		if (position < min || position > max)
+		{
+			return 0;
+		}
+
+		// normalize the position so that its lowest value is 0
+		position -= min;
 
 		switch (position)
 		{

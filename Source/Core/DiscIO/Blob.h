@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -14,18 +14,33 @@
 // detect whether the file is a compressed blob, or just a big hunk of data, or a drive, and
 // automatically do the right thing.
 
+#include <array>
+#include <memory>
 #include <string>
+#include "Common/CommonFuncs.h"
 #include "Common/CommonTypes.h"
 
 namespace DiscIO
 {
+
+// Increment CACHE_REVISION if the enum below is modified (ISOFile.cpp & GameFile.cpp)
+enum class BlobType
+{
+	PLAIN,
+	DRIVE,
+	DIRECTORY,
+	GCZ,
+	CISO,
+	WBFS
+};
 
 class IBlobReader
 {
 public:
 	virtual ~IBlobReader() {}
 
-	virtual u64 GetRawSize() const  = 0;
+	virtual BlobType GetBlobType() const = 0;
+	virtual u64 GetRawSize() const = 0;
 	virtual u64 GetDataSize() const = 0;
 	// NOT thread-safe - can't call this from multiple threads.
 	virtual bool Read(u64 offset, u64 size, u8* out_ptr) = 0;
@@ -44,9 +59,7 @@ class SectorReader : public IBlobReader
 public:
 	virtual ~SectorReader();
 
-	// A pointer returned by GetBlockData is invalidated as soon as GetBlockData, Read, or ReadMultipleAlignedBlocks is called again.
-	const u8 *GetBlockData(u64 block_num);
-	virtual bool Read(u64 offset, u64 size, u8 *out_ptr) override;
+	bool Read(u64 offset, u64 size, u8 *out_ptr) override;
 	friend class DriveReader;
 
 protected:
@@ -56,15 +69,36 @@ protected:
 	virtual bool ReadMultipleAlignedBlocks(u64 block_num, u64 num_blocks, u8 *out_ptr);
 
 private:
+	// A reference returned by GetBlockData is invalidated as soon as GetBlockData, Read, or ReadMultipleAlignedBlocks is called again.
+	const std::vector<u8>& GetBlockData(u64 block_num);
+
 	enum { CACHE_SIZE = 32 };
 	int m_blocksize;
-	u8* m_cache[CACHE_SIZE];
-	u64 m_cache_tags[CACHE_SIZE];
-	int m_cache_age[CACHE_SIZE];
+	std::array<std::vector<u8>, CACHE_SIZE> m_cache;
+	std::array<u64, CACHE_SIZE> m_cache_tags;
+};
+
+class CBlobBigEndianReader
+{
+public:
+	CBlobBigEndianReader(IBlobReader& reader) : m_reader(reader) {}
+
+	template <typename T>
+	bool ReadSwapped(u64 offset, T* buffer) const
+	{
+		T temp;
+		if (!m_reader.Read(offset, sizeof(T), reinterpret_cast<u8*>(&temp)))
+			return false;
+		*buffer = Common::FromBigEndian(temp);
+		return true;
+	}
+
+private:
+	IBlobReader& m_reader;
 };
 
 // Factory function - examines the path to choose the right type of IBlobReader, and returns one.
-IBlobReader* CreateBlobReader(const std::string& filename);
+std::unique_ptr<IBlobReader> CreateBlobReader(const std::string& filename);
 
 typedef bool (*CompressCB)(const std::string& text, float percent, void* arg);
 

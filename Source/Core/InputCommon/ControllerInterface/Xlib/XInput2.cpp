@@ -1,8 +1,9 @@
 // Copyright 2013 Max Eliaser
-// Licensed under the GNU General Public License, version 2 or higher.
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
+#include <cstdlib>
 #include <cstring>
 #include <X11/XKBlib.h>
 

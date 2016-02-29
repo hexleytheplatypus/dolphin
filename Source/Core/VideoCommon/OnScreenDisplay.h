@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -11,19 +11,19 @@
 
 namespace OSD
 {
-// On-screen message display
-void AddMessage(const std::string& str, u32 ms = 2000);
+// On-screen message display (colored yellow by default)
+void AddMessage(const std::string& str, u32 ms = 2000, u32 rgba = 0xFFFFFF30);
 void DrawMessages(); // draw the current messages on the screen. Only call once per frame.
 void ClearMessages();
 
 // On-screen callbacks
-enum CallbackType
+enum class CallbackType
 {
-	OSD_INIT = 0,
-	OSD_ONFRAME,
-	OSD_SHUTDOWN
+	Initialization,
+	OnFrame,
+	Shutdown
 };
-typedef std::function<void()> Callback;
+using Callback = std::function<void()>;
 
 void AddCallback(CallbackType type, Callback cb);
 void DoCallbacks(CallbackType type);

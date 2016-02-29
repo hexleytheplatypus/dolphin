@@ -1,30 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "VideoCommon/BPMemory.h"
+#include "Common/CommonTypes.h"
 #include "VideoCommon/LightingShaderGen.h"
 #include "VideoCommon/ShaderGenCommon.h"
 #include "VideoCommon/VideoCommon.h"
-
-// TODO: get rid of them as they aren't used
-#define C_COLORMATRIX   0                   // 0
-#define C_COLORS        0                   // 0
-#define C_KCOLORS       (C_COLORS + 4)      // 4
-#define C_ALPHA         (C_KCOLORS + 4)     // 8
-#define C_TEXDIMS       (C_ALPHA + 1)       // 9
-#define C_ZBIAS         (C_TEXDIMS + 8)     //17
-#define C_INDTEXSCALE   (C_ZBIAS + 2)       //19
-#define C_INDTEXMTX     (C_INDTEXSCALE + 2) //21
-#define C_FOGCOLOR      (C_INDTEXMTX + 6)   //27
-#define C_FOGI          (C_FOGCOLOR + 1)    //28
-#define C_FOGF          (C_FOGI + 1)        //29
-#define C_ZSLOPE        (C_FOGF + 2)        //31
-#define C_EFBSCALE      (C_ZSLOPE + 1)      //32
-
-#define C_PENVCONST_END (C_EFBSCALE + 1)
 
 // Different ways to achieve rendering with destination alpha
 enum DSTALPHA_MODE
@@ -59,15 +42,17 @@ struct pixel_shader_uid_data
 	u32 fog_fsel : 3;
 	u32 fog_RangeBaseEnabled : 1;
 	u32 ztex_op : 2;
-	u32 fast_depth_calc : 1;
+	u32 forced_slow_depth : 1;
 	u32 per_pixel_depth : 1;
 	u32 forced_early_z : 1;
 	u32 early_ztest : 1;
 	u32 bounding_box : 1;
 
-	// TODO: 31 bits of padding is a waste. Can we free up some bits elseware?
+	// TODO: 29 bits of padding is a waste. Can we free up some bits elseware?
 	u32 zfreeze : 1;
-	u32 pad : 31;
+	u32 msaa : 1;
+	u32 ssaa : 1;
+	u32 pad : 29;
 
 	u32 texMtxInfo_n_projection : 8; // 8x1 bit
 	u32 tevindref_bi0 : 3;
@@ -129,9 +114,6 @@ struct pixel_shader_uid_data
 #pragma pack()
 
 typedef ShaderUid<pixel_shader_uid_data> PixelShaderUid;
-typedef ShaderCode PixelShaderCode; // TODO: Obsolete
-typedef ShaderConstantProfile PixelShaderConstantProfile; // TODO: Obsolete
 
-void GeneratePixelShaderCode(PixelShaderCode& object, DSTALPHA_MODE dstAlphaMode, API_TYPE ApiType, u32 components);
-void GetPixelShaderUid(PixelShaderUid& object, DSTALPHA_MODE dstAlphaMode, API_TYPE ApiType, u32 components);
-void GetPixelShaderConstantProfile(PixelShaderConstantProfile& object, DSTALPHA_MODE dstAlphaMode, API_TYPE ApiType, u32 components);
+ShaderCode GeneratePixelShaderCode(DSTALPHA_MODE dstAlphaMode, API_TYPE ApiType);
+PixelShaderUid GetPixelShaderUid(DSTALPHA_MODE dstAlphaMode, API_TYPE ApiType);

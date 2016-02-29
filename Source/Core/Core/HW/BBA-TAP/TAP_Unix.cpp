@@ -1,8 +1,15 @@
-// Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
+
+#ifndef _WIN32
+#include <unistd.h>
+#endif
+
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 #include "Core/HW/EXI_Device.h"
 #include "Core/HW/EXI_DeviceEthernet.h"
 
@@ -38,22 +45,31 @@ bool CEXIETHERNET::Activate()
 	memset(&ifr, 0, sizeof(ifr));
 	ifr.ifr_flags = IFF_TAP | IFF_NO_PI | IFF_ONE_QUEUE;
 
-	strncpy(ifr.ifr_name, "Dolphin", IFNAMSIZ);
-
-	int err;
-	if ((err = ioctl(fd, TUNSETIFF, (void*)&ifr)) < 0)
+	const int MAX_INTERFACES = 32;
+	for (int i = 0; i < MAX_INTERFACES; ++i)
 	{
-		close(fd);
-		fd = -1;
-		ERROR_LOG(SP1, "TUNSETIFF failed: err=%d", err);
-		return false;
+		strncpy(ifr.ifr_name, StringFromFormat("Dolphin%d", i).c_str(), IFNAMSIZ);
+
+		int err;
+		if ((err = ioctl(fd, TUNSETIFF, (void*)&ifr)) < 0)
+		{
+			if (i == (MAX_INTERFACES - 1))
+			{
+				close(fd);
+				fd = -1;
+				ERROR_LOG(SP1, "TUNSETIFF failed: Interface=%s err=%d", ifr.ifr_name, err);
+				return false;
+			}
+		}
+		else
+		{
+			break;
+		}
 	}
 	ioctl(fd, TUNSETNOCSUM, 1);
 
-	readEnabled = false;
-
 	INFO_LOG(SP1, "BBA initialized with associated tap %s", ifr.ifr_name);
-	return true;
+	return RecvInit();
 #else
 	NOTIMPLEMENTED("Activate");
 	return false;
@@ -66,7 +82,8 @@ void CEXIETHERNET::Deactivate()
 	close(fd);
 	fd = -1;
 
-	readEnabled = false;
+	readEnabled.Clear();
+	readThreadShutdown.Set();
 	if (readThread.joinable())
 		readThread.join();
 #else
@@ -108,11 +125,8 @@ bool CEXIETHERNET::SendFrame(u8* frame, u32 size)
 
 static void ReadThreadHandler(CEXIETHERNET* self)
 {
-	while (true)
+	while (!self->readThreadShutdown.IsSet())
 	{
-		if (self->fd < 0)
-			return;
-
 		fd_set rfds;
 		FD_ZERO(&rfds);
 		FD_SET(self->fd, &rfds);
@@ -123,14 +137,14 @@ static void ReadThreadHandler(CEXIETHERNET* self)
 		if (select(self->fd + 1, &rfds, nullptr, nullptr, &timeout) <= 0)
 			continue;
 
-		int readBytes = read(self->fd, self->mRecvBuffer, BBA_RECV_SIZE);
+		int readBytes = read(self->fd, self->mRecvBuffer.get(), BBA_RECV_SIZE);
 		if (readBytes < 0)
 		{
 			ERROR_LOG(SP1, "Failed to read from BBA, err=%d", readBytes);
 		}
-		else if (self->readEnabled)
+		else if (self->readEnabled.IsSet())
 		{
-			INFO_LOG(SP1, "Read data: %s", ArrayToString(self->mRecvBuffer, readBytes, 0x10).c_str());
+			INFO_LOG(SP1, "Read data: %s", ArrayToString(self->mRecvBuffer.get(), readBytes, 0x10).c_str());
 			self->mRecvBufferLength = readBytes;
 			self->RecvHandlePacket();
 		}
@@ -148,24 +162,19 @@ bool CEXIETHERNET::RecvInit()
 #endif
 }
 
-bool CEXIETHERNET::RecvStart()
+void CEXIETHERNET::RecvStart()
 {
 #ifdef __linux__
-	if (!readThread.joinable())
-		RecvInit();
-
-	readEnabled = true;
-	return true;
+	readEnabled.Set();
 #else
 	NOTIMPLEMENTED("RecvStart");
-	return false;
 #endif
 }
 
 void CEXIETHERNET::RecvStop()
 {
 #ifdef __linux__
-	readEnabled = false;
+	readEnabled.Clear();
 #else
 	NOTIMPLEMENTED("RecvStop");
 #endif

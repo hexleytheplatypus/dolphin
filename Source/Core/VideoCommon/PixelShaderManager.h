@@ -1,19 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include <array>
-
-#include "VideoCommon/BPMemory.h"
+#include "Common/CommonTypes.h"
 #include "VideoCommon/ConstantManager.h"
-#include "VideoCommon/PixelShaderGen.h"
-#include "VideoCommon/XFMemory.h"
 
 class PointerWrap;
-
-
 
 // The non-API dependent parts.
 class PixelShaderManager
@@ -33,13 +27,12 @@ public:
 	static void SetTevKonstColor(int index, int component, s32 value);
 	static void SetAlpha();
 	static void SetDestAlpha();
-	static void SetTexDims(int texmapid, u32 width, u32 height, u32 wraps, u32 wrapt);
+	static void SetTexDims(int texmapid, u32 width, u32 height);
 	static void SetZTextureBias();
 	static void SetViewportChanged();
 	static void SetEfbScaleChanged();
 	static void SetZSlope(float dfdx, float dfdy, float f0);
 	static void SetIndMatrixChanged(int matrixidx);
-	static void SetTevKSelChanged(int id);
 	static void SetZTextureTypeChanged();
 	static void SetIndTexScaleChanged(bool high);
 	static void SetTexCoordChanged(u8 texmapid);

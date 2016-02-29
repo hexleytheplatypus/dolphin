@@ -1,16 +1,16 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
+#include <cstring>
 
+#include "Common/CommonTypes.h"
 #include "VideoCommon/BPMemory.h"
 #include "VideoCommon/GeometryShaderGen.h"
 #include "VideoCommon/LightingShaderGen.h"
-#include "VideoCommon/VertexShaderGen.h"
 #include "VideoCommon/VideoConfig.h"
 
-static char text[16384];
 
 static const char* primitives_ogl[] =
 {
@@ -26,23 +26,20 @@ static const char* primitives_d3d[] =
 	"triangle"
 };
 
-template<class T> static inline void EmitVertex(T& out, const char* vertex, API_TYPE ApiType, bool first_vertex = false);
-template<class T> static inline void EndPrimitive(T& out, API_TYPE ApiType);
+template<class T> static void EmitVertex(T& out, const char* vertex, API_TYPE ApiType, bool first_vertex = false);
+template<class T> static void EndPrimitive(T& out, API_TYPE ApiType);
 
 template<class T>
-static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE ApiType)
+static T GenerateGeometryShader(u32 primitive_type, API_TYPE ApiType)
 {
+	T out;
 	// Non-uid template parameters will write to the dummy data (=> gets optimized out)
 	geometry_shader_uid_data dummy_data;
 	geometry_shader_uid_data* uid_data = out.template GetUidData<geometry_shader_uid_data>();
-	if (uid_data == nullptr)
+	if (uid_data != nullptr)
+		memset(uid_data, 0, sizeof(*uid_data));
+	else
 		uid_data = &dummy_data;
-
-	out.SetBuffer(text);
-	const bool is_writing_shadercode = (out.GetBuffer() != nullptr);
-
-	if (is_writing_shadercode)
-		text[sizeof(text) - 1] = 0x7C;  // canary
 
 	uid_data->primitive_type = primitive_type;
 	const unsigned int vertex_in = primitive_type + 1;
@@ -81,7 +78,7 @@ static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE A
 		"\tint4 " I_TEXOFFSET";\n"
 		"};\n");
 
-	uid_data->numTexGens = bpmem.genMode.numtexgens;
+	uid_data->numTexGens = xfmem.numTexGen.numTexGens;
 	uid_data->pixel_lighting = g_ActiveConfig.bEnablePixelLighting;
 
 	out.Write("struct VS_OUTPUT {\n");
@@ -94,11 +91,11 @@ static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE A
 			out.Write("#define InstanceID gl_InvocationID\n");
 
 		out.Write("in VertexData {\n");
-		GenerateVSOutputMembers<T>(out, ApiType, g_ActiveConfig.backend_info.bSupportsBindingLayout ? "centroid" : "centroid in");
+		GenerateVSOutputMembers<T>(out, ApiType, GetInterpolationQualifier(ApiType, true, true));
 		out.Write("} vs[%d];\n", vertex_in);
 
 		out.Write("out VertexData {\n");
-		GenerateVSOutputMembers<T>(out, ApiType, g_ActiveConfig.backend_info.bSupportsBindingLayout ? "centroid" : "centroid out");
+		GenerateVSOutputMembers<T>(out, ApiType, GetInterpolationQualifier(ApiType, false, true));
 
 		if (g_ActiveConfig.iStereoMode > 0)
 			out.Write("\tflat int layer;\n");
@@ -150,7 +147,7 @@ static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE A
 		// horizontal depending the slope of the line.
 		out.Write(
 			"\tfloat2 offset;\n"
-			"\tfloat2 to = abs(end.pos.xy - start.pos.xy);\n"
+			"\tfloat2 to = abs(end.pos.xy / end.pos.w - start.pos.xy / start.pos.w);\n"
 			// FIXME: What does real hardware do when line is at a 45-degree angle?
 			// FIXME: Lines aren't drawn at the correct width. See Twilight Princess map.
 			"\tif (" I_LINEPTPARAMS".y * to.y > " I_LINEPTPARAMS".x * to.x) {\n"
@@ -233,7 +230,7 @@ static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE A
 		out.Write("\tif (" I_TEXOFFSET"[2] != 0) {\n");
 		out.Write("\tfloat texOffset = 1.0 / float(" I_TEXOFFSET"[2]);\n");
 
-		for (unsigned int i = 0; i < bpmem.genMode.numtexgens; ++i)
+		for (unsigned int i = 0; i < xfmem.numTexGen.numTexGens; ++i)
 		{
 			out.Write("\tif (((" I_TEXOFFSET"[0] >> %d) & 0x1) != 0)\n", i);
 			out.Write("\t\tr.tex%d.x += texOffset;\n", i);
@@ -258,7 +255,7 @@ static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE A
 		out.Write("\tif (" I_TEXOFFSET"[3] != 0) {\n");
 		out.Write("\tfloat2 texOffset = float2(1.0 / float(" I_TEXOFFSET"[3]), 1.0 / float(" I_TEXOFFSET"[3]));\n");
 
-		for (unsigned int i = 0; i < bpmem.genMode.numtexgens; ++i)
+		for (unsigned int i = 0; i < xfmem.numTexGen.numTexGens; ++i)
 		{
 			out.Write("\tif (((" I_TEXOFFSET"[1] >> %d) & 0x1) != 0) {\n", i);
 			out.Write("\t\tll.tex%d.xy += float2(0,1) * texOffset;\n", i);
@@ -287,15 +284,11 @@ static inline void GenerateGeometryShader(T& out, u32 primitive_type, API_TYPE A
 
 	out.Write("}\n");
 
-	if (is_writing_shadercode)
-	{
-		if (text[sizeof(text) - 1] != 0x7C)
-			PanicAlert("GeometryShader generator - buffer too small, canary has been eaten!");
-	}
+	return out;
 }
 
 template<class T>
-static inline void EmitVertex(T& out, const char* vertex, API_TYPE ApiType, bool first_vertex)
+static void EmitVertex(T& out, const char* vertex, API_TYPE ApiType, bool first_vertex)
 {
 	if (g_ActiveConfig.bWireFrame && first_vertex)
 		out.Write("\tif (i == 0) first = %s;\n", vertex);
@@ -316,7 +309,7 @@ static inline void EmitVertex(T& out, const char* vertex, API_TYPE ApiType, bool
 		out.Write("\toutput.Append(ps);\n");
 }
 template<class T>
-static inline void EndPrimitive(T& out, API_TYPE ApiType)
+static void EndPrimitive(T& out, API_TYPE ApiType)
 {
 	if (g_ActiveConfig.bWireFrame)
 		EmitVertex<T>(out, "first", ApiType);
@@ -327,12 +320,12 @@ static inline void EndPrimitive(T& out, API_TYPE ApiType)
 		out.Write("\toutput.RestartStrip();\n");
 }
 
-void GetGeometryShaderUid(GeometryShaderUid& object, u32 primitive_type, API_TYPE ApiType)
+GeometryShaderUid GetGeometryShaderUid(u32 primitive_type, API_TYPE ApiType)
 {
-	GenerateGeometryShader<GeometryShaderUid>(object, primitive_type, ApiType);
+	return GenerateGeometryShader<GeometryShaderUid>(primitive_type, ApiType);
 }
 
-void GenerateGeometryShaderCode(ShaderCode& object, u32 primitive_type, API_TYPE ApiType)
+ShaderCode GenerateGeometryShaderCode(u32 primitive_type, API_TYPE ApiType)
 {
-	GenerateGeometryShader<ShaderCode>(object, primitive_type, ApiType);
+	return GenerateGeometryShader<ShaderCode>(primitive_type, ApiType);
 }

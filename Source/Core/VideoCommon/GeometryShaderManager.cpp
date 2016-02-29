@@ -1,14 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
-#include <cfloat>
-#include <cmath>
+#include <cstring>
 
+#include "Common/ChunkFile.h"
+#include "Common/CommonTypes.h"
 #include "VideoCommon/BPMemory.h"
-#include "VideoCommon/GeometryShaderGen.h"
 #include "VideoCommon/GeometryShaderManager.h"
-#include "VideoCommon/VideoCommon.h"
 #include "VideoCommon/VideoConfig.h"
 #include "VideoCommon/XFMemory.h"
 
@@ -63,7 +62,7 @@ void GeometryShaderManager::SetConstants()
 			constants.stereoparams[0] = constants.stereoparams[1] = 0;
 		}
 
-		constants.stereoparams[2] = (float)(g_ActiveConfig.iStereoConvergenceMinimum + g_ActiveConfig.iStereoConvergence);
+		constants.stereoparams[2] = (float)(g_ActiveConfig.iStereoConvergence * (g_ActiveConfig.iStereoConvergencePercentage / 100.0f));
 
 		dirty = true;
 	}

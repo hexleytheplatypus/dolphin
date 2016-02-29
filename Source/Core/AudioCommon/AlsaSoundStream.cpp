@@ -1,35 +1,41 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
+
+#include <mutex>
 
 #include "AudioCommon/AlsaSoundStream.h"
 #include "Common/CommonTypes.h"
 #include "Common/Thread.h"
+#include "Common/Logging/Log.h"
 
-#define FRAME_COUNT_MIN 256
-#define BUFFER_SIZE_MAX 8192
-#define BUFFER_SIZE_BYTES (BUFFER_SIZE_MAX*2*2)
-
-AlsaSound::AlsaSound(CMixer *mixer) : SoundStream(mixer), thread_data(0), handle(nullptr), frames_to_deliver(FRAME_COUNT_MIN)
+AlsaSound::AlsaSound()
+	: m_thread_status(ALSAThreadStatus::STOPPED)
+	, handle(nullptr)
+	, frames_to_deliver(FRAME_COUNT_MIN)
 {
-	mix_buffer = new u8[BUFFER_SIZE_BYTES];
-}
-
-AlsaSound::~AlsaSound()
-{
-	delete [] mix_buffer;
 }
 
 bool AlsaSound::Start()
 {
+	m_thread_status.store(ALSAThreadStatus::RUNNING);
+	if (!AlsaInit())
+	{
+		m_thread_status.store(ALSAThreadStatus::STOPPED);
+		return false;
+	}
+
 	thread = std::thread(&AlsaSound::SoundLoop, this);
-	thread_data = 0;
 	return true;
 }
 
 void AlsaSound::Stop()
 {
-	thread_data = 1;
+	m_thread_status.store(ALSAThreadStatus::STOPPING);
+
+	//Give the opportunity to the audio thread
+	//to realize we are stopping the emulation
+	cv.notify_one();
 	thread.join();
 }
 
@@ -41,27 +47,44 @@ void AlsaSound::Update()
 // Called on audio thread.
 void AlsaSound::SoundLoop()
 {
-	if (!AlsaInit()) {
-		thread_data = 2;
-		return;
-	}
 	Common::SetCurrentThreadName("Audio thread - alsa");
-	while (!thread_data)
+	while (m_thread_status.load() != ALSAThreadStatus::STOPPING)
 	{
-		m_mixer->Mix(reinterpret_cast<short *>(mix_buffer), frames_to_deliver);
-		int rc = m_muted ? 1337 : snd_pcm_writei(handle, mix_buffer, frames_to_deliver);
-		if (rc == -EPIPE)
+		while (m_thread_status.load() == ALSAThreadStatus::RUNNING)
 		{
-			// Underrun
-			snd_pcm_prepare(handle);
+			m_mixer->Mix(mix_buffer, frames_to_deliver);
+			int rc = snd_pcm_writei(handle, mix_buffer, frames_to_deliver);
+			if (rc == -EPIPE)
+			{
+				// Underrun
+				snd_pcm_prepare(handle);
+			}
+			else if (rc < 0)
+			{
+				ERROR_LOG(AUDIO, "writei fail: %s", snd_strerror(rc));
+			}
 		}
-		else if (rc < 0)
+		if (m_thread_status.load() == ALSAThreadStatus::PAUSED)
 		{
-			ERROR_LOG(AUDIO, "writei fail: %s", snd_strerror(rc));
+			snd_pcm_drop(handle); // Stop sound output
+
+			// Block until thread status changes.
+			std::unique_lock<std::mutex> lock(cv_m);
+			cv.wait(lock, [this]{ return m_thread_status.load() != ALSAThreadStatus::PAUSED; });
+
+			snd_pcm_prepare(handle); // resume sound output
 		}
 	}
 	AlsaShutdown();
-	thread_data = 2;
+	m_thread_status.store(ALSAThreadStatus::STOPPED);
+}
+
+
+void AlsaSound::Clear(bool muted)
+{
+	m_muted = muted;
+	m_thread_status.store(muted ? ALSAThreadStatus::PAUSED : ALSAThreadStatus::RUNNING);
+	cv.notify_one(); // Notify thread that status has changed
 }
 
 bool AlsaSound::AlsaInit()
@@ -112,7 +135,7 @@ bool AlsaSound::AlsaInit()
 		return false;
 	}
 
-	err = snd_pcm_hw_params_set_channels(handle, hwparams, 2);
+	err = snd_pcm_hw_params_set_channels(handle, hwparams, CHANNEL_COUNT);
 	if (err < 0)
 	{
 		ERROR_LOG(AUDIO, "Channels count not available: %s\n", snd_strerror(err));
@@ -123,7 +146,7 @@ bool AlsaSound::AlsaInit()
 	err = snd_pcm_hw_params_set_periods_max(handle, hwparams, &periods, &dir);
 	if (err < 0)
 	{
-		ERROR_LOG(AUDIO, "Cannot set Minimum periods: %s\n", snd_strerror(err));
+		ERROR_LOG(AUDIO, "Cannot set maximum periods per buffer: %s\n", snd_strerror(err));
 		return false;
 	}
 
@@ -131,7 +154,7 @@ bool AlsaSound::AlsaInit()
 	err = snd_pcm_hw_params_set_buffer_size_max(handle, hwparams, &buffer_size_max);
 	if (err < 0)
 	{
-		ERROR_LOG(AUDIO, "Cannot set minimum buffer size: %s\n", snd_strerror(err));
+		ERROR_LOG(AUDIO, "Cannot set maximum buffer size: %s\n", snd_strerror(err));
 		return false;
 	}
 

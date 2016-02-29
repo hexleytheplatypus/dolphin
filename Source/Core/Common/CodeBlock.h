@@ -1,11 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "Common/Common.h"
+#include "Common/AssertInt.h"
 #include "Common/MemoryUtil.h"
+#include "Common/NonCopyable.h"
 
 // Everything that needs to generate code should inherit from this.
 // You get memory management for free, plus, you can use all emitter functions without
@@ -20,18 +21,28 @@ private:
 	virtual void PoisonMemory() = 0;
 
 protected:
-	u8 *region;
+	u8* region;
 	size_t region_size;
+	size_t parent_region_size;
+
+	bool m_has_child;
+	bool m_is_child;
+	CodeBlock* m_child;
 
 public:
-	CodeBlock() : region(nullptr), region_size(0) {}
+	CodeBlock()
+		: region(nullptr), region_size(0), parent_region_size(0),
+		  m_has_child(false), m_is_child(false), m_child(nullptr)
+	{
+	}
+
 	virtual ~CodeBlock() { if (region) FreeCodeSpace(); }
 
 	// Call this before you generate any code.
-	void AllocCodeSpace(int size)
+	void AllocCodeSpace(int size, bool need_low = true)
 	{
 		region_size = size;
-		region = (u8*)AllocateExecutableMemory(region_size);
+		region = (u8*)AllocateExecutableMemory(region_size, need_low);
 		T::SetCodePtr(region);
 	}
 
@@ -49,9 +60,15 @@ public:
 		FreeMemoryPages(region, region_size);
 		region = nullptr;
 		region_size = 0;
+		parent_region_size = 0;
+		if (m_has_child)
+		{
+			m_child->region = nullptr;
+			m_child->region_size = 0;
+		}
 	}
 
-	bool IsInSpace(u8 *ptr)
+	bool IsInSpace(u8* ptr) const
 	{
 		return (ptr >= region) && (ptr < (region + region_size));
 	}
@@ -70,7 +87,24 @@ public:
 
 	size_t GetSpaceLeft() const
 	{
-		return region_size - (T::GetCodePtr() - region);
+		return (m_has_child ? parent_region_size : region_size) - (T::GetCodePtr() - region);
+	}
+
+	bool IsAlmostFull() const
+	{
+		// This should be bigger than the biggest block ever.
+		return GetSpaceLeft() < 0x10000;
+	}
+	void AddChildCodeSpace(CodeBlock* child, size_t size)
+	{
+		_assert_msg_(DYNA_REC, !m_has_child, "Already have a child! Can't have another!");
+		m_child = child;
+		m_has_child = true;
+		m_child->m_is_child = true;
+		u8* child_region = region + region_size - size;
+		m_child->region = child_region;
+		m_child->region_size = size;
+		m_child->ResetCodePtr();
+		parent_region_size = region_size - size;
 	}
 };
-

@@ -1,11 +1,10 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include "Common/CommonTypes.h"
-#include "VideoCommon/TextureDecoder.h"
 #include "VideoCommon/VideoCommon.h"
 
 namespace TextureConversionShader

@@ -1,13 +1,16 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cstdarg>
 #include <cstdio>
 #include <string>
 
+#include "Common/Common.h"
 #include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 
 bool DefaultMsgHandler(const char* caption, const char* text, bool yes_no, int Style);
 static MsgAlertHandler msg_handler = DefaultMsgHandler;
@@ -33,6 +36,11 @@ void RegisterStringTranslator(StringTranslator translator)
 void SetEnableAlert(bool enable)
 {
 	AlertEnabled = enable;
+}
+
+std::string GetTranslation(const char* string)
+{
+	return str_translator(string);
 }
 
 // This is the first stop for gui alerts where the log is updated and the
@@ -74,7 +82,7 @@ bool MsgAlert(bool yes_no, int Style, const char* format, ...)
 
 	va_list args;
 	va_start(args, format);
-	CharArrayFromFormatV(buffer, sizeof(buffer)-1, str_translator(format).c_str(), args);
+	CharArrayFromFormatV(buffer, sizeof(buffer) - 1, str_translator(format).c_str(), args);
 	va_end(args);
 
 	ERROR_LOG(MASTER_LOG, "%s: %s", caption.c_str(), buffer);
@@ -96,8 +104,10 @@ bool DefaultMsgHandler(const char* caption, const char* text, bool yes_no, int S
 
 	return IDYES == MessageBox(0, UTF8ToTStr(text).c_str(), UTF8ToTStr(caption).c_str(), STYLE | (yes_no ? MB_YESNO : MB_OK));
 #else
-	printf("%s\n", text);
-	return true;
+	fprintf(stderr, "%s\n", text);
+
+	// Return no to any question (which will in general crash the emulator)
+	return false;
 #endif
 }
 

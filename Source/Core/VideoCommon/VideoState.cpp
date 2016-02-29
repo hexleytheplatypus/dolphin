@@ -1,6 +1,8 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
+
+#include <cstring>
 
 #include "Common/ChunkFile.h"
 #include "VideoCommon/BoundingBox.h"
@@ -17,7 +19,7 @@
 #include "VideoCommon/VideoState.h"
 #include "VideoCommon/XFMemory.h"
 
-static void DoState(PointerWrap &p)
+void VideoCommon_DoState(PointerWrap &p)
 {
 	// BP Memory
 	p.Do(bpmem);
@@ -31,11 +33,11 @@ static void DoState(PointerWrap &p)
 	p.DoMarker("XF Memory");
 
 	// Texture decoder
-	p.DoArray(texMem, TMEM_SIZE);
+	p.DoArray(texMem);
 	p.DoMarker("texMem");
 
 	// FIFO
-	Fifo_DoState(p);
+	Fifo::DoState(p);
 	p.DoMarker("Fifo");
 
 	CommandProcessor::DoState(p);
@@ -54,7 +56,7 @@ static void DoState(PointerWrap &p)
 	GeometryShaderManager::DoState(p);
 	p.DoMarker("GeometryShaderManager");
 
-	VertexManager::DoState(p);
+	VertexManagerBase::DoState(p);
 	p.DoMarker("VertexManager");
 
 	BoundingBox::DoState(p);
@@ -62,16 +64,6 @@ static void DoState(PointerWrap &p)
 
 
 	// TODO: search for more data that should be saved and add it here
-}
-
-void VideoCommon_DoState(PointerWrap &p)
-{
-	DoState(p);
-}
-
-void VideoCommon_RunLoop(bool enable)
-{
-	EmulatorState(enable);
 }
 
 void VideoCommon_Init()

@@ -3,7 +3,6 @@
 If you make any contributions to Dolphin after December 1st, 2014, you are agreeing that any code you have contributed will be licensed under the GNU GPL version 2 (or any later version).
 
 ## Coding Style
----
 
 - [Introduction] (#introduction)
 - [Styling and formatting] (#styling-and-formatting)
@@ -20,19 +19,40 @@ If you make any contributions to Dolphin after December 1st, 2014, you are agree
 
 
 ## Introduction
----
 
 This guide is for developers who wish to contribute to the Dolphin codebase. It will detail how to properly style and format code to fit this project. This guide also offers suggestions on specific functions and other varia that may be used in code.
 
 Following this guide and formatting your code as detailed will likely get your pull request merged much faster than if you don't (assuming the written code has no mistakes in itself).
 
 ## Styling and formatting
----
 
 ### General
 - Try to limit lines of code to a maximum of 100 characters.
     - Note that this does not mean you should try and use all 100 characters every time you have the chance. Typically with well formatted code, you normally shouldn't hit a line count of anything over 80 or 90 characters.
-- The indentation style we use is tabs for initial indentation and then, if vertical alignment is needed, spaces are to be used.
+- The indentation style we use is tabs for initial indentation and then, if vertical alignment is needed, spaces are to be used:
+```c++
+class IndentAndAlignmentSample
+{
+public:
+	void ThisMethodIsIndentedByOneLevel(int using_one_single_tab)
+	{
+		// this method, along with its opening and closing braces are
+		// indented with a single tab. This comment however is indented
+		// with two tabs. There is no vertical alignment yet, so no
+		// spaces are involved at this point.
+		m_other->DoStuff(m_first_parameter,
+		                 m_second_parameter,
+		                 m_third_parameter);
+		// Indent for the three previous lines is done using two tabs
+		// each (which brings the lines to the column where the word
+		// m_other begins in the first line).
+		// However, lines two and three are vertically aligned using
+		// 17 spaces (that's the length of "m_other->DoStuff(") in order
+		// to line up the method parameters correctly, regardless of
+		// tab-width settings used in your editor/IDE.
+	}
+}
+```
 - The opening brace for namespaces, classes, functions, enums, structs, unions, conditionals, and loops go on the next line.
   - With array initializer lists and lambda expressions it is OK to keep the brace on the same line.
 - References and pointers have the ampersand or asterisk against the type name, not the variable name. Example: `int* var`, not `int *var`.
@@ -60,7 +80,7 @@ Following this guide and formatting your code as detailed will likely get your p
   - `class SomeClassName`
   - `enum IPCCommandType`
 - All compile time constants should be fully uppercased. With constants that have more than one word in them, use an underscore to separate them.
-  - `const int PI = 3.14159;`
+  - `const double PI = 3.14159;`
   - `const int MAX_PATH = 260;`
 - All variables should be lowercase with underscores separating the individual words in the name.
   - `int this_variable_name;`
@@ -130,7 +150,6 @@ private:
 ```
 
 ## Code Specific
----
 
 ### General
 - Using C++11 features is OK and recommended.
@@ -159,6 +178,13 @@ private:
 - Empty-bodied loops should use braces after their header, not a semicolon.
   - Yes: `while (condition) {}`
   - No: `while (condition);`
+- For do-while loops, place 'while' on the same line as the closing brackets
+
+  ```c++
+  do
+  {
+  } while (false);
+  ```
 
 ### Functions
 - If a function parameter is a pointer or reference and its value or data isn't intended to be changed, please mark that parameter as `const`.
@@ -222,3 +248,7 @@ private:
       // Class definitions
   };
   ```
+
+## Java
+
+The Android project is currently written in Java. If you are using Android Studio to contribute, you can import the project's code style from `code-style-java.jar`, located in `[Dolphin Root]/Source/Android`. Please organize imports before committing.

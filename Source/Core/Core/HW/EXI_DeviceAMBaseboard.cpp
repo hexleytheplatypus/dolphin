@@ -1,11 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
-#include "Core/Core.h"
-
+#include "Common/ChunkFile.h"
+#include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
 #include "Core/HW/EXI.h"
-#include "Core/HW/EXI_Device.h"
 #include "Core/HW/EXI_DeviceAMBaseboard.h"
 
 CEXIAMBaseboard::CEXIAMBaseboard()
@@ -21,7 +21,7 @@ void CEXIAMBaseboard::SetCS(int cs)
 		m_position = 0;
 }
 
-bool CEXIAMBaseboard::IsPresent()
+bool CEXIAMBaseboard::IsPresent() const
 {
 	return true;
 }
@@ -59,7 +59,7 @@ void CEXIAMBaseboard::TransferByte(u8& _byte)
 
 	if ((m_position >= 2) && (m_command[0] == 0 && m_command[1] == 0))
 	{
-		_byte = "\x06\x04\x10\x00"[(m_position-2)&3];
+		_byte = "\x06\x04\x10\x00"[(m_position - 2) & 3];
 	}
 	else if (m_position == 3)
 	{

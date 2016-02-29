@@ -1,48 +1,31 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
 #include <limits>
 
-#ifdef _WIN32
-#include <intrin.h>
-#endif
-
+#include "Common/CommonTypes.h"
 #include "Common/MathUtil.h"
+#include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/Interpreter/Interpreter.h"
 #include "Core/PowerPC/Interpreter/Interpreter_FPUtils.h"
 
 using namespace MathUtil;
 
-void UpdateSSEState();
-
 // Extremely rare - actually, never seen.
 // Star Wars : Rogue Leader spams that at some point :|
 void Interpreter::Helper_UpdateCR1()
 {
-	SetCRField(1, (FPSCR.FX << 4) | (FPSCR.FEX << 3) | (FPSCR.VX << 2) | FPSCR.OX);
+	SetCRField(1, (FPSCR.FX << 3) | (FPSCR.FEX << 2) | (FPSCR.VX << 1) | FPSCR.OX);
 }
 
 void Interpreter::Helper_FloatCompareOrdered(UGeckoInstruction _inst, double fa, double fb)
 {
 	int compareResult;
 
-	if (fa < fb)
+	if (std::isnan(fa) || std::isnan(fb))
 	{
-		compareResult = FPCC::FL;
-	}
-	else if (fa > fb)
-	{
-		compareResult = FPCC::FG;
-	}
-	else if (fa == fb)
-	{
-		compareResult = FPCC::FE;
-	}
-	else // NaN
-	{
-		FPSCR.FX = 1;
 		compareResult = FPCC::FU;
 		if (IsSNAN(fa) || IsSNAN(fb))
 		{
@@ -57,16 +40,7 @@ void Interpreter::Helper_FloatCompareOrdered(UGeckoInstruction _inst, double fa,
 			SetFPException(FPSCR_VXVC);
 		}
 	}
-
-	FPSCR.FPRF = compareResult;
-	SetCRField(_inst.CRFD, compareResult);
-}
-
-void Interpreter::Helper_FloatCompareUnordered(UGeckoInstruction _inst, double fa, double fb)
-{
-	int compareResult;
-
-	if (fa < fb)
+	else if (fa < fb)
 	{
 		compareResult = FPCC::FL;
 	}
@@ -74,21 +48,46 @@ void Interpreter::Helper_FloatCompareUnordered(UGeckoInstruction _inst, double f
 	{
 		compareResult = FPCC::FG;
 	}
-	else if (fa == fb)
+	else // Equals
 	{
 		compareResult = FPCC::FE;
 	}
-	else
+
+	// Clear and set the FPCC bits accordingly.
+	FPSCR.FPRF = (FPSCR.FPRF & ~0xF) | compareResult;
+
+	SetCRField(_inst.CRFD, compareResult);
+}
+
+void Interpreter::Helper_FloatCompareUnordered(UGeckoInstruction _inst, double fa, double fb)
+{
+	int compareResult;
+
+	if (std::isnan(fa) || std::isnan(fb))
 	{
 		compareResult = FPCC::FU;
+
 		if (IsSNAN(fa) || IsSNAN(fb))
 		{
-			FPSCR.FX = 1;
 			SetFPException(FPSCR_VXSNAN);
 		}
 	}
+	else if (fa < fb)
+	{
+		compareResult = FPCC::FL;
+	}
+	else if (fa > fb)
+	{
+		compareResult = FPCC::FG;
+	}
+	else // Equals
+	{
+		compareResult = FPCC::FE;
+	}
 
-	FPSCR.FPRF = compareResult;
+	// Clear and set the FPCC bits accordingly.
+	FPSCR.FPRF = (FPSCR.FPRF & ~0xF) | compareResult;
+
 	SetCRField(_inst.CRFD, compareResult);
 }
 
@@ -173,7 +172,7 @@ void Interpreter::fctiwx(UGeckoInstruction _inst)
 	// based on HW tests
 	// FPRF is not affected
 	riPS0(_inst.FD) = 0xfff8000000000000ull | value;
-	if (value == 0 && ( (*(u64*)&b) & DOUBLE_SIGN ))
+	if (value == 0 && std::signbit(b))
 		riPS0(_inst.FD) |= 0x100000000ull;
 	if (_inst.Rc)
 		Helper_UpdateCR1();
@@ -219,7 +218,7 @@ void Interpreter::fctiwzx(UGeckoInstruction _inst)
 	// based on HW tests
 	// FPRF is not affected
 	riPS0(_inst.FD) = 0xfff8000000000000ull | value;
-	if (value == 0 && ( (*(u64*)&b) & DOUBLE_SIGN ))
+	if (value == 0 && std::signbit(b))
 		riPS0(_inst.FD) |= 0x100000000ull;
 	if (_inst.Rc)
 		Helper_UpdateCR1();
@@ -273,15 +272,17 @@ void Interpreter::fselx(UGeckoInstruction _inst)
 // !!! warning !!!
 // PS1 must be set to the value of PS0 or DragonballZ will be f**ked up
 // PS1 is said to be undefined
-void Interpreter::frspx(UGeckoInstruction _inst)  // round to single
+void Interpreter::frspx(UGeckoInstruction inst)  // round to single
 {
-	double b = rPS0(_inst.FB);
+	double b = rPS0(inst.FB);
 	double rounded = ForceSingle(b);
 	SetFI(b != rounded);
 	FPSCR.FR = fabs(rounded) > fabs(b);
 	UpdateFPRF(rounded);
-	rPS0(_inst.FD) = rPS1(_inst.FD) = rounded;
-	return;
+	rPS0(inst.FD) = rPS1(inst.FD) = rounded;
+
+	if (inst.Rc)
+		Helper_UpdateCR1();
 }
 
 
@@ -311,7 +312,7 @@ void Interpreter::fmulsx(UGeckoInstruction _inst)
 
 void Interpreter::fmaddx(UGeckoInstruction _inst)
 {
-	double result = ForceDouble(NI_madd( rPS0(_inst.FA), rPS0(_inst.FC), rPS0(_inst.FB) ));
+	double result = ForceDouble(NI_madd(rPS0(_inst.FA), rPS0(_inst.FC), rPS0(_inst.FB)));
 	rPS0(_inst.FD) = result;
 	UpdateFPRF(result);
 
@@ -352,38 +353,7 @@ void Interpreter::faddsx(UGeckoInstruction _inst)
 
 void Interpreter::fdivx(UGeckoInstruction _inst)
 {
-	double a = rPS0(_inst.FA);
-	double b = rPS0(_inst.FB);
-
-	if (a != a)
-	{
-		rPS0(_inst.FD) = a;
-	}
-	else if (b != b)
-	{
-		rPS0(_inst.FD) = b;
-	}
-	else
-	{
-		rPS0(_inst.FD) = ForceDouble(a / b);
-		if (b == 0.0)
-		{
-			if (a == 0.0)
-			{
-				SetFPException(FPSCR_VXZDZ);
-				rPS0(_inst.FD) = PPC_NAN;
-			}
-			SetFPException(FPSCR_ZX);
-		}
-		else
-		{
-			if (IsINF(a) && IsINF(b))
-			{
-				SetFPException(FPSCR_VXIDI);
-				rPS0(_inst.FD) = PPC_NAN;
-			}
-		}
-	}
+	rPS0(_inst.FD) = ForceDouble(NI_div(rPS0(_inst.FA), rPS0(_inst.FB)));
 	UpdateFPRF(rPS0(_inst.FD));
 
 	// FR,FI,OX,UX???
@@ -392,41 +362,7 @@ void Interpreter::fdivx(UGeckoInstruction _inst)
 }
 void Interpreter::fdivsx(UGeckoInstruction _inst)
 {
-	double a = rPS0(_inst.FA);
-	double b = rPS0(_inst.FB);
-	double res;
-
-	if (a != a)
-	{
-		res = a;
-	}
-	else if (b != b)
-	{
-		res = b;
-	}
-	else
-	{
-		res = ForceSingle(a / b);
-		if (b == 0.0)
-		{
-			if (a == 0.0)
-			{
-				SetFPException(FPSCR_VXZDZ);
-				res = PPC_NAN;
-			}
-			SetFPException(FPSCR_ZX);
-		}
-		else
-		{
-			if (IsINF(a) && IsINF(b))
-			{
-				SetFPException(FPSCR_VXIDI);
-				res = PPC_NAN;
-			}
-		}
-	}
-
-	rPS0(_inst.FD) = rPS1(_inst.FD) = res;
+	rPS0(_inst.FD) = rPS1(_inst.FD) = ForceSingle(NI_div(rPS0(_inst.FA), rPS0(_inst.FB)));
 	UpdateFPRF(rPS0(_inst.FD));
 
 	if (_inst.Rc)
@@ -491,7 +427,8 @@ void Interpreter::fmsubsx(UGeckoInstruction _inst)
 
 void Interpreter::fnmaddx(UGeckoInstruction _inst)
 {
-	rPS0(_inst.FD) = ForceDouble(-NI_madd(rPS0(_inst.FA), rPS0(_inst.FC), rPS0(_inst.FB)));
+	double result = ForceDouble(NI_madd(rPS0(_inst.FA), rPS0(_inst.FC), rPS0(_inst.FB)));
+	rPS0(_inst.FD) = std::isnan(result) ? result : -result;
 	UpdateFPRF(rPS0(_inst.FD));
 
 	if (_inst.Rc)
@@ -501,7 +438,8 @@ void Interpreter::fnmaddx(UGeckoInstruction _inst)
 void Interpreter::fnmaddsx(UGeckoInstruction _inst)
 {
 	double c_value = Force25Bit(rPS0(_inst.FC));
-	rPS0(_inst.FD) = rPS1(_inst.FD) = ForceSingle(-NI_madd(rPS0(_inst.FA), c_value, rPS0(_inst.FB)));
+	double result = ForceSingle(NI_madd(rPS0(_inst.FA), c_value, rPS0(_inst.FB)));
+	rPS0(_inst.FD) = rPS1(_inst.FD) = std::isnan(result) ? result : -result;
 	UpdateFPRF(rPS0(_inst.FD));
 
 	if (_inst.Rc)
@@ -510,18 +448,19 @@ void Interpreter::fnmaddsx(UGeckoInstruction _inst)
 
 void Interpreter::fnmsubx(UGeckoInstruction _inst)
 {
-	rPS0(_inst.FD) = ForceDouble(-NI_msub(rPS0(_inst.FA), rPS0(_inst.FC), rPS0(_inst.FB)));
+	double result = ForceDouble(NI_msub(rPS0(_inst.FA), rPS0(_inst.FC), rPS0(_inst.FB)));
+	rPS0(_inst.FD) = std::isnan(result) ? result : -result;
 	UpdateFPRF(rPS0(_inst.FD));
 
 	if (_inst.Rc)
 		Helper_UpdateCR1();
 }
 
-// fnmsubsx does not handle QNAN properly - see NI_msub
 void Interpreter::fnmsubsx(UGeckoInstruction _inst)
 {
 	double c_value = Force25Bit(rPS0(_inst.FC));
-	rPS0(_inst.FD) = rPS1(_inst.FD) = ForceSingle(-NI_msub(rPS0(_inst.FA), c_value, rPS0(_inst.FB)));
+	double result = ForceSingle(NI_msub(rPS0(_inst.FA), c_value, rPS0(_inst.FB)));
+	rPS0(_inst.FD) = rPS1(_inst.FD) = std::isnan(result) ? result : -result;
 	UpdateFPRF(rPS0(_inst.FD));
 
 	if (_inst.Rc)
@@ -540,24 +479,6 @@ void Interpreter::fsubx(UGeckoInstruction _inst)
 void Interpreter::fsubsx(UGeckoInstruction _inst)
 {
 	rPS0(_inst.FD) = rPS1(_inst.FD) = ForceSingle(NI_sub(rPS0(_inst.FA), rPS0(_inst.FB)));
-	UpdateFPRF(rPS0(_inst.FD));
-
-	if (_inst.Rc)
-		Helper_UpdateCR1();
-}
-
-void Interpreter::fsqrtx(UGeckoInstruction _inst)
-{
-	// GEKKO is not supposed to support this instruction.
-	// PanicAlert("fsqrtx");
-	double b = rPS0(_inst.FB);
-
-	if (b < 0.0)
-	{
-		FPSCR.VXSQRT = 1;
-	}
-
-	rPS0(_inst.FD) = sqrt(b);
 	UpdateFPRF(rPS0(_inst.FD));
 
 	if (_inst.Rc)

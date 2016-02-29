@@ -1,10 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <vector>
 
-#include "Common/Common.h"
+#include "Common/AssertInt.h"
+#include "Common/CommonTypes.h"
 #include "Common/MsgHandler.h"
 #include "Common/Logging/Log.h"
 #include "Core/IPC_HLE/WiiMote_HID_Attr.h"

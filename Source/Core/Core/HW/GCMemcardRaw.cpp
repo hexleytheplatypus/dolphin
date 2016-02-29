@@ -1,10 +1,17 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <chrono>
+#include <cstring>
+#include <memory>
+#include <string>
+
 #include "Common/ChunkFile.h"
-#include "Common/StdMakeUnique.h"
+#include "Common/CommonTypes.h"
+#include "Common/FileUtil.h"
+#include "Common/Thread.h"
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
 #include "Core/HW/GCMemcard.h"
@@ -13,7 +20,7 @@
 #define SIZE_TO_Mb (1024 * 8 * 16)
 #define MC_HDR_SIZE 0xA000
 
-MemoryCard::MemoryCard(std::string filename, int _card_index, u16 sizeMb)
+MemoryCard::MemoryCard(const std::string& filename, int _card_index, u16 sizeMb)
 	: MemoryCardBase(_card_index, sizeMb)
 	, m_filename(filename)
 {
@@ -40,7 +47,7 @@ MemoryCard::MemoryCard(std::string filename, int _card_index, u16 sizeMb)
 		GCMemcard::Format(&m_memcard_data[0], m_filename.find(".JAP.raw") != std::string::npos, sizeMb);
 		memset(&m_memcard_data[MC_HDR_SIZE], 0xFF, memory_card_size - MC_HDR_SIZE);
 
-		INFO_LOG(EXPANSIONINTERFACE, "No memory card found - a new one was created.");
+		INFO_LOG(EXPANSIONINTERFACE, "No memory card found. A new one was created instead.");
 	}
 
 	// Class members (including inherited ones) have now been initialized, so
@@ -61,13 +68,13 @@ MemoryCard::~MemoryCard()
 
 void MemoryCard::FlushThread()
 {
-	if (!SConfig::GetInstance().m_LocalCoreStartupParameter.bEnableMemcardSaving)
+	if (!SConfig::GetInstance().bEnableMemcardSdWriting)
 	{
 		return;
 	}
 
 	Common::SetCurrentThreadName(
-		StringFromFormat("Memcard%x-Flush", card_index).c_str());
+		StringFromFormat("Memcard %d flushing thread", card_index).c_str());
 
 	const auto flush_interval = std::chrono::seconds(15);
 
@@ -144,7 +151,7 @@ s32 MemoryCard::Read(u32 srcaddress, s32 length, u8 *destaddress)
 {
 	if (!IsAddressInBounds(srcaddress))
 	{
-		PanicAlertT("MemoryCard: Read called with invalid source address, %x",
+		PanicAlertT("MemoryCard: Read called with invalid source address (0x%x)",
 					srcaddress);
 		return -1;
 	}
@@ -157,7 +164,7 @@ s32 MemoryCard::Write(u32 destaddress, s32 length, u8 *srcaddress)
 {
 	if (!IsAddressInBounds(destaddress))
 	{
-		PanicAlertT("MemoryCard: Write called with invalid destination address, %x",
+		PanicAlertT("MemoryCard: Write called with invalid destination address (0x%x)",
 					destaddress);
 		return -1;
 	}
@@ -174,7 +181,7 @@ void MemoryCard::ClearBlock(u32 address)
 {
 	if (address & (BLOCK_SIZE - 1) || !IsAddressInBounds(address))
 	{
-		PanicAlertT("MemoryCard: ClearBlock called on invalid address %x",
+		PanicAlertT("MemoryCard: ClearBlock called on invalid address (0x%x)",
 			address);
 		return;
 	}

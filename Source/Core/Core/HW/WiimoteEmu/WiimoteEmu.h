@@ -1,14 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include <queue>
-#include <vector>
+#include <string>
 
-#include "Common/ChunkFile.h"
-#include "Core/Core.h"
 #include "Core/HW/WiimoteEmu/Encryption.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
 #include "InputCommon/ControllerEmu.h"
@@ -19,6 +17,8 @@
 #define WIIMOTE_REG_SPEAKER_SIZE  10
 #define WIIMOTE_REG_EXT_SIZE      0x100
 #define WIIMOTE_REG_IR_SIZE       0x34
+
+class PointerWrap;
 
 namespace WiimoteReal
 {
@@ -78,12 +78,12 @@ void EmulateSwing(AccelData* const accel
 	 , ControllerEmu::Force* const tilt_group
 	 , const bool sideways = false, const bool upright = false);
 
-inline double trim(double a)
+enum
 {
-	if (a<=0) return 0;
-	if (a>=255) return 255;
-	return a;
-}
+	ACCEL_ZERO_G = 0x80,
+	ACCEL_ONE_G = 0x9A,
+	ACCEL_RANGE = (ACCEL_ONE_G - ACCEL_ZERO_G),
+};
 
 class Wiimote : public ControllerEmu
 {
@@ -106,19 +106,14 @@ public:
 		BUTTON_HOME  = 0x8000,
 	};
 
-	enum
-	{
-		ACCEL_ZERO_G = 0x80,
-		ACCEL_ONE_G = 0x9A,
-		ACCEL_RANGE = (ACCEL_ONE_G - ACCEL_ZERO_G),
-	};
-
 	Wiimote(const unsigned int index);
 	std::string GetName() const override;
 
 	void Update();
 	void InterruptChannel(const u16 _channelID, const void* _pData, u32 _Size);
 	void ControlChannel(const u16 _channelID, const void* _pData, u32 _Size);
+	void ConnectOnInput();
+	void Reset();
 
 	void DoState(PointerWrap& p);
 	void RealState();
@@ -148,8 +143,6 @@ private:
 		u32 address, size, position;
 		u8* data;
 	};
-
-	void Reset();
 
 	void ReportMode(const wm_report_mode* const dr);
 	void SendAck(const u8 _reportID);
@@ -237,6 +230,10 @@ private:
 		u8  play;
 		u8  unk_9;
 	} m_reg_speaker;
+
+	// limits the amount of connect requests we send when a button is pressed in disconnected state
+	u8 m_last_connect_request_counter;
+
 #pragma pack(pop)
 };
 

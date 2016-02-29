@@ -1,25 +1,22 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
+
+#include <algorithm>
+#include <cstring>
 
 #include "Common/ChunkFile.h"
 #include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
-#include "Common/FileSearch.h"
 #include "Common/FileUtil.h"
 #include "Common/NandPaths.h"
 #include "Common/StringUtil.h"
 
-#include "Core/VolumeHandler.h"
 #include "Core/HW/SystemTimers.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_Device_FileIO.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_Device_fs.h"
 
 static Common::replace_v replacements;
-
-// ~1/1000th of a second is too short and causes hangs in Wii Party
-// Play it safe at 1/500th
-static const IPCCommandResult IPC_FS_REPLY = { true, SystemTimers::GetTicksPerSecond() / 500 };
 
 CWII_IPC_HLE_Device_fs::CWII_IPC_HLE_Device_fs(u32 _DeviceID, const std::string& _rDeviceName)
 	: IWII_IPC_HLE_Device(_DeviceID, _rDeviceName)
@@ -34,14 +31,14 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::Open(u32 _CommandAddress, u32 _Mode)
 {
 	// clear tmp folder
 	{
-		std::string Path = File::GetUserPath(D_WIIUSER_IDX) + "tmp";
+		std::string Path = HLE_IPC_BuildFilename("/tmp");
 		File::DeleteDirRecursively(Path);
 		File::CreateDir(Path);
 	}
 
 	Memory::Write_U32(GetDeviceID(), _CommandAddress+4);
 	m_Active = true;
-	return IPC_FS_REPLY;
+	return GetFSReply();
 }
 
 IPCCommandResult CWII_IPC_HLE_Device_fs::Close(u32 _CommandAddress, bool _bForce)
@@ -50,7 +47,7 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::Close(u32 _CommandAddress, bool _bForce
 	if (!_bForce)
 		Memory::Write_U32(0, _CommandAddress + 4);
 	m_Active = false;
-	return IPC_FS_REPLY;
+	return GetFSReply();
 }
 
 // Get total filesize of contents of a directory (recursive)
@@ -107,25 +104,28 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::IOCtlV(u32 _CommandAddress)
 				break;
 			}
 
-			// make a file search
-			CFileSearch::XStringVector Directories;
-			Directories.push_back(DirName);
-
-			CFileSearch::XStringVector Extensions;
-			Extensions.push_back("*.*");
-
-			CFileSearch FileSearch(Extensions, Directories);
+			File::FSTEntry entry = File::ScanDirectoryTree(DirName, false);
 
 			// it is one
 			if ((CommandBuffer.InBuffer.size() == 1) && (CommandBuffer.PayloadBuffer.size() == 1))
 			{
-				size_t numFile = FileSearch.GetFileNames().size();
-				INFO_LOG(WII_IPC_FILEIO, "\t%lu files found", (unsigned long)numFile);
+				size_t numFile = entry.children.size();
+				INFO_LOG(WII_IPC_FILEIO, "\t%zu files found", numFile);
 
 				Memory::Write_U32((u32)numFile, CommandBuffer.PayloadBuffer[0].m_Address);
 			}
 			else
 			{
+				for (File::FSTEntry& child : entry.children)
+				{
+					// Decode entities of invalid file system characters so that
+					// games (such as HP:HBP) will be able to find what they expect.
+					for (const Common::replace_t& r : replacements)
+						child.virtualName = ReplaceAll(child.virtualName, r.second, {r.first});
+				}
+
+				std::sort(entry.children.begin(), entry.children.end(), [](const File::FSTEntry& one, const File::FSTEntry& two) { return one.virtualName < two.virtualName; });
+
 				u32 MaxEntries = Memory::Read_U32(CommandBuffer.InBuffer[0].m_Address);
 
 				memset(Memory::GetPointer(CommandBuffer.PayloadBuffer[0].m_Address), 0, CommandBuffer.PayloadBuffer[0].m_Size);
@@ -133,22 +133,10 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::IOCtlV(u32 _CommandAddress)
 				size_t numFiles = 0;
 				char* pFilename = (char*)Memory::GetPointer((u32)(CommandBuffer.PayloadBuffer[0].m_Address));
 
-				for (size_t i=0; i<FileSearch.GetFileNames().size(); i++)
+				for (size_t i=0; i < entry.children.size() && i < MaxEntries; i++)
 				{
-					if (i >= MaxEntries)
-						break;
+					const std::string& FileName = entry.children[i].virtualName;
 
-					std::string name, ext;
-					SplitPath(FileSearch.GetFileNames()[i], nullptr, &name, &ext);
-					std::string FileName = name + ext;
-
-					// Decode entities of invalid file system characters so that
-					// games (such as HP:HBP) will be able to find what they expect.
-					for (const Common::replace_t& r : replacements)
-					{
-						for (size_t j = 0; (j = FileName.find(r.second, j)) != FileName.npos; ++j)
-							FileName.replace(j, r.second.length(), 1, r.first);
-					}
 
 					strcpy(pFilename, FileName.c_str());
 					pFilename += FileName.length();
@@ -193,10 +181,9 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::IOCtlV(u32 _CommandAddress)
 				}
 				else
 				{
-					File::FSTEntry parentDir;
-					// add one for the folder itself, allows some games to create their save files
-					// R8XE52 (Jurassic: The Hunted), STEETR (Tetris Party Deluxe) now create their saves with this change
-					iNodes = 1 + File::ScanDirectoryTree(path, parentDir);
+					File::FSTEntry parentDir = File::ScanDirectoryTree(path, true);
+					// add one for the folder itself
+					iNodes = 1 + (u32)parentDir.size;
 
 					u64 totalSize = ComputeTotalFileSize(parentDir); // "Real" size, to be converted to nand blocks
 
@@ -227,13 +214,12 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::IOCtlV(u32 _CommandAddress)
 
 	Memory::Write_U32(ReturnValue, _CommandAddress+4);
 
-	return IPC_FS_REPLY;
+	return GetFSReply();
 }
 
 IPCCommandResult CWII_IPC_HLE_Device_fs::IOCtl(u32 _CommandAddress)
 {
 	//u32 DeviceID = Memory::Read_U32(_CommandAddress + 8);
-	//LOG(WII_IPC_FILEIO, "FS: IOCtl (Device=%s, DeviceID=%08x)", GetDeviceName().c_str(), DeviceID);
 
 	u32 Parameter =  Memory::Read_U32(_CommandAddress + 0xC);
 	u32 BufferIn =  Memory::Read_U32(_CommandAddress + 0x10);
@@ -249,7 +235,7 @@ IPCCommandResult CWII_IPC_HLE_Device_fs::IOCtl(u32 _CommandAddress)
 	u32 ReturnValue = ExecuteCommand(Parameter, BufferIn, BufferInSize, BufferOut, BufferOutSize);
 	Memory::Write_U32(ReturnValue, _CommandAddress + 4);
 
-	return IPC_FS_REPLY;
+	return GetFSReply();
 }
 
 s32 CWII_IPC_HLE_Device_fs::ExecuteCommand(u32 _Parameter, u32 _BufferIn, u32 _BufferInSize, u32 _BufferOut, u32 _BufferOutSize)
@@ -274,7 +260,7 @@ s32 CWII_IPC_HLE_Device_fs::ExecuteCommand(u32 _Parameter, u32 _BufferIn, u32 _B
 			fs.Free_INodes    = 0x146B;
 			fs.Used_Inodes    = 0x0394;
 
-			*(NANDStat*)Memory::GetPointer(_BufferOut) = fs;
+			std::memcpy(Memory::GetPointer(_BufferOut), &fs, sizeof(NANDStat));
 
 			return FS_RESULT_OK;
 		}
@@ -495,7 +481,7 @@ void CWII_IPC_HLE_Device_fs::DoState(PointerWrap& p)
 
 	// handle /tmp
 
-	std::string Path = File::GetUserPath(D_WIIUSER_IDX) + "tmp";
+	std::string Path = File::GetUserPath(D_SESSION_WIIROOT_IDX) + "/tmp";
 	if (p.GetMode() == PointerWrap::MODE_READ)
 	{
 		File::DeleteDirRecursively(Path);
@@ -528,7 +514,7 @@ void CWII_IPC_HLE_Device_fs::DoState(PointerWrap& p)
 				u32 count = size;
 				while (count > 65536)
 				{
-					p.DoArray(&buf[0], 65536);
+					p.DoArray(buf);
 					handle.WriteArray(&buf[0], 65536);
 					count -= 65536;
 				}
@@ -543,8 +529,7 @@ void CWII_IPC_HLE_Device_fs::DoState(PointerWrap& p)
 	{
 		//recurse through tmp and save dirs and files
 
-		File::FSTEntry parentEntry;
-		File::ScanDirectoryTree(Path, parentEntry);
+		File::FSTEntry parentEntry = File::ScanDirectoryTree(Path, true);
 		std::deque<File::FSTEntry> todo;
 		todo.insert(todo.end(), parentEntry.children.begin(),
 			    parentEntry.children.end());
@@ -573,7 +558,7 @@ void CWII_IPC_HLE_Device_fs::DoState(PointerWrap& p)
 				while (count > 65536)
 				{
 					handle.ReadArray(&buf[0], 65536);
-					p.DoArray(&buf[0], 65536);
+					p.DoArray(buf);
 					count -= 65536;
 				}
 				handle.ReadArray(&buf[0], count);

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 //DL facts:
@@ -13,9 +13,8 @@
 // when they are called. The reason is that the vertex format affects the sizes of the vertices.
 
 #include "Common/CommonTypes.h"
-#include "Common/CPUDetect.h"
-#include "Core/Core.h"
-#include "Core/Host.h"
+#include "Common/MsgHandler.h"
+#include "Common/Logging/Log.h"
 #include "Core/FifoPlayer/FifoRecorder.h"
 #include "Core/HW/Memmap.h"
 #include "VideoCommon/BPMemory.h"
@@ -24,22 +23,24 @@
 #include "VideoCommon/DataReader.h"
 #include "VideoCommon/Fifo.h"
 #include "VideoCommon/OpcodeDecoding.h"
-#include "VideoCommon/PixelEngine.h"
 #include "VideoCommon/Statistics.h"
 #include "VideoCommon/VertexLoaderManager.h"
 #include "VideoCommon/VideoCommon.h"
-#include "VideoCommon/VideoConfig.h"
 #include "VideoCommon/XFMemory.h"
 
-
 bool g_bRecordFifoData = false;
+
+namespace OpcodeDecoder
+{
+
+static bool s_bFifoErrorSeen = false;
 
 static u32 InterpretDisplayList(u32 address, u32 size)
 {
 	u8* startAddress;
 
-	if (g_use_deterministic_gpu_thread)
-		startAddress = (u8*) PopFifoAuxBuffer(size);
+	if (Fifo::UseDeterministicGPUThread())
+		startAddress = (u8*)Fifo::PopFifoAuxBuffer(size);
 	else
 		startAddress = Memory::GetPointer(address);
 
@@ -51,7 +52,7 @@ static u32 InterpretDisplayList(u32 address, u32 size)
 		// temporarily swap dl and non-dl (small "hack" for the stats)
 		Statistics::SwapDL();
 
-		OpcodeDecoder_Run(DataReader(startAddress, startAddress + size), &cycles, true);
+		Run(DataReader(startAddress, startAddress + size), &cycles, true);
 		INCSTAT(stats.thisFrame.numDListsCalled);
 
 		// un-swap
@@ -65,28 +66,29 @@ static void InterpretDisplayListPreprocess(u32 address, u32 size)
 {
 	u8* startAddress = Memory::GetPointer(address);
 
-	PushFifoAuxBuffer(startAddress, size);
+	Fifo::PushFifoAuxBuffer(startAddress, size);
 
 	if (startAddress != nullptr)
 	{
-		OpcodeDecoder_Run<true>(DataReader(startAddress, startAddress + size), nullptr, true);
+		Run<true>(DataReader(startAddress, startAddress + size), nullptr, true);
 	}
 }
 
 static void UnknownOpcode(u8 cmd_byte, void *buffer, bool preprocess)
 {
 	// TODO(Omega): Maybe dump FIFO to file on this error
-	PanicAlert(
-	    "GFX FIFO: Unknown Opcode (0x%x @ %p, preprocessing=%s).\n"
+	PanicAlertT(
+	    "GFX FIFO: Unknown Opcode (0x%02x @ %p, %s).\n"
 	    "This means one of the following:\n"
 	    "* The emulated GPU got desynced, disabling dual core can help\n"
 	    "* Command stream corrupted by some spurious memory bug\n"
 	    "* This really is an unknown opcode (unlikely)\n"
 	    "* Some other sort of bug\n\n"
+	    "Further errors will be sent to the Video Backend log and\n"
 	    "Dolphin will now likely crash or hang. Enjoy." ,
 	    cmd_byte,
 	    buffer,
-	    preprocess ? "yes" : "no");
+	    preprocess ? "preprocess=true" : "preprocess=false");
 
 	{
 		SCPFifoStruct &fifo = CommandProcessor::fifo;
@@ -121,17 +123,17 @@ static void UnknownOpcode(u8 cmd_byte, void *buffer, bool preprocess)
 	}
 }
 
-void OpcodeDecoder_Init()
+void Init()
 {
+	s_bFifoErrorSeen = false;
 }
 
-
-void OpcodeDecoder_Shutdown()
+void Shutdown()
 {
 }
 
 template <bool is_preprocess>
-u8* OpcodeDecoder_Run(DataReader src, u32* cycles, bool in_display_list)
+u8* Run(DataReader src, u32* cycles, bool in_display_list)
 {
 	u32 totalCycles = 0;
 	u8* opcodeStart;
@@ -150,7 +152,12 @@ u8* OpcodeDecoder_Run(DataReader src, u32* cycles, bool in_display_list)
 			totalCycles += 6; // Hm, this means that we scan over nop streams pretty slowly...
 			break;
 
-		case GX_LOAD_CP_REG: //0x08
+		case GX_UNKNOWN_RESET:
+			totalCycles += 6; // Datel software uses this command
+			DEBUG_LOG(VIDEO, "GX Reset?: %08x", cmd_byte);
+			break;
+
+		case GX_LOAD_CP_REG:
 			{
 				if (src.size() < 1 + 4)
 					goto end;
@@ -237,7 +244,7 @@ u8* OpcodeDecoder_Run(DataReader src, u32* cycles, bool in_display_list)
 			DEBUG_LOG(VIDEO, "Invalidate (vertex cache?)");
 			break;
 
-		case GX_LOAD_BP_REG: //0x61
+		case GX_LOAD_BP_REG:
 			// In skipped_frame case: We have to let BP writes through because they set
 			// tokens and stuff.  TODO: Call a much simplified LoadBPReg instead.
 			{
@@ -265,33 +272,28 @@ u8* OpcodeDecoder_Run(DataReader src, u32* cycles, bool in_display_list)
 				if (src.size() < 2)
 					goto end;
 				u16 num_vertices = src.Read<u16>();
+				int bytes = VertexLoaderManager::RunVertices(
+					cmd_byte & GX_VAT_MASK,   // Vertex loader index (0 - 7)
+					(cmd_byte & GX_PRIMITIVE_MASK) >> GX_PRIMITIVE_SHIFT,
+					num_vertices,
+					src,
+					Fifo::WillSkipCurrentFrame(),
+					is_preprocess);
 
-				if (is_preprocess)
-				{
-					size_t size = num_vertices * VertexLoaderManager::GetVertexSize(cmd_byte & GX_VAT_MASK, is_preprocess);
-					if (src.size() < size)
-						goto end;
-					src.Skip(size);
-				}
-				else
-				{
-					int bytes = VertexLoaderManager::RunVertices(
-						cmd_byte & GX_VAT_MASK,   // Vertex loader index (0 - 7)
-						(cmd_byte & GX_PRIMITIVE_MASK) >> GX_PRIMITIVE_SHIFT,
-						num_vertices,
-						src,
-						g_bSkipCurrentFrame);
+				if (bytes < 0)
+					goto end;
 
-					if (bytes < 0)
-						goto end;
-					else
-						src.Skip(bytes);
-				}
-				totalCycles += 1600;
+				src.Skip(bytes);
+
+				// 4 GPU ticks per vertex, 3 CPU ticks per GPU tick
+				totalCycles += num_vertices * 4 * 3 + 6;
 			}
 			else
 			{
-				UnknownOpcode(cmd_byte, opcodeStart, is_preprocess);
+				if (!s_bFifoErrorSeen)
+					UnknownOpcode(cmd_byte, opcodeStart, is_preprocess);
+				ERROR_LOG(VIDEO, "FIFO: Unknown Opcode(0x%02x @ %p, preprocessing = %s)", cmd_byte, opcodeStart, is_preprocess ? "yes" : "no");
+				s_bFifoErrorSeen = true;
 				totalCycles += 1;
 			}
 			break;
@@ -314,5 +316,7 @@ end:
 	return opcodeStart;
 }
 
-template u8* OpcodeDecoder_Run<true>(DataReader src, u32* cycles, bool in_display_list);
-template u8* OpcodeDecoder_Run<false>(DataReader src, u32* cycles, bool in_display_list);
+template u8* Run<true>(DataReader src, u32* cycles, bool in_display_list);
+template u8* Run<false>(DataReader src, u32* cycles, bool in_display_list);
+
+} // namespace OpcodeDecoder

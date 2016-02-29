@@ -1,17 +1,19 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
+#include <cstring>
 
+#include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
-#include "Common/Timer.h"
-
+#include "Common/MathUtil.h"
+#include "Common/MsgHandler.h"
 #include "Core/ConfigManager.h"
+#include "Core/Core.h"
 #include "Core/Host.h"
 #include "Core/Movie.h"
 #include "Core/NetPlayClient.h"
-
 #include "Core/HW/WiimoteEmu/MatrixMath.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
@@ -32,13 +34,15 @@ auto const PI = TAU / 2.0;
 namespace WiimoteEmu
 {
 
-/* An example of a factory default first bytes of the Eeprom memory. There are differences between
-   different Wiimotes, my Wiimote had different neutral values for the accelerometer. */
 static const u8 eeprom_data_0[] = {
 	// IR, maybe more
 	// assuming last 2 bytes are checksum
 	0xA1, 0xAA, 0x8B, 0x99, 0xAE, 0x9E, 0x78, 0x30, 0xA7, /*0x74, 0xD3,*/ 0x00, 0x00, // messing up the checksum on purpose
 	0xA1, 0xAA, 0x8B, 0x99, 0xAE, 0x9E, 0x78, 0x30, 0xA7, /*0x74, 0xD3,*/ 0x00, 0x00,
+	// Accelerometer
+	// Important: checksum is required for tilt games
+	ACCEL_ZERO_G, ACCEL_ZERO_G, ACCEL_ZERO_G, 0, ACCEL_ONE_G, ACCEL_ONE_G, ACCEL_ONE_G, 0, 0, 0xA3,
+	ACCEL_ZERO_G, ACCEL_ZERO_G, ACCEL_ZERO_G, 0, ACCEL_ONE_G, ACCEL_ONE_G, ACCEL_ONE_G, 0, 0, 0xA3,
 };
 
 static const u8 motion_plus_id[] = { 0x00, 0x00, 0xA6, 0x20, 0x00, 0x05 };
@@ -89,7 +93,7 @@ void EmulateShake(AccelData* const accel
 	// shake is a bitfield of X,Y,Z shake button states
 	static const unsigned int btns[] = { 0x01, 0x02, 0x04 };
 	unsigned int shake = 0;
-	buttons_group->GetState( &shake, btns );
+	buttons_group->GetState(&shake, btns);
 
 	for (int i = 0; i != 3; ++i)
 	{
@@ -230,7 +234,7 @@ void Wiimote::Reset()
 	//   0x33 - 0x43: level 2
 	//   0x33 - 0x54: level 3
 	//   0x55 - 0xff: level 4
-	m_status.battery = 0x5f;
+	m_status.battery = (u8)(m_options->settings[5]->GetValue() * 100);
 
 	memset(m_shake_step, 0, sizeof(m_shake_step));
 
@@ -246,18 +250,18 @@ void Wiimote::Reset()
 	m_adpcm_state.step = 127;
 }
 
-Wiimote::Wiimote( const unsigned int index )
+Wiimote::Wiimote(const unsigned int index)
 	: m_index(index)
 	, ir_sin(0)
 	, ir_cos(1)
-// , m_sound_stream( nullptr )
+	, m_last_connect_request_counter(0)
 {
 	// ---- set up all the controls ----
 
 	// buttons
 	groups.emplace_back(m_buttons = new Buttons("Buttons"));
 	for (auto& named_button : named_buttons)
-		m_buttons->controls.emplace_back(new ControlGroup::Input( named_button));
+		m_buttons->controls.emplace_back(new ControlGroup::Input(named_button));
 
 	// ir
 	groups.emplace_back(m_ir = new Cursor(_trans("IR")));
@@ -295,12 +299,13 @@ Wiimote::Wiimote( const unsigned int index )
 		m_dpad->controls.emplace_back(new ControlGroup::Input(named_direction));
 
 	// options
-	groups.emplace_back( m_options = new ControlGroup(_trans("Options")));
+	groups.emplace_back(m_options = new ControlGroup(_trans("Options")));
 	m_options->settings.emplace_back(new ControlGroup::BackgroundInputSetting(_trans("Background Input")));
 	m_options->settings.emplace_back(new ControlGroup::Setting(_trans("Sideways Wiimote"), false));
 	m_options->settings.emplace_back(new ControlGroup::Setting(_trans("Upright Wiimote"), false));
 	m_options->settings.emplace_back(new ControlGroup::IterateUI(_trans("Iterative Input")));
 	m_options->settings.emplace_back(new ControlGroup::Setting(_trans("Speaker Pan"), 0, -127, 127));
+	m_options->settings.emplace_back(new ControlGroup::Setting(_trans("Battery"), 95.0 / 100, 0, 255));
 
 	// TODO: This value should probably be re-read if SYSCONF gets changed
 	m_sensor_bar_on_top = SConfig::GetInstance().m_SYSCONF->GetData<u8>("BT.BAR") != 0;
@@ -396,30 +401,30 @@ void Wiimote::GetAccelData(u8* const data, const ReportFeatures& rptf)
 	wm_accel& accel = *(wm_accel*)(data + rptf.accel);
 	wm_buttons& core = *(wm_buttons*)(data + rptf.core);
 
-	u16 x = (u16)(m_accel.x * ACCEL_RANGE + ACCEL_ZERO_G);
-	u16 y = (u16)(m_accel.y * ACCEL_RANGE + ACCEL_ZERO_G);
-	u16 z = (u16)(m_accel.z * ACCEL_RANGE + ACCEL_ZERO_G);
+	// We now use 2 bits more precision, so multiply by 4 before converting to int
+	s16 x = (s16)(4 * (m_accel.x * ACCEL_RANGE + ACCEL_ZERO_G));
+	s16 y = (s16)(4 * (m_accel.y * ACCEL_RANGE + ACCEL_ZERO_G));
+	s16 z = (s16)(4 * (m_accel.z * ACCEL_RANGE + ACCEL_ZERO_G));
 
-	if (x > 1024)
-		x = 1024;
-	if (y > 1024)
-		y = 1024;
-	if (z > 1024)
-		z = 1024;
+	x = MathUtil::Clamp<s16>(x, 0, 1024);
+	y = MathUtil::Clamp<s16>(y, 0, 1024);
+	z = MathUtil::Clamp<s16>(z, 0, 1024);
 
-	accel.x = x & 0xFF;
-	accel.y = y & 0xFF;
-	accel.z = z & 0xFF;
+	accel.x = (x >> 2) & 0xFF;
+	accel.y = (y >> 2) & 0xFF;
+	accel.z = (z >> 2) & 0xFF;
 
-	core.acc_x_lsb = x >> 8 & 0x3;
-	core.acc_y_lsb = y >> 8 & 0x1;
-	core.acc_z_lsb = z >> 8 & 0x1;
+	core.acc_x_lsb = x & 0x3;
+	core.acc_y_lsb = (y >> 1) & 0x1;
+	core.acc_z_lsb = (z >> 1) & 0x1;
 }
-#define kCutoffFreq 5.0
-inline void LowPassFilter(double & var, double newval, double period)
+
+inline void LowPassFilter(double& var, double newval, double period)
 {
-	double RC=1.0/kCutoffFreq;
-	double alpha=period/(period+RC);
+	static const double CUTOFF_FREQUENCY = 5.0;
+
+	double RC = 1.0 / CUTOFF_FREQUENCY;
+	double alpha = period / (period + RC);
 	var = newval * alpha + var * (1.0 - alpha);
 }
 
@@ -631,6 +636,8 @@ void Wiimote::Update()
 
 	Movie::SetPolledDevice();
 
+	m_status.battery = (u8)(m_options->settings[5]->GetValue() * 100);
+
 	const ReportFeatures& rptf = reporting_mode_features[m_reporting_mode - WM_REPORT_CORE];
 	s8 rptf_size = rptf.size;
 	if (Movie::IsPlayingInput() && Movie::PlayWiimote(m_index, data, rptf, m_extension->active_extension, m_ext_key))
@@ -749,7 +756,7 @@ void Wiimote::Update()
 	Movie::CheckWiimoteStatus(m_index, data, rptf, m_extension->active_extension, m_ext_key);
 
 	// don't send a data report if auto reporting is off
-	if (false == m_reporting_auto && data[2] >= WM_REPORT_CORE)
+	if (false == m_reporting_auto && data[1] >= WM_REPORT_CORE)
 		return;
 
 	// send data report
@@ -765,8 +772,6 @@ void Wiimote::ControlChannel(const u16 _channelID, const void* _pData, u32 _Size
 	if (99 == _channelID)
 	{
 		// Wiimote disconnected
-		//PanicAlert( "Wiimote Disconnected" );
-
 		// reset eeprom/register/reporting mode
 		Reset();
 		return;
@@ -863,57 +868,76 @@ void Wiimote::InterruptChannel(const u16 _channelID, const void* _pData, u32 _Si
 	}
 }
 
+void Wiimote::ConnectOnInput()
+{
+	if (m_last_connect_request_counter > 0)
+	{
+		--m_last_connect_request_counter;
+		return;
+	}
+
+	u16 buttons = 0;
+	m_buttons->GetState(&buttons, button_bitmasks);
+	m_dpad->GetState(&buttons, dpad_bitmasks);
+
+	if (buttons != 0 || m_extension->IsButtonPressed())
+	{
+		Host_ConnectWiimote(m_index, true);
+		// arbitrary value so it doesn't try to send multiple requests before Dolphin can react
+		// if Wiimotes are polled at 200Hz then this results in one request being sent per 500ms
+		m_last_connect_request_counter = 100;
+	}
+}
+
 void Wiimote::LoadDefaults(const ControllerInterface& ciface)
 {
 	ControllerEmu::LoadDefaults(ciface);
 
-	#define set_control(group, num, str) (group)->controls[num]->control_ref->expression = (str)
-
 	// Buttons
 #if defined HAVE_X11 && HAVE_X11
-	set_control(m_buttons, 0, "Click 1"); // A
-	set_control(m_buttons, 1, "Click 3"); // B
+	m_buttons->SetControlExpression(0, "Click 1"); // A
+	m_buttons->SetControlExpression(1, "Click 3"); // B
 #else
-	set_control(m_buttons, 0, "Click 0"); // A
-	set_control(m_buttons, 1, "Click 1"); // B
+	m_buttons->SetControlExpression(0, "Click 0"); // A
+	m_buttons->SetControlExpression(1, "Click 1"); // B
 #endif
-	set_control(m_buttons, 2, "1"); // 1
-	set_control(m_buttons, 3, "2"); // 2
-	set_control(m_buttons, 4, "Q"); // -
-	set_control(m_buttons, 5, "E"); // +
+	m_buttons->SetControlExpression(2, "1"); // 1
+	m_buttons->SetControlExpression(3, "2"); // 2
+	m_buttons->SetControlExpression(4, "Q"); // -
+	m_buttons->SetControlExpression(5, "E"); // +
 
 #ifdef _WIN32
-	set_control(m_buttons, 6, "RETURN"); // Home
+	m_buttons->SetControlExpression(6, "!LMENU & RETURN"); // Home
 #else
-	set_control(m_buttons, 6, "Return"); // Home
+	m_buttons->SetControlExpression(6, "!`Alt_L` & Return"); // Home
 #endif
 
 	// Shake
-	for (size_t i = 0; i != 3; ++i)
-		set_control(m_shake, i, "Click 2");
+	for (int i = 0; i < 3; ++i)
+		m_shake->SetControlExpression(i, "Click 2");
 
 	// IR
-	set_control(m_ir, 0, "Cursor Y-");
-	set_control(m_ir, 1, "Cursor Y+");
-	set_control(m_ir, 2, "Cursor X-");
-	set_control(m_ir, 3, "Cursor X+");
+	m_ir->SetControlExpression(0, "Cursor Y-");
+	m_ir->SetControlExpression(1, "Cursor Y+");
+	m_ir->SetControlExpression(2, "Cursor X-");
+	m_ir->SetControlExpression(3, "Cursor X+");
 
 	// DPad
 #ifdef _WIN32
-	set_control(m_dpad, 0, "UP");    // Up
-	set_control(m_dpad, 1, "DOWN");  // Down
-	set_control(m_dpad, 2, "LEFT");  // Left
-	set_control(m_dpad, 3, "RIGHT"); // Right
+	m_dpad->SetControlExpression(0, "UP");    // Up
+	m_dpad->SetControlExpression(1, "DOWN");  // Down
+	m_dpad->SetControlExpression(2, "LEFT");  // Left
+	m_dpad->SetControlExpression(3, "RIGHT"); // Right
 #elif __APPLE__
-	set_control(m_dpad, 0, "Up Arrow");    // Up
-	set_control(m_dpad, 1, "Down Arrow");  // Down
-	set_control(m_dpad, 2, "Left Arrow");  // Left
-	set_control(m_dpad, 3, "Right Arrow"); // Right
+	m_dpad->SetControlExpression(0, "Up Arrow");    // Up
+	m_dpad->SetControlExpression(1, "Down Arrow");  // Down
+	m_dpad->SetControlExpression(2, "Left Arrow");  // Left
+	m_dpad->SetControlExpression(3, "Right Arrow"); // Right
 #else
-	set_control(m_dpad, 0, "Up");    // Up
-	set_control(m_dpad, 1, "Down");  // Down
-	set_control(m_dpad, 2, "Left");  // Left
-	set_control(m_dpad, 3, "Right"); // Right
+	m_dpad->SetControlExpression(0, "Up");    // Up
+	m_dpad->SetControlExpression(1, "Down");  // Down
+	m_dpad->SetControlExpression(2, "Left");  // Left
+	m_dpad->SetControlExpression(3, "Right"); // Right
 #endif
 
 	// ugly stuff

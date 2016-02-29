@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
@@ -7,8 +7,9 @@
 
 #include "Common/Common.h"
 #include "Core/HW/Memmap.h"
-#include "VideoBackends/Software/BPMemLoader.h"
 #include "VideoBackends/Software/TextureSampler.h"
+
+#include "VideoCommon/BPMemory.h"
 #include "VideoCommon/TextureDecoder.h"
 
 #define ALLOW_MIPMAP 1

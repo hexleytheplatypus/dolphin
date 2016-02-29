@@ -1,17 +1,16 @@
 // Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include <wx/dialog.h>
-#include <wx/event.h>
 
 #include "Common/CommonTypes.h"
+#include "Core/ActionReplay.h"
 
 class wxCheckBox;
 class wxTextCtrl;
-class wxWindow;
 
 wxDECLARE_EVENT(UPDATE_CHEAT_LIST_EVENT, wxCommandEvent);
 

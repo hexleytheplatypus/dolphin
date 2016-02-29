@@ -1,14 +1,17 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cinttypes>
 #include <cmath>
+#include <memory>
 #include <string>
 #include <strsafe.h>
 #include <unordered_map>
 
-#include "Common/Timer.h"
+#include "Common/CommonTypes.h"
+#include "Common/FileUtil.h"
+#include "Common/MathUtil.h"
 
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
@@ -29,19 +32,16 @@
 #include "VideoCommon/AVIDump.h"
 #include "VideoCommon/BPFunctions.h"
 #include "VideoCommon/Fifo.h"
-#include "VideoCommon/FPSCounter.h"
 #include "VideoCommon/ImageWrite.h"
 #include "VideoCommon/OnScreenDisplay.h"
 #include "VideoCommon/PixelEngine.h"
 #include "VideoCommon/PixelShaderManager.h"
-#include "VideoCommon/Statistics.h"
-#include "VideoCommon/VertexShaderManager.h"
 #include "VideoCommon/VideoConfig.h"
 
 namespace DX11
 {
 
-static u32 s_last_multisample_mode = 0;
+static u32 s_last_multisamples = 1;
 static bool s_last_stereo_mode = false;
 static bool s_last_xfb_mode = false;
 
@@ -81,11 +81,11 @@ struct
 
 StateCache gx_state_cache;
 
-void SetupDeviceObjects()
+static void SetupDeviceObjects()
 {
 	s_television.Init();
 
-	g_framebuffer_manager = new FramebufferManager;
+	g_framebuffer_manager = std::make_unique<FramebufferManager>();
 
 	HRESULT hr;
 	float colmat[20]= {0.0f};
@@ -166,9 +166,9 @@ void SetupDeviceObjects()
 }
 
 // Kill off all device objects
-void TeardownDeviceObjects()
+static void TeardownDeviceObjects()
 {
-	delete g_framebuffer_manager;
+	g_framebuffer_manager.reset();
 
 	SAFE_RELEASE(access_efb_cbuf);
 	SAFE_RELEASE(clearblendstates[0]);
@@ -189,15 +189,33 @@ void TeardownDeviceObjects()
 	gx_state_cache.Clear();
 }
 
-void CreateScreenshotTexture(const TargetRectangle& rc)
+static void CreateScreenshotTexture()
 {
-	D3D11_TEXTURE2D_DESC scrtex_desc = CD3D11_TEXTURE2D_DESC(DXGI_FORMAT_R8G8B8A8_UNORM, rc.GetWidth(), rc.GetHeight(), 1, 1, 0, D3D11_USAGE_STAGING, D3D11_CPU_ACCESS_READ|D3D11_CPU_ACCESS_WRITE);
+	// We can't render anything outside of the backbuffer anyway, so use the backbuffer size as the screenshot buffer size.
+	// This texture is released to be recreated when the window is resized in Renderer::SwapImpl.
+	D3D11_TEXTURE2D_DESC scrtex_desc = CD3D11_TEXTURE2D_DESC(DXGI_FORMAT_R8G8B8A8_UNORM, D3D::GetBackBufferWidth(), D3D::GetBackBufferHeight(), 1, 1, 0, D3D11_USAGE_STAGING, D3D11_CPU_ACCESS_READ|D3D11_CPU_ACCESS_WRITE);
 	HRESULT hr = D3D::device->CreateTexture2D(&scrtex_desc, nullptr, &s_screenshot_texture);
 	CHECK(hr==S_OK, "Create screenshot staging texture");
 	D3D::SetDebugObjectName((ID3D11DeviceChild*)s_screenshot_texture, "staging screenshot texture");
 }
 
-void Create3DVisionTexture(int width, int height)
+static D3D11_BOX GetScreenshotSourceBox(const TargetRectangle& targetRc)
+{
+	// Since the screenshot buffer is copied back to the CPU via Map(), we can't access pixels that
+	// fall outside the backbuffer bounds. Therefore, when crop is enabled and the target rect is
+	// off-screen to the top/left, we clamp the origin at zero, as well as the bottom/right
+	// coordinates at the backbuffer dimensions. This will result in a rectangle that can be
+	// smaller than the backbuffer, but never larger.
+	return CD3D11_BOX(
+		std::max(targetRc.left, 0),
+		std::max(targetRc.top, 0),
+		0,
+		std::min(D3D::GetBackBufferWidth(), (unsigned int)targetRc.right),
+		std::min(D3D::GetBackBufferHeight(), (unsigned int)targetRc.bottom),
+		1);
+}
+
+static void Create3DVisionTexture(int width, int height)
 {
 	// Create a staging texture for 3D vision with signature information in the last row.
 	// Nvidia 3D Vision supports full SBS, so there is no loss in resolution during this process.
@@ -227,7 +245,7 @@ Renderer::Renderer(void *&window_handle)
 
 	UpdateDrawRectangle(s_backbuffer_width, s_backbuffer_height);
 
-	s_last_multisample_mode = g_ActiveConfig.iMultisampleMode;
+	s_last_multisamples = g_ActiveConfig.iMultisamples;
 	s_last_efb_scale = g_ActiveConfig.iEFBScale;
 	s_last_stereo_mode = g_ActiveConfig.iStereoMode > 0;
 	s_last_xfb_mode = g_ActiveConfig.bUseRealXFB;
@@ -258,7 +276,7 @@ Renderer::Renderer(void *&window_handle)
 	// Clear EFB textures
 	float ClearColor[4] = { 0.f, 0.f, 0.f, 1.f };
 	D3D::context->ClearRenderTargetView(FramebufferManager::GetEFBColorTexture()->GetRTV(), ClearColor);
-	D3D::context->ClearDepthStencilView(FramebufferManager::GetEFBDepthTexture()->GetDSV(), D3D11_CLEAR_DEPTH, 1.f, 0);
+	D3D::context->ClearDepthStencilView(FramebufferManager::GetEFBDepthTexture()->GetDSV(), D3D11_CLEAR_DEPTH, 0.f, 0);
 
 	D3D11_VIEWPORT vp = CD3D11_VIEWPORT(0.f, 0.f, (float)s_target_width, (float)s_target_height);
 	D3D::context->RSSetViewports(1, &vp);
@@ -350,15 +368,6 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 	D3D11_MAPPED_SUBRESOURCE map;
 	ID3D11Texture2D* read_tex;
 
-	if (type == POKE_Z)
-	{
-		static bool alert_only_once = true;
-		if (!alert_only_once) return 0;
-		PanicAlert("EFB: Poke Z not implemented (tried to poke z value %#x at (%d,%d))", poke_data, x, y);
-		alert_only_once = false;
-		return 0;
-	}
-
 	// Convert EFB dimensions to the ones of our render target
 	EFBRectangle efbPixelRc;
 	efbPixelRc.left = x;
@@ -414,20 +423,20 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 		// read the data from system memory
 		D3D::context->Map(read_tex, 0, D3D11_MAP_READ, 0, &map);
 
-		float val = *(float*)map.pData;
+		// depth buffer is inverted in the d3d backend
+		float val = 1.0f - *(float*)map.pData;
 		u32 ret = 0;
 		if (bpmem.zcontrol.pixel_format == PEControl::RGB565_Z16)
 		{
 			// if Z is in 16 bit format you must return a 16 bit integer
-			ret = ((u32)(val * 0xffff));
+			ret = MathUtil::Clamp<u32>((u32)(val * 65536.0f), 0, 0xFFFF);
 		}
 		else
 		{
-			ret = ((u32)(val * 0xffffff));
+			ret = MathUtil::Clamp<u32>((u32)(val * 16777216.0f), 0, 0xFFFFFF);
 		}
 		D3D::context->Unmap(read_tex, 0);
 
-		// TODO: in RE0 this value is often off by one in Video_DX9 (where this code is derived from), which causes lighting to disappear
 		return ret;
 	}
 	else if (type == PEEK_COLOR)
@@ -464,24 +473,43 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 		else if (alpha_read_mode.ReadMode == 1) return (ret | 0xFF000000); // GX_READ_FF
 		else /*if(alpha_read_mode.ReadMode == 0)*/ return (ret & 0x00FFFFFF); // GX_READ_00
 	}
-	else //if(type == POKE_COLOR)
-	{
-		u32 rgbaColor = (poke_data & 0xFF00FF00) | ((poke_data >> 16) & 0xFF) | ((poke_data << 16) & 0xFF0000);
 
-		// TODO: The first five PE registers may change behavior of EFB pokes, this isn't implemented, yet.
-		ResetAPIState();
-
-		D3D::context->OMSetRenderTargets(1, &FramebufferManager::GetEFBColorTexture()->GetRTV(), nullptr);
-		D3D::drawColorQuad(rgbaColor, (float)RectToLock.left   * 2.f / (float)Renderer::GetTargetWidth()  - 1.f,
-		                            - (float)RectToLock.top    * 2.f / (float)Renderer::GetTargetHeight() + 1.f,
-		                              (float)RectToLock.right  * 2.f / (float)Renderer::GetTargetWidth()  - 1.f,
-		                            - (float)RectToLock.bottom * 2.f / (float)Renderer::GetTargetHeight() + 1.f);
-
-		RestoreAPIState();
-		return 0;
-	}
+	return 0;
 }
 
+void Renderer::PokeEFB(EFBAccessType type, const EfbPokeData* points, size_t num_points)
+{
+	ResetAPIState();
+
+	if (type == POKE_COLOR)
+	{
+		D3D11_VIEWPORT vp = CD3D11_VIEWPORT(0.0f, 0.0f, (float)GetTargetWidth(), (float)GetTargetHeight());
+		D3D::context->RSSetViewports(1, &vp);
+		D3D::context->OMSetRenderTargets(1, &FramebufferManager::GetEFBColorTexture()->GetRTV(), nullptr);
+	}
+	else // if (type == POKE_Z)
+	{
+		D3D::stateman->PushBlendState(clearblendstates[3]);
+		D3D::stateman->PushDepthState(cleardepthstates[1]);
+
+		D3D11_VIEWPORT vp = CD3D11_VIEWPORT(0.0f, 0.0f, (float)GetTargetWidth(), (float)GetTargetHeight());
+
+		D3D::context->RSSetViewports(1, &vp);
+
+		D3D::context->OMSetRenderTargets(1, &FramebufferManager::GetEFBColorTexture()->GetRTV(),
+			FramebufferManager::GetEFBDepthTexture()->GetDSV());
+	}
+
+	D3D::DrawEFBPokeQuads(type, points, num_points);
+
+	if (type == POKE_Z)
+	{
+		D3D::stateman->PopDepthState();
+		D3D::stateman->PopBlendState();
+	}
+
+	RestoreAPIState();
+}
 
 void Renderer::SetViewport()
 {
@@ -522,8 +550,8 @@ void Renderer::SetViewport()
 	Ht = (Y + Ht <= GetTargetHeight()) ? Ht : (GetTargetHeight() - Y);
 
 	D3D11_VIEWPORT vp = CD3D11_VIEWPORT(X, Y, Wd, Ht,
-		std::max(0.0f, std::min(1.0f, (xfmem.viewport.farZ - xfmem.viewport.zRange) / 16777216.0f)),
-		std::max(0.0f, std::min(1.0f, xfmem.viewport.farZ / 16777216.0f)));
+		1.0f - MathUtil::Clamp<float>(xfmem.viewport.farZ, 0.0f, 16777215.0f) / 16777216.0f,
+		1.0f - MathUtil::Clamp<float>(xfmem.viewport.farZ - MathUtil::Clamp<float>(xfmem.viewport.zRange, 0.0f, 16777216.0f), 0.0f, 16777215.0f) / 16777216.0f);
 	D3D::context->RSSetViewports(1, &vp);
 }
 
@@ -548,7 +576,7 @@ void Renderer::ClearScreen(const EFBRectangle& rc, bool colorEnable, bool alphaE
 
 	// Color is passed in bgra mode so we need to convert it to rgba
 	u32 rgbaColor = (color & 0xFF00FF00) | ((color >> 16) & 0xFF) | ((color << 16) & 0xFF0000);
-	D3D::drawClearQuad(rgbaColor, (z & 0xFFFFFF) / float(0xFFFFFF));
+	D3D::drawClearQuad(rgbaColor, 1.0f - (z & 0xFFFFFF) / 16777216.0f);
 
 	D3D::stateman->PopDepthState();
 	D3D::stateman->PopBlendState();
@@ -640,16 +668,16 @@ void Renderer::SetBlendMode(bool forceUpdate)
 bool Renderer::SaveScreenshot(const std::string &filename, const TargetRectangle& rc)
 {
 	if (!s_screenshot_texture)
-		CreateScreenshotTexture(rc);
+		CreateScreenshotTexture();
 
 	// copy back buffer to system memory
-	D3D11_BOX box = CD3D11_BOX(rc.left, rc.top, 0, rc.right, rc.bottom, 1);
-	D3D::context->CopySubresourceRegion(s_screenshot_texture, 0, 0, 0, 0, (ID3D11Resource*)D3D::GetBackBuffer()->GetTex(), 0, &box);
+	D3D11_BOX source_box = GetScreenshotSourceBox(rc);
+	D3D::context->CopySubresourceRegion(s_screenshot_texture, 0, 0, 0, 0, (ID3D11Resource*)D3D::GetBackBuffer()->GetTex(), 0, &source_box);
 
 	D3D11_MAPPED_SUBRESOURCE map;
 	D3D::context->Map(s_screenshot_texture, 0, D3D11_MAP_READ_WRITE, 0, &map);
 
-	bool saved_png = TextureToPng((u8*)map.pData, map.RowPitch, filename, rc.GetWidth(), rc.GetHeight(), false);
+	bool saved_png = TextureToPng((u8*)map.pData, map.RowPitch, filename, source_box.right - source_box.left, source_box.bottom - source_box.top, false);
 
 	D3D::context->Unmap(s_screenshot_texture, 0);
 
@@ -686,7 +714,7 @@ void formatBufferDump(const u8* in, u8* out, int w, int h, int p)
 // This function has the final picture. We adjust the aspect ratio here.
 void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, const EFBRectangle& rc, float Gamma)
 {
-	if (g_bSkipCurrentFrame || (!XFBWrited && !g_ActiveConfig.RealXFBEnabled()) || !fbWidth || !fbHeight)
+	if (Fifo::WillSkipCurrentFrame() || (!XFBWrited && !g_ActiveConfig.RealXFBEnabled()) || !fbWidth || !fbHeight)
 	{
 		if (SConfig::GetInstance().m_DumpFrames && !frame_data.empty())
 			AVIDump::AddFrame(&frame_data[0], fbWidth, fbHeight);
@@ -760,10 +788,10 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 			//drawRc.right *= hScale;
 
 			TargetRectangle sourceRc;
-			sourceRc.left = 0;
-			sourceRc.top = 0;
-			sourceRc.right = (int)xfbSource->texWidth;
-			sourceRc.bottom = (int)xfbSource->texHeight;
+			sourceRc.left = xfbSource->sourceRc.left;
+			sourceRc.top = xfbSource->sourceRc.top;
+			sourceRc.right = xfbSource->sourceRc.right;
+			sourceRc.bottom = xfbSource->sourceRc.bottom;
 
 			sourceRc.right -= Renderer::EFBToScaledX(fbStride - fbWidth);
 
@@ -782,8 +810,12 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 	// done with drawing the game stuff, good moment to save a screenshot
 	if (s_bScreenshot)
 	{
+		std::lock_guard<std::mutex> guard(s_criticalScreenshot);
+
 		SaveScreenshot(s_sScreenshotName, GetTargetRectangle());
+		s_sScreenshotName.clear();
 		s_bScreenshot = false;
+		s_screenshotCompleted.Set();
 	}
 
 	// Dump frames
@@ -794,15 +826,17 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 		static int s_recordHeight;
 
 		if (!s_screenshot_texture)
-			CreateScreenshotTexture(GetTargetRectangle());
+			CreateScreenshotTexture();
 
-		D3D11_BOX box = CD3D11_BOX(GetTargetRectangle().left, GetTargetRectangle().top, 0, GetTargetRectangle().right, GetTargetRectangle().bottom, 1);
-		D3D::context->CopySubresourceRegion(s_screenshot_texture, 0, 0, 0, 0, (ID3D11Resource*)D3D::GetBackBuffer()->GetTex(), 0, &box);
+		D3D11_BOX source_box = GetScreenshotSourceBox(targetRc);
+		unsigned int source_width = source_box.right - source_box.left;
+		unsigned int source_height = source_box.bottom - source_box.top;
+		D3D::context->CopySubresourceRegion(s_screenshot_texture, 0, 0, 0, 0, (ID3D11Resource*)D3D::GetBackBuffer()->GetTex(), 0, &source_box);
 		if (!bLastFrameDumped)
 		{
-			s_recordWidth = GetTargetRectangle().GetWidth();
-			s_recordHeight = GetTargetRectangle().GetHeight();
-			bAVIDumping = AVIDump::Start(D3D::hWnd, s_recordWidth, s_recordHeight);
+			s_recordWidth = source_width;
+			s_recordHeight = source_height;
+			bAVIDumping = AVIDump::Start(s_recordWidth, s_recordHeight, AVIDump::DumpFormat::FORMAT_BGR);
 			if (!bAVIDumping)
 			{
 				PanicAlert("Error dumping frames to AVI.");
@@ -826,8 +860,9 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 				w = s_recordWidth;
 				h = s_recordHeight;
 			}
-			formatBufferDump((u8*)map.pData, &frame_data[0], s_recordWidth, s_recordHeight, map.RowPitch);
-			AVIDump::AddFrame(&frame_data[0], GetTargetRectangle().GetWidth(), GetTargetRectangle().GetHeight());
+			formatBufferDump((u8*)map.pData, &frame_data[0], source_width, source_height, map.RowPitch);
+			FlipImageData(&frame_data[0], w, h);
+			AVIDump::AddFrame(&frame_data[0], source_width, source_height);
 			D3D::context->Unmap(s_screenshot_texture, 0);
 		}
 		bLastFrameDumped = true;
@@ -855,27 +890,27 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 	OSD::DrawMessages();
 	D3D::EndFrame();
 
-	TextureCache::Cleanup(frameCount);
+	TextureCacheBase::Cleanup(frameCount);
 
 	// Enable configuration changes
 	UpdateActiveConfig();
-	TextureCache::OnConfigChanged(g_ActiveConfig);
+	TextureCacheBase::OnConfigChanged(g_ActiveConfig);
 
 	SetWindowSize(fbStride, fbHeight);
 
 	const bool windowResized = CheckForResize();
 	const bool fullscreen = g_ActiveConfig.bFullscreen && !g_ActiveConfig.bBorderlessFullscreen &&
-		!SConfig::GetInstance().m_LocalCoreStartupParameter.bRenderToMain;
+		!SConfig::GetInstance().bRenderToMain;
 
 	bool xfbchanged = s_last_xfb_mode != g_ActiveConfig.bUseRealXFB;
 
 	if (FramebufferManagerBase::LastXfbWidth() != fbStride || FramebufferManagerBase::LastXfbHeight() != fbHeight)
 	{
 		xfbchanged = true;
-		unsigned int w = (fbStride < 1 || fbStride > MAX_XFB_WIDTH) ? MAX_XFB_WIDTH : fbStride;
-		unsigned int h = (fbHeight < 1 || fbHeight > MAX_XFB_HEIGHT) ? MAX_XFB_HEIGHT : fbHeight;
-		FramebufferManagerBase::SetLastXfbWidth(w);
-		FramebufferManagerBase::SetLastXfbHeight(h);
+		unsigned int xfb_w = (fbStride < 1 || fbStride > MAX_XFB_WIDTH) ? MAX_XFB_WIDTH : fbStride;
+		unsigned int xfb_h = (fbHeight < 1 || fbHeight > MAX_XFB_HEIGHT) ? MAX_XFB_HEIGHT : fbHeight;
+		FramebufferManagerBase::SetLastXfbWidth(xfb_w);
+		FramebufferManagerBase::SetLastXfbHeight(xfb_h);
 	}
 
 	// Flip/present backbuffer to frontbuffer here
@@ -906,15 +941,16 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 	}
 
 	// Resize the back buffers NOW to avoid flickering
-	if (xfbchanged ||
+	if (CalculateTargetSize(s_backbuffer_width, s_backbuffer_height) ||
+		xfbchanged ||
 		windowResized ||
 		fullscreen_changed ||
 		s_last_efb_scale != g_ActiveConfig.iEFBScale ||
-		s_last_multisample_mode != g_ActiveConfig.iMultisampleMode ||
+		s_last_multisamples != g_ActiveConfig.iMultisamples ||
 		s_last_stereo_mode != (g_ActiveConfig.iStereoMode > 0))
 	{
 		s_last_xfb_mode = g_ActiveConfig.bUseRealXFB;
-		s_last_multisample_mode = g_ActiveConfig.iMultisampleMode;
+		s_last_multisamples = g_ActiveConfig.iMultisamples;
 		PixelShaderCache::InvalidateMSAAShaders();
 
 		if (windowResized || fullscreen_changed)
@@ -946,17 +982,16 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 
 		s_last_efb_scale = g_ActiveConfig.iEFBScale;
 		s_last_stereo_mode = g_ActiveConfig.iStereoMode > 0;
-		CalculateTargetSize(s_backbuffer_width, s_backbuffer_height);
 
 		PixelShaderManager::SetEfbScaleChanged();
 
 		D3D::context->OMSetRenderTargets(1, &D3D::GetBackBuffer()->GetRTV(), nullptr);
 
-		delete g_framebuffer_manager;
-		g_framebuffer_manager = new FramebufferManager;
+		g_framebuffer_manager.reset();
+		g_framebuffer_manager = std::make_unique<FramebufferManager>();
 		float clear_col[4] = { 0.f, 0.f, 0.f, 1.f };
 		D3D::context->ClearRenderTargetView(FramebufferManager::GetEFBColorTexture()->GetRTV(), clear_col);
-		D3D::context->ClearDepthStencilView(FramebufferManager::GetEFBDepthTexture()->GetDSV(), D3D11_CLEAR_DEPTH, 1.f, 0);
+		D3D::context->ClearDepthStencilView(FramebufferManager::GetEFBDepthTexture()->GetDSV(), D3D11_CLEAR_DEPTH, 0.f, 0);
 	}
 
 	// begin next frame
@@ -994,7 +1029,7 @@ void Renderer::ApplyState(bool bUseDstAlpha)
 	for (unsigned int stage = 0; stage < 8; stage++)
 	{
 		// TODO: cache SamplerState directly, not d3d object
-		gx_state.sampler[stage].max_anisotropy = g_ActiveConfig.iMaxAnisotropy;
+		gx_state.sampler[stage].max_anisotropy = 1 << g_ActiveConfig.iMaxAnisotropy;
 		D3D::stateman->SetSampler(stage, gx_state_cache.Get(gx_state.sampler[stage]));
 	}
 
@@ -1054,7 +1089,7 @@ void Renderer::SetGenerationMode()
 
 void Renderer::SetDepthMode()
 {
-	gx_state.zmode = bpmem.zmode;
+	gx_state.zmode.hex = bpmem.zmode.hex;
 }
 
 void Renderer::SetLogicOpMode()
@@ -1154,7 +1189,7 @@ void Renderer::SetDitherMode()
 	// TODO: Set dither mode to bpmem.blendmode.dither
 }
 
-void Renderer::SetSamplerState(int stage, int texindex)
+void Renderer::SetSamplerState(int stage, int texindex, bool custom_tex)
 {
 	const FourTexUnits &tex = bpmem.tex[texindex];
 	const TexMode0 &tm0 = tex.texMode0[stage];
@@ -1179,6 +1214,12 @@ void Renderer::SetSamplerState(int stage, int texindex)
 	gx_state.sampler[stage].max_lod = (u32)tm1.max_lod;
 	gx_state.sampler[stage].min_lod = (u32)tm1.min_lod;
 	gx_state.sampler[stage].lod_bias = (s32)tm0.lod_bias;
+
+	// custom textures may have higher resolution, so disable the max_lod
+	if (custom_tex)
+	{
+		gx_state.sampler[stage].max_lod = 255;
+	}
 }
 
 void Renderer::SetInterlacingMode()

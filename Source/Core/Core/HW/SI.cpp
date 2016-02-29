@@ -1,12 +1,14 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
+#include <array>
+#include <cstring>
+#include <memory>
 
 #include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
-
 #include "Core/ConfigManager.h"
 #include "Core/CoreTiming.h"
 #include "Core/Movie.h"
@@ -15,16 +17,16 @@
 #include "Core/HW/ProcessorInterface.h"
 #include "Core/HW/SI.h"
 #include "Core/HW/SI_DeviceGBA.h"
-#include "Core/HW/SystemTimers.h"
-#include "Core/HW/VideoInterface.h"
 
+#include "InputCommon/ControllerInterface/ControllerInterface.h"
 
 namespace SerialInterface
 {
 
 static int changeDevice;
+static int et_transfer_pending;
 
-void RunSIBuffer();
+void RunSIBuffer(u64 userdata, int cyclesLate);
 void UpdateInterrupts();
 
 // SI Interrupt Types
@@ -103,7 +105,7 @@ struct SSIChannel
 	USIChannelOut   m_Out;
 	USIChannelIn_Hi m_InHi;
 	USIChannelIn_Lo m_InLo;
-	ISIDevice*      m_pDevice;
+	std::unique_ptr<ISIDevice> m_device;
 };
 
 // SI Poll: Controls how often a device is polled
@@ -205,7 +207,7 @@ union USIEXIClockCount
 };
 
 // STATE_TO_SAVE
-static SSIChannel       g_Channel[MAX_SI_CHANNELS];
+static std::array<SSIChannel, MAX_SI_CHANNELS> g_Channel;
 static USIPoll          g_Poll;
 static USIComCSR        g_ComCSR;
 static USIStatusReg     g_StatusReg;
@@ -220,26 +222,27 @@ void DoState(PointerWrap &p)
 		p.Do(g_Channel[i].m_InLo.Hex);
 		p.Do(g_Channel[i].m_Out.Hex);
 
-		ISIDevice* pDevice = g_Channel[i].m_pDevice;
-		SIDevices type = pDevice->GetDeviceType();
+		std::unique_ptr<ISIDevice>& device = g_Channel[i].m_device;
+		SIDevices type = device->GetDeviceType();
 		p.Do(type);
-		ISIDevice* pSaveDevice = (type == pDevice->GetDeviceType()) ? pDevice : SIDevice_Create(type, i);
-		pSaveDevice->DoState(p);
-		if (pSaveDevice != pDevice)
+
+		if (type == device->GetDeviceType())
 		{
-			// if we had to create a temporary device, discard it if we're not loading.
-			// also, if no movie is active, we'll assume the user wants to keep their current devices
+			device->DoState(p);
+		}
+		else
+		{
+			// If no movie is active, we'll assume the user wants to keep their current devices
 			// instead of the ones they had when the savestate was created.
-			if (p.GetMode() != PointerWrap::MODE_READ || !Movie::IsMovieActive())
-			{
-				delete pSaveDevice;
-			}
-			else
-			{
-				AddDevice(pSaveDevice);
-			}
+			if (!Movie::IsMovieActive())
+				return;
+
+			std::unique_ptr<ISIDevice> save_device = SIDevice_Create(type, i);
+			save_device->DoState(p);
+			AddDevice(std::move(save_device));
 		}
 	}
+
 	p.Do(g_Poll);
 	p.DoPOD(g_ComCSR);
 	p.DoPOD(g_StatusReg);
@@ -274,6 +277,7 @@ void Init()
 	memset(g_SIBuffer, 0, 128);
 
 	changeDevice = CoreTiming::RegisterEvent("ChangeSIDevice", ChangeDeviceCallback);
+	et_transfer_pending = CoreTiming::RegisterEvent("SITransferPending", RunSIBuffer);
 }
 
 void Shutdown()
@@ -346,8 +350,18 @@ void RegisterMMIO(MMIO::Mapping* mmio, u32 base)
 			if (tmpComCSR.TCINT)   g_ComCSR.TCINT = 0;
 
 			// be careful: run si-buffer after updating the INT flags
-			if (tmpComCSR.TSTART)  RunSIBuffer();
-			UpdateInterrupts();
+			if (tmpComCSR.TSTART)
+			{
+				g_ComCSR.TSTART = 1;
+				RunSIBuffer(0, 0);
+			}
+			else if (g_ComCSR.TSTART)
+			{
+				CoreTiming::RemoveEvent(et_transfer_pending);
+			}
+
+			if (!g_ComCSR.TSTART)
+				UpdateInterrupts();
 		})
 	);
 
@@ -380,10 +394,10 @@ void RegisterMMIO(MMIO::Mapping* mmio, u32 base)
 			// send command to devices
 			if (tmpStatus.WR)
 			{
-				g_Channel[0].m_pDevice->SendCommand(g_Channel[0].m_Out.Hex, g_Poll.EN0);
-				g_Channel[1].m_pDevice->SendCommand(g_Channel[1].m_Out.Hex, g_Poll.EN1);
-				g_Channel[2].m_pDevice->SendCommand(g_Channel[2].m_Out.Hex, g_Poll.EN2);
-				g_Channel[3].m_pDevice->SendCommand(g_Channel[3].m_Out.Hex, g_Poll.EN3);
+				g_Channel[0].m_device->SendCommand(g_Channel[0].m_Out.Hex, g_Poll.EN0);
+				g_Channel[1].m_device->SendCommand(g_Channel[1].m_Out.Hex, g_Poll.EN1);
+				g_Channel[2].m_device->SendCommand(g_Channel[2].m_Out.Hex, g_Poll.EN2);
+				g_Channel[3].m_device->SendCommand(g_Channel[3].m_Out.Hex, g_Poll.EN3);
 
 				g_StatusReg.WR = 0;
 				g_StatusReg.WRST0 = 0;
@@ -432,29 +446,25 @@ void GenerateSIInterrupt(SIInterruptType _SIInterrupt)
 	UpdateInterrupts();
 }
 
-void RemoveDevice(int _iDeviceNumber)
+void RemoveDevice(int device_number)
 {
-	delete g_Channel[_iDeviceNumber].m_pDevice;
-	g_Channel[_iDeviceNumber].m_pDevice = nullptr;
+	g_Channel.at(device_number).m_device.reset();
 }
 
-void AddDevice(ISIDevice* pDevice)
+void AddDevice(std::unique_ptr<ISIDevice> device)
 {
-	int _iDeviceNumber = pDevice->GetDeviceNumber();
+	int device_number = device->GetDeviceNumber();
 
-	//_dbg_assert_(SERIALINTERFACE, _iDeviceNumber < MAX_SI_CHANNELS);
+	// Delete the old device
+	RemoveDevice(device_number);
 
-	// delete the old device
-	RemoveDevice(_iDeviceNumber);
-
-	// create the new one
-	g_Channel[_iDeviceNumber].m_pDevice = pDevice;
+	// Set the new one
+	g_Channel.at(device_number).m_device = std::move(device);
 }
 
-void AddDevice(const SIDevices _device, int _iDeviceNumber)
+void AddDevice(const SIDevices device, int device_number)
 {
-	ISIDevice *pDevice = SIDevice_Create(_device, _iDeviceNumber);
-	AddDevice(pDevice);
+	AddDevice(SIDevice_Create(device, device_number));
 }
 
 static void SetNoResponse(u32 channel)
@@ -492,6 +502,7 @@ void ChangeDevice(SIDevices device, int channel)
 {
 	// Called from GUI, so we need to make it thread safe.
 	// Let the hardware see no device for .5b cycles
+	// TODO: Calling GetDeviceType here isn't threadsafe.
 	if (GetDeviceType(channel) != device)
 	{
 		CoreTiming::ScheduleEvent_Threadsafe(0, changeDevice, ((u64)channel << 32) | SIDEVICE_NONE);
@@ -501,11 +512,15 @@ void ChangeDevice(SIDevices device, int channel)
 
 void UpdateDevices()
 {
+	// Update inputs at the rate of SI
+	// Typically 120hz but is variable
+	g_controller_interface.UpdateInput();
+
 	// Update channels and set the status bit if there's new data
-	g_StatusReg.RDST0 = !!g_Channel[0].m_pDevice->GetData(g_Channel[0].m_InHi.Hex, g_Channel[0].m_InLo.Hex);
-	g_StatusReg.RDST1 = !!g_Channel[1].m_pDevice->GetData(g_Channel[1].m_InHi.Hex, g_Channel[1].m_InLo.Hex);
-	g_StatusReg.RDST2 = !!g_Channel[2].m_pDevice->GetData(g_Channel[2].m_InHi.Hex, g_Channel[2].m_InLo.Hex);
-	g_StatusReg.RDST3 = !!g_Channel[3].m_pDevice->GetData(g_Channel[3].m_InHi.Hex, g_Channel[3].m_InLo.Hex);
+	g_StatusReg.RDST0 = !!g_Channel[0].m_device->GetData(g_Channel[0].m_InHi.Hex, g_Channel[0].m_InLo.Hex);
+	g_StatusReg.RDST1 = !!g_Channel[1].m_device->GetData(g_Channel[1].m_InHi.Hex, g_Channel[1].m_InLo.Hex);
+	g_StatusReg.RDST2 = !!g_Channel[2].m_device->GetData(g_Channel[2].m_InHi.Hex, g_Channel[2].m_InLo.Hex);
+	g_StatusReg.RDST3 = !!g_Channel[3].m_device->GetData(g_Channel[3].m_InHi.Hex, g_Channel[3].m_InLo.Hex);
 
 	UpdateInterrupts();
 }
@@ -514,54 +529,48 @@ SIDevices GetDeviceType(int channel)
 {
 	if (channel < 0 || channel > 3)
 		return SIDEVICE_NONE;
-	else
-		return g_Channel[channel].m_pDevice->GetDeviceType();
+
+	return g_Channel[channel].m_device->GetDeviceType();
 }
 
-void RunSIBuffer()
+void RunSIBuffer(u64 userdata, int cyclesLate)
 {
-	// Math inLength
-	int inLength = g_ComCSR.INLNGTH;
-	if (inLength == 0)
-		inLength = 128;
-	else
-		inLength++;
-
-	// Math outLength
-	int outLength = g_ComCSR.OUTLNGTH;
-	if (outLength == 0)
-		outLength = 128;
-	else
-		outLength++;
-
-	int numOutput = g_Channel[g_ComCSR.CHANNEL].m_pDevice->RunBuffer(g_SIBuffer, inLength);
-
-	DEBUG_LOG(SERIALINTERFACE, "RunSIBuffer     (intLen: %i    outLen: %i) (processed: %i)", inLength, outLength, numOutput);
-
-	// Transfer completed
-	GenerateSIInterrupt(INT_TCINT);
-	g_ComCSR.TSTART = 0;
-}
-
-int GetTicksToNextSIPoll()
-{
-	// Poll for input at regular intervals (once per frame) when playing or recording a movie
-	if (Movie::IsMovieActive())
+	if (g_ComCSR.TSTART)
 	{
-		if (Movie::IsNetPlayRecording())
-			return SystemTimers::GetTicksPerSecond() / VideoInterface::TargetRefreshRate / 2;
+		// Math inLength
+		int inLength = g_ComCSR.INLNGTH;
+		if (inLength == 0)
+			inLength = 128;
 		else
-			return SystemTimers::GetTicksPerSecond() / VideoInterface::TargetRefreshRate;
+			inLength++;
+
+		// Math outLength
+		int outLength = g_ComCSR.OUTLNGTH;
+		if (outLength == 0)
+			outLength = 128;
+		else
+			outLength++;
+
+		std::unique_ptr<ISIDevice>& device = g_Channel[g_ComCSR.CHANNEL].m_device;
+		int numOutput = device->RunBuffer(g_SIBuffer, inLength);
+
+		DEBUG_LOG(SERIALINTERFACE, "RunSIBuffer  chan: %d  inLen: %i  outLen: %i  processed: %i", g_ComCSR.CHANNEL, inLength, outLength, numOutput);
+
+		if (numOutput != 0)
+		{
+			g_ComCSR.TSTART = 0;
+			GenerateSIInterrupt(INT_TCINT);
+		}
+		else
+		{
+			CoreTiming::ScheduleEvent(device->TransferInterval() - cyclesLate, et_transfer_pending);
+		}
 	}
-	if (NetPlay::IsNetPlayRunning())
-		return SystemTimers::GetTicksPerSecond() / VideoInterface::TargetRefreshRate / 2;
+}
 
-	if (!g_Poll.Y && g_Poll.X)
-		return VideoInterface::GetTicksPerLine() * g_Poll.X;
-	else if (!g_Poll.Y)
-		return SystemTimers::GetTicksPerSecond() / 60;
-
-	return std::min(VideoInterface::GetTicksPerFrame() / g_Poll.Y, VideoInterface::GetTicksPerLine() * g_Poll.X);
+u32 GetPollXLines()
+{
+	return g_Poll.X;
 }
 
 } // end of namespace SerialInterface

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -11,7 +11,9 @@
 #include <string>
 #include <vector>
 
-#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+
+std::string StringFromFormatV(const char* format, va_list args);
 
 std::string StringFromFormat(const char* format, ...)
 #if !defined _WIN32
@@ -34,10 +36,10 @@ inline void CharArrayFromFormat(char (& out)[Count], const char* format, ...)
 }
 
 // Good
-std::string ArrayToString(const u8 *data, u32 size, int line_len = 20, bool spaces = true);
+std::string ArrayToString(const u8* data, u32 size, int line_len = 20, bool spaces = true);
 
-std::string StripSpaces(const std::string &s);
-std::string StripQuotes(const std::string &s);
+std::string StripSpaces(const std::string& s);
+std::string StripQuotes(const std::string& s);
 
 // Thousand separator. Turns 12345678 into 12,345,678
 template <typename I>
@@ -57,11 +59,11 @@ std::string ThousandSeparate(I value, int spaces = 0)
 std::string StringFromInt(int value);
 std::string StringFromBool(bool value);
 
-bool TryParse(const std::string &str, bool *output);
-bool TryParse(const std::string &str, u32 *output);
+bool TryParse(const std::string& str, bool* output);
+bool TryParse(const std::string& str, u32* output);
 
 template <typename N>
-static bool TryParse(const std::string &str, N *const output)
+static bool TryParse(const std::string& str, N* const output)
 {
 	std::istringstream iss(str);
 	// is this right? not doing this breaks reading floats on locales that use different decimal separators
@@ -97,7 +99,7 @@ bool TryParseVector(const std::string& str, std::vector<N>* output, const char d
 // TODO: kill this
 bool AsciiToHex(const std::string& _szValue, u32& result);
 
-std::string TabsToSpaces(int tab_size, const std::string &in);
+std::string TabsToSpaces(int tab_size, const std::string& in);
 
 void SplitString(const std::string& str, char delim, std::vector<std::string>& output);
 

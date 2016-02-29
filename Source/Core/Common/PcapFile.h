@@ -1,5 +1,5 @@
 // Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 // PCAP is a standard file format for network capture files. This also extends
@@ -18,6 +18,7 @@
 
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
+#include "Common/NonCopyable.h"
 
 class PCAP final : public NonCopyable
 {

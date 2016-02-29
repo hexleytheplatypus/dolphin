@@ -1,14 +1,22 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include <map>
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "Core/IPC_HLE/WII_IPC_HLE_Device.h"
-#include "DiscIO/NANDContentLoader.h"
+
+class PointerWrap;
+namespace DiscIO
+{
+	class CNANDContentLoader;
+	struct SNANDContent;
+}
 
 class CWII_IPC_HLE_Device_es : public IWII_IPC_HLE_Device
 {
@@ -22,14 +30,14 @@ public:
 
 	void OpenInternal();
 
-	virtual void DoState(PointerWrap& p) override;
+	void DoState(PointerWrap& p) override;
 
-	virtual IPCCommandResult Open(u32 _CommandAddress, u32 _Mode) override;
-	virtual IPCCommandResult Close(u32 _CommandAddress, bool _bForce) override;
+	IPCCommandResult Open(u32 _CommandAddress, u32 _Mode) override;
+	IPCCommandResult Close(u32 _CommandAddress, bool _bForce) override;
 
-	virtual IPCCommandResult IOCtlV(u32 _CommandAddress) override;
+	IPCCommandResult IOCtlV(u32 _CommandAddress) override;
 
-	static u32 ES_DIVerify(u8 *_pTMD, u32 _sz);
+	static u32 ES_DIVerify(const std::vector<u8>& tmd);
 
 	// This should only be cleared on power reset
 	static std::string m_ContentFile;
@@ -125,10 +133,10 @@ private:
 	typedef std::map<u32, SContentAccess> CContentAccessMap;
 	CContentAccessMap m_ContentAccessMap;
 
-	typedef std::map<u64, const DiscIO::INANDContentLoader*> CTitleToContentMap;
+	typedef std::map<u64, const DiscIO::CNANDContentLoader*> CTitleToContentMap;
 	CTitleToContentMap m_NANDContent;
 
-	const DiscIO::INANDContentLoader* m_pContentLoader;
+	const DiscIO::CNANDContentLoader* m_pContentLoader;
 
 	std::vector<u64> m_TitleIDs;
 	u64 m_TitleID;
@@ -136,9 +144,7 @@ private:
 
 	static u8 *keyTable[11];
 
-	u64 GetCurrentTitleID() const;
-
-	const DiscIO::INANDContentLoader& AccessContentDevice(u64 _TitleID);
+	const DiscIO::CNANDContentLoader& AccessContentDevice(u64 _TitleID);
 	u32 OpenTitleContent(u32 CFD, u64 TitleID, u16 Index);
 
 	bool IsValid(u64 _TitleID) const;

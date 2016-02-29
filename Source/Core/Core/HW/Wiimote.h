@@ -1,11 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "Common/ChunkFile.h"
-#include "InputCommon/InputConfig.h"
+#include "Common/Common.h"
+
+class InputConfig;
+class PointerWrap;
 
 enum
 {
@@ -36,17 +38,19 @@ namespace Wiimote
 
 void Shutdown();
 void Initialize(void* const hwnd, bool wait = false);
+void ResetAllWiimotes();
+void LoadConfig();
 void Resume();
 void Pause();
 
 unsigned int GetAttached();
-void DoState(u8 **ptr, PointerWrap::Mode mode);
+void DoState(PointerWrap& p);
 void EmuStateChange(EMUSTATE_CHANGE newState);
 InputConfig* GetConfig();
 
 void ControlChannel(int _number, u16 _channelID, const void* _pData, u32 _Size);
 void InterruptChannel(int _number, u16 _channelID, const void* _pData, u32 _Size);
-void Update(int _number);
+void Update(int _number, bool _connected);
 
 }
 

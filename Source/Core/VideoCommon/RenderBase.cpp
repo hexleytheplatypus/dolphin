@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 // ---------------------------------------------------------------------------------------------
@@ -14,9 +14,13 @@
 
 #include <cinttypes>
 #include <cmath>
+#include <memory>
+#include <mutex>
 #include <string>
 
-#include "Common/Atomic.h"
+#include "Common/CommonTypes.h"
+#include "Common/Event.h"
+#include "Common/Flag.h"
 #include "Common/Profiler.h"
 #include "Common/StringUtil.h"
 #include "Common/Timer.h"
@@ -26,17 +30,16 @@
 #include "Core/Host.h"
 #include "Core/Movie.h"
 #include "Core/FifoPlayer/FifoRecorder.h"
+#include "Core/HW/VideoInterface.h"
 
 #include "VideoCommon/AVIDump.h"
 #include "VideoCommon/BPMemory.h"
 #include "VideoCommon/CommandProcessor.h"
 #include "VideoCommon/CPMemory.h"
 #include "VideoCommon/Debugger.h"
-#include "VideoCommon/Fifo.h"
 #include "VideoCommon/FPSCounter.h"
 #include "VideoCommon/FramebufferManagerBase.h"
-#include "VideoCommon/MainBase.h"
-#include "VideoCommon/OpcodeDecoding.h"
+#include "VideoCommon/PostProcessing.h"
 #include "VideoCommon/RenderBase.h"
 #include "VideoCommon/Statistics.h"
 #include "VideoCommon/TextureCacheBase.h"
@@ -48,12 +51,18 @@ int frameCount;
 int OSDChoice;
 static int OSDTime;
 
-Renderer *g_renderer = nullptr;
+std::unique_ptr<Renderer> g_renderer;
 
 std::mutex Renderer::s_criticalScreenshot;
 std::string Renderer::s_sScreenshotName;
 
+Common::Event Renderer::s_screenshotCompleted;
+
 volatile bool Renderer::s_bScreenshot;
+
+// Final surface changing
+Common::Flag  Renderer::s_SurfaceNeedsChanged;
+Common::Event Renderer::s_ChangedSurface;
 
 // The framebuffer size
 int Renderer::s_target_width;
@@ -63,7 +72,7 @@ int Renderer::s_target_height;
 int Renderer::s_backbuffer_width;
 int Renderer::s_backbuffer_height;
 
-PostProcessingShaderImplementation* Renderer::m_post_processor;
+std::unique_ptr<PostProcessingShaderImplementation> Renderer::m_post_processor;
 
 TargetRectangle Renderer::target_rc;
 
@@ -77,13 +86,14 @@ unsigned int Renderer::efb_scale_numeratorY = 1;
 unsigned int Renderer::efb_scale_denominatorX = 1;
 unsigned int Renderer::efb_scale_denominatorY = 1;
 
+static float AspectToWidescreen(float aspect) { return aspect * ((16.0f / 9.0f) / (4.0f / 3.0f)); }
 
 Renderer::Renderer()
 	: frame_data()
 	, bLastFrameDumped(false)
 {
 	UpdateActiveConfig();
-	TextureCache::OnConfigChanged(g_ActiveConfig);
+	TextureCacheBase::OnConfigChanged(g_ActiveConfig);
 
 #if defined _WIN32 || defined HAVE_LIBAV
 	bAVIDumping = false;
@@ -99,35 +109,29 @@ Renderer::~Renderer()
 	prev_efb_format = PEControl::INVALID_FMT;
 
 	efb_scale_numeratorX = efb_scale_numeratorY = efb_scale_denominatorX = efb_scale_denominatorY = 1;
-
 #if defined _WIN32 || defined HAVE_LIBAV
 	if (SConfig::GetInstance().m_DumpFrames && bLastFrameDumped && bAVIDumping)
 		AVIDump::Stop();
-#else
-	if (pFrameDump.IsOpen())
-		pFrameDump.Close();
 #endif
 }
 
-void Renderer::RenderToXFB(u32 xfbAddr, const EFBRectangle& sourceRc, u32 fbWidth, u32 fbHeight, float Gamma)
+void Renderer::RenderToXFB(u32 xfbAddr, const EFBRectangle& sourceRc, u32 fbStride, u32 fbHeight, float Gamma)
 {
 	CheckFifoRecording();
 
-	if (!fbWidth || !fbHeight)
+	if (!fbStride || !fbHeight)
 		return;
 
-	VideoFifo_CheckEFBAccess();
-	VideoFifo_CheckSwapRequestAt(xfbAddr, fbWidth, fbHeight);
 	XFBWrited = true;
 
 	if (g_ActiveConfig.bUseXFB)
 	{
-		FramebufferManagerBase::CopyToXFB(xfbAddr, fbWidth, fbHeight, sourceRc,Gamma);
+		FramebufferManagerBase::CopyToXFB(xfbAddr, fbStride, fbHeight, sourceRc, Gamma);
 	}
 	else
 	{
-		Swap(xfbAddr, fbWidth, fbWidth, fbHeight, sourceRc, Gamma);
-		s_swapRequested.Clear();
+		// below div two to convert from bytes to pixels - it expects width, not stride
+		Swap(xfbAddr, fbStride/2, fbStride/2, fbHeight, sourceRc, Gamma);
 	}
 }
 
@@ -214,8 +218,6 @@ bool Renderer::CalculateTargetSize(unsigned int framebuffer_width, unsigned int 
 			efb_scale_denominatorX = efb_scale_denominatorY = 2;
 			break;
 
-		case SCALE_3X:
-		case SCALE_4X:
 		default:
 			efb_scale_numeratorX = efb_scale_numeratorY = s_last_efb_scale - 3;
 			efb_scale_denominatorX = efb_scale_denominatorY = 1;
@@ -293,9 +295,8 @@ void Renderer::DrawDebugText()
 
 	if (g_ActiveConfig.bShowFPS || SConfig::GetInstance().m_ShowFrameCount)
 	{
-		std::string fps = "";
 		if (g_ActiveConfig.bShowFPS)
-			final_cyan += StringFromFormat("FPS: %d", g_renderer->m_fps_counter.m_fps);
+			final_cyan += StringFromFormat("FPS: %u", g_renderer->m_fps_counter.GetFPS());
 
 		if (g_ActiveConfig.bShowFPS && SConfig::GetInstance().m_ShowFrameCount)
 			final_cyan += " - ";
@@ -331,8 +332,7 @@ void Renderer::DrawDebugText()
 
 	if ((u32)OSDTime > Common::Timer::GetTimeMs())
 	{
-
-		const char* res_text = "";
+		std::string res_text;
 		switch (g_ActiveConfig.iEFBScale)
 		{
 		case SCALE_AUTO:
@@ -353,33 +353,27 @@ void Renderer::DrawDebugText()
 		case SCALE_2_5X:
 			res_text = "2.5x";
 			break;
-		case SCALE_3X:
-			res_text = "3x";
-			break;
-		case SCALE_4X:
-			res_text = "4x";
+		default:
+			res_text = StringFromFormat("%dx", g_ActiveConfig.iEFBScale - 3);
 			break;
 		}
-
 		const char* ar_text = "";
 		switch (g_ActiveConfig.iAspectRatio)
 		{
 		case ASPECT_AUTO:
 			ar_text = "Auto";
 			break;
-		case ASPECT_FORCE_16_9:
-			ar_text = "16:9";
-			break;
-		case ASPECT_FORCE_4_3:
-			ar_text = "4:3";
-			break;
 		case ASPECT_STRETCH:
 			ar_text = "Stretch";
 			break;
+		case ASPECT_ANALOG:
+			ar_text = "Force 4:3";
+			break;
+		case ASPECT_ANALOG_WIDE:
+			ar_text = "Force 16:9";
 		}
 
-		const char* const efbcopy_text = g_ActiveConfig.bEFBCopyEnable ?
-			(g_ActiveConfig.bCopyEFBToTexture ? "to Texture" : "to RAM") : "Disabled";
+		const char* const efbcopy_text = g_ActiveConfig.bSkipEFBCopyToRam ? "to Texture" : "to RAM";
 
 		// The rows
 		const std::string lines[] =
@@ -388,9 +382,11 @@ void Renderer::DrawDebugText()
 			std::string("Aspect Ratio: ") + ar_text + (g_ActiveConfig.bCrop ? " (crop)" : ""),
 			std::string("Copy EFB: ") + efbcopy_text,
 			std::string("Fog: ") + (g_ActiveConfig.bDisableFog ? "Disabled" : "Enabled"),
+			SConfig::GetInstance().m_EmulationSpeed <= 0 ? "Speed Limit: Unlimited" :
+			StringFromFormat("Speed Limit: %li%%", std::lround(SConfig::GetInstance().m_EmulationSpeed * 100.f)),
 		};
 
-		enum { lines_count = sizeof(lines)/sizeof(*lines) };
+		enum { lines_count = sizeof(lines) / sizeof(*lines) };
 
 		// The latest changed setting in yellow
 		for (int i = 0; i != lines_count; ++i)
@@ -409,7 +405,7 @@ void Renderer::DrawDebugText()
 		}
 	}
 
-	final_cyan += Profiler::ToString();
+	final_cyan += Common::Profiler::ToString();
 
 	if (g_ActiveConfig.bOverlayStats)
 		final_cyan += Statistics::ToString();
@@ -433,41 +429,39 @@ void Renderer::UpdateDrawRectangle(int backbuffer_width, int backbuffer_height)
 	const float WinWidth = FloatGLWidth;
 	const float WinHeight = FloatGLHeight;
 
-	// Handle aspect ratio.
-	// Default to auto.
-	bool use16_9 = g_aspect_wide;
-
 	// Update aspect ratio hack values
 	// Won't take effect until next frame
 	// Don't know if there is a better place for this code so there isn't a 1 frame delay
-	if ( g_ActiveConfig.bWidescreenHack )
+	if (g_ActiveConfig.bWidescreenHack)
 	{
-		float source_aspect = use16_9 ? (16.0f / 9.0f) : (4.0f / 3.0f);
+		float source_aspect = VideoInterface::GetAspectRatio();
+		if (Core::g_aspect_wide)
+			source_aspect = AspectToWidescreen(source_aspect);
 		float target_aspect;
 
-		switch ( g_ActiveConfig.iAspectRatio )
+		switch (g_ActiveConfig.iAspectRatio)
 		{
-		case ASPECT_FORCE_16_9 :
-			target_aspect = 16.0f / 9.0f;
-			break;
-		case ASPECT_FORCE_4_3 :
-			target_aspect = 4.0f / 3.0f;
-			break;
-		case ASPECT_STRETCH :
+		case ASPECT_STRETCH:
 			target_aspect = WinWidth / WinHeight;
 			break;
-		default :
-			// ASPECT_AUTO == no hacking
+		case ASPECT_ANALOG:
+			target_aspect = VideoInterface::GetAspectRatio();
+			break;
+		case ASPECT_ANALOG_WIDE:
+			target_aspect = AspectToWidescreen(VideoInterface::GetAspectRatio());
+			break;
+		default:
+			// ASPECT_AUTO
 			target_aspect = source_aspect;
 			break;
 		}
 
 		float adjust = source_aspect / target_aspect;
-		if ( adjust > 1 )
+		if (adjust > 1)
 		{
 			// Vert+
 			g_Config.fAspectRatioHackW = 1;
-			g_Config.fAspectRatioHackH = 1/adjust;
+			g_Config.fAspectRatioHackH = 1 / adjust;
 		}
 		else
 		{
@@ -484,16 +478,20 @@ void Renderer::UpdateDrawRectangle(int backbuffer_width, int backbuffer_height)
 	}
 
 	// Check for force-settings and override.
-	if (g_ActiveConfig.iAspectRatio == ASPECT_FORCE_16_9)
-		use16_9 = true;
-	else if (g_ActiveConfig.iAspectRatio == ASPECT_FORCE_4_3)
-		use16_9 = false;
+
+	// The rendering window aspect ratio as a proportion of the 4:3 or 16:9 ratio
+	float Ratio;
+	if (g_ActiveConfig.iAspectRatio == ASPECT_ANALOG_WIDE || (g_ActiveConfig.iAspectRatio != ASPECT_ANALOG && Core::g_aspect_wide))
+	{
+		Ratio = (WinWidth / WinHeight) / AspectToWidescreen(VideoInterface::GetAspectRatio());
+	}
+	else
+	{
+		Ratio = (WinWidth / WinHeight) / VideoInterface::GetAspectRatio();
+	}
 
 	if (g_ActiveConfig.iAspectRatio != ASPECT_STRETCH)
 	{
-		// The rendering window aspect ratio as a proportion of the 4:3 or 16:9 ratio
-		float Ratio = (WinWidth / WinHeight) / (!use16_9 ? (4.0f / 3.0f) : (16.0f / 9.0f));
-		// Check if height or width is the limiting factor. If ratio > 1 the picture is too wide and have to limit the width.
 		if (Ratio > 1.0f)
 		{
 			// Scale down and center in the X direction.
@@ -510,12 +508,16 @@ void Renderer::UpdateDrawRectangle(int backbuffer_width, int backbuffer_height)
 	}
 
 	// -----------------------------------------------------------------------
-	// Crop the picture from 4:3 to 5:4 or from 16:9 to 16:10.
+	// Crop the picture from Analog to 4:3 or from Analog (Wide) to 16:9.
 	// Output: FloatGLWidth, FloatGLHeight, FloatXOffset, FloatYOffset
 	// ------------------
 	if (g_ActiveConfig.iAspectRatio != ASPECT_STRETCH && g_ActiveConfig.bCrop)
 	{
-		float Ratio = !use16_9 ? ((4.0f / 3.0f) / (5.0f / 4.0f)) : (((16.0f / 9.0f) / (16.0f / 10.0f)));
+		Ratio = (4.0f / 3.0f) / VideoInterface::GetAspectRatio();
+		if (Ratio <= 1.0f)
+		{
+			Ratio = 1.0f / Ratio;
+		}
 		// The width and height we will add (calculate this before FloatGLWidth and FloatGLHeight is adjusted)
 		float IncreasedWidth = (Ratio - 1.0f) * FloatGLWidth;
 		float IncreasedHeight = (Ratio - 1.0f) * FloatGLHeight;
@@ -604,3 +606,16 @@ void Renderer::Swap(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, const 
 	Core::Callback_VideoCopiedToXFB(XFBWrited || (g_ActiveConfig.bUseXFB && g_ActiveConfig.bUseRealXFB));
 	XFBWrited = false;
 }
+
+void Renderer::FlipImageData(u8* data, int w, int h, int pixel_width)
+{
+	for (int y = 0; y < h / 2; ++y)
+	{
+		for (int x = 0; x < w; ++x)
+		{
+			for (int delta = 0; delta < pixel_width; ++delta)
+				std::swap(data[(y * w + x) * pixel_width + delta], data[((h - 1 - y) * w + x) * pixel_width + delta]);
+		}
+	}
+}
+

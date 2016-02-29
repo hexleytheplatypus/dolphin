@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
@@ -14,15 +14,26 @@
 #include <string>
 #include <vector>
 
+#include "Common/CommonFuncs.h"
 #include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 
 #ifdef _WIN32
 	#include <Windows.h>
 #else
 	#include <iconv.h>
+	#include <locale.h>
 	#include <errno.h>
+#endif
+
+#if !defined(_WIN32) && !defined(ANDROID)
+static locale_t GetCLocale()
+{
+	static locale_t c_locale = newlocale(LC_ALL_MASK, "C", nullptr);
+	return c_locale;
+}
 #endif
 
 // faster than sscanf
@@ -31,7 +42,7 @@ bool AsciiToHex(const std::string& _szValue, u32& result)
 	// Set errno to a good state.
 	errno = 0;
 
-	char *endptr = nullptr;
+	char* endptr = nullptr;
 	const u32 value = strtoul(_szValue.c_str(), &endptr, 16);
 
 	if (!endptr || *endptr)
@@ -71,13 +82,19 @@ bool CharArrayFromFormatV(char* out, int outsize, const char* format, va_list ar
 	// multibyte handling is required as we can simply assume that no '%' char
 	// will be present in the middle of a multibyte sequence.
 	//
-	// This is why we lookup an ANSI (cp1252) locale here and use _vsnprintf_l.
+	// This is why we look up the default C locale here and use _vsnprintf_l.
 	static _locale_t c_locale = nullptr;
 	if (!c_locale)
-		c_locale = _create_locale(LC_ALL, ".1252");
+		c_locale = _create_locale(LC_ALL, "C");
 	writtenCount = _vsnprintf_l(out, outsize, format, c_locale, args);
 #else
+	#if !defined(ANDROID)
+	locale_t previousLocale = uselocale(GetCLocale());
+	#endif
 	writtenCount = vsnprintf(out, outsize, format, args);
+	#if !defined(ANDROID)
+	uselocale(previousLocale);
+	#endif
 #endif
 
 	if (writtenCount > 0 && writtenCount < outsize)
@@ -95,23 +112,31 @@ bool CharArrayFromFormatV(char* out, int outsize, const char* format, va_list ar
 std::string StringFromFormat(const char* format, ...)
 {
 	va_list args;
-	char *buf = nullptr;
-#ifdef _WIN32
-	int required = 0;
-
 	va_start(args, format);
-	required = _vscprintf(format, args);
+	std::string res = StringFromFormatV(format, args);
+	va_end(args);
+	return res;
+}
+
+std::string StringFromFormatV(const char* format, va_list args)
+{
+	char* buf = nullptr;
+#ifdef _WIN32
+	int required = _vscprintf(format, args);
 	buf = new char[required + 1];
 	CharArrayFromFormatV(buf, required + 1, format, args);
-	va_end(args);
 
 	std::string temp = buf;
 	delete[] buf;
 #else
-	va_start(args, format);
+	#if !defined(ANDROID)
+	locale_t previousLocale = uselocale(GetCLocale());
+	#endif
 	if (vasprintf(&buf, format, args) < 0)
 		ERROR_LOG(COMMON, "Unable to allocate memory for string");
-	va_end(args);
+	#if !defined(ANDROID)
+	uselocale(previousLocale);
+	#endif
 
 	std::string temp = buf;
 	free(buf);
@@ -120,7 +145,7 @@ std::string StringFromFormat(const char* format, ...)
 }
 
 // For Debugging. Read out an u8 array.
-std::string ArrayToString(const u8 *data, u32 size, int line_len, bool spaces)
+std::string ArrayToString(const u8* data, u32 size, int line_len, bool spaces)
 {
 	std::ostringstream oss;
 	oss << std::setfill('0') << std::hex;
@@ -142,7 +167,7 @@ std::string ArrayToString(const u8 *data, u32 size, int line_len, bool spaces)
 }
 
 // Turns "  hej " into "hej". Also handles tabs.
-std::string StripSpaces(const std::string &str)
+std::string StripSpaces(const std::string& str)
 {
 	const size_t s = str.find_first_not_of(" \t\r\n");
 
@@ -163,9 +188,9 @@ std::string StripQuotes(const std::string& s)
 		return s;
 }
 
-bool TryParse(const std::string &str, u32 *const output)
+bool TryParse(const std::string& str, u32* const output)
 {
-	char *endptr = nullptr;
+	char* endptr = nullptr;
 
 	// Reset errno to a value other than ERANGE
 	errno = 0;
@@ -188,7 +213,7 @@ bool TryParse(const std::string &str, u32 *const output)
 	return true;
 }
 
-bool TryParse(const std::string &str, bool *const output)
+bool TryParse(const std::string& str, bool* const output)
 {
 	if ("1" == str || !strcasecmp("true", str.c_str()))
 		*output = true;
@@ -267,7 +292,7 @@ void SplitString(const std::string& str, const char delim, std::vector<std::stri
 	output.pop_back();
 }
 
-std::string TabsToSpaces(int tab_size, const std::string &in)
+std::string TabsToSpaces(int tab_size, const std::string& in)
 {
 	const std::string spaces(tab_size, ' ');
 	std::string out(in);

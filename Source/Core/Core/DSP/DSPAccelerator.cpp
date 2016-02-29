@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Common/CommonTypes.h"
@@ -36,8 +36,7 @@ static s16 ADPCM_Step(u32& _rSamplePos)
 
 	// 0x400 = 0.5  in 11-bit fixed point
 	int val = (scale * temp) + ((0x400 + coef1 * (s16)g_dsp.ifx_regs[DSP_YN1] + coef2 * (s16)g_dsp.ifx_regs[DSP_YN2]) >> 11);
-
-	MathUtil::Clamp(&val, -0x7FFF, 0x7FFF);
+	val = MathUtil::Clamp(val, -0x7FFF, 0x7FFF);
 
 	g_dsp.ifx_regs[DSP_YN2] = g_dsp.ifx_regs[DSP_YN1];
 	g_dsp.ifx_regs[DSP_YN1] = val;
@@ -122,10 +121,18 @@ u16 dsp_read_accelerator()
 	switch (g_dsp.ifx_regs[DSP_FORMAT])
 	{
 		case 0x00:  // ADPCM audio
-			if ((EndAddress & 15) == 0)
+			switch (EndAddress & 15)
+			{
+			case 0: // Tom and Jerry
 				step_size_bytes = 1;
-			else
+				break;
+			case 1: // Blazing Angels
+				step_size_bytes = 0;
+				break;
+			default:
 				step_size_bytes = 2;
+				break;
+			}
 			val = ADPCM_Step(Address);
 			break;
 		case 0x0A:  // 16-bit PCM audio

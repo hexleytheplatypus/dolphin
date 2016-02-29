@@ -1,20 +1,23 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/ChunkFile.h"
+#include "Common/CommonFuncs.h"
+#include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
 #include "Common/MathUtil.h"
-
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
 #include "Core/HW/DSP.h"
 #include "Core/HW/DSPHLE/UCodes/AX.h"
+#include "Core/HW/DSPHLE/UCodes/AXStructs.h"
 
 #define AX_GC
 #include "Core/HW/DSPHLE/UCodes/AXVoice.h"
 
 AXUCode::AXUCode(DSPHLE* dsphle, u32 crc)
 	: UCodeInterface(dsphle, crc)
-	, m_work_available(false)
 	, m_cmdlist_size(0)
 {
 	WARN_LOG(DSPHLE, "Instantiating AXUCode: crc=%08x", crc);
@@ -40,7 +43,7 @@ void AXUCode::LoadResamplingCoefficients()
 
 	size_t fidx;
 	std::string filename;
-	for (fidx = 0; fidx < sizeof (filenames) / sizeof (filenames[0]); ++fidx)
+	for (fidx = 0; fidx < ArraySize(filenames); ++fidx)
 	{
 		filename = filenames[fidx];
 		if (!File::Exists(filename))
@@ -52,7 +55,7 @@ void AXUCode::LoadResamplingCoefficients()
 		break;
 	}
 
-	if (fidx >= sizeof (filenames) / sizeof (filenames[0]))
+	if (fidx >= ArraySize(filenames))
 		return;
 
 	WARN_LOG(DSPHLE, "Loading polyphase resampling coeffs from %s", filename.c_str());
@@ -403,8 +406,7 @@ void AXUCode::ProcessPBList(u32 pb_addr)
 			m_samples_auxB_surround
 		}};
 
-		if (!ReadPB(pb_addr, pb))
-			break;
+		ReadPB(pb_addr, pb);
 
 		u32 updates_addr = HILO_TO_32(pb.updates.data);
 		u16* updates = (u16*)HLEMemory_Get_Pointer(updates_addr);
@@ -417,7 +419,7 @@ void AXUCode::ProcessPBList(u32 pb_addr)
 			             m_coeffs_available ? m_coeffs : nullptr);
 
 			// Forward the buffers
-			for (u32 i = 0; i < sizeof (buffers.ptrs) / sizeof (buffers.ptrs[0]); ++i)
+			for (size_t i = 0; i < ArraySize(buffers.ptrs); ++i)
 				buffers.ptrs[i] += spms;
 		}
 
@@ -504,11 +506,8 @@ void AXUCode::OutputSamples(u32 lr_addr, u32 surround_addr)
 	// Output samples clamped to 16 bits and interlaced RLRLRLRLRL...
 	for (u32 i = 0; i < 5 * 32; ++i)
 	{
-		int left  = m_samples_left[i];
-		int right = m_samples_right[i];
-
-		MathUtil::Clamp(&left, -32767, 32767);
-		MathUtil::Clamp(&right, -32767, 32767);
+		int left  = MathUtil::Clamp(m_samples_left[i], -32767, 32767);
+		int right = MathUtil::Clamp(m_samples_right[i], -32767, 32767);
 
 		buffer[2 * i + 0] = Common::swap16(right);
 		buffer[2 * i + 1] = Common::swap16(left);
@@ -590,10 +589,10 @@ void AXUCode::SendAUXAndMix(u32 main_auxa_up, u32 auxb_s_up, u32 main_l_dl,
 	};
 
 	// Download and mix
-	for (u32 i = 0; i < sizeof (dl_buffers) / sizeof (dl_buffers[0]); ++i)
+	for (size_t i = 0; i < ArraySize(dl_buffers); ++i)
 	{
 		int* dl_src = (int*)HLEMemory_Get_Pointer(dl_addrs[i]);
-		for (u32 j = 0; j < 32 * 5; ++j)
+		for (size_t j = 0; j < 32 * 5; ++j)
 			dl_buffers[i][j] += (int)Common::swap32(*dl_src++);
 	}
 }
@@ -609,7 +608,9 @@ void AXUCode::HandleMail(u32 mail)
 	if (next_is_cmdlist)
 	{
 		CopyCmdList(mail, cmdlist_size);
-		m_work_available = true;
+		HandleCommandList();
+		m_cmdlist_size = 0;
+		SignalWorkEnd();
 	}
 	else if (m_upload_setup_in_progress)
 	{
@@ -650,7 +651,7 @@ void AXUCode::HandleMail(u32 mail)
 
 void AXUCode::CopyCmdList(u32 addr, u16 size)
 {
-	if (size >= (sizeof (m_cmdlist) / sizeof (u16)))
+	if (size >= ArraySize(m_cmdlist))
 	{
 		ERROR_LOG(DSPHLE, "Command list at %08x is too large: size=%d", addr, size);
 		return;
@@ -669,17 +670,6 @@ void AXUCode::Update()
 		m_mail_handler.PushMail(DSP_RESUME);
 		DSP::GenerateDSPInterruptFromDSPEmu(DSP::INT_DSP);
 	}
-	else if (m_work_available)
-	{
-		HandleCommandList();
-		m_cmdlist_size = 0;
-		SignalWorkEnd();
-	}
-}
-
-u32 AXUCode::GetUpdateMs()
-{
-	return 5;
 }
 
 void AXUCode::DoAXState(PointerWrap& p)

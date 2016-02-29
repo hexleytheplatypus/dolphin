@@ -1,5 +1,5 @@
 // Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -41,7 +41,7 @@ public:
 	public:
 		virtual std::string GetName() const = 0;
 		virtual ~Control() {}
-
+       
 		bool InputGateOn();
 
 		virtual Input* ToInput() { return nullptr; }
@@ -61,8 +61,8 @@ public:
 
 		virtual ControlState GetState() const = 0;
 
-		bool ShouldHaveInput();
-
+        virtual void SetState(ControlState state) = 0;
+        
 		ControlState GetGatedState()
 		{
 			if (InputGateOn())
@@ -119,6 +119,9 @@ protected:
 			: m_low(*low), m_high(*high)
 		{}
 
+        void SetState(ControlState state) override
+        {}
+        
 		ControlState GetState() const override
 		{
 			return (1 + m_high.GetState() - m_low.GetState()) / 2;

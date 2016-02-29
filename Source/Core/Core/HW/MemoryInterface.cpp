@@ -1,13 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
-
 #include "Core/HW/MemoryInterface.h"
 #include "Core/HW/MMIO.h"
-#include "Core/PowerPC/PowerPC.h"
 
 namespace MemoryInterface
 {

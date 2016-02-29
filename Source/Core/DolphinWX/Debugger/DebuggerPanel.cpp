@@ -1,28 +1,19 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cstddef>
 #include <string>
 #include <wx/button.h>
-#include <wx/chartype.h>
 #include <wx/choice.h>
-#include <wx/defs.h>
-#include <wx/event.h>
-#include <wx/gdicmn.h>
 #include <wx/msgdlg.h>
 #include <wx/panel.h>
 #include <wx/sizer.h>
-#include <wx/string.h>
 #include <wx/textctrl.h>
-#include <wx/translation.h>
-#include <wx/validate.h>
-#include <wx/windowid.h>
 
 #include "Common/FileUtil.h"
 #include "Common/IniFile.h"
 #include "Core/ConfigManager.h"
-#include "Core/CoreParameter.h"
 #include "DolphinWX/WxUtils.h"
 #include "DolphinWX/Debugger/DebuggerPanel.h"
 #include "VideoCommon/Debugger.h"
@@ -188,7 +179,6 @@ void GFXDebuggerPanel::CreateGUIControls()
 	m_pDumpList->Append(_("Statistics"));
 	m_pDumpList->SetSelection(0);
 
-	// Layout everything on m_MainPanel
 	wxBoxSizer *sMain = new wxBoxSizer(wxVERTICAL);
 
 	wxStaticBoxSizer* const pFlowCtrlBox = new wxStaticBoxSizer(wxVERTICAL, this, _("Flow Control"));
@@ -223,24 +213,24 @@ void GFXDebuggerPanel::CreateGUIControls()
 
 void GFXDebuggerPanel::OnPause()
 {
-	m_pButtonDump->Enable(true);
-	m_pDumpList->Enable(true);
-	m_pButtonUpdateScreen->Enable(true);
-	m_pButtonClearScreen->Enable(true);
-	m_pButtonClearTextureCache->Enable(true);
-	m_pButtonClearVertexShaderCache->Enable(true);
-	m_pButtonClearPixelShaderCache->Enable(true);
+	m_pButtonDump->Enable();
+	m_pDumpList->Enable();
+	m_pButtonUpdateScreen->Enable();
+	m_pButtonClearScreen->Enable();
+	m_pButtonClearTextureCache->Enable();
+	m_pButtonClearVertexShaderCache->Enable();
+	m_pButtonClearPixelShaderCache->Enable();
 }
 
 void GFXDebuggerPanel::OnContinue()
 {
-	m_pButtonDump->Enable(false);
-	m_pDumpList->Enable(false);
-	m_pButtonUpdateScreen->Enable(false);
-	m_pButtonClearScreen->Enable(false);
-	m_pButtonClearTextureCache->Enable(false);
-	m_pButtonClearVertexShaderCache->Enable(false);
-	m_pButtonClearPixelShaderCache->Enable(false);
+	m_pButtonDump->Disable();
+	m_pDumpList->Disable();
+	m_pButtonUpdateScreen->Disable();
+	m_pButtonClearScreen->Disable();
+	m_pButtonClearTextureCache->Disable();
+	m_pButtonClearVertexShaderCache->Disable();
+	m_pButtonClearPixelShaderCache->Disable();
 }
 
 
@@ -277,7 +267,7 @@ void GFXDebuggerPanel::OnPauseAtNextFrameButton(wxCommandEvent& event)
 void GFXDebuggerPanel::OnDumpButton(wxCommandEvent& event)
 {
 	std::string dump_path = File::GetUserPath(D_DUMP_IDX) + "Debug/" +
-		SConfig::GetInstance().m_LocalCoreStartupParameter.m_strUniqueID + "/";
+		SConfig::GetInstance().m_strUniqueID + "/";
 	if (!File::CreateFullPath(dump_path))
 		return;
 
@@ -347,7 +337,7 @@ void GFXDebuggerPanel::OnClearScreenButton(wxCommandEvent& event)
 
 void GFXDebuggerPanel::OnClearTextureCacheButton(wxCommandEvent& event)
 {
-	TextureCache::Invalidate();
+	TextureCacheBase::Invalidate();
 }
 
 void GFXDebuggerPanel::OnClearVertexShaderCacheButton(wxCommandEvent& event)

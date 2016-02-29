@@ -1,16 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
+#include <cstring>
 #include "Common/CommonFuncs.h"
-#include "Common/Hash.h"
-#if _M_SSE >= 0x402
 #include "Common/CPUDetect.h"
-#include <nmmintrin.h>
-#endif
+#include "Common/Hash.h"
+#include "Common/Intrinsics.h"
 
-static u64 (*ptrHashFunction)(const u8 *src, int len, u32 samples) = &GetMurmurHash3;
+static u64 (*ptrHashFunction)(const u8* src, u32 len, u32 samples) = &GetMurmurHash3;
 
 // uint32_t
 // WARNING - may read one more byte!
@@ -26,11 +25,11 @@ u32 HashFletcher(const u8* data_u8, size_t length)
 		size_t tlen = len > 360 ? 360 : len;
 		len -= tlen;
 
-		do {
+		do
+		{
 			sum1 += *data++;
 			sum2 += sum1;
-		}
-		while (--tlen);
+		} while (--tlen);
 
 		sum1 = (sum1 & 0xffff) + (sum1 >> 16);
 		sum2 = (sum2 & 0xffff) + (sum2 >> 16);
@@ -45,10 +44,10 @@ u32 HashFletcher(const u8* data_u8, size_t length)
 
 // Implementation from Wikipedia
 // Slightly slower than Fletcher above, but slightly more reliable.
-#define MOD_ADLER 65521
 // data: Pointer to the data to be summed; len is in bytes
 u32 HashAdler32(const u8* data, size_t len)
 {
+	static const u32 MOD_ADLER = 65521;
 	u32 a = 1, b = 0;
 
 	while (len)
@@ -60,8 +59,7 @@ u32 HashAdler32(const u8* data, size_t len)
 		{
 			a += *data++;
 			b += a;
-		}
-		while (--tlen);
+		} while (--tlen);
 
 		a = (a & 0xffff) + (a >> 16) * (65536 - MOD_ADLER);
 		b = (b & 0xffff) + (b >> 16) * (65536 - MOD_ADLER);
@@ -106,7 +104,7 @@ u32 HashEctor(const u8* ptr, int length)
 // Block read - if your platform needs to do endian-swapping or can only
 // handle aligned reads, do the conversion here
 
-inline u64 getblock(const u64 * p, int i)
+inline u64 getblock(const u64* p, int i)
 {
 	return p[i];
 }
@@ -117,24 +115,24 @@ inline u64 getblock(const u64 * p, int i)
 inline void bmix64(u64 & h1, u64 & h2, u64 & k1, u64 & k2, u64 & c1, u64 & c2)
 {
 	k1 *= c1;
-	k1  = _rotl64(k1,23);
+	k1  = _rotl64(k1, 23);
 	k1 *= c2;
 	h1 ^= k1;
 	h1 += h2;
 
-	h2 = _rotl64(h2,41);
+	h2  = _rotl64(h2, 41);
 
 	k2 *= c2;
-	k2  = _rotl64(k2,23);
+	k2  = _rotl64(k2, 23);
 	k2 *= c1;
 	h2 ^= k2;
 	h2 += h1;
 
-	h1 = h1*3+0x52dce729;
-	h2 = h2*3+0x38495ab5;
+	h1 = h1 * 3 + 0x52dce729;
+	h2 = h2 * 3 + 0x38495ab5;
 
-	c1 = c1*5+0x7b7d159c;
-	c2 = c2*5+0x6bce6396;
+	c1 = c1 * 5 + 0x7b7d159c;
+	c2 = c2 * 5 + 0x6bce6396;
 }
 
 //----------
@@ -151,14 +149,16 @@ inline u64 fmix64(u64 k)
 	return k;
 }
 
-u64 GetMurmurHash3(const u8 *src, int len, u32 samples)
+u64 GetMurmurHash3(const u8* src, u32 len, u32 samples)
 {
-	const u8 * data = (const u8*)src;
+	const u8* data = (const u8*)src;
 	const int nblocks = len / 16;
 	u32 Step = (len / 8);
-	if (samples == 0) samples = std::max(Step, 1u);
+	if (samples == 0)
+		samples = std::max(Step, 1u);
 	Step = Step / samples;
-	if (Step < 1) Step = 1;
+	if (Step < 1)
+		Step = 1;
 
 	u64 h1 = 0x9368e53c2f6af274;
 	u64 h2 = 0x586dcd208f7cd3fd;
@@ -170,12 +170,12 @@ u64 GetMurmurHash3(const u8 *src, int len, u32 samples)
 	//----------
 	// body
 
-	const u64 * blocks = (const u64 *)(data);
+	const u64* blocks = (const u64*)(data);
 
 	for (int i = 0; i < nblocks; i+=Step)
 	{
-		u64 k1 = getblock(blocks,i*2+0);
-		u64 k2 = getblock(blocks,i*2+1);
+		u64 k1 = getblock(blocks, i*2+0);
+		u64 k2 = getblock(blocks, i*2+1);
 
 		bmix64(h1,h2,k1,k2,c1,c2);
 	}
@@ -183,7 +183,7 @@ u64 GetMurmurHash3(const u8 *src, int len, u32 samples)
 	//----------
 	// tail
 
-	const u8 * tail = (const u8*)(data + nblocks*16);
+	const u8* tail = (const u8*)(data + nblocks*16);
 
 	u64 k1 = 0;
 	u64 k2 = 0;
@@ -227,16 +227,21 @@ u64 GetMurmurHash3(const u8 *src, int len, u32 samples)
 
 
 // CRC32 hash using the SSE4.2 instruction
-u64 GetCRC32(const u8 *src, int len, u32 samples)
+u64 GetCRC32(const u8* src, u32 len, u32 samples)
 {
-#if _M_SSE >= 0x402
+#if _M_SSE >= 0x402 || defined(_M_ARM_64)
 	u64 h[4] = { len, 0, 0, 0 };
 	u32 Step = (len / 8);
-	const u64 *data = (const u64 *)src;
-	const u64 *end = data + Step;
-	if (samples == 0) samples = std::max(Step, 1u);
+	const u64* data = (const u64*)src;
+	const u64* end = data + Step;
+	if (samples == 0)
+		samples = std::max(Step, 1u);
 	Step = Step / samples;
-	if (Step < 1) Step = 1;
+	if (Step < 1)
+		Step = 1;
+#endif
+
+#if _M_SSE >= 0x402
 	while (data < end - Step * 3)
 	{
 		h[0] = _mm_crc32_u64(h[0], data[Step * 0]);
@@ -252,13 +257,72 @@ u64 GetCRC32(const u8 *src, int len, u32 samples)
 	if (data < end - Step * 2)
 		h[2] = _mm_crc32_u64(h[2], data[Step * 2]);
 
-	const u8 *data2 = (const u8*)end;
+	if (len & 7)
+	{
+		u64 temp = 0;
+		memcpy(&temp, end, len & 7);
+		h[0] = _mm_crc32_u64(h[0], temp);
+	}
+#elif defined(_M_ARM_64)
+	// We should be able to use intrinsics for this
+	// Too bad the intrinsics for this instruction was added in GCC 4.9.1
+	// The Android NDK (as of r10e) only has GCC 4.9
+	// Once the Android NDK has a newer GCC version, update these to use intrinsics
+	while (data < end - Step * 3)
+	{
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[0])
+				: [two] "r" (h[0]),
+				  [three] "r" (data[Step * 0]));
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[1])
+				: [two] "r" (h[1]),
+				  [three] "r" (data[Step * 1]));
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[2])
+				: [two] "r" (h[2]),
+				  [three] "r" (data[Step * 2]));
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[3])
+				: [two] "r" (h[3]),
+				  [three] "r" (data[Step * 3]));
+
+		data += Step * 4;
+	}
+	if (data < end - Step * 0)
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[0])
+				: [two] "r" (h[0]),
+				  [three] "r" (data[Step * 0]));
+	if (data < end - Step * 1)
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[1])
+				: [two] "r" (h[1]),
+				  [three] "r" (data[Step * 1]));
+	if (data < end - Step * 2)
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[2])
+				: [two] "r" (h[2]),
+				  [three] "r" (data[Step * 2]));
+
+	if (len & 7)
+	{
+		u64 temp = 0;
+		memcpy(&temp, end, len & 7);
+		asm ("crc32x %w[res], %w[two], %x[three]"
+				: [res] "=r" (h[0])
+				: [two] "r" (h[0]),
+				  [three] "r" (temp));
+	}
+#endif
+
+#if _M_SSE >= 0x402 || defined(_M_ARM_64)
 	// FIXME: is there a better way to combine these partial hashes?
-	h[0] = _mm_crc32_u64(h[0], u64(data2[0]));
 	return h[0] + (h[1] << 10) + (h[2] << 21) + (h[3] << 32);
 #else
 	return 0;
 #endif
+
 }
 
 
@@ -269,17 +333,19 @@ u64 GetCRC32(const u8 *src, int len, u32 samples)
  * changed, make sure this one is still used when the legacy parameter is
  * true.
  */
-u64 GetHashHiresTexture(const u8 *src, int len, u32 samples)
+u64 GetHashHiresTexture(const u8* src, u32 len, u32 samples)
 {
 	const u64 m = 0xc6a4a7935bd1e995;
 	u64 h = len * m;
 	const int r = 47;
 	u32 Step = (len / 8);
-	const u64 *data = (const u64 *)src;
-	const u64 *end = data + Step;
-	if (samples == 0) samples = std::max(Step, 1u);
+	const u64* data = (const u64*)src;
+	const u64* end = data + Step;
+	if (samples == 0)
+		samples = std::max(Step, 1u);
 	Step = Step / samples;
-	if (Step < 1) Step = 1;
+	if (Step < 1)
+		Step = 1;
 	while (data < end)
 	{
 		u64 k = data[0];
@@ -313,23 +379,25 @@ u64 GetHashHiresTexture(const u8 *src, int len, u32 samples)
 }
 #else
 // CRC32 hash using the SSE4.2 instruction
-u64 GetCRC32(const u8 *src, int len, u32 samples)
+u64 GetCRC32(const u8* src, u32 len, u32 samples)
 {
 #if _M_SSE >= 0x402
 	u32 h = len;
 	u32 Step = (len/4);
-	const u32 *data = (const u32 *)src;
-	const u32 *end = data + Step;
-	if (samples == 0) samples = std::max(Step, 1u);
+	const u32* data = (const u32 *)src;
+	const u32* end = data + Step;
+	if (samples == 0)
+		samples = std::max(Step, 1u);
 	Step  = Step / samples;
-	if (Step < 1) Step = 1;
+	if (Step < 1)
+		Step = 1;
 	while (data < end)
 	{
 		h = _mm_crc32_u32(h, data[0]);
 		data += Step;
 	}
 
-	const u8 *data2 = (const u8*)end;
+	const u8* data2 = (const u8*)end;
 	return (u64)_mm_crc32_u32(h, u32(data2[0]));
 #else
 	return 0;
@@ -340,7 +408,7 @@ u64 GetCRC32(const u8 *src, int len, u32 samples)
 // Block read - if your platform needs to do endian-swapping or can only
 // handle aligned reads, do the conversion here
 
-inline u32 getblock(const u32 * p, int i)
+inline u32 getblock(const u32* p, int i)
 {
 	return p[i];
 }
@@ -364,37 +432,39 @@ inline u32 fmix32(u32 h)
 inline void bmix32(u32 & h1, u32 & h2, u32 & k1, u32 & k2, u32 & c1, u32 & c2)
 {
 	k1 *= c1;
-	k1  = _rotl(k1,11);
+	k1  = _rotl(k1, 11);
 	k1 *= c2;
 	h1 ^= k1;
 	h1 += h2;
 
-	h2 = _rotl(h2,17);
+	h2  = _rotl(h2, 17);
 
 	k2 *= c2;
-	k2  = _rotl(k2,11);
+	k2  = _rotl(k2, 11);
 	k2 *= c1;
 	h2 ^= k2;
 	h2 += h1;
 
-	h1 = h1*3+0x52dce729;
-	h2 = h2*3+0x38495ab5;
+	h1  = h1*3+0x52dce729;
+	h2  = h2*3+0x38495ab5;
 
-	c1 = c1*5+0x7b7d159c;
-	c2 = c2*5+0x6bce6396;
+	c1  = c1*5+0x7b7d159c;
+	c2  = c2*5+0x6bce6396;
 }
 
 //----------
 
-u64 GetMurmurHash3(const u8* src, int len, u32 samples)
+u64 GetMurmurHash3(const u8* src, u32 len, u32 samples)
 {
-	const u8 * data = (const u8*)src;
+	const u8* data = (const u8*)src;
 	u32 out[2];
 	const int nblocks = len / 8;
 	u32 Step = (len / 4);
-	if (samples == 0) samples = std::max(Step, 1u);
+	if (samples == 0)
+		samples = std::max(Step, 1u);
 	Step = Step / samples;
-	if (Step < 1) Step = 1;
+	if (Step < 1)
+		Step = 1;
 
 	u32 h1 = 0x8de1c3ac;
 	u32 h2 = 0xbab98226;
@@ -405,7 +475,7 @@ u64 GetMurmurHash3(const u8* src, int len, u32 samples)
 	//----------
 	// body
 
-	const u32 * blocks = (const u32 *)(data + nblocks*8);
+	const u32* blocks = (const u32*)(data + nblocks*8);
 
 	for (int i = -nblocks; i < 0; i+=Step)
 	{
@@ -418,7 +488,7 @@ u64 GetMurmurHash3(const u8* src, int len, u32 samples)
 	//----------
 	// tail
 
-	const u8 * tail = (const u8*)(data + nblocks*8);
+	const u8* tail = (const u8*)(data + nblocks*8);
 
 	u32 k1 = 0;
 	u32 k2 = 0;
@@ -443,8 +513,8 @@ u64 GetMurmurHash3(const u8* src, int len, u32 samples)
 	h1 += h2;
 	h2 += h1;
 
-	h1 = fmix32(h1);
-	h2 = fmix32(h2);
+	h1  = fmix32(h1);
+	h2  = fmix32(h2);
 
 	h1 += h2;
 	h2 += h1;
@@ -452,7 +522,7 @@ u64 GetMurmurHash3(const u8* src, int len, u32 samples)
 	out[0] = h1;
 	out[1] = h2;
 
-	return *((u64 *)&out);
+	return *((u64*)&out);
 }
 
 /*
@@ -460,17 +530,19 @@ u64 GetMurmurHash3(const u8* src, int len, u32 samples)
  * 64-bit version. Until someone can make a new version of the 32-bit one that
  * makes identical hashes, this is just a c/p of the 64-bit one.
  */
-u64 GetHashHiresTexture(const u8 *src, int len, u32 samples)
+u64 GetHashHiresTexture(const u8* src, u32 len, u32 samples)
 {
 	const u64 m = 0xc6a4a7935bd1e995ULL;
 	u64 h = len * m;
 	const int r = 47;
 	u32 Step = (len / 8);
-	const u64 *data = (const u64 *)src;
-	const u64 *end = data + Step;
-	if (samples == 0) samples = std::max(Step, 1u);
+	const u64* data = (const u64*)src;
+	const u64* end = data + Step;
+	if (samples == 0)
+		samples = std::max(Step, 1u);
 	Step = Step / samples;
-	if (Step < 1) Step = 1;
+	if (Step < 1)
+		Step = 1;
 	while (data < end)
 	{
 		u64 k = data[0];
@@ -482,7 +554,7 @@ u64 GetHashHiresTexture(const u8 *src, int len, u32 samples)
 		h *= m;
 	}
 
-	const u8 * data2 = (const u8*)end;
+	const u8* data2 = (const u8*)end;
 
 	switch (len & 7)
 	{
@@ -504,7 +576,7 @@ u64 GetHashHiresTexture(const u8 *src, int len, u32 samples)
 }
 #endif
 
-u64 GetHash64(const u8 *src, int len, u32 samples)
+u64 GetHash64(const u8* src, u32 len, u32 samples)
 {
 	return ptrHashFunction(src, len, samples);
 }
@@ -514,6 +586,12 @@ void SetHash64Function()
 {
 #if _M_SSE >= 0x402
 	if (cpu_info.bSSE4_2) // sse crc32 version
+	{
+		ptrHashFunction = &GetCRC32;
+	}
+	else
+#elif defined(_M_ARM_64)
+	if (cpu_info.bCRC32)
 	{
 		ptrHashFunction = &GetCRC32;
 	}

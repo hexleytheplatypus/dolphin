@@ -1,9 +1,10 @@
-// Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include "Common/CommonFuncs.h"
@@ -27,7 +28,8 @@ namespace Memory
 
 // In 64-bit, this might point to "high memory" (above the 32-bit limit),
 // so be sure to load it into a 64-bit register.
-extern u8* base;
+extern u8* physical_base;
+extern u8* logical_base;
 
 // These are guaranteed to point to "low memory" addresses (sub-32-bit).
 extern u8* m_pRAM;
@@ -62,7 +64,7 @@ enum
 };
 
 // MMIO mapping object.
-extern MMIO::Mapping* mmio_mapping;
+extern std::unique_ptr<MMIO::Mapping> mmio_mapping;
 
 // Init and Shutdown
 bool IsInitialized();
@@ -73,70 +75,47 @@ void DoState(PointerWrap &p);
 void Clear();
 bool AreMemoryBreakpointsActivated();
 
-// ONLY for use by GUI
-u8 ReadUnchecked_U8(const u32 address);
-u32 ReadUnchecked_U32(const u32 address);
-
-void WriteUnchecked_U8(const u8 var, const u32 address);
-void WriteUnchecked_U32(const u32 var, const u32 address);
-
-bool IsRAMAddress(const u32 address, bool allow_locked_cache = false, bool allow_fake_vmem = false);
-
-// used by interpreter to read instructions, uses iCache
-u32 Read_Opcode(const u32 address);
-// this is used by Debugger a lot.
-// For now, just reads from memory!
-u32 Read_Instruction(const u32 address);
-
-
-// For use by emulator
-
+// Routines to access physically addressed memory, designed for use by
+// emulated hardware outside the CPU. Use "Device_" prefix.
+std::string GetString(u32 em_address, size_t size = 0);
+u8* GetPointer(const u32 address);
+void CopyFromEmu(void* data, u32 address, size_t size);
+void CopyToEmu(u32 address, const void* data, size_t size);
+void Memset(u32 address, u8 value, size_t size);
 u8  Read_U8(const u32 address);
 u16 Read_U16(const u32 address);
 u32 Read_U32(const u32 address);
 u64 Read_U64(const u32 address);
-
-// Useful helper functions, used by ARM JIT
-float Read_F32(const u32 address);
-double Read_F64(const u32 address);
-
-// used by JIT. Return zero-extended 32bit values
-u32 Read_U8_ZX(const u32 address);
-u32 Read_U16_ZX(const u32 address);
-
 void Write_U8(const u8 var, const u32 address);
 void Write_U16(const u16 var, const u32 address);
 void Write_U32(const u32 var, const u32 address);
 void Write_U64(const u64 var, const u32 address);
-
-void Write_U16_Swap(const u16 var, const u32 address);
 void Write_U32_Swap(const u32 var, const u32 address);
 void Write_U64_Swap(const u64 var, const u32 address);
 
-// Useful helper functions, used by ARM JIT
-void Write_F64(const double var, const u32 address);
-
-std::string GetString(u32 em_address, size_t size = 0);
-
-u8* GetPointer(const u32 address);
-void DMA_LCToMemory(const u32 memAddr, const u32 cacheAddr, const u32 numBlocks);
-void DMA_MemoryToLC(const u32 cacheAddr, const u32 memAddr, const u32 numBlocks);
-void CopyFromEmu(void* data, u32 address, size_t size);
-void CopyToEmu(u32 address, const void* data, size_t size);
-void Memset(const u32 address, const u8 var, const u32 length);
-void ClearCacheLine(const u32 address); // Zeroes 32 bytes; address should be 32-byte-aligned
-
-// TLB functions
-void SDRUpdated();
-enum XCheckTLBFlag
+// Templated functions for byteswapped copies.
+template <typename T>
+void CopyFromEmuSwapped(T* data, u32 address, size_t size)
 {
-	FLAG_NO_EXCEPTION,
-	FLAG_READ,
-	FLAG_WRITE,
-	FLAG_OPCODE,
-};
-template <const XCheckTLBFlag flag> u32 TranslateAddress(const u32 address);
-void InvalidateTLBEntry(u32 address);
-extern u32 pagetable_base;
-extern u32 pagetable_hashmask;
+	const T* src = reinterpret_cast<T*>(GetPointer(address));
+
+	if(src == nullptr)
+		return;
+
+	for (size_t i = 0; i < size / sizeof(T); i++)
+		data[i] = Common::FromBigEndian(src[i]);
+}
+
+template <typename T>
+void CopyToEmuSwapped(u32 address, const T* data, size_t size)
+{
+	T* dest = reinterpret_cast<T*>(GetPointer(address));
+
+	if (dest == nullptr)
+		return;
+
+	for (size_t i = 0; i < size / sizeof(T); i++)
+		dest[i] = Common::FromBigEndian(data[i]);
+}
+
 }

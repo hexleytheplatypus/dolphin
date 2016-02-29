@@ -1,20 +1,22 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
 #include <cinttypes>
 #include <cmath>
 #include <cstdio>
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "Common/Atomic.h"
-#include "Common/CommonPaths.h"
+#include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
+#include "Common/MathUtil.h"
 #include "Common/StringUtil.h"
-#include "Common/Thread.h"
-#include "Common/Timer.h"
+#include "Common/GL/GLInterfaceBase.h"
+#include "Common/GL/GLUtil.h"
 #include "Common/Logging/LogManager.h"
 
 #include "Core/ConfigManager.h"
@@ -22,37 +24,26 @@
 
 #include "VideoBackends/OGL/BoundingBox.h"
 #include "VideoBackends/OGL/FramebufferManager.h"
-#include "VideoBackends/OGL/GLInterfaceBase.h"
-#include "VideoBackends/OGL/GLUtil.h"
-#include "VideoBackends/OGL/main.h"
 #include "VideoBackends/OGL/PostProcessing.h"
 #include "VideoBackends/OGL/ProgramShaderCache.h"
 #include "VideoBackends/OGL/RasterFont.h"
 #include "VideoBackends/OGL/Render.h"
 #include "VideoBackends/OGL/SamplerCache.h"
-#include "VideoBackends/OGL/StreamBuffer.h"
 #include "VideoBackends/OGL/TextureCache.h"
-#include "VideoBackends/OGL/TextureConverter.h"
 #include "VideoBackends/OGL/VertexManager.h"
 
+#if defined(HAVE_LIBAV) || defined (_WIN32)
+#include "VideoCommon/AVIDump.h"
+#endif
 #include "VideoCommon/BPFunctions.h"
-#include "VideoCommon/BPStructs.h"
 #include "VideoCommon/DriverDetails.h"
 #include "VideoCommon/Fifo.h"
-#include "VideoCommon/FPSCounter.h"
 #include "VideoCommon/ImageWrite.h"
 #include "VideoCommon/OnScreenDisplay.h"
 #include "VideoCommon/PixelEngine.h"
 #include "VideoCommon/PixelShaderManager.h"
-#include "VideoCommon/Statistics.h"
-#include "VideoCommon/VertexLoaderManager.h"
-#include "VideoCommon/VertexShaderGen.h"
 #include "VideoCommon/VertexShaderManager.h"
 #include "VideoCommon/VideoConfig.h"
-
-#if defined _WIN32 || defined HAVE_LIBAV
-#include "VideoCommon/AVIDump.h"
-#endif
 
 
 void VideoConfig::UpdateProjectionHack()
@@ -65,29 +56,15 @@ static int OSDInternalW, OSDInternalH;
 namespace OGL
 {
 
-enum MultisampleMode
-{
-	MULTISAMPLE_OFF,
-	MULTISAMPLE_2X,
-	MULTISAMPLE_4X,
-	MULTISAMPLE_8X,
-	MULTISAMPLE_SSAA_4X,
-};
-
-
 VideoConfig g_ogl_config;
 
 // Declarations and definitions
 // ----------------------------
-static GLuint s_ShowEFBCopyRegions_VBO = 0;
-static GLuint s_ShowEFBCopyRegions_VAO = 0;
-static SHADER s_ShowEFBCopyRegions;
-
-static RasterFont* s_pfont = nullptr;
+static std::unique_ptr<RasterFont> s_raster_font;
 
 // 1 for no MSAA. Use s_MSAASamples > 1 to check for MSAA.
 static int s_MSAASamples = 1;
-static int s_last_multisample_mode = 0;
+static int s_last_multisamples = 1;
 static bool s_last_stereo_mode = false;
 static bool s_last_xfb_mode = false;
 
@@ -103,67 +80,7 @@ static bool s_efbCacheValid[2][EFB_CACHE_WIDTH * EFB_CACHE_HEIGHT];
 static bool s_efbCacheIsCleared = false;
 static std::vector<u32> s_efbCache[2][EFB_CACHE_WIDTH * EFB_CACHE_HEIGHT]; // 2 for PEEK_Z and PEEK_COLOR
 
-static int GetNumMSAASamples(int MSAAMode)
-{
-	int samples;
-	switch (MSAAMode)
-	{
-		case MULTISAMPLE_OFF:
-			samples = 1;
-			break;
-
-		case MULTISAMPLE_2X:
-			samples = 2;
-			break;
-
-		case MULTISAMPLE_4X:
-		case MULTISAMPLE_SSAA_4X:
-			samples = 4;
-			break;
-
-		case MULTISAMPLE_8X:
-			samples = 8;
-			break;
-
-		default:
-			samples = 1;
-	}
-
-	if (samples <= g_ogl_config.max_samples)
-		return samples;
-
-	// TODO: move this to InitBackendInfo
-	OSD::AddMessage(StringFromFormat("%d Anti Aliasing samples selected, but only %d supported by your GPU.", samples, g_ogl_config.max_samples), 10000);
-	return g_ogl_config.max_samples;
-}
-
-static void ApplySSAASettings()
-{
-	// GLES3 doesn't support SSAA
-	if (GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGL)
-	{
-		if (g_ActiveConfig.iMultisampleMode == MULTISAMPLE_SSAA_4X)
-		{
-			if (g_ogl_config.bSupportSampleShading)
-			{
-				glEnable(GL_SAMPLE_SHADING_ARB);
-				GLfloat min_sample_shading_value = static_cast<GLfloat>(s_MSAASamples);
-				glMinSampleShadingARB(min_sample_shading_value);
-			}
-			else
-			{
-				// TODO: move this to InitBackendInfo
-				OSD::AddMessage("SSAA Anti Aliasing isn't supported by your GPU.", 10000);
-			}
-		}
-		else if (g_ogl_config.bSupportSampleShading)
-		{
-			glDisable(GL_SAMPLE_SHADING_ARB);
-		}
-	}
-}
-
-static void GLAPIENTRY ErrorCallback( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const char* message, const void* userParam)
+static void APIENTRY ErrorCallback( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const char* message, const void* userParam)
 {
 	const char *s_source;
 	const char *s_type;
@@ -190,19 +107,20 @@ static void GLAPIENTRY ErrorCallback( GLenum source, GLenum type, GLuint id, GLe
 	}
 	switch (severity)
 	{
-		case GL_DEBUG_SEVERITY_HIGH_ARB:   ERROR_LOG(VIDEO, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
-		case GL_DEBUG_SEVERITY_MEDIUM_ARB: WARN_LOG(VIDEO, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
-		case GL_DEBUG_SEVERITY_LOW_ARB:    WARN_LOG(VIDEO, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
-		default:                           ERROR_LOG(VIDEO, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
+		case GL_DEBUG_SEVERITY_HIGH_ARB:     ERROR_LOG(HOST_GPU, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
+		case GL_DEBUG_SEVERITY_MEDIUM_ARB:   WARN_LOG(HOST_GPU, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
+		case GL_DEBUG_SEVERITY_LOW_ARB:      WARN_LOG(HOST_GPU, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
+		case GL_DEBUG_SEVERITY_NOTIFICATION: DEBUG_LOG(HOST_GPU, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
+		default:                             ERROR_LOG(HOST_GPU, "id: %x, source: %s, type: %s - %s", id, s_source, s_type, message); break;
 	}
 }
 
 // Two small Fallbacks to avoid GL_ARB_ES2_compatibility
-static void GLAPIENTRY DepthRangef(GLfloat neardepth, GLfloat fardepth)
+static void APIENTRY DepthRangef(GLfloat neardepth, GLfloat fardepth)
 {
 	glDepthRange(neardepth, fardepth);
 }
-static void GLAPIENTRY ClearDepthf(GLfloat depthval)
+static void APIENTRY ClearDepthf(GLfloat depthval)
 {
 	glClearDepth(depthval);
 }
@@ -214,8 +132,8 @@ static void InitDriverInfo()
 	std::string sversion = std::string(g_ogl_config.gl_version);
 	DriverDetails::Vendor vendor = DriverDetails::VENDOR_UNKNOWN;
 	DriverDetails::Driver driver = DriverDetails::DRIVER_UNKNOWN;
+	DriverDetails::Family family = DriverDetails::Family::UNKNOWN;
 	double version = 0.0;
-	u32 family = 0;
 
 	// Get the vendor first
 	if (svendor == "NVIDIA Corporation" && srenderer != "NVIDIA Tegra")
@@ -292,22 +210,47 @@ static void InitDriverInfo()
 		case DriverDetails::VENDOR_MESA:
 		{
 			if (svendor == "nouveau")
+			{
 				driver = DriverDetails::DRIVER_NOUVEAU;
+			}
 			else if (svendor == "Intel Open Source Technology Center")
+			{
 				driver = DriverDetails::DRIVER_I965;
+				if (srenderer.find("Sandybridge") != std::string::npos)
+					family = DriverDetails::Family::INTEL_SANDY;
+				else if (srenderer.find("Ivybridge") != std::string::npos)
+					family = DriverDetails::Family::INTEL_IVY;
+			}
 			else if (std::string::npos != srenderer.find("AMD") || std::string::npos != srenderer.find("ATI"))
+			{
 				driver = DriverDetails::DRIVER_R600;
+			}
 
 			int major = 0;
 			int minor = 0;
 			int release = 0;
-			sscanf(g_ogl_config.gl_version, "%*s Mesa %d.%d.%d", &major, &minor, &release);
+			sscanf(g_ogl_config.gl_version, "%*s (Core Profile) Mesa %d.%d.%d", &major, &minor, &release);
 			version = 100*major + 10*minor + release;
 		}
 		break;
 		case DriverDetails::VENDOR_INTEL: // Happens in OS X/Windows
 		{
-			sscanf(g_ogl_config.gl_renderer, "Intel HD Graphics %d", &family);
+			u32 market_name;
+			sscanf(g_ogl_config.gl_renderer, "Intel HD Graphics %d", &market_name);
+			switch (market_name)
+			{
+			case 2000:
+			case 3000:
+				family = DriverDetails::Family::INTEL_SANDY;
+			break;
+			case 2500:
+			case 4000:
+				family = DriverDetails::Family::INTEL_IVY;
+			break;
+			default:
+				family = DriverDetails::Family::UNKNOWN;
+			break;
+			};
 #ifdef _WIN32
 			int glmajor = 0;
 			int glminor = 0;
@@ -349,7 +292,6 @@ Renderer::Renderer()
 	OSDInternalW = 0;
 	OSDInternalH = 0;
 
-	s_ShowEFBCopyRegions_VBO = 0;
 	s_blendMode = 0;
 
 	bool bSuccess = true;
@@ -368,6 +310,14 @@ Renderer::Renderer()
 	g_ogl_config.glsl_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 
 	InitDriverInfo();
+
+	if (GLExtensions::Version() < 300)
+	{
+		// integer vertex attributes require a gl3 only function
+		PanicAlert("GPU: OGL ERROR: Need OpenGL version 3.\n"
+				"GPU: Does your video card support OpenGL 3?");
+		bSuccess = false;
+	}
 
 	// check for the max vertex attributes
 	GLint numvertexattribs = 0;
@@ -390,81 +340,86 @@ Renderer::Renderer()
 		bSuccess = false;
 	}
 
-	if (!GLExtensions::Supports("GL_ARB_framebuffer_object"))
+	if (GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGL)
 	{
-		// We want the ogl3 framebuffer instead of the ogl2 one for better blitting support.
-		// It's also compatible with the gles3 one.
-		PanicAlert("GPU: ERROR: Need GL_ARB_framebuffer_object for multiple render targets.\n"
-				"GPU: Does your video card support OpenGL 3.0?");
-		bSuccess = false;
+		if (!GLExtensions::Supports("GL_ARB_framebuffer_object"))
+		{
+			// We want the ogl3 framebuffer instead of the ogl2 one for better blitting support.
+			// It's also compatible with the gles3 one.
+			PanicAlert("GPU: ERROR: Need GL_ARB_framebuffer_object for multiple render targets.\n"
+					"GPU: Does your video card support OpenGL 3.0?");
+			bSuccess = false;
+		}
+
+		if (!GLExtensions::Supports("GL_ARB_vertex_array_object"))
+		{
+			// This extension is used to replace lots of pointer setting function.
+			// Also gles3 requires to use it.
+			PanicAlert("GPU: OGL ERROR: Need GL_ARB_vertex_array_object.\n"
+					"GPU: Does your video card support OpenGL 3.0?");
+			bSuccess = false;
+		}
+
+		if (!GLExtensions::Supports("GL_ARB_map_buffer_range"))
+		{
+			// ogl3 buffer mapping for better streaming support.
+			// The ogl2 one also isn't in gles3.
+			PanicAlert("GPU: OGL ERROR: Need GL_ARB_map_buffer_range.\n"
+					"GPU: Does your video card support OpenGL 3.0?");
+			bSuccess = false;
+		}
+
+		if (!GLExtensions::Supports("GL_ARB_uniform_buffer_object"))
+		{
+			// ubo allow us to keep the current constants on shader switches
+			// we also can stream them much nicer and pack into it whatever we want to
+			PanicAlert("GPU: OGL ERROR: Need GL_ARB_uniform_buffer_object.\n"
+					"GPU: Does your video card support OpenGL 3.1?");
+			bSuccess = false;
+		}
+		else if (DriverDetails::HasBug(DriverDetails::BUG_BROKENUBO))
+		{
+			PanicAlert("Buggy GPU driver detected.\n"
+					"Please either install the closed-source GPU driver or update your Mesa 3D version.");
+			bSuccess = false;
+		}
+
+		if (!GLExtensions::Supports("GL_ARB_sampler_objects"))
+		{
+			// Our sampler cache uses this extension. It could easyly be workaround and it's by far the
+			// highest requirement, but it seems that no driver lacks support for it.
+			PanicAlert("GPU: OGL ERROR: Need GL_ARB_sampler_objects.\n"
+					"GPU: Does your video card support OpenGL 3.3?");
+			bSuccess = false;
+		}
+
+		// OpenGL 3 doesn't provide GLES like float functions for depth.
+		// They are in core in OpenGL 4.1, so almost every driver should support them.
+		// But for the oldest ones, we provide fallbacks to the old double functions.
+		if (!GLExtensions::Supports("GL_ARB_ES2_compatibility"))
+		{
+			glDepthRangef = DepthRangef;
+			glClearDepthf = ClearDepthf;
+		}
 	}
 
-	if (!GLExtensions::Supports("GL_ARB_vertex_array_object"))
-	{
-		// This extension is used to replace lots of pointer setting function.
-		// Also gles3 requires to use it.
-		PanicAlert("GPU: OGL ERROR: Need GL_ARB_vertex_array_object.\n"
-				"GPU: Does your video card support OpenGL 3.0?");
-		bSuccess = false;
-	}
-
-	if (!GLExtensions::Supports("GL_ARB_map_buffer_range"))
-	{
-		// ogl3 buffer mapping for better streaming support.
-		// The ogl2 one also isn't in gles3.
-		PanicAlert("GPU: OGL ERROR: Need GL_ARB_map_buffer_range.\n"
-				"GPU: Does your video card support OpenGL 3.0?");
-		bSuccess = false;
-	}
-
-	if (!GLExtensions::Supports("GL_ARB_uniform_buffer_object"))
-	{
-		// ubo allow us to keep the current constants on shader switches
-		// we also can stream them much nicer and pack into it whatever we want to
-		PanicAlert("GPU: OGL ERROR: Need GL_ARB_uniform_buffer_object.\n"
-				"GPU: Does your video card support OpenGL 3.1?");
-		bSuccess = false;
-	}
-	else if (DriverDetails::HasBug(DriverDetails::BUG_BROKENUBO))
-	{
-		PanicAlert("Buggy GPU driver detected.\n"
-				"Please either install the closed-source GPU driver or update your Mesa 3D version.");
-		bSuccess = false;
-	}
-
-	if (!GLExtensions::Supports("GL_ARB_sampler_objects"))
-	{
-		// Our sampler cache uses this extension. It could easyly be workaround and it's by far the
-		// highest requirement, but it seems that no driver lacks support for it.
-		PanicAlert("GPU: OGL ERROR: Need GL_ARB_sampler_objects.\n"
-				"GPU: Does your video card support OpenGL 3.3?");
-		bSuccess = false;
-	}
-
-	if (GLExtensions::Version() < 300)
-	{
-		// integer vertex attributes require a gl3 only function
-		PanicAlert("GPU: OGL ERROR: Need OpenGL version 3.\n"
-				"GPU: Does your video card support OpenGL 3?");
-		bSuccess = false;
-	}
-
-	// OpenGL 3 doesn't provide GLES like float functions for depth.
-	// They are in core in OpenGL 4.1, so almost every driver should support them.
-	// But for the oldest ones, we provide fallbacks to the old double functions.
-	if (!GLExtensions::Supports("GL_ARB_ES2_compatibility") && GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGL)
-	{
-		glDepthRangef = DepthRangef;
-		glClearDepthf = ClearDepthf;
-	}
-
-	g_Config.backend_info.bSupportsDualSourceBlend = GLExtensions::Supports("GL_ARB_blend_func_extended");
+	g_Config.backend_info.bSupportsDualSourceBlend = GLExtensions::Supports("GL_ARB_blend_func_extended") ||
+	                                                 GLExtensions::Supports("GL_EXT_blend_func_extended");
 	g_Config.backend_info.bSupportsPrimitiveRestart = !DriverDetails::HasBug(DriverDetails::BUG_PRIMITIVERESTART) &&
 				((GLExtensions::Version() >= 310) || GLExtensions::Supports("GL_NV_primitive_restart"));
-	g_Config.backend_info.bSupportsEarlyZ = GLExtensions::Supports("GL_ARB_shader_image_load_store");
 	g_Config.backend_info.bSupportsBBox = GLExtensions::Supports("GL_ARB_shader_storage_buffer_object");
 	g_Config.backend_info.bSupportsGSInstancing = GLExtensions::Supports("GL_ARB_gpu_shader5");
-	g_Config.backend_info.bSupportsGeometryShaders = GLExtensions::Version() >= 320;
+	g_Config.backend_info.bSupportsSSAA = GLExtensions::Supports("GL_ARB_gpu_shader5") && GLExtensions::Supports("GL_ARB_sample_shading");
+	g_Config.backend_info.bSupportsGeometryShaders = GLExtensions::Version() >= 320 && !DriverDetails::HasBug(DriverDetails::BUG_BROKENGEOMETRYSHADERS);
+	g_Config.backend_info.bSupportsPaletteConversion = GLExtensions::Supports("GL_ARB_texture_buffer_object") ||
+	                                                   GLExtensions::Supports("GL_OES_texture_buffer") ||
+	                                                   GLExtensions::Supports("GL_EXT_texture_buffer");
+	g_Config.backend_info.bSupportsClipControl = GLExtensions::Supports("GL_ARB_clip_control");
+	g_ogl_config.bSupportsCopySubImage = (GLExtensions::Supports("GL_ARB_copy_image") ||
+	                                      GLExtensions::Supports("GL_NV_copy_image") ||
+	                                      GLExtensions::Supports("GL_EXT_copy_image") ||
+	                                      GLExtensions::Supports("GL_OES_copy_image")) &&
+	                                      !DriverDetails::HasBug(DriverDetails::BUG_BROKENCOPYIMAGE);
 
 	// Desktop OpenGL supports the binding layout if it supports 420pack
 	// OpenGL ES 3.1 supports it implicitly without an extension
@@ -477,28 +432,70 @@ Renderer::Renderer()
 	                                     GLExtensions::Supports("GL_EXT_draw_elements_base_vertex") ||
 	                                     GLExtensions::Supports("GL_OES_draw_elements_base_vertex");
 	g_ogl_config.bSupportsGLBufferStorage = GLExtensions::Supports("GL_ARB_buffer_storage") ||
-	                                        GLExtensions::Supports("GL_EXT_buffer_storage");;
+	                                        GLExtensions::Supports("GL_EXT_buffer_storage");
 	g_ogl_config.bSupportsMSAA = GLExtensions::Supports("GL_ARB_texture_multisample");
-	g_ogl_config.bSupportSampleShading = GLExtensions::Supports("GL_ARB_sample_shading");
-	g_ogl_config.bSupportOGL31 = GLExtensions::Version() >= 310;
 	g_ogl_config.bSupportViewportFloat = GLExtensions::Supports("GL_ARB_viewport_array");
-	g_ogl_config.bSupportsDebug = GLExtensions::Supports("GL_KHR_debug") || GLExtensions::Supports("GL_ARB_debug_output");
+	g_ogl_config.bSupportsDebug = GLExtensions::Supports("GL_KHR_debug") ||
+	                              GLExtensions::Supports("GL_ARB_debug_output");
+	g_ogl_config.bSupports3DTextureStorage = GLExtensions::Supports("GL_ARB_texture_storage_multisample") ||
+	                                         GLExtensions::Supports("GL_OES_texture_storage_multisample_2d_array");
+	g_ogl_config.bSupports2DTextureStorage = GLExtensions::Supports("GL_ARB_texture_storage_multisample");
+	g_ogl_config.bSupportsEarlyFragmentTests = GLExtensions::Supports("GL_ARB_shader_image_load_store");
+	g_ogl_config.bSupportsConservativeDepth = GLExtensions::Supports("GL_ARB_conservative_depth");
+	g_ogl_config.bSupportsAniso = GLExtensions::Supports("GL_EXT_texture_filter_anisotropic");
 
 	if (GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGLES3)
 	{
-		if (strstr(g_ogl_config.glsl_version, "3.0"))
+		g_ogl_config.SupportedESPointSize = GLExtensions::Supports("GL_OES_geometry_point_size") ? 1 : GLExtensions::Supports("GL_EXT_geometry_point_size") ? 2 : 0;
+		g_ogl_config.SupportedESTextureBuffer = GLExtensions::Supports("VERSION_GLES_3_2") ? ES_TEXBUF_TYPE::TEXBUF_CORE :
+		                                        GLExtensions::Supports("GL_OES_texture_buffer") ? ES_TEXBUF_TYPE::TEXBUF_OES :
+		                                        GLExtensions::Supports("GL_EXT_texture_buffer") ? ES_TEXBUF_TYPE::TEXBUF_EXT : ES_TEXBUF_TYPE::TEXBUF_NONE;
+
+		g_ogl_config.bSupportsGLSLCache = true;
+		g_ogl_config.bSupportsGLSync = true;
+
+		if (strstr(g_ogl_config.glsl_version, "3.0") || DriverDetails::HasBug(DriverDetails::BUG_BROKENGLES31))
 		{
 			g_ogl_config.eSupportedGLSLVersion = GLSLES_300;
 			g_ogl_config.bSupportsAEP = false;
 			g_Config.backend_info.bSupportsGeometryShaders = false;
 		}
-		else
+		else if (strstr(g_ogl_config.glsl_version, "3.1"))
 		{
 			g_ogl_config.eSupportedGLSLVersion = GLSLES_310;
 			g_ogl_config.bSupportsAEP = GLExtensions::Supports("GL_ANDROID_extension_pack_es31a");
 			g_Config.backend_info.bSupportsBindingLayout = true;
-			g_Config.backend_info.bSupportsEarlyZ = true;
+			g_ogl_config.bSupportsEarlyFragmentTests = true;
 			g_Config.backend_info.bSupportsGeometryShaders = g_ogl_config.bSupportsAEP;
+			g_Config.backend_info.bSupportsGSInstancing = g_Config.backend_info.bSupportsGeometryShaders && g_ogl_config.SupportedESPointSize > 0;
+			g_Config.backend_info.bSupportsSSAA = g_ogl_config.bSupportsAEP;
+			g_Config.backend_info.bSupportsBBox = true;
+			g_ogl_config.bSupportsMSAA = true;
+			g_ogl_config.bSupports2DTextureStorage = true;
+			if (g_ActiveConfig.iStereoMode > 0 && g_ActiveConfig.iMultisamples > 1 && !g_ogl_config.bSupports3DTextureStorage)
+			{
+				// GLES 3.1 can't support stereo rendering and MSAA
+				OSD::AddMessage("MSAA Stereo rendering isn't supported by your GPU.", 10000);
+				g_ActiveConfig.iMultisamples = 1;
+			}
+		}
+		else
+		{
+			g_ogl_config.eSupportedGLSLVersion = GLSLES_320;
+			g_ogl_config.bSupportsAEP = GLExtensions::Supports("GL_ANDROID_extension_pack_es31a");
+			g_Config.backend_info.bSupportsBindingLayout = true;
+			g_ogl_config.bSupportsEarlyFragmentTests = true;
+			g_Config.backend_info.bSupportsGeometryShaders = true;
+			g_Config.backend_info.bSupportsGSInstancing = g_ogl_config.SupportedESPointSize > 0;
+			g_Config.backend_info.bSupportsPaletteConversion = true;
+			g_Config.backend_info.bSupportsSSAA = true;
+			g_Config.backend_info.bSupportsBBox = true;
+			g_ogl_config.bSupportsCopySubImage = true;
+			g_ogl_config.bSupportsGLBaseVertex = true;
+			g_ogl_config.bSupportsDebug = true;
+			g_ogl_config.bSupportsMSAA = true;
+			g_ogl_config.bSupports2DTextureStorage = true;
+			g_ogl_config.bSupports3DTextureStorage = true;
 		}
 	}
 	else
@@ -513,23 +510,37 @@ Renderer::Renderer()
 		else if (strstr(g_ogl_config.glsl_version, "1.30"))
 		{
 			g_ogl_config.eSupportedGLSLVersion = GLSL_130;
-			g_Config.backend_info.bSupportsEarlyZ = false; // layout keyword is only supported on glsl150+
+			g_ogl_config.bSupportsEarlyFragmentTests = false; // layout keyword is only supported on glsl150+
+			g_ogl_config.bSupportsConservativeDepth = false; // layout keyword is only supported on glsl150+
 			g_Config.backend_info.bSupportsGeometryShaders = false; // geometry shaders are only supported on glsl150+
 		}
 		else if (strstr(g_ogl_config.glsl_version, "1.40"))
 		{
 			g_ogl_config.eSupportedGLSLVersion = GLSL_140;
-			g_Config.backend_info.bSupportsEarlyZ = false; // layout keyword is only supported on glsl150+
+			g_ogl_config.bSupportsEarlyFragmentTests = false; // layout keyword is only supported on glsl150+
+			g_ogl_config.bSupportsConservativeDepth = false; // layout keyword is only supported on glsl150+
 			g_Config.backend_info.bSupportsGeometryShaders = false; // geometry shaders are only supported on glsl150+
+		}
+		else if (strstr(g_ogl_config.glsl_version, "1.50"))
+		{
+			g_ogl_config.eSupportedGLSLVersion = GLSL_150;
+		}
+		else if (strstr(g_ogl_config.glsl_version, "3.30"))
+		{
+			g_ogl_config.eSupportedGLSLVersion = GLSL_330;
 		}
 		else
 		{
-			g_ogl_config.eSupportedGLSLVersion = GLSL_150;
+			g_ogl_config.eSupportedGLSLVersion = GLSL_400;
+			g_Config.backend_info.bSupportsSSAA = true;
 		}
 
 		// Desktop OpenGL can't have the Android Extension Pack
 		g_ogl_config.bSupportsAEP = false;
 	}
+
+	// Either method can do early-z tests. See PixelShaderGen for details.
+	g_Config.backend_info.bSupportsEarlyZ = g_ogl_config.bSupportsEarlyFragmentTests || g_ogl_config.bSupportsConservativeDepth;
 
 	if (g_ogl_config.bSupportsDebug)
 	{
@@ -543,7 +554,7 @@ Renderer::Renderer()
 			glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, true);
 			glDebugMessageCallbackARB(ErrorCallback, nullptr);
 		}
-		if (LogManager::GetInstance()->IsEnabled(LogTypes::VIDEO, LogTypes::LERROR))
+		if (LogManager::GetInstance()->IsEnabled(LogTypes::HOST_GPU, LogTypes::LERROR))
 			glEnable(GL_DEBUG_OUTPUT);
 		else
 			glDisable(GL_DEBUG_OUTPUT);
@@ -581,7 +592,7 @@ Renderer::Renderer()
 				g_ogl_config.gl_renderer,
 				g_ogl_config.gl_version), 5000);
 
-	WARN_LOG(VIDEO,"Missing OGL Extensions: %s%s%s%s%s%s%s%s%s%s%s",
+	WARN_LOG(VIDEO,"Missing OGL Extensions: %s%s%s%s%s%s%s%s%s%s%s%s%s",
 			g_ActiveConfig.backend_info.bSupportsDualSourceBlend ? "" : "DualSourceBlend ",
 			g_ActiveConfig.backend_info.bSupportsPrimitiveRestart ? "" : "PrimitiveRestart ",
 			g_ActiveConfig.backend_info.bSupportsEarlyZ ? "" : "EarlyZ ",
@@ -591,13 +602,14 @@ Renderer::Renderer()
 			g_ogl_config.bSupportsGLBufferStorage ? "" : "BufferStorage ",
 			g_ogl_config.bSupportsGLSync ? "" : "Sync ",
 			g_ogl_config.bSupportsMSAA ? "" : "MSAA ",
-			g_ogl_config.bSupportSampleShading ? "" : "SSAA ",
-			g_ActiveConfig.backend_info.bSupportsGSInstancing ? "" : "GSInstancing "
+			g_ActiveConfig.backend_info.bSupportsSSAA ? "" : "SSAA ",
+			g_ActiveConfig.backend_info.bSupportsGSInstancing ? "" : "GSInstancing ",
+			g_ActiveConfig.backend_info.bSupportsClipControl ? "" : "ClipControl ",
+			g_ogl_config.bSupportsCopySubImage ? "" : "CopyImageSubData "
 			);
 
-	s_last_multisample_mode = g_ActiveConfig.iMultisampleMode;
-	s_MSAASamples = GetNumMSAASamples(s_last_multisample_mode);
-	ApplySSAASettings();
+	s_last_multisamples = g_ActiveConfig.iMultisamples;
+	s_MSAASamples = s_last_multisamples;
 
 	s_last_stereo_mode = g_ActiveConfig.iStereoMode > 0;
 	s_last_xfb_mode = g_ActiveConfig.bUseRealXFB;
@@ -608,7 +620,8 @@ Renderer::Renderer()
 
 	// Handle VSync on/off
 	s_vsync = g_ActiveConfig.IsVSync();
-	GLInterface->SwapInterval(s_vsync);
+	if (!DriverDetails::HasBug(DriverDetails::BUG_BROKENVSYNC))
+		GLInterface->SwapInterval(s_vsync);
 
 	// TODO: Move these somewhere else?
 	FramebufferManagerBase::SetLastXfbWidth(MAX_XFB_WIDTH);
@@ -629,6 +642,8 @@ Renderer::Renderer()
 	glBlendFunc(GL_ONE, GL_ONE);
 
 	glViewport(0, 0, GetTargetWidth(), GetTargetHeight()); // Reset The Current Viewport
+	if (g_ActiveConfig.backend_info.bSupportsClipControl)
+		glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearDepthf(1.0f);
@@ -652,7 +667,7 @@ Renderer::Renderer()
 		}
 		else
 		{
-			if (g_ogl_config.bSupportOGL31)
+			if (GLExtensions::Version() >= 310)
 			{
 				glEnable(GL_PRIMITIVE_RESTART);
 				glPrimitiveRestartIndex(65535);
@@ -674,21 +689,13 @@ Renderer::~Renderer()
 
 void Renderer::Shutdown()
 {
-	delete g_framebuffer_manager;
+	g_framebuffer_manager.reset();
 
 	g_Config.bRunning = false;
 	UpdateActiveConfig();
 
-	glDeleteBuffers(1, &s_ShowEFBCopyRegions_VBO);
-	glDeleteVertexArrays(1, &s_ShowEFBCopyRegions_VAO);
-	s_ShowEFBCopyRegions_VBO = 0;
-
-	delete s_pfont;
-	s_pfont = nullptr;
-	s_ShowEFBCopyRegions.Destroy();
-
-	delete m_post_processor;
-	m_post_processor = nullptr;
+	s_raster_font.reset();
+	m_post_processor.reset();
 
 	OpenGL_DeleteAttributelessVAO();
 }
@@ -696,160 +703,13 @@ void Renderer::Shutdown()
 void Renderer::Init()
 {
 	// Initialize the FramebufferManager
-	g_framebuffer_manager = new FramebufferManager(s_target_width, s_target_height,
+	g_framebuffer_manager = std::make_unique<FramebufferManager>(s_target_width, s_target_height,
 			s_MSAASamples);
 
-	m_post_processor = new OpenGLPostProcessing();
-
-	s_pfont = new RasterFont();
-
-	ProgramShaderCache::CompileShader(s_ShowEFBCopyRegions,
-		"in vec2 rawpos;\n"
-		"in vec3 color0;\n"
-		"out vec4 c;\n"
-		"void main(void) {\n"
-		"	gl_Position = vec4(rawpos, 0.0, 1.0);\n"
-		"	c = vec4(color0, 1.0);\n"
-		"}\n",
-		"in vec4 c;\n"
-		"out vec4 ocol0;\n"
-		"void main(void) {\n"
-		"	ocol0 = c;\n"
-		"}\n");
+	m_post_processor = std::make_unique<OpenGLPostProcessing>();
+	s_raster_font = std::make_unique<RasterFont>();
 
 	OpenGL_CreateAttributelessVAO();
-
-	// creating buffers
-	glGenBuffers(1, &s_ShowEFBCopyRegions_VBO);
-	glGenVertexArrays(1, &s_ShowEFBCopyRegions_VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, s_ShowEFBCopyRegions_VBO);
-	glBindVertexArray( s_ShowEFBCopyRegions_VAO );
-	glEnableVertexAttribArray(SHADER_POSITION_ATTRIB);
-	glVertexAttribPointer(SHADER_POSITION_ATTRIB, 2, GL_FLOAT, 0, sizeof(GLfloat)*5, nullptr);
-	glEnableVertexAttribArray(SHADER_COLOR0_ATTRIB);
-	glVertexAttribPointer(SHADER_COLOR0_ATTRIB, 3, GL_FLOAT, 0, sizeof(GLfloat)*5, (GLfloat*)nullptr+2);
-}
-
-// Create On-Screen-Messages
-void Renderer::ShowEfbCopyRegions()
-{
-	if (GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGL && g_ActiveConfig.bShowEFBCopyRegions)
-	{
-		// Set Line Size
-		glLineWidth(3.0f);
-
-		// 2*Coords + 3*Color
-		GLsizeiptr length = stats.efb_regions.size() * sizeof(GLfloat) * (2 + 3) * 2 * 6;
-		glBindBuffer(GL_ARRAY_BUFFER, s_ShowEFBCopyRegions_VBO);
-		glBufferData(GL_ARRAY_BUFFER, length, nullptr, GL_STREAM_DRAW);
-		GLfloat *Vertices = (GLfloat*)glMapBufferRange(GL_ARRAY_BUFFER, 0, length, GL_MAP_WRITE_BIT);
-
-		// Draw EFB copy regions rectangles
-		int a = 0;
-		GLfloat color[3] = {0.0f, 1.0f, 1.0f};
-
-		for (const EFBRectangle& rect : stats.efb_regions)
-		{
-			GLfloat halfWidth = EFB_WIDTH / 2.0f;
-			GLfloat halfHeight = EFB_HEIGHT / 2.0f;
-			GLfloat x =  (GLfloat) -1.0f + ((GLfloat)rect.left / halfWidth);
-			GLfloat y =  (GLfloat) 1.0f - ((GLfloat)rect.top / halfHeight);
-			GLfloat x2 = (GLfloat) -1.0f + ((GLfloat)rect.right / halfWidth);
-			GLfloat y2 = (GLfloat) 1.0f - ((GLfloat)rect.bottom / halfHeight);
-
-			Vertices[a++] = x;
-			Vertices[a++] = y;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			Vertices[a++] = x2;
-			Vertices[a++] = y;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-
-			Vertices[a++] = x2;
-			Vertices[a++] = y;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			Vertices[a++] = x2;
-			Vertices[a++] = y2;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-
-			Vertices[a++] = x2;
-			Vertices[a++] = y2;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			Vertices[a++] = x;
-			Vertices[a++] = y2;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-
-			Vertices[a++] = x;
-			Vertices[a++] = y2;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			Vertices[a++] = x;
-			Vertices[a++] = y;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-
-			Vertices[a++] = x;
-			Vertices[a++] = y;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			Vertices[a++] = x2;
-			Vertices[a++] = y2;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-
-			Vertices[a++] = x2;
-			Vertices[a++] = y;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			Vertices[a++] = x;
-			Vertices[a++] = y2;
-			Vertices[a++] = color[0];
-			Vertices[a++] = color[1];
-			Vertices[a++] = color[2];
-
-			// TO DO: build something nicer here
-			GLfloat temp = color[0];
-			color[0] = color[1];
-			color[1] = color[2];
-			color[2] = temp;
-		}
-		glUnmapBuffer(GL_ARRAY_BUFFER);
-
-		s_ShowEFBCopyRegions.Bind();
-		glBindVertexArray(s_ShowEFBCopyRegions_VAO);
-		GLsizei count = static_cast<GLsizei>(stats.efb_regions.size() * 2*6);
-		glDrawArrays(GL_LINES, 0, count);
-
-		// Clear stored regions
-		stats.efb_regions.clear();
-	}
 }
 
 void Renderer::RenderText(const std::string& text, int left, int top, u32 color)
@@ -857,7 +717,7 @@ void Renderer::RenderText(const std::string& text, int left, int top, u32 color)
 	const int nBackbufferWidth = (int)GLInterface->GetBackBufferWidth();
 	const int nBackbufferHeight = (int)GLInterface->GetBackBufferHeight();
 
-	s_pfont->printMultilineText(text,
+	s_raster_font->printMultilineText(text,
 		left * 2.0f / (float)nBackbufferWidth - 1,
 		1 - top * 2.0f / (float)nBackbufferHeight,
 		0, nBackbufferWidth, nBackbufferHeight, color);
@@ -912,7 +772,7 @@ void ClearEFBCache()
 	}
 }
 
-void Renderer::UpdateEFBCache(EFBAccessType type, u32 cacheRectIdx, const EFBRectangle& efbPixelRc, const TargetRectangle& targetPixelRc, const u32* data)
+void Renderer::UpdateEFBCache(EFBAccessType type, u32 cacheRectIdx, const EFBRectangle& efbPixelRc, const TargetRectangle& targetPixelRc, const void* data)
 {
 	u32 cacheType = (type == PEEK_Z ? 0 : 1);
 
@@ -934,7 +794,18 @@ void Renderer::UpdateEFBCache(EFBAccessType type, u32 cacheRectIdx, const EFBRec
 			u32 xEFB = efbPixelRc.left + xCache;
 			u32 xPixel = (EFBToScaledX(xEFB) + EFBToScaledX(xEFB + 1)) / 2;
 			u32 xData = xPixel - targetPixelRc.left;
-			s_efbCache[cacheType][cacheRectIdx][yCache * EFB_CACHE_RECT_SIZE + xCache] = data[yData * targetPixelRcWidth + xData];
+			u32 value;
+			if (type == PEEK_Z)
+			{
+				float* ptr = (float*)data;
+				value = MathUtil::Clamp<u32>((u32)(ptr[yData * targetPixelRcWidth + xData] * 16777216.0f), 0, 0xFFFFFF);
+			}
+			else
+			{
+				u32* ptr = (u32*)data;
+				value = ptr[yData * targetPixelRcWidth + xData];
+			}
+			s_efbCache[cacheType][cacheRectIdx][yCache * EFB_CACHE_RECT_SIZE + xCache] = value;
 		}
 	}
 
@@ -988,8 +859,6 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 	{
 	case PEEK_Z:
 		{
-			u32 z;
-
 			if (!s_efbCacheValid[0][cacheRectIdx])
 			{
 				if (s_MSAASamples > 1)
@@ -1003,32 +872,22 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 					g_renderer->RestoreAPIState();
 				}
 
-				u32* depthMap = new u32[targetPixelRcWidth * targetPixelRcHeight];
+				std::unique_ptr<float[]> depthMap(new float[targetPixelRcWidth * targetPixelRcHeight]);
 
 				glReadPixels(targetPixelRc.left, targetPixelRc.bottom, targetPixelRcWidth, targetPixelRcHeight,
-				             GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, depthMap);
+				             GL_DEPTH_COMPONENT, GL_FLOAT, depthMap.get());
 
-				UpdateEFBCache(type, cacheRectIdx, efbPixelRc, targetPixelRc, depthMap);
-
-				delete[] depthMap;
+				UpdateEFBCache(type, cacheRectIdx, efbPixelRc, targetPixelRc, depthMap.get());
 			}
 
 			u32 xRect = x % EFB_CACHE_RECT_SIZE;
 			u32 yRect = y % EFB_CACHE_RECT_SIZE;
-			z = s_efbCache[0][cacheRectIdx][yRect * EFB_CACHE_RECT_SIZE + xRect];
+			u32 z = s_efbCache[0][cacheRectIdx][yRect * EFB_CACHE_RECT_SIZE + xRect];
 
-			// Scale the 32-bit value returned by glReadPixels to a 24-bit
-			// value (GC uses a 24-bit Z-buffer).
-			// TODO: in RE0 this value is often off by one, which causes lighting to disappear
+			// if Z is in 16 bit format you must return a 16 bit integer
 			if (bpmem.zcontrol.pixel_format == PEControl::RGB565_Z16)
-			{
-				// if Z is in 16 bit format you must return a 16 bit integer
-				z = z >> 16;
-			}
-			else
-			{
 				z = z >> 8;
-			}
+
 			return z;
 		}
 
@@ -1039,9 +898,6 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 			// Tested in Killer 7, the first 8bits represent the alpha value which is used to
 			// determine if we're aiming at an enemy (0x80 / 0x88) or not (0x70)
 			// Wind Waker is also using it for the pictograph to determine the color of each pixel
-
-			u32 color;
-
 			if (!s_efbCacheValid[1][cacheRectIdx])
 			{
 				if (s_MSAASamples > 1)
@@ -1055,24 +911,22 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 					g_renderer->RestoreAPIState();
 				}
 
-				u32* colorMap = new u32[targetPixelRcWidth * targetPixelRcHeight];
+				std::unique_ptr<u32[]> colorMap(new u32[targetPixelRcWidth * targetPixelRcHeight]);
 
 				if (GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGLES3)
 				// XXX: Swap colours
 					glReadPixels(targetPixelRc.left, targetPixelRc.bottom, targetPixelRcWidth, targetPixelRcHeight,
-						     GL_RGBA, GL_UNSIGNED_BYTE, colorMap);
+						     GL_RGBA, GL_UNSIGNED_BYTE, colorMap.get());
 				else
 					glReadPixels(targetPixelRc.left, targetPixelRc.bottom, targetPixelRcWidth, targetPixelRcHeight,
-						     GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, colorMap);
+						     GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, colorMap.get());
 
-				UpdateEFBCache(type, cacheRectIdx, efbPixelRc, targetPixelRc, colorMap);
-
-				delete[] colorMap;
+				UpdateEFBCache(type, cacheRectIdx, efbPixelRc, targetPixelRc, colorMap.get());
 			}
 
 			u32 xRect = x % EFB_CACHE_RECT_SIZE;
 			u32 yRect = y % EFB_CACHE_RECT_SIZE;
-			color = s_efbCache[1][cacheRectIdx][yRect * EFB_CACHE_RECT_SIZE + xRect];
+			u32 color = s_efbCache[1][cacheRectIdx][yRect * EFB_CACHE_RECT_SIZE + xRect];
 
 			// check what to do with the alpha channel (GX_PokeAlphaRead)
 			PixelEngine::UPEAlphaReadReg alpha_read_mode = PixelEngine::GetAlphaReadMode();
@@ -1106,53 +960,16 @@ u32 Renderer::AccessEFB(EFBAccessType type, u32 x, u32 y, u32 poke_data)
 			}
 		}
 
-	case POKE_COLOR:
-	{
-		ResetAPIState();
-
-		glClearColor(float((poke_data >> 16) & 0xFF) / 255.0f,
-		             float((poke_data >>  8) & 0xFF) / 255.0f,
-		             float((poke_data >>  0) & 0xFF) / 255.0f,
-		             float((poke_data >> 24) & 0xFF) / 255.0f);
-
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(targetPixelRc.left, targetPixelRc.bottom, targetPixelRc.GetWidth(), targetPixelRc.GetHeight());
-
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		RestoreAPIState();
-
-		// TODO: Could just update the EFB cache with the new value
-		ClearEFBCache();
-
-		break;
-	}
-
-	case POKE_Z:
-	{
-		ResetAPIState();
-
-		glDepthMask(GL_TRUE);
-		glClearDepthf(float(poke_data & 0xFFFFFF) / float(0xFFFFFF));
-
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(targetPixelRc.left, targetPixelRc.bottom, targetPixelRc.GetWidth(), targetPixelRc.GetHeight());
-
-		glClear(GL_DEPTH_BUFFER_BIT);
-
-		RestoreAPIState();
-
-		// TODO: Could just update the EFB cache with the new value
-		ClearEFBCache();
-
-		break;
-	}
-
 	default:
 		break;
 	}
 
 	return 0;
+}
+
+void Renderer::PokeEFB(EFBAccessType type, const EfbPokeData* points, size_t num_points)
+{
+	FramebufferManager::PokeEFB(type, points, num_points);
 }
 
 u16 Renderer::BBoxRead(int index)
@@ -1219,8 +1036,8 @@ void Renderer::SetViewport()
 	float Y = EFBToScaledYf((float)EFB_HEIGHT - xfmem.viewport.yOrig + xfmem.viewport.ht + (float)scissorYOff);
 	float Width = EFBToScaledXf(2.0f * xfmem.viewport.wd);
 	float Height = EFBToScaledYf(-2.0f * xfmem.viewport.ht);
-	float GLNear = (xfmem.viewport.farZ - xfmem.viewport.zRange) / 16777216.0f;
-	float GLFar = xfmem.viewport.farZ / 16777216.0f;
+	float GLNear = MathUtil::Clamp<float>(xfmem.viewport.farZ - MathUtil::Clamp<float>(xfmem.viewport.zRange, -16777216.0f, 16777216.0f), 0.0f, 16777215.0f) / 16777216.0f;
+	float GLFar = MathUtil::Clamp<float>(xfmem.viewport.farZ, 0.0f, 16777215.0f) / 16777216.0f;
 	if (Width < 0)
 	{
 		X += Width;
@@ -1245,7 +1062,7 @@ void Renderer::SetViewport()
 		};
 		glViewport(iceilf(X), iceilf(Y), iceilf(Width), iceilf(Height));
 	}
-	glDepthRangef(GLNear, GLFar);
+	glDepthRangef(GLFar, GLNear);
 }
 
 void Renderer::ClearScreen(const EFBRectangle& rc, bool colorEnable, bool alphaEnable, bool zEnable, u32 color, u32 z)
@@ -1267,7 +1084,7 @@ void Renderer::ClearScreen(const EFBRectangle& rc, bool colorEnable, bool alphaE
 	// depth
 	glDepthMask(zEnable ? GL_TRUE : GL_FALSE);
 
-	glClearDepthf(float(z & 0xFFFFFF) / float(0xFFFFFF));
+	glClearDepthf(float(z & 0xFFFFFF) / 16777216.0f);
 
 	// Update rect for clearing the picture
 	glEnable(GL_SCISSOR_TEST);
@@ -1288,7 +1105,12 @@ void Renderer::BlitScreen(TargetRectangle src, TargetRectangle dst, GLuint src_t
 	if (g_ActiveConfig.iStereoMode == STEREO_SBS || g_ActiveConfig.iStereoMode == STEREO_TAB)
 	{
 		TargetRectangle leftRc, rightRc;
-		ConvertStereoRectangle(dst, leftRc, rightRc);
+
+		// Top-and-Bottom mode needs to compensate for inverted vertical screen coordinates.
+		if (g_ActiveConfig.iStereoMode == STEREO_TAB)
+			ConvertStereoRectangle(dst, rightRc, leftRc);
+		else
+			ConvertStereoRectangle(dst, leftRc, rightRc);
 
 		m_post_processor->BlitFromTexture(src, leftRc, src_texture, src_width, src_height, 0);
 		m_post_processor->BlitFromTexture(src, rightRc, src_texture, src_width, src_height, 1);
@@ -1317,7 +1139,7 @@ void Renderer::SetBlendMode(bool forceUpdate)
 	// Example: D3DBLEND_DESTALPHA needs to be D3DBLEND_ONE since the result without an alpha channel is assumed to always be 1.
 	bool target_has_alpha = bpmem.zcontrol.pixel_format == PEControl::RGBA6_Z24;
 
-	bool useDstAlpha = !g_ActiveConfig.bDstAlphaPass && bpmem.dstalpha.enable && bpmem.blendmode.alphaupdate && target_has_alpha;
+	bool useDstAlpha = bpmem.dstalpha.enable && bpmem.blendmode.alphaupdate && target_has_alpha;
 	bool useDualSource = useDstAlpha && g_ActiveConfig.backend_info.bSupportsDualSourceBlend;
 
 	const GLenum glSrcFactors[8] =
@@ -1418,7 +1240,7 @@ void Renderer::SetBlendMode(bool forceUpdate)
 
 static void DumpFrame(const std::vector<u8>& data, int w, int h)
 {
-#if defined(HAVE_LIBAV) || defined(_WIN32)
+#if defined(HAVE_LIBAV) || defined (_WIN32)
 	if (SConfig::GetInstance().m_DumpFrames && !data.empty())
 	{
 		AVIDump::AddFrame(&data[0], w, h);
@@ -1431,14 +1253,14 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 {
 	if (g_ogl_config.bSupportsDebug)
 	{
-		if (LogManager::GetInstance()->IsEnabled(LogTypes::VIDEO, LogTypes::LERROR))
+		if (LogManager::GetInstance()->IsEnabled(LogTypes::HOST_GPU, LogTypes::LERROR))
 			glEnable(GL_DEBUG_OUTPUT);
 		else
 			glDisable(GL_DEBUG_OUTPUT);
 	}
 
 	static int w = 0, h = 0;
-	if (g_bSkipCurrentFrame || (!XFBWrited && !g_ActiveConfig.RealXFBEnabled()) || !fbWidth || !fbHeight)
+	if (Fifo::WillSkipCurrentFrame() || (!XFBWrited && !g_ActiveConfig.RealXFBEnabled()) || !fbWidth || !fbHeight)
 	{
 		DumpFrame(frame_data, w, h);
 		Core::Callback_VideoCopiedToXFB(false);
@@ -1473,10 +1295,16 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 			xfbSource = (const XFBSource*) xfbSourceList[i];
 
 			TargetRectangle drawRc;
+			TargetRectangle sourceRc;
+			sourceRc.left = xfbSource->sourceRc.left;
+			sourceRc.right = xfbSource->sourceRc.right;
+			sourceRc.top = xfbSource->sourceRc.top;
+			sourceRc.bottom = xfbSource->sourceRc.bottom;
 
 			if (g_ActiveConfig.bUseRealXFB)
 			{
 				drawRc = flipped_trc;
+				sourceRc.right -= fbStride - fbWidth;
 			}
 			else
 			{
@@ -1498,17 +1326,11 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 				//drawRc.bottom *= vScale;
 				//drawRc.left *= hScale;
 				//drawRc.right *= hScale;
+
+				sourceRc.right -= Renderer::EFBToScaledX(fbStride - fbWidth);
 			}
 			// Tell the OSD Menu about the current internal resolution
 			OSDInternalW = xfbSource->sourceRc.GetWidth(); OSDInternalH = xfbSource->sourceRc.GetHeight();
-
-			TargetRectangle sourceRc;
-			sourceRc.left = xfbSource->sourceRc.left;
-			sourceRc.right = xfbSource->sourceRc.right;
-			sourceRc.top = xfbSource->sourceRc.top;
-			sourceRc.bottom = xfbSource->sourceRc.bottom;
-
-			sourceRc.right -= Renderer::EFBToScaledX(fbStride - fbWidth);
 
 			BlitScreen(sourceRc, drawRc, xfbSource->texture, xfbSource->texWidth, xfbSource->texHeight);
 		}
@@ -1522,124 +1344,80 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 		BlitScreen(targetRc, flipped_trc, tex, s_target_width, s_target_height);
 	}
 
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_Config.iRenderFBO);
 
 	// Save screenshot
 	if (s_bScreenshot)
 	{
 		std::lock_guard<std::mutex> lk(s_criticalScreenshot);
-		SaveScreenshot(s_sScreenshotName, flipped_trc);
+
+		if (SaveScreenshot(s_sScreenshotName, flipped_trc))
+			OSD::AddMessage("Screenshot saved to " + s_sScreenshotName);
+
 		// Reset settings
 		s_sScreenshotName.clear();
 		s_bScreenshot = false;
+		s_screenshotCompleted.Set();
 	}
 
 	// Frame dumps are handled a little differently in Windows
-	// Frame dumping disabled entirely on GLES3
-	if (GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGL)
+#if defined(HAVE_LIBAV) || defined (_WIN32)
+	if (SConfig::GetInstance().m_DumpFrames)
 	{
-#if defined _WIN32 || defined HAVE_LIBAV
-		if (SConfig::GetInstance().m_DumpFrames)
+		std::lock_guard<std::mutex> lk(s_criticalScreenshot);
+
+		if (frame_data.empty() ||
+		    w != flipped_trc.GetWidth() || h != flipped_trc.GetHeight())
 		{
-			std::lock_guard<std::mutex> lk(s_criticalScreenshot);
-			if (frame_data.empty() || w != flipped_trc.GetWidth() ||
-				     h != flipped_trc.GetHeight())
-			{
-				w = flipped_trc.GetWidth();
-				h = flipped_trc.GetHeight();
-				frame_data.resize(3 * w * h);
-			}
-			glPixelStorei(GL_PACK_ALIGNMENT, 1);
-			glReadPixels(flipped_trc.left, flipped_trc.bottom, w, h, GL_BGR, GL_UNSIGNED_BYTE, &frame_data[0]);
-			if (w > 0 && h > 0)
-			{
-				if (!bLastFrameDumped)
-				{
-					#ifdef _WIN32
-						bAVIDumping = AVIDump::Start(nullptr, w, h);
-					#else
-						bAVIDumping = AVIDump::Start(w, h);
-					#endif
-					if (!bAVIDumping)
-					{
-						OSD::AddMessage("AVIDump Start failed", 2000);
-					}
-					else
-					{
-						OSD::AddMessage(StringFromFormat(
-									"Dumping Frames to \"%sframedump0.avi\" (%dx%d RGB24)",
-									File::GetUserPath(D_DUMPFRAMES_IDX).c_str(), w, h), 2000);
-					}
-				}
-				if (bAVIDumping)
-				{
-					#ifndef _WIN32
-						FlipImageData(&frame_data[0], w, h);
-					#endif
-
-						AVIDump::AddFrame(&frame_data[0], w, h);
-				}
-
-				bLastFrameDumped = true;
-			}
-			else
-			{
-				NOTICE_LOG(VIDEO, "Error reading framebuffer");
-			}
+			w = flipped_trc.GetWidth();
+			h = flipped_trc.GetHeight();
+			frame_data.resize(4 * w * h);
 		}
-		else
-		{
-			if (bLastFrameDumped && bAVIDumping)
-			{
-				std::vector<u8>().swap(frame_data);
-				w = h = 0;
-				AVIDump::Stop();
-				bAVIDumping = false;
-				OSD::AddMessage("Stop dumping frames", 2000);
-			}
-			bLastFrameDumped = false;
-		}
-#else
-		if (SConfig::GetInstance().m_DumpFrames)
-		{
-			std::lock_guard<std::mutex> lk(s_criticalScreenshot);
-			std::string movie_file_name;
-			w = GetTargetRectangle().GetWidth();
-			h = GetTargetRectangle().GetHeight();
-			frame_data.resize(3 * w * h);
-			glPixelStorei(GL_PACK_ALIGNMENT, 1);
-			glReadPixels(GetTargetRectangle().left, GetTargetRectangle().bottom, w, h, GL_BGR, GL_UNSIGNED_BYTE, &frame_data[0]);
 
+		glPixelStorei(GL_PACK_ALIGNMENT, 1);
+		glReadPixels(flipped_trc.left, flipped_trc.bottom, w, h, GL_RGBA, GL_UNSIGNED_BYTE, &frame_data[0]);
+		if (w > 0 && h > 0)
+		{
 			if (!bLastFrameDumped)
 			{
-				movie_file_name = File::GetUserPath(D_DUMPFRAMES_IDX) + "framedump.raw";
-				File::CreateFullPath(movie_file_name);
-				pFrameDump.Open(movie_file_name, "wb");
-				if (!pFrameDump)
+				bAVIDumping = AVIDump::Start(w, h, AVIDump::DumpFormat::FORMAT_RGBA);
+				if (!bAVIDumping)
 				{
-					OSD::AddMessage("Error opening framedump.raw for writing.", 2000);
+					OSD::AddMessage("AVIDump Start failed", 2000);
 				}
 				else
 				{
-					OSD::AddMessage(StringFromFormat("Dumping Frames to \"%s\" (%dx%d RGB24)", movie_file_name.c_str(), w, h), 2000);
+					OSD::AddMessage(StringFromFormat(
+								"Dumping Frames to \"%sframedump0.avi\" (%dx%d RGB24)",
+								File::GetUserPath(D_DUMPFRAMES_IDX).c_str(), w, h), 2000);
 				}
 			}
-			if (pFrameDump)
+			if (bAVIDumping)
 			{
-				FlipImageData(&frame_data[0], w, h);
-				pFrameDump.WriteBytes(&frame_data[0], w * 3 * h);
-				pFrameDump.Flush();
+				FlipImageData(&frame_data[0], w, h, 4);
+				AVIDump::AddFrame(&frame_data[0], w, h);
 			}
+
 			bLastFrameDumped = true;
 		}
 		else
 		{
-			if (bLastFrameDumped)
-				pFrameDump.Close();
-			bLastFrameDumped = false;
+			NOTICE_LOG(VIDEO, "Error reading framebuffer");
 		}
-#endif
 	}
+	else
+	{
+		if (bLastFrameDumped && bAVIDumping)
+		{
+			std::vector<u8>().swap(frame_data);
+			w = h = 0;
+			AVIDump::Stop();
+			bAVIDumping = false;
+			OSD::AddMessage("Stop dumping frames", 2000);
+		}
+		bLastFrameDumped = false;
+	}
+#endif
 	// Finish up the current frame, print some stats
 
 	SetWindowSize(fbStride, fbHeight);
@@ -1667,58 +1445,70 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 		s_backbuffer_height = H;
 		s_last_efb_scale = g_ActiveConfig.iEFBScale;
 	}
-
-	if (xfbchanged || WindowResized || (s_last_multisample_mode != g_ActiveConfig.iMultisampleMode) || (s_last_stereo_mode != (g_ActiveConfig.iStereoMode > 0)))
+	bool TargetSizeChanged = false;
+	if (CalculateTargetSize(s_backbuffer_width, s_backbuffer_height))
+	{
+		TargetSizeChanged = true;
+	}
+	if (TargetSizeChanged || xfbchanged || WindowResized ||
+	    (s_last_multisamples != g_ActiveConfig.iMultisamples) || (s_last_stereo_mode != (g_ActiveConfig.iStereoMode > 0)))
 	{
 		s_last_xfb_mode = g_ActiveConfig.bUseRealXFB;
 
 		UpdateDrawRectangle(s_backbuffer_width, s_backbuffer_height);
 
-		if (CalculateTargetSize(s_backbuffer_width, s_backbuffer_height) || s_last_multisample_mode != g_ActiveConfig.iMultisampleMode || s_last_stereo_mode != (g_ActiveConfig.iStereoMode > 0))
+		if (TargetSizeChanged ||
+		    s_last_multisamples != g_ActiveConfig.iMultisamples || s_last_stereo_mode != (g_ActiveConfig.iStereoMode > 0))
 		{
 			s_last_stereo_mode = g_ActiveConfig.iStereoMode > 0;
-			s_last_multisample_mode = g_ActiveConfig.iMultisampleMode;
-			s_MSAASamples = GetNumMSAASamples(s_last_multisample_mode);
-			ApplySSAASettings();
+			s_last_multisamples = g_ActiveConfig.iMultisamples;
+			s_MSAASamples = s_last_multisamples;
 
-			delete g_framebuffer_manager;
-			g_framebuffer_manager = new FramebufferManager(s_target_width, s_target_height,
-				s_MSAASamples);
+			if (s_MSAASamples > 1 && s_MSAASamples > g_ogl_config.max_samples)
+			{
+				s_MSAASamples = g_ogl_config.max_samples;
+				OSD::AddMessage(StringFromFormat("%d Anti Aliasing samples selected, but only %d supported by your GPU.", s_last_multisamples, g_ogl_config.max_samples), 10000);
+			}
+
+			g_framebuffer_manager.reset();
+			g_framebuffer_manager = std::make_unique<FramebufferManager>(s_target_width, s_target_height, s_MSAASamples);
 
 			PixelShaderManager::SetEfbScaleChanged();
 		}
 	}
 
 	// ---------------------------------------------------------------------
-	if (!DriverDetails::HasBug(DriverDetails::BUG_BROKENSWAP))
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Reset viewport for drawing text
+	glViewport(0, 0, GLInterface->GetBackBufferWidth(), GLInterface->GetBackBufferHeight());
+
+	DrawDebugText();
+
+	// Do our OSD callbacks
+	OSD::DoCallbacks(OSD::CallbackType::OnFrame);
+	OSD::DrawMessages();
+
+	if (s_SurfaceNeedsChanged.IsSet())
 	{
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		// Reset viewport for drawing text
-		glViewport(0, 0, GLInterface->GetBackBufferWidth(), GLInterface->GetBackBufferHeight());
-
-		ShowEfbCopyRegions();
-		DrawDebugText();
-
-		// Do our OSD callbacks
-		OSD::DoCallbacks(OSD::OSD_ONFRAME);
-		OSD::DrawMessages();
+		GLInterface->UpdateSurface();
+		s_SurfaceNeedsChanged.Clear();
+		s_ChangedSurface.Set();
 	}
+
 	// Copy the rendered frame to the real window
 	GLInterface->Swap();
 
 	// Clear framebuffer
-	if (!DriverDetails::HasBug(DriverDetails::BUG_BROKENSWAP))
-	{
-		glClearColor(0, 0, 0, 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (s_vsync != g_ActiveConfig.IsVSync())
 	{
 		s_vsync = g_ActiveConfig.IsVSync();
-		GLInterface->SwapInterval(s_vsync);
+		if (!DriverDetails::HasBug(DriverDetails::BUG_BROKENVSYNC))
+			GLInterface->SwapInterval(s_vsync);
 	}
 
 	// Clean out old stuff from caches. It's not worth it to clean out the shader caches.
@@ -1770,7 +1560,7 @@ void Renderer::RestoreAPIState()
 	SetLogicOpMode();
 	SetViewport();
 
-	VertexManager *vm = (OGL::VertexManager*)g_vertex_manager;
+	const VertexManager* const vm = static_cast<VertexManager*>(g_vertex_manager.get());
 	glBindBuffer(GL_ARRAY_BUFFER, vm->m_vertex_buffers);
 	if (vm->m_last_vao)
 		glBindVertexArray(vm->m_last_vao);
@@ -1866,31 +1656,18 @@ void Renderer::SetDitherMode()
 		glDisable(GL_DITHER);
 }
 
-void Renderer::SetSamplerState(int stage, int texindex)
+void Renderer::SetSamplerState(int stage, int texindex, bool custom_tex)
 {
 	auto const& tex = bpmem.tex[texindex];
 	auto const& tm0 = tex.texMode0[stage];
 	auto const& tm1 = tex.texMode1[stage];
 
-	g_sampler_cache->SetSamplerState((texindex * 4) + stage, tm0, tm1);
+	g_sampler_cache->SetSamplerState((texindex * 4) + stage, tm0, tm1, custom_tex);
 }
 
 void Renderer::SetInterlacingMode()
 {
 	// TODO
-}
-
-void Renderer::FlipImageData(u8 *data, int w, int h, int pixel_width)
-{
-	// Flip image upside down. Damn OpenGL.
-	for (int y = 0; y < h / 2; ++y)
-	{
-		for (int x = 0; x < w; ++x)
-		{
-			for (int delta = 0; delta < pixel_width; ++delta)
-				std::swap(data[(y * w + x) * pixel_width + delta], data[((h - 1 - y) * w + x) * pixel_width + delta]);
-		}
-	}
 }
 
 }

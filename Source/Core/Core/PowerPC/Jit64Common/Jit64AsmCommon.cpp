@@ -1,12 +1,17 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/AssertInt.h"
+#include "Common/CommonTypes.h"
+#include "Common/JitRegister.h"
 #include "Common/MathUtil.h"
 #include "Common/x64ABI.h"
 #include "Common/x64Emitter.h"
-
+#include "Core/HW/GPFifo.h"
+#include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/Jit64Common/Jit64AsmCommon.h"
+#include "Core/PowerPC/JitCommon/Jit_Util.h"
 #include "Core/PowerPC/JitCommon/JitBase.h"
 
 #define QUANTIZED_REGS_TO_SAVE \
@@ -20,6 +25,8 @@ using namespace Gen;
 
 void CommonAsmRoutines::GenFifoWrite(int size)
 {
+	const void* start = GetCodePtr();
+
 	// Assume value in RSCRATCH
 	u32 gather_pipe = (u32)(u64)GPFifo::m_gatherPipe;
 	_assert_msg_(DYNA_REC, gather_pipe <= 0x7FFFFFFF, "Gather pipe not in low 2GB of memory!");
@@ -28,10 +35,14 @@ void CommonAsmRoutines::GenFifoWrite(int size)
 	ADD(32, R(RSCRATCH2), Imm8(size >> 3));
 	MOV(32, M(&GPFifo::m_gatherPipeCount), R(RSCRATCH2));
 	RET();
+
+	JitRegister::Register(start, GetCodePtr(), "JIT_FifoWrite_%i", size);
 }
 
 void CommonAsmRoutines::GenFrsqrte()
 {
+	const void* start = GetCodePtr();
+
 	// Assume input in XMM0.
 	// This function clobbers all three RSCRATCH.
 	MOVQ_xmm(R(RSCRATCH), XMM0);
@@ -91,10 +102,14 @@ void CommonAsmRoutines::GenFrsqrte()
 	ABI_CallFunction((void *)&MathUtil::ApproximateReciprocalSquareRoot);
 	ABI_PopRegistersAndAdjustStack(QUANTIZED_REGS_TO_SAVE, 8);
 	RET();
+
+	JitRegister::Register(start, GetCodePtr(), "JIT_Frsqrte");
 }
 
 void CommonAsmRoutines::GenFres()
 {
+	const void* start = GetCodePtr();
+
 	// Assume input in XMM0.
 	// This function clobbers all three RSCRATCH.
 	MOVQ_xmm(R(RSCRATCH), XMM0);
@@ -108,13 +123,12 @@ void CommonAsmRoutines::GenFres()
 	MOV(32, R(RSCRATCH2), R(RSCRATCH_EXTRA));
 	AND(32, R(RSCRATCH_EXTRA), Imm32(0x7FF)); // exp
 	AND(32, R(RSCRATCH2), Imm32(0x800)); // sign
-	CMP(32, R(RSCRATCH_EXTRA), Imm32(895));
+	SUB(32, R(RSCRATCH_EXTRA), Imm32(895));
+	CMP(32, R(RSCRATCH_EXTRA), Imm32(1149 - 895));
 	// Take the complex path for very large/small exponents.
-	FixupBranch complex1 = J_CC(CC_L);
-	CMP(32, R(RSCRATCH_EXTRA), Imm32(1149));
-	FixupBranch complex2 = J_CC(CC_GE);
+	FixupBranch complex = J_CC(CC_AE); // if (exp < 895 || exp >= 1149)
 
-	SUB(32, R(RSCRATCH_EXTRA), Imm32(0x7FD));
+	SUB(32, R(RSCRATCH_EXTRA), Imm32(0x7FD - 895));
 	NEG(32, R(RSCRATCH_EXTRA));
 	OR(32, R(RSCRATCH_EXTRA), R(RSCRATCH2));
 	SHL(64, R(RSCRATCH_EXTRA), Imm8(52));	   // vali = sign | exponent
@@ -143,16 +157,19 @@ void CommonAsmRoutines::GenFres()
 	OR(32, PPCSTATE(fpscr), Imm32(FPSCR_FX | FPSCR_ZX));
 	SetJumpTarget(skip_set_fx1);
 
-	SetJumpTarget(complex1);
-	SetJumpTarget(complex2);
+	SetJumpTarget(complex);
 	ABI_PushRegistersAndAdjustStack(QUANTIZED_REGS_TO_SAVE, 8);
 	ABI_CallFunction((void *)&MathUtil::ApproximateReciprocal);
 	ABI_PopRegistersAndAdjustStack(QUANTIZED_REGS_TO_SAVE, 8);
 	RET();
+
+	JitRegister::Register(start, GetCodePtr(), "JIT_Fres");
 }
 
 void CommonAsmRoutines::GenMfcr()
 {
+	const void* start = GetCodePtr();
+
 	// Input: none
 	// Output: RSCRATCH
 	// This function clobbers all three RSCRATCH.
@@ -187,15 +204,17 @@ void CommonAsmRoutines::GenMfcr()
 		OR(32, R(dst), MScaled(cr_val, SCALE_4, (u32)(u64)m_flagTable));
 	}
 	RET();
+
+	JitRegister::Register(start, GetCodePtr(), "JIT_Mfcr");
 }
 
 // Safe + Fast Quantizers, originally from JITIL by magumagu
-static const float GC_ALIGNED16(m_65535[4]) = {65535.0f, 65535.0f, 65535.0f, 65535.0f};
-static const float GC_ALIGNED16(m_32767) = 32767.0f;
-static const float GC_ALIGNED16(m_m32768) = -32768.0f;
-static const float GC_ALIGNED16(m_255) = 255.0f;
-static const float GC_ALIGNED16(m_127) = 127.0f;
-static const float GC_ALIGNED16(m_m128) = -128.0f;
+alignas(16) static const float m_65535[4] = {65535.0f, 65535.0f, 65535.0f, 65535.0f};
+alignas(16) static const float m_32767 = 32767.0f;
+alignas(16) static const float m_m32768 = -32768.0f;
+alignas(16) static const float m_255 = 255.0f;
+alignas(16) static const float m_127 = 127.0f;
+alignas(16) static const float m_m128 = -128.0f;
 
 #define QUANTIZE_OVERFLOW_SAFE
 
@@ -207,6 +226,8 @@ static const float GC_ALIGNED16(m_m128) = -128.0f;
 // See comment in header for in/outs.
 void CommonAsmRoutines::GenQuantizedStores()
 {
+	const void* start = GetCodePtr();
+
 	const u8* storePairedIllegal = AlignCode4();
 	UD2();
 
@@ -305,6 +326,8 @@ void CommonAsmRoutines::GenQuantizedStores()
 
 	RET();
 
+	JitRegister::Register(start, GetCodePtr(), "JIT_QuantizedStore");
+
 	pairedStoreQuantized = reinterpret_cast<const u8**>(const_cast<u8*>(AlignCode16()));
 	ReserveCodeSpace(8 * sizeof(u8*));
 
@@ -321,6 +344,8 @@ void CommonAsmRoutines::GenQuantizedStores()
 // See comment in header for in/outs.
 void CommonAsmRoutines::GenQuantizedSingleStores()
 {
+	const void* start = GetCodePtr();
+
 	const u8* storeSingleIllegal = AlignCode4();
 	UD2();
 
@@ -368,6 +393,8 @@ void CommonAsmRoutines::GenQuantizedSingleStores()
 	SafeWriteRegToReg(RSCRATCH, RSCRATCH_EXTRA, 16, 0, QUANTIZED_REGS_TO_SAVE, SAFE_LOADSTORE_NO_PROLOG | SAFE_LOADSTORE_NO_FASTMEM);
 	RET();
 
+	JitRegister::Register(start, GetCodePtr(), "JIT_QuantizedSingleStore");
+
 	singleStoreQuantized = reinterpret_cast<const u8**>(const_cast<u8*>(AlignCode16()));
 	ReserveCodeSpace(8 * sizeof(u8*));
 
@@ -383,6 +410,8 @@ void CommonAsmRoutines::GenQuantizedSingleStores()
 
 void CommonAsmRoutines::GenQuantizedLoads()
 {
+	const void* start = GetCodePtr();
+
 	const u8* loadPairedIllegal = AlignCode4();
 	UD2();
 
@@ -393,7 +422,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	// If we find something that actually does do this, maybe this should be changed. How
 	// much of a performance hit would it be?
 	const u8* loadPairedFloatTwo = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 	{
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 64, 0, QUANTIZED_REGS_TO_SAVE, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 		ROL(64, R(RSCRATCH_EXTRA), Imm8(32));
@@ -401,19 +430,19 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	}
 	else if (cpu_info.bSSSE3)
 	{
-		MOVQ_xmm(XMM0, MComplex(RMEM, RSCRATCH_EXTRA, 1, 0));
+		MOVQ_xmm(XMM0, MRegSum(RMEM, RSCRATCH_EXTRA));
 		PSHUFB(XMM0, M(pbswapShuffle2x4));
 	}
 	else
 	{
-		LoadAndSwap(64, RSCRATCH_EXTRA, MComplex(RMEM, RSCRATCH_EXTRA, 1, 0));
+		LoadAndSwap(64, RSCRATCH_EXTRA, MRegSum(RMEM, RSCRATCH_EXTRA));
 		ROL(64, R(RSCRATCH_EXTRA), Imm8(32));
 		MOVQ_xmm(XMM0, R(RSCRATCH_EXTRA));
 	}
 	RET();
 
 	const u8* loadPairedFloatOne = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 	{
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 32, 0, QUANTIZED_REGS_TO_SAVE, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 		MOVD_xmm(XMM0, R(RSCRATCH_EXTRA));
@@ -421,20 +450,20 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	}
 	else if (cpu_info.bSSSE3)
 	{
-		MOVD_xmm(XMM0, MComplex(RMEM, RSCRATCH_EXTRA, 1, 0));
+		MOVD_xmm(XMM0, MRegSum(RMEM, RSCRATCH_EXTRA));
 		PSHUFB(XMM0, M(pbswapShuffle1x4));
 		UNPCKLPS(XMM0, M(m_one));
 	}
 	else
 	{
-		LoadAndSwap(32, RSCRATCH_EXTRA, MComplex(RMEM, RSCRATCH_EXTRA, 1, 0));
+		LoadAndSwap(32, RSCRATCH_EXTRA, MRegSum(RMEM, RSCRATCH_EXTRA));
 		MOVD_xmm(XMM0, R(RSCRATCH_EXTRA));
 		UNPCKLPS(XMM0, M(m_one));
 	}
 	RET();
 
 	const u8* loadPairedU8Two = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 	{
 		// TODO: Support not swapping in safeLoadToReg to avoid bswapping twice
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 16, 0, QUANTIZED_REGS_TO_SAVE_LOAD, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
@@ -462,7 +491,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	RET();
 
 	const u8* loadPairedU8One = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 8, 0, QUANTIZED_REGS_TO_SAVE_LOAD, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 	else
 		UnsafeLoadRegToRegNoSwap(RSCRATCH_EXTRA, RSCRATCH_EXTRA, 8, 0); // RSCRATCH_EXTRA = 0x000000xx
@@ -473,7 +502,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	RET();
 
 	const u8* loadPairedS8Two = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 	{
 		// TODO: Support not swapping in safeLoadToReg to avoid bswapping twice
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 16, 0, QUANTIZED_REGS_TO_SAVE_LOAD, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
@@ -501,7 +530,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	RET();
 
 	const u8* loadPairedS8One = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 8, 0, QUANTIZED_REGS_TO_SAVE_LOAD, true, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 	else
 		UnsafeLoadRegToRegNoSwap(RSCRATCH_EXTRA, RSCRATCH_EXTRA, 8, 0, true);
@@ -513,7 +542,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 
 	const u8* loadPairedU16Two = AlignCode4();
 	// TODO: Support not swapping in (un)safeLoadToReg to avoid bswapping twice
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 32, 0, QUANTIZED_REGS_TO_SAVE_LOAD, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 	else
 		UnsafeLoadRegToReg(RSCRATCH_EXTRA, RSCRATCH_EXTRA, 32, 0, false);
@@ -535,7 +564,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	RET();
 
 	const u8* loadPairedU16One = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 16, 0, QUANTIZED_REGS_TO_SAVE_LOAD, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 	else
 		UnsafeLoadRegToReg(RSCRATCH_EXTRA, RSCRATCH_EXTRA, 16, 0, false);
@@ -546,7 +575,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	RET();
 
 	const u8* loadPairedS16Two = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 32, 0, QUANTIZED_REGS_TO_SAVE_LOAD, false, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 	else
 		UnsafeLoadRegToReg(RSCRATCH_EXTRA, RSCRATCH_EXTRA, 32, 0, false);
@@ -568,7 +597,7 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	RET();
 
 	const u8* loadPairedS16One = AlignCode4();
-	if (jit->js.memcheck)
+	if (jit->jo.memcheck)
 		SafeLoadToReg(RSCRATCH_EXTRA, R(RSCRATCH_EXTRA), 16, 0, QUANTIZED_REGS_TO_SAVE_LOAD, true, SAFE_LOADSTORE_NO_FASTMEM | SAFE_LOADSTORE_NO_PROLOG);
 	else
 		UnsafeLoadRegToReg(RSCRATCH_EXTRA, RSCRATCH_EXTRA, 16, 0, true);
@@ -577,6 +606,9 @@ void CommonAsmRoutines::GenQuantizedLoads()
 	MULSS(XMM0, MDisp(RSCRATCH2, (u32)(u64)m_dequantizeTableS));
 	UNPCKLPS(XMM0, M(m_one));
 	RET();
+
+
+	JitRegister::Register(start, GetCodePtr(), "JIT_QuantizedLoad");
 
 	pairedLoadQuantized = reinterpret_cast<const u8**>(const_cast<u8*>(AlignCode16()));
 	ReserveCodeSpace(16 * sizeof(u8*));

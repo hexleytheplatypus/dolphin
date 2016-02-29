@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -10,7 +10,9 @@
 
 #include "Common/CommonTypes.h"
 #include "Common/MathUtil.h"
-#include "VideoCommon/VideoBackendBase.h"
+
+// Global flag to signal if FifoRecorder is active.
+extern bool g_bRecordFifoData;
 
 // These are accurate (disregarding AA modes).
 enum
@@ -19,9 +21,10 @@ enum
 	EFB_HEIGHT = 528,
 };
 
-// XFB width is decided by EFB copy operation. The VI can do horizontal
-// scaling (TODO: emulate).
-const u32 MAX_XFB_WIDTH = EFB_WIDTH;
+// Max XFB width is 720. You can only copy out 640 wide areas of efb to XFB
+// so you need multiple copies to do the full width.
+// The VI can do horizontal scaling (TODO: emulate).
+const u32 MAX_XFB_WIDTH = 720;
 
 // Although EFB height is 528, 574-line XFB's can be created either with
 // vertical scaling by the EFB copy operation or copying to multiple XFB's
@@ -65,12 +68,12 @@ struct TargetRectangle : public MathUtil::Rectangle<int>
 
 #define LOG_VTX()
 
-typedef enum
+enum API_TYPE
 {
 	API_OPENGL = 1,
 	API_D3D    = 2,
 	API_NONE   = 3
-} API_TYPE;
+};
 
 inline u32 RGBA8ToRGBA6ToRGBA8(u32 src)
 {
@@ -92,26 +95,4 @@ inline u32 RGBA8ToRGB565ToRGBA8(u32 src)
 inline u32 Z24ToZ16ToZ24(u32 src)
 {
 	return (src & 0xFFFF00) | (src >> 16);
-}
-
-/* Returns the smallest power of 2 which is greater than or equal to num */
-inline u32 MakePow2(u32 num)
-{
-	--num;
-	num |= num >> 1;
-	num |= num >> 2;
-	num |= num >> 4;
-	num |= num >> 8;
-	num |= num >> 16;
-	++num;
-	return num;
-}
-
-// returns the exponent of the smallest power of two which is greater than val
-inline unsigned int GetPow2(unsigned int val)
-{
-	unsigned int ret = 0;
-	for (; val; val >>= 1)
-		++ret;
-	return ret;
 }

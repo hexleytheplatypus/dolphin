@@ -1,15 +1,14 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
-#ifdef _WIN32
-#include <intrin.h>
-#endif
-
-#include "Common/CPUDetect.h"
+#include "Common/AssertInt.h"
+#include "Common/CommonTypes.h"
 #include "Common/FPURoundMode.h"
+#include "Common/Logging/Log.h"
 #include "Core/HW/GPFifo.h"
 #include "Core/HW/SystemTimers.h"
+#include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/Interpreter/Interpreter.h"
 #include "Core/PowerPC/Interpreter/Interpreter_FPUtils.h"
 
@@ -30,7 +29,6 @@ mffsx: 80036650 (huh?)
 
 static void FPSCRtoFPUSettings(UReg_FPSCR fp)
 {
-
 	FPURoundMode::SetRoundMode(fp.RN);
 
 	if (fp.VE || fp.OE || fp.UE || fp.ZE || fp.XE)
@@ -329,9 +327,9 @@ void Interpreter::mtspr(UGeckoInstruction _inst)
 			if (iLength == 0)
 				iLength = 128;
 			if (DMAL.DMA_LD)
-				Memory::DMA_MemoryToLC(dwCacheAddress, dwMemAddress, iLength);
+				PowerPC::DMA_MemoryToLC(dwCacheAddress, dwMemAddress, iLength);
 			else
-				Memory::DMA_LCToMemory(dwMemAddress, dwCacheAddress, iLength);
+				PowerPC::DMA_LCToMemory(dwMemAddress, dwCacheAddress, iLength);
 		}
 		DMAL.DMA_T = 0;
 		break;
@@ -344,14 +342,14 @@ void Interpreter::mtspr(UGeckoInstruction _inst)
 		if (!(oldValue >> 31) && (rGPR[_inst.RD]>>31))   //top bit from 0 to 1
 		{
 			PanicAlert("Interesting - Software triggered Decrementer exception");
-			Common::AtomicOr(PowerPC::ppcState.Exceptions, EXCEPTION_DECREMENTER);
+			PowerPC::ppcState.Exceptions |= EXCEPTION_DECREMENTER;
 		}
 		SystemTimers::DecrementerSet();
 		break;
 
 	// Page table base etc
 	case SPR_SDR:
-		Memory::SDRUpdated();
+		PowerPC::SDRUpdated();
 		break;
 
 	case SPR_XER:
@@ -453,11 +451,10 @@ void Interpreter::mcrfs(UGeckoInstruction _inst)
 void Interpreter::mffsx(UGeckoInstruction _inst)
 {
 	// load from FPSCR
-	// This may or may not be accurate - but better than nothing, I guess
 	// TODO(ector): grab all overflow flags etc and set them in FPSCR
 
 	UpdateFPSCR();
-	riPS0(_inst.FD) = (u64)FPSCR.Hex;
+	riPS0(_inst.FD) = 0xFFF8000000000000 | FPSCR.Hex;
 
 	if (_inst.Rc)
 		PanicAlert("mffsx: inst_.Rc");

@@ -1,18 +1,22 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
+
+#include "Common/ChunkFile.h"
 #include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
 #include "Common/MemoryUtil.h"
 #include "Common/Timer.h"
-
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
-#include "Core/Core.h"
 #include "Core/CoreTiming.h"
 #include "Core/Movie.h"
+#include "Core/NetPlayProto.h"
 #include "Core/HW/EXI_DeviceIPL.h"
+#include "Core/HW/Sram.h"
 #include "Core/HW/SystemTimers.h"
 
 // We should provide an option to choose from the above, or figure out the checksum (the algo in yagcd seems wrong)
@@ -85,26 +89,26 @@ CEXIIPL::CEXIIPL() :
 	m_FontsLoaded(false)
 {
 	// Determine region
-	m_bNTSC = SConfig::GetInstance().m_LocalCoreStartupParameter.bNTSC;
+	m_bNTSC = SConfig::GetInstance().bNTSC;
 
 	// Create the IPL
 	m_pIPL = (u8*)AllocateMemoryPages(ROM_SIZE);
 
-	if (SConfig::GetInstance().m_LocalCoreStartupParameter.bHLE_BS2)
+	if (SConfig::GetInstance().bHLE_BS2)
 	{
 		// Copy header
 		memcpy(m_pIPL, m_bNTSC ? iplverNTSC : iplverPAL, m_bNTSC ? sizeof(iplverNTSC) : sizeof(iplverPAL));
 
 		// Load fonts
-		LoadFileToIPL((File::GetSysDirectory() + GC_SYS_DIR + DIR_SEP + FONT_SJIS), 0x1aff00);
-		LoadFileToIPL((File::GetSysDirectory() + GC_SYS_DIR + DIR_SEP + FONT_ANSI), 0x1fcf00);
+		LoadFontFile((File::GetSysDirectory() + GC_SYS_DIR + DIR_SEP + FONT_SJIS), 0x1aff00);
+		LoadFontFile((File::GetSysDirectory() + GC_SYS_DIR + DIR_SEP + FONT_ANSI), 0x1fcf00);
 	}
 	else
 	{
 		// Load whole ROM dump
-		LoadFileToIPL(SConfig::GetInstance().m_LocalCoreStartupParameter.m_strBootROM, 0);
+		LoadFileToIPL(SConfig::GetInstance().m_strBootROM, 0);
 		// Descramble the encrypted section (contains BS1 and BS2)
-		Descrambler(m_pIPL + 0x100, 0x1aff00);
+		Descrambler(m_pIPL + 0x100, 0x1afe00);
 		INFO_LOG(BOOT, "Loaded bootrom: %s", m_pIPL); // yay for null-terminated strings ;p
 	}
 
@@ -112,7 +116,8 @@ CEXIIPL::CEXIIPL() :
 	memset(m_RTC, 0, sizeof(m_RTC));
 
 	// We Overwrite language selection here since it's possible on the GC to change the language as you please
-	g_SRAM.lang = SConfig::GetInstance().m_LocalCoreStartupParameter.SelectedLanguage;
+	g_SRAM.lang = SConfig::GetInstance().SelectedLanguage;
+	FixSRAMChecksums();
 
 	WriteProtectMemory(m_pIPL, ROM_SIZE);
 	m_uAddress = 0;
@@ -124,8 +129,15 @@ CEXIIPL::~CEXIIPL()
 	m_pIPL = nullptr;
 
 	// SRAM
-	File::IOFile file(SConfig::GetInstance().m_LocalCoreStartupParameter.m_strSRAM, "wb");
-	file.WriteArray(&g_SRAM, 1);
+	if (!g_SRAM_netplay_initialized)
+	{
+		File::IOFile file(SConfig::GetInstance().m_strSRAM, "wb");
+		file.WriteArray(&g_SRAM, 1);
+	}
+	else
+	{
+		g_SRAM_netplay_initialized = false;
+	}
 }
 void CEXIIPL::DoState(PointerWrap &p)
 {
@@ -137,16 +149,69 @@ void CEXIIPL::DoState(PointerWrap &p)
 	p.Do(m_FontsLoaded);
 }
 
-void CEXIIPL::LoadFileToIPL(std::string filename, u32 offset)
+void CEXIIPL::LoadFileToIPL(const std::string& filename, u32 offset)
 {
-	File::IOFile pStream(filename, "rb");
-	if (pStream)
-	{
-		u64 filesize = pStream.GetSize();
+	File::IOFile stream(filename, "rb");
+	if (!stream)
+		return;
 
-		pStream.ReadBytes(m_pIPL + offset, filesize);
+	u64 filesize = stream.GetSize();
+
+	stream.ReadBytes(m_pIPL + offset, filesize);
+
+	m_FontsLoaded = true;
+}
+
+std::string CEXIIPL::FindIPLDump(const std::string& path_prefix)
+{
+	std::string ipl_dump_path;
+
+	if (File::Exists(path_prefix + DIR_SEP + USA_DIR + DIR_SEP + GC_IPL))
+		ipl_dump_path = path_prefix + DIR_SEP + USA_DIR + DIR_SEP + GC_IPL;
+	else if (File::Exists(path_prefix + DIR_SEP + EUR_DIR + DIR_SEP + GC_IPL))
+		ipl_dump_path = path_prefix + DIR_SEP + EUR_DIR + DIR_SEP + GC_IPL;
+	else if (File::Exists(path_prefix + DIR_SEP + JAP_DIR + DIR_SEP + GC_IPL))
+		ipl_dump_path = path_prefix + DIR_SEP + JAP_DIR + DIR_SEP + GC_IPL;
+
+	return ipl_dump_path;
+}
+
+void CEXIIPL::LoadFontFile(const std::string& filename, u32 offset)
+{
+	// Official IPL fonts are copyrighted. Dolphin ships with a set of free font alternatives but
+	// unfortunately the bundled fonts have different padding, causing issues with misplaced text
+	// in some titles. This function check if the user has IPL dumps available and load the fonts
+	// from those dumps instead of loading the bundled fonts
+
+	// Check for IPL dumps in User folder
+	std::string ipl_rom_path = FindIPLDump(File::GetUserPath(D_GCUSER_IDX));
+
+	// If not found, check again in Sys folder
+	if (ipl_rom_path.empty())
+		ipl_rom_path = FindIPLDump(File::GetSysDirectory() + GC_SYS_DIR);
+
+	if (File::Exists(ipl_rom_path))
+	{
+		// The user has an IPL dump, load the font from it
+		File::IOFile stream(ipl_rom_path, "rb");
+		if (!stream)
+			return;
+
+		// Official Windows-1252 and SJIS fonts present on the IPL dumps are 0x2575 and 0x4a24d bytes
+		// long respectively, so, determine the size of the font being loaded based on the offset
+		u64 fontsize = (offset == 0x1aff00) ? 0x4a24d : 0x2575;
+
+		INFO_LOG(BOOT, "Found IPL dump, loading %s font from %s", ((offset == 0x1aff00) ? "SJIS" : "Windows-1252"), (ipl_rom_path).c_str());
+
+		stream.Seek(offset, 0);
+		stream.ReadBytes(m_pIPL + offset, fontsize);
 
 		m_FontsLoaded = true;
+	}
+	else
+	{
+		// No IPL dump available, load bundled font instead
+		LoadFileToIPL(filename, offset);
 	}
 }
 
@@ -159,16 +224,28 @@ void CEXIIPL::SetCS(int _iCS)
 	}
 }
 
-bool CEXIIPL::IsPresent()
+void CEXIIPL::UpdateRTC()
+{
+	// Seconds between 1.1.2000 and 4.1.2008 16:00:38
+	static constexpr u32 WII_BIAS = 0x0F1114A6;
+
+	u32 rtc;
+
+	if (SConfig::GetInstance().bWii)
+		rtc = Common::swap32(GetGCTime() - WII_BIAS);
+	else
+		rtc = Common::swap32(GetGCTime());
+
+	std::memcpy(m_RTC, &rtc, sizeof(u32));
+}
+
+bool CEXIIPL::IsPresent() const
 {
 	return true;
 }
 
 void CEXIIPL::TransferByte(u8& _uByte)
 {
-	// Seconds between 1.1.2000 and 4.1.2008 16:00:38
-	const u32 cWiiBias = 0x0F1114A6;
-
 	// The first 4 bytes must be the address
 	// If we haven't read it, do it now
 	if (m_uPosition <= 3)
@@ -181,17 +258,8 @@ void CEXIIPL::TransferByte(u8& _uByte)
 		// Check if the command is complete
 		if (m_uPosition == 3)
 		{
-			// Get the time ...
-			u32 &rtc = *((u32 *)&m_RTC);
-			if (SConfig::GetInstance().m_LocalCoreStartupParameter.bWii)
-			{
-				// Subtract Wii bias
-				rtc = Common::swap32(CEXIIPL::GetGCTime() - cWiiBias);
-			}
-			else
-			{
-				rtc = Common::swap32(CEXIIPL::GetGCTime());
-			}
+			// Get the time...
+			UpdateRTC();
 
 			// Log the command
 			std::string device_name;
@@ -345,15 +413,16 @@ u32 CEXIIPL::GetGCTime()
 		// let's keep time moving forward, regardless of what it starts at
 		ltime += CoreTiming::GetTicks() / SystemTimers::GetTicksPerSecond();
 	}
-	else
+	else if (NetPlay::IsNetPlayRunning())
 	{
-		// hack in some netplay stuff
 		ltime = NetPlay_GetGCTime();
 
-		if (0 == ltime)
-			ltime = Common::Timer::GetLocalTimeSinceJan1970();
-		else
-			ltime += CoreTiming::GetTicks() / SystemTimers::GetTicksPerSecond();
+		// let's keep time moving forward, regardless of what it starts at
+		ltime += CoreTiming::GetTicks() / SystemTimers::GetTicksPerSecond();
+	}
+	else
+	{
+		ltime = Common::Timer::GetLocalTimeSinceJan1970();
 	}
 
 	return ((u32)ltime - cJanuary2000);
@@ -365,7 +434,7 @@ u32 CEXIIPL::GetGCTime()
 	// Get SRAM bias
 	u32 Bias;
 
-	for (int i=0; i<4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		((u8*)&Bias)[i] = sram_dump[0xc + (i^3)];
 	}

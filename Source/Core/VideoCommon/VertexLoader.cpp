@@ -1,61 +1,60 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/AssertInt.h"
 #include "Common/CommonTypes.h"
-#include "Common/MemoryUtil.h"
 
-#include "Core/Host.h"
-
-#include "VideoCommon/BoundingBox.h"
 #include "VideoCommon/DataReader.h"
-#include "VideoCommon/PixelEngine.h"
 #include "VideoCommon/VertexLoader.h"
 #include "VideoCommon/VertexLoader_Color.h"
 #include "VideoCommon/VertexLoader_Normal.h"
 #include "VideoCommon/VertexLoader_Position.h"
 #include "VideoCommon/VertexLoader_TextCoord.h"
+#include "VideoCommon/VertexLoaderManager.h"
+#include "VideoCommon/VertexLoaderUtils.h"
 #include "VideoCommon/VideoCommon.h"
-#include "VideoCommon/VideoConfig.h"
 
 // This pointer is used as the source/dst for all fixed function loader calls
 u8* g_video_buffer_read_ptr;
 u8* g_vertex_manager_write_ptr;
 
-static void LOADERDECL PosMtx_ReadDirect_UByte(VertexLoader* loader)
+static void PosMtx_ReadDirect_UByte(VertexLoader* loader)
 {
-	u8 posmtx = BoundingBox::posMtxIdx = DataReadU8() & 0x3f;
+	u32 posmtx = DataRead<u8>() & 0x3f;
+	if (loader->m_counter < 3)
+		VertexLoaderManager::position_matrix_index[loader->m_counter] = posmtx;
 	DataWrite<u32>(posmtx);
 	PRIM_LOG("posmtx: %d, ", posmtx);
 }
 
-static void LOADERDECL TexMtx_ReadDirect_UByte(VertexLoader* loader)
+static void TexMtx_ReadDirect_UByte(VertexLoader* loader)
 {
-	BoundingBox::texMtxIdx[loader->m_texmtxread] = loader->m_curtexmtx[loader->m_texmtxread] = DataReadU8() & 0x3f;
+	loader->m_curtexmtx[loader->m_texmtxread] = DataRead<u8>() & 0x3f;
 
 	PRIM_LOG("texmtx%d: %d, ", loader->m_texmtxread, loader->m_curtexmtx[loader->m_texmtxread]);
 	loader->m_texmtxread++;
 }
 
-static void LOADERDECL TexMtx_Write_Float(VertexLoader* loader)
+static void TexMtx_Write_Float(VertexLoader* loader)
 {
 	DataWrite(float(loader->m_curtexmtx[loader->m_texmtxwrite++]));
 }
 
-static void LOADERDECL TexMtx_Write_Float2(VertexLoader* loader)
+static void TexMtx_Write_Float2(VertexLoader* loader)
 {
 	DataWrite(0.f);
 	DataWrite(float(loader->m_curtexmtx[loader->m_texmtxwrite++]));
 }
 
-static void LOADERDECL TexMtx_Write_Float3(VertexLoader* loader)
+static void TexMtx_Write_Float3(VertexLoader* loader)
 {
 	DataWrite(0.f);
 	DataWrite(0.f);
 	DataWrite(float(loader->m_curtexmtx[loader->m_texmtxwrite++]));
 }
 
-static void LOADERDECL SkipVertex(VertexLoader* loader)
+static void SkipVertex(VertexLoader* loader)
 {
 	if (loader->m_vertexSkip)
 	{
@@ -87,12 +86,8 @@ void VertexLoader::CompileVertexTranslator()
 	// Reset pipeline
 	m_numPipelineStages = 0;
 
-	// Get the pointer to this vertex's buffer data for the bounding box
-	if (!g_ActiveConfig.backend_info.bSupportsBBox)
-		WriteCall(BoundingBox::SetVertexBufferPosition);
-
 	// Colors
-	const u64 col[2] = {m_VtxDesc.Color0, m_VtxDesc.Color1};
+	const u64 col[2] = { m_VtxDesc.Color0, m_VtxDesc.Color1 };
 	// TextureCoord
 	const u64 tc[8] = {
 		m_VtxDesc.Tex0Coord, m_VtxDesc.Tex1Coord, m_VtxDesc.Tex2Coord, m_VtxDesc.Tex3Coord,
@@ -118,25 +113,26 @@ void VertexLoader::CompileVertexTranslator()
 		m_VertexSize += 1;
 	}
 
-	if (m_VtxDesc.Tex0MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX0; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex1MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX1; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex2MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX2; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex3MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX3; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex4MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX4; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex5MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX5; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex6MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX6; WriteCall(TexMtx_ReadDirect_UByte); }
-	if (m_VtxDesc.Tex7MatIdx) {m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX7; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex0MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX0; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex1MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX1; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex2MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX2; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex3MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX3; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex4MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX4; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex5MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX5; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex6MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX6; WriteCall(TexMtx_ReadDirect_UByte); }
+	if (m_VtxDesc.Tex7MatIdx) { m_VertexSize += 1; components |= VB_HAS_TEXMTXIDX7; WriteCall(TexMtx_ReadDirect_UByte); }
 
 	// Write vertex position loader
 	WriteCall(VertexLoader_Position::GetFunction(m_VtxDesc.Position, m_VtxAttr.PosFormat, m_VtxAttr.PosElements));
 
 	m_VertexSize += VertexLoader_Position::GetSize(m_VtxDesc.Position, m_VtxAttr.PosFormat, m_VtxAttr.PosElements);
-	m_native_vtx_decl.position.components = 3;
+	int pos_elements = m_VtxAttr.PosElements + 2;
+	m_native_vtx_decl.position.components = pos_elements;
 	m_native_vtx_decl.position.enable = true;
 	m_native_vtx_decl.position.offset = nat_offset;
 	m_native_vtx_decl.position.type = VAR_FLOAT;
 	m_native_vtx_decl.position.integer = false;
-	nat_offset += 12;
+	nat_offset += pos_elements * sizeof(float);
 
 	// Normals
 	if (m_VtxDesc.Normal != NOT_PRESENT)
@@ -297,10 +293,6 @@ void VertexLoader::CompileVertexTranslator()
 		}
 	}
 
-	// Update the bounding box
-	if (!g_ActiveConfig.backend_info.bSupportsBBox)
-		WriteCall(BoundingBox::Update);
-
 	// indexed position formats may skip a the vertex
 	if (m_VtxDesc.Position & 2)
 	{
@@ -316,7 +308,7 @@ void VertexLoader::WriteCall(TPipelineFunction func)
 	m_PipelineStages[m_numPipelineStages++] = func;
 }
 
-int VertexLoader::RunVertices(int primitive, int count, DataReader src, DataReader dst)
+int VertexLoader::RunVertices(DataReader src, DataReader dst, int count)
 {
 	g_vertex_manager_write_ptr = dst.GetPointer();
 	g_video_buffer_read_ptr = src.GetPointer();
@@ -324,11 +316,7 @@ int VertexLoader::RunVertices(int primitive, int count, DataReader src, DataRead
 	m_numLoadedVertices += count;
 	m_skippedVertices = 0;
 
-	// Prepare bounding box
-	if (!g_ActiveConfig.backend_info.bSupportsBBox)
-		BoundingBox::Prepare(m_vat, primitive, m_VtxDesc, m_native_vtx_decl);
-
-	for (int s = 0; s < count; s++)
+	for (m_counter = count - 1; m_counter >= 0; m_counter--)
 	{
 		m_tcIndex = 0;
 		m_colIndex = 0;

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -34,9 +34,22 @@ enum InterruptCause
 	INT_CAUSE_RST_BUTTON  = 0x10000 // ResetButtonState (1 = unpressed, 0 = pressed) it's a state, not maskable
 };
 
+// Internal hardware addresses
+enum
+{
+	PI_INTERRUPT_CAUSE = 0x00,
+	PI_INTERRUPT_MASK  = 0x04,
+	PI_FIFO_BASE       = 0x0C,
+	PI_FIFO_END        = 0x10,
+	PI_FIFO_WPTR       = 0x14,
+	PI_FIFO_RESET      = 0x18, // ??? - GXAbortFrame writes to it
+	PI_RESET_CODE      = 0x24,
+	PI_FLIPPER_REV     = 0x2C,
+	PI_FLIPPER_UNK     = 0x30 // BS1 writes 0x0245248A to it - prolly some bootstrap thing
+};
 
-extern volatile u32 m_InterruptCause;
-extern volatile u32 m_InterruptMask;
+extern u32 m_InterruptCause;
+extern u32 m_InterruptMask;
 extern u32 Fifo_CPUBase;
 extern u32 Fifo_CPUEnd;
 extern u32 Fifo_CPUWritePointer;

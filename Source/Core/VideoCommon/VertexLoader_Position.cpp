@@ -1,13 +1,17 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <limits>
 #include <type_traits>
 
+#include "Common/CommonFuncs.h"
 #include "Common/CommonTypes.h"
+#include "VideoCommon/DataReader.h"
 #include "VideoCommon/VertexLoader.h"
 #include "VideoCommon/VertexLoader_Position.h"
-#include "VideoCommon/VertexManagerBase.h"
+#include "VideoCommon/VertexLoaderManager.h"
+#include "VideoCommon/VertexLoaderUtils.h"
 #include "VideoCommon/VideoCommon.h"
 
 template <typename T>
@@ -23,15 +27,20 @@ float PosScale(float val, float scale)
 }
 
 template <typename T, int N>
-void LOADERDECL Pos_ReadDirect(VertexLoader* loader)
+void Pos_ReadDirect(VertexLoader* loader)
 {
 	static_assert(N <= 3, "N > 3 is not sane!");
 	auto const scale = loader->m_posScale;
 	DataReader dst(g_vertex_manager_write_ptr, nullptr);
 	DataReader src(g_video_buffer_read_ptr, nullptr);
 
-	for (int i = 0; i < 3; ++i)
-		dst.Write(i<N ? PosScale(src.Read<T>(), scale) : 0.f);
+	for (int i = 0; i < N; ++i)
+	{
+		float value = PosScale(src.Read<T>(), scale);
+		if (loader->m_counter < 3)
+			VertexLoaderManager::position_cache[loader->m_counter][i] = value;
+		dst.Write(value);
+	}
 
 	g_vertex_manager_write_ptr = dst.GetPointer();
 	g_video_buffer_read_ptr = src.GetPointer();
@@ -39,19 +48,24 @@ void LOADERDECL Pos_ReadDirect(VertexLoader* loader)
 }
 
 template <typename I, typename T, int N>
-void LOADERDECL Pos_ReadIndex(VertexLoader* loader)
+void Pos_ReadIndex(VertexLoader* loader)
 {
 	static_assert(std::is_unsigned<I>::value, "Only unsigned I is sane!");
 	static_assert(N <= 3, "N > 3 is not sane!");
 
 	auto const index = DataRead<I>();
 	loader->m_vertexSkip = index == std::numeric_limits<I>::max();
-	auto const data = reinterpret_cast<const T*>(cached_arraybases[ARRAY_POSITION] + (index * g_main_cp_state.array_strides[ARRAY_POSITION]));
+	auto const data = reinterpret_cast<const T*>(VertexLoaderManager::cached_arraybases[ARRAY_POSITION] + (index * g_main_cp_state.array_strides[ARRAY_POSITION]));
 	auto const scale = loader->m_posScale;
 	DataReader dst(g_vertex_manager_write_ptr, nullptr);
 
-	for (int i = 0; i < 3; ++i)
-		dst.Write(i<N ? PosScale(Common::FromBigEndian(data[i]), scale) : 0.f);
+	for (int i = 0; i < N; ++i)
+	{
+		float value = PosScale(Common::FromBigEndian(data[i]), scale);
+		if (loader->m_counter < 3)
+			VertexLoaderManager::position_cache[loader->m_counter][i] = value;
+		dst.Write(value);
+	}
 
 	g_vertex_manager_write_ptr = dst.GetPointer();
 	LOG_VTX();

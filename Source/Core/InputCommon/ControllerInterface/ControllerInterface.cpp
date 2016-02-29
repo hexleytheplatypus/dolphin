@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Common/Thread.h"
@@ -25,6 +25,12 @@
 #endif
 #ifdef CIFACE_USE_ANDROID
 	#include "InputCommon/ControllerInterface/Android/Android.h"
+#endif
+#ifdef CIFACE_USE_EVDEV
+	#include "InputCommon/ControllerInterface/evdev/evdev.h"
+#endif
+#ifdef CIFACE_USE_PIPES
+	#include "InputCommon/ControllerInterface/Pipes/Pipes.h"
 #endif
 
 using namespace ciface::ExpressionParser;
@@ -68,6 +74,12 @@ void ControllerInterface::Initialize(void* const hwnd)
 #endif
 #ifdef CIFACE_USE_ANDROID
 	ciface::Android::Init(m_devices);
+#endif
+#ifdef CIFACE_USE_EVDEV
+	ciface::evdev::Init(m_devices);
+#endif
+#ifdef CIFACE_USE_PIPES
+	ciface::Pipes::Init(m_devices);
 #endif
 
 	m_is_init = true;
@@ -130,15 +142,10 @@ void ControllerInterface::Shutdown()
 //
 // UpdateInput
 //
-// Update input for all devices, return true if all devices returned successful
+// Update input for all devices
 //
 void ControllerInterface::UpdateInput()
 {
-	std::unique_lock<std::recursive_mutex> lk(update_lock, std::defer_lock);
-
-	if (!lk.try_lock())
-		return;
-
 	for (ciface::Core::Device* d : m_devices)
 		d->UpdateInput();
 }

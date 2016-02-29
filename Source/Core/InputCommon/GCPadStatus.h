@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -17,6 +17,8 @@ enum PadError
 enum
 {
 	PAD_USE_ORIGIN = 0x0080,
+	PAD_GET_ORIGIN = 0x2000,
+	PAD_ERR_STATUS = 0x8000,
 };
 
 enum PadButton

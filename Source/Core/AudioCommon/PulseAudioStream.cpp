@@ -1,11 +1,14 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
+
+#include <cstring>
 
 #include "AudioCommon/DPL2Decoder.h"
 #include "AudioCommon/PulseAudioStream.h"
 #include "Common/CommonTypes.h"
 #include "Common/Thread.h"
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
 
 namespace
@@ -13,16 +16,15 @@ namespace
 const size_t BUFFER_SAMPLES = 512; // ~10 ms - needs to be at least 240 for surround
 }
 
-PulseAudio::PulseAudio(CMixer *mixer)
-	: SoundStream(mixer)
-	, m_thread()
+PulseAudio::PulseAudio()
+	: m_thread()
 	, m_run_thread()
 {
 }
 
 bool PulseAudio::Start()
 {
-	m_stereo = !SConfig::GetInstance().m_LocalCoreStartupParameter.bDPL2Decoder;
+	m_stereo = !SConfig::GetInstance().bDPL2Decoder;
 	m_channels = m_stereo ? 2 : 5; // will tell PA we use a Stereo or 5.0 channel setup
 
 	NOTICE_LOG(AUDIO, "PulseAudio backend using %d channels", m_channels);
@@ -164,7 +166,8 @@ void PulseAudio::StateCallback(pa_context* c)
 void PulseAudio::UnderflowCallback(pa_stream* s)
 {
 	m_pa_ba.tlength += BUFFER_SAMPLES * m_channels * m_bytespersample;
-	pa_stream_set_buffer_attr(s, &m_pa_ba, nullptr, nullptr);
+	pa_operation* op = pa_stream_set_buffer_attr(s, &m_pa_ba, nullptr, nullptr);
+	pa_operation_unref(op);
 
 	WARN_LOG(AUDIO, "pulseaudio underflow, new latency: %d bytes", m_pa_ba.tlength);
 }

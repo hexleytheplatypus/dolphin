@@ -1,3 +1,7 @@
+// Copyright 2013 Dolphin Emulator Project
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
+
 #include <algorithm>
 #include <array>
 #include <assert.h>
@@ -27,14 +31,14 @@
 #endif
 #include <iomanip>
 #include <iostream>
-#include <limits.h>
 #include <limits>
+#include <limits.h>
 #include <list>
 #include <locale.h>
 #include <map>
 #include <math.h>
-#include <memory.h>
 #include <memory>
+#include <memory.h>
 #include <mutex>
 #include <numeric>
 #ifndef _WIN32
@@ -63,8 +67,8 @@
 
 #ifdef _WIN32
 
-#if _MSC_FULL_VER < 180030723
-#error Please update your build environment to VS2013 with Update 3 or later!
+#if _MSC_FULL_VER < 190023026
+#error Please update your build environment to Visual Studio 2015 or later!
 #endif
 
 #include <Windows.h>

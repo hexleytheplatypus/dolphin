@@ -1,10 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <memory>
 
-#include "Core/ConfigManager.h"
-#include "Core/Core.h"
+#include "Common/ChunkFile.h"
+#include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
 #include "Core/HW/EXI_Device.h"
 #include "Core/HW/EXI_DeviceAD16.h"
 #include "Core/HW/EXI_DeviceAGP.h"
@@ -15,7 +17,6 @@
 #include "Core/HW/EXI_DeviceMemoryCard.h"
 #include "Core/HW/EXI_DeviceMic.h"
 #include "Core/HW/Memmap.h"
-
 
 // --- interface IEXIDevice ---
 void IEXIDevice::ImmWrite(u32 _uData, u32 _uSize)
@@ -36,7 +37,7 @@ u32 IEXIDevice::ImmRead(u32 _uSize)
 	{
 		u8 uByte = 0;
 		TransferByte(uByte);
-		uResult |= uByte << (24-(uPosition++ * 8));
+		uResult |= uByte << (24 - (uPosition++ * 8));
 	}
 	return uResult;
 }
@@ -85,59 +86,59 @@ public:
 	u32  ImmRead (u32 size) override           {INFO_LOG(EXPANSIONINTERFACE, "EXI DUMMY %s ImmRead", m_strName.c_str()); return 0;}
 	void DMAWrite(u32 addr, u32 size) override {INFO_LOG(EXPANSIONINTERFACE, "EXI DUMMY %s DMAWrite: %08x bytes, from %08x to device", m_strName.c_str(), size, addr);}
 	void DMARead (u32 addr, u32 size) override {INFO_LOG(EXPANSIONINTERFACE, "EXI DUMMY %s DMARead:  %08x bytes, from device to %08x", m_strName.c_str(), size, addr);}
-	bool IsPresent() override { return true; }
+	bool IsPresent() const override { return true; }
 };
 
 
 // F A C T O R Y
-IEXIDevice* EXIDevice_Create(TEXIDevices device_type, const int channel_num)
+std::unique_ptr<IEXIDevice> EXIDevice_Create(TEXIDevices device_type, const int channel_num)
 {
-	IEXIDevice* result = nullptr;
+	std::unique_ptr<IEXIDevice> result;
 
 	switch (device_type)
 	{
 	case EXIDEVICE_DUMMY:
-		result = new CEXIDummy("Dummy");
+		result = std::make_unique<CEXIDummy>("Dummy");
 		break;
 
 	case EXIDEVICE_MEMORYCARD:
 	case EXIDEVICE_MEMORYCARDFOLDER:
 	{
 		bool gci_folder = (device_type == EXIDEVICE_MEMORYCARDFOLDER);
-		result = new CEXIMemoryCard(channel_num, gci_folder);
+		result = std::make_unique<CEXIMemoryCard>(channel_num, gci_folder);
 		break;
 	}
 	case EXIDEVICE_MASKROM:
-		result = new CEXIIPL();
+		result = std::make_unique<CEXIIPL>();
 		break;
 
 	case EXIDEVICE_AD16:
-		result = new CEXIAD16();
+		result = std::make_unique<CEXIAD16>();
 		break;
 
 	case EXIDEVICE_MIC:
-		result = new CEXIMic(channel_num);
+		result = std::make_unique<CEXIMic>(channel_num);
 		break;
 
 	case EXIDEVICE_ETH:
-		result = new CEXIETHERNET();
+		result = std::make_unique<CEXIETHERNET>();
 		break;
 
 	case EXIDEVICE_AM_BASEBOARD:
-		result = new CEXIAMBaseboard();
+		result = std::make_unique<CEXIAMBaseboard>();
 		break;
 
 	case EXIDEVICE_GECKO:
-		result = new CEXIGecko();
+		result = std::make_unique<CEXIGecko>();
 		break;
 
 	case EXIDEVICE_AGP:
-		result = new CEXIAgp(channel_num);
+		result = std::make_unique<CEXIAgp>(channel_num);
 		break;
 
 	case EXIDEVICE_NONE:
 	default:
-		result = new IEXIDevice();
+		result = std::make_unique<IEXIDevice>();
 		break;
 	}
 

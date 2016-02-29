@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cstdio>
@@ -18,13 +18,17 @@
 #ifndef _M_GENERIC
 #include "Core/PowerPC/JitCommon/JitBase.h"
 #endif
+#ifdef __FreeBSD__
+#include <signal.h>
+#endif
+#ifndef _WIN32
+#include <unistd.h> // Needed for _POSIX_VERSION
+#endif
 
 namespace EMM
 {
 
 #ifdef _WIN32
-
-const bool g_exception_handlers_supported = true;
 
 LONG NTAPI Handler(PEXCEPTION_POINTERS pPtrs)
 {
@@ -54,7 +58,7 @@ LONG NTAPI Handler(PEXCEPTION_POINTERS pPtrs)
 		}
 
 	case EXCEPTION_STACK_OVERFLOW:
-		MessageBox(0, _T("Stack overflow!"), 0,0);
+		MessageBox(nullptr, _T("Stack overflow!"), nullptr, 0);
 		return EXCEPTION_CONTINUE_SEARCH;
 
 	case EXCEPTION_ILLEGAL_INSTRUCTION:
@@ -94,13 +98,11 @@ void UninstallExceptionHandler() {}
 
 #elif defined(__APPLE__) && !defined(USE_SIGACTION_ON_APPLE)
 
-const bool g_exception_handlers_supported = true;
-
 static void CheckKR(const char* name, kern_return_t kr)
 {
 	if (kr)
 	{
-		PanicAlertT("%s failed: kr=%x", name, kr);
+		PanicAlert("%s failed: kr=%x", name, kr);
 	}
 }
 
@@ -136,7 +138,7 @@ static void ExceptionThread(mach_port_t port)
 	mach_msg_header_t *send_msg = nullptr;
 	mach_msg_size_t send_size = 0;
 	mach_msg_option_t option = MACH_RCV_MSG;
-	while (1)
+	while (true)
 	{
 		// If this isn't the first run, send the reply message.  Then, receive
 		// a message: either a mach_exception_raise_state RPC due to
@@ -153,13 +155,13 @@ static void ExceptionThread(mach_port_t port)
 
 		if (msg_in.Head.msgh_id != 2406)
 		{
-			PanicAlertT("unknown message received");
+			PanicAlert("unknown message received");
 			return;
 		}
 
 		if (msg_in.flavor != x86_THREAD_STATE64)
 		{
-			PanicAlertT("unknown flavor %d (expected %d)", msg_in.flavor, x86_THREAD_STATE64);
+			PanicAlert("unknown flavor %d (expected %d)", msg_in.flavor, x86_THREAD_STATE64);
 			return;
 		}
 
@@ -187,7 +189,7 @@ static void ExceptionThread(mach_port_t port)
 			msg_out.flavor = 0;
 			msg_out.new_stateCnt = 0;
 		}
-		msg_out.Head.msgh_size = offsetof(typeof(msg_out), new_state) + msg_out.new_stateCnt * sizeof(natural_t);
+		msg_out.Head.msgh_size = offsetof(__typeof__(msg_out), new_state) + msg_out.new_stateCnt * sizeof(natural_t);
 
 		send_msg = &msg_out.Head;
 		send_size = msg_out.Head.msgh_size;
@@ -215,8 +217,6 @@ void InstallExceptionHandler()
 void UninstallExceptionHandler() {}
 
 #elif defined(_POSIX_VERSION) && !defined(_M_GENERIC)
-
-const bool g_exception_handlers_supported = true;
 
 static void sigsegv_handler(int sig, siginfo_t *info, void *raw_context)
 {
@@ -256,7 +256,11 @@ static void sigsegv_handler(int sig, siginfo_t *info, void *raw_context)
 void InstallExceptionHandler()
 {
 	stack_t signal_stack;
+#ifdef __FreeBSD__
+	signal_stack.ss_sp = (char*)malloc(SIGSTKSZ);
+#else
 	signal_stack.ss_sp = malloc(SIGSTKSZ);
+#endif
 	signal_stack.ss_size = SIGSTKSZ;
 	signal_stack.ss_flags = 0;
 	if (sigaltstack(&signal_stack, nullptr))
@@ -284,7 +288,6 @@ void UninstallExceptionHandler()
 }
 #else // _M_GENERIC or unsupported platform
 
-const bool g_exception_handlers_supported = false;
 void InstallExceptionHandler() {}
 void UninstallExceptionHandler() {}
 

@@ -1,13 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
+#include <cstring>
 #include <functional> // for hash
 
-#include "Common/Common.h"
+#include "Common/CommonTypes.h"
 #include "Common/Hash.h"
+#include "Common/NonCopyable.h"
 
 // m_components
 enum
@@ -106,14 +108,10 @@ class NativeVertexFormat : NonCopyable
 public:
 	virtual ~NativeVertexFormat() {}
 
-	virtual void Initialize(const PortableVertexDeclaration &vtx_decl) = 0;
 	virtual void SetupVertexPointers() = 0;
 
 	u32 GetVertexStride() const { return vtx_decl.stride; }
 	const PortableVertexDeclaration& GetVertexDeclaration() const { return vtx_decl; }
-
-	// TODO: move this under private:
-	u32 m_components;  // VB_HAS_X. Bitmask telling what vertex components are present.
 
 protected:
 	// Let subclasses construct.

@@ -1,11 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/AssertInt.h"
 #include "Common/CommonTypes.h"
-
+#include "Common/x64Emitter.h"
+#include "Core/ConfigManager.h"
+#include "Core/PowerPC/Gekko.h"
+#include "Core/PowerPC/PowerPC.h"
+#include "Core/PowerPC/PPCAnalyst.h"
 #include "Core/PowerPC/Jit64/Jit.h"
-#include "Core/PowerPC/Jit64/JitAsm.h"
 #include "Core/PowerPC/Jit64/JitRegCache.h"
 
 // The branches are known good, or at least reasonably good.
@@ -136,9 +140,9 @@ void Jit64::bcx(UGeckoInstruction inst)
 	WriteExit(destination, inst.LK, js.compilerPC + 4);
 
 	if ((inst.BO & BO_DONT_CHECK_CONDITION) == 0)
-		SetJumpTarget( pConditionDontBranch );
+		SetJumpTarget(pConditionDontBranch);
 	if ((inst.BO & BO_DONT_DECREMENT_FLAG) == 0)
-		SetJumpTarget( pCTRDontBranch );
+		SetJumpTarget(pCTRDontBranch);
 
 	if (!analyzer.HasOption(PPCAnalyst::PPCAnalyzer::OPTION_CONDITIONAL_CONTINUE))
 	{
@@ -242,9 +246,9 @@ void Jit64::bclrx(UGeckoInstruction inst)
 	WriteBLRExit();
 
 	if ((inst.BO & BO_DONT_CHECK_CONDITION) == 0)
-		SetJumpTarget( pConditionDontBranch );
+		SetJumpTarget(pConditionDontBranch);
 	if ((inst.BO & BO_DONT_DECREMENT_FLAG) == 0)
-		SetJumpTarget( pCTRDontBranch );
+		SetJumpTarget(pCTRDontBranch);
 
 	if (!analyzer.HasOption(PPCAnalyst::PPCAnalyzer::OPTION_CONDITIONAL_CONTINUE))
 	{

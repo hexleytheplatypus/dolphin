@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 //
 // Additional copyrights go to Duddie and Tratax (c) 2004
@@ -14,8 +14,6 @@ namespace DSPInterpreter
 {
 
 bool CheckCondition(u8 _Condition);
-
-int GetMultiplyModifier();
 
 void Update_SR_Register16(s16 _Value, bool carry = false, bool overflow = false, bool overS32 = false);
 void Update_SR_Register64(s64 _Value, bool carry = false, bool overflow = false);

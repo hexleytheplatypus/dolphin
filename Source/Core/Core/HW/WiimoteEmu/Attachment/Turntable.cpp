@@ -1,7 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
+
+#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/Attachment/Turntable.h"
 
 namespace WiimoteEmu
@@ -126,5 +131,11 @@ void Turntable::GetState(u8* const data)
 		);
 }
 
+bool Turntable::IsButtonPressed() const
+{
+	u16 buttons = 0;
+	m_buttons->GetState(&buttons, turntable_button_bitmasks);
+	return buttons != 0;
+}
 
 }

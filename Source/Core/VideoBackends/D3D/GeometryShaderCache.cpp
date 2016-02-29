@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <string>
@@ -14,7 +14,6 @@
 #include "VideoBackends/D3D/D3DShader.h"
 #include "VideoBackends/D3D/FramebufferManager.h"
 #include "VideoBackends/D3D/GeometryShaderCache.h"
-#include "VideoBackends/D3D/Globals.h"
 
 #include "VideoCommon/Debugger.h"
 #include "VideoCommon/GeometryShaderGen.h"
@@ -155,7 +154,7 @@ void GeometryShaderCache::Init()
 		File::CreateDir(File::GetUserPath(D_SHADERCACHE_IDX));
 
 	std::string cache_filename = StringFromFormat("%sdx11-%s-gs.cache", File::GetUserPath(D_SHADERCACHE_IDX).c_str(),
-			SConfig::GetInstance().m_LocalCoreStartupParameter.m_strUniqueID.c_str());
+			SConfig::GetInstance().m_strUniqueID.c_str());
 	GeometryShaderCacheInserter inserter;
 	g_gs_disk_cache.OpenAndRead(cache_filename, inserter);
 
@@ -190,12 +189,10 @@ void GeometryShaderCache::Shutdown()
 
 bool GeometryShaderCache::SetShader(u32 primitive_type)
 {
-	GeometryShaderUid uid;
-	GetGeometryShaderUid(uid, primitive_type, API_D3D);
+	GeometryShaderUid uid = GetGeometryShaderUid(primitive_type, API_D3D);
 	if (g_ActiveConfig.bEnableShaderDebugging)
 	{
-		ShaderCode code;
-		GenerateGeometryShaderCode(code, primitive_type, API_D3D);
+		ShaderCode code = GenerateGeometryShaderCode(primitive_type, API_D3D);
 		geometry_uid_checker.AddToIndexAndCheck(code, uid, "Geometry", "g");
 	}
 
@@ -231,8 +228,7 @@ bool GeometryShaderCache::SetShader(u32 primitive_type)
 	}
 
 	// Need to compile a new shader
-	ShaderCode code;
-	GenerateGeometryShaderCode(code, primitive_type, API_D3D);
+	ShaderCode code = GenerateGeometryShaderCode(primitive_type, API_D3D);
 
 	D3DBlob* pbytecode;
 	if (!D3D::CompileGeometryShader(code.GetBuffer(), &pbytecode))

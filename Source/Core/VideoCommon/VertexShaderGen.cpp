@@ -1,33 +1,31 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
+#include <cstring>
 
+#include "Common/AssertInt.h"
+#include "Common/CommonTypes.h"
 #include "VideoCommon/BPMemory.h"
-#include "VideoCommon/CPMemory.h"
-#include "VideoCommon/DriverDetails.h"
 #include "VideoCommon/LightingShaderGen.h"
 #include "VideoCommon/NativeVertexFormat.h"
+#include "VideoCommon/VertexLoaderManager.h"
 #include "VideoCommon/VertexShaderGen.h"
 #include "VideoCommon/VideoConfig.h"
 
-static char text[16768];
-
 template<class T>
-static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_type)
+static T GenerateVertexShader(API_TYPE api_type)
 {
+	T out;
+	const u32 components = VertexLoaderManager::g_current_components;
 	// Non-uid template parameters will write to the dummy data (=> gets optimized out)
 	vertex_shader_uid_data dummy_data;
 	vertex_shader_uid_data* uid_data = out.template GetUidData<vertex_shader_uid_data>();
-	if (uid_data == nullptr)
+	if (uid_data != nullptr)
+		memset(uid_data, 0, sizeof(*uid_data));
+	else
 		uid_data = &dummy_data;
-
-	out.SetBuffer(text);
-	const bool is_writing_shadercode = (out.GetBuffer() != nullptr);
-
-	if (is_writing_shadercode)
-		text[sizeof(text) - 1] = 0x7C;  // canary
 
 	_assert_(bpmem.genMode.numtexgens == xfmem.numTexGen.numTexGens);
 	_assert_(bpmem.genMode.numcolchans == xfmem.numChan.numColorChans);
@@ -77,27 +75,27 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 		if (g_ActiveConfig.backend_info.bSupportsGeometryShaders)
 		{
 			out.Write("out VertexData {\n");
-			GenerateVSOutputMembers<T>(out, api_type, g_ActiveConfig.backend_info.bSupportsBindingLayout ? "centroid" : "centroid out");
+			GenerateVSOutputMembers<T>(out, api_type, GetInterpolationQualifier(api_type, false, true));
 			out.Write("} vs;\n");
 		}
 		else
 		{
 			// Let's set up attributes
-			for (size_t i = 0; i < 8; ++i)
+			for (u32 i = 0; i < 8; ++i)
 			{
 				if (i < xfmem.numTexGen.numTexGens)
 				{
-					out.Write("centroid out float3 uv%d;\n", i);
+					out.Write("%s out float3 uv%u;\n", GetInterpolationQualifier(api_type), i);
 				}
 			}
-			out.Write("centroid out float4 clipPos;\n");
+			out.Write("%s out float4 clipPos;\n", GetInterpolationQualifier(api_type));
 			if (g_ActiveConfig.bEnablePixelLighting)
 			{
-				out.Write("centroid out float3 Normal;\n");
-				out.Write("centroid out float3 WorldPos;\n");
+				out.Write("%s out float3 Normal;\n", GetInterpolationQualifier(api_type));
+				out.Write("%s out float3 WorldPos;\n", GetInterpolationQualifier(api_type));
 			}
-			out.Write("centroid out float4 colors_0;\n");
-			out.Write("centroid out float4 colors_1;\n");
+			out.Write("%s out float4 colors_0;\n", GetInterpolationQualifier(api_type));
+			out.Write("%s out float4 colors_1;\n", GetInterpolationQualifier(api_type));
 		}
 
 		out.Write("void main()\n{\n");
@@ -133,22 +131,12 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 	// transforms
 	if (components & VB_HAS_POSMTXIDX)
 	{
-		if (is_writing_shadercode && (DriverDetails::HasBug(DriverDetails::BUG_NODYNUBOACCESS) && !DriverDetails::HasBug(DriverDetails::BUG_ANNIHILATEDUBOS)) )
-		{
-			// This'll cause issues, but  it can't be helped
-			out.Write("float4 pos = float4(dot(" I_TRANSFORMMATRICES"[0], rawpos), dot(" I_TRANSFORMMATRICES"[1], rawpos), dot(" I_TRANSFORMMATRICES"[2], rawpos), 1);\n");
-			if (components & VB_HAS_NRMALL)
-				out.Write("float3 N0 = " I_NORMALMATRICES"[0].xyz, N1 = " I_NORMALMATRICES"[1].xyz, N2 = " I_NORMALMATRICES"[2].xyz;\n");
-		}
-		else
-		{
-			out.Write("float4 pos = float4(dot(" I_TRANSFORMMATRICES"[posmtx], rawpos), dot(" I_TRANSFORMMATRICES"[posmtx+1], rawpos), dot(" I_TRANSFORMMATRICES"[posmtx+2], rawpos), 1);\n");
+		out.Write("float4 pos = float4(dot(" I_TRANSFORMMATRICES"[posmtx], rawpos), dot(" I_TRANSFORMMATRICES"[posmtx+1], rawpos), dot(" I_TRANSFORMMATRICES"[posmtx+2], rawpos), 1);\n");
 
-			if (components & VB_HAS_NRMALL)
-			{
-				out.Write("int normidx = posmtx >= 32 ? (posmtx-32) : posmtx;\n");
-				out.Write("float3 N0 = " I_NORMALMATRICES"[normidx].xyz, N1 = " I_NORMALMATRICES"[normidx+1].xyz, N2 = " I_NORMALMATRICES"[normidx+2].xyz;\n");
-			}
+		if (components & VB_HAS_NRMALL)
+		{
+			out.Write("int normidx = posmtx & 31;\n");
+			out.Write("float3 N0 = " I_NORMALMATRICES"[normidx].xyz, N1 = " I_NORMALMATRICES"[normidx+1].xyz, N2 = " I_NORMALMATRICES"[normidx+2].xyz;\n");
 		}
 
 		if (components & VB_HAS_NRM0)
@@ -197,14 +185,6 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 		else
 			out.Write("o.colors_1 = o.colors_0;\n");
 	}
-	// special case if only pos and tex coord 0 and tex coord input is AB11
-	// donko - this has caused problems in some games. removed for now.
-	bool texGenSpecialCase = false;
-	/*bool texGenSpecialCase =
-		((g_main_cp_state.vtx_desc.Hex & 0x60600L) == g_main_cp_state.vtx_desc.Hex) && // only pos and tex coord 0
-		(g_main_cp_state.vtx_desc.Tex0Coord != NOT_PRESENT) &&
-		(xfmem.texcoords[0].texmtxinfo.inputform == XF_TEXINPUT_AB11);
-		*/
 
 	// transform texcoords
 	out.Write("float4 coord = float4(0.0, 0.0, 1.0, 1.0);\n");
@@ -218,36 +198,37 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 		switch (texinfo.sourcerow)
 		{
 		case XF_SRCGEOM_INROW:
-			_assert_( texinfo.inputform == XF_TEXINPUT_ABC1 );
+			// The following assert was triggered in Super Smash Bros. Project M 3.6.
+			//_assert_(texinfo.inputform == XF_TEXINPUT_ABC1);
 			out.Write("coord = rawpos;\n"); // pos.w is 1
 			break;
 		case XF_SRCNORMAL_INROW:
 			if (components & VB_HAS_NRM0)
 			{
-				_assert_( texinfo.inputform == XF_TEXINPUT_ABC1 );
+				_assert_(texinfo.inputform == XF_TEXINPUT_ABC1);
 				out.Write("coord = float4(rawnorm0.xyz, 1.0);\n");
 			}
 			break;
 		case XF_SRCCOLORS_INROW:
-			_assert_( texinfo.texgentype == XF_TEXGEN_COLOR_STRGBC0 || texinfo.texgentype == XF_TEXGEN_COLOR_STRGBC1 );
+			_assert_(texinfo.texgentype == XF_TEXGEN_COLOR_STRGBC0 || texinfo.texgentype == XF_TEXGEN_COLOR_STRGBC1);
 			break;
 		case XF_SRCBINORMAL_T_INROW:
 			if (components & VB_HAS_NRM1)
 			{
-				_assert_( texinfo.inputform == XF_TEXINPUT_ABC1 );
+				_assert_(texinfo.inputform == XF_TEXINPUT_ABC1);
 				out.Write("coord = float4(rawnorm1.xyz, 1.0);\n");
 			}
 			break;
 		case XF_SRCBINORMAL_B_INROW:
 			if (components & VB_HAS_NRM2)
 			{
-				_assert_( texinfo.inputform == XF_TEXINPUT_ABC1 );
+				_assert_(texinfo.inputform == XF_TEXINPUT_ABC1);
 				out.Write("coord = float4(rawnorm2.xyz, 1.0);\n");
 			}
 			break;
 		default:
 			_assert_(texinfo.sourcerow <= XF_SRCTEX7_INROW);
-			if (components & (VB_HAS_UV0<<(texinfo.sourcerow - XF_SRCTEX0_INROW)) )
+			if (components & (VB_HAS_UV0 << (texinfo.sourcerow - XF_SRCTEX0_INROW)))
 				out.Write("coord = float4(tex%d.x, tex%d.y, 1.0, 1.0);\n", texinfo.sourcerow - XF_SRCTEX0_INROW, texinfo.sourcerow - XF_SRCTEX0_INROW);
 			break;
 		}
@@ -268,7 +249,8 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 				}
 				else
 				{
-					_assert_(0); // should have normals
+					// The following assert was triggered in House of the Dead Overkill and Star Wars Rogue Squadron 2
+					//_assert_(0); // should have normals
 					uid_data->texMtxInfo[i].embosssourceshift = xfmem.texMtxInfo[i].embosssourceshift;
 					out.Write("o.tex%d.xyz = o.tex%d.xyz;\n", i, texinfo.embosssourceshift);
 				}
@@ -314,26 +296,14 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 			out.Write("float4 P0 = " I_POSTTRANSFORMMATRICES"[%d];\n"
 				"float4 P1 = " I_POSTTRANSFORMMATRICES"[%d];\n"
 				"float4 P2 = " I_POSTTRANSFORMMATRICES"[%d];\n",
-				postidx&0x3f, (postidx+1)&0x3f, (postidx+2)&0x3f);
+				postidx & 0x3f, (postidx + 1) & 0x3f, (postidx + 2) & 0x3f);
 
-			if (texGenSpecialCase)
-			{
-				// no normalization
-				// q of input is 1
-				// q of output is unknown
+			uid_data->postMtxInfo[i].normalize = xfmem.postMtxInfo[i].normalize;
+			if (postInfo.normalize)
+				out.Write("o.tex%d.xyz = normalize(o.tex%d.xyz);\n", i, i);
 
-				// multiply by postmatrix
-				out.Write("o.tex%d.xyz = float3(dot(P0.xy, o.tex%d.xy) + P0.z + P0.w, dot(P1.xy, o.tex%d.xy) + P1.z + P1.w, 0.0);\n", i, i, i);
-			}
-			else
-			{
-				uid_data->postMtxInfo[i].normalize = xfmem.postMtxInfo[i].normalize;
-				if (postInfo.normalize)
-					out.Write("o.tex%d.xyz = normalize(o.tex%d.xyz);\n", i, i);
-
-				// multiply by postmatrix
-				out.Write("o.tex%d.xyz = float3(dot(P0.xyz, o.tex%d.xyz) + P0.w, dot(P1.xyz, o.tex%d.xyz) + P1.w, dot(P2.xyz, o.tex%d.xyz) + P2.w);\n", i, i, i, i);
-			}
+			// multiply by postmatrix
+			out.Write("o.tex%d.xyz = float3(dot(P0.xyz, o.tex%d.xyz) + P0.w, dot(P1.xyz, o.tex%d.xyz) + P1.w, dot(P2.xyz, o.tex%d.xyz) + P2.w);\n", i, i, i, i);
 		}
 
 		out.Write("}\n");
@@ -356,15 +326,15 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 
 	//write the true depth value, if the game uses depth textures pixel shaders will override with the correct values
 	//if not early z culling will improve speed
-	if (api_type == API_D3D)
+	if (g_ActiveConfig.backend_info.bSupportsClipControl)
 	{
-		out.Write("o.pos.z = o.pos.w + o.pos.z;\n");
+		out.Write("o.pos.z = -o.pos.z;\n");
 	}
 	else // OGL
 	{
 		// this results in a scale from -1..0 to -1..1 after perspective
-		// divide
-		out.Write("o.pos.z = o.pos.w + o.pos.z * 2.0;\n");
+		// divide, but introduces a floating point round-trip error.
+		out.Write("o.pos.z = o.pos.z * -2.0 - o.pos.w;\n");
 
 		// the next steps of the OGL pipeline are:
 		// (x_c,y_c,z_c,w_c) = o.pos  //switch to OGL spec terminology
@@ -383,7 +353,7 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 	// which in turn can be critical if it happens for clear quads.
 	// Hence, we compensate for this pixel center difference so that primitives
 	// get rasterized correctly.
-	out.Write("o.pos.xy = o.pos.xy - " I_PIXELCENTERCORRECTION".xy;\n");
+	out.Write("o.pos.xy = o.pos.xy - o.pos.w * " I_PIXELCENTERCORRECTION".xy;\n");
 
 	if (api_type == API_OPENGL)
 	{
@@ -415,19 +385,15 @@ static inline void GenerateVertexShader(T& out, u32 components, API_TYPE api_typ
 	}
 	out.Write("}\n");
 
-	if (is_writing_shadercode)
-	{
-		if (text[sizeof(text) - 1] != 0x7C)
-			PanicAlert("VertexShader generator - buffer too small, canary has been eaten!");
-	}
+	return out;
 }
 
-void GetVertexShaderUid(VertexShaderUid& object, u32 components, API_TYPE api_type)
+VertexShaderUid GetVertexShaderUid(API_TYPE api_type)
 {
-	GenerateVertexShader<VertexShaderUid>(object, components, api_type);
+	return GenerateVertexShader<VertexShaderUid>(api_type);
 }
 
-void GenerateVertexShaderCode(VertexShaderCode& object, u32 components, API_TYPE api_type)
+ShaderCode GenerateVertexShaderCode(API_TYPE api_type)
 {
-	GenerateVertexShader<VertexShaderCode>(object, components, api_type);
+	return GenerateVertexShader<ShaderCode>(api_type);
 }

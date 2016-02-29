@@ -1,21 +1,23 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
+#include <atomic>
+#include <condition_variable>
+#include <mutex>
+#include <string>
+#include <thread>
 #include <vector>
 
-#include "Common/ChunkFile.h"
+#include "Common/Common.h"
 #include "Common/FifoQueue.h"
-#include "Common/Thread.h"
-#include "Common/Timer.h"
-
+#include "Common/NonCopyable.h"
 #include "Core/HW/Wiimote.h"
-#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteReal/WiimoteRealBase.h"
 
-#include "InputCommon/InputConfig.h"
+class PointerWrap;
 
 typedef std::vector<u8> Report;
 
@@ -24,7 +26,6 @@ namespace WiimoteReal
 
 class Wiimote : NonCopyable
 {
-friend class WiimoteEmu::Wiimote;
 public:
 	virtual ~Wiimote() {}
 	// This needs to be called in derived destructors!
@@ -33,11 +34,12 @@ public:
 	void ControlChannel(const u16 channel, const void* const data, const u32 size);
 	void InterruptChannel(const u16 channel, const void* const data, const u32 size);
 	void Update();
+	void ConnectOnInput();
 
 	const Report& ProcessReadQueue();
 
-	bool Read();
-	bool Write();
+	void Read();
+	void Write();
 
 	void StartThread();
 	void StopThread();
@@ -57,12 +59,12 @@ public:
 	virtual bool ConnectInternal() = 0;
 	virtual void DisconnectInternal() = 0;
 
-	bool Connect();
+	bool Connect(int index);
 
 	// TODO: change to something like IsRelevant
 	virtual bool IsConnected() const = 0;
 
-	void Prepare(int index);
+	void Prepare();
 	bool PrepareOnThread();
 
 	void DisableDataReporting();
@@ -71,12 +73,14 @@ public:
 
 	void QueueReport(u8 rpt_id, const void* data, unsigned int size);
 
-	int m_index;
+	int GetIndex() const;
 
 protected:
 	Wiimote();
+	int m_index;
 	Report m_last_input_report;
 	u16 m_channel;
+	u8 m_last_connect_request_counter;
 
 private:
 	void ClearReadQueue();
@@ -94,18 +98,16 @@ private:
 
 	std::thread               m_wiimote_thread;
 	// Whether to keep running the thread.
-	volatile bool             m_run_thread;
+	std::atomic<bool>         m_run_thread {false};
 	// Whether to call PrepareOnThread.
-	volatile bool             m_need_prepare;
+	std::atomic<bool>         m_need_prepare {false};
 	// Whether the thread has finished ConnectInternal.
-	volatile bool             m_thread_ready;
+	std::atomic<bool>         m_thread_ready {false};
 	std::mutex                m_thread_ready_mutex;
 	std::condition_variable   m_thread_ready_cond;
 
 	Common::FifoQueue<Report> m_read_reports;
 	Common::FifoQueue<Report> m_write_reports;
-
-	Common::Timer m_last_audio_report;
 };
 
 class WiimoteScanner
@@ -132,12 +134,12 @@ private:
 
 	std::thread m_scan_thread;
 
-	volatile bool m_run_thread;
-	volatile bool m_want_wiimotes;
-	volatile bool m_want_bb;
+	std::atomic<bool> m_run_thread {false};
+	std::atomic<bool> m_want_wiimotes {false};
+	std::atomic<bool> m_want_bb {false};
 
 #if defined(_WIN32)
-	void CheckDeviceType(std::basic_string<TCHAR> &devicepath, bool &real_wiimote, bool &is_bb);
+	void CheckDeviceType(std::basic_string<TCHAR> &devicepath, WinWriteMethod &write_method, bool &real_wiimote, bool &is_bb);
 #elif defined(__linux__) && HAVE_BLUEZ
 	int device_id;
 	int device_sock;
@@ -151,14 +153,16 @@ extern Wiimote *g_wiimotes[MAX_BBMOTES];
 void InterruptChannel(int _WiimoteNumber, u16 _channelID, const void* _pData, u32 _Size);
 void ControlChannel(int _WiimoteNumber, u16 _channelID, const void* _pData, u32 _Size);
 void Update(int _WiimoteNumber);
+void ConnectOnInput(int _WiimoteNumber);
 
-void DoState(PointerWrap &p);
 void StateChange(EMUSTATE_CHANGE newState);
-
-int FindWiimotes(Wiimote** wm, int max_wiimotes);
 void ChangeWiimoteSource(unsigned int index, int source);
 
 bool IsValidBluetoothName(const std::string& name);
 bool IsBalanceBoardName(const std::string& name);
+
+#ifdef ANDROID
+void InitAdapterClass();
+#endif
 
 } // WiimoteReal

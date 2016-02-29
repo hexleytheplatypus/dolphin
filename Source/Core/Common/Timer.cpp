@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cinttypes>
@@ -25,10 +25,14 @@ u32 Timer::GetTimeMs()
 {
 #ifdef _WIN32
 	return timeGetTime();
-#else
+#elif defined __APPLE__
 	struct timeval t;
 	(void)gettimeofday(&t, nullptr);
 	return ((u32)(t.tv_sec * 1000 + t.tv_usec / 1000));
+#else
+	struct timespec t;
+	(void)clock_gettime(CLOCK_MONOTONIC, &t);
+	return ((u32)(t.tv_sec * 1000 + t.tv_nsec / 1000000));
 #endif
 }
 
@@ -48,10 +52,14 @@ u64 Timer::GetTimeUs()
 	static double freq = GetFreq();
 	QueryPerformanceCounter(&time);
 	return u64(double(time.QuadPart) * freq);
-#else
+#elif defined __APPLE__
 	struct timeval t;
 	(void)gettimeofday(&t, nullptr);
 	return ((u64)(t.tv_sec * 1000000 + t.tv_usec));
+#else
+	struct timespec t;
+	(void)clock_gettime(CLOCK_MONOTONIC, &t);
+	return ((u64)(t.tv_sec * 1000000 + t.tv_nsec / 1000));
 #endif
 }
 
@@ -205,23 +213,29 @@ std::string Timer::GetTimeFormatted()
 	struct timeb tp;
 	(void)::ftime(&tp);
 	return StringFromFormat("%s:%03i", tmp, tp.millitm);
-#else
+#elif defined __APPLE__
 	struct timeval t;
 	(void)gettimeofday(&t, nullptr);
 	return StringFromFormat("%s:%03d", tmp, (int)(t.tv_usec / 1000));
+#else
+	struct timespec t;
+	(void)clock_gettime(CLOCK_MONOTONIC, &t);
+	return StringFromFormat("%s:%03d", tmp, (int)(t.tv_nsec / 1000000));
 #endif
 }
 
 // Returns a timestamp with decimals for precise time comparisons
-// ----------------
 double Timer::GetDoubleTime()
 {
 #ifdef _WIN32
 	struct timeb tp;
 	(void)::ftime(&tp);
-#else
+#elif defined __APPLE__
 	struct timeval t;
 	(void)gettimeofday(&t, nullptr);
+#else
+	struct timespec t;
+	(void)clock_gettime(CLOCK_MONOTONIC, &t);
 #endif
 	// Get continuous timestamp
 	u64 TmpSeconds = Common::Timer::GetTimeSinceJan1970();
@@ -230,18 +244,32 @@ double Timer::GetDoubleTime()
 	// sure that we are detecting actual actions, perhaps 60 seconds is
 	// enough really, but I leave a year of seconds anyway, in case the
 	// user's clock is incorrect or something like that.
-	TmpSeconds = TmpSeconds - (38 * 365 * 24 * 60 * 60);
+	TmpSeconds = TmpSeconds - DOUBLE_TIME_OFFSET;
 
 	// Make a smaller integer that fits in the double
 	u32 Seconds = (u32)TmpSeconds;
 #ifdef _WIN32
 	double ms = tp.millitm / 1000.0 / 1000.0;
-#else
+#elif defined __APPLE__
 	double ms = t.tv_usec / 1000000.0;
+#else
+	double ms = t.tv_nsec / 1000000000.0;
 #endif
 	double TmpTime = Seconds + ms;
 
 	return TmpTime;
+}
+
+// Formats a timestamp from GetDoubleTime() into a date and time string
+std::string Timer::GetDateTimeFormatted(double time)
+{
+	// revert adjustments from GetDoubleTime() to get a normal Unix timestamp again
+	time_t seconds = (time_t)time + DOUBLE_TIME_OFFSET;
+	tm* localTime = localtime(&seconds);
+
+	char tmp[32] = {};
+	strftime(tmp, sizeof(tmp), "%x %X", localTime);
+	return tmp;
 }
 
 } // Namespace Common

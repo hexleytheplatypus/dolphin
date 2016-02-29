@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -21,11 +21,11 @@ class MemArena
 public:
 	void GrabSHMSegment(size_t size);
 	void ReleaseSHMSegment();
-	void *CreateView(s64 offset, size_t size, void *base = nullptr);
-	void ReleaseView(void *view, size_t size);
+	void* CreateView(s64 offset, size_t size, void* base = nullptr);
+	void ReleaseView(void* view, size_t size);
 
-	// This only finds 1 GB in 32-bit
-	static u8 *Find4GBBase();
+	// This finds 1 GB in 32-bit, 16 GB in 64-bit.
+	static u8* FindMemoryBase();
 private:
 
 #ifdef _WIN32
@@ -44,7 +44,7 @@ enum {
 struct MemoryView
 {
 	u8** out_ptr;
-	u32 virtual_address;
+	u64 virtual_address;
 	u32 size;
 	u32 flags;
 	void* mapped_ptr;
@@ -54,5 +54,5 @@ struct MemoryView
 
 // Uses a memory arena to set up an emulator-friendly memory map according to
 // a passed-in list of MemoryView structures.
-u8 *MemoryMap_Setup(MemoryView *views, int num_views, u32 flags, MemArena *arena);
-void MemoryMap_Shutdown(MemoryView *views, int num_views, u32 flags, MemArena *arena);
+u8* MemoryMap_Setup(MemoryView* views, int num_views, u32 flags, MemArena* arena);
+void MemoryMap_Shutdown(MemoryView* views, int num_views, u32 flags, MemArena* arena);

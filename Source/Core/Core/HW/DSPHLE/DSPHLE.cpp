@@ -1,43 +1,20 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <iostream>
 
 #include "Common/ChunkFile.h"
-#include "Common/IniFile.h"
-#include "Common/StringUtil.h"
-#include "Common/Logging/LogManager.h"
-
-#include "Core/ConfigManager.h"
+#include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
 #include "Core/Core.h"
-#include "Core/HW/AudioInterface.h"
 #include "Core/HW/SystemTimers.h"
-#include "Core/HW/VideoInterface.h"
 #include "Core/HW/DSPHLE/DSPHLE.h"
 #include "Core/HW/DSPHLE/UCodes/UCodes.h"
 
 DSPHLE::DSPHLE()
 {
 }
-
-// Mailbox utility
-struct DSPState
-{
-	u32 CPUMailbox;
-	u32 DSPMailbox;
-
-	void Reset()
-	{
-		CPUMailbox = 0x00000000;
-		DSPMailbox = 0x00000000;
-	}
-
-	DSPState()
-	{
-		Reset();
-	}
-};
 
 bool DSPHLE::Initialize(bool bWii, bool bDSPThread)
 {
@@ -75,11 +52,8 @@ void DSPHLE::DSP_Update(int cycles)
 u32 DSPHLE::DSP_UpdateRate()
 {
 	// AX HLE uses 3ms (Wii) or 5ms (GC) timing period
-	int fields = VideoInterface::GetNumFields();
-	if (m_pUCode != nullptr)
-		return (SystemTimers::GetTicksPerSecond() / 1000) * m_pUCode->GetUpdateMs() / fields;
-	else
-		return SystemTimers::GetTicksPerSecond() / 1000;
+	// But to be sure, just update the HLE every ms.
+	return SystemTimers::GetTicksPerSecond() / 1000;
 }
 
 void DSPHLE::SendMailToDSP(u32 _uMail)

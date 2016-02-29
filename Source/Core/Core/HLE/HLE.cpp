@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Common/CommonTypes.h"
@@ -22,6 +22,8 @@ namespace HLE
 using namespace PowerPC;
 
 typedef void (*TPatchFunction)();
+
+static std::map<u32, u32> s_original_instructions;
 
 enum
 {
@@ -72,7 +74,7 @@ void Patch(u32 addr, const char *hle_func_name)
 	{
 		if (!strcmp(OSPatches[i].m_szPatchName, hle_func_name))
 		{
-			orig_instruction[addr] = i;
+			s_original_instructions[addr] = i;
 			return;
 		}
 	}
@@ -80,7 +82,7 @@ void Patch(u32 addr, const char *hle_func_name)
 
 void PatchFunctions()
 {
-	orig_instruction.clear();
+	s_original_instructions.clear();
 	for (u32 i = 0; i < sizeof(OSPatches) / sizeof(SPatch); i++)
 	{
 		Symbol *symbol = g_symbolDB.GetSymbolFromName(OSPatches[i].m_szPatchName);
@@ -88,13 +90,13 @@ void PatchFunctions()
 		{
 			for (u32 addr = symbol->address; addr < symbol->address + symbol->size; addr += 4)
 			{
-				orig_instruction[addr] = i;
+				s_original_instructions[addr] = i;
 			}
 			INFO_LOG(OSHLE, "Patching %s %08x", OSPatches[i].m_szPatchName, symbol->address);
 		}
 	}
 
-	if (SConfig::GetInstance().m_LocalCoreStartupParameter.bEnableDebugging)
+	if (SConfig::GetInstance().bEnableDebugging)
 	{
 		for (size_t i = 1; i < sizeof(OSBreakPoints) / sizeof(SPatch); i++)
 		{
@@ -127,8 +129,8 @@ void Execute(u32 _CurrentPC, u32 _Instruction)
 
 u32 GetFunctionIndex(u32 addr)
 {
-	std::map<u32, u32>::const_iterator iter = orig_instruction.find(addr);
-	return (iter != orig_instruction.end()) ?  iter->second : 0;
+	auto iter = s_original_instructions.find(addr);
+	return (iter != s_original_instructions.end()) ? iter->second : 0;
 }
 
 int GetFunctionTypeByIndex(u32 index)
@@ -143,7 +145,7 @@ int GetFunctionFlagsByIndex(u32 index)
 
 bool IsEnabled(int flags)
 {
-	if (flags == HLE::HLE_TYPE_DEBUG && !SConfig::GetInstance().m_LocalCoreStartupParameter.bEnableDebugging && PowerPC::GetMode() != MODE_INTERPRETER)
+	if (flags == HLE::HLE_TYPE_DEBUG && !SConfig::GetInstance().bEnableDebugging && PowerPC::GetMode() != MODE_INTERPRETER)
 		return false;
 
 	return true;
@@ -157,7 +159,7 @@ u32 UnPatch(const std::string& patchName)
 	{
 		for (u32 addr = symbol->address; addr < symbol->address + symbol->size; addr += 4)
 		{
-			orig_instruction[addr] = 0;
+			s_original_instructions[addr] = 0;
 			PowerPC::ppcState.iCache.Invalidate(addr);
 		}
 		return symbol->address;

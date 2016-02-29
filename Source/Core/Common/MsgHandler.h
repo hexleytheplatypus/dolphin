@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -22,6 +22,7 @@ typedef std::string (*StringTranslator)(const char* text);
 void RegisterMsgAlertHandler(MsgAlertHandler handler);
 void RegisterStringTranslator(StringTranslator translator);
 
+std::string GetTranslation(const char* string);
 bool MsgAlert(bool yes_no, int Style, const char* format, ...)
 #ifdef __GNUC__
 	__attribute__((format(printf, 3, 4)))
@@ -29,7 +30,6 @@ bool MsgAlert(bool yes_no, int Style, const char* format, ...)
 	;
 void SetEnableAlert(bool enable);
 
-#ifndef GEKKO
 #ifdef _WIN32
 	#define SuccessAlert(format, ...) MsgAlert(false, INFORMATION, format, __VA_ARGS__)
 	#define PanicAlert(format, ...) MsgAlert(false, WARNING, format, __VA_ARGS__)
@@ -42,6 +42,8 @@ void SetEnableAlert(bool enable);
 	#define PanicYesNoT(format, ...) MsgAlert(true, WARNING, format, __VA_ARGS__)
 	#define AskYesNoT(format, ...) MsgAlert(true, QUESTION, format, __VA_ARGS__)
 	#define CriticalAlertT(format, ...) MsgAlert(false, CRITICAL, format, __VA_ARGS__)
+
+	#define GetStringT(string) GetTranslation(string)
 #else
 	#define SuccessAlert(format, ...) MsgAlert(false, INFORMATION, format, ##__VA_ARGS__)
 	#define PanicAlert(format, ...) MsgAlert(false, WARNING, format, ##__VA_ARGS__)
@@ -54,17 +56,6 @@ void SetEnableAlert(bool enable);
 	#define PanicYesNoT(format, ...) MsgAlert(true, WARNING, format, ##__VA_ARGS__)
 	#define AskYesNoT(format, ...) MsgAlert(true, QUESTION, format, ##__VA_ARGS__)
 	#define CriticalAlertT(format, ...) MsgAlert(false, CRITICAL, format, ##__VA_ARGS__)
-#endif
-#else
-// GEKKO
-	#define SuccessAlert(format, ...) ;
-	#define PanicAlert(format, ...) ;
-	#define PanicYesNo(format, ...) ;
-	#define AskYesNo(format, ...) ;
-	#define CriticalAlert(format, ...) ;
-	#define SuccessAlertT(format, ...) ;
-	#define PanicAlertT(format, ...) ;
-	#define PanicYesNoT(format, ...) ;
-	#define AskYesNoT(format, ...) ;
-	#define CriticalAlertT(format, ...) ;
+
+	#define GetStringT(string) GetTranslation(string)
 #endif

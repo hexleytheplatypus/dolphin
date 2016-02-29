@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <mutex>
@@ -8,13 +8,11 @@
 #include "Common/CommonTypes.h"
 #include "Common/Event.h"
 #include "Core/Core.h"
-#include "Core/DSPEmulator.h"
 #include "Core/Host.h"
-#include "Core/Movie.h"
 #include "Core/HW/CPU.h"
-#include "Core/HW/DSP.h"
+#include "Core/HW/Memmap.h"
 #include "Core/PowerPC/PowerPC.h"
-#include "VideoCommon/VideoBackendBase.h"
+#include "VideoCommon/Fifo.h"
 
 namespace
 {
@@ -23,26 +21,28 @@ namespace
 	static std::mutex m_csCpuOccupied;
 }
 
-void CCPU::Init(int cpu_core)
+namespace CPU
+{
+
+void Init(int cpu_core)
 {
 	PowerPC::Init(cpu_core);
 	m_SyncEvent = nullptr;
 }
 
-void CCPU::Shutdown()
+void Shutdown()
 {
 	PowerPC::Shutdown();
 	m_SyncEvent = nullptr;
 }
 
-void CCPU::Run()
+void Run()
 {
 	std::lock_guard<std::mutex> lk(m_csCpuOccupied);
 	Host_UpdateDisasmDialog();
 
 	while (true)
 	{
-reswitch:
 		switch (PowerPC::GetState())
 		{
 		case PowerPC::CPU_RUNNING:
@@ -60,7 +60,7 @@ reswitch:
 			if (PowerPC::GetState() == PowerPC::CPU_POWERDOWN)
 				return;
 			if (PowerPC::GetState() != PowerPC::CPU_STEPPING)
-				goto reswitch;
+				continue;
 
 			//3: do a step
 			PowerPC::SingleStep();
@@ -81,23 +81,22 @@ reswitch:
 	}
 }
 
-void CCPU::Stop()
+void Stop()
 {
 	PowerPC::Stop();
 	m_StepEvent.Set();
 }
 
-bool CCPU::IsStepping()
+bool IsStepping()
 {
 	return PowerPC::GetState() == PowerPC::CPU_STEPPING;
 }
 
-void CCPU::Reset()
+void Reset()
 {
-
 }
 
-void CCPU::StepOpcode(Common::Event *event)
+void StepOpcode(Common::Event* event)
 {
 	m_StepEvent.Set();
 	if (PowerPC::GetState() == PowerPC::CPU_STEPPING)
@@ -106,20 +105,27 @@ void CCPU::StepOpcode(Common::Event *event)
 	}
 }
 
-void CCPU::EnableStepping(const bool _bStepping)
+void EnableStepping(const bool stepping)
 {
-	if (_bStepping)
+	if (stepping)
 	{
 		PowerPC::Pause();
 		m_StepEvent.Reset();
-		g_video_backend->EmuStateChange(EMUSTATE_CHANGE_PAUSE);
+		Fifo::EmulatorState(false);
 		AudioCommon::ClearAudioBuffer(true);
 	}
 	else
 	{
 		// SingleStep so that the "continue", "step over" and "step out" debugger functions
 		// work when the PC is at a breakpoint at the beginning of the block
-		if (PowerPC::breakpoints.IsAddressBreakPoint(PC) && PowerPC::GetMode() != PowerPC::MODE_INTERPRETER)
+		// If watchpoints are enabled, any instruction could be a breakpoint.
+		bool could_be_bp;
+#ifdef ENABLE_MEM_CHECK
+		could_be_bp = true;
+#else
+		could_be_bp = PowerPC::breakpoints.IsAddressBreakPoint(PC);
+#endif
+		if (could_be_bp && PowerPC::GetMode() != PowerPC::MODE_INTERPRETER)
 		{
 			PowerPC::CoreMode oldMode = PowerPC::GetMode();
 			PowerPC::SetMode(PowerPC::MODE_INTERPRETER);
@@ -128,36 +134,51 @@ void CCPU::EnableStepping(const bool _bStepping)
 		}
 		PowerPC::Start();
 		m_StepEvent.Set();
-		g_video_backend->EmuStateChange(EMUSTATE_CHANGE_PLAY);
+		Fifo::EmulatorState(true);
 		AudioCommon::ClearAudioBuffer(false);
 	}
 }
 
-void CCPU::Break()
+void Break()
 {
 	EnableStepping(true);
 }
 
-bool CCPU::PauseAndLock(bool doLock, bool unpauseOnUnlock)
+bool PauseAndLock(bool do_lock, bool unpause_on_unlock)
 {
+	static bool s_have_fake_cpu_thread;
 	bool wasUnpaused = !IsStepping();
-	if (doLock)
+	if (do_lock)
 	{
 		// we can't use EnableStepping, that would causes deadlocks with both audio and video
 		PowerPC::Pause();
 		if (!Core::IsCPUThread())
+		{
 			m_csCpuOccupied.lock();
+			s_have_fake_cpu_thread = true;
+			Core::DeclareAsCPUThread();
+		}
+		else
+		{
+			s_have_fake_cpu_thread = false;
+		}
 	}
 	else
 	{
-		if (unpauseOnUnlock)
+		if (unpause_on_unlock)
 		{
 			PowerPC::Start();
 			m_StepEvent.Set();
 		}
 
-		if (!Core::IsCPUThread())
+		if (s_have_fake_cpu_thread)
+		{
+			Core::UndeclareAsCPUThread();
 			m_csCpuOccupied.unlock();
+			s_have_fake_cpu_thread = false;
+		}
 	}
 	return wasUnpaused;
+}
+
 }

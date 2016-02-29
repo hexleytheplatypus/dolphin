@@ -10,6 +10,9 @@
 // Helper functions:
 
 #ifdef _WIN32
+
+#include <intrin.h>
+
 template <typename T>
 static inline int CountSetBits(T v)
 {
@@ -155,6 +158,8 @@ public:
 	const Ref operator[](size_t bit) const { return (*const_cast<BitSet*>(this))[bit]; }
 	bool operator==(BitSet other) const { return m_val == other.m_val; }
 	bool operator!=(BitSet other) const { return m_val != other.m_val; }
+	bool operator<(BitSet other) const { return m_val < other.m_val; }
+	bool operator>(BitSet other) const { return m_val > other.m_val; }
 	BitSet operator|(BitSet other) const { return BitSet(m_val | other.m_val); }
 	BitSet operator&(BitSet other) const { return BitSet(m_val & other.m_val); }
 	BitSet operator^(BitSet other) const { return BitSet(m_val ^ other.m_val); }
@@ -162,8 +167,7 @@ public:
 	BitSet& operator|=(BitSet other) { return *this = *this | other; }
 	BitSet& operator&=(BitSet other) { return *this = *this & other; }
 	BitSet& operator^=(BitSet other) { return *this = *this ^ other; }
-	operator u32() = delete;
-	operator bool() { return m_val != 0; }
+	explicit operator bool() const { return m_val != 0; }
 
 	// Warning: Even though on modern CPUs this is a single fast instruction,
 	// Dolphin's official builds do not currently assume POPCNT support on x86,

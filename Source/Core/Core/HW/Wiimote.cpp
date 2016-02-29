@@ -1,15 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
-
-#include "Core/ConfigManager.h"
 #include "Core/Movie.h"
 #include "Core/HW/Wiimote.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"
-
 #include "InputCommon/InputConfig.h"
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 
@@ -25,23 +23,20 @@ InputConfig* GetConfig()
 
 void Shutdown()
 {
-	for (const ControllerEmu* i : s_config.controllers)
-	{
-		delete i;
-	}
-	s_config.controllers.clear();
+	s_config.ClearControllers();
 
 	WiimoteReal::Stop();
 
 	g_controller_interface.Shutdown();
 }
 
-// if plugin isn't initialized, init and load config
 void Initialize(void* const hwnd, bool wait)
 {
-	// add 4 Wiimotes
-	for (unsigned int i = WIIMOTE_CHAN_0; i<MAX_BBMOTES; ++i)
-		s_config.controllers.push_back(new WiimoteEmu::Wiimote(i));
+	if (s_config.ControllersNeedToBeCreated())
+	{
+		for (unsigned int i = WIIMOTE_CHAN_0; i < MAX_BBMOTES; ++i)
+			s_config.CreateController<WiimoteEmu::Wiimote>(i);
+	}
 
 	g_controller_interface.Initialize(hwnd);
 
@@ -49,10 +44,22 @@ void Initialize(void* const hwnd, bool wait)
 
 	WiimoteReal::Initialize(wait);
 
-	// reload Wiimotes with our settings
+	// Reload Wiimotes with our settings
 	if (Movie::IsMovieActive())
 		Movie::ChangeWiiPads();
 }
+
+void ResetAllWiimotes()
+{
+	for (int i = WIIMOTE_CHAN_0; i < MAX_BBMOTES; ++i)
+	        static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(i))->Reset();
+}
+
+void LoadConfig()
+{
+	s_config.LoadConfig(false);
+}
+
 
 void Resume()
 {
@@ -65,100 +72,60 @@ void Pause()
 }
 
 
-// __________________________________________________________________________________________________
-// Function: ControlChannel
-// Purpose:  An L2CAP packet is passed from the Core to the Wiimote,
-//           on the HID CONTROL channel.
-//
-// Inputs:   _number    [Description needed]
-//           _channelID [Description needed]
-//           _pData     [Description needed]
-//           _Size      [Description needed]
-//
-// Output:   none
-//
-void ControlChannel(int _number, u16 _channelID, const void* _pData, u32 _Size)
+// An L2CAP packet is passed from the Core to the Wiimote on the HID CONTROL channel.
+void ControlChannel(int number, u16 channel_id, const void* data, u32 size)
 {
-	if (WIIMOTE_SRC_HYBRID & g_wiimote_sources[_number])
-		((WiimoteEmu::Wiimote*)s_config.controllers[_number])->ControlChannel(_channelID, _pData, _Size);
+	if (WIIMOTE_SRC_HYBRID & g_wiimote_sources[number])
+		static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(number))->ControlChannel(channel_id, data, size);
 }
 
-// __________________________________________________________________________________________________
-// Function: InterruptChannel
-// Purpose:  An L2CAP packet is passed from the Core to the Wiimote,
-//           on the HID INTERRUPT channel.
-//
-// Inputs:   _number    [Description needed]
-//           _channelID [Description needed]
-//           _pData     [Description needed]
-//           _Size      [Description needed]
-//
-// Output:   none
-//
-void InterruptChannel(int _number, u16 _channelID, const void* _pData, u32 _Size)
+// An L2CAP packet is passed from the Core to the Wiimote on the HID INTERRUPT channel.
+void InterruptChannel(int number, u16 channel_id, const void* data, u32 size)
 {
-	if (WIIMOTE_SRC_HYBRID & g_wiimote_sources[_number])
-		((WiimoteEmu::Wiimote*)s_config.controllers[_number])->InterruptChannel(_channelID, _pData, _Size);
+	if (WIIMOTE_SRC_HYBRID & g_wiimote_sources[number])
+		static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(number))->InterruptChannel(channel_id, data, size);
 }
 
-// __________________________________________________________________________________________________
-// Function: Update
-// Purpose:  This function is called periodically by the Core. // TODO: Explain why.
-// input:    _number: [Description needed]
-// output:   none
-//
-void Update(int _number)
+// This function is called periodically by the Core to update Wiimote state.
+void Update(int number, bool connected)
 {
-	//PanicAlert( "Wiimote_Update" );
-
-	// TODO: change this to a try_to_lock, and make it give empty input on failure
-	std::lock_guard<std::recursive_mutex> lk(s_config.controls_lock);
-
-	if (WIIMOTE_SRC_EMU & g_wiimote_sources[_number])
-		((WiimoteEmu::Wiimote*)s_config.controllers[_number])->Update();
+	if (connected)
+	{
+		if (WIIMOTE_SRC_EMU & g_wiimote_sources[number])
+			static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(number))->Update();
+		else
+			WiimoteReal::Update(number);
+	}
 	else
-		WiimoteReal::Update(_number);
+	{
+		if (WIIMOTE_SRC_EMU & g_wiimote_sources[number])
+			static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(number))->ConnectOnInput();
+
+		if (WIIMOTE_SRC_REAL & g_wiimote_sources[number])
+			WiimoteReal::ConnectOnInput(number);
+	}
 }
 
-// __________________________________________________________________________________________________
-// Function: GetAttached
-// Purpose:  Get mask of attached pads (eg: controller 1 & 4 -> 0x9)
-// input:    none
-// output:   The number of attached pads
-//
+// Get a mask of attached the pads (eg: controller 1 & 4 -> 0x9)
 unsigned int GetAttached()
 {
 	unsigned int attached = 0;
-	for (unsigned int i=0; i<MAX_BBMOTES; ++i)
+	for (unsigned int i = 0; i < MAX_BBMOTES; ++i)
 		if (g_wiimote_sources[i])
 			attached |= (1 << i);
 	return attached;
 }
 
-// ___________________________________________________________________________
-// Function: DoState
-// Purpose:  Saves/load state
-// input/output: ptr: [Description Needed]
-// input: mode        [Description needed]
-//
-void DoState(u8 **ptr, PointerWrap::Mode mode)
+// Save/Load state
+void DoState(PointerWrap& p)
 {
-	// TODO:
-
-	PointerWrap p(ptr, mode);
-	for (unsigned int i=0; i<MAX_BBMOTES; ++i)
-		((WiimoteEmu::Wiimote*)s_config.controllers[i])->DoState(p);
+	for (int i = 0; i < MAX_BBMOTES; ++i)
+		static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(i))->DoState(p);
 }
 
-// ___________________________________________________________________________
-// Function: EmuStateChange
-// Purpose: Notifies the plugin of a change in emulation state
-// input:    newState - The new state for the Wiimote to change to.
-// output:   none
-//
+// Notifies the plugin of a change in emulation state
 void EmuStateChange(EMUSTATE_CHANGE newState)
 {
-	// TODO
 	WiimoteReal::StateChange(newState);
 }
 

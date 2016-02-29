@@ -1,8 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
-#include "Core/PowerPC/PPCAnalyst.h"
+#include "Common/AssertInt.h"
+#include "Common/CommonTypes.h"
+#include "Core/ConfigManager.h"
+#include "Core/CoreTiming.h"
+#include "Core/HLE/HLE.h"
+#include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/Interpreter/Interpreter.h"
 
 void Interpreter::bx(UGeckoInstruction _inst)
@@ -14,15 +19,13 @@ void Interpreter::bx(UGeckoInstruction _inst)
 		NPC = SignExt26(_inst.LI << 2);
 	else
 		NPC = PC+SignExt26(_inst.LI << 2);
-/*
-#ifdef _DEBUG
-	if (_inst.LK)
-	{
-		PPCAnalyst::LogFunctionCall(NPC);
-	}
-#endif*/
 
 	m_EndBlock = true;
+
+	if (NPC == PC && SConfig::GetInstance().bSkipIdle)
+	{
+		CoreTiming::Idle();
+	}
 }
 
 // bcx - ugly, straight from PPC manual equations :)
@@ -50,6 +53,23 @@ void Interpreter::bcx(UGeckoInstruction _inst)
 	}
 
 	m_EndBlock = true;
+
+	// this code trys to detect the most common idle loop:
+	// lwz r0, XXXX(r13)
+	// cmpXwi r0,0
+	// beq -8
+	if (NPC == PC - 8 && _inst.hex == 0x4182fff8 /* beq */ && SConfig::GetInstance().bSkipIdle)
+	{
+		if (PowerPC::HostRead_U32(PC - 8) >> 16 == 0x800D /* lwz */ )
+		{
+			u32 last_inst = PowerPC::HostRead_U32(PC - 4);
+
+			if (last_inst == 0x28000000 /* cmplwi */ || (last_inst == 0x2C000000 /* cmpwi */ && SConfig::GetInstance().bWii))
+			{
+				CoreTiming::Idle();
+			}
+		}
+	}
 }
 
 void Interpreter::bcctrx(UGeckoInstruction _inst)
@@ -92,11 +112,6 @@ void Interpreter::HLEFunction(UGeckoInstruction _inst)
 	HLE::Execute(PC, _inst.hex);
 }
 
-void Interpreter::CompiledBlock(UGeckoInstruction _inst)
-{
-	_assert_msg_(POWERPC, 0, "CompiledBlock - shouldn't be here!");
-}
-
 void Interpreter::rfi(UGeckoInstruction _inst)
 {
 	// Restore saved bits from SRR1 to MSR.
@@ -114,17 +129,11 @@ void Interpreter::rfi(UGeckoInstruction _inst)
 	m_EndBlock = true;
 }
 
-void Interpreter::rfid(UGeckoInstruction _inst)
-{
-	_dbg_assert_msg_(POWERPC, 0, "rfid instruction unimplemented (does this instruction even exist?)");
-	m_EndBlock = true;
-}
-
 // sc isn't really used for anything important in GameCube games (just for a write barrier) so we really don't have to emulate it.
 // We do it anyway, though :P
 void Interpreter::sc(UGeckoInstruction _inst)
 {
-	Common::AtomicOr(PowerPC::ppcState.Exceptions, EXCEPTION_SYSCALL);
+	PowerPC::ppcState.Exceptions |= EXCEPTION_SYSCALL;
 	PowerPC::CheckExceptions();
 	m_EndBlock = true;
 }

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 
@@ -17,8 +17,8 @@ union UGeckoInstruction
 {
 	u32 hex;
 
-	UGeckoInstruction(u32 _hex) { hex = _hex;}
-	UGeckoInstruction()         { hex = 0;}
+	UGeckoInstruction(u32 _hex) : hex(_hex) {}
+	UGeckoInstruction() : hex(0) {}
 
 	struct
 	{
@@ -305,6 +305,9 @@ union UGeckoInstruction
 enum EQuantizeType : u32
 {
 	QUANTIZE_FLOAT = 0,
+	QUANTIZE_INVALID1 = 1,
+	QUANTIZE_INVALID2 = 2,
+	QUANTIZE_INVALID3 = 3,
 	QUANTIZE_U8    = 4,
 	QUANTIZE_U16   = 5,
 	QUANTIZE_S8    = 6,
@@ -462,7 +465,7 @@ union UReg_FPSCR
 		u32 VXIMZ   : 1;
 		// Invalid operation exception for 0 / 0 (sticky)
 		u32 VXZDZ   : 1;
-		// Invalid operation exception for int / inf (sticky)
+		// Invalid operation exception for inf / inf (sticky)
 		u32 VXIDI   : 1;
 		// Invalid operation exception for inf - inf (sticky)
 		u32 VXISI   : 1;
@@ -534,12 +537,12 @@ union UReg_HID2
 	struct
 	{
 		u32         : 16;
-		u32 DQOMEE  : 1;
+		u32 DQOEE   : 1;
 		u32 DCMEE   : 1;
 		u32 DNCEE   : 1;
 		u32 DCHEE   : 1;
 		u32 DQOERR  : 1;
-		u32 DCEMERR : 1;
+		u32 DCMERR  : 1;
 		u32 DNCERR  : 1;
 		u32 DCHERR  : 1;
 		u32 DMAQL   : 4;
@@ -828,8 +831,10 @@ enum
 	EXCEPTION_ALIGNMENT           = 0x00000020,
 	EXCEPTION_FPU_UNAVAILABLE     = 0x00000040,
 	EXCEPTION_PROGRAM             = 0x00000080,
-	EXCEPTION_PERFORMANCE_MONITOR = 0x00000100
+	EXCEPTION_PERFORMANCE_MONITOR = 0x00000100,
+
+	EXCEPTION_FAKE_MEMCHECK_HIT   = 0x00000200,
 };
 
-inline s32 SignExt16(s16 x) {return (s32)(s16)x;}
-inline s32 SignExt26(u32 x) {return x & 0x2000000 ? (s32)(x | 0xFC000000) : (s32)(x);}
+constexpr s32 SignExt16(s16 x) {return (s32)x;}
+constexpr s32 SignExt26(u32 x) {return x & 0x2000000 ? (s32)(x | 0xFC000000) : (s32)(x);}

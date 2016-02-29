@@ -1,7 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
+
+#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/Attachment/Drums.h"
 
 namespace WiimoteEmu
@@ -78,6 +83,14 @@ void Drums::GetState(u8* const data)
 
 	// flip button bits
 	ddata->bt ^= 0xFFFF;
+}
+
+bool Drums::IsButtonPressed() const
+{
+	u16 buttons = 0;
+	m_buttons->GetState(&buttons, drum_button_bitmasks);
+	m_pads->GetState(&buttons, drum_pad_bitmasks);
+	return buttons != 0;
 }
 
 }

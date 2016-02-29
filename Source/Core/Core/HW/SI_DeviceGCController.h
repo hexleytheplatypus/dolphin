@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -66,6 +66,8 @@ protected:
 	// Set on connection and (standard pad only) on button combo
 	SOrigin m_Origin;
 
+	bool m_Calibrated;
+
 	// PADAnalogMode
 	u8 m_Mode;
 
@@ -77,30 +79,37 @@ protected:
 	// Type of button combo from the last/current poll
 	EButtonCombo m_LastButtonCombo;
 
+	// Set this if we want to simulate the "TaruKonga" DK Bongo controller
+	bool m_simulate_konga = false;
+
 public:
 
 	// Constructor
 	CSIDevice_GCController(SIDevices device, int _iDeviceNumber);
 
 	// Run the SI Buffer
-	virtual int RunBuffer(u8* _pBuffer, int _iLength) override;
+	int RunBuffer(u8* _pBuffer, int _iLength) override;
+
+	// Return true on new data
+	bool GetData(u32& _Hi, u32& _Low) override;
+
+	// Send a command directly
+	void SendCommand(u32 _Cmd, u8 _Poll) override;
+
+	// Savestate support
+	void DoState(PointerWrap& p) override;
+
+	virtual GCPadStatus GetPadStatus();
+	virtual u32 MapPadStatus(const GCPadStatus& pad_status);
+	virtual EButtonCombo HandleButtonCombos(const GCPadStatus& pad_status);
 
 	// Send and Receive pad input from network
 	static bool NetPlay_GetInput(u8 numPAD, GCPadStatus* status);
 	static u8 NetPlay_InGamePadToLocalPad(u8 numPAD);
 
-	// Return true on new data
-	virtual bool GetData(u32& _Hi, u32& _Low) override;
-
-	virtual GCPadStatus GetPadStatus();
-	virtual u32 MapPadStatus(const GCPadStatus& pad_status);
-	virtual void HandleButtonCombos(const GCPadStatus& pad_status);
-
-	// Send a command directly
-	virtual void SendCommand(u32 _Cmd, u8 _Poll) override;
-
-	// Savestate support
-	virtual void DoState(PointerWrap& p) override;
+protected:
+	void Calibrate();
+	void HandleMoviePadStatus(GCPadStatus* PadStatus);
 };
 
 
@@ -108,12 +117,8 @@ public:
 class CSIDevice_TaruKonga : public CSIDevice_GCController
 {
 public:
-	CSIDevice_TaruKonga(SIDevices device, int _iDeviceNumber) : CSIDevice_GCController(device, _iDeviceNumber) { }
-
-	virtual bool GetData(u32& _Hi, u32& _Low) override
+	CSIDevice_TaruKonga(SIDevices device, int _iDeviceNumber) : CSIDevice_GCController(device, _iDeviceNumber)
 	{
-		CSIDevice_GCController::GetData(_Hi, _Low);
-		_Hi &= ~PAD_USE_ORIGIN << 16;
-		return true;
+		m_simulate_konga = true;
 	}
 };

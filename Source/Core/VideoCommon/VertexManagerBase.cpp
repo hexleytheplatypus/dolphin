@@ -1,16 +1,24 @@
-#include "Common/CommonTypes.h"
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
 
-#include "VideoCommon/BPStructs.h"
+#include <memory>
+
+#include "Common/BitSet.h"
+#include "Common/ChunkFile.h"
+#include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
+
+#include "VideoCommon/BPMemory.h"
+#include "VideoCommon/DataReader.h"
 #include "VideoCommon/Debugger.h"
 #include "VideoCommon/GeometryShaderManager.h"
 #include "VideoCommon/IndexGenerator.h"
-#include "VideoCommon/MainBase.h"
 #include "VideoCommon/NativeVertexFormat.h"
 #include "VideoCommon/OpcodeDecoding.h"
 #include "VideoCommon/PerfQueryBase.h"
 #include "VideoCommon/PixelShaderManager.h"
 #include "VideoCommon/RenderBase.h"
-#include "VideoCommon/Statistics.h"
 #include "VideoCommon/TextureCacheBase.h"
 #include "VideoCommon/VertexLoaderManager.h"
 #include "VideoCommon/VertexManagerBase.h"
@@ -18,18 +26,18 @@
 #include "VideoCommon/VideoConfig.h"
 #include "VideoCommon/XFMemory.h"
 
-VertexManager *g_vertex_manager;
+std::unique_ptr<VertexManagerBase> g_vertex_manager;
 
-u8 *VertexManager::s_pCurBufferPointer;
-u8 *VertexManager::s_pBaseBufferPointer;
-u8 *VertexManager::s_pEndBufferPointer;
+u8* VertexManagerBase::s_pCurBufferPointer;
+u8* VertexManagerBase::s_pBaseBufferPointer;
+u8* VertexManagerBase::s_pEndBufferPointer;
 
-PrimitiveType VertexManager::current_primitive_type;
+PrimitiveType VertexManagerBase::current_primitive_type;
 
-Slope VertexManager::s_zslope;
+Slope VertexManagerBase::s_zslope;
 
-bool VertexManager::s_is_flushed;
-bool VertexManager::s_cull_all;
+bool VertexManagerBase::s_is_flushed;
+bool VertexManagerBase::s_cull_all;
 
 static const PrimitiveType primitive_from_gx[8] = {
 	PRIMITIVE_TRIANGLES, // GX_DRAW_QUADS
@@ -42,22 +50,22 @@ static const PrimitiveType primitive_from_gx[8] = {
 	PRIMITIVE_POINTS,    // GX_DRAW_POINTS
 };
 
-VertexManager::VertexManager()
+VertexManagerBase::VertexManagerBase()
 {
 	s_is_flushed = true;
 	s_cull_all = false;
 }
 
-VertexManager::~VertexManager()
+VertexManagerBase::~VertexManagerBase()
 {
 }
 
-u32 VertexManager::GetRemainingSize()
+u32 VertexManagerBase::GetRemainingSize()
 {
 	return (u32)(s_pEndBufferPointer - s_pCurBufferPointer);
 }
 
-DataReader VertexManager::PrepareForAdditionalData(int primitive, u32 count, u32 stride, bool cullall)
+DataReader VertexManagerBase::PrepareForAdditionalData(int primitive, u32 count, u32 stride, bool cullall)
 {
 	// The SSE vertex loader can write up to 4 bytes past the end
 	u32 const needed_vertex_bytes = count * stride + 4;
@@ -95,12 +103,12 @@ DataReader VertexManager::PrepareForAdditionalData(int primitive, u32 count, u32
 	return DataReader(s_pCurBufferPointer, s_pEndBufferPointer);
 }
 
-void VertexManager::FlushData(u32 count, u32 stride)
+void VertexManagerBase::FlushData(u32 count, u32 stride)
 {
 	s_pCurBufferPointer += count * stride;
 }
 
-u32 VertexManager::GetRemainingIndices(int primitive)
+u32 VertexManagerBase::GetRemainingIndices(int primitive)
 {
 	u32 index_len = MAXIBUFFERSIZE - IndexGenerator::GetIndexLen();
 
@@ -158,15 +166,13 @@ u32 VertexManager::GetRemainingIndices(int primitive)
 	}
 }
 
-void VertexManager::Flush()
+void VertexManagerBase::Flush()
 {
 	if (s_is_flushed)
 		return;
 
 	// loading a state will invalidate BP, so check for it
 	g_video_backend->CheckInvalidState();
-
-	VideoFifo_CheckEFBAccess();
 
 #if defined(_DEBUG) || defined(DEBUGFAST)
 	PRIM_LOG("frame%d:\n texgen=%d, numchan=%d, dualtex=%d, ztex=%d, cole=%d, alpe=%d, ze=%d", g_ActiveConfig.iSaveTargetId, xfmem.numTexGen.numTexGens,
@@ -209,21 +215,22 @@ void VertexManager::Flush()
 				if (bpmem.tevind[i].IsActive() && bpmem.tevind[i].bt < bpmem.genMode.numindstages)
 					usedtextures[bpmem.tevindref.getTexMap(bpmem.tevind[i].bt)] = true;
 
+		TextureCacheBase::UnbindTextures();
 		for (unsigned int i : usedtextures)
 		{
-			g_renderer->SetSamplerState(i & 3, i >> 2);
-			const TextureCache::TCacheEntryBase* tentry = TextureCache::Load(i);
+			const TextureCacheBase::TCacheEntryBase* tentry = TextureCacheBase::Load(i);
 
 			if (tentry)
 			{
-				// 0s are probably for no manual wrapping needed.
-				PixelShaderManager::SetTexDims(i, tentry->native_width, tentry->native_height, 0, 0);
+				g_renderer->SetSamplerState(i & 3, i >> 2, tentry->is_custom_tex);
+				PixelShaderManager::SetTexDims(i, tentry->native_width, tentry->native_height);
 			}
 			else
 			{
 				ERROR_LOG(VIDEO, "error loading texture");
 			}
 		}
+		g_texture_cache->BindTextures();
 	}
 
 	// set global vertex constants
@@ -247,10 +254,9 @@ void VertexManager::Flush()
 		GeometryShaderManager::SetConstants();
 		PixelShaderManager::SetConstants();
 
-		bool useDstAlpha = !g_ActiveConfig.bDstAlphaPass &&
-						   bpmem.dstalpha.enable &&
-						   bpmem.blendmode.alphaupdate &&
-						   bpmem.zcontrol.pixel_format == PEControl::RGBA6_Z24;
+		bool useDstAlpha = bpmem.dstalpha.enable &&
+		                   bpmem.blendmode.alphaupdate &&
+		                   bpmem.zcontrol.pixel_format == PEControl::RGBA6_Z24;
 
 		if (PerfQueryBase::ShouldEmulate())
 			g_perf_query->EnableQuery(bpmem.zcontrol.early_ztest ? PQG_ZCOMP_ZCOMPLOC : PQG_ZCOMP);
@@ -268,44 +274,42 @@ void VertexManager::Flush()
 	s_cull_all = false;
 }
 
-void VertexManager::DoState(PointerWrap& p)
+void VertexManagerBase::DoState(PointerWrap& p)
 {
 	p.Do(s_zslope);
 	g_vertex_manager->vDoState(p);
 }
 
-void VertexManager::CalculateZSlope(NativeVertexFormat* format)
+void VertexManagerBase::CalculateZSlope(NativeVertexFormat* format)
 {
-	float vtx[9];
 	float out[12];
 	float viewOffset[2] = { xfmem.viewport.xOrig - bpmem.scissorOffset.x * 2,
 	                        xfmem.viewport.yOrig - bpmem.scissorOffset.y * 2};
 
+	if (current_primitive_type != PRIMITIVE_TRIANGLES)
+		return;
+
 	// Global matrix ID.
 	u32 mtxIdx = g_main_cp_state.matrix_index_a.PosNormalMtxIdx;
 	const PortableVertexDeclaration vert_decl = format->GetVertexDeclaration();
-	size_t posOff = vert_decl.position.offset;
-	size_t mtxOff = vert_decl.posmtx.offset;
 
-	// Make sure the buffer contains at lest 3 vertices.
+	// Make sure the buffer contains at least 3 vertices.
 	if ((s_pCurBufferPointer - s_pBaseBufferPointer) < (vert_decl.stride * 3))
 		return;
 
 	// Lookup vertices of the last rendered triangle and software-transform them
-	// This allows us to determine the depth slope, which will be used if z--freeze
+	// This allows us to determine the depth slope, which will be used if z-freeze
 	// is enabled in the following flush.
 	for (unsigned int i = 0; i < 3; ++i)
 	{
-		u8* vtx_ptr = s_pCurBufferPointer - vert_decl.stride * (3 - i);
-		vtx[0 + i * 3] = ((float*)(vtx_ptr + posOff))[0];
-		vtx[1 + i * 3] = ((float*)(vtx_ptr + posOff))[1];
-		vtx[2 + i * 3] = ((float*)(vtx_ptr + posOff))[2];
-
 		// If this vertex format has per-vertex position matrix IDs, look it up.
-		if(vert_decl.posmtx.enable)
-			mtxIdx = *((u32*)(vtx_ptr + mtxOff));
+		if (vert_decl.posmtx.enable)
+			mtxIdx = VertexLoaderManager::position_matrix_index[2 - i];
 
-		VertexShaderManager::TransformToClipSpace(&vtx[i * 3], &out[i * 4], mtxIdx);
+		if (vert_decl.position.components == 2)
+			VertexLoaderManager::position_cache[2 - i][2] = 0;
+
+		VertexShaderManager::TransformToClipSpace(&VertexLoaderManager::position_cache[2 - i][0], &out[i * 4], mtxIdx);
 
 		// Transform to Screenspace
 		float inv_w = 1.0f / out[3 + i * 4];

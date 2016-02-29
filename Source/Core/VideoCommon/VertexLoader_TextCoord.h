@@ -1,18 +1,14 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "VideoCommon/NativeVertexFormat.h"
+#include "Common/CommonTypes.h"
 
 class VertexLoader_TextCoord
 {
 public:
-
-	// Init
-	static void Init();
-
 	// GetSize
 	static unsigned int GetSize(u64 _type, unsigned int _format, unsigned int _elements);
 

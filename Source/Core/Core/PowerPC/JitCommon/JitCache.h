@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -10,26 +10,18 @@
 #include <memory>
 #include <vector>
 
-#include "Core/PowerPC/Gekko.h"
-#include "Core/PowerPC/PPCAnalyst.h"
+#include "Common/CommonTypes.h"
 
-// Define this in order to get VTune profile support for the Jit generated code.
-// Add the VTune include/lib directories to the project directories to get this to build.
-// #define USE_VTUNE
+static const u32 JIT_ICACHE_SIZE = 0x2000000;
+static const u32 JIT_ICACHE_MASK = 0x1ffffff;
+static const u32 JIT_ICACHEEX_SIZE = 0x4000000;
+static const u32 JIT_ICACHEEX_MASK = 0x3ffffff;
+static const u32 JIT_ICACHE_EXRAM_BIT = 0x10000000;
+static const u32 JIT_ICACHE_VMEM_BIT  = 0x20000000;
 
-// emulate CPU with unlimited instruction cache
-// the only way to invalidate a region is the "icbi" instruction
-#define JIT_UNLIMITED_ICACHE
-
-#define JIT_ICACHE_SIZE 0x2000000
-#define JIT_ICACHE_MASK 0x1ffffff
-#define JIT_ICACHEEX_SIZE 0x4000000
-#define JIT_ICACHEEX_MASK 0x3ffffff
-#define JIT_ICACHE_EXRAM_BIT 0x10000000
-#define JIT_ICACHE_VMEM_BIT 0x20000000
-// this corresponds to opcode 5 which is invalid in PowerPC
-#define JIT_ICACHE_INVALID_BYTE 0x80
-#define JIT_ICACHE_INVALID_WORD 0x80808080
+// This corresponds to opcode 5 which is invalid in PowerPC
+static const u32 JIT_ICACHE_INVALID_BYTE = 0x80;
+static const u32 JIT_ICACHE_INVALID_WORD = 0x80808080;
 
 struct JitBlock
 {
@@ -64,14 +56,15 @@ typedef void (*CompiledCode)();
 // implementation of std::bitset is slow.
 class ValidBlockBitSet final
 {
+public:
 	enum
 	{
 		VALID_BLOCK_MASK_SIZE = 0x20000000 / 32,
 		VALID_BLOCK_ALLOC_ELEMENTS = VALID_BLOCK_MASK_SIZE / 32
 	};
+	// Directly accessed by Jit64.
 	std::unique_ptr<u32[]> m_valid_block;
 
-public:
 	ValidBlockBitSet()
 	{
 		m_valid_block.reset(new u32[VALID_BLOCK_ALLOC_ELEMENTS]);
@@ -110,17 +103,16 @@ class JitBaseBlockCache
 	std::array<JitBlock, MAX_NUM_BLOCKS> blocks;
 	int num_blocks;
 	std::multimap<u32, int> links_to;
-	std::map<std::pair<u32,u32>, u32> block_map; // (end_addr, start_addr) -> number
+	std::map<std::pair<u32, u32>, u32> block_map; // (end_addr, start_addr) -> number
 	ValidBlockBitSet valid_block;
 
 	bool m_initialized;
 
-	bool RangeIntersect(int s1, int e1, int s2, int e2) const;
 	void LinkBlockExits(int i);
 	void LinkBlock(int i);
 	void UnlinkBlock(int i);
 
-	u32* GetICachePtr(u32 addr);
+	u8* GetICachePtr(u32 addr);
 	void DestroyBlock(int block_num, bool invalidate);
 
 	// Virtual for overloaded
@@ -129,6 +121,10 @@ class JitBaseBlockCache
 
 public:
 	JitBaseBlockCache() : num_blocks(0), m_initialized(false)
+	{
+	}
+
+	virtual ~JitBaseBlockCache()
 	{
 	}
 
@@ -157,6 +153,11 @@ public:
 
 	// DOES NOT WORK CORRECTLY WITH INLINING
 	void InvalidateICache(u32 address, const u32 length, bool forced);
+
+	u32* GetBlockBitSet() const
+	{
+		return valid_block.m_valid_block.get();
+	}
 };
 
 // x86 BlockCache

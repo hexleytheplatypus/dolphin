@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cctype>
@@ -34,6 +34,8 @@ public:
 		buf->Release();
 	}
 
+	int GetSize() const { return max_size; }
+
 	// returns vertex offset to the new data
 	int AppendData(void* data, int size, int vertex_size)
 	{
@@ -57,6 +59,37 @@ public:
 
 		offset += size;
 		return (offset - size) / vertex_size;
+	}
+
+	int BeginAppendData(void** write_ptr, int size, int vertex_size)
+	{
+		_dbg_assert_(VIDEO, size < max_size);
+
+		D3D11_MAPPED_SUBRESOURCE map;
+		int aligned_offset = ((offset + vertex_size - 1) / vertex_size) * vertex_size; // align offset to vertex_size bytes
+		if (aligned_offset + size > max_size)
+		{
+			// wrap buffer around and notify observers
+			offset = 0;
+			aligned_offset = 0;
+			context->Map(buf, 0, D3D11_MAP_WRITE_DISCARD, 0, &map);
+
+			for (bool* observer : observers)
+				*observer = true;
+		}
+		else
+		{
+			context->Map(buf, 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &map);
+		}
+
+		*write_ptr = reinterpret_cast<byte*>(map.pData) + aligned_offset;
+		offset = aligned_offset + size;
+		return aligned_offset / vertex_size;
+	}
+
+	void EndAppendData()
+	{
+		context->Unmap(buf, 0);
 	}
 
 	void AddWrapObserver(bool* observer)
@@ -399,10 +432,10 @@ int CD3DFont::DrawTextScaled(float x, float y, float size, float spacing, u32 dw
 			D3D::context->Draw(3 * dwNumTriangles, 0);
 
 			dwNumTriangles = 0;
-			D3D11_MAPPED_SUBRESOURCE vbmap;
-			hr = context->Map(m_pVB, 0, D3D11_MAP_WRITE_DISCARD, 0, &vbmap);
+			D3D11_MAPPED_SUBRESOURCE _vbmap;
+			hr = context->Map(m_pVB, 0, D3D11_MAP_WRITE_DISCARD, 0, &_vbmap);
 			if (FAILED(hr)) PanicAlert("Mapping vertex buffer failed, %s %d\n", __FILE__, __LINE__);
-			pVertices = (D3D::FONT2DVERTEX*)vbmap.pData;
+			pVertices = (D3D::FONT2DVERTEX*)_vbmap.pData;
 		}
 		sx += w + spacing * scalex * size;
 	}
@@ -442,7 +475,7 @@ struct
 
 struct
 {
-	float x1, y1, x2, y2;
+	float x1, y1, x2, y2, z;
 	u32 col;
 } draw_quad_data;
 
@@ -460,7 +493,7 @@ bool stq_observer, stsq_observer, cq_observer, clearq_observer;
 
 void InitUtils()
 {
-	util_vbuf = new UtilVertexBuffer(0x4000);
+	util_vbuf = new UtilVertexBuffer(65536); // 64KiB
 
 	float border[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11_SAMPLER_DESC samDesc = CD3D11_SAMPLER_DESC(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_BORDER, D3D11_TEXTURE_ADDRESS_BORDER, D3D11_TEXTURE_ADDRESS_BORDER, 0.f, 1, D3D11_COMPARISON_ALWAYS, border, 0.f, 0.f);
@@ -572,19 +605,19 @@ void drawShadedTexQuad(ID3D11ShaderResourceView* texture,
 
 // Fills a certain area of the current render target with the specified color
 // destination coordinates normalized to (-1;1)
-void drawColorQuad(u32 Color, float x1, float y1, float x2, float y2)
+void drawColorQuad(u32 Color, float z, float x1, float y1, float x2, float y2)
 {
 	ColVertex coords[4] = {
-		{ x1, y2, 0.f, Color },
-		{ x2, y2, 0.f, Color },
-		{ x1, y1, 0.f, Color },
-		{ x2, y1, 0.f, Color },
+		{ x1, y1, z, Color },
+		{ x2, y1, z, Color },
+		{ x1, y2, z, Color },
+		{ x2, y2, z, Color },
 	};
 
 	if (cq_observer ||
 	    draw_quad_data.x1 != x1 || draw_quad_data.y1 != y1 ||
 	    draw_quad_data.x2 != x2 || draw_quad_data.y2 != y2 ||
-	    draw_quad_data.col != Color)
+	    draw_quad_data.col != Color || draw_quad_data.z != z)
 	{
 		cq_offset = util_vbuf->AppendData(coords, sizeof(coords), sizeof(ColVertex));
 		cq_observer = false;
@@ -594,10 +627,11 @@ void drawColorQuad(u32 Color, float x1, float y1, float x2, float y2)
 		draw_quad_data.x2 = x2;
 		draw_quad_data.y2 = y2;
 		draw_quad_data.col = Color;
+		draw_quad_data.z = z;
 	}
 
 	stateman->SetVertexShader(VertexShaderCache::GetClearVertexShader());
-	stateman->SetGeometryShader(g_ActiveConfig.iStereoMode > 0 ? GeometryShaderCache::GetClearGeometryShader() : nullptr);
+	stateman->SetGeometryShader(GeometryShaderCache::GetClearGeometryShader());
 	stateman->SetPixelShader(PixelShaderCache::GetClearProgram());
 	stateman->SetInputLayout(VertexShaderCache::GetClearInputLayout());
 
@@ -644,6 +678,71 @@ void drawClearQuad(u32 Color, float z)
 	context->Draw(4, clearq_offset);
 
 	stateman->SetGeometryShader(nullptr);
+}
+
+static void InitColVertex(ColVertex* vert, float x, float y, float z, u32 col)
+{
+	vert->x = x;
+	vert->y = y;
+	vert->z = z;
+	vert->col = col;
+}
+
+void DrawEFBPokeQuads(EFBAccessType type, const EfbPokeData* points, size_t num_points)
+{
+	const size_t COL_QUAD_SIZE = sizeof(ColVertex) * 6;
+
+	// Set common state
+	stateman->SetVertexShader(VertexShaderCache::GetClearVertexShader());
+	stateman->SetGeometryShader(GeometryShaderCache::GetClearGeometryShader());
+	stateman->SetPixelShader(PixelShaderCache::GetClearProgram());
+	stateman->SetInputLayout(VertexShaderCache::GetClearInputLayout());
+	stateman->SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	stateman->SetVertexBuffer(util_vbuf->GetBuffer(), sizeof(ColVertex), 0);
+	stateman->Apply();
+
+	// if drawing a large number of points at once, this will have to be split into multiple passes.
+	size_t points_per_draw = util_vbuf->GetSize() / COL_QUAD_SIZE;
+	size_t current_point_index = 0;
+	while (current_point_index < num_points)
+	{
+		size_t points_to_draw = std::min(num_points - current_point_index, points_per_draw);
+		size_t required_bytes = COL_QUAD_SIZE * points_to_draw;
+
+		// map and reserve enough buffer space for this draw
+		void* buffer_ptr;
+		int base_vertex_index = util_vbuf->BeginAppendData(&buffer_ptr, (int)required_bytes, sizeof(ColVertex));
+
+		// generate quads for each efb point
+		ColVertex* base_vertex_ptr = reinterpret_cast<ColVertex*>(buffer_ptr);
+		for (size_t i = 0; i < points_to_draw; i++)
+		{
+			// generate quad from the single point (clip-space coordinates)
+			const EfbPokeData* point = &points[current_point_index];
+			float x1 = float(point->x) * 2.0f / EFB_WIDTH - 1.0f;
+			float y1 = -float(point->y) * 2.0f / EFB_HEIGHT + 1.0f;
+			float x2 = float(point->x + 1) * 2.0f / EFB_WIDTH - 1.0f;
+			float y2 = -float(point->y + 1) * 2.0f / EFB_HEIGHT + 1.0f;
+			float z = (type == POKE_Z) ? (1.0f - float(point->data & 0xFFFFFF) / 16777216.0f) : 0.0f;
+			u32 col = (type == POKE_Z) ? 0 : ((point->data & 0xFF00FF00) | ((point->data >> 16) & 0xFF) | ((point->data << 16) & 0xFF0000));
+			current_point_index++;
+
+			// quad -> triangles
+			ColVertex* vertex = &base_vertex_ptr[i * 6];
+			InitColVertex(&vertex[0], x1, y1, z, col);
+			InitColVertex(&vertex[1], x2, y1, z, col);
+			InitColVertex(&vertex[2], x1, y2, z, col);
+			InitColVertex(&vertex[3], x1, y2, z, col);
+			InitColVertex(&vertex[4], x2, y1, z, col);
+			InitColVertex(&vertex[5], x2, y2, z, col);
+		}
+
+		// unmap the util buffer, and issue the draw
+		util_vbuf->EndAppendData();
+		context->Draw(6 * (UINT)points_to_draw, base_vertex_index);
+	}
+
+	stateman->SetGeometryShader(GeometryShaderCache::GetClearGeometryShader());
 }
 
 }  // namespace D3D

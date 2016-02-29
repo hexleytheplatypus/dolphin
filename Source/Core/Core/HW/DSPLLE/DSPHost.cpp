@@ -1,10 +1,10 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Common/CommonTypes.h"
 #include "Common/Hash.h"
-
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
 #include "Core/Host.h"
 #include "Core/DSP/DSPAnalyzer.h"
@@ -13,7 +13,6 @@
 #include "Core/HW/DSP.h"
 #include "Core/HW/DSPLLE/DSPLLETools.h"
 #include "Core/HW/DSPLLE/DSPSymbols.h"
-#include "Core/PowerPC/PowerPC.h"
 #include "VideoCommon/OnScreenDisplay.h"
 
 // The user of the DSPCore library must supply a few functions so that the
@@ -41,14 +40,12 @@ void OSD_AddMessage(const std::string& str, u32 ms)
 
 bool OnThread()
 {
-	const SCoreStartupParameter& _CoreParameter = SConfig::GetInstance().m_LocalCoreStartupParameter;
-	return  _CoreParameter.bDSPThread;
+	return  SConfig::GetInstance().bDSPThread;
 }
 
 bool IsWiiHost()
 {
-	const SCoreStartupParameter& _CoreParameter = SConfig::GetInstance().m_LocalCoreStartupParameter;
-	return  _CoreParameter.bWii;
+	return  SConfig::GetInstance().bWii;
 }
 
 void InterruptRequest()
@@ -98,8 +95,8 @@ void CodeLoaded(const u8 *ptr, int size)
 
 	UpdateDebugger();
 
-	if (dspjit)
-		dspjit->ClearIRAM();
+	if (g_dsp_jit)
+		g_dsp_jit->ClearIRAM();
 
 	DSPAnalyzer::Analyze();
 }

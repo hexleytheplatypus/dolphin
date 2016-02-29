@@ -1,37 +1,17 @@
-/*====================================================================
-
-   filename:     gdsp_interpreter.cpp
-   project:      GCemu
-   created:      2004-6-18
-   mail:         duddie@walla.com
-
-   Copyright (c) 2005 Duddie & Tratax
-
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License
-   as published by the Free Software Foundation; either version 2
-   of the License, or (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-
-   ====================================================================*/
+// Copyright 2008 Dolphin Emulator Project
+// Copyright 2004 Duddie & Tratax
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
 
 #include "Core/DSP/DSPAnalyzer.h"
 #include "Core/DSP/DSPCore.h"
 #include "Core/DSP/DSPHWInterface.h"
+#include "Core/DSP/DSPInterpreter.h"
 #include "Core/DSP/DSPIntUtil.h"
+#include "Core/DSP/DSPMemoryMap.h"
 #include "Core/DSP/DSPTables.h"
 
 namespace DSPInterpreter {
-
-static volatile u32 gdsp_running;
 
 // NOTE: These have nothing to do with g_dsp.r.cr !
 
@@ -50,7 +30,7 @@ void WriteCR(u16 val)
 		// HAX!
 		// OSInitAudioSystem ucode should send this mail - not DSP core itself
 		INFO_LOG(DSPLLE,"DSP_CONTROL INIT");
-		init_hax = true;
+		g_init_hax = true;
 		val |= 0x800;
 	}
 
@@ -129,7 +109,7 @@ int RunCyclesDebug(int cycles)
 	{
 		if (g_dsp.cr & CR_HALT)
 			return 0;
-		if (dsp_breakpoints.IsAddressBreakPoint(g_dsp.pc))
+		if (g_dsp_breakpoints.IsAddressBreakPoint(g_dsp.pc))
 		{
 			DSPCore_SetState(DSPCORE_STEPPING);
 			return cycles;
@@ -148,7 +128,7 @@ int RunCyclesDebug(int cycles)
 		{
 			if (g_dsp.cr & CR_HALT)
 				return 0;
-			if (dsp_breakpoints.IsAddressBreakPoint(g_dsp.pc))
+			if (g_dsp_breakpoints.IsAddressBreakPoint(g_dsp.pc))
 			{
 				DSPCore_SetState(DSPCORE_STEPPING);
 				return cycles;
@@ -165,7 +145,7 @@ int RunCyclesDebug(int cycles)
 		// Now, lets run some more without idle skipping.
 		for (int i = 0; i < 200; i++)
 		{
-			if (dsp_breakpoints.IsAddressBreakPoint(g_dsp.pc))
+			if (g_dsp_breakpoints.IsAddressBreakPoint(g_dsp.pc))
 			{
 				DSPCore_SetState(DSPCORE_STEPPING);
 				return cycles;
@@ -223,11 +203,6 @@ int RunCycles(int cycles)
 			// it just won't call this function anymore.
 		}
 	}
-}
-
-void Stop()
-{
-	gdsp_running = false;
 }
 
 }  // namespace

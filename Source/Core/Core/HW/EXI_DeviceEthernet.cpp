@@ -1,11 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <string>
+
+#include "Common/ChunkFile.h"
+#include "Common/CommonTypes.h"
 #include "Common/Network.h"
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
 #include "Core/HW/EXI.h"
-#include "Core/HW/EXI_Device.h"
 #include "Core/HW/EXI_DeviceEthernet.h"
 #include "Core/HW/Memmap.h"
 
@@ -16,10 +20,10 @@
 
 CEXIETHERNET::CEXIETHERNET()
 {
-	tx_fifo = new u8[1518];
-	mBbaMem = new u8[BBA_MEM_SIZE];
+	tx_fifo = std::make_unique<u8[]>(BBA_TXFIFO_SIZE);
+	mBbaMem = std::make_unique<u8[]>(BBA_MEM_SIZE);
 
-	mRecvBuffer = new u8[BBA_RECV_SIZE];
+	mRecvBuffer = std::make_unique<u8[]>(BBA_RECV_SIZE);
 	mRecvBufferLength = 0;
 
 	MXHardReset();
@@ -43,8 +47,9 @@ CEXIETHERNET::CEXIETHERNET()
 
 #if defined(_WIN32)
 	mHAdapter = INVALID_HANDLE_VALUE;
-	mHRecvEvent = INVALID_HANDLE_VALUE;
-	mHReadWait = INVALID_HANDLE_VALUE;
+	memset(&mReadOverlapped, 0, sizeof(mReadOverlapped));
+	memset(&mWriteOverlapped, 0, sizeof(mWriteOverlapped));
+	mWritePending = false;
 #elif defined(__linux__) || defined(__APPLE__)
 	fd = -1;
 #endif
@@ -53,10 +58,6 @@ CEXIETHERNET::CEXIETHERNET()
 CEXIETHERNET::~CEXIETHERNET()
 {
 	Deactivate();
-
-	delete[] tx_fifo;
-	delete[] mBbaMem;
-	delete[] mRecvBuffer;
 }
 
 void CEXIETHERNET::SetCS(int cs)
@@ -68,7 +69,7 @@ void CEXIETHERNET::SetCS(int cs)
 	}
 }
 
-bool CEXIETHERNET::IsPresent()
+bool CEXIETHERNET::IsPresent() const
 {
 	return true;
 }
@@ -78,7 +79,7 @@ bool CEXIETHERNET::IsInterruptSet()
 	return !!(exi_status.interrupt & exi_status.interrupt_mask);
 }
 
-void CEXIETHERNET::ImmWrite(u32 data,  u32 size)
+void CEXIETHERNET::ImmWrite(u32 data, u32 size)
 {
 	data >>= (4 - size) * 8;
 
@@ -201,9 +202,8 @@ void CEXIETHERNET::DMARead(u32 addr, u32 size)
 
 void CEXIETHERNET::DoState(PointerWrap &p)
 {
-	p.Do(mBbaMem);
-	// TODO ... the rest...
-	ERROR_LOG(SP1, "CEXIETHERNET::DoState not implemented!");
+	p.DoArray(tx_fifo.get(), BBA_TXFIFO_SIZE);
+	p.DoArray(mBbaMem.get(), BBA_MEM_SIZE);
 }
 
 bool CEXIETHERNET::IsMXCommand(u32 const data)
@@ -294,7 +294,7 @@ const char* CEXIETHERNET::GetRegisterName() const
 
 void CEXIETHERNET::MXHardReset()
 {
-	memset(mBbaMem, 0, BBA_MEM_SIZE);
+	memset(mBbaMem.get(), 0, BBA_MEM_SIZE);
 
 	mBbaMem[BBA_NCRB] = NCRB_PR;
 	mBbaMem[BBA_NWAYC] = NWAYC_LTE | NWAYC_ANE;
@@ -357,6 +357,12 @@ void CEXIETHERNET::MXCommandHandler(u32 data, u32 size)
 		data &= (data & 0xff) ^ 0xff;
 		goto write_to_register;
 
+	case BBA_TXFIFOCNT:
+	case BBA_TXFIFOCNT+1:
+		// Ignore all writes to BBA_TXFIFOCNT
+		transfer.address += size;
+		return;
+
 write_to_register:
 	default:
 		for (int i = size - 1; i >= 0; i--)
@@ -374,7 +380,7 @@ void CEXIETHERNET::DirectFIFOWrite(u8 *data, u32 size)
 
 	u16 *tx_fifo_count = (u16 *)&mBbaMem[BBA_TXFIFOCNT];
 
-	memcpy(tx_fifo + *tx_fifo_count, data, size);
+	memcpy(tx_fifo.get() + *tx_fifo_count, data, size);
 
 	*tx_fifo_count += size;
 	// TODO: not sure this mask is correct.
@@ -385,7 +391,7 @@ void CEXIETHERNET::DirectFIFOWrite(u8 *data, u32 size)
 
 void CEXIETHERNET::SendFromDirectFIFO()
 {
-	SendFrame(tx_fifo, *(u16 *)&mBbaMem[BBA_TXFIFOCNT]);
+	SendFrame(tx_fifo.get(), *(u16 *)&mBbaMem[BBA_TXFIFOCNT]);
 }
 
 void CEXIETHERNET::SendFromPacketBuffer()
@@ -403,7 +409,7 @@ void CEXIETHERNET::SendComplete()
 		mBbaMem[BBA_IR] |= INT_T;
 
 		exi_status.interrupt |= exi_status.TRANSFER;
-		ExpansionInterface::ScheduleUpdateInterrupts_Threadsafe(0);
+		ExpansionInterface::ScheduleUpdateInterrupts(0);
 	}
 
 	mBbaMem[BBA_LTPS] = 0;
@@ -442,9 +448,9 @@ inline bool CEXIETHERNET::RecvMACFilter()
 	// Unicast?
 	if ((mRecvBuffer[0] & 0x01) == 0)
 	{
-		return memcmp(mRecvBuffer, &mBbaMem[BBA_NAFR_PAR0], 6) == 0;
+		return memcmp(mRecvBuffer.get(), &mBbaMem[BBA_NAFR_PAR0], 6) == 0;
 	}
-	else if (memcmp(mRecvBuffer, broadcast, 6) == 0)
+	else if (memcmp(mRecvBuffer.get(), broadcast, 6) == 0)
 	{
 		// Accept broadcast?
 		return !!(mBbaMem[BBA_NCRB] & NCRB_AB);
@@ -457,7 +463,7 @@ inline bool CEXIETHERNET::RecvMACFilter()
 	else
 	{
 		// Lookup the dest eth address in the hashmap
-		u16 index = HashIndex(mRecvBuffer);
+		u16 index = HashIndex(mRecvBuffer.get());
 		return !!(mBbaMem[BBA_NAFR_MAR0 + index / 8] & (1 << (index % 8)));
 	}
 }

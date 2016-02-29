@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -7,10 +7,7 @@
 #include <cstdlib>
 #include <string>
 
-#include "Core/CoreParameter.h"
-
 #include "DiscIO/Volume.h"
-using DiscIO::IVolume;
 
 struct CountrySetting
 {
@@ -44,6 +41,7 @@ public:
 	                        std::string* title_id = nullptr);
 
 private:
+	static bool DVDRead(u64 dvd_offset, u32 output_address, u32 length, bool decrypt);
 	static void RunFunction(u32 _iAddr);
 
 	static void UpdateDebugger_MapLoaded();
@@ -58,5 +56,5 @@ private:
 	static bool Load_BS2(const std::string& _rBootROMFilename);
 	static void Load_FST(bool _bIsWii);
 
-	static bool SetupWiiMemory(IVolume::ECountry country);
+	static bool SetupWiiMemory(DiscIO::IVolume::ECountry country);
 };

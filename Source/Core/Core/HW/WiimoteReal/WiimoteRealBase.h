@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -16,6 +16,7 @@
 	// end hack
 	#import <IOBluetooth/IOBluetooth.h>
 	#include <IOKit/pwr_mgt/IOPMLib.h>
+	#include <IOKit/hid/IOHIDManager.h>
 #elif defined(__linux__) && HAVE_BLUEZ
 	#include <bluetooth/bluetooth.h>
 #endif
@@ -52,11 +53,11 @@
 #define WIIMOTE_DEFAULT_TIMEOUT  1000
 
 #ifdef _WIN32
-// Available bluetooth stacks for Windows.
-enum win_bt_stack_t
+// Different methods to send data Wiimote on Windows depending on OS and Bluetooth Stack
+enum WinWriteMethod
 {
-	MSBT_STACK_UNKNOWN,
-	MSBT_STACK_MS,
-	MSBT_STACK_BLUESOLEIL
+	WWM_WRITE_FILE_LARGEST_REPORT_SIZE,
+	WWM_WRITE_FILE_ACTUAL_REPORT_SIZE,
+	WWM_SET_OUTPUT_REPORT
 };
 #endif

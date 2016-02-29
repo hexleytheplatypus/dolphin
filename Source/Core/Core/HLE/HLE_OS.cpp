@@ -1,12 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <string>
 
 #include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
 #include "Common/StringUtil.h"
-
+#include "Common/Logging/Log.h"
 #include "Core/HLE/HLE_OS.h"
 #include "Core/HW/Memmap.h"
 #include "Core/PowerPC/PowerPC.h"
@@ -32,7 +33,7 @@ void HLE_OSPanic()
 void HLE_GeneralDebugPrint()
 {
 	std::string ReportMessage;
-	if (Memory::Read_U32(GPR(3)) > 0x80000000)
+	if (PowerPC::HostRead_U32(GPR(3)) > 0x80000000)
 	{
 		GetStringVA(ReportMessage, 4);
 	}
@@ -63,7 +64,7 @@ void GetStringVA(std::string& _rOutBuffer, u32 strReg)
 	std::string ArgumentBuffer = "";
 	u32 ParameterCounter = strReg+1;
 	u32 FloatingParameterCounter = 1;
-	std::string string = Memory::GetString(GPR(strReg));
+	std::string string = PowerPC::HostGetString(GPR(strReg));
 
 	for(u32 i = 0; i < string.size(); i++)
 	{
@@ -84,7 +85,7 @@ void GetStringVA(std::string& _rOutBuffer, u32 strReg)
 			u64 Parameter;
 			if (ParameterCounter > 10)
 			{
-				Parameter = Memory::Read_U32(GPR(1) + 0x8 + ((ParameterCounter - 11) * 4));
+				Parameter = PowerPC::HostRead_U32(GPR(1) + 0x8 + ((ParameterCounter - 11) * 4));
 			}
 			else
 			{
@@ -101,7 +102,7 @@ void GetStringVA(std::string& _rOutBuffer, u32 strReg)
 			switch (string[i])
 			{
 			case 's':
-				_rOutBuffer += StringFromFormat(ArgumentBuffer.c_str(), Memory::GetString((u32)Parameter).c_str());
+				_rOutBuffer += StringFromFormat(ArgumentBuffer.c_str(), PowerPC::HostGetString((u32)Parameter).c_str());
 				break;
 
 			case 'd':
@@ -135,7 +136,7 @@ void GetStringVA(std::string& _rOutBuffer, u32 strReg)
 			_rOutBuffer += string[i];
 		}
 	}
-	if (_rOutBuffer[_rOutBuffer.length() - 1] == '\n')
+	if (!_rOutBuffer.empty() && _rOutBuffer[_rOutBuffer.length() - 1] == '\n')
 		_rOutBuffer.resize(_rOutBuffer.length() - 1);
 }
 

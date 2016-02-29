@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cstring>
@@ -9,16 +9,12 @@
 #include <vector>
 #include <wx/bitmap.h>
 #include <wx/brush.h>
-#include <wx/chartype.h>
 #include <wx/colour.h>
 #include <wx/dcmemory.h>
-#include <wx/defs.h>
 #include <wx/font.h>
-#include <wx/gdicmn.h>
 #include <wx/notebook.h>
 #include <wx/pen.h>
 #include <wx/statbmp.h>
-#include <wx/string.h>
 
 #include "DolphinWX/InputConfigDiag.h"
 #include "DolphinWX/WxUtils.h"
@@ -41,7 +37,7 @@ struct ShapePosition
 };
 
 // regular octagon
-void DrawOctagon(wxDC* dc, ShapePosition p)
+static void DrawOctagon(wxDC* dc, ShapePosition p)
 {
 	const int vertices = 8;
 	double radius = p.max;
@@ -63,7 +59,7 @@ void DrawOctagon(wxDC* dc, ShapePosition p)
 }
 
 // irregular dodecagon
-void DrawDodecagon(wxDC* dc, ShapePosition p)
+static void DrawDodecagon(wxDC* dc, ShapePosition p)
 {
 	const int vertices = 12;
 
@@ -108,7 +104,7 @@ static void DrawCoordinate(wxDC &dc, ControlState x, ControlState y)
 	DrawCenteredRectangle(dc, xc, yc, COORD_VIS_SIZE, COORD_VIS_SIZE);
 }
 
-void DrawButton(unsigned int* const bitmasks, unsigned int buttons, unsigned int n, wxDC& dc, ControlGroupBox* g, unsigned int row)
+static void DrawButton(unsigned int* const bitmasks, unsigned int buttons, unsigned int n, wxDC& dc, ControlGroupBox* g, unsigned int row)
 {
 	if (buttons & bitmasks[(row * 8) + n])
 	{
@@ -119,12 +115,12 @@ void DrawButton(unsigned int* const bitmasks, unsigned int buttons, unsigned int
 		unsigned char amt = 255 - g->control_group->controls[(row * 8) + n]->control_ref->State() * 128;
 		dc.SetBrush(wxBrush(wxColour(amt, amt, amt)));
 	}
-	dc.DrawRectangle(n * 12, (row == 0) ? 0 : (row * 12 - 1), 14, 12);
+	dc.DrawRectangle(n * 12, (row == 0) ? 0 : (row * 11), 14, 12);
 
 	// text
 	const std::string name = g->control_group->controls[(row * 8) + n]->name;
 	// bit of hax so ZL, ZR show up as L, R
-	dc.DrawText(StrToWxStr(std::string(1, (name[1] && name[1] < 'a') ? name[1] : name[0])), n * 12 + 2, 1 + ((row == 0) ? 0 : (row * 12 - 1)));
+	dc.DrawText(StrToWxStr(std::string(1, (name[1] && name[1] < 'a') ? name[1] : name[0])), n * 12 + 2, 1 + ((row == 0) ? 0 : (row * 11)));
 }
 
 static void DrawControlGroupBox(wxDC &dc, ControlGroupBox *g)
@@ -452,11 +448,6 @@ void InputConfigDialog::UpdateBitmaps(wxTimerEvent& WXUNUSED(event))
 	wxFont small_font(6, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 
 	g_controller_interface.UpdateInput();
-
-	// don't want game thread updating input when we are using it here
-	std::unique_lock<std::recursive_mutex> lk(g_controller_interface.update_lock, std::try_to_lock);
-	if (!lk.owns_lock())
-		return;
 
 	GamepadPage* const current_page = (GamepadPage*)m_pad_notebook->GetPage(m_pad_notebook->GetSelection());
 

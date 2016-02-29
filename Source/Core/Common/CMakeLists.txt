@@ -1,6 +1,7 @@
 set(SRCS BreakPoints.cpp
          CDUtils.cpp
          ColorUtil.cpp
+         ENetUtil.cpp
          FileSearch.cpp
          FileUtil.cpp
          GekkoDisassembler.cpp
@@ -24,27 +25,29 @@ set(SRCS BreakPoints.cpp
          SysConf.cpp
          Thread.cpp
          Timer.cpp
+         TraversalClient.cpp
          Version.cpp
          x64ABI.cpp
          x64Analyzer.cpp
          x64Emitter.cpp
          Crypto/bn.cpp
          Crypto/ec.cpp
-         Logging/ConsoleListener.cpp
          Logging/LogManager.cpp)
 
-
-if(_M_ARM)
-	if (_M_ARM_32) #ARMv7
-		set(SRCS ${SRCS}
-		         ArmEmitter.cpp)
-	else() #AArch64
-		set(SRCS ${SRCS}
-	               Arm64Emitter.cpp)
-	endif()
+if(ANDROID)
 	set(SRCS ${SRCS}
-	    ArmCPUDetect.cpp
-	    GenericFPURoundMode.cpp)
+	         Logging/ConsoleListenerDroid.cpp)
+else()
+	set(SRCS ${SRCS}
+	         Logging/ConsoleListenerNix.cpp)
+endif()
+
+list(APPEND LIBS enet)
+if(_M_ARM_64)
+	set(SRCS ${SRCS}
+	         Arm64Emitter.cpp
+	         ArmCPUDetect.cpp
+	         GenericFPURoundMode.cpp)
 else()
 	if(_M_X86) #X86
 		set(SRCS ${SRCS}
@@ -56,13 +59,43 @@ else()
 		         GenericCPUDetect.cpp)
 	endif()
 endif()
-if(WIN32)
-    set(SRCS ${SRCS} ExtendedTrace.cpp)
-endif(WIN32)
 
-set(LIBS "${CMAKE_THREAD_LIBS_INIT}")
-if(NOT APPLE AND NOT ANDROID)
-	set(LIBS ${LIBS} rt)
+list(APPEND LIBS "${CMAKE_THREAD_LIBS_INIT}" ${VTUNE_LIBRARIES})
+
+# OpenGL Interface
+set(SRCS ${SRCS}
+	GL/GLUtil.cpp
+	GL/GLExtensions/GLExtensions.cpp
+	GL/GLInterface/GLInterface.cpp)
+
+if(USE_EGL)
+    set(SRCS ${SRCS} GL/GLInterface/EGL.cpp)
+    if(ANDROID)
+        set(SRCS ${SRCS} GL/GLInterface/EGLAndroid.cpp)
+    elseif(USE_X11)
+        set(SRCS ${SRCS} GL/GLInterface/EGLX11.cpp)
+    endif()
+	set(LIBS ${LIBS} EGL)
+endif()
+
+if(WIN32)
+    set(SRCS ${SRCS} GL/GLInterface/WGL.cpp)
+elseif(APPLE)
+    set(SRCS ${SRCS} GL/GLInterface/AGL.cpp)
+elseif(USE_X11)
+    if (NOT USE_EGL)
+        set(SRCS ${SRCS} GL/GLInterface/GLX.cpp)
+        # GLX has a hard dependency on libGL.
+        # Make sure to link to it if using GLX.
+        set(LIBS ${LIBS} ${OPENGL_LIBRARIES})
+    endif()
+    set(SRCS ${SRCS} GL/GLInterface/X11_Util.cpp)
+    set(LIBS ${LIBS} ${XRANDR_LIBRARIES})
+endif()
+
+if(NOT CMAKE_SYSTEM_NAME MATCHES FreeBSD)
+	set(LIBS ${LIBS} dl)
 endif()
 
 add_dolphin_library(common "${SRCS}" "${LIBS}")
+add_executable(traversal_server TraversalServer.cpp)

@@ -1,7 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
+
+#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+#include "Common/MathUtil.h"
+#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/Attachment/Nunchuk.h"
 
 namespace WiimoteEmu
@@ -87,46 +93,48 @@ void Nunchuk::GetState(u8* const data)
 	// flip the button bits :/
 	ncdata->bt.hex ^= 0x03;
 
-	u16 accel_x = (u16)(accel.x * ACCEL_RANGE + ACCEL_ZERO_G);
-	u16 accel_y = (u16)(accel.y * ACCEL_RANGE + ACCEL_ZERO_G);
-	u16 accel_z = (u16)(accel.z * ACCEL_RANGE + ACCEL_ZERO_G);
+	// We now use 2 bits more precision, so multiply by 4 before converting to int
+	s16 accel_x = (s16)(4 * (accel.x * ACCEL_RANGE + ACCEL_ZERO_G));
+	s16 accel_y = (s16)(4 * (accel.y * ACCEL_RANGE + ACCEL_ZERO_G));
+	s16 accel_z = (s16)(4 * (accel.z * ACCEL_RANGE + ACCEL_ZERO_G));
 
-	if (accel_x > 1024)
-		accel_x = 1024;
-	if (accel_y > 1024)
-		accel_y = 1024;
-	if (accel_z > 1024)
-		accel_z = 1024;
+	accel_x = MathUtil::Clamp<s16>(accel_x, 0, 1024);
+	accel_y = MathUtil::Clamp<s16>(accel_y, 0, 1024);
+	accel_z = MathUtil::Clamp<s16>(accel_z, 0, 1024);
 
-	ncdata->ax = accel_x & 0xFF;
-	ncdata->ay = accel_y & 0xFF;
-	ncdata->az = accel_z & 0xFF;
-	ncdata->passthrough_data.acc_x_lsb = accel_x >> 8 & 0x3;
-	ncdata->passthrough_data.acc_y_lsb = accel_y >> 8 & 0x3;
-	ncdata->passthrough_data.acc_z_lsb = accel_z >> 8 & 0x3;
+	ncdata->ax = (accel_x >> 2) & 0xFF;
+	ncdata->ay = (accel_y >> 2) & 0xFF;
+	ncdata->az = (accel_z >> 2) & 0xFF;
+	ncdata->bt.acc_x_lsb = accel_x & 0x3;
+	ncdata->bt.acc_y_lsb = accel_y & 0x3;
+	ncdata->bt.acc_z_lsb = accel_z & 0x3;
+}
+
+bool Nunchuk::IsButtonPressed() const
+{
+	u8 buttons = 0;
+	m_buttons->GetState(&buttons, nunchuk_button_bitmasks);
+	return buttons != 0;
 }
 
 void Nunchuk::LoadDefaults(const ControllerInterface& ciface)
 {
-	// ugly macroooo
-	#define set_control(group, num, str)  (group)->controls[num]->control_ref->expression = (str)
-
 	// Stick
-	set_control(m_stick, 0, "W"); // up
-	set_control(m_stick, 1, "S"); // down
-	set_control(m_stick, 2, "A"); // left
-	set_control(m_stick, 3, "D"); // right
+	m_stick->SetControlExpression(0, "W"); // up
+	m_stick->SetControlExpression(1, "S"); // down
+	m_stick->SetControlExpression(2, "A"); // left
+	m_stick->SetControlExpression(3, "D"); // right
 
 	// Buttons
 #ifdef _WIN32
-	set_control(m_buttons, 0, "LCONTROL");  // C
-	set_control(m_buttons, 1, "LSHIFT");    // Z
+	m_buttons->SetControlExpression(0, "LCONTROL");  // C
+	m_buttons->SetControlExpression(1, "LSHIFT");    // Z
 #elif __APPLE__
-	set_control(m_buttons, 0, "Left Control"); // C
-	set_control(m_buttons, 1, "Left Shift");   // Z
+	m_buttons->SetControlExpression(0, "Left Control"); // C
+	m_buttons->SetControlExpression(1, "Left Shift");   // Z
 #else
-	set_control(m_buttons, 0, "Control_L"); // C
-	set_control(m_buttons, 1, "Shift_L");   // Z
+	m_buttons->SetControlExpression(0, "Control_L"); // C
+	m_buttons->SetControlExpression(1, "Shift_L");   // Z
 #endif
 }
 

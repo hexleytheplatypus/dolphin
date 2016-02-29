@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -24,20 +24,21 @@
 #include <utility>
 #include <vector>
 
+#include "Common/AssertInt.h"
+#include "Common/Common.h"
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
 #include "Common/Flag.h"
+#include "Common/Logging/Log.h"
 
 // ewww
-#if _LIBCPP_VERSION
+#if _LIBCPP_VERSION || __GNUC__ >= 5
 #define IsTriviallyCopyable(T) std::is_trivially_copyable<typename std::remove_volatile<T>::type>::value
 #elif __GNUC__
 #define IsTriviallyCopyable(T) std::has_trivial_copy_constructor<T>::value
-#elif _MSC_VER >= 1800
-// work around bug
-#define IsTriviallyCopyable(T) (std::is_trivially_copyable<T>::value || std::is_pod<T>::value)
-#elif defined(_MSC_VER)
-#define IsTriviallyCopyable(T) std::has_trivial_copy<T>::value
+#elif _MSC_VER
+// (shuffle2) see https://github.com/dolphin-emu/dolphin/pull/2218
+#define IsTriviallyCopyable(T) 1
 #else
 #error No version of is_trivially_copyable
 #endif
@@ -69,7 +70,6 @@ public:
 
 	void SetMode(Mode mode_) { mode = mode_; }
 	Mode GetMode() const { return mode; }
-	u8** GetPPtr() { return ptr; }
 
 	template <typename K, class V>
 	void Do(std::map<K, V>& x)
@@ -161,7 +161,7 @@ public:
 	}
 
 	template <typename T, std::size_t N>
-	void DoArray(std::array<T,N>& x)
+	void DoArray(std::array<T, N>& x)
 	{
 		DoArray(x.data(), (u32)x.size());
 	}
@@ -173,12 +173,27 @@ public:
 		DoVoid(x, count * sizeof(T));
 	}
 
+	template <typename T, std::size_t N>
+	void DoArray(T (&arr)[N])
+	{
+		DoArray(arr, static_cast<u32>(N));
+	}
+
 	void Do(Common::Flag& flag)
 	{
 		bool s = flag.IsSet();
 		Do(s);
 		if (mode == MODE_READ)
 			flag.Set(s);
+	}
+
+	template<typename T>
+	void Do(std::atomic<T>& atomic)
+	{
+		T temp = atomic.load();
+		Do(temp);
+		if (mode == MODE_READ)
+			atomic.store(temp);
 	}
 
 	template <typename T>
@@ -219,7 +234,7 @@ public:
 
 		while (true)
 		{
-			u8 shouldExist = (list_cur ? 1 : 0);
+			u8 shouldExist = !!list_cur;
 			Do(shouldExist);
 			if (shouldExist == 1)
 			{
@@ -260,8 +275,7 @@ public:
 							LinkedListItem<T>* next = list_cur->next;
 							TFree(list_cur);
 							list_cur = next;
-						}
-						while (list_cur);
+						} while (list_cur);
 					}
 				}
 				break;
@@ -297,7 +311,7 @@ private:
 	}
 
 	__forceinline
-	void DoVoid(void *data, u32 size)
+	void DoVoid(void* data, u32 size)
 	{
 		switch (mode)
 		{
@@ -332,7 +346,7 @@ public:
 	template<class T>
 	static bool Load(const std::string& _rFilename, u32 _Revision, T& _class)
 	{
-		INFO_LOG(COMMON, "ChunkReader: Loading %s" , _rFilename.c_str());
+		INFO_LOG(COMMON, "ChunkReader: Loading %s", _rFilename.c_str());
 
 		if (!File::Exists(_rFilename))
 			return false;
@@ -342,14 +356,14 @@ public:
 		static const u64 headerSize = sizeof(SChunkHeader);
 		if (fileSize < headerSize)
 		{
-			ERROR_LOG(COMMON,"ChunkReader: File too small");
+			ERROR_LOG(COMMON, "ChunkReader: File too small");
 			return false;
 		}
 
 		File::IOFile pFile(_rFilename, "rb");
 		if (!pFile)
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Can't open file for reading");
+			ERROR_LOG(COMMON, "ChunkReader: Can't open file for reading");
 			return false;
 		}
 
@@ -357,14 +371,14 @@ public:
 		SChunkHeader header;
 		if (!pFile.ReadArray(&header, 1))
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Bad header size");
+			ERROR_LOG(COMMON, "ChunkReader: Bad header size");
 			return false;
 		}
 
 		// Check revision
 		if (header.Revision != _Revision)
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Wrong file revision, got %d expected %d",
+			ERROR_LOG(COMMON, "ChunkReader: Wrong file revision, got %d expected %d",
 				header.Revision, _Revision);
 			return false;
 		}
@@ -373,7 +387,7 @@ public:
 		const u32 sz = (u32)(fileSize - headerSize);
 		if (header.ExpectedSize != sz)
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Bad file size, got %d expected %d",
+			ERROR_LOG(COMMON, "ChunkReader: Bad file size, got %d expected %d",
 				sz, header.ExpectedSize);
 			return false;
 		}
@@ -382,7 +396,7 @@ public:
 		std::vector<u8> buffer(sz);
 		if (!pFile.ReadArray(&buffer[0], sz))
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Error reading file");
+			ERROR_LOG(COMMON, "ChunkReader: Error reading file");
 			return false;
 		}
 
@@ -390,7 +404,7 @@ public:
 		PointerWrap p(&ptr, PointerWrap::MODE_READ);
 		_class.DoState(p);
 
-		INFO_LOG(COMMON, "ChunkReader: Done loading %s" , _rFilename.c_str());
+		INFO_LOG(COMMON, "ChunkReader: Done loading %s", _rFilename.c_str());
 		return true;
 	}
 
@@ -398,16 +412,16 @@ public:
 	template<class T>
 	static bool Save(const std::string& _rFilename, u32 _Revision, T& _class)
 	{
-		INFO_LOG(COMMON, "ChunkReader: Writing %s" , _rFilename.c_str());
+		INFO_LOG(COMMON, "ChunkReader: Writing %s", _rFilename.c_str());
 		File::IOFile pFile(_rFilename, "wb");
 		if (!pFile)
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Error opening file for write");
+			ERROR_LOG(COMMON, "ChunkReader: Error opening file for write");
 			return false;
 		}
 
 		// Get data
-		u8 *ptr = nullptr;
+		u8* ptr = nullptr;
 		PointerWrap p(&ptr, PointerWrap::MODE_MEASURE);
 		_class.DoState(p);
 		size_t const sz = (size_t)ptr;
@@ -424,17 +438,17 @@ public:
 		// Write to file
 		if (!pFile.WriteArray(&header, 1))
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Failed writing header");
+			ERROR_LOG(COMMON, "ChunkReader: Failed writing header");
 			return false;
 		}
 
 		if (!pFile.WriteArray(&buffer[0], sz))
 		{
-			ERROR_LOG(COMMON,"ChunkReader: Failed writing data");
+			ERROR_LOG(COMMON, "ChunkReader: Failed writing data");
 			return false;
 		}
 
-		INFO_LOG(COMMON,"ChunkReader: Done writing %s", _rFilename.c_str());
+		INFO_LOG(COMMON, "ChunkReader: Done writing %s", _rFilename.c_str());
 		return true;
 	}
 

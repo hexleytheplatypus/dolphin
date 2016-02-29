@@ -1,11 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #ifdef _MSC_VER
 #pragma warning(disable:4146)  // unary minus operator applied to unsigned type, result still unsigned
 #endif
 
+#include "Common/CommonTypes.h"
+#include "Core/ConfigManager.h"
 #include "Core/PowerPC/JitILCommon/JitILBase.h"
 
 static void ComputeRC(IREmitter::IRBuilder& ibuild, IREmitter::InstLoc val)

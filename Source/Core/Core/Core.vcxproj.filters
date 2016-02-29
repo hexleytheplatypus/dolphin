@@ -136,21 +136,23 @@
     <Filter Include="PowerPC\JitILCommon">
       <UniqueIdentifier>{827afa93-1a80-4835-93ae-b5516d95867f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PowerPC\Jit64Common">
+      <UniqueIdentifier>{81956f71-d9fe-454f-96a6-855195d611c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BootManager.cpp" />
     <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="CoreParameter.cpp" />
     <ClCompile Include="CoreTiming.cpp" />
     <ClCompile Include="ec_wii.cpp" />
+    <ClCompile Include="HotkeyManager.cpp" />
     <ClCompile Include="MemTools.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="NetPlayClient.cpp" />
     <ClCompile Include="NetPlayServer.cpp" />
     <ClCompile Include="PatchEngine.cpp" />
     <ClCompile Include="State.cpp" />
-    <ClCompile Include="VolumeHandler.cpp" />
     <ClCompile Include="ActionReplay.cpp">
       <Filter>ActionReplay</Filter>
     </ClCompile>
@@ -313,6 +315,9 @@
     <ClCompile Include="HW\DVDInterface.cpp">
       <Filter>HW %28Flipper/Hollywood%29\DI - Drive Interface</Filter>
     </ClCompile>
+    <ClCompile Include="HW\DVDThread.cpp">
+      <Filter>HW %28Flipper/Hollywood%29\DI - Drive Interface</Filter>
+    </ClCompile>
     <ClCompile Include="HW\DSPHLE\UCodes\AX.cpp">
       <Filter>HW %28Flipper/Hollywood%29\DSP Interface + HLE\HLE\uCodes</Filter>
     </ClCompile>
@@ -332,15 +337,6 @@
       <Filter>HW %28Flipper/Hollywood%29\DSP Interface + HLE\HLE\uCodes</Filter>
     </ClCompile>
     <ClCompile Include="HW\DSPHLE\UCodes\Zelda.cpp">
-      <Filter>HW %28Flipper/Hollywood%29\DSP Interface + HLE\HLE\uCodes</Filter>
-    </ClCompile>
-    <ClCompile Include="HW\DSPHLE\UCodes\ZeldaADPCM.cpp">
-      <Filter>HW %28Flipper/Hollywood%29\DSP Interface + HLE\HLE\uCodes</Filter>
-    </ClCompile>
-    <ClCompile Include="HW\DSPHLE\UCodes\ZeldaSynth.cpp">
-      <Filter>HW %28Flipper/Hollywood%29\DSP Interface + HLE\HLE\uCodes</Filter>
-    </ClCompile>
-    <ClCompile Include="HW\DSPHLE\UCodes\ZeldaVoice.cpp">
       <Filter>HW %28Flipper/Hollywood%29\DSP Interface + HLE\HLE\uCodes</Filter>
     </ClCompile>
     <ClCompile Include="HW\DSPHLE\UCodes\UCodes.cpp">
@@ -451,6 +447,9 @@
     <ClCompile Include="HW\SI_DeviceGBA.cpp">
       <Filter>HW %28Flipper/Hollywood%29\SI - Serial Interface</Filter>
     </ClCompile>
+    <ClCompile Include="HW\SI_DeviceGCAdapter.cpp">
+      <Filter>HW %28Flipper/Hollywood%29\SI - Serial Interface</Filter>
+    </ClCompile>
     <ClCompile Include="HW\SI_DeviceGCController.cpp">
       <Filter>HW %28Flipper/Hollywood%29\SI - Serial Interface</Filter>
     </ClCompile>
@@ -509,9 +508,6 @@
       <Filter>HW %28Flipper/Hollywood%29</Filter>
     </ClCompile>
     <ClCompile Include="HW\Memmap.cpp">
-      <Filter>HW %28Flipper/Hollywood%29</Filter>
-    </ClCompile>
-    <ClCompile Include="HW\MemmapFunctions.cpp">
       <Filter>HW %28Flipper/Hollywood%29</Filter>
     </ClCompile>
     <ClCompile Include="HW\MMIO.cpp">
@@ -610,6 +606,9 @@
     <ClCompile Include="HW\Wiimote.cpp">
       <Filter>HW %28Flipper/Hollywood%29\Wiimote</Filter>
     </ClCompile>
+    <ClCompile Include="PowerPC\CachedInterpreter.cpp">
+      <Filter>PowerPC</Filter>
+    </ClCompile>
     <ClCompile Include="PowerPC\JitInterface.cpp">
       <Filter>PowerPC</Filter>
     </ClCompile>
@@ -633,9 +632,6 @@
     </ClCompile>
     <ClCompile Include="PowerPC\SignatureDB.cpp">
       <Filter>PowerPC</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerPC\Jit64Common\Jit64AsmCommon.cpp">
-      <Filter>PowerPC\Jit64Common</Filter>
     </ClCompile>
     <ClCompile Include="PowerPC\JitCommon\Jit_Util.cpp">
       <Filter>PowerPC\JitCommon</Filter>
@@ -718,23 +714,30 @@
     <ClCompile Include="PowerPC\JitILCommon\IR.cpp">
       <Filter>PowerPC\JitILCommon</Filter>
     </ClCompile>
-    <ClCompile Include="HW\SI_GCAdapter.cpp" />
-    <ClCompile Include="PowerPC\JitCommon\JitBackpatch.cpp" />
     <ClCompile Include="HW\GCKeyboardEmu.cpp">
       <Filter>HW %28Flipper/Hollywood%29\GCKeyboard</Filter>
     </ClCompile>
     <ClCompile Include="HW\GCKeyboard.cpp">
       <Filter>HW %28Flipper/Hollywood%29\GCKeyboard</Filter>
     </ClCompile>
+    <ClCompile Include="PowerPC\MMU.cpp">
+      <Filter>PowerPC</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerPC\JitCommon\JitBackpatch.cpp">
+      <Filter>PowerPC\JitCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerPC\Jit64Common\Jit64AsmCommon.cpp">
+      <Filter>PowerPC\Jit64Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BootManager.h" />
     <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="CoreParameter.h" />
     <ClInclude Include="CoreTiming.h" />
     <ClInclude Include="ec_wii.h" />
     <ClInclude Include="Host.h" />
+    <ClInclude Include="HotkeyManager.h" />
     <ClInclude Include="MemTools.h" />
     <ClInclude Include="Movie.h" />
     <ClInclude Include="NetPlayClient.h" />
@@ -742,7 +745,6 @@
     <ClInclude Include="NetPlayServer.h" />
     <ClInclude Include="PatchEngine.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="VolumeHandler.h" />
     <ClInclude Include="ActionReplay.h">
       <Filter>ActionReplay</Filter>
     </ClInclude>
@@ -849,6 +851,9 @@
       <Filter>HW %28Flipper/Hollywood%29\AI - Audio Interface</Filter>
     </ClInclude>
     <ClInclude Include="HW\DVDInterface.h">
+      <Filter>HW %28Flipper/Hollywood%29\DI - Drive Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="HW\DVDThread.h">
       <Filter>HW %28Flipper/Hollywood%29\DI - Drive Interface</Filter>
     </ClInclude>
     <ClInclude Include="HW\DSPHLE\UCodes\AX.h">
@@ -984,6 +989,9 @@
       <Filter>HW %28Flipper/Hollywood%29\SI - Serial Interface</Filter>
     </ClInclude>
     <ClInclude Include="HW\SI_DeviceGBA.h">
+      <Filter>HW %28Flipper/Hollywood%29\SI - Serial Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="HW\SI_DeviceGCAdapter.h">
       <Filter>HW %28Flipper/Hollywood%29\SI - Serial Interface</Filter>
     </ClInclude>
     <ClInclude Include="HW\SI_DeviceGCController.h">
@@ -1169,6 +1177,9 @@
     <ClInclude Include="PowerPC\Gekko.h">
       <Filter>PowerPC</Filter>
     </ClInclude>
+    <ClInclude Include="PowerPC\CachedInterpreter.h">
+      <Filter>PowerPC</Filter>
+    </ClInclude>
     <ClInclude Include="PowerPC\JitInterface.h">
       <Filter>PowerPC</Filter>
     </ClInclude>
@@ -1192,9 +1203,6 @@
     </ClInclude>
     <ClInclude Include="PowerPC\SignatureDB.h">
       <Filter>PowerPC</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerPC\Jit64Common\Jit64AsmCommon.h">
-      <Filter>PowerPC\Jit64Common</Filter>
     </ClInclude>
     <ClInclude Include="PowerPC\JitCommon\Jit_Util.h">
       <Filter>PowerPC\JitCommon</Filter>
@@ -1229,13 +1237,15 @@
     <ClInclude Include="PowerPC\JitILCommon\IR.h">
       <Filter>PowerPC\JitILCommon</Filter>
     </ClInclude>
-    <ClInclude Include="HW\SI_GCAdapter.h" />
     <ClInclude Include="MachineContext.h" />
     <ClInclude Include="HW\GCKeyboardEmu.h">
       <Filter>HW %28Flipper/Hollywood%29\GCKeyboard</Filter>
     </ClInclude>
     <ClInclude Include="HW\GCKeyboard.h">
       <Filter>HW %28Flipper/Hollywood%29\GCKeyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPC\Jit64Common\Jit64AsmCommon.h">
+      <Filter>PowerPC\Jit64Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

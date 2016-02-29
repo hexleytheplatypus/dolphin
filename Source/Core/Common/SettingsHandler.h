@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 // Thanks to Treeki for writing the original class - 29/01/2012
@@ -24,7 +24,7 @@ public:
 
 	void AddSetting(const std::string& key, const std::string& value);
 
-	const u8 *GetData() const;
+	const u8* GetData() const;
 	const std::string GetValue(const std::string& key);
 
 	void Decrypt();

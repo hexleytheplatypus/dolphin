@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included./
 
 #pragma once
@@ -9,6 +9,7 @@
 #include "Common/BitSet.h"
 #include "Common/CPUDetect.h"
 #include "Common/x64Emitter.h"
+#include "Core/PowerPC/PowerPC.h"
 
 namespace MMIO { class Mapping; }
 
@@ -30,7 +31,7 @@ class FarCodeCache : public Gen::X64CodeBlock
 private:
 	bool m_enabled = false;
 public:
-	bool Enabled() { return m_enabled; }
+	bool Enabled() const { return m_enabled; }
 	void Init(int size) { AllocCodeSpace(size); m_enabled = true; }
 	void Shutdown() { FreeCodeSpace(); m_enabled = false; }
 };
@@ -68,7 +69,7 @@ public:
 		SetCodePtr(nearcode);
 	}
 
-	Gen::FixupBranch CheckIfSafeAddress(Gen::OpArg reg_value, Gen::X64Reg reg_addr, BitSet32 registers_in_use, u32 mem_mask);
+	Gen::FixupBranch CheckIfSafeAddress(const Gen::OpArg& reg_value, Gen::X64Reg reg_addr, BitSet32 registers_in_use, u32 mem_mask);
 	void UnsafeLoadRegToReg(Gen::X64Reg reg_addr, Gen::X64Reg reg_value, int accessSize, s32 offset = 0, bool signExtend = false);
 	void UnsafeLoadRegToRegNoSwap(Gen::X64Reg reg_addr, Gen::X64Reg reg_value, int accessSize, s32 offset, bool signExtend = false);
 	// these return the address of the MOV, for backpatching
@@ -116,19 +117,19 @@ public:
 	void JitSetCAIf(Gen::CCFlags conditionCode);
 	void JitClearCA();
 
-	void avx_op(void (Gen::XEmitter::*avxOp)(Gen::X64Reg, Gen::X64Reg, Gen::OpArg), void (Gen::XEmitter::*sseOp)(Gen::X64Reg, Gen::OpArg),
-                Gen::X64Reg regOp, Gen::OpArg arg1, Gen::OpArg arg2, bool packed = true, bool reversible = false);
-	void avx_op(void (Gen::XEmitter::*avxOp)(Gen::X64Reg, Gen::X64Reg, Gen::OpArg, u8), void (Gen::XEmitter::*sseOp)(Gen::X64Reg, Gen::OpArg, u8),
-	            Gen::X64Reg regOp, Gen::OpArg arg1, Gen::OpArg arg2, u8 imm);
+	void avx_op(void (Gen::XEmitter::*avxOp)(Gen::X64Reg, Gen::X64Reg, const Gen::OpArg&), void (Gen::XEmitter::*sseOp)(Gen::X64Reg, const Gen::OpArg&),
+	            Gen::X64Reg regOp, const Gen::OpArg& arg1, const Gen::OpArg& arg2, bool packed = true, bool reversible = false);
+	void avx_op(void (Gen::XEmitter::*avxOp)(Gen::X64Reg, Gen::X64Reg, const Gen::OpArg&, u8), void (Gen::XEmitter::*sseOp)(Gen::X64Reg, const Gen::OpArg&, u8),
+	            Gen::X64Reg regOp, const Gen::OpArg& arg1, const Gen::OpArg& arg2, u8 imm);
 
-	void ForceSinglePrecisionS(Gen::X64Reg output, Gen::X64Reg input);
-	void ForceSinglePrecisionP(Gen::X64Reg output, Gen::X64Reg input);
-	void Force25BitPrecision(Gen::X64Reg output, Gen::OpArg input, Gen::X64Reg tmp);
+	void ForceSinglePrecision(Gen::X64Reg output, const Gen::OpArg& input, bool packed = true, bool duplicate = false);
+	void Force25BitPrecision(Gen::X64Reg output, const Gen::OpArg& input, Gen::X64Reg tmp);
 
 	// RSCRATCH might get trashed
 	void ConvertSingleToDouble(Gen::X64Reg dst, Gen::X64Reg src, bool src_is_gpr = false);
 	void ConvertDoubleToSingle(Gen::X64Reg dst, Gen::X64Reg src);
 	void SetFPRF(Gen::X64Reg xmm);
+	void Clear();
 protected:
 	std::unordered_map<u8 *, BitSet32> registersInUseAtLoc;
 	std::unordered_map<u8 *, u32> pcAtLoc;

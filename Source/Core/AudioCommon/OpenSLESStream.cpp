@@ -1,5 +1,5 @@
 // Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #ifdef ANDROID
@@ -9,7 +9,9 @@
 #include <SLES/OpenSLES_Android.h>
 
 #include "AudioCommon/OpenSLESStream.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
 
 // engine interfaces
 static SLObjectItf engineObject;
@@ -35,19 +37,15 @@ static void bqPlayerCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 	assert(bq == bqPlayerBufferQueue);
 	assert(nullptr == context);
 
-	short *nextBuffer = buffer[curBuffer];
-	int nextSize = sizeof(buffer[0]);
-
-	SLresult result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, nextBuffer, nextSize);
+	// Render to the fresh buffer
+	g_mixer->Mix(reinterpret_cast<short *>(buffer[curBuffer]), BUFFER_SIZE_IN_SAMPLES);
+	SLresult result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, buffer[curBuffer], sizeof(buffer[0]));
+	curBuffer ^= 1; // Switch buffer
 
 	// Comment from sample code:
 	// the most likely other result is SL_RESULT_BUFFER_INSUFFICIENT,
 	// which for this code example would indicate a programming error
 	_assert_msg_(AUDIO, SL_RESULT_SUCCESS == result, "Couldn't enqueue audio stream.");
-
-	curBuffer ^= 1; // Switch buffer
-	// Render to the fresh buffer
-	g_mixer->Mix(reinterpret_cast<short *>(buffer[curBuffer]), BUFFER_SIZE_IN_SAMPLES);
 }
 
 bool OpenSLESStream::Start()
@@ -102,7 +100,7 @@ bool OpenSLESStream::Start()
 
 	// Render and enqueue a first buffer.
 	curBuffer ^= 1;
-	g_mixer = m_mixer;
+	g_mixer = m_mixer.get();
 
 	result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, buffer[0], sizeof(buffer[0]));
 	if (SL_RESULT_SUCCESS != result)

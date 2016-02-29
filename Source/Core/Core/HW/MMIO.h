@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -8,7 +8,8 @@
 #include <string>
 #include <type_traits>
 
-#include "Common/Common.h"
+#include "Common/AssertInt.h"
+#include "Common/CommonTypes.h"
 #include "Core/ConfigManager.h"
 #include "Core/HW/MMIOHandlers.h"
 
@@ -16,9 +17,9 @@ namespace MMIO
 {
 
 // There are three main MMIO blocks on the Wii (only one on the GameCube):
-//  - 0xCC00xxxx: GameCube MMIOs (CP, PE, VI, PI, MI, DSP, DVD, SI, EI, AI, GP)
-//  - 0xCD00xxxx: Wii MMIOs and GC mirrors (IPC, DVD, SI, EI, AI)
-//  - 0xCD80xxxx: Mirror of 0xCD00xxxx.
+//  - 0x0C00xxxx: GameCube MMIOs (CP, PE, VI, PI, MI, DSP, DVD, SI, EI, AI, GP)
+//  - 0x0D00xxxx: Wii MMIOs and GC mirrors (IPC, DVD, SI, EI, AI)
+//  - 0x0D80xxxx: Mirror of 0x0D00xxxx.
 //
 // In practice, since the third block is a mirror of the second one, we can
 // assume internally that there are only two blocks: one for GC, one for Wii.
@@ -41,15 +42,15 @@ const u32 NUM_MMIOS = NUM_BLOCKS * BLOCK_SIZE;
 // interface.
 inline bool IsMMIOAddress(u32 address)
 {
-	if (address == 0xCC008000)
+	if (address == 0x0C008000)
 		return false; // WG Pipe
-	if ((address & 0xFFFF0000) == 0xCC000000)
+	if ((address & 0xFFFF0000) == 0x0C000000)
 		return true; // GameCube MMIOs
 
-	if(SConfig::GetInstance().m_LocalCoreStartupParameter.bWii)
+	if(SConfig::GetInstance().bWii)
 	{
-		return ((address & 0xFFFF0000) == 0xCD000000) || // Wii MMIOs
-		       ((address & 0xFFFF0000) == 0xCD800000);   // Mirror of Wii MMIOs
+		return ((address & 0xFFFF0000) == 0x0D000000) || // Wii MMIOs
+		       ((address & 0xFFFF0000) == 0x0D800000);   // Mirror of Wii MMIOs
 	}
 
 	return false;
@@ -61,9 +62,9 @@ inline bool IsMMIOAddress(u32 address)
 // The block ID can easily be computed by simply checking bit 24 (CC vs. CD).
 inline u32 UniqueID(u32 address)
 {
-	_dbg_assert_msg_(MEMMAP, ((address & 0xFFFF0000) == 0xCC000000) ||
-	                         ((address & 0xFFFF0000) == 0xCD000000) ||
-	                         ((address & 0xFFFF0000) == 0xCD800000),
+	_dbg_assert_msg_(MEMMAP, ((address & 0xFFFF0000) == 0x0C000000) ||
+	                         ((address & 0xFFFF0000) == 0x0D000000) ||
+	                         ((address & 0xFFFF0000) == 0x0D800000),
 	                 "Trying to get the ID of a non-existing MMIO address.");
 
 	return (((address >> 24) & 1) << 16) | (address & 0xFFFF);

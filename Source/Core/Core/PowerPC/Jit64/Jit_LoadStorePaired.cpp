@@ -1,16 +1,19 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 // TODO(ector): Tons of pshufb optimization of the loads/stores, for SSSE3+, possibly SSE4, only.
 // Should give a very noticeable speed boost to paired single heavy code.
 
+#include "Common/BitSet.h"
 #include "Common/CommonTypes.h"
 #include "Common/CPUDetect.h"
-
+#include "Common/x64Emitter.h"
+#include "Core/ConfigManager.h"
+#include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/Jit64/Jit.h"
-#include "Core/PowerPC/Jit64/JitAsm.h"
 #include "Core/PowerPC/Jit64/JitRegCache.h"
+#include "Core/PowerPC/JitCommon/Jit_Util.h"
 #include "Core/PowerPC/JitCommon/JitAsmCommon.h"
 
 using namespace Gen;
@@ -40,7 +43,7 @@ void Jit64::psq_stXX(UGeckoInstruction inst)
 		X64Reg addr = gpr.RX(a);
 		// TODO: this is kind of ugly :/ we should probably create a universal load/store address calculation
 		// function that handles all these weird cases, e.g. how non-fastmem loadstores clobber addresses.
-		bool storeAddress = (update && js.memcheck) || !SConfig::GetInstance().m_LocalCoreStartupParameter.bFastmem;
+		bool storeAddress = (update && jo.memcheck) || !jo.fastmem;
 		if (storeAddress)
 		{
 			addr = RSCRATCH2;
@@ -57,7 +60,7 @@ void Jit64::psq_stXX(UGeckoInstruction inst)
 				addr = RSCRATCH2;
 				if (a && gpr.R(a).IsSimpleReg() && gpr.R(b).IsSimpleReg())
 				{
-					LEA(32, addr, MComplex(gpr.RX(a), gpr.RX(b), SCALE_1, 0));
+					LEA(32, addr, MRegSum(gpr.RX(a), gpr.RX(b)));
 				}
 				else
 				{
@@ -105,7 +108,7 @@ void Jit64::psq_stXX(UGeckoInstruction inst)
 	if (gpr.R(a).IsSimpleReg() && gpr.R(b).IsSimpleReg() && (indexed || offset))
 	{
 		if (indexed)
-			LEA(32, RSCRATCH_EXTRA, MComplex(gpr.RX(a), gpr.RX(b), SCALE_1, 0));
+			LEA(32, RSCRATCH_EXTRA, MRegSum(gpr.RX(a), gpr.RX(b)));
 		else
 			LEA(32, RSCRATCH_EXTRA, MDisp(gpr.RX(a), offset));
 	}
@@ -118,7 +121,7 @@ void Jit64::psq_stXX(UGeckoInstruction inst)
 			ADD(32, R(RSCRATCH_EXTRA), Imm32((u32)offset));
 	}
 	// In memcheck mode, don't update the address until the exception check
-	if (update && !js.memcheck)
+	if (update && !jo.memcheck)
 		MOV(32, gpr.R(a), R(RSCRATCH_EXTRA));
 	// Some games (e.g. Dirt 2) incorrectly set the unused bits which breaks the lookup table code.
 	// Hence, we need to mask out the unused bits. The layout of the GQR register is
@@ -128,7 +131,6 @@ void Jit64::psq_stXX(UGeckoInstruction inst)
 	AND(32, R(RSCRATCH2), PPCSTATE(spr[SPR_GQR0 + i]));
 	MOVZX(32, 8, RSCRATCH, R(RSCRATCH2));
 
-	// FIXME: Fix ModR/M encoding to allow [RSCRATCH2*8+disp32] without a base register!
 	if (w)
 	{
 		// One value
@@ -142,7 +144,7 @@ void Jit64::psq_stXX(UGeckoInstruction inst)
 		CALLptr(MScaled(RSCRATCH, SCALE_8, (u32)(u64)asm_routines.pairedStoreQuantized));
 	}
 
-	if (update && js.memcheck)
+	if (update && jo.memcheck)
 	{
 		MemoryExceptionCheck();
 		if (indexed)
@@ -175,7 +177,7 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 		s32 loadOffset = 0;
 		gpr.BindToRegister(a, true, update);
 		X64Reg addr = gpr.RX(a);
-		if (update && js.memcheck)
+		if (update && jo.memcheck)
 		{
 			addr = RSCRATCH2;
 			MOV(32, R(addr), gpr.R(a));
@@ -191,7 +193,7 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 				addr = RSCRATCH2;
 				if (a && gpr.R(a).IsSimpleReg() && gpr.R(b).IsSimpleReg())
 				{
-					LEA(32, addr, MComplex(gpr.RX(a), gpr.RX(b), SCALE_1, 0));
+					LEA(32, addr, MRegSum(gpr.RX(a), gpr.RX(b)));
 				}
 				else
 				{
@@ -210,7 +212,7 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 		}
 
 		fpr.Lock(s);
-		if (js.memcheck)
+		if (jo.memcheck)
 		{
 			fpr.StoreFromRegister(s);
 			js.revertFprLoad = s;
@@ -218,7 +220,7 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 		fpr.BindToRegister(s, false);
 
 		// Let's mirror the JitAsmCommon code and assume all non-MMU loads go to RAM.
-		if (!js.memcheck)
+		if (!jo.memcheck)
 		{
 			if (w)
 			{
@@ -283,7 +285,7 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 	if (gpr.R(a).IsSimpleReg() && gpr.R(b).IsSimpleReg() && (indexed || offset))
 	{
 		if (indexed)
-			LEA(32, RSCRATCH_EXTRA, MComplex(gpr.RX(a), gpr.RX(b), SCALE_1, 0));
+			LEA(32, RSCRATCH_EXTRA, MRegSum(gpr.RX(a), gpr.RX(b)));
 		else
 			LEA(32, RSCRATCH_EXTRA, MDisp(gpr.RX(a), offset));
 	}
@@ -296,13 +298,13 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 			ADD(32, R(RSCRATCH_EXTRA), Imm32((u32)offset));
 	}
 	// In memcheck mode, don't update the address until the exception check
-	if (update && !js.memcheck)
+	if (update && !jo.memcheck)
 		MOV(32, gpr.R(a), R(RSCRATCH_EXTRA));
 	MOV(32, R(RSCRATCH2), Imm32(0x3F07));
 
 	// Get the high part of the GQR register
 	OpArg gqr = PPCSTATE(spr[SPR_GQR0 + i]);
-	gqr.offset += 2;
+	gqr.AddMemOffset(2);
 
 	AND(32, R(RSCRATCH2), gqr);
 	MOVZX(32, 8, RSCRATCH, R(RSCRATCH2));
@@ -311,7 +313,7 @@ void Jit64::psq_lXX(UGeckoInstruction inst)
 
 	MemoryExceptionCheck();
 	CVTPS2PD(fpr.RX(s), R(XMM0));
-	if (update && js.memcheck)
+	if (update && jo.memcheck)
 	{
 		if (indexed)
 			ADD(32, gpr.R(a), gpr.R(b));

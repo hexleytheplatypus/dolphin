@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
@@ -11,8 +11,9 @@
 
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
+#include "Common/MsgHandler.h"
 #include "Common/StringUtil.h"
-
+#include "Common/Logging/Log.h"
 #include "DiscIO/Filesystem.h"
 #include "DiscIO/FileSystemGCWii.h"
 #include "DiscIO/Volume.h"
@@ -63,7 +64,7 @@ const std::string CFileSystemGCWii::GetFileName(u64 _Address)
 	return "";
 }
 
-u64 CFileSystemGCWii::ReadFile(const std::string& _rFullPath, u8* _pBuffer, size_t _MaxBufferSize)
+u64 CFileSystemGCWii::ReadFile(const std::string& _rFullPath, u8* _pBuffer, u64 _MaxBufferSize, u64 _OffsetInFile)
 {
 	if (!m_Initialized)
 		InitFileSystem();
@@ -72,14 +73,16 @@ u64 CFileSystemGCWii::ReadFile(const std::string& _rFullPath, u8* _pBuffer, size
 	if (pFileInfo == nullptr)
 		return 0;
 
-	if (pFileInfo->m_FileSize > _MaxBufferSize)
+	if (_OffsetInFile >= pFileInfo->m_FileSize)
 		return 0;
 
-	DEBUG_LOG(DISCIO, "Filename: %s. Offset: %" PRIx64 ". Size: %" PRIx64, _rFullPath.c_str(),
-		pFileInfo->m_Offset, pFileInfo->m_FileSize);
+	u64 read_length = std::min(_MaxBufferSize, pFileInfo->m_FileSize - _OffsetInFile);
 
-	m_rVolume->Read(pFileInfo->m_Offset, pFileInfo->m_FileSize, _pBuffer, m_Wii);
-	return pFileInfo->m_FileSize;
+	DEBUG_LOG(DISCIO, "Reading %" PRIx64 " bytes at %" PRIx64 " from file %s. Offset: %" PRIx64 " Size: %" PRIx64,
+	          read_length, _OffsetInFile, _rFullPath.c_str(), pFileInfo->m_Offset, pFileInfo->m_FileSize);
+
+	m_rVolume->Read(pFileInfo->m_Offset + _OffsetInFile, read_length, _pBuffer, m_Wii);
+	return read_length;
 }
 
 bool CFileSystemGCWii::ExportFile(const std::string& _rFullPath, const std::string& _rExportFilename)
@@ -124,20 +127,24 @@ bool CFileSystemGCWii::ExportFile(const std::string& _rFullPath, const std::stri
 
 bool CFileSystemGCWii::ExportApploader(const std::string& _rExportFolder) const
 {
-	u32 AppSize = Read32(0x2440 + 0x14);// apploader size
-	AppSize += Read32(0x2440 + 0x18);   // + trailer size
-	AppSize += 0x20;                    // + header size
-	DEBUG_LOG(DISCIO,"AppSize -> %x", AppSize);
+	u32 apploader_size;
+	u32 trailer_size;
+	const u32 header_size = 0x20;
+	if (!m_rVolume->ReadSwapped(0x2440 + 0x14, &apploader_size, m_Wii) ||
+	    !m_rVolume->ReadSwapped(0x2440 + 0x18, &trailer_size, m_Wii))
+	    return false;
+	apploader_size += trailer_size + header_size;
+	DEBUG_LOG(DISCIO, "Apploader size -> %x", apploader_size);
 
-	std::vector<u8> buffer(AppSize);
-	if (m_rVolume->Read(0x2440, AppSize, &buffer[0], m_Wii))
+	std::vector<u8> buffer(apploader_size);
+	if (m_rVolume->Read(0x2440, apploader_size, buffer.data(), m_Wii))
 	{
 		std::string exportName(_rExportFolder + "/apploader.img");
 
 		File::IOFile AppFile(exportName, "wb");
 		if (AppFile)
 		{
-			AppFile.WriteBytes(&buffer[0], AppSize);
+			AppFile.WriteBytes(buffer.data(), apploader_size);
 			return true;
 		}
 	}
@@ -145,41 +152,52 @@ bool CFileSystemGCWii::ExportApploader(const std::string& _rExportFolder) const
 	return false;
 }
 
-u32 CFileSystemGCWii::GetBootDOLSize() const
+u64 CFileSystemGCWii::GetBootDOLOffset() const
 {
-	u32 DolOffset = Read32(0x420) << GetOffsetShift();
-	u32 DolSize = 0, offset = 0, size = 0;
+	u32 offset = 0;
+	m_rVolume->ReadSwapped(0x420, &offset, m_Wii);
+	return static_cast<u64>(offset) << GetOffsetShift();
+}
+
+u32 CFileSystemGCWii::GetBootDOLSize(u64 dol_offset) const
+{
+	// The dol_offset value is usually obtained by calling GetBootDOLOffset.
+	// If GetBootDOLOffset fails by returning 0, GetBootDOLSize should also fail.
+	if (dol_offset == 0)
+		return 0;
+
+	u32 dol_size = 0;
+	u32 offset = 0;
+	u32 size = 0;
 
 	// Iterate through the 7 code segments
 	for (u8 i = 0; i < 7; i++)
 	{
-		offset = Read32(DolOffset + 0x00 + i * 4);
-		size   = Read32(DolOffset + 0x90 + i * 4);
-		if (offset + size > DolSize)
-			DolSize = offset + size;
+		if (!m_rVolume->ReadSwapped(dol_offset + 0x00 + i * 4, &offset, m_Wii) ||
+		    !m_rVolume->ReadSwapped(dol_offset + 0x90 + i * 4, &size, m_Wii))
+			return 0;
+		dol_size = std::max(offset + size, dol_size);
 	}
 
 	// Iterate through the 11 data segments
 	for (u8 i = 0; i < 11; i++)
 	{
-		offset = Read32(DolOffset + 0x1c + i * 4);
-		size   = Read32(DolOffset + 0xac + i * 4);
-		if (offset + size > DolSize)
-			DolSize = offset + size;
+		if (!m_rVolume->ReadSwapped(dol_offset + 0x1c + i * 4, &offset, m_Wii) ||
+		    !m_rVolume->ReadSwapped(dol_offset + 0xac + i * 4, &size, m_Wii))
+			return 0;
+		dol_size = std::max(offset + size, dol_size);
 	}
-	return DolSize;
-}
 
-bool CFileSystemGCWii::GetBootDOL(u8* &buffer, u32 DolSize) const
-{
-	u32 DolOffset = Read32(0x420) << GetOffsetShift();
-	return m_rVolume->Read(DolOffset, DolSize, buffer, m_Wii);
+	return dol_size;
 }
 
 bool CFileSystemGCWii::ExportDOL(const std::string& _rExportFolder) const
 {
-	u32 DolOffset = Read32(0x420) << GetOffsetShift();
-	u32 DolSize = GetBootDOLSize();
+	u64 DolOffset = GetBootDOLOffset();
+	u32 DolSize = GetBootDOLSize(DolOffset);
+
+	if (DolOffset == 0 || DolSize == 0)
+		return false;
 
 	std::vector<u8> buffer(DolSize);
 	if (m_rVolume->Read(DolOffset, DolSize, &buffer[0], m_Wii))
@@ -197,13 +215,6 @@ bool CFileSystemGCWii::ExportDOL(const std::string& _rExportFolder) const
 	return false;
 }
 
-u32 CFileSystemGCWii::Read32(u64 _Offset) const
-{
-	u32 Temp = 0;
-	m_rVolume->Read(_Offset, 4, (u8*)&Temp, m_Wii);
-	return Common::swap32(Temp);
-}
-
 std::string CFileSystemGCWii::GetStringFromOffset(u64 _Offset) const
 {
 	std::string data(255, 0x00);
@@ -215,18 +226,12 @@ std::string CFileSystemGCWii::GetStringFromOffset(u64 _Offset) const
 	return SHIFTJISToUTF8(data);
 }
 
-size_t CFileSystemGCWii::GetFileList(std::vector<const SFileInfo *> &_rFilenames)
+const std::vector<SFileInfo>& CFileSystemGCWii::GetFileList()
 {
 	if (!m_Initialized)
 		InitFileSystem();
 
-	if (_rFilenames.size())
-		PanicAlert("GetFileList : input list has contents?");
-	_rFilenames.clear();
-	_rFilenames.reserve(m_FileInfoVector.size());
-	for (auto& fileInfo : m_FileInfoVector)
-		_rFilenames.push_back(&fileInfo);
-	return m_FileInfoVector.size();
+	return m_FileInfoVector;
 }
 
 const SFileInfo* CFileSystemGCWii::FindFileInfo(const std::string& _rFullPath)
@@ -245,12 +250,13 @@ const SFileInfo* CFileSystemGCWii::FindFileInfo(const std::string& _rFullPath)
 
 bool CFileSystemGCWii::DetectFileSystem()
 {
-	if (Read32(0x18) == 0x5D1C9EA3)
+	u32 magic_bytes;
+	if (m_rVolume->ReadSwapped(0x18, &magic_bytes, false) && magic_bytes == 0x5D1C9EA3)
 	{
 		m_Wii = true;
 		return true;
 	}
-	else if (Read32(0x1c) == 0xC2339F3D)
+	else if (m_rVolume->ReadSwapped(0x1c, &magic_bytes, false) && magic_bytes == 0xC2339F3D)
 	{
 		m_Wii = false;
 		return true;
@@ -265,34 +271,49 @@ void CFileSystemGCWii::InitFileSystem()
 	u32 const shift = GetOffsetShift();
 
 	// read the whole FST
-	u64 FSTOffset = static_cast<u64>(Read32(0x424)) << shift;
-	// u32 FSTSize     = Read32(0x428);
-	// u32 FSTMaxSize  = Read32(0x42C);
-
+	u32 fst_offset_unshifted;
+	if (!m_rVolume->ReadSwapped(0x424, &fst_offset_unshifted, m_Wii))
+		return;
+	u64 FSTOffset = static_cast<u64>(fst_offset_unshifted) << shift;
 
 	// read all fileinfos
-	SFileInfo Root
-	{
-		Read32(FSTOffset + 0x0),
-		static_cast<u64>(FSTOffset + 0x4) << shift,
-		Read32(FSTOffset + 0x8)
-	};
-
-	if (!Root.IsDirectory())
+	u32 name_offset, offset, size;
+	if (!m_rVolume->ReadSwapped(FSTOffset + 0x0, &name_offset, m_Wii) ||
+	    !m_rVolume->ReadSwapped(FSTOffset + 0x4, &offset, m_Wii) ||
+	    !m_rVolume->ReadSwapped(FSTOffset + 0x8, &size, m_Wii))
 		return;
+	SFileInfo root = { name_offset, static_cast<u64>(offset) << shift, size };
+
+	if (!root.IsDirectory())
+		return;
+
+	// 12 bytes (the size of a file entry) times 10 * 1024 * 1024 is 120 MiB,
+	// more than total RAM in a Wii. No file system should use anywhere near that much.
+	static const u32 ARBITRARY_FILE_SYSTEM_SIZE_LIMIT = 10 * 1024 * 1024;
+	if (root.m_FileSize > ARBITRARY_FILE_SYSTEM_SIZE_LIMIT)
+	{
+		// Without this check, Dolphin can crash by trying to allocate too much
+		// memory when loading the file systems of certain malformed disc images.
+
+		ERROR_LOG(DISCIO, "File system is abnormally large! Aborting loading");
+		return;
+	}
 
 	if (m_FileInfoVector.size())
 		PanicAlert("Wtf?");
 	u64 NameTableOffset = FSTOffset;
 
-	m_FileInfoVector.reserve((size_t)Root.m_FileSize);
-	for (u32 i = 0; i < Root.m_FileSize; i++)
+	m_FileInfoVector.reserve((size_t)root.m_FileSize);
+	for (u32 i = 0; i < root.m_FileSize; i++)
 	{
-		u64 const read_offset = FSTOffset + (i * 0xC);
-		u64 const name_offset = Read32(read_offset + 0x0);
-		u64 const offset = static_cast<u64>(Read32(read_offset + 0x4)) << shift;
-		u64 const size = Read32(read_offset + 0x8);
-		m_FileInfoVector.emplace_back(name_offset, offset, size);
+		const u64 read_offset = FSTOffset + (i * 0xC);
+		name_offset = 0;
+		m_rVolume->ReadSwapped(read_offset + 0x0, &name_offset, m_Wii);
+		offset = 0;
+		m_rVolume->ReadSwapped(read_offset + 0x4, &offset, m_Wii);
+		size = 0;
+		m_rVolume->ReadSwapped(read_offset + 0x8, &size, m_Wii);
+		m_FileInfoVector.emplace_back(name_offset, static_cast<u64>(offset) << shift, size);
 		NameTableOffset += 0xC;
 	}
 

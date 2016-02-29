@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -21,7 +21,7 @@ struct InstructionInfo
 	u64 immediate;
 	s32 displacement;
 
-	bool operator==(const InstructionInfo &other) const;
+	bool operator==(const InstructionInfo& other) const;
 };
 
 struct ModRM
@@ -30,7 +30,7 @@ struct ModRM
 	ModRM(u8 modRM, u8 rex)
 	{
 		mod = modRM >> 6;
-		reg = ((modRM >> 3) & 7) | ((rex & 4)?8:0);
+		reg = ((modRM >> 3) & 7) | ((rex & 4) ? 8 : 0);
 		rm = modRM & 7;
 	}
 };
@@ -41,4 +41,4 @@ enum AccessType
 	OP_ACCESS_WRITE = 1
 };
 
-bool DisassembleMov(const unsigned char *codePtr, InstructionInfo *info);
+bool DisassembleMov(const unsigned char* codePtr, InstructionInfo* info);

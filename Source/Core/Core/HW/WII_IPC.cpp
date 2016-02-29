@@ -1,17 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
-
-#include <map>
-#include <queue>
-#include <vector>
 
 #include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
-
+#include "Common/Logging/Log.h"
 #include "Core/CoreTiming.h"
-#include "Core/HW/CPU.h"
-#include "Core/HW/Memmap.h"
 #include "Core/HW/MMIO.h"
 #include "Core/HW/ProcessorInterface.h"
 #include "Core/HW/WII_IPC.h"
@@ -162,7 +156,7 @@ void RegisterMMIO(MMIO::Mapping* mmio, u32 base)
 			if (ctrl.X1)
 				WII_IPC_HLE_Interface::EnqueueRequest(ppc_msg);
 			WII_IPC_HLE_Interface::Update();
-			CoreTiming::ScheduleEvent_Threadsafe(0, updateInterrupts, 0);
+			CoreTiming::ScheduleEvent(0, updateInterrupts, 0);
 		})
 	);
 
@@ -176,7 +170,7 @@ void RegisterMMIO(MMIO::Mapping* mmio, u32 base)
 		MMIO::ComplexWrite<u32>([](u32, u32 val) {
 			ppc_irq_flags &= ~val;
 			WII_IPC_HLE_Interface::Update();
-			CoreTiming::ScheduleEvent_Threadsafe(0, updateInterrupts, 0);
+			CoreTiming::ScheduleEvent(0, updateInterrupts, 0);
 		})
 	);
 
@@ -187,7 +181,7 @@ void RegisterMMIO(MMIO::Mapping* mmio, u32 base)
 			if (ppc_irq_masks & INT_CAUSE_IPC_BROADWAY) // wtf?
 				Reset();
 			WII_IPC_HLE_Interface::Update();
-			CoreTiming::ScheduleEvent_Threadsafe(0, updateInterrupts, 0);
+			CoreTiming::ScheduleEvent(0, updateInterrupts, 0);
 		})
 	);
 
@@ -228,7 +222,7 @@ void GenerateAck(u32 _Address)
 	ctrl.Y2 = 1;
 	INFO_LOG(WII_IPC, "GenerateAck: %08x | %08x [R:%i A:%i E:%i]",
 		ppc_msg,_Address, ctrl.Y1, ctrl.Y2, ctrl.X1);
-	CoreTiming::ScheduleEvent_Threadsafe(0, updateInterrupts, 0);
+	CoreTiming::ScheduleEvent(0, updateInterrupts, 0);
 }
 
 void GenerateReply(u32 _Address)

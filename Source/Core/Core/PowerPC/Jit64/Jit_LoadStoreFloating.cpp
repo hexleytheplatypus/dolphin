@@ -1,13 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/BitSet.h"
 #include "Common/CommonTypes.h"
 #include "Common/CPUDetect.h"
-
+#include "Common/x64Emitter.h"
+#include "Core/ConfigManager.h"
 #include "Core/PowerPC/Jit64/Jit.h"
-#include "Core/PowerPC/Jit64/JitAsm.h"
 #include "Core/PowerPC/Jit64/JitRegCache.h"
+#include "Core/PowerPC/JitCommon/Jit_Util.h"
 
 using namespace Gen;
 
@@ -33,7 +35,7 @@ void Jit64::lfXXX(UGeckoInstruction inst)
 
 	s32 offset = 0;
 	OpArg addr = gpr.R(a);
-	if (update && js.memcheck)
+	if (update && jo.memcheck)
 	{
 		addr = R(RSCRATCH2);
 		MOV(32, addr, gpr.R(a));
@@ -48,7 +50,7 @@ void Jit64::lfXXX(UGeckoInstruction inst)
 		{
 			addr = R(RSCRATCH2);
 			if (a && gpr.R(a).IsSimpleReg() && gpr.R(b).IsSimpleReg())
-				LEA(32, RSCRATCH2, MComplex(gpr.RX(a), gpr.RX(b), SCALE_1, 0));
+				LEA(32, RSCRATCH2, MRegSum(gpr.RX(a), gpr.RX(b)));
 			else
 			{
 				MOV(32, addr, gpr.R(b));
@@ -66,14 +68,14 @@ void Jit64::lfXXX(UGeckoInstruction inst)
 	}
 
 	fpr.Lock(d);
-	if (js.memcheck && single)
+	if (jo.memcheck && single)
 	{
 		fpr.StoreFromRegister(d);
 		js.revertFprLoad = d;
 	}
 	fpr.BindToRegister(d, !single);
 	BitSet32 registersInUse = CallerSavedRegistersInUse();
-	if (update && js.memcheck)
+	if (update && jo.memcheck)
 		registersInUse[RSCRATCH2] = true;
 	SafeLoadToReg(RSCRATCH, addr, single ? 32 : 64, offset, registersInUse, false);
 
@@ -87,7 +89,7 @@ void Jit64::lfXXX(UGeckoInstruction inst)
 		MOVQ_xmm(XMM0, R(RSCRATCH));
 		MOVSD(fpr.RX(d), R(XMM0));
 	}
-	if (update && js.memcheck)
+	if (update && jo.memcheck)
 		MOV(32, gpr.R(a), addr);
 	fpr.UnlockAll();
 	gpr.UnlockAll();
@@ -108,7 +110,7 @@ void Jit64::stfXXX(UGeckoInstruction inst)
 	s32 imm = (s16)inst.SIMM_16;
 	int accessSize = single ? 32 : 64;
 
-	FALLBACK_IF(update && js.memcheck && a == b);
+	FALLBACK_IF(update && jo.memcheck && a == b);
 
 	if (single)
 	{
@@ -133,12 +135,12 @@ void Jit64::stfXXX(UGeckoInstruction inst)
 
 	if (!indexed && (!a || gpr.R(a).IsImm()))
 	{
-		u32 addr = (a ? (u32)gpr.R(a).offset : 0) + imm;
+		u32 addr = (a ? gpr.R(a).Imm32() : 0) + imm;
 		bool exception = WriteToConstAddress(accessSize, R(RSCRATCH), addr, CallerSavedRegistersInUse());
 
 		if (update)
 		{
-			if (!js.memcheck || !exception)
+			if (!jo.memcheck || !exception)
 			{
 				gpr.SetImmediate32(a, addr);
 			}
@@ -160,7 +162,7 @@ void Jit64::stfXXX(UGeckoInstruction inst)
 	if (indexed)
 	{
 		if (a && gpr.R(a).IsSimpleReg() && gpr.R(b).IsSimpleReg())
-			LEA(32, RSCRATCH2, MComplex(gpr.RX(a), gpr.RX(b), SCALE_1, 0));
+			LEA(32, RSCRATCH2, MRegSum(gpr.RX(a), gpr.RX(b)));
 		else
 		{
 			MOV(32, R(RSCRATCH2), gpr.R(b));

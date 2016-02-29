@@ -1,7 +1,10 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
+#include "Common/Logging/Log.h"
 #include "VideoBackends/D3D/D3DBase.h"
 #include "VideoBackends/D3D/D3DBlob.h"
 #include "VideoBackends/D3D/D3DShader.h"
@@ -247,8 +250,7 @@ void XFBEncoder::Init()
 	// Create EFB texture sampler
 
 	D3D11_SAMPLER_DESC sd = CD3D11_SAMPLER_DESC(CD3D11_DEFAULT());
-	// FIXME: Should we really use point sampling here?
-	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+	sd.Filter = D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT;
 	hr = D3D::device->CreateSamplerState(&sd, &m_efbSampler);
 	CHECK(SUCCEEDED(hr), "create xfb encode texture sampler");
 	D3D::SetDebugObjectName(m_efbSampler, "xfb encoder texture sampler");
@@ -361,8 +363,8 @@ void XFBEncoder::Encode(u8* dst, u32 width, u32 height, const EFBRectangle& srcR
 	D3D::context->Unmap(m_outStage, 0);
 
 	// Restore API
-
 	g_renderer->RestoreAPIState();
+	D3D::stateman->Apply(); // force unbind efb texture as shader resource
 	D3D::context->OMSetRenderTargets(1,
 		&FramebufferManager::GetEFBColorTexture()->GetRTV(),
 		FramebufferManager::GetEFBDepthTexture()->GetDSV());

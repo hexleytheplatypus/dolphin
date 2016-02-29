@@ -1,3 +1,8 @@
+// Copyright 2015 Dolphin Emulator Project
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
+
+#include "Common/CommonTypes.h"
 #include "Common/x64Emitter.h"
 #include "VideoCommon/VertexLoaderBase.h"
 
@@ -8,8 +13,8 @@ public:
 
 protected:
 	std::string GetName() const override { return "VertexLoaderX64"; }
-	bool IsInitialized() override;
-	int RunVertices(int primitive, int count, DataReader src, DataReader dst) override;
+	bool IsInitialized() override { return true; }
+	int RunVertices(DataReader src, DataReader dst, int count) override;
 
 private:
 	u32 m_src_ofs = 0;

@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
@@ -8,17 +8,12 @@
 #include <string>
 #include <vector>
 
-#include <wx/accel.h>
 #include <wx/button.h>
-#include <wx/chartype.h>
 #include <wx/checkbox.h>
 #include <wx/clipbrd.h>
 #include <wx/dataobj.h>
-#include <wx/defs.h>
 #include <wx/dialog.h>
-#include <wx/event.h>
 #include <wx/filedlg.h>
-#include <wx/gdicmn.h>
 #include <wx/listbox.h>
 #include <wx/msgdlg.h>
 #include <wx/notebook.h>
@@ -28,11 +23,9 @@
 #include <wx/spinctrl.h>
 #include <wx/statbox.h>
 #include <wx/stattext.h>
-#include <wx/string.h>
 #include <wx/textctrl.h>
-#include <wx/translation.h>
-#include <wx/utils.h>
 
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Core/FifoPlayer/FifoDataFile.h"
 #include "Core/FifoPlayer/FifoPlaybackAnalyzer.h"
@@ -115,7 +108,7 @@ void FifoPlayerDlg::CreateGUIControls()
 	m_FrameToLabel->Wrap(-1);
 	sFrameRange->Add(m_FrameToLabel, 0, wxALL, 5);
 
-	m_FrameToCtrl = new wxSpinCtrl(m_PlayPage, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(-1,-1), wxSP_ARROW_KEYS, 0, 10, 0);
+	m_FrameToCtrl = new wxSpinCtrl(m_PlayPage, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(-1, -1), wxSP_ARROW_KEYS, 0, 10, 0);
 	sFrameRange->Add(m_FrameToCtrl, 0, wxALL, 5);
 
 	sPlayPage->Add(sFrameRange, 0, wxEXPAND, 5);
@@ -475,9 +468,9 @@ void FifoPlayerDlg::OnBeginSearch(wxCommandEvent& event)
 	}
 
 	const u8* const start_ptr = &fifo_frame.fifoData[frame.objectStarts[obj_idx]];
-	const u8* const end_ptr = &fifo_frame.fifoData[frame.objectStarts[obj_idx+1]];
+	const u8* const end_ptr = &fifo_frame.fifoData[frame.objectStarts[obj_idx + 1]];
 
-	for (const u8* ptr = start_ptr; ptr < end_ptr-val_length+1; ++ptr)
+	for (const u8* ptr = start_ptr; ptr < end_ptr - val_length + 1; ++ptr)
 	{
 		if (std::equal(search_val.begin(), search_val.end(), ptr))
 		{
@@ -490,7 +483,7 @@ void FifoPlayerDlg::OnBeginSearch(wxCommandEvent& event)
 			{
 				if (ptr < start_ptr + m_objectCmdOffsets[cmd_idx])
 				{
-					result.cmd_idx = cmd_idx-1;
+					result.cmd_idx = cmd_idx - 1;
 					break;
 				}
 			}
@@ -540,7 +533,7 @@ void FifoPlayerDlg::OnFindPreviousClick(wxCommandEvent& event)
 	{
 		if (it->cmd_idx < cur_cmd_index)
 		{
-			ChangeSearchResult(search_results.size()-1 - (it - search_results.rbegin()));
+			ChangeSearchResult(search_results.size() - 1 - (it - search_results.rbegin()));
 			return;
 		}
 	}
@@ -575,7 +568,7 @@ void FifoPlayerDlg::ChangeSearchResult(unsigned int result_idx)
 			OnObjectCmdListSelectionChanged(ev);
 		}
 
-		m_findNext->Enable(result_idx+1 < search_results.size());
+		m_findNext->Enable(result_idx + 1 < search_results.size());
 		m_findPrevious->Enable(result_idx != 0);
 	}
 	else if (search_results.size())
@@ -602,7 +595,7 @@ void FifoPlayerDlg::OnFrameListSelectionChanged(wxCommandEvent& event)
 	{
 		size_t num_objects = player.GetAnalyzedFrameInfo(event.GetInt()).objectStarts.size();
 		for (size_t i = 0; i < num_objects; ++i)
-			m_objectsList->Append(wxString::Format("Object %u", (u32)i));
+			m_objectsList->Append(wxString::Format(_("Object %zu"), i));
 	}
 
 	// Update object list
@@ -747,7 +740,7 @@ void FifoPlayerDlg::OnObjectListSelectionChanged(wxCommandEvent& event)
 void FifoPlayerDlg::OnObjectCmdListSelectionChanged(wxCommandEvent& event)
 {
 	const int frame_idx = m_framesList->GetSelection();
-	const int object_idx =  m_objectsList->GetSelection();
+	const int object_idx = m_objectsList->GetSelection();
 
 	if (event.GetInt() == -1 || frame_idx == -1 || object_idx == -1)
 	{
@@ -766,10 +759,10 @@ void FifoPlayerDlg::OnObjectCmdListSelectionChanged(wxCommandEvent& event)
 	{
 		std::string name;
 		std::string desc;
-		GetBPRegInfo(cmddata+1, &name, &desc);
+		GetBPRegInfo(cmddata + 1, &name, &desc);
 
 		newLabel = _("BP register ");
-		newLabel += (name.empty()) ? wxString::Format(_("UNKNOWN_%02X"), *(cmddata+1)) : StrToWxStr(name);
+		newLabel += (name.empty()) ? wxString::Format(_("UNKNOWN_%02X"), *(cmddata + 1)) : StrToWxStr(name);
 		newLabel += ":\n";
 
 		if (desc.empty())
@@ -865,7 +858,7 @@ void FifoPlayerDlg::UpdateAnalyzerGui()
 
 		for (size_t i = 0; i < num_frames; ++i)
 		{
-			m_framesList->Append(wxString::Format("Frame %u", (u32)i));
+			m_framesList->Append(wxString::Format(_("Frame %zu"), i));
 		}
 
 		wxCommandEvent ev = wxCommandEvent(wxEVT_LISTBOX);
@@ -879,7 +872,7 @@ wxString FifoPlayerDlg::CreateFileFrameCountLabel() const
 	FifoDataFile *file = FifoPlayer::GetInstance().GetFile();
 
 	if (file)
-		return CreateIntegerLabel(file->GetFrameCount(), _("Frame"));
+		return wxString::Format(_("%u frames"), file->GetFrameCount());
 
 	return _("No file loaded");
 }
@@ -889,7 +882,7 @@ wxString FifoPlayerDlg::CreateCurrentFrameLabel() const
 	FifoDataFile *file = FifoPlayer::GetInstance().GetFile();
 
 	if (file)
-		return _("Frame ") + wxString::Format("%u", FifoPlayer::GetInstance().GetCurrentFrameNum());
+		return wxString::Format(_("Frame %u"), FifoPlayer::GetInstance().GetCurrentFrameNum());
 
 	return wxEmptyString;
 }
@@ -899,7 +892,7 @@ wxString FifoPlayerDlg::CreateFileObjectCountLabel() const
 	FifoDataFile *file = FifoPlayer::GetInstance().GetFile();
 
 	if (file)
-		return CreateIntegerLabel(FifoPlayer::GetInstance().GetFrameObjectCount(), _("Object"));
+		return wxString::Format(_("%u objects"), FifoPlayer::GetInstance().GetFrameObjectCount());
 
 	return wxEmptyString;
 }
@@ -914,7 +907,7 @@ wxString FifoPlayerDlg::CreateRecordingFifoSizeLabel() const
 		for (size_t i = 0; i < file->GetFrameCount(); ++i)
 			fifoBytes += file->GetFrame(i).fifoDataSize;
 
-		return CreateIntegerLabel(fifoBytes, _("FIFO Byte"));
+		return wxString::Format(_("%zu FIFO bytes"), fifoBytes);
 	}
 
 	return _("No recorded file");
@@ -934,7 +927,7 @@ wxString FifoPlayerDlg::CreateRecordingMemSizeLabel() const
 				memBytes += memUpdate.size;
 		}
 
-		return CreateIntegerLabel(memBytes, _("Memory Byte"));
+		return wxString::Format(_("%zu memory bytes"), memBytes);
 	}
 
 	return wxEmptyString;
@@ -945,21 +938,9 @@ wxString FifoPlayerDlg::CreateRecordingFrameCountLabel() const
 	FifoDataFile *file = FifoRecorder::GetInstance().GetRecordedFile();
 
 	if (file)
-	{
-		size_t numFrames = file->GetFrameCount();
-		return CreateIntegerLabel(numFrames, _("Frame"));
-	}
+		return wxString::Format(_("%u frames"), file->GetFrameCount());
 
 	return wxEmptyString;
-}
-
-wxString FifoPlayerDlg::CreateIntegerLabel(size_t size, const wxString& label) const
-{
-	wxString postfix;
-	if (size != 1)
-		postfix = _("s");
-
-	return wxString::Format("%u ", (u32)size) + label + postfix;
 }
 
 bool FifoPlayerDlg::GetSaveButtonEnabled() const

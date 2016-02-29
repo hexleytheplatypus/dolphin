@@ -1,13 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include "Common/CommonTypes.h"
-#include "VideoCommon/DataReader.h"
+
+class DataReader;
 
 #define GX_NOP                      0x00
+#define GX_UNKNOWN_RESET            0x01
 
 #define GX_LOAD_BP_REG              0x61
 #define GX_LOAD_CP_REG              0x08
@@ -37,10 +39,13 @@
 #define GX_DRAW_LINE_STRIP          0x6   // 0xB0
 #define GX_DRAW_POINTS              0x7   // 0xB8
 
-extern bool g_bRecordFifoData;
+namespace OpcodeDecoder
+{
 
-void OpcodeDecoder_Init();
-void OpcodeDecoder_Shutdown();
+void Init();
+void Shutdown();
 
 template <bool is_preprocess = false>
-u8* OpcodeDecoder_Run(DataReader src, u32* cycles, bool in_display_list);
+u8* Run(DataReader src, u32* cycles, bool in_display_list);
+
+} // namespace OpcodeDecoder

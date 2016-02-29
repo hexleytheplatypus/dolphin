@@ -1,31 +1,16 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
+#include <string>
 
-#include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
-
 #include "Core/ConfigManager.h"
 #include "Core/Host.h"
-#include "Core/Boot/Boot_DOL.h"
-#include "Core/HLE/HLE.h"
 #include "Core/HLE/HLE_Misc.h"
-#include "Core/HLE/HLE_OS.h"
-#include "Core/HW/Memmap.h"
-#include "Core/IPC_HLE/WII_IPC_HLE_Device_DI.h"
-#include "Core/IPC_HLE/WII_IPC_HLE_Device_usb.h"
 #include "Core/PowerPC/PowerPC.h"
-#include "Core/PowerPC/PPCAnalyst.h"
 #include "Core/PowerPC/PPCCache.h"
-#include "Core/PowerPC/PPCSymbolDB.h"
-#include "Core/PowerPC/SignatureDB.h"
-
-#include "DiscIO/Filesystem.h"
-#include "DiscIO/VolumeCreator.h"
-
-#include "VideoCommon/TextureCacheBase.h"
 
 namespace HLE_Misc
 {
@@ -63,7 +48,7 @@ void HLEGeckoCodehandler()
 	// robust alternative would be to actually detect memory writes, but that
 	// would be even uglier.)
 	u32 magic = 0xd01f1bad;
-	u32 existing = Memory::Read_U32(0x80001800);
+	u32 existing = PowerPC::HostRead_U32(0x80001800);
 	if (existing - magic == 5)
 	{
 		return;
@@ -72,7 +57,7 @@ void HLEGeckoCodehandler()
 	{
 		existing = magic;
 	}
-	Memory::Write_U32(existing + 1, 0x80001800);
+	PowerPC::HostWrite_U32(existing + 1, 0x80001800);
 	PowerPC::ppcState.iCache.Reset();
 }
 

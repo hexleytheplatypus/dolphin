@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -8,17 +8,10 @@
 #include <string>
 #include <vector>
 
-#include <wx/event.h>
-#include <wx/gdicmn.h>
 #include <wx/listctrl.h>
-#include <wx/string.h>
 #include <wx/tipwin.h>
-#include <wx/windowid.h>
 
 #include "DolphinWX/ISOFile.h"
-
-class wxListEvent;
-class wxWindow;
 
 class wxEmuStateTip : public wxTipWindow
 {
@@ -43,8 +36,11 @@ public:
 	void Update() override;
 
 	void BrowseForDirectory();
-	const GameListItem *GetSelectedISO();
-	const GameListItem *GetISO(size_t index) const;
+	const GameListItem* GetISO(size_t index) const;
+	const GameListItem* GetSelectedISO() const;
+	std::vector<const GameListItem*> GetAllSelectedISOs() const;
+
+	static bool IsHidingItems();
 
 	enum
 	{
@@ -52,7 +48,8 @@ public:
 		COLUMN_PLATFORM,
 		COLUMN_BANNER,
 		COLUMN_TITLE,
-		COLUMN_NOTES,
+		COLUMN_MAKER,
+		COLUMN_FILENAME,
 		COLUMN_ID,
 		COLUMN_COUNTRY,
 		COLUMN_SIZE,
@@ -81,6 +78,7 @@ private:
 	wxSize lastpos;
 	wxEmuStateTip *toolTip;
 	void InitBitmaps();
+	void UpdateItemAtColumn(long _Index, int column);
 	void InsertItemInReportView(long _Index);
 	void SetBackgroundColor();
 	void ScanForISOs();
@@ -103,16 +101,15 @@ private:
 	void OnCompressISO(wxCommandEvent& event);
 	void OnMultiCompressISO(wxCommandEvent& event);
 	void OnMultiDecompressISO(wxCommandEvent& event);
-	void OnInstallWAD(wxCommandEvent& event);
 	void OnChangeDisc(wxCommandEvent& event);
 
 	void CompressSelection(bool _compress);
 	void AutomaticColumnWidth();
+	void ShowColumn(int column, int width);
+	void HideColumn(int column);
 	void UnselectAll();
 
-	static size_t m_currentItem;
-	static std::string m_currentFilename;
-	static size_t m_numberItem;
 	static bool CompressCB(const std::string& text, float percent, void* arg);
 	static bool MultiCompressCB(const std::string& text, float percent, void* arg);
+	static bool WiiCompressWarning();
 };

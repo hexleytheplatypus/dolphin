@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -20,7 +20,7 @@ public:
 	static void Init();
 	static void Clear();
 	static void Shutdown();
-	static bool SetShader(DSTALPHA_MODE dstAlphaMode, u32 components); // TODO: Should be renamed to LoadShader
+	static bool SetShader(DSTALPHA_MODE dstAlphaMode); // TODO: Should be renamed to LoadShader
 	static bool InsertByteCode(const PixelShaderUid &uid, const void* bytecode, unsigned int bytecodelen);
 
 	static ID3D11PixelShader* GetActiveShader() { return last_entry->shader; }
@@ -31,6 +31,7 @@ public:
 	static ID3D11PixelShader* GetDepthMatrixProgram(bool multisampled);
 	static ID3D11PixelShader* GetClearProgram();
 	static ID3D11PixelShader* GetAnaglyphProgram();
+	static ID3D11PixelShader* GetDepthResolveProgram();
 	static ID3D11PixelShader* ReinterpRGBA6ToRGB8(bool multisampled);
 	static ID3D11PixelShader* ReinterpRGB8ToRGBA6(bool multisampled);
 
@@ -53,7 +54,7 @@ private:
 	static const PSCacheEntry* last_entry;
 	static PixelShaderUid last_uid;
 
-	static UidChecker<PixelShaderUid,PixelShaderCode> pixel_uid_checker;
+	static UidChecker<PixelShaderUid, ShaderCode> pixel_uid_checker;
 };
 
 }  // namespace DX11

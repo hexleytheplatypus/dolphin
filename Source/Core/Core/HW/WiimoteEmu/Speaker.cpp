@@ -1,8 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <memory>
+
 #include "AudioCommon/AudioCommon.h"
+#include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 
 //#define WIIMOTE_SPEAKER_DUMP

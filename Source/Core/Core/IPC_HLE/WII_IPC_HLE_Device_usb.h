@@ -1,10 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include <algorithm>
+#include <deque>
 #include <queue>
 #include <vector>
 
@@ -12,7 +13,8 @@
 #include "Core/IPC_HLE/hci.h"
 #include "Core/IPC_HLE/WII_IPC_HLE.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_Device.h"
-#include "Core/IPC_HLE/WII_IPC_HLE_WiiMote.h"
+
+class CWII_IPC_HLE_WiiMote;
 
 struct SQueuedEvent
 {
@@ -50,18 +52,18 @@ public:
 
 	virtual ~CWII_IPC_HLE_Device_usb_oh1_57e_305();
 
-	virtual IPCCommandResult Open(u32 _CommandAddress, u32 _Mode) override;
-	virtual IPCCommandResult Close(u32 _CommandAddress, bool _bForce) override;
+	IPCCommandResult Open(u32 _CommandAddress, u32 _Mode) override;
+	IPCCommandResult Close(u32 _CommandAddress, bool _bForce) override;
 
-	virtual IPCCommandResult IOCtlV(u32 _CommandAddress) override;
-	virtual IPCCommandResult IOCtl(u32 _CommandAddress) override;
+	IPCCommandResult IOCtlV(u32 _CommandAddress) override;
+	IPCCommandResult IOCtl(u32 _CommandAddress) override;
 
-	virtual u32 Update() override;
+	u32 Update() override;
 
 	static void EnqueueReply(u32 CommandAddress);
 
 	// Send ACL data back to Bluetooth stack
-	void SendACLPacket(u16 _ConnectionHandle, u8* _pData, u32 _Size);
+	void SendACLPacket(u16 connection_handle, const u8* data, u32 size);
 
 	bool RemoteDisconnect(u16 _connectionHandle);
 
@@ -72,8 +74,6 @@ public:
 	CWII_IPC_HLE_WiiMote* AccessWiiMote(u16 _ConnectionHandle);
 
 	void DoState(PointerWrap &p) override;
-
-	void NetPlay_WiimoteUpdate(int _number);
 
 private:
 	enum USBIOCtl
@@ -199,7 +199,7 @@ private:
 	// Events
 	void AddEventToQueue(const SQueuedEvent& _event);
 	bool SendEventCommandStatus(u16 _Opcode);
-	void SendEventCommandComplete(u16 _OpCode, void* _pData, u32 _DataSize);
+	void SendEventCommandComplete(u16 opcode, const void* data, u32 data_size);
 	bool SendEventInquiryResponse();
 	bool SendEventInquiryComplete();
 	bool SendEventRemoteNameReq(const bdaddr_t& _bd);
@@ -221,49 +221,51 @@ private:
 	void ExecuteHCICommandMessage(const SHCICommandMessage& _rCtrlMessage);
 
 	// OGF 0x01 - Link control commands and return parameters
-	void CommandWriteInquiryMode(u8* _Input);
-	void CommandWritePageScanType(u8* _Input);
-	void CommandHostBufferSize(u8* _Input);
-	void CommandInquiryCancel(u8* _Input);
-	void CommandRemoteNameReq(u8* _Input);
-	void CommandCreateCon(u8* _Input);
-	void CommandAcceptCon(u8* _Input);
-	void CommandReadClockOffset(u8* _Input);
-	void CommandReadRemoteVerInfo(u8* _Input);
-	void CommandReadRemoteFeatures(u8* _Input);
-	void CommandAuthenticationRequested(u8* _Input);
-	void CommandInquiry(u8* _Input);
-	void CommandDisconnect(u8* _Input);
-	void CommandLinkKeyNegRep(u8* _Input);
-	void CommandLinkKeyRep(u8* _Input);
-	void CommandDeleteStoredLinkKey(u8* _Input);
-	void CommandChangeConPacketType(u8* _Input);
+	void CommandWriteInquiryMode(const u8* input);
+	void CommandWritePageScanType(const u8* input);
+	void CommandHostBufferSize(const u8* input);
+	void CommandInquiryCancel(const u8* input);
+	void CommandRemoteNameReq(const u8* input);
+	void CommandCreateCon(const u8* input);
+	void CommandAcceptCon(const u8* input);
+	void CommandReadClockOffset(const u8* input);
+	void CommandReadRemoteVerInfo(const u8* input);
+	void CommandReadRemoteFeatures(const u8* input);
+	void CommandAuthenticationRequested(const u8* input);
+	void CommandInquiry(const u8* input);
+	void CommandDisconnect(const u8* input);
+	void CommandLinkKeyNegRep(const u8* input);
+	void CommandLinkKeyRep(const u8* input);
+	void CommandDeleteStoredLinkKey(const u8* input);
+	void CommandChangeConPacketType(const u8* input);
 
 	// OGF 0x02 - Link policy commands and return parameters
-	void CommandWriteLinkPolicy(u8* _Input);
-	void CommandSniffMode(u8* _Input);
+	void CommandWriteLinkPolicy(const u8* input);
+	void CommandSniffMode(const u8* input);
 
 	// OGF 0x03 - Host Controller and Baseband commands and return parameters
-	void CommandReset(u8* _Input);
-	void CommandWriteLocalName(u8* _Input);
-	void CommandWritePageTimeOut(u8* _Input);
-	void CommandWriteScanEnable(u8* _Input);
-	void CommandWriteUnitClass(u8* _Input);
-	void CommandReadStoredLinkKey(u8* _Input);
-	void CommandWritePinType(u8* _Input);
-	void CommandSetEventFilter(u8* _Input);
-	void CommandWriteInquiryScanType(u8* _Input);
-	void CommandWriteLinkSupervisionTimeout(u8* _Input);
+	void CommandReset(const u8* input);
+	void CommandWriteLocalName(const u8* input);
+	void CommandWritePageTimeOut(const u8* input);
+	void CommandWriteScanEnable(const u8* input);
+	void CommandWriteUnitClass(const u8* input);
+	void CommandReadStoredLinkKey(const u8* input);
+	void CommandWritePinType(const u8* input);
+	void CommandSetEventFilter(const u8* input);
+	void CommandWriteInquiryScanType(const u8* input);
+	void CommandWriteLinkSupervisionTimeout(const u8* input);
 
 	// OGF 0x04 - Informational commands and return parameters
-	void CommandReadBufferSize(u8* _Input);
-	void CommandReadLocalVer(u8* _Input);
-	void CommandReadLocalFeatures(u8* _Input);
-	void CommandReadBDAdrr(u8* _Input);
+	void CommandReadBufferSize(const u8* input);
+	void CommandReadLocalVer(const u8* input);
+	void CommandReadLocalFeatures(const u8* input);
+	void CommandReadBDAdrr(const u8* input);
 
 	// OGF 0x3F - Vendor specific
-	void CommandVendorSpecific_FC4C(u8* _Input, u32 _Size);
-	void CommandVendorSpecific_FC4F(u8* _Input, u32 _Size);
+	void CommandVendorSpecific_FC4C(const u8* input, u32 size);
+	void CommandVendorSpecific_FC4F(const u8* input, u32 size);
+
+	static void DisplayDisconnectMessage(const int wiimoteNumber, const int reason);
 
 	// Debugging
 	void LOG_LinkKey(const u8* _pLinkKey);

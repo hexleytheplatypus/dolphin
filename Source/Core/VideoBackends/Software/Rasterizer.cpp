@@ -1,39 +1,24 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
+#include <cstring>
 
 #include "Common/CommonTypes.h"
-#include "VideoBackends/Software/BPMemLoader.h"
 #include "VideoBackends/Software/EfbInterface.h"
-#include "VideoBackends/Software/HwRasterizer.h"
 #include "VideoBackends/Software/NativeVertexFormat.h"
 #include "VideoBackends/Software/Rasterizer.h"
-#include "VideoBackends/Software/SWStatistics.h"
-#include "VideoBackends/Software/SWVideoConfig.h"
 #include "VideoBackends/Software/Tev.h"
-#include "VideoBackends/Software/XFMemLoader.h"
-#include "VideoCommon/BoundingBox.h"
-
-
-#define BLOCK_SIZE 2
-
-#define CLAMP(x, a, b) (x>b)?b:(x<a)?a:x
-
-// returns approximation of log2(f) in s28.4
-// results are close enough to use for LOD
-static inline s32 FixedLog2(float f)
-{
-	u32 *x = (u32*)&f;
-	s32 logInt = ((*x & 0x7F800000) >> 19) - 2032; // integer part
-	s32 logFract = (*x & 0x007fffff) >> 19; // approximate fractional part
-
-	return logInt + logFract;
-}
+#include "VideoCommon/PerfQueryBase.h"
+#include "VideoCommon/Statistics.h"
+#include "VideoCommon/VideoConfig.h"
+#include "VideoCommon/XFMemory.h"
 
 namespace Rasterizer
 {
+static constexpr int BLOCK_SIZE = 2;
+
 static Slope ZSlope;
 static Slope WSlope;
 static Slope ColorSlopes[2][4];
@@ -52,28 +37,6 @@ static s32 scissorBottom = 0;
 static Tev tev;
 static RasterBlock rasterBlock;
 
-void DoState(PointerWrap &p)
-{
-	ZSlope.DoState(p);
-	WSlope.DoState(p);
-	for (auto& color_slopes_1d : ColorSlopes)
-		for (Slope& color_slope : color_slopes_1d)
-			color_slope.DoState(p);
-	for (auto& tex_slopes_1d : TexSlopes)
-		for (Slope& tex_slope : tex_slopes_1d)
-			tex_slope.DoState(p);
-	p.Do(vertex0X);
-	p.Do(vertex0Y);
-	p.Do(vertexOffsetX);
-	p.Do(vertexOffsetY);
-	p.Do(scissorLeft);
-	p.Do(scissorTop);
-	p.Do(scissorRight);
-	p.Do(scissorBottom);
-	tev.DoState(p);
-	p.Do(rasterBlock);
-}
-
 void Init()
 {
 	tev.Init();
@@ -82,6 +45,19 @@ void Init()
 	// TODO: This is just a guess!
 	ZSlope.dfdx = ZSlope.dfdy = 0.f;
 	ZSlope.f0 = 1.f;
+}
+
+// Returns approximation of log2(f) in s28.4
+// results are close enough to use for LOD
+static s32 FixedLog2(float f)
+{
+	u32 x;
+	std::memcpy(&x, &f, sizeof(u32));
+
+	s32 logInt = ((x & 0x7F800000) >> 19) - 2032; // integer part
+	s32 logFract = (x & 0x007fffff) >> 19; // approximate fractional part
+
+	return logInt + logFract;
 }
 
 static inline int iround(float x)
@@ -120,18 +96,16 @@ void SetTevReg(int reg, int comp, bool konst, s16 color)
 	tev.SetRegColor(reg, comp, konst, color);
 }
 
-inline void Draw(s32 x, s32 y, s32 xi, s32 yi)
+static void Draw(s32 x, s32 y, s32 xi, s32 yi)
 {
-	INCSTAT(swstats.thisFrame.rasterizedPixels);
+	INCSTAT(stats.thisFrame.rasterizedPixels);
 
 	float dx = vertexOffsetX + (float)(x - vertex0X);
 	float dy = vertexOffsetY + (float)(y - vertex0Y);
 
-	s32 z = (s32)ZSlope.GetValue(dx, dy);
-	if (z < 0 || z > 0x00ffffff)
-		return;
+	s32 z = (s32)MathUtil::Clamp<float>(ZSlope.GetValue(dx, dy), 0.0f, 16777215.0f);
 
-	if (!BoundingBox::active && bpmem.UseEarlyDepthTest() && g_SWVideoConfig.bZComploc)
+	if (bpmem.UseEarlyDepthTest() && g_ActiveConfig.bZComploc)
 	{
 		// TODO: Test if perf regs are incremented even if test is disabled
 		EfbInterface::IncPerfCounterQuadCount(PQ_ZCOMP_INPUT_ZCOMPLOC);
@@ -213,13 +187,13 @@ static void InitSlope(Slope *slope, float f1, float f2, float f3, float DX31, fl
 
 static inline void CalculateLOD(s32* lodp, bool* linear, u32 texmap, u32 texcoord)
 {
-	FourTexUnits& texUnit = bpmem.tex[(texmap >> 2) & 1];
-	u8 subTexmap = texmap & 3;
+	const FourTexUnits& texUnit = bpmem.tex[(texmap >> 2) & 1];
+	const u8 subTexmap = texmap & 3;
 
 	// LOD calculation requires data from the texture mode for bias, etc.
 	// it does not seem to use the actual texture size
-	TexMode0& tm0 = texUnit.texMode0[subTexmap];
-	TexMode1& tm1 = texUnit.texMode1[subTexmap];
+	const TexMode0& tm0 = texUnit.texMode0[subTexmap];
+	const TexMode1& tm1 = texUnit.texMode1[subTexmap];
 
 	float sDelta, tDelta;
 	if (tm0.diag_lod)
@@ -250,11 +224,12 @@ static inline void CalculateLOD(s32* lodp, bool* linear, u32 texmap, u32 texcoor
 
 	*linear = ((lod > 0 && (tm0.min_filter & 4)) || (lod <= 0 && tm0.mag_filter));
 
-	// order of checks matters
-	// should be:
-	// if lod > max then max
-	// else if lod < min then min
-	lod = CLAMP(lod, (s32)tm1.min_lod, (s32)tm1.max_lod);
+	// NOTE: The order of comparisons for this clamp check matters.
+	if (lod > static_cast<s32>(tm1.max_lod))
+		lod = static_cast<s32>(tm1.max_lod);
+	else if (lod < static_cast<s32>(tm1.min_lod))
+		lod = static_cast<s32>(tm1.min_lod);
+
 	*lodp = lod;
 }
 
@@ -303,7 +278,7 @@ static void BuildBlock(s32 blockX, s32 blockY)
 	for (unsigned int i = 0; i <= bpmem.genMode.numtevstages; i++)
 	{
 		int stageOdd = i&1;
-		TwoTevStageOrders &order = bpmem.tevorders[i >> 1];
+		const TwoTevStageOrders& order = bpmem.tevorders[i >> 1];
 		if (order.getEnable(stageOdd))
 		{
 			u32 texmap = order.getTexMap(stageOdd);
@@ -314,31 +289,9 @@ static void BuildBlock(s32 blockX, s32 blockY)
 	}
 }
 
-static inline void PrepareBlock(s32 blockX, s32 blockY)
-{
-	static s32 x = -1;
-	static s32 y = -1;
-
-	blockX &= ~(BLOCK_SIZE - 1);
-	blockY &= ~(BLOCK_SIZE - 1);
-
-	if (x != blockX || y != blockY)
-	{
-		x = blockX;
-		y = blockY;
-		BuildBlock(x, y);
-	}
-}
-
 void DrawTriangleFrontFace(OutputVertexData *v0, OutputVertexData *v1, OutputVertexData *v2)
 {
-	INCSTAT(swstats.thisFrame.numTrianglesDrawn);
-
-	if (g_SWVideoConfig.bHwRasterizer && !BoundingBox::active)
-	{
-		HwRasterizer::DrawTriangleFrontFace(v0, v1, v2);
-		return;
-	}
+	INCSTAT(stats.thisFrame.numTrianglesDrawn);
 
 	// adapted from http://devmaster.net/posts/6145/advanced-rasterization
 
@@ -362,13 +315,13 @@ void DrawTriangleFrontFace(OutputVertexData *v0, OutputVertexData *v1, OutputVer
 	const s32 DY31 = Y3 - Y1;
 
 	// Fixed-pos32 deltas
-	const s32 FDX12 = DX12 << 4;
-	const s32 FDX23 = DX23 << 4;
-	const s32 FDX31 = DX31 << 4;
+	const s32 FDX12 = DX12 * 16;
+	const s32 FDX23 = DX23 * 16;
+	const s32 FDX31 = DX31 * 16;
 
-	const s32 FDY12 = DY12 << 4;
-	const s32 FDY23 = DY23 << 4;
-	const s32 FDY31 = DY31 << 4;
+	const s32 FDY12 = DY12 * 16;
+	const s32 FDY23 = DY23 * 16;
+	const s32 FDY31 = DY31 * 16;
 
 	// Bounding rectangle
 	s32 minx = (std::min(std::min(X1, X2), X3) + 0xF) >> 4;
@@ -402,7 +355,7 @@ void DrawTriangleFrontFace(OutputVertexData *v0, OutputVertexData *v1, OutputVer
 	// Many things might prevent us from reaching this line (culling, clipping, scissoring).
 	// However, the zslope is always guaranteed to be calculated unless all vertices are trivially rejected during clipping!
 	// We're currently sloppy at this since we abort early if any of the culling/clipping/scissoring tests fail.
-	if (!bpmem.genMode.zfreeze || !g_SWVideoConfig.bZFreeze)
+	if (!bpmem.genMode.zfreeze || !g_ActiveConfig.bZFreeze)
 		InitSlope(&ZSlope, v0->screenPosition[2], v1->screenPosition[2], v2->screenPosition[2], fltdx31, fltdx12, fltdy12, fltdy31);
 
 	for (unsigned int i = 0; i < bpmem.genMode.numcolchans; i++)
@@ -427,279 +380,86 @@ void DrawTriangleFrontFace(OutputVertexData *v0, OutputVertexData *v1, OutputVer
 	if (DY23 < 0 || (DY23 == 0 && DX23 > 0)) C2++;
 	if (DY31 < 0 || (DY31 == 0 && DX31 > 0)) C3++;
 
-	// If drawing, rasterize every block
-	if (!BoundingBox::active)
+	// Start in corner of 8x8 block
+	minx &= ~(BLOCK_SIZE - 1);
+	miny &= ~(BLOCK_SIZE - 1);
+
+	// Loop through blocks
+	for (s32 y = miny; y < maxy; y += BLOCK_SIZE)
 	{
-		// Start in corner of 8x8 block
-		minx &= ~(BLOCK_SIZE - 1);
-		miny &= ~(BLOCK_SIZE - 1);
-
-		// Loop through blocks
-		for (s32 y = miny; y < maxy; y += BLOCK_SIZE)
+		for (s32 x = minx; x < maxx; x += BLOCK_SIZE)
 		{
-			for (s32 x = minx; x < maxx; x += BLOCK_SIZE)
+			// Corners of block
+			s32 x0 = x << 4;
+			s32 x1 = (x + BLOCK_SIZE - 1) << 4;
+			s32 y0 = y << 4;
+			s32 y1 = (y + BLOCK_SIZE - 1) << 4;
+
+			// Evaluate half-space functions
+			bool a00 = C1 + DX12 * y0 - DY12 * x0 > 0;
+			bool a10 = C1 + DX12 * y0 - DY12 * x1 > 0;
+			bool a01 = C1 + DX12 * y1 - DY12 * x0 > 0;
+			bool a11 = C1 + DX12 * y1 - DY12 * x1 > 0;
+			int a = (a00 << 0) | (a10 << 1) | (a01 << 2) | (a11 << 3);
+
+			bool b00 = C2 + DX23 * y0 - DY23 * x0 > 0;
+			bool b10 = C2 + DX23 * y0 - DY23 * x1 > 0;
+			bool b01 = C2 + DX23 * y1 - DY23 * x0 > 0;
+			bool b11 = C2 + DX23 * y1 - DY23 * x1 > 0;
+			int b = (b00 << 0) | (b10 << 1) | (b01 << 2) | (b11 << 3);
+
+			bool c00 = C3 + DX31 * y0 - DY31 * x0 > 0;
+			bool c10 = C3 + DX31 * y0 - DY31 * x1 > 0;
+			bool c01 = C3 + DX31 * y1 - DY31 * x0 > 0;
+			bool c11 = C3 + DX31 * y1 - DY31 * x1 > 0;
+			int c = (c00 << 0) | (c10 << 1) | (c01 << 2) | (c11 << 3);
+
+			// Skip block when outside an edge
+			if (a == 0x0 || b == 0x0 || c == 0x0)
+				continue;
+
+			BuildBlock(x, y);
+
+			// Accept whole block when totally covered
+			if (a == 0xF && b == 0xF && c == 0xF)
 			{
-				// Corners of block
-				s32 x0 = x << 4;
-				s32 x1 = (x + BLOCK_SIZE - 1) << 4;
-				s32 y0 = y << 4;
-				s32 y1 = (y + BLOCK_SIZE - 1) << 4;
-
-				// Evaluate half-space functions
-				bool a00 = C1 + DX12 * y0 - DY12 * x0 > 0;
-				bool a10 = C1 + DX12 * y0 - DY12 * x1 > 0;
-				bool a01 = C1 + DX12 * y1 - DY12 * x0 > 0;
-				bool a11 = C1 + DX12 * y1 - DY12 * x1 > 0;
-				int a = (a00 << 0) | (a10 << 1) | (a01 << 2) | (a11 << 3);
-
-				bool b00 = C2 + DX23 * y0 - DY23 * x0 > 0;
-				bool b10 = C2 + DX23 * y0 - DY23 * x1 > 0;
-				bool b01 = C2 + DX23 * y1 - DY23 * x0 > 0;
-				bool b11 = C2 + DX23 * y1 - DY23 * x1 > 0;
-				int b = (b00 << 0) | (b10 << 1) | (b01 << 2) | (b11 << 3);
-
-				bool c00 = C3 + DX31 * y0 - DY31 * x0 > 0;
-				bool c10 = C3 + DX31 * y0 - DY31 * x1 > 0;
-				bool c01 = C3 + DX31 * y1 - DY31 * x0 > 0;
-				bool c11 = C3 + DX31 * y1 - DY31 * x1 > 0;
-				int c = (c00 << 0) | (c10 << 1) | (c01 << 2) | (c11 << 3);
-
-				// Skip block when outside an edge
-				if (a == 0x0 || b == 0x0 || c == 0x0)
-					continue;
-
-				BuildBlock(x, y);
-
-				// Accept whole block when totally covered
-				if (a == 0xF && b == 0xF && c == 0xF)
+				for (s32 iy = 0; iy < BLOCK_SIZE; iy++)
 				{
-					for (s32 iy = 0; iy < BLOCK_SIZE; iy++)
+					for (s32 ix = 0; ix < BLOCK_SIZE; ix++)
 					{
-						for (s32 ix = 0; ix < BLOCK_SIZE; ix++)
+						Draw(x + ix, y + iy, ix, iy);
+					}
+				}
+			}
+			else // Partially covered block
+			{
+				s32 CY1 = C1 + DX12 * y0 - DY12 * x0;
+				s32 CY2 = C2 + DX23 * y0 - DY23 * x0;
+				s32 CY3 = C3 + DX31 * y0 - DY31 * x0;
+
+				for (s32 iy = 0; iy < BLOCK_SIZE; iy++)
+				{
+					s32 CX1 = CY1;
+					s32 CX2 = CY2;
+					s32 CX3 = CY3;
+
+					for (s32 ix = 0; ix < BLOCK_SIZE; ix++)
+					{
+						if (CX1 > 0 && CX2 > 0 && CX3 > 0)
 						{
 							Draw(x + ix, y + iy, ix, iy);
 						}
+
+						CX1 -= FDY12;
+						CX2 -= FDY23;
+						CX3 -= FDY31;
 					}
-				}
-				else // Partially covered block
-				{
-					s32 CY1 = C1 + DX12 * y0 - DY12 * x0;
-					s32 CY2 = C2 + DX23 * y0 - DY23 * x0;
-					s32 CY3 = C3 + DX31 * y0 - DY31 * x0;
 
-					for (s32 iy = 0; iy < BLOCK_SIZE; iy++)
-					{
-						s32 CX1 = CY1;
-						s32 CX2 = CY2;
-						s32 CX3 = CY3;
-
-						for (s32 ix = 0; ix < BLOCK_SIZE; ix++)
-						{
-							if (CX1 > 0 && CX2 > 0 && CX3 > 0)
-							{
-								Draw(x + ix, y + iy, ix, iy);
-							}
-
-							CX1 -= FDY12;
-							CX2 -= FDY23;
-							CX3 -= FDY31;
-						}
-
-						CY1 += FDX12;
-						CY2 += FDX23;
-						CY3 += FDX31;
-					}
+					CY1 += FDX12;
+					CY2 += FDX23;
+					CY3 += FDX31;
 				}
 			}
-		}
-	}
-	else
-	{
-		// Calculating bbox
-		// First check for alpha channel - don't do anything it if always fails,
-		// Change bbox to primitive size if it always passes
-		AlphaTest::TEST_RESULT alphaRes = bpmem.alpha_test.TestResult();
-
-		if (alphaRes != AlphaTest::UNDETERMINED)
-		{
-			if (alphaRes == AlphaTest::PASS)
-			{
-				BoundingBox::coords[BoundingBox::TOP]    = std::min(BoundingBox::coords[BoundingBox::TOP],    (u16) miny);
-				BoundingBox::coords[BoundingBox::LEFT]   = std::min(BoundingBox::coords[BoundingBox::LEFT],   (u16) minx);
-				BoundingBox::coords[BoundingBox::BOTTOM] = std::max(BoundingBox::coords[BoundingBox::BOTTOM], (u16) maxy);
-				BoundingBox::coords[BoundingBox::RIGHT]  = std::max(BoundingBox::coords[BoundingBox::RIGHT],  (u16) maxx);
-			}
-			return;
-		}
-
-		// If we are calculating bbox with alpha, we only need to find the
-		// topmost, leftmost, bottom most and rightmost pixels to be drawn.
-		// So instead of drawing every single one of the triangle's pixels,
-		// four loops are run: one for the top pixel, one for the left, one for
-		// the bottom and one for the right. As soon as a pixel that is to be
-		// drawn is found, the loop breaks. This enables a ~150% speedbost in
-		// bbox calculation, albeit at the cost of some ugly repetitive code.
-		const s32 FLEFT   = minx << 4;
-		const s32 FRIGHT  = maxx << 4;
-		s32 FTOP    = miny << 4;
-		s32 FBOTTOM = maxy << 4;
-
-		// Start checking for bbox top
-		s32 CY1 = C1 + DX12 * FTOP - DY12 * FLEFT;
-		s32 CY2 = C2 + DX23 * FTOP - DY23 * FLEFT;
-		s32 CY3 = C3 + DX31 * FTOP - DY31 * FLEFT;
-
-		// Loop
-		for (s32 y = miny; y <= maxy; ++y)
-		{
-			if (y >= BoundingBox::coords[BoundingBox::TOP])
-				break;
-
-			s32 CX1 = CY1;
-			s32 CX2 = CY2;
-			s32 CX3 = CY3;
-
-			for (s32 x = minx; x <= maxx; ++x)
-			{
-				if (CX1 > 0 && CX2 > 0 && CX3 > 0)
-				{
-					// Build the new raster block every other pixel
-					PrepareBlock(x, y);
-					Draw(x, y, x & (BLOCK_SIZE - 1), y & (BLOCK_SIZE - 1));
-
-					if (y >= BoundingBox::coords[BoundingBox::TOP])
-						break;
-				}
-
-				CX1 -= FDY12;
-				CX2 -= FDY23;
-				CX3 -= FDY31;
-			}
-
-			CY1 += FDX12;
-			CY2 += FDX23;
-			CY3 += FDX31;
-		}
-
-		// Update top limit
-		miny = std::max((s32) BoundingBox::coords[BoundingBox::TOP], miny);
-		FTOP = miny << 4;
-
-		// Checking for bbox left
-		s32 CX1 = C1 + DX12 * FTOP - DY12 * FLEFT;
-		s32 CX2 = C2 + DX23 * FTOP - DY23 * FLEFT;
-		s32 CX3 = C3 + DX31 * FTOP - DY31 * FLEFT;
-
-		// Loop
-		for (s32 x = minx; x <= maxx; ++x)
-		{
-			if (x >= BoundingBox::coords[BoundingBox::LEFT])
-				break;
-
-			CY1 = CX1;
-			CY2 = CX2;
-			CY3 = CX3;
-
-			for (s32 y = miny; y <= maxy; ++y)
-			{
-				if (CY1 > 0 && CY2 > 0 && CY3 > 0)
-				{
-					PrepareBlock(x, y);
-					Draw(x, y, x & (BLOCK_SIZE - 1), y & (BLOCK_SIZE - 1));
-
-					if (x >= BoundingBox::coords[BoundingBox::LEFT])
-						break;
-				}
-
-				CY1 += FDX12;
-				CY2 += FDX23;
-				CY3 += FDX31;
-			}
-
-			CX1 -= FDY12;
-			CX2 -= FDY23;
-			CX3 -= FDY31;
-		}
-
-		// Update left limit
-		minx = std::max((s32) BoundingBox::coords[BoundingBox::LEFT], minx);
-
-		// Checking for bbox bottom
-		CY1 = C1 + DX12 * FBOTTOM - DY12 * FRIGHT;
-		CY2 = C2 + DX23 * FBOTTOM - DY23 * FRIGHT;
-		CY3 = C3 + DX31 * FBOTTOM - DY31 * FRIGHT;
-
-		// Loop
-		for (s32 y = maxy; y >= miny; --y)
-		{
-			CX1 = CY1;
-			CX2 = CY2;
-			CX3 = CY3;
-
-			if (y <= BoundingBox::coords[BoundingBox::BOTTOM])
-				break;
-
-			for (s32 x = maxx; x >= minx; --x)
-			{
-				if (CX1 > 0 && CX2 > 0 && CX3 > 0)
-				{
-					// Build the new raster block every other pixel
-					PrepareBlock(x, y);
-					Draw(x, y, x & (BLOCK_SIZE - 1), y & (BLOCK_SIZE - 1));
-
-					if (y <= BoundingBox::coords[BoundingBox::BOTTOM])
-						break;
-				}
-
-				CX1 += FDY12;
-				CX2 += FDY23;
-				CX3 += FDY31;
-			}
-
-			CY1 -= FDX12;
-			CY2 -= FDX23;
-			CY3 -= FDX31;
-		}
-
-		// Update bottom limit
-		maxy = std::min((s32) BoundingBox::coords[BoundingBox::BOTTOM], maxy);
-		FBOTTOM = maxy << 4;
-
-		// Checking for bbox right
-		CX1 = C1 + DX12 * FBOTTOM - DY12 * FRIGHT;
-		CX2 = C2 + DX23 * FBOTTOM - DY23 * FRIGHT;
-		CX3 = C3 + DX31 * FBOTTOM - DY31 * FRIGHT;
-
-		// Loop
-		for (s32 x = maxx; x >= minx; --x)
-		{
-			if (x <= BoundingBox::coords[BoundingBox::RIGHT])
-				break;
-
-			CY1 = CX1;
-			CY2 = CX2;
-			CY3 = CX3;
-
-			for (s32 y = maxy; y >= miny; --y)
-			{
-				if (CY1 > 0 && CY2 > 0 && CY3 > 0)
-				{
-					// Build the new raster block every other pixel
-					PrepareBlock(x, y);
-					Draw(x, y, x & (BLOCK_SIZE - 1), y & (BLOCK_SIZE - 1));
-
-					if (x <= BoundingBox::coords[BoundingBox::RIGHT])
-						break;
-				}
-
-				CY1 -= FDX12;
-				CY2 -= FDX23;
-				CY3 -= FDX31;
-			}
-
-			CX1 += FDY12;
-			CX2 += FDY23;
-			CX3 += FDY31;
 		}
 	}
 }

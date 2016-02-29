@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+#include "Common/CommonFuncs.h"
 #include "Common/CommonTypes.h"
 #include "Common/StringUtil.h"
 
@@ -38,8 +39,6 @@ public:
 		void Set(const std::string& key, const std::string& newValue);
 		void Set(const std::string& key, const std::string& newValue, const std::string& defaultValue);
 
-		bool Get(const std::string& key, std::string* value, const std::string& defaultValue = NULL_STRING);
-
 		void Set(const std::string& key, u32 newValue)
 		{
 			Set(key, StringFromFormat("0x%08x", newValue));
@@ -47,12 +46,12 @@ public:
 
 		void Set(const std::string& key, float newValue)
 		{
-			Set(key, StringFromFormat("%f", newValue));
+			Set(key, StringFromFormat("%#.9g", newValue));
 		}
 
 		void Set(const std::string& key, double newValue)
 		{
-			Set(key, StringFromFormat("%f", newValue));
+			Set(key, StringFromFormat("%#.17g", newValue));
 		}
 
 		void Set(const std::string& key, int newValue)
@@ -63,7 +62,6 @@ public:
 		void Set(const std::string& key, bool newValue)
 		{
 			Set(key, StringFromBool(newValue));
-
 		}
 
 		template<typename T>
@@ -77,12 +75,13 @@ public:
 
 		void Set(const std::string& key, const std::vector<std::string>& newValues);
 
-		bool Get(const std::string& key, int* value, int defaultValue = 0);
-		bool Get(const std::string& key, u32* value, u32 defaultValue = 0);
-		bool Get(const std::string& key, bool* value, bool defaultValue = false);
-		bool Get(const std::string& key, float* value, float defaultValue = false);
-		bool Get(const std::string& key, double* value, double defaultValue = false);
-		bool Get(const std::string& key, std::vector<std::string>* values);
+		bool Get(const std::string& key, std::string* value, const std::string& defaultValue = NULL_STRING) const;
+		bool Get(const std::string& key, int* value, int defaultValue = 0) const;
+		bool Get(const std::string& key, u32* value, u32 defaultValue = 0) const;
+		bool Get(const std::string& key, bool* value, bool defaultValue = false) const;
+		bool Get(const std::string& key, float* value, float defaultValue = 0.0f) const;
+		bool Get(const std::string& key, double* value, double defaultValue = 0.0) const;
+		bool Get(const std::string& key, std::vector<std::string>* values) const;
 
 		bool operator < (const Section& other) const
 		{
@@ -112,10 +111,20 @@ public:
 	// Returns true if key exists in section
 	bool Exists(const std::string& sectionName, const std::string& key) const;
 
-	template<typename T> bool GetIfExists(const std::string& sectionName, const std::string& key, T value)
+	template<typename T> bool GetIfExists(const std::string& sectionName, const std::string& key, T* value)
 	{
 		if (Exists(sectionName, key))
 			return GetOrCreateSection(sectionName)->Get(key, value);
+
+		return false;
+	}
+
+	template<typename T> bool GetIfExists(const std::string& sectionName, const std::string& key, T* value, T defaultValue)
+	{
+		if (Exists(sectionName, key))
+			return GetOrCreateSection(sectionName)->Get(key, value, defaultValue);
+		else
+			*value = defaultValue;
 
 		return false;
 	}
@@ -142,8 +151,6 @@ private:
 
 	const Section* GetSection(const std::string& section) const;
 	Section* GetSection(const std::string& section);
-	std::string* GetLine(const std::string& section, const std::string& key);
-	void CreateSection(const std::string& section);
 
 	static const std::string& NULL_STRING;
 };

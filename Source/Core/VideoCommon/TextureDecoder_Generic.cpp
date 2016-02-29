@@ -1,11 +1,12 @@
-// Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
 #include <cmath>
 
-#include "Common/Common.h"
+#include "Common/CommonFuncs.h"
+#include "Common/CommonTypes.h"
 #include "Common/CPUDetect.h"
 #include "VideoCommon/LookUpTables.h"
 #include "VideoCommon/TextureDecoder.h"

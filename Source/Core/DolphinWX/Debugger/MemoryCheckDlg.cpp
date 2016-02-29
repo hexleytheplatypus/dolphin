@@ -1,19 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <string>
-#include <wx/chartype.h>
 #include <wx/checkbox.h>
-#include <wx/defs.h>
 #include <wx/dialog.h>
-#include <wx/event.h>
-#include <wx/gdicmn.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
-#include <wx/string.h>
 #include <wx/textctrl.h>
-#include <wx/translation.h>
 
 #include "Common/BreakPoints.h"
 #include "Common/CommonTypes.h"
@@ -29,7 +23,7 @@ MemoryCheckDlg::MemoryCheckDlg(CBreakPointWindow *parent)
 	: wxDialog(parent, wxID_ANY, _("Memory Check"))
 	, m_parent(parent)
 {
-	Bind(wxEVT_BUTTON, &MemoryCheckDlg::OnOK, this);
+	Bind(wxEVT_BUTTON, &MemoryCheckDlg::OnOK, this, wxID_OK);
 
 	m_pEditStartAddress = new wxTextCtrl(this, wxID_ANY, "");
 	m_pEditEndAddress = new wxTextCtrl(this, wxID_ANY, "");

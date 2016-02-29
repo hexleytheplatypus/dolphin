@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -7,32 +7,21 @@
 // Top vertex loaders
 // Metroid Prime: P I16-flt N I16-s16 T0 I16-u16 T1 i16-flt
 
-#include <algorithm>
 #include <string>
 
 #include "Common/CommonTypes.h"
-
-#include "VideoCommon/CPMemory.h"
-#include "VideoCommon/DataReader.h"
-#include "VideoCommon/NativeVertexFormat.h"
 #include "VideoCommon/VertexLoaderBase.h"
-#include "VideoCommon/VertexLoaderUtils.h"
 
-#ifdef WIN32
-#define LOADERDECL __cdecl
-#else
-#define LOADERDECL
-#endif
-
+class DataReader;
 class VertexLoader;
-typedef void (LOADERDECL *TPipelineFunction)(VertexLoader* loader);
+typedef void (*TPipelineFunction)(VertexLoader* loader);
 
 class VertexLoader : public VertexLoaderBase
 {
 public:
 	VertexLoader(const TVtxDesc &vtx_desc, const VAT &vtx_attr);
 
-	int RunVertices(int primitive, int count, DataReader src, DataReader dst) override;
+	int RunVertices(DataReader src, DataReader dst, int count) override;
 	std::string GetName() const override { return "OldLoader"; }
 	bool IsInitialized() override { return true; } // This vertex loader supports all formats
 
@@ -49,6 +38,7 @@ public:
 	int m_texmtxread;
 	bool m_vertexSkip;
 	int m_skippedVertices;
+	int m_counter;
 
 private:
 	// Pipeline.

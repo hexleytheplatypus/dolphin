@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -10,7 +10,9 @@
 #include <string>
 #include <vector>
 
-#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
+#include "Common/Logging/Log.h"
 
 // This class is meant to edit the values in a given Wii SYSCONF file
 // It currently does not add/remove/rearrange sections,
@@ -171,7 +173,7 @@ public:
 	void UpdateLocation();
 
 private:
-	bool LoadFromFileInternal(FILE *fh);
+	bool LoadFromFileInternal(FILE* fh);
 	void GenerateSysConf();
 	void Clear();
 

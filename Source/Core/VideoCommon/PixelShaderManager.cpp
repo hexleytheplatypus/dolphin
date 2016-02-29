@@ -1,16 +1,17 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cmath>
+#include <cstring>
 
+#include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
-
 #include "VideoCommon/PixelShaderManager.h"
 #include "VideoCommon/RenderBase.h"
-#include "VideoCommon/Statistics.h"
 #include "VideoCommon/VideoCommon.h"
 #include "VideoCommon/VideoConfig.h"
+#include "VideoCommon/XFMemory.h"
 
 bool PixelShaderManager::s_bFogRangeAdjustChanged;
 bool PixelShaderManager::s_bViewPortChanged;
@@ -96,8 +97,8 @@ void PixelShaderManager::SetConstants()
 
 	if (s_bViewPortChanged)
 	{
-		constants.zbias[1][0] = static_cast<u32>(xfmem.viewport.farZ);
-		constants.zbias[1][1] = static_cast<u32>(xfmem.viewport.zRange);
+		constants.zbias[1][0] = (u32)xfmem.viewport.farZ;
+		constants.zbias[1][1] = (u32)xfmem.viewport.zRange;
 		dirty = true;
 		s_bViewPortChanged = false;
 	}
@@ -134,7 +135,7 @@ void PixelShaderManager::SetDestAlpha()
 	dirty = true;
 }
 
-void PixelShaderManager::SetTexDims(int texmapid, u32 width, u32 height, u32 wraps, u32 wrapt)
+void PixelShaderManager::SetTexDims(int texmapid, u32 width, u32 height)
 {
 	// TODO: move this check out to callee. There we could just call this function on texture changes
 	// or better, use textureSize() in glsl
@@ -159,8 +160,8 @@ void PixelShaderManager::SetViewportChanged()
 
 void PixelShaderManager::SetEfbScaleChanged()
 {
-	constants.efbscale[0] = 1.0f / float(Renderer::EFBToScaledXf(1));
-	constants.efbscale[1] = 1.0f / float(Renderer::EFBToScaledYf(1));
+	constants.efbscale[0] = 1.0f / Renderer::EFBToScaledXf(1);
+	constants.efbscale[1] = 1.0f / Renderer::EFBToScaledYf(1);
 	dirty = true;
 }
 

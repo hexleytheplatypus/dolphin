@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -9,18 +9,18 @@
 namespace DX11
 {
 
-class VertexManager : public ::VertexManager
+class VertexManager : public VertexManagerBase
 {
 public:
 	VertexManager();
 	~VertexManager();
 
-	NativeVertexFormat* CreateNativeVertexFormat() override;
+	NativeVertexFormat* CreateNativeVertexFormat(const PortableVertexDeclaration& vtx_decl) override;
 	void CreateDeviceObjects() override;
 	void DestroyDeviceObjects() override;
 
 protected:
-	virtual void ResetBuffer(u32 stride) override;
+	void ResetBuffer(u32 stride) override;
 	u16* GetIndexBuffer() { return &LocalIBuffer[0]; }
 
 private:

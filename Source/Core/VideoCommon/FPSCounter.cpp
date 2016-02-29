@@ -1,21 +1,18 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2012 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <fstream>
 
+#include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
-#include "Common/StringUtil.h"
 #include "Common/Timer.h"
 #include "VideoCommon/FPSCounter.h"
 #include "VideoCommon/VideoConfig.h"
 
-#define FPS_REFRESH_INTERVAL 1000
+static constexpr u64 FPS_REFRESH_INTERVAL = 1000;
 
 FPSCounter::FPSCounter()
-	: m_fps(0)
-	, m_counter(0)
-	, m_fps_last_counter(0)
 {
 	m_update_time.Update();
 	m_render_time.Update();
@@ -29,7 +26,7 @@ void FPSCounter::LogRenderTimeToFile(u64 val)
 	m_bench_file << val << std::endl;
 }
 
-int FPSCounter::Update()
+void FPSCounter::Update()
 {
 	if (m_update_time.GetTimeDifference() >= FPS_REFRESH_INTERVAL)
 	{
@@ -46,5 +43,4 @@ int FPSCounter::Update()
 	}
 
 	m_counter++;
-	return m_fps;
 }

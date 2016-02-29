@@ -1,30 +1,11 @@
-/*====================================================================
+// Copyright 2008 Dolphin Emulator Project
+// Copyright 2004 Duddie & Tratax
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
 
-   filename:     gdsp_interface.h
-   project:      GCemu
-   created:      2004-6-18
-   mail:         duddie@walla.com
-
-   Copyright (c) 2005 Duddie & Tratax
-
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License
-   as published by the Free Software Foundation; either version 2
-   of the License, or (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-
-   ====================================================================*/
-
-#include "Common/Atomic.h"
+#include "Common/CommonFuncs.h"
 #include "Common/CPUDetect.h"
+#include "Common/Intrinsics.h"
 #include "Common/MemoryUtil.h"
 #include "Common/Thread.h"
 
@@ -36,78 +17,71 @@
 #include "Core/DSP/DSPInterpreter.h"
 #include "Core/DSP/DSPTables.h"
 
-#if _M_SSE >= 0x301 && !(defined __GNUC__ && !defined __SSSE3__)
-#include <tmmintrin.h>
-#endif
-
 static void gdsp_do_dma();
 
 void gdsp_ifx_init()
 {
-	for (int i = 0; i < 256; i++)
-	{
-		g_dsp.ifx_regs[i] = 0;
-	}
+	g_dsp.ifx_regs.fill(0);
 
-	g_dsp.mbox[0] = 0;
-	g_dsp.mbox[1] = 0;
+	g_dsp.mbox[MAILBOX_CPU].store(0);
+	g_dsp.mbox[MAILBOX_DSP].store(0);
 }
 
-u32 gdsp_mbox_peek(u8 mbx)
+u32 gdsp_mbox_peek(Mailbox mbx)
 {
-	return Common::AtomicLoad(g_dsp.mbox[mbx]);
+	return g_dsp.mbox[mbx].load();
 }
 
-void gdsp_mbox_write_h(u8 mbx, u16 val)
+void gdsp_mbox_write_h(Mailbox mbx, u16 val)
 {
-	const u32 new_value = (Common::AtomicLoadAcquire(g_dsp.mbox[mbx]) & 0xffff) | (val << 16);
-	Common::AtomicStoreRelease(g_dsp.mbox[mbx], new_value & ~0x80000000);
+	const u32 old_value = g_dsp.mbox[mbx].load(std::memory_order_acquire);
+	const u32 new_value = (old_value & 0xffff) | (val << 16);
+
+	g_dsp.mbox[mbx].store(new_value & ~0x80000000, std::memory_order_release);
 }
 
-void gdsp_mbox_write_l(u8 mbx, u16 val)
+void gdsp_mbox_write_l(Mailbox mbx, u16 val)
 {
-	const u32 new_value = (Common::AtomicLoadAcquire(g_dsp.mbox[mbx]) & ~0xffff) | val;
-	Common::AtomicStoreRelease(g_dsp.mbox[mbx], new_value | 0x80000000);
+	const u32 old_value = g_dsp.mbox[mbx].load(std::memory_order_acquire);
+	const u32 new_value = (old_value & ~0xffff) | val;
+
+	g_dsp.mbox[mbx].store(new_value | 0x80000000, std::memory_order_release);
 
 #if defined(_DEBUG) || defined(DEBUGFAST)
-	if (mbx == GDSP_MBOX_DSP)
-	{
-		INFO_LOG(DSP_MAIL, "DSP(WM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(GDSP_MBOX_DSP), g_dsp.pc);
-	} else {
-		INFO_LOG(DSP_MAIL, "CPU(WM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(GDSP_MBOX_CPU), g_dsp.pc);
-	}
+	if (mbx == MAILBOX_DSP)
+		INFO_LOG(DSP_MAIL, "DSP(WM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(MAILBOX_DSP), g_dsp.pc);
+	else
+		INFO_LOG(DSP_MAIL, "CPU(WM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(MAILBOX_CPU), g_dsp.pc);
 #endif
 }
 
-u16 gdsp_mbox_read_h(u8 mbx)
+u16 gdsp_mbox_read_h(Mailbox mbx)
 {
-	if (init_hax && mbx)
+	if (g_init_hax && mbx == MAILBOX_DSP)
 	{
 		return 0x8054;
 	}
 
-	return (u16)(Common::AtomicLoad(g_dsp.mbox[mbx]) >> 16); // TODO: mask away the top bit?
+	return (u16)(g_dsp.mbox[mbx].load() >> 16); // TODO: mask away the top bit?
 }
 
-u16 gdsp_mbox_read_l(u8 mbx)
+u16 gdsp_mbox_read_l(Mailbox mbx)
 {
-	const u32 value = Common::AtomicLoadAcquire(g_dsp.mbox[mbx]);
-	Common::AtomicStoreRelease(g_dsp.mbox[mbx], value & ~0x80000000);
+	const u32 value = g_dsp.mbox[mbx].load(std::memory_order_acquire);
+	g_dsp.mbox[mbx].store(value & ~0x80000000, std::memory_order_release);
 
-	if (init_hax && mbx)
+	if (g_init_hax && mbx == MAILBOX_DSP)
 	{
-		init_hax = false;
+		g_init_hax = false;
 		DSPCore_Reset();
 		return 0x4348;
 	}
 
 #if defined(_DEBUG) || defined(DEBUGFAST)
-	if (mbx == GDSP_MBOX_DSP)
-	{
-		INFO_LOG(DSP_MAIL, "DSP(RM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(GDSP_MBOX_DSP), g_dsp.pc);
-	} else {
-		INFO_LOG(DSP_MAIL, "CPU(RM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(GDSP_MBOX_CPU), g_dsp.pc);
-	}
+	if (mbx == MAILBOX_DSP)
+		INFO_LOG(DSP_MAIL, "DSP(RM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(MAILBOX_DSP), g_dsp.pc);
+	else
+		INFO_LOG(DSP_MAIL, "CPU(RM) B:%i M:0x%08x (pc=0x%04x)", mbx, gdsp_mbox_peek(MAILBOX_CPU), g_dsp.pc);
 #endif
 
 	return (u16)value;
@@ -127,18 +101,18 @@ void gdsp_ifx_write(u32 addr, u32 val)
 			break;
 
 		case DSP_DMBH:
-			gdsp_mbox_write_h(GDSP_MBOX_DSP, val);
+			gdsp_mbox_write_h(MAILBOX_DSP, val);
 			break;
 
 		case DSP_DMBL:
-			gdsp_mbox_write_l(GDSP_MBOX_DSP, val);
+			gdsp_mbox_write_l(MAILBOX_DSP, val);
 			break;
 
 		case DSP_CMBH:
-			return gdsp_mbox_write_h(GDSP_MBOX_CPU, val);
+			return gdsp_mbox_write_h(MAILBOX_CPU, val);
 
 		case DSP_CMBL:
-			return gdsp_mbox_write_l(GDSP_MBOX_CPU, val);
+			return gdsp_mbox_write_l(MAILBOX_CPU, val);
 
 		case DSP_DSBL:
 			g_dsp.ifx_regs[DSP_DSBL] = val;
@@ -197,16 +171,16 @@ static u16 _gdsp_ifx_read(u16 addr)
 	switch (addr & 0xff)
 	{
 		case DSP_DMBH:
-			return gdsp_mbox_read_h(GDSP_MBOX_DSP);
+			return gdsp_mbox_read_h(MAILBOX_DSP);
 
 		case DSP_DMBL:
-			return gdsp_mbox_read_l(GDSP_MBOX_DSP);
+			return gdsp_mbox_read_l(MAILBOX_DSP);
 
 		case DSP_CMBH:
-			return gdsp_mbox_read_h(GDSP_MBOX_CPU);
+			return gdsp_mbox_read_h(MAILBOX_CPU);
 
 		case DSP_CMBL:
-			return gdsp_mbox_read_l(GDSP_MBOX_CPU);
+			return gdsp_mbox_read_l(MAILBOX_CPU);
 
 		case DSP_DSCR:
 			return g_dsp.ifx_regs[addr & 0xFF];

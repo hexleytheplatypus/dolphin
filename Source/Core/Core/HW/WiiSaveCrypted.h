@@ -1,12 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include <string>
 #include <vector>
-#include <polarssl/aes.h>
+#include <mbedtls/aes.h>
 
 #include "Common/CommonTypes.h"
 
@@ -38,7 +38,7 @@ private:
 	static const u8 s_md5_blanker[16];
 	static const u32 s_ng_id;
 
-	aes_context m_aes_ctx;
+	mbedtls_aes_context m_aes_ctx;
 	u8 m_sd_iv[0x10];
 	std::vector<std::string> m_files_list;
 

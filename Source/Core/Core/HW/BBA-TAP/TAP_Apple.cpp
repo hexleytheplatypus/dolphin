@@ -1,10 +1,11 @@
-// Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <fcntl.h>
 
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 #include "Core/HW/EXI_Device.h"
 #include "Core/HW/EXI_DeviceEthernet.h"
 
@@ -22,10 +23,8 @@ bool CEXIETHERNET::Activate()
 		return false;
 	}
 
-	readEnabled = false;
-
 	INFO_LOG(SP1, "BBA initialized.");
-	return true;
+	return RecvInit();
 }
 
 void CEXIETHERNET::Deactivate()
@@ -33,7 +32,8 @@ void CEXIETHERNET::Deactivate()
 	close(fd);
 	fd = -1;
 
-	readEnabled = false;
+	readEnabled.Clear();
+	readThreadShutdown.Set();
 	if (readThread.joinable())
 		readThread.join();
 }
@@ -63,11 +63,8 @@ bool CEXIETHERNET::SendFrame(u8* frame, u32 size)
 
 static void ReadThreadHandler(CEXIETHERNET* self)
 {
-	while (true)
+	while (!self->readThreadShutdown.IsSet())
 	{
-		if (self->fd < 0)
-			return;
-
 		fd_set rfds;
 		FD_ZERO(&rfds);
 		FD_SET(self->fd, &rfds);
@@ -78,14 +75,14 @@ static void ReadThreadHandler(CEXIETHERNET* self)
 		if (select(self->fd + 1, &rfds, nullptr, nullptr, &timeout) <= 0)
 			continue;
 
-		int readBytes = read(self->fd, self->mRecvBuffer, BBA_RECV_SIZE);
+		int readBytes = read(self->fd, self->mRecvBuffer.get(), BBA_RECV_SIZE);
 		if (readBytes < 0)
 		{
 			ERROR_LOG(SP1, "Failed to read from BBA, err=%d", readBytes);
 		}
-		else if (self->readEnabled)
+		else if (self->readEnabled.IsSet())
 		{
-			INFO_LOG(SP1, "Read data: %s", ArrayToString(self->mRecvBuffer, readBytes, 0x10).c_str());
+			INFO_LOG(SP1, "Read data: %s", ArrayToString(self->mRecvBuffer.get(), readBytes, 0x10).c_str());
 			self->mRecvBufferLength = readBytes;
 			self->RecvHandlePacket();
 		}
@@ -98,16 +95,12 @@ bool CEXIETHERNET::RecvInit()
 	return true;
 }
 
-bool CEXIETHERNET::RecvStart()
+void CEXIETHERNET::RecvStart()
 {
-	if (!readThread.joinable())
-		RecvInit();
-
-	readEnabled = true;
-	return true;
+	readEnabled.Set();
 }
 
 void CEXIETHERNET::RecvStop()
 {
-	readEnabled = false;
+	readEnabled.Clear();
 }

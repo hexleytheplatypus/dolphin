@@ -1,9 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/Assert.h"
+#include "Common/MsgHandler.h"
 #include "Common/StringUtil.h"
-
+#include "Common/Logging/Log.h"
 #include "Core/HW/EXI_Device.h"
 #include "Core/HW/EXI_DeviceEthernet.h"
 #include "Core/HW/BBA-TAP/TAP_Win32.h"
@@ -87,15 +89,19 @@ bool GetGUIDs(std::vector<std::basic_string<TCHAR>>& guids)
 	LONG status;
 	HKEY control_net_key;
 	DWORD len;
-	int i = 0;
-	bool found_all = false;
+	DWORD cSubKeys = 0;
 
-	status = RegOpenKeyEx(HKEY_LOCAL_MACHINE, NETWORK_CONNECTIONS_KEY, 0, KEY_READ, &control_net_key);
+	status = RegOpenKeyEx(HKEY_LOCAL_MACHINE, NETWORK_CONNECTIONS_KEY, 0, KEY_READ | KEY_QUERY_VALUE, &control_net_key);
 
 	if (status != ERROR_SUCCESS)
 		return false;
 
-	while (!found_all)
+	status = RegQueryInfoKey(control_net_key, nullptr, nullptr, nullptr, &cSubKeys, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+
+	if (status != ERROR_SUCCESS)
+		return false;
+
+	for (DWORD i = 0; i < cSubKeys; i++)
 	{
 		TCHAR enum_name[256];
 		TCHAR connection_string[256];
@@ -108,10 +114,8 @@ bool GetGUIDs(std::vector<std::basic_string<TCHAR>>& guids)
 		status = RegEnumKeyEx(control_net_key, i, enum_name,
 			&len, nullptr, nullptr, nullptr, nullptr);
 
-		if (status == ERROR_NO_MORE_ITEMS)
-			break;
-		else if (status != ERROR_SUCCESS)
-			return false;
+		if (status != ERROR_SUCCESS)
+			continue;
 
 		_sntprintf(connection_string, sizeof(connection_string),
 			_T("%s\\%s\\Connection"), NETWORK_CONNECTIONS_KEY, enum_name);
@@ -127,36 +131,31 @@ bool GetGUIDs(std::vector<std::basic_string<TCHAR>>& guids)
 
 			if (status != ERROR_SUCCESS || name_type != REG_SZ)
 			{
-				return false;
+				continue;
 			}
 			else
 			{
 				if (IsTAPDevice(enum_name))
 				{
 					guids.push_back(enum_name);
-					//found_all = true;
 				}
 			}
 
 			RegCloseKey(connection_key);
 		}
-		i++;
 	}
 
 	RegCloseKey(control_net_key);
 
-	//if (!found_all)
-		//return false;
-
-	return true;
+	return !guids.empty();
 }
 
 bool OpenTAP(HANDLE& adapter, const std::basic_string<TCHAR>& device_guid)
 {
 	auto const device_path = USERMODEDEVICEDIR + device_guid + TAPSUFFIX;
 
-	adapter = CreateFile(device_path.c_str(), GENERIC_READ | GENERIC_WRITE, 0, 0,
-		OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM | FILE_FLAG_OVERLAPPED, 0);
+	adapter = CreateFile(device_path.c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr,
+		OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM | FILE_FLAG_OVERLAPPED, nullptr);
 
 	if (adapter == INVALID_HANDLE_VALUE)
 	{
@@ -187,7 +186,7 @@ bool CEXIETHERNET::Activate()
 		if (Win32TAPHelper::OpenTAP(mHAdapter, device_guids.at(i)))
 		{
 			INFO_LOG(SP1, "OPENED %s", device_guids.at(i).c_str());
-			i = device_guids.size();
+			break;
 		}
 	}
 	if (mHAdapter == INVALID_HANDLE_VALUE)
@@ -224,7 +223,14 @@ bool CEXIETHERNET::Activate()
 		return false;
 	}
 
-	return true;
+	/* initialize read/write events */
+	mReadOverlapped.hEvent = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+	mWriteOverlapped.hEvent = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+	if (mReadOverlapped.hEvent == nullptr || mWriteOverlapped.hEvent == nullptr)
+		return false;
+
+	mWriteBuffer.reserve(1518);
+	return RecvInit();
 }
 
 void CEXIETHERNET::Deactivate()
@@ -232,10 +238,24 @@ void CEXIETHERNET::Deactivate()
 	if (!IsActivated())
 		return;
 
-	RecvStop();
+	// Signal read thread to exit.
+	readEnabled.Clear();
+	readThreadShutdown.Set();
 
+	// Cancel any outstanding requests from both this thread (writes), and the read thread.
+	CancelIoEx(mHAdapter, nullptr);
+
+	// Wait for read thread to exit.
+	if (readThread.joinable())
+		readThread.join();
+
+	// Clean-up handles
+	CloseHandle(mReadOverlapped.hEvent);
+	CloseHandle(mWriteOverlapped.hEvent);
 	CloseHandle(mHAdapter);
 	mHAdapter = INVALID_HANDLE_VALUE;
+	memset(&mReadOverlapped, 0, sizeof(mReadOverlapped));
+	memset(&mWriteOverlapped, 0, sizeof(mWriteOverlapped));
 }
 
 bool CEXIETHERNET::IsActivated()
@@ -243,95 +263,103 @@ bool CEXIETHERNET::IsActivated()
 	return mHAdapter != INVALID_HANDLE_VALUE;
 }
 
-bool CEXIETHERNET::SendFrame(u8 *frame, u32 size)
+static void ReadThreadHandler(CEXIETHERNET* self)
 {
-	DEBUG_LOG(SP1, "SendFrame %x\n%s",
-		size, ArrayToString(frame, size, 0x10).c_str());
-
-	DWORD numBytesWrit;
-	OVERLAPPED overlap;
-	ZeroMemory(&overlap, sizeof(overlap));
-
-	if (!WriteFile(mHAdapter, frame, size, &numBytesWrit, &overlap))
+	while (!self->readThreadShutdown.IsSet())
 	{
-		DWORD res = GetLastError();
-		ERROR_LOG(SP1, "Failed to send packet with error 0x%X", res);
+		DWORD transferred;
+
+		// Read from TAP into internal buffer.
+		if (ReadFile(self->mHAdapter, self->mRecvBuffer.get(), BBA_RECV_SIZE, &transferred, &self->mReadOverlapped))
+		{
+			// Returning immediately is not likely to happen, but if so, reset the event state manually.
+			ResetEvent(self->mReadOverlapped.hEvent);
+		}
+		else
+		{
+			// IO should be pending.
+			if (GetLastError() != ERROR_IO_PENDING)
+			{
+				ERROR_LOG(SP1, "ReadFile failed (err=0x%X)", GetLastError());
+				continue;
+			}
+
+			// Block until the read completes.
+			if (!GetOverlappedResult(self->mHAdapter, &self->mReadOverlapped, &transferred, TRUE))
+			{
+				// If CancelIO was called, we should exit (the flag will be set).
+				if (GetLastError() == ERROR_OPERATION_ABORTED)
+					continue;
+
+				// Something else went wrong.
+				ERROR_LOG(SP1, "GetOverlappedResult failed (err=0x%X)", GetLastError());
+				continue;
+			}
+		}
+
+		// Copy to BBA buffer, and fire interrupt if enabled.
+		DEBUG_LOG(SP1, "Received %u bytes\n: %s", transferred, ArrayToString(self->mRecvBuffer.get(), transferred, 0x10).c_str());
+		if (self->readEnabled.IsSet())
+		{
+			self->mRecvBufferLength = transferred;
+			self->RecvHandlePacket();
+		}
+	}
+}
+
+bool CEXIETHERNET::SendFrame(u8* frame, u32 size)
+{
+	DEBUG_LOG(SP1, "SendFrame %u bytes:\n%s", size, ArrayToString(frame, size, 0x10).c_str());
+
+	// Check for a background write. We can't issue another one until this one has completed.
+	DWORD transferred;
+	if (mWritePending)
+	{
+		// Wait for previous write to complete.
+		if (!GetOverlappedResult(mHAdapter, &mWriteOverlapped, &transferred, TRUE))
+			ERROR_LOG(SP1, "GetOverlappedResult failed (err=0x%X)", GetLastError());
 	}
 
-	if (numBytesWrit != size)
+	// Copy to write buffer.
+	mWriteBuffer.resize(size);
+	memcpy(mWriteBuffer.data(), frame, size);
+	mWritePending = true;
+
+	// Queue async write.
+	if (WriteFile(mHAdapter, mWriteBuffer.data(), size, &transferred, &mWriteOverlapped))
 	{
-		ERROR_LOG(SP1, "BBA SendFrame %i only got %i bytes sent!", size, numBytesWrit);
+		// Returning immediately is not likely to happen, but if so, reset the event state manually.
+		ResetEvent(mWriteOverlapped.hEvent);
+	}
+	else
+	{
+		// IO should be pending.
+		if (GetLastError() != ERROR_IO_PENDING)
+		{
+			ERROR_LOG(SP1, "WriteFile failed (err=0x%X)", GetLastError());
+			ResetEvent(mWriteOverlapped.hEvent);
+			mWritePending = false;
+			return false;
+		}
 	}
 
 	// Always report the packet as being sent successfully, even though it might be a lie
 	SendComplete();
-
 	return true;
-}
-
-VOID CALLBACK CEXIETHERNET::ReadWaitCallback(PVOID lpParameter, BOOLEAN TimerFired)
-{
-	CEXIETHERNET* self = (CEXIETHERNET*)lpParameter;
-
-	GetOverlappedResult(self->mHAdapter, &self->mReadOverlapped,
-		(LPDWORD)&self->mRecvBufferLength, false);
-
-	self->RecvHandlePacket();
 }
 
 bool CEXIETHERNET::RecvInit()
 {
-	// Set up recv event
-
-	if ((mHRecvEvent = CreateEvent(nullptr, false, false, nullptr)) == nullptr)
-	{
-		ERROR_LOG(SP1, "Failed to create recv event:%x", GetLastError());
-		return false;
-	}
-
-	ZeroMemory(&mReadOverlapped, sizeof(mReadOverlapped));
-
-	RegisterWaitForSingleObject(&mHReadWait, mHRecvEvent, ReadWaitCallback,
-		this, INFINITE, WT_EXECUTEDEFAULT);
-
-	mReadOverlapped.hEvent = mHRecvEvent;
-
+	readThread = std::thread(ReadThreadHandler, this);
 	return true;
 }
 
-bool CEXIETHERNET::RecvStart()
+void CEXIETHERNET::RecvStart()
 {
-	if (!IsActivated())
-		return false;
-
-	if (mHRecvEvent == INVALID_HANDLE_VALUE)
-		RecvInit();
-
-	DWORD res = ReadFile(mHAdapter, mRecvBuffer, BBA_RECV_SIZE,
-		(LPDWORD)&mRecvBufferLength, &mReadOverlapped);
-
-	if (!res && (GetLastError() != ERROR_IO_PENDING))
-	{
-		// error occurred
-		return false;
-	}
-
-	if (res)
-	{
-		// Completed immediately
-		RecvHandlePacket();
-	}
-
-	return true;
+	readEnabled.Set();
 }
 
 void CEXIETHERNET::RecvStop()
 {
-	if (!IsActivated())
-		return;
-
-	UnregisterWaitEx(mHReadWait, INVALID_HANDLE_VALUE);
-
-	CloseHandle(mHRecvEvent);
-	mHRecvEvent = INVALID_HANDLE_VALUE;
+	readEnabled.Clear();
 }

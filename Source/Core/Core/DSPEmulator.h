@@ -1,10 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "Common/ChunkFile.h"
+#include <memory>
+#include "Common/CommonTypes.h"
+
+class PointerWrap;
 
 class DSPEmulator
 {
@@ -30,4 +33,4 @@ public:
 	virtual u32 DSP_UpdateRate() = 0;
 };
 
-DSPEmulator *CreateDSPEmulator(bool HLE);
+std::unique_ptr<DSPEmulator> CreateDSPEmulator(bool hle);

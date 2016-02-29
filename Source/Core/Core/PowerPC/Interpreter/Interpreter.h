@@ -1,38 +1,24 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "Common/Atomic.h"
-#include "Core/ConfigManager.h"
-#include "Core/Core.h"
-#include "Core/CoreTiming.h"
-#include "Core/HLE/HLE.h"
-#include "Core/HW/CPU.h"
-#include "Core/HW/Memmap.h"
+#include "Common/CommonTypes.h"
 #include "Core/PowerPC/CPUCoreBase.h"
 #include "Core/PowerPC/Gekko.h"
-#include "Core/PowerPC/PowerPC.h"
 
 class Interpreter : public CPUCoreBase
 {
 public:
 	void Init() override;
 	void Shutdown() override;
-	void Reset();
 	void SingleStep() override;
 	int SingleStepInner();
 
 	void Run() override;
 	void ClearCache() override;
 	const char *GetName() override;
-
-	typedef void (*_interpreterInstruction)(UGeckoInstruction instCode);
-
-	_interpreterInstruction GetInstruction(UGeckoInstruction instCode);
-
-	void Log();
 
 	static bool m_EndBlock;
 
@@ -44,7 +30,6 @@ public:
 	static void bcctrx(UGeckoInstruction _inst);
 	static void bclrx(UGeckoInstruction _inst);
 	static void HLEFunction(UGeckoInstruction _inst);
-	static void CompiledBlock(UGeckoInstruction _inst);
 
 	// Syscall Instruction
 	static void sc(UGeckoInstruction _inst);
@@ -58,7 +43,6 @@ public:
 	static void fnmaddsx(UGeckoInstruction _inst);
 	static void fnmsubsx(UGeckoInstruction _inst);
 	static void fresx(UGeckoInstruction _inst);
-	//static void fsqrtsx(UGeckoInstruction _inst);
 	static void fsubsx(UGeckoInstruction _inst);
 	static void fabsx(UGeckoInstruction _inst);
 	static void fcmpo(UGeckoInstruction _inst);
@@ -78,7 +62,6 @@ public:
 	static void fnmsubx(UGeckoInstruction _inst);
 	static void frsqrtex(UGeckoInstruction _inst);
 	static void fselx(UGeckoInstruction _inst);
-	static void fsqrtx(UGeckoInstruction _inst);
 	static void fsubx(UGeckoInstruction _inst);
 
 	// Integer Instructions
@@ -204,7 +187,6 @@ public:
 	static void stwcxd(UGeckoInstruction _inst);
 	static void stwux(UGeckoInstruction _inst);
 	static void stwx(UGeckoInstruction _inst);
-	static void tlbia(UGeckoInstruction _inst);
 	static void tlbie(UGeckoInstruction _inst);
 	static void tlbsync(UGeckoInstruction _inst);
 
@@ -277,16 +259,16 @@ public:
 	static void crxor(UGeckoInstruction _inst);
 	static void mcrf(UGeckoInstruction _inst);
 	static void rfi(UGeckoInstruction _inst);
-	static void rfid(UGeckoInstruction _inst);
 	static void sync(UGeckoInstruction _inst);
 	static void isync(UGeckoInstruction _inst);
 
-	static _interpreterInstruction m_opTable[64];
-	static _interpreterInstruction m_opTable4[1024];
-	static _interpreterInstruction m_opTable19[1024];
-	static _interpreterInstruction m_opTable31[1024];
-	static _interpreterInstruction m_opTable59[32];
-	static _interpreterInstruction m_opTable63[1024];
+	using Instruction = void (*)(UGeckoInstruction instCode);
+	static Instruction m_opTable[64];
+	static Instruction m_opTable4[1024];
+	static Instruction m_opTable19[1024];
+	static Instruction m_opTable31[1024];
+	static Instruction m_opTable59[32];
+	static Instruction m_opTable63[1024];
 
 	// singleton
 	static Interpreter* getInstance();
@@ -312,8 +294,8 @@ private:
 	static u32 Helper_Get_EA_UX(const UGeckoInstruction _inst);
 
 	// paired helper
-	static float Helper_Dequantize(const u32 _Addr, const EQuantizeType _quantizeType, const unsigned int _uScale);
-	static void  Helper_Quantize  (const u32 _Addr, const double _fValue, const EQuantizeType _quantizeType, const unsigned _uScale);
+	static void Helper_Dequantize(u32 addr, u32 instI, u32 instRD, u32 instW);
+	static void Helper_Quantize(u32 addr, u32 instI, u32 instRS, u32 instW);
 
 	// other helper
 	static u32 Helper_Mask(int mb, int me);

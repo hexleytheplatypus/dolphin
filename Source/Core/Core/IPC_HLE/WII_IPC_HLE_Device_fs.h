@@ -1,10 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include "Core/IPC_HLE/WII_IPC_HLE_Device.h"
+
+class PointerWrap;
 
 struct NANDStat
 {
@@ -36,13 +38,13 @@ public:
 	CWII_IPC_HLE_Device_fs(u32 _DeviceID, const std::string& _rDeviceName);
 	virtual ~CWII_IPC_HLE_Device_fs();
 
-	virtual void DoState(PointerWrap& p) override;
+	void DoState(PointerWrap& p) override;
 
-	virtual IPCCommandResult Open(u32 _CommandAddress, u32 _Mode) override;
-	virtual IPCCommandResult Close(u32 _CommandAddress, bool _bForce) override;
+	IPCCommandResult Open(u32 _CommandAddress, u32 _Mode) override;
+	IPCCommandResult Close(u32 _CommandAddress, bool _bForce) override;
 
-	virtual IPCCommandResult IOCtl(u32 _CommandAddress) override;
-	virtual IPCCommandResult IOCtlV(u32 _CommandAddress) override;
+	IPCCommandResult IOCtl(u32 _CommandAddress) override;
+	IPCCommandResult IOCtlV(u32 _CommandAddress) override;
 
 private:
 
@@ -59,6 +61,10 @@ private:
 		IOCTLV_GETUSAGE   = 0x0C,
 		IOCTL_SHUTDOWN    = 0x0D
 	};
+
+	// ~1/1000th of a second is too short and causes hangs in Wii Party
+	// Play it safe at 1/500th
+	IPCCommandResult GetFSReply() const { return { true, SystemTimers::GetTicksPerSecond() / 500 }; }
 
 	s32 ExecuteCommand(u32 Parameter, u32 _BufferIn, u32 _BufferInSize, u32 _BufferOut, u32 _BufferOutSize);
 };

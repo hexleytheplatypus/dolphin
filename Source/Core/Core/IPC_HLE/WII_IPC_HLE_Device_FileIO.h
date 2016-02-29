@@ -1,11 +1,14 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "Common/FileUtil.h"
+#include <string>
 #include "Core/IPC_HLE/WII_IPC_HLE_Device.h"
+
+class PointerWrap;
+namespace File { class IOFile; }
 
 std::string HLE_IPC_BuildFilename(std::string _pFilename);
 void HLE_IPC_CreateVirtualFATFilesystem();
@@ -25,7 +28,7 @@ public:
 	IPCCommandResult IOCtl(u32 _CommandAddress) override;
 	void DoState(PointerWrap &p) override;
 
-	File::IOFile OpenFile();
+	void OpenFile();
 
 private:
 	enum
@@ -72,4 +75,5 @@ private:
 	u32 m_SeekPos;
 
 	std::string m_filepath;
+	std::shared_ptr<File::IOFile> m_file;
 };

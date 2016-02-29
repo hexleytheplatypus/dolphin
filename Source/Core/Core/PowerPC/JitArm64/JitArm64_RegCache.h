@@ -1,9 +1,10 @@
-// copyright 2014 dolphin emulator project
-// licensed under gplv2
-// refer to the license.txt file included.
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
 
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "Common/Arm64Emitter.h"
@@ -19,11 +20,11 @@ enum RegType
 	REG_NOTLOADED = 0,
 	REG_REG, // Reg type is register
 	REG_IMM, // Reg is really a IMM
-};
-enum RegLocation
-{
-	REG_LOW = 0,
-	REG_HIGH,
+	REG_LOWER_PAIR, // Only the lower pair of a paired register
+	REG_DUP, // The lower reg is the same as the upper one (physical upper doesn't actually have the duplicated value)
+	REG_REG_SINGLE, // Both registers are loaded as single
+	REG_LOWER_PAIR_SINGLE, // Only the lower pair of a paired register, as single
+	REG_DUP_SINGLE, // The lower one contains both registers, as single
 };
 
 enum FlushMode
@@ -33,8 +34,6 @@ enum FlushMode
 	// Flushes registers in a conditional branch
 	// Doesn't wipe the state of the registers from the cache
 	FLUSH_MAINTAIN_STATE,
-	// Flushes only the required registers for an interpreter call
-	FLUSH_INTERPRETER,
 };
 
 class OpArg
@@ -46,22 +45,22 @@ public:
 	{
 	}
 
-	RegType GetType()
+	RegType GetType() const
 	{
 		return m_type;
 	}
 
-	ARM64Reg GetReg()
+	ARM64Reg GetReg() const
 	{
 		return m_reg;
 	}
-	u32 GetImm()
+	u32 GetImm() const
 	{
 		return m_value;
 	}
-	void LoadToReg(ARM64Reg reg)
+	void Load(ARM64Reg reg, RegType type = REG_REG)
 	{
-		m_type = REG_REG;
+		m_type = type;
 		m_reg = reg;
 	}
 	void LoadToImm(u32 imm)
@@ -81,9 +80,12 @@ public:
 		m_last_used = 0xFFFF;
 	}
 
-	u32 GetLastUsed() { return m_last_used; }
+	u32 GetLastUsed() const { return m_last_used; }
 	void ResetLastUsed() { m_last_used = 0; }
 	void IncrementLastUsed() { ++m_last_used; }
+
+	void SetDirty(bool dirty) { m_dirty = dirty; }
+	bool IsDirty() const { return m_dirty; }
 
 private:
 	// For REG_REG
@@ -94,6 +96,8 @@ private:
 	u32 m_value; // IMM value
 
 	u32 m_last_used;
+
+	bool m_dirty;
 };
 
 class HostReg
@@ -101,10 +105,10 @@ class HostReg
 public:
 	HostReg() : m_reg(INVALID_REG), m_locked(false) {}
 	HostReg(ARM64Reg reg) : m_reg(reg), m_locked(false) {}
-	bool IsLocked() { return m_locked; }
+	bool IsLocked() const { return m_locked; }
 	void Lock() { m_locked = true; }
 	void Unlock() { m_locked = false; }
-	ARM64Reg GetReg() { return m_reg; }
+	ARM64Reg GetReg() const { return m_reg; }
 
 	bool operator==(const ARM64Reg& reg)
 	{
@@ -129,17 +133,13 @@ public:
 	// Flushes the register cache in different ways depending on the mode
 	virtual void Flush(FlushMode mode, PPCAnalyst::CodeOp* op) = 0;
 
-	// Returns a guest register inside of a host register
-	// Will dump an immediate to the host register as well
-	virtual ARM64Reg R(u32 reg) = 0;
-
 	virtual BitSet32 GetCallerSavedUsed() = 0;
 
 	// Returns a temporary register for use
 	// Requires unlocking after done
 	ARM64Reg GetReg();
 
-	void StoreRegister(u32 preg) { FlushRegister(preg, false); }
+	void StoreRegisters(BitSet32 regs) { FlushRegisters(regs, false); }
 
 	// Locks a register so a cache cannot use it
 	// Useful for function calls
@@ -182,6 +182,8 @@ protected:
 	virtual void FlushByHost(ARM64Reg host_reg) = 0;
 
 	virtual void FlushRegister(u32 preg, bool maintain_state) = 0;
+
+	virtual void FlushRegisters(BitSet32 regs, bool maintain_state) = 0;
 
 	// Get available host registers
 	u32 GetUnlockedRegisterCount();
@@ -228,10 +230,10 @@ public:
 	void SetImmediate(u32 preg, u32 imm);
 
 	// Returns if a register is set as an immediate
-	bool IsImm(u32 reg) { return m_guest_registers[reg].GetType() == REG_IMM; }
+	bool IsImm(u32 reg) const { return m_guest_registers[reg].GetType() == REG_IMM; }
 
 	// Gets the immediate that a register is set to
-	u32 GetImm(u32 reg) { return m_guest_registers[reg].GetImm(); }
+	u32 GetImm(u32 reg) const { return m_guest_registers[reg].GetImm(); }
 
 	void BindToRegister(u32 preg, bool do_load);
 
@@ -245,6 +247,8 @@ protected:
 	void FlushByHost(ARM64Reg host_reg) override;
 
 	void FlushRegister(u32 preg, bool maintain_state) override;
+
+	void FlushRegisters(BitSet32 regs, bool maintain_state) override;
 
 private:
 	bool IsCalleeSaved(ARM64Reg reg);
@@ -260,11 +264,15 @@ public:
 
 	// Returns a guest register inside of a host register
 	// Will dump an immediate to the host register as well
-	ARM64Reg R(u32 preg);
+	ARM64Reg R(u32 preg, RegType type = REG_LOWER_PAIR);
 
-	void BindToRegister(u32 preg, bool do_load);
+	ARM64Reg RW(u32 preg, RegType type = REG_LOWER_PAIR);
 
 	BitSet32 GetCallerSavedUsed() override;
+
+	bool IsSingle(u32 preg, bool lower_only = false);
+
+	void FixSinglePrecision(u32 preg);
 
 protected:
 	// Get the order of the host registers
@@ -274,6 +282,8 @@ protected:
 	void FlushByHost(ARM64Reg host_reg) override;
 
 	void FlushRegister(u32 preg, bool maintain_state) override;
+
+	void FlushRegisters(BitSet32 regs, bool maintain_state) override;
 
 private:
 	bool IsCalleeSaved(ARM64Reg reg);

@@ -1,13 +1,18 @@
-// Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 #include <bluetooth/l2cap.h>
 
-#include "Common/Common.h"
+#include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
+#include "Core/HW/WiimoteEmu/WiimoteHid.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"
 
 namespace WiimoteReal
@@ -36,8 +41,7 @@ private:
 };
 
 WiimoteScanner::WiimoteScanner()
-	: m_want_wiimotes()
-	, device_id(-1)
+	: device_id(-1)
 	, device_sock(-1)
 {
 	// Get the id of the first Bluetooth device.

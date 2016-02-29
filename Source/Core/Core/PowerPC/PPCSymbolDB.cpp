@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <map>
@@ -9,9 +9,8 @@
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
 #include "Common/StringUtil.h"
-
-#include "Core/Host.h"
-#include "Core/HW/Memmap.h"
+#include "Common/Logging/Log.h"
+#include "Core/ConfigManager.h"
 #include "Core/PowerPC/PowerPC.h"
 #include "Core/PowerPC/PPCAnalyst.h"
 #include "Core/PowerPC/PPCSymbolDB.h"
@@ -86,7 +85,7 @@ void PPCSymbolDB::AddKnownSymbol(u32 startAddr, u32 size, const std::string& nam
 
 Symbol *PPCSymbolDB::GetSymbolFromAddr(u32 addr)
 {
-	if (!Memory::IsRAMAddress(addr))
+	if (!PowerPC::HostIsRAMAddress(addr))
 		return nullptr;
 
 	XFuncMap::iterator it = functions.find(addr);
@@ -333,11 +332,11 @@ bool PPCSymbolDB::LoadMap(const std::string& filename, bool bad)
 			if (!good)
 			{
 				// check for BLR before function
-				u32 opcode = Memory::Read_Instruction(vaddress - 4);
+				u32 opcode = PowerPC::HostRead_Instruction(vaddress - 4);
 				if (opcode == 0x4e800020)
 				{
 					// check for BLR at end of function
-					opcode = Memory::Read_Instruction(vaddress + size - 4);
+					opcode = PowerPC::HostRead_Instruction(vaddress + size - 4);
 					if (opcode == 0x4e800020)
 						good = true;
 				}

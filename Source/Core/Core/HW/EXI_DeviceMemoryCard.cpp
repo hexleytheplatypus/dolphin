@@ -1,13 +1,20 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
+#include <memory>
+#include <string>
+
+#include "Common/ChunkFile.h"
+#include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
+#include "Common/IniFile.h"
 #include "Common/NandPaths.h"
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
-#include "Core/Core.h"
 #include "Core/CoreTiming.h"
 #include "Core/Movie.h"
 #include "Core/HW/EXI.h"
@@ -115,7 +122,7 @@ CEXIMemoryCard::CEXIMemoryCard(const int index, bool gciFolder)
 	// Disney Sports : Soccer GDKEA4
 	// Use a 16Mb (251 block) memory card for these games
 	bool useMC251;
-	IniFile gameIni = SConfig::GetInstance().m_LocalCoreStartupParameter.LoadGameIni();
+	IniFile gameIni = SConfig::GetInstance().LoadGameIni();
 	gameIni.GetOrCreateSection("Core")->Get("MemoryCard251", &useMC251, false);
 	u16 sizeMb = useMC251 ? MemCard251Mb : MemCard2043Mb;
 
@@ -130,33 +137,32 @@ CEXIMemoryCard::CEXIMemoryCard(const int index, bool gciFolder)
 
 	memory_card_size = memorycard->GetCardId() * SIZE_TO_Mb;
 	u8 header[20] = {0};
-	memorycard->Read(0, ArraySize(header), header);
+	memorycard->Read(0, static_cast<s32>(ArraySize(header)), header);
 	SetCardFlashID(header, card_index);
 }
 
 void CEXIMemoryCard::SetupGciFolder(u16 sizeMb)
 {
-
-	DiscIO::IVolume::ECountry CountryCode = DiscIO::IVolume::COUNTRY_UNKNOWN;
-	auto strUniqueID = SConfig::GetInstance().m_LocalCoreStartupParameter.m_strUniqueID;
+	DiscIO::IVolume::ECountry country_code = DiscIO::IVolume::COUNTRY_UNKNOWN;
+	auto strUniqueID = SConfig::GetInstance().m_strUniqueID;
 
 	u32 CurrentGameId = 0;
 	if (strUniqueID == TITLEID_SYSMENU_STRING)
 	{
-		const DiscIO::INANDContentLoader & SysMenu_Loader = DiscIO::CNANDContentManager::Access().GetNANDLoader(TITLEID_SYSMENU, false);
+		const DiscIO::CNANDContentLoader & SysMenu_Loader = DiscIO::CNANDContentManager::Access().GetNANDLoader(TITLEID_SYSMENU, Common::FROM_SESSION_ROOT);
 		if (SysMenu_Loader.IsValid())
 		{
-			CountryCode = DiscIO::CountrySwitch(SysMenu_Loader.GetCountryChar());
+			country_code = DiscIO::CountrySwitch(SysMenu_Loader.GetCountryChar());
 		}
 	}
 	else if (strUniqueID.length() >= 4)
 	{
-		CountryCode = DiscIO::CountrySwitch(strUniqueID.at(3));
+		country_code = DiscIO::CountrySwitch(strUniqueID.at(3));
 		CurrentGameId = BE32((u8*)strUniqueID.c_str());
 	}
 	bool ascii = true;
 	std::string strDirectoryName = File::GetUserPath(D_GCUSER_IDX);
-	switch (CountryCode)
+	switch (country_code)
 	{
 	case DiscIO::IVolume::COUNTRY_JAPAN:
 		ascii = false;
@@ -168,7 +174,7 @@ void CEXIMemoryCard::SetupGciFolder(u16 sizeMb)
 	case DiscIO::IVolume::COUNTRY_UNKNOWN:
 	{
 		// The current game's region is not passed down to the EXI device level.
-		// Usually, we can retrieve the region from SConfig::GetInstance().m_LocalCoreStartupParameter.m_strUniqueId.
+		// Usually, we can retrieve the region from SConfig::GetInstance().m_strUniqueId.
 		// The Wii System Menu requires a lookup based on the version number.
 		// This is not possible in some cases ( e.g. FIFO logs, homebrew elf/dol files).
 		// Instead, we then lookup the region from the memory card name
@@ -176,27 +182,27 @@ void CEXIMemoryCard::SetupGciFolder(u16 sizeMb)
 		// For now take advantage of this.
 		// Future options:
 		// 			Set memory card directory path in the checkMemcardPath function.
-		// 	or		Add region to SConfig::GetInstance().m_LocalCoreStartupParameter.
+		// 	or		Add region to SConfig::GetInstance().
 		// 	or		Pass region down to the EXI device creation.
 
 		std::string memcardFilename = (card_index == 0) ? SConfig::GetInstance().m_strMemoryCardA : SConfig::GetInstance().m_strMemoryCardB;
 		std::string region = memcardFilename.substr(memcardFilename.size() - 7, 3);
 		if (region == JAP_DIR)
 		{
-			CountryCode = DiscIO::IVolume::COUNTRY_JAPAN;
+			country_code = DiscIO::IVolume::COUNTRY_JAPAN;
 			ascii = false;
 			strDirectoryName += JAP_DIR DIR_SEP;
 			break;
 		}
 		else if (region == USA_DIR)
 		{
-			CountryCode = DiscIO::IVolume::COUNTRY_USA;
+			country_code = DiscIO::IVolume::COUNTRY_USA;
 			strDirectoryName += USA_DIR DIR_SEP;
 			break;
 		}
 	}
 	default:
-		CountryCode = DiscIO::IVolume::COUNTRY_EUROPE;
+		country_code = DiscIO::IVolume::COUNTRY_EUROPE;
 		strDirectoryName += EUR_DIR DIR_SEP;
 	}
 	strDirectoryName += StringFromFormat("Card %c", 'A' + card_index);
@@ -223,7 +229,7 @@ void CEXIMemoryCard::SetupGciFolder(u16 sizeMb)
 	}
 
 	memorycard = std::make_unique<GCMemcardDirectory>(strDirectoryName + DIR_SEP, card_index, sizeMb, ascii,
-													  CountryCode, CurrentGameId);
+													  country_code, CurrentGameId);
 }
 
 void CEXIMemoryCard::SetupRawMemcard(u16 sizeMb)
@@ -247,12 +253,12 @@ CEXIMemoryCard::~CEXIMemoryCard()
 	CoreTiming::RemoveEvent(et_transfer_complete);
 }
 
-bool CEXIMemoryCard::UseDelayedTransferCompletion()
+bool CEXIMemoryCard::UseDelayedTransferCompletion() const
 {
 	return true;
 }
 
-bool CEXIMemoryCard::IsPresent()
+bool CEXIMemoryCard::IsPresent() const
 {
 	return true;
 }
@@ -315,14 +321,14 @@ void CEXIMemoryCard::SetCS(int cs)
 			if (m_uPosition >= 5)
 			{
 				int count = m_uPosition - 5;
-				int i=0;
+				int i = 0;
 				status &= ~0x80;
 
 				while (count--)
 				{
 					memorycard->Write(address, 1, &(programming_buffer[i++]));
 					i &= 127;
-					address = (address & ~0x1FF) | ((address+1) & 0x1FF);
+					address = (address & ~0x1FF) | ((address + 1) & 0x1FF);
 				}
 
 				CmdDoneLater(5000);
@@ -423,7 +429,7 @@ void CEXIMemoryCard::TransferByte(u8 &byte)
 				// after 9 bytes, we start incrementing the address,
 				// but only the sector offset - the pointer wraps around
 				if (m_uPosition >= 9)
-					address = (address & ~0x1FF) | ((address+1) & 0x1FF);
+					address = (address & ~0x1FF) | ((address + 1) & 0x1FF);
 			}
 			break;
 

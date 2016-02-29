@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -16,14 +16,12 @@
 #include <string>
 #include <vector>
 #include <wx/button.h>
-#include <wx/control.h>
 #include <wx/dialog.h>
-#include <wx/gdicmn.h>
+#include <wx/eventfilter.h>
 #include <wx/panel.h>
 #include <wx/sizer.h>
 #include <wx/spinctrl.h>
-#include <wx/string.h>
-#include <wx/translation.h>
+#include <wx/timer.h>
 
 #include "InputCommon/ControllerEmu.h"
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
@@ -31,17 +29,12 @@
 
 class InputConfig;
 class wxComboBox;
-class wxCommandEvent;
-class wxEvent;
 class wxListBox;
 class wxNotebook;
 class wxSlider;
 class wxStaticBitmap;
 class wxStaticText;
 class wxTextCtrl;
-class wxTimer;
-class wxTimerEvent;
-class wxWindow;
 
 class PadSetting
 {
@@ -91,6 +84,36 @@ public:
 	ControllerEmu::ControlGroup::Setting* const setting;
 };
 
+class InputEventFilter : public wxEventFilter
+{
+public:
+	InputEventFilter()
+	{
+		wxEvtHandler::AddFilter(this);
+	}
+
+	~InputEventFilter()
+	{
+		wxEvtHandler::RemoveFilter(this);
+	}
+
+	int FilterEvent(wxEvent& event) override;
+
+	void BlockEvents(bool block) { m_block = block; }
+
+private:
+	static bool ShouldCatchEventType(wxEventType type)
+	{
+		return type == wxEVT_KEY_DOWN || type == wxEVT_KEY_UP ||
+			type == wxEVT_CHAR || type == wxEVT_CHAR_HOOK ||
+			type == wxEVT_LEFT_DOWN || type == wxEVT_LEFT_UP ||
+			type == wxEVT_MIDDLE_DOWN || type == wxEVT_MIDDLE_UP ||
+			type == wxEVT_RIGHT_DOWN || type == wxEVT_RIGHT_UP;
+	}
+
+	bool m_block = false;
+};
+
 class GamepadPage;
 
 class ControlDialog : public wxDialog
@@ -98,35 +121,38 @@ class ControlDialog : public wxDialog
 public:
 	ControlDialog(GamepadPage* const parent, InputConfig& config, ControllerInterface::ControlReference* const ref);
 
+	bool Validate() override;
+
+	int GetRangeSliderValue() const;
+
+	ControllerInterface::ControlReference* const control_reference;
+	InputConfig& m_config;
+
+private:
 	wxStaticBoxSizer* CreateControlChooser(GamepadPage* const parent);
-
-	virtual bool Validate() override;
-
-	void DetectControl(wxCommandEvent& event);
-	void ClearControl(wxCommandEvent& event);
-	void SetDevice(wxCommandEvent& event);
 
 	void UpdateGUI();
 	void UpdateListContents();
 	void SelectControl(const std::string& name);
 
+	void DetectControl(wxCommandEvent& event);
+	void ClearControl(wxCommandEvent& event);
+	void SetDevice(wxCommandEvent& event);
+
 	void SetSelectedControl(wxCommandEvent& event);
 	void AppendControl(wxCommandEvent& event);
 
-	ControllerInterface::ControlReference* const control_reference;
-	InputConfig& m_config;
-	wxComboBox*  device_cbox;
+	bool GetExpressionForSelectedControl(wxString &expr);
 
-	wxTextCtrl* textctrl;
-	wxListBox*  control_lbox;
-	wxSlider*   range_slider;
-
-private:
 	GamepadPage* const m_parent;
+	wxComboBox*        device_cbox;
+	wxTextCtrl*        textctrl;
+	wxListBox*         control_lbox;
+	wxSlider*          range_slider;
 	wxStaticText*      m_bound_label;
 	wxStaticText*      m_error_label;
-	ciface::Core::DeviceQualifier    m_devq;
-	bool GetExpressionForSelectedControl(wxString &expr);
+	InputEventFilter   m_event_filter;
+	ciface::Core::DeviceQualifier m_devq;
 };
 
 class ExtensionButton : public wxButton
@@ -174,7 +200,7 @@ class GamepadPage : public wxPanel
 	friend class ControlDialog;
 
 public:
-	GamepadPage(wxWindow* parent, InputConfig& config, const unsigned int pad_num, InputConfigDialog* const config_dialog);
+	GamepadPage(wxWindow* parent, InputConfig& config, const int pad_num, InputConfigDialog* const config_dialog);
 
 	void UpdateGUI();
 
@@ -215,7 +241,9 @@ private:
 
 	ControlDialog*           m_control_dialog;
 	InputConfigDialog* const m_config_dialog;
-	InputConfig& m_config;
+	InputConfig&             m_config;
+	InputEventFilter         m_event_filter;
+
 	bool DetectButton(ControlButton* button);
 	bool m_iterate = false;
 };
@@ -224,9 +252,6 @@ class InputConfigDialog : public wxDialog
 {
 public:
 	InputConfigDialog(wxWindow* const parent, InputConfig& config, const wxString& name, const int tab_num = 0);
-	//~InputConfigDialog();
-
-	bool Destroy() override;
 
 	void ClickSave(wxCommandEvent& event);
 
@@ -241,5 +266,5 @@ private:
 	wxNotebook*               m_pad_notebook;
 	std::vector<GamepadPage*> m_padpages;
 	InputConfig&              m_config;
-	wxTimer*                  m_update_timer;
+	wxTimer                   m_update_timer;
 };

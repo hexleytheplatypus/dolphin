@@ -1,9 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "Core/DSP/DSPEmitter.h"
+#include "Core/DSP/DSPInterpreter.h"
 #include "Core/DSP/DSPIntUtil.h"
+#include "Core/DSP/DSPMemoryMap.h"
 
 using namespace Gen;
 
@@ -113,9 +115,9 @@ void DSPEmitter::setCompileSR(u16 bit)
 
 	//	g_dsp.r[DSP_REG_SR] |= bit
 	OpArg sr_reg;
-	gpr.getReg(DSP_REG_SR,sr_reg);
+	gpr.GetReg(DSP_REG_SR,sr_reg);
 	OR(16, sr_reg, Imm16(bit));
-	gpr.putReg(DSP_REG_SR);
+	gpr.PutReg(DSP_REG_SR);
 
 	compileSR |= bit;
 }
@@ -125,9 +127,9 @@ void DSPEmitter::clrCompileSR(u16 bit)
 
 	//	g_dsp.r[DSP_REG_SR] &= bit
 	OpArg sr_reg;
-	gpr.getReg(DSP_REG_SR,sr_reg);
+	gpr.GetReg(DSP_REG_SR,sr_reg);
 	AND(16, sr_reg, Imm16(~bit));
-	gpr.putReg(DSP_REG_SR);
+	gpr.PutReg(DSP_REG_SR);
 
 	compileSR  &= ~bit;
 }

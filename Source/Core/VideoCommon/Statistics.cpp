@@ -1,13 +1,15 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <cstring>
 #include <string>
 #include <utility>
 
 #include "Common/StringUtil.h"
 #include "VideoCommon/Statistics.h"
 #include "VideoCommon/VertexLoaderManager.h"
+#include "VideoCommon/VideoConfig.h"
 
 Statistics stats;
 
@@ -27,6 +29,21 @@ void Statistics::SwapDL()
 std::string Statistics::ToString()
 {
 	std::string str;
+
+	if (g_ActiveConfig.backend_info.APIType == API_TYPE::API_NONE)
+	{
+		str += StringFromFormat("Objects:            %i\n", stats.thisFrame.numDrawnObjects);
+		str += StringFromFormat("Vertices Loaded:    %i\n", stats.thisFrame.numVerticesLoaded);
+		str += StringFromFormat("Triangles Input:    %i\n", stats.thisFrame.numTrianglesIn);
+		str += StringFromFormat("Triangles Rejected: %i\n", stats.thisFrame.numTrianglesRejected);
+		str += StringFromFormat("Triangles Culled:   %i\n", stats.thisFrame.numTrianglesCulled);
+		str += StringFromFormat("Triangles Clipped:  %i\n", stats.thisFrame.numTrianglesClipped);
+		str += StringFromFormat("Triangles Drawn:    %i\n", stats.thisFrame.numTrianglesDrawn);
+		str += StringFromFormat("Rasterized Pix:     %i\n", stats.thisFrame.rasterizedPixels);
+		str += StringFromFormat("TEV Pix In:         %i\n", stats.thisFrame.tevPixelsIn);
+		str += StringFromFormat("TEV Pix Out:        %i\n", stats.thisFrame.tevPixelsOut);
+	}
+
 	str += StringFromFormat("Textures created: %i\n", stats.numTexturesCreated);
 	str += StringFromFormat("Textures uploaded: %i\n", stats.numTexturesUploaded);
 	str += StringFromFormat("Textures alive: %i\n", stats.numTexturesAlive);
@@ -46,9 +63,9 @@ std::string Statistics::ToString()
 	str += StringFromFormat("CP loads (DL): %i\n", stats.thisFrame.numCPLoadsInDL);
 	str += StringFromFormat("BP loads: %i\n", stats.thisFrame.numBPLoads);
 	str += StringFromFormat("BP loads (DL): %i\n", stats.thisFrame.numBPLoadsInDL);
-	str += StringFromFormat("Vertex streamed: %i kB\n", stats.thisFrame.bytesVertexStreamed/1024);
-	str += StringFromFormat("Index streamed: %i kB\n", stats.thisFrame.bytesIndexStreamed/1024);
-	str += StringFromFormat("Uniform streamed: %i kB\n", stats.thisFrame.bytesUniformStreamed/1024);
+	str += StringFromFormat("Vertex streamed: %i kB\n", stats.thisFrame.bytesVertexStreamed / 1024);
+	str += StringFromFormat("Index streamed: %i kB\n", stats.thisFrame.bytesIndexStreamed / 1024);
+	str += StringFromFormat("Uniform streamed: %i kB\n", stats.thisFrame.bytesUniformStreamed / 1024);
 	str += StringFromFormat("Vertex Loaders: %i\n", stats.numVertexLoaders);
 
 	std::string vertex_list;

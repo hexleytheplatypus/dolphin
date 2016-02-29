@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
@@ -27,13 +27,13 @@ struct MemoryUpdate
 	u32 fifoPosition;
 	u32 address;
 	u32 size;
-	u8 *data;
+	u8* data;
 	Type type;
 };
 
 struct FifoFrameInfo
 {
-	u8 *fifoData;
+	u8* fifoData;
 	u32 fifoDataSize;
 
 	u32 fifoStart;
@@ -59,6 +59,7 @@ public:
 
 	void SetIsWii(bool isWii);
 	bool GetIsWii() const;
+	bool HasBrokenEFBCopies() const;
 
 	u32 *GetBPMem() { return m_BPMem; }
 	u32 *GetCPMem() { return m_CPMem; }
@@ -67,11 +68,11 @@ public:
 
 	void AddFrame(const FifoFrameInfo &frameInfo);
 	const FifoFrameInfo &GetFrame(u32 frame) const { return m_Frames[frame]; }
-	u32 GetFrameCount() { return static_cast<u32>(m_Frames.size()); }
+	u32 GetFrameCount() const { return static_cast<u32>(m_Frames.size()); }
 
 	bool Save(const std::string& filename);
 
-	static FifoDataFile *Load(const std::string &filename, bool flagsOnly);
+	static FifoDataFile* Load(const std::string &filename, bool flagsOnly);
 
 private:
 	enum
@@ -84,8 +85,8 @@ private:
 	void SetFlag(u32 flag, bool set);
 	bool GetFlag(u32 flag) const;
 
-	u64 WriteMemoryUpdates(const std::vector<MemoryUpdate> &memUpdates, File::IOFile &file);
-	static void ReadMemoryUpdates(u64 fileOffset, u32 numUpdates, std::vector<MemoryUpdate> &memUpdates, File::IOFile &file);
+	u64 WriteMemoryUpdates(const std::vector<MemoryUpdate>& memUpdates, File::IOFile &file);
+	static void ReadMemoryUpdates(u64 fileOffset, u32 numUpdates, std::vector<MemoryUpdate>& memUpdates, File::IOFile& file);
 
 	u32 m_BPMem[BP_MEM_SIZE];
 	u32 m_CPMem[CP_MEM_SIZE];
@@ -93,6 +94,7 @@ private:
 	u32 m_XFRegs[XF_REGS_SIZE];
 
 	u32 m_Flags;
+	u32 m_Version;
 
 	std::vector<FifoFrameInfo> m_Frames;
 };

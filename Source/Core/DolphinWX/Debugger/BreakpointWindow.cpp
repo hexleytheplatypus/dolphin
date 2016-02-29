@@ -1,17 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <wx/bitmap.h>
-#include <wx/chartype.h>
-#include <wx/defs.h>
-#include <wx/event.h>
-#include <wx/gdicmn.h>
 #include <wx/image.h>
 #include <wx/listbase.h>
 #include <wx/panel.h>
-#include <wx/string.h>
-#include <wx/windowid.h>
 #include <wx/aui/auibar.h>
 #include <wx/aui/framemanager.h>
 
@@ -29,12 +23,6 @@
 #include "DolphinWX/Debugger/CodeWindow.h"
 #include "DolphinWX/Debugger/MemoryCheckDlg.h"
 
-extern "C" {
-#include "DolphinWX/resources/toolbar_add_breakpoint.c"
-#include "DolphinWX/resources/toolbar_add_memorycheck.c"
-#include "DolphinWX/resources/toolbar_debugger_delete.c"
-}
-
 class CBreakPointBar : public wxAuiToolBar
 {
 public:
@@ -44,9 +32,9 @@ public:
 	{
 		SetToolBitmapSize(wxSize(24, 24));
 
-		m_Bitmaps[Toolbar_Delete] = wxBitmap(wxGetBitmapFromMemory(toolbar_delete_png).ConvertToImage().Rescale(16, 16));
-		m_Bitmaps[Toolbar_Add_BP] = wxBitmap(wxGetBitmapFromMemory(toolbar_add_breakpoint_png).ConvertToImage().Rescale(16, 16));
-		m_Bitmaps[Toolbar_Add_MC] = wxBitmap(wxGetBitmapFromMemory(toolbar_add_memcheck_png).ConvertToImage().Rescale(16, 16));
+		m_Bitmaps[Toolbar_Delete] = WxUtils::LoadResourceBitmap("toolbar_debugger_delete");
+		m_Bitmaps[Toolbar_Add_BP] = WxUtils::LoadResourceBitmap("toolbar_add_breakpoint");
+		m_Bitmaps[Toolbar_Add_MC] = WxUtils::LoadResourceBitmap("toolbar_add_memorycheck");
 
 		AddTool(ID_DELETE, _("Delete"), m_Bitmaps[Toolbar_Delete]);
 		Bind(wxEVT_TOOL, &CBreakPointWindow::OnDelete, parent, ID_DELETE);
@@ -177,10 +165,10 @@ void CBreakPointWindow::SaveAll()
 {
 	// simply dump all to bp/mc files in a way we can read again
 	IniFile ini;
-	ini.Load(File::GetUserPath(D_GAMESETTINGS_IDX) + SConfig::GetInstance().m_LocalCoreStartupParameter.GetUniqueID() + ".ini", false);
+	ini.Load(File::GetUserPath(D_GAMESETTINGS_IDX) + SConfig::GetInstance().GetUniqueID() + ".ini", false);
 	ini.SetLines("BreakPoints", PowerPC::breakpoints.GetStrings());
 	ini.SetLines("MemoryChecks", PowerPC::memchecks.GetStrings());
-	ini.Save(File::GetUserPath(D_GAMESETTINGS_IDX) + SConfig::GetInstance().m_LocalCoreStartupParameter.GetUniqueID() + ".ini");
+	ini.Save(File::GetUserPath(D_GAMESETTINGS_IDX) + SConfig::GetInstance().GetUniqueID() + ".ini");
 }
 
 void CBreakPointWindow::Event_LoadAll(wxCommandEvent& WXUNUSED(event))
@@ -195,7 +183,7 @@ void CBreakPointWindow::LoadAll()
 	BreakPoints::TBreakPointsStr newbps;
 	MemChecks::TMemChecksStr newmcs;
 
-	if (!ini.Load(File::GetUserPath(D_GAMESETTINGS_IDX) + SConfig::GetInstance().m_LocalCoreStartupParameter.GetUniqueID() + ".ini", false))
+	if (!ini.Load(File::GetUserPath(D_GAMESETTINGS_IDX) + SConfig::GetInstance().GetUniqueID() + ".ini", false))
 	{
 		return;
 	}

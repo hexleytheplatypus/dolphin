@@ -1,8 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include "Common/AssertInt.h"
 #include "Common/CommonTypes.h"
+#include "Common/MsgHandler.h"
+#include "Core/ConfigManager.h"
 #include "Core/PowerPC/JitILCommon/JitILBase.h"
 
 void JitILBase::fp_arith_s(UGeckoInstruction inst)
@@ -12,7 +15,7 @@ void JitILBase::fp_arith_s(UGeckoInstruction inst)
 	FALLBACK_IF(inst.Rc || (inst.SUBOP5 != 25 && inst.SUBOP5 != 20 && inst.SUBOP5 != 21));
 
 	// Only the interpreter has "proper" support for (some) FP flags
-	FALLBACK_IF(inst.SUBOP5 == 25 && SConfig::GetInstance().m_LocalCoreStartupParameter.bFPRF);
+	FALLBACK_IF(inst.SUBOP5 == 25 && SConfig::GetInstance().bFPRF);
 
 	IREmitter::InstLoc val = ibuild.EmitLoadFReg(inst.FA);
 	switch (inst.SUBOP5)
@@ -49,7 +52,7 @@ void JitILBase::fmaddXX(UGeckoInstruction inst)
 	FALLBACK_IF(inst.Rc);
 
 	// Only the interpreter has "proper" support for (some) FP flags
-	FALLBACK_IF(inst.SUBOP5 == 29 && SConfig::GetInstance().m_LocalCoreStartupParameter.bFPRF);
+	FALLBACK_IF(inst.SUBOP5 == 29 && SConfig::GetInstance().bFPRF);
 
 	IREmitter::InstLoc val = ibuild.EmitLoadFReg(inst.FA);
 	val = ibuild.EmitFDMul(val, ibuild.EmitLoadFReg(inst.FC));
@@ -86,7 +89,7 @@ void JitILBase::fmrx(UGeckoInstruction inst)
 	ibuild.EmitStoreFReg(val, inst.FD);
 }
 
-void JitILBase::fcmpx(UGeckoInstruction inst)
+void JitILBase::fcmpX(UGeckoInstruction inst)
 {
 	INSTRUCTION_START
 	JITDISABLE(bJITFloatingPointOff);

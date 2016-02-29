@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cstddef>
@@ -9,7 +9,9 @@
 
 #include "Common/CommonTypes.h"
 #include "Common/MemArena.h"
+#include "Common/MsgHandler.h"
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -28,7 +30,7 @@
 #ifdef ANDROID
 #define ASHMEM_DEVICE "/dev/ashmem"
 
-static int AshmemCreateFileMapping(const char *name, size_t size)
+static int AshmemCreateFileMapping(const char* name, size_t size)
 {
 	int fd, ret;
 	fd = open(ASHMEM_DEVICE, O_RDWR);
@@ -63,7 +65,7 @@ void MemArena::GrabSHMSegment(size_t size)
 #else
 	for (int i = 0; i < 10000; i++)
 	{
-		std::string file_name = StringFromFormat("dolphinmem.%d", i);
+		std::string file_name = StringFromFormat("/dolphinmem.%d", i);
 		fd = shm_open(file_name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0600);
 		if (fd != -1)
 		{
@@ -93,12 +95,12 @@ void MemArena::ReleaseSHMSegment()
 }
 
 
-void *MemArena::CreateView(s64 offset, size_t size, void *base)
+void* MemArena::CreateView(s64 offset, size_t size, void* base)
 {
 #ifdef _WIN32
 	return MapViewOfFileEx(hMemoryMapping, FILE_MAP_ALL_ACCESS, 0, (DWORD)((u64)offset), size, base);
 #else
-	void *retval = mmap(
+	void* retval = mmap(
 		base, size,
 		PROT_READ | PROT_WRITE,
 		MAP_SHARED | ((base == nullptr) ? 0 : MAP_FIXED),
@@ -127,12 +129,12 @@ void MemArena::ReleaseView(void* view, size_t size)
 }
 
 
-u8* MemArena::Find4GBBase()
+u8* MemArena::FindMemoryBase()
 {
 #if _ARCH_64
 #ifdef _WIN32
 	// 64 bit
-	u8* base = (u8*)VirtualAlloc(0, 0xE1000000, MEM_RESERVE, PAGE_READWRITE);
+	u8* base = (u8*)VirtualAlloc(0, 0x400000000, MEM_RESERVE, PAGE_READWRITE);
 	VirtualFree(base, 0, MEM_RELEASE);
 	return base;
 #else
@@ -170,7 +172,7 @@ u8* MemArena::Find4GBBase()
 	if (!(a_flags & MV_FAKE_VMEM) && (b_flags & MV_FAKE_VMEM)) \
 		continue; \
 
-static bool Memory_TryBase(u8 *base, MemoryView *views, int num_views, u32 flags, MemArena *arena)
+static bool Memory_TryBase(u8* base, MemoryView* views, int num_views, u32 flags, MemArena* arena)
 {
 	// OK, we know where to find free space. Now grab it!
 	// We just mimic the popular BAT setup.
@@ -221,7 +223,7 @@ static bool Memory_TryBase(u8 *base, MemoryView *views, int num_views, u32 flags
 	return true;
 }
 
-static u32 MemoryMap_InitializeViews(MemoryView *views, int num_views, u32 flags)
+static u32 MemoryMap_InitializeViews(MemoryView* views, int num_views, u32 flags)
 {
 	u32 shm_position = 0;
 	u32 last_position = 0;
@@ -243,14 +245,14 @@ static u32 MemoryMap_InitializeViews(MemoryView *views, int num_views, u32 flags
 	return shm_position;
 }
 
-u8 *MemoryMap_Setup(MemoryView *views, int num_views, u32 flags, MemArena *arena)
+u8* MemoryMap_Setup(MemoryView* views, int num_views, u32 flags, MemArena* arena)
 {
 	u32 total_mem = MemoryMap_InitializeViews(views, num_views, flags);
 
 	arena->GrabSHMSegment(total_mem);
 
 	// Now, create views in high memory where there's plenty of space.
-	u8 *base = MemArena::Find4GBBase();
+	u8* base = MemArena::FindMemoryBase();
 	// This really shouldn't fail - in 64-bit, there will always be enough
 	// address space.
 	if (!Memory_TryBase(base, views, num_views, flags, arena))
@@ -263,7 +265,7 @@ u8 *MemoryMap_Setup(MemoryView *views, int num_views, u32 flags, MemArena *arena
 	return base;
 }
 
-void MemoryMap_Shutdown(MemoryView *views, int num_views, u32 flags, MemArena *arena)
+void MemoryMap_Shutdown(MemoryView* views, int num_views, u32 flags, MemArena* arena)
 {
 	std::set<void*> freeset;
 	for (int i = 0; i < num_views; i++)

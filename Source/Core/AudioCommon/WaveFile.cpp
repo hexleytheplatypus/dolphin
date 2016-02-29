@@ -1,33 +1,27 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <string>
 
 #include "AudioCommon/WaveFile.h"
 #include "Common/CommonTypes.h"
+#include "Common/Logging/Log.h"
 #include "Core/ConfigManager.h"
 
-enum {BUF_SIZE = 32*1024};
+constexpr size_t WaveFileWriter::BUFFER_SIZE;
 
-WaveFileWriter::WaveFileWriter():
-	skip_silence(false),
-	audio_size(0),
-	conv_buffer(nullptr)
+WaveFileWriter::WaveFileWriter()
 {
 }
 
 WaveFileWriter::~WaveFileWriter()
 {
-	delete [] conv_buffer;
 	Stop();
 }
 
 bool WaveFileWriter::Start(const std::string& filename, unsigned int HLESampleRate)
 {
-	if (!conv_buffer)
-		conv_buffer = new short[BUF_SIZE];
-
 	// Check if the file is already open
 	if (file)
 	{
@@ -120,7 +114,7 @@ void WaveFileWriter::AddStereoSamplesBE(const short *sample_data, u32 count)
 	if (!file)
 		PanicAlertT("WaveFileWriter - file not open.");
 
-	if (count > BUF_SIZE * 2)
+	if (count > BUFFER_SIZE * 2)
 		PanicAlert("WaveFileWriter - buffer too small (count = %u).", count);
 
 	if (skip_silence)
@@ -144,6 +138,6 @@ void WaveFileWriter::AddStereoSamplesBE(const short *sample_data, u32 count)
 		conv_buffer[2 * i + 1] = Common::swap16((u16)sample_data[2 * i]);
 	}
 
-	file.WriteBytes(conv_buffer, count * 4);
+	file.WriteBytes(conv_buffer.data(), count * 4);
 	audio_size += count * 4;
 }

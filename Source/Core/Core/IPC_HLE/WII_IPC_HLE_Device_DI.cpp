@@ -1,36 +1,53 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cinttypes>
 #include <memory>
 
+#include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
 #include "Common/Logging/LogManager.h"
-
 #include "Core/ConfigManager.h"
-#include "Core/VolumeHandler.h"
+#include "Core/CoreTiming.h"
 #include "Core/HW/DVDInterface.h"
 #include "Core/HW/Memmap.h"
 #include "Core/HW/SystemTimers.h"
-
 #include "Core/IPC_HLE/WII_IPC_HLE.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_Device_DI.h"
 
-using namespace DVDInterface;
+static int ioctl_callback;
 
-CWII_IPC_HLE_Device_di::CWII_IPC_HLE_Device_di(u32 _DeviceID, const std::string& _rDeviceName )
+static void IOCtlCallback(u64 userdata, int cycles_late)
+{
+	std::shared_ptr<IWII_IPC_HLE_Device> di = WII_IPC_HLE_Interface::GetDeviceByName("/dev/di");
+	if (di)
+		std::static_pointer_cast<CWII_IPC_HLE_Device_di>(di)->FinishIOCtl((DVDInterface::DIInterruptType)userdata);
+
+	// If di == nullptr, IOS was probably shut down, so the command shouldn't be completed
+}
+
+CWII_IPC_HLE_Device_di::CWII_IPC_HLE_Device_di(u32 _DeviceID, const std::string& _rDeviceName)
 	: IWII_IPC_HLE_Device(_DeviceID, _rDeviceName)
-{}
+{
+	ioctl_callback = CoreTiming::RegisterEvent("IOCtlCallbackDI", IOCtlCallback);
+}
 
 CWII_IPC_HLE_Device_di::~CWII_IPC_HLE_Device_di()
-{}
+{
+}
+
+void CWII_IPC_HLE_Device_di::DoState(PointerWrap& p)
+{
+	DoStateShared(p);
+	p.Do(m_commands_to_execute);
+}
 
 IPCCommandResult CWII_IPC_HLE_Device_di::Open(u32 _CommandAddress, u32 _Mode)
 {
 	Memory::Write_U32(GetDeviceID(), _CommandAddress + 4);
 	m_Active = true;
-	return IPC_DEFAULT_REPLY;
+	return GetDefaultReply();
 }
 
 IPCCommandResult CWII_IPC_HLE_Device_di::Close(u32 _CommandAddress, bool _bForce)
@@ -38,15 +55,34 @@ IPCCommandResult CWII_IPC_HLE_Device_di::Close(u32 _CommandAddress, bool _bForce
 	if (!_bForce)
 		Memory::Write_U32(0, _CommandAddress + 4);
 	m_Active = false;
-	return IPC_DEFAULT_REPLY;
+	return GetDefaultReply();
 }
 
 IPCCommandResult CWII_IPC_HLE_Device_di::IOCtl(u32 _CommandAddress)
 {
-	u32 BufferIn = Memory::Read_U32(_CommandAddress + 0x10);
-	u32 BufferInSize = Memory::Read_U32(_CommandAddress + 0x14);
-	u32 BufferOut = Memory::Read_U32(_CommandAddress + 0x18);
-	u32 BufferOutSize = Memory::Read_U32(_CommandAddress + 0x1C);
+	// DI IOCtls are handled in a special way by Dolphin
+	// compared to other WII_IPC_HLE functions.
+	// This is a wrapper around DVDInterface's ExecuteCommand,
+	// which will execute commands more or less asynchronously.
+	// Only one command can be executed at a time, so commands
+	// are queued until DVDInterface is ready to handle them.
+
+	bool ready_to_execute = m_commands_to_execute.empty();
+	m_commands_to_execute.push_back(_CommandAddress);
+	if (ready_to_execute)
+		StartIOCtl(_CommandAddress);
+
+	// DVDInterface handles the timing and we handle the reply,
+	// so WII_IPC_HLE shouldn't handle anything.
+	return GetNoReply();
+}
+
+void CWII_IPC_HLE_Device_di::StartIOCtl(u32 command_address)
+{
+	u32 BufferIn = Memory::Read_U32(command_address + 0x10);
+	u32 BufferInSize = Memory::Read_U32(command_address + 0x14);
+	u32 BufferOut = Memory::Read_U32(command_address + 0x18);
+	u32 BufferOutSize = Memory::Read_U32(command_address + 0x1C);
 
 	u32 command_0 = Memory::Read_U32(BufferIn);
 	u32 command_1 = Memory::Read_U32(BufferIn + 4);
@@ -63,14 +99,38 @@ IPCCommandResult CWII_IPC_HLE_Device_di::IOCtl(u32 _CommandAddress)
 		Memory::Memset(BufferOut, 0, BufferOutSize);
 	}
 
-	DVDCommandResult result = ExecuteCommand(command_0, command_1, command_2,
-	                                         BufferOut, BufferOutSize, false);
-	Memory::Write_U32(result.interrupt_type, _CommandAddress + 0x4);
+	// DVDInterface's ExecuteCommand handles most of the work.
+	// The IOCtl callback is used to generate a reply afterwards.
+	DVDInterface::ExecuteCommand(command_0, command_1, command_2, BufferOut, BufferOutSize,
+	                             false, ioctl_callback);
+}
 
-	if (SConfig::GetInstance().m_LocalCoreStartupParameter.bFastDiscSpeed)
-		result.ticks_until_completion = 0;	// An optional hack to speed up loading times
+void CWII_IPC_HLE_Device_di::FinishIOCtl(DVDInterface::DIInterruptType interrupt_type)
+{
+	if (m_commands_to_execute.empty())
+	{
+		PanicAlert("WII_IPC_HLE_Device_DI: There is no command to execute!");
+		return;
+	}
 
-	return { true, result.ticks_until_completion };
+	// This command has been executed, so it's removed from the queue
+	u32 command_address = m_commands_to_execute.front();
+	m_commands_to_execute.pop_front();
+
+	// The DI interrupt type is used as a return value
+	Memory::Write_U32(interrupt_type, command_address + 4);
+
+	// The original hardware overwrites the command type with the async reply type.
+	Memory::Write_U32(IPC_REP_ASYNC, command_address);
+	// IOS also seems to write back the command that was responded to in the FD field.
+	Memory::Write_U32(Memory::Read_U32(command_address), command_address + 8);
+	// Generate a reply to the IPC command
+	WII_IPC_HLE_Interface::EnqueueReply_Immediate(command_address);
+
+	// DVDInterface is now ready to execute another command,
+	// so we start executing a command from the queue if there is one
+	if (!m_commands_to_execute.empty())
+		StartIOCtl(m_commands_to_execute.front());
 }
 
 IPCCommandResult CWII_IPC_HLE_Device_di::IOCtlV(u32 _CommandAddress)
@@ -88,21 +148,20 @@ IPCCommandResult CWII_IPC_HLE_Device_di::IOCtlV(u32 _CommandAddress)
 	u32 ReturnValue = 0;
 	switch (CommandBuffer.Parameter)
 	{
-	case DVDLowOpenPartition:
+	case DVDInterface::DVDLowOpenPartition:
 		{
 			_dbg_assert_msg_(WII_IPC_DVD, CommandBuffer.InBuffer[1].m_Address == 0, "DVDLowOpenPartition with ticket");
 			_dbg_assert_msg_(WII_IPC_DVD, CommandBuffer.InBuffer[2].m_Address == 0, "DVDLowOpenPartition with cert chain");
 
 			u64 const partition_offset = ((u64)Memory::Read_U32(CommandBuffer.InBuffer[0].m_Address + 4) << 2);
-			VolumeHandler::GetVolume()->ChangePartition(partition_offset);
+			DVDInterface::ChangePartition(partition_offset);
 
 			INFO_LOG(WII_IPC_DVD, "DVDLowOpenPartition: partition_offset 0x%016" PRIx64, partition_offset);
 
 			// Read TMD to the buffer
-			u32 tmd_size;
-			std::unique_ptr<u8[]> tmd_buf = VolumeHandler::GetVolume()->GetTMD(&tmd_size);
-			Memory::CopyToEmu(CommandBuffer.PayloadBuffer[0].m_Address, tmd_buf.get(), tmd_size);
-			WII_IPC_HLE_Interface::ES_DIVerify(tmd_buf.get(), tmd_size);
+			std::vector<u8> tmd_buffer = DVDInterface::GetVolume().GetTMD();
+			Memory::CopyToEmu(CommandBuffer.PayloadBuffer[0].m_Address, tmd_buffer.data(), tmd_buffer.size());
+			WII_IPC_HLE_Interface::ES_DIVerify(tmd_buffer);
 
 			ReturnValue = 1;
 		}
@@ -115,5 +174,5 @@ IPCCommandResult CWII_IPC_HLE_Device_di::IOCtlV(u32 _CommandAddress)
 	}
 
 	Memory::Write_U32(ReturnValue, _CommandAddress + 4);
-	return IPC_DEFAULT_REPLY;
+	return GetDefaultReply();
 }

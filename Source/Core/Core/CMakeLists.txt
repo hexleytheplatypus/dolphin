@@ -3,19 +3,18 @@ set(SRCS	ActionReplay.cpp
 			BootManager.cpp
 			ConfigManager.cpp
 			Core.cpp
-			CoreParameter.cpp
 			CoreTiming.cpp
 			DSPEmulator.cpp
 			ec_wii.cpp
 			GeckoCodeConfig.cpp
 			GeckoCode.cpp
+			HotkeyManager.cpp
 			MemTools.cpp
 			Movie.cpp
 			NetPlayClient.cpp
 			NetPlayServer.cpp
 			PatchEngine.cpp
 			State.cpp
-			VolumeHandler.cpp
 			Boot/Boot_BS2Emu.cpp
 			Boot/Boot.cpp
 			Boot/Boot_DOL.cpp
@@ -75,9 +74,6 @@ set(SRCS	ActionReplay.cpp
 			HW/DSPHLE/UCodes/ROM.cpp
 			HW/DSPHLE/UCodes/UCodes.cpp
 			HW/DSPHLE/UCodes/Zelda.cpp
-			HW/DSPHLE/UCodes/ZeldaADPCM.cpp
-			HW/DSPHLE/UCodes/ZeldaSynth.cpp
-			HW/DSPHLE/UCodes/ZeldaVoice.cpp
 			HW/DSPHLE/MailHandler.cpp
 			HW/DSPHLE/DSPHLE.cpp
 			HW/DSPLLE/DSPDebugInterface.cpp
@@ -87,6 +83,7 @@ set(SRCS	ActionReplay.cpp
 			HW/DSPLLE/DSPLLE.cpp
 			HW/DSPLLE/DSPLLETools.cpp
 			HW/DVDInterface.cpp
+			HW/DVDThread.cpp
 			HW/EXI_Channel.cpp
 			HW/EXI.cpp
 			HW/EXI_Device.cpp
@@ -108,7 +105,6 @@ set(SRCS	ActionReplay.cpp
 			HW/GPFifo.cpp
 			HW/HW.cpp
 			HW/Memmap.cpp
-			HW/MemmapFunctions.cpp
 			HW/MemoryInterface.cpp
 			HW/MMIO.cpp
 			HW/ProcessorInterface.cpp
@@ -117,6 +113,7 @@ set(SRCS	ActionReplay.cpp
 			HW/SI_Device.cpp
 			HW/SI_DeviceDanceMat.cpp
 			HW/SI_DeviceGBA.cpp
+			HW/SI_DeviceGCAdapter.cpp
 			HW/SI_DeviceGCController.cpp
 			HW/SI_DeviceGCSteeringWheel.cpp
 			HW/SI_DeviceKeyboard.cpp
@@ -152,6 +149,7 @@ set(SRCS	ActionReplay.cpp
 			IPC_HLE/WII_IPC_HLE_Device_usb_kbd.cpp
 			IPC_HLE/WII_IPC_HLE_WiiMote.cpp
 			IPC_HLE/WiiMote_HID_Attr.cpp
+			PowerPC/MMU.cpp
 			PowerPC/PowerPC.cpp
 			PowerPC/PPCAnalyst.cpp
 			PowerPC/PPCCache.cpp
@@ -172,6 +170,7 @@ set(SRCS	ActionReplay.cpp
 			PowerPC/JitCommon/JitAsmCommon.cpp
 			PowerPC/JitCommon/JitBase.cpp
 			PowerPC/JitCommon/JitCache.cpp
+			PowerPC/CachedInterpreter.cpp
 			PowerPC/JitILCommon/IR.cpp
 			PowerPC/JitILCommon/JitILBase_Branch.cpp
 			PowerPC/JitILCommon/JitILBase_LoadStore.cpp
@@ -204,24 +203,6 @@ if(_M_X86)
 			PowerPC/JitCommon/JitBackpatch.cpp
 			PowerPC/JitCommon/Jit_Util.cpp
 			PowerPC/JitCommon/TrampolineCache.cpp)
-elseif(_M_ARM_32)
-	set(SRCS ${SRCS}
-			PowerPC/JitArm32/Jit.cpp
-			PowerPC/JitArm32/JitAsm.cpp
-			PowerPC/JitArm32/JitArm_BackPatch.cpp
-			PowerPC/JitArm32/JitArm_Tables.cpp
-			PowerPC/JitArm32/JitArmCache.cpp
-			PowerPC/JitArm32/JitRegCache.cpp
-			PowerPC/JitArm32/JitFPRCache.cpp
-			PowerPC/JitArm32/JitArm_Branch.cpp
-			PowerPC/JitArm32/JitArm_Integer.cpp
-			PowerPC/JitArm32/JitArm_LoadStore.cpp
-			PowerPC/JitArm32/JitArm_FloatingPoint.cpp
-			PowerPC/JitArm32/JitArm_Paired.cpp
-			PowerPC/JitArm32/JitArm_LoadStorePaired.cpp
-			PowerPC/JitArm32/JitArm_SystemRegisters.cpp
-			PowerPC/JitArm32/JitArm_LoadStoreFloating.cpp
-			)
 elseif(_M_ARM_64)
 	set(SRCS ${SRCS}
 	         PowerPC/JitArm64/Jit.cpp
@@ -237,6 +218,7 @@ elseif(_M_ARM_64)
 	         PowerPC/JitArm64/JitArm64_Paired.cpp
 	         PowerPC/JitArm64/JitArm64_LoadStorePaired.cpp
 	         PowerPC/JitArm64/JitArm64_SystemRegisters.cpp
+	         PowerPC/JitArm64/Jit_Util.cpp
 	         PowerPC/JitArm64/JitArm64_Tables.cpp)
 endif()
 
@@ -245,6 +227,7 @@ set(LIBS
 	bdisasm
 	common
 	discio
+	enet
 	inputcommon
 	${LZO}
 	sfml-network
@@ -257,11 +240,10 @@ set(LIBS
 if(LIBUSB_FOUND)
 	# Using shared LibUSB
 	set(LIBS	${LIBS}	${LIBUSB_LIBRARIES})
-	set(SRCS	${SRCS}	IPC_HLE/WII_IPC_HLE_Device_hid.cpp
-	        	       	HW/SI_GCAdapter.cpp)
+	set(SRCS	${SRCS}	IPC_HLE/WII_IPC_HLE_Device_hid.cpp)
 endif(LIBUSB_FOUND)
 
-set(LIBS ${LIBS} ${POLARSSL_LIBRARY})
+set(LIBS ${LIBS} ${MBEDTLS_LIBRARIES})
 
 if(WIN32)
 	set(SRCS ${SRCS} HW/BBA-TAP/TAP_Win32.cpp HW/WiimoteReal/IOWin.cpp)
@@ -274,6 +256,8 @@ elseif(UNIX)
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND BLUEZ_FOUND)
 		set(SRCS ${SRCS} HW/WiimoteReal/IONix.cpp)
 		set(LIBS ${LIBS} bluetooth)
+	elseif(ANDROID)
+		set(SRCS ${SRCS} HW/WiimoteReal/IOAndroid.cpp)
 	else()
 		set(SRCS ${SRCS} HW/WiimoteReal/IODummy.cpp)
 	endif()
@@ -284,11 +268,15 @@ if(PORTAUDIO_FOUND)
 endif(PORTAUDIO_FOUND)
 
 if(OPROFILE_FOUND)
-	set(LIBS ${LIBS} opagent bfd)
+	set(LIBS ${LIBS} ${OPROFILE_LIBRARIES})
 endif(OPROFILE_FOUND)
 
 if(GDBSTUB)
 	set(SRCS ${SRCS} PowerPC/GDBStub.cpp)
 endif(GDBSTUB)
+
+if(UNIX)
+	set(SRCS ${SRCS} MemoryWatcher.cpp)
+endif(UNIX)
 
 add_dolphin_library(core "${SRCS}" "${LIBS}")

@@ -1,9 +1,11 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
+#include <mutex>
 
+#include "Common/AssertInt.h"
 #include "Common/CommonTypes.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
@@ -13,9 +15,14 @@
 #include "Core/FifoPlayer/FifoPlayer.h"
 #include "Core/HW/GPFifo.h"
 #include "Core/HW/Memmap.h"
+#include "Core/HW/ProcessorInterface.h"
 #include "Core/HW/SystemTimers.h"
+#include "Core/HW/VideoInterface.h"
 #include "Core/PowerPC/PowerPC.h"
 #include "VideoCommon/BPMemory.h"
+#include "VideoCommon/CommandProcessor.h"
+
+bool IsPlayingBackFifologWithBrokenEFBCopies = false;
 
 FifoPlayer::~FifoPlayer()
 {
@@ -30,8 +37,8 @@ bool FifoPlayer::Open(const std::string& filename)
 
 	if (m_File)
 	{
-		FifoPlaybackAnalyzer analyzer;
-		analyzer.AnalyzeFrames(m_File, m_FrameInfo);
+		FifoAnalyzer::Init();
+		FifoPlaybackAnalyzer::AnalyzeFrames(m_File, m_FrameInfo);
 
 		m_FrameRangeEnd = m_File->GetFrameCount();
 	}
@@ -59,6 +66,8 @@ bool FifoPlayer::Play()
 	if (m_File->GetFrameCount() == 0)
 		return false;
 
+	IsPlayingBackFifologWithBrokenEFBCopies = m_File->HasBrokenEFBCopies();
+
 	m_CurrentFrame = m_FrameRangeStart;
 
 	LoadMemory();
@@ -73,9 +82,6 @@ bool FifoPlayer::Play()
 				if (m_Loop)
 				{
 					m_CurrentFrame = m_FrameRangeStart;
-
-					PowerPC::ppcState.downcount = 0;
-					CoreTiming::Advance();
 				}
 				else
 				{
@@ -97,6 +103,8 @@ bool FifoPlayer::Play()
 			}
 		}
 	}
+
+	IsPlayingBackFifologWithBrokenEFBCopies = false;
 
 	return true;
 }
@@ -145,7 +153,7 @@ void FifoPlayer::SetFrameRangeEnd(u32 end)
 	}
 }
 
-FifoPlayer &FifoPlayer::GetInstance()
+FifoPlayer& FifoPlayer::GetInstance()
 {
 	static FifoPlayer instance;
 	return instance;
@@ -162,13 +170,13 @@ FifoPlayer::FifoPlayer() :
 	m_FrameWrittenCb(nullptr),
 	m_File(nullptr)
 {
-	m_Loop = SConfig::GetInstance().m_LocalCoreStartupParameter.bLoopFifoReplay;
+	m_Loop = SConfig::GetInstance().bLoopFifoReplay;
 }
 
-void FifoPlayer::WriteFrame(const FifoFrameInfo &frame, const AnalyzedFrameInfo &info)
+void FifoPlayer::WriteFrame(const FifoFrameInfo& frame, const AnalyzedFrameInfo& info)
 {
 	// Core timing information
-	m_CyclesPerFrame = SystemTimers::GetTicksPerSecond() / 60;
+	m_CyclesPerFrame = SystemTimers::GetTicksPerSecond() / VideoInterface::GetTargetRefreshRate();
 	m_ElapsedCycles = 0;
 	m_FrameFifoSize = frame.fifoDataSize;
 
@@ -222,11 +230,18 @@ void FifoPlayer::WriteFrame(const FifoFrameInfo &frame, const AnalyzedFrameInfo 
 	WriteFramePart(position, frame.fifoDataSize, memoryUpdate, frame, info);
 
 	FlushWGP();
+
+	// Sleep while the GPU is active
+	while (!IsIdleSet())
+	{
+		CoreTiming::Idle();
+		CoreTiming::Advance();
+	}
 }
 
-void FifoPlayer::WriteFramePart(u32 dataStart, u32 dataEnd, u32 &nextMemUpdate, const FifoFrameInfo &frame, const AnalyzedFrameInfo &info)
+void FifoPlayer::WriteFramePart(u32 dataStart, u32 dataEnd, u32& nextMemUpdate, const FifoFrameInfo& frame, const AnalyzedFrameInfo& info)
 {
-	u8 *data = frame.fifoData;
+	u8* data = frame.fifoData;
 
 	while (nextMemUpdate < frame.memoryUpdates.size() && dataStart < dataEnd)
 	{
@@ -281,7 +296,7 @@ void FifoPlayer::WriteMemory(const MemoryUpdate& memUpdate)
 	memcpy(mem, memUpdate.data, memUpdate.size);
 }
 
-void FifoPlayer::WriteFifo(u8 *data, u32 start, u32 end)
+void FifoPlayer::WriteFifo(u8* data, u32 start, u32 end)
 {
 	u32 written = start;
 	u32 lastBurstEnd = end - 1;
@@ -289,12 +304,18 @@ void FifoPlayer::WriteFifo(u8 *data, u32 start, u32 end)
 	// Write up to 256 bytes at a time
 	while (written < end)
 	{
+		while (IsHighWatermarkSet())
+		{
+			CoreTiming::Idle();
+			CoreTiming::Advance();
+		}
+
 		u32 burstEnd = std::min(written + 255, lastBurstEnd);
 
 		while (written < burstEnd)
 			GPFifo::FastWrite8(data[written++]);
 
-		GPFifo::Write8(data[written++], 0);
+		GPFifo::Write8(data[written++]);
 
 		// Advance core timing
 		u32 elapsedCycles = u32(((u64)written * m_CyclesPerFrame) / m_FrameFifoSize);
@@ -308,46 +329,57 @@ void FifoPlayer::WriteFifo(u8 *data, u32 start, u32 end)
 
 void FifoPlayer::SetupFifo()
 {
-	WriteCP(0x02, 0); // disable read, BP, interrupts
-	WriteCP(0x04, 7); // clear overflow, underflow, metrics
+	WriteCP(CommandProcessor::CTRL_REGISTER, 0); // disable read, BP, interrupts
+	WriteCP(CommandProcessor::CLEAR_REGISTER, 7); // clear overflow, underflow, metrics
 
 	const FifoFrameInfo& frame = m_File->GetFrame(m_CurrentFrame);
 
 	// Set fifo bounds
-	WriteCP(0x20, frame.fifoStart);
-	WriteCP(0x22, frame.fifoStart >> 16);
-	WriteCP(0x24, frame.fifoEnd);
-	WriteCP(0x26, frame.fifoEnd >> 16);
+	WriteCP(CommandProcessor::FIFO_BASE_LO, frame.fifoStart);
+	WriteCP(CommandProcessor::FIFO_BASE_HI, frame.fifoStart >> 16);
+	WriteCP(CommandProcessor::FIFO_END_LO, frame.fifoEnd);
+	WriteCP(CommandProcessor::FIFO_END_HI, frame.fifoEnd >> 16);
 
-	// Set watermarks
-	u32 fifoSize = frame.fifoEnd - frame.fifoStart;
-	WriteCP(0x28, fifoSize);
-	WriteCP(0x2a, fifoSize >> 16);
-	WriteCP(0x2c, 0);
-	WriteCP(0x2e, 0);
+	// Set watermarks, high at 75%, low at 0%
+	u32 hi_watermark = (frame.fifoEnd - frame.fifoStart) * 3 / 4;
+	WriteCP(CommandProcessor::FIFO_HI_WATERMARK_LO, hi_watermark);
+	WriteCP(CommandProcessor::FIFO_HI_WATERMARK_HI, hi_watermark >> 16);
+	WriteCP(CommandProcessor::FIFO_LO_WATERMARK_LO, 0);
+	WriteCP(CommandProcessor::FIFO_LO_WATERMARK_HI, 0);
 
 	// Set R/W pointers to fifo start
-	WriteCP(0x30, 0);
-	WriteCP(0x32, 0);
-	WriteCP(0x34, frame.fifoStart);
-	WriteCP(0x36, frame.fifoStart >> 16);
-	WriteCP(0x38, frame.fifoStart);
-	WriteCP(0x3a, frame.fifoStart >> 16);
+	WriteCP(CommandProcessor::FIFO_RW_DISTANCE_LO, 0);
+	WriteCP(CommandProcessor::FIFO_RW_DISTANCE_HI, 0);
+	WriteCP(CommandProcessor::FIFO_WRITE_POINTER_LO, frame.fifoStart);
+	WriteCP(CommandProcessor::FIFO_WRITE_POINTER_HI, frame.fifoStart >> 16);
+	WriteCP(CommandProcessor::FIFO_READ_POINTER_LO, frame.fifoStart);
+	WriteCP(CommandProcessor::FIFO_READ_POINTER_HI, frame.fifoStart >> 16);
 
 	// Set fifo bounds
-	WritePI(12, frame.fifoStart);
-	WritePI(16, frame.fifoEnd);
+	WritePI(ProcessorInterface::PI_FIFO_BASE, frame.fifoStart);
+	WritePI(ProcessorInterface::PI_FIFO_END, frame.fifoEnd);
 
 	// Set write pointer
-	WritePI(20, frame.fifoStart);
+	WritePI(ProcessorInterface::PI_FIFO_WPTR, frame.fifoStart);
 	FlushWGP();
-	WritePI(20, frame.fifoStart);
+	WritePI(ProcessorInterface::PI_FIFO_WPTR, frame.fifoStart);
 
-	WriteCP(0x02, 17); // enable read & GP link
+	WriteCP(CommandProcessor::CTRL_REGISTER, 17); // enable read & GP link
 }
 
 void FifoPlayer::LoadMemory()
 {
+	UReg_MSR newMSR;
+	newMSR.DR = 1;
+	newMSR.IR = 1;
+	MSR = newMSR.Hex;
+	PowerPC::ppcState.spr[SPR_IBAT0U] = 0x80001fff;
+	PowerPC::ppcState.spr[SPR_IBAT0L] = 0x00000002;
+	PowerPC::ppcState.spr[SPR_DBAT0U] = 0x80001fff;
+	PowerPC::ppcState.spr[SPR_DBAT0L] = 0x00000002;
+	PowerPC::ppcState.spr[SPR_DBAT1U] = 0xc0001fff;
+	PowerPC::ppcState.spr[SPR_DBAT1L] = 0x0000002a;
+
 	Memory::Clear();
 
 	SetupFifo();
@@ -391,55 +423,55 @@ void FifoPlayer::LoadMemory()
 
 void FifoPlayer::WriteCP(u32 address, u16 value)
 {
-	Memory::Write_U16(value, 0xCC000000 | address);
+	PowerPC::Write_U16(value, 0xCC000000 | address);
 }
 
 void FifoPlayer::WritePI(u32 address, u32 value)
 {
-	Memory::Write_U32(value, 0xCC003000 | address);
+	PowerPC::Write_U32(value, 0xCC003000 | address);
 }
 
 void FifoPlayer::FlushWGP()
 {
 	// Send 31 0s through the WGP
 	for (int i = 0; i < 7; ++i)
-		GPFifo::Write32(0, 0);
-	GPFifo::Write16(0, 0);
-	GPFifo::Write8(0, 0);
+		GPFifo::Write32(0);
+	GPFifo::Write16(0);
+	GPFifo::Write8(0);
 
 	GPFifo::ResetGatherPipe();
 }
 
 void FifoPlayer::LoadBPReg(u8 reg, u32 value)
 {
-	GPFifo::Write8(0x61, 0); // load BP reg
+	GPFifo::Write8(0x61); // load BP reg
 
 	u32 cmd = (reg << 24) & 0xff000000;
 	cmd |= (value & 0x00ffffff);
-	GPFifo::Write32(cmd, 0);
+	GPFifo::Write32(cmd);
 }
 
 void FifoPlayer::LoadCPReg(u8 reg, u32 value)
 {
-	GPFifo::Write8(0x08, 0); // load CP reg
-	GPFifo::Write8(reg, 0);
-	GPFifo::Write32(value, 0);
+	GPFifo::Write8(0x08); // load CP reg
+	GPFifo::Write8(reg);
+	GPFifo::Write32(value);
 }
 
 void FifoPlayer::LoadXFReg(u16 reg, u32 value)
 {
-	GPFifo::Write8(0x10, 0); // load XF reg
-	GPFifo::Write32((reg & 0x0fff) | 0x1000, 0); // load 4 bytes into reg
-	GPFifo::Write32(value, 0);
+	GPFifo::Write8(0x10); // load XF reg
+	GPFifo::Write32((reg & 0x0fff) | 0x1000); // load 4 bytes into reg
+	GPFifo::Write32(value);
 }
 
-void FifoPlayer::LoadXFMem16(u16 address, u32 *data)
+void FifoPlayer::LoadXFMem16(u16 address, u32* data)
 {
 	// Loads 16 * 4 bytes in xf memory starting at address
-	GPFifo::Write8(0x10, 0); // load XF reg
-	GPFifo::Write32(0x000f0000 | (address & 0xffff), 0); // load 16 * 4 bytes into address
+	GPFifo::Write8(0x10); // load XF reg
+	GPFifo::Write32(0x000f0000 | (address & 0xffff)); // load 16 * 4 bytes into address
 	for (int i = 0; i < 16; ++i)
-		GPFifo::Write32(data[i], 0);
+		GPFifo::Write32(data[i]);
 }
 
 bool FifoPlayer::ShouldLoadBP(u8 address)
@@ -456,4 +488,16 @@ bool FifoPlayer::ShouldLoadBP(u8 address)
 	default:
 		return true;
 	}
+}
+
+bool FifoPlayer::IsIdleSet()
+{
+	CommandProcessor::UCPStatusReg status = PowerPC::Read_U16(0xCC000000 | CommandProcessor::STATUS_REGISTER);
+	return status.CommandIdle;
+}
+
+bool FifoPlayer::IsHighWatermarkSet()
+{
+	CommandProcessor::UCPStatusReg status = PowerPC::Read_U16(0xCC000000 | CommandProcessor::STATUS_REGISTER);
+	return status.OverflowHiWatermark;
 }

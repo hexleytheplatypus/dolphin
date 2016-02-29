@@ -1,7 +1,14 @@
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
+
 #pragma once
 
+#include <array>
 #include <list>
+#include <memory>
 
+#include "Common/CommonTypes.h"
 #include "VideoCommon/VideoCommon.h"
 
 inline bool AddressRangesOverlap(u32 aLower, u32 aUpper, u32 bLower, u32 bUpper)
@@ -41,7 +48,7 @@ public:
 	FramebufferManagerBase();
 	virtual ~FramebufferManagerBase();
 
-	static void CopyToXFB(u32 xfbAddr, u32 fbWidth, u32 fbHeight, const EFBRectangle& sourceRc,float Gamma);
+	static void CopyToXFB(u32 xfbAddr, u32 fbStride, u32 fbHeight, const EFBRectangle& sourceRc,float Gamma);
 	static const XFBSourceBase* const* GetXFBSource(u32 xfbAddr, u32 fbWidth, u32 fbHeight, u32* xfbCount);
 
 	static void SetLastXfbWidth(unsigned int width) { s_last_xfb_width = width; }
@@ -57,14 +64,16 @@ public:
 protected:
 	struct VirtualXFB
 	{
-		VirtualXFB() : xfbSource(nullptr) {}
+		VirtualXFB()
+		{
+		}
 
 		// Address and size in GameCube RAM
-		u32 xfbAddr;
-		u32 xfbWidth;
-		u32 xfbHeight;
+		u32 xfbAddr = 0;
+		u32 xfbWidth = 0;
+		u32 xfbHeight = 0;
 
-		XFBSourceBase *xfbSource;
+		std::unique_ptr<XFBSourceBase> xfbSource;
 	};
 
 	typedef std::list<VirtualXFB> VirtualXFBListType;
@@ -72,7 +81,7 @@ protected:
 	static unsigned int m_EFBLayers;
 
 private:
-	virtual XFBSourceBase* CreateXFBSource(unsigned int target_width, unsigned int target_height, unsigned int layers) = 0;
+	virtual std::unique_ptr<XFBSourceBase> CreateXFBSource(unsigned int target_width, unsigned int target_height, unsigned int layers) = 0;
 	// TODO: figure out why OGL is different for this guy
 	virtual void GetTargetSize(unsigned int *width, unsigned int *height) = 0;
 
@@ -81,19 +90,19 @@ private:
 	static void ReplaceVirtualXFB();
 
 	// TODO: merge these virtual funcs, they are nearly all the same
-	virtual void CopyToRealXFB(u32 xfbAddr, u32 fbWidth, u32 fbHeight, const EFBRectangle& sourceRc,float Gamma = 1.0f) = 0;
+	virtual void CopyToRealXFB(u32 xfbAddr, u32 fbStride, u32 fbHeight, const EFBRectangle& sourceRc,float Gamma = 1.0f) = 0;
 	static void CopyToVirtualXFB(u32 xfbAddr, u32 fbWidth, u32 fbHeight, const EFBRectangle& sourceRc,float Gamma = 1.0f);
 
 	static const XFBSourceBase* const* GetRealXFBSource(u32 xfbAddr, u32 fbWidth, u32 fbHeight, u32* xfbCount);
 	static const XFBSourceBase* const* GetVirtualXFBSource(u32 xfbAddr, u32 fbWidth, u32 fbHeight, u32* xfbCount);
 
-	static XFBSourceBase *m_realXFBSource; // Only used in Real XFB mode
+	static std::unique_ptr<XFBSourceBase> m_realXFBSource; // Only used in Real XFB mode
 	static VirtualXFBListType m_virtualXFBList; // Only used in Virtual XFB mode
 
-	static const XFBSourceBase* m_overlappingXFBArray[MAX_VIRTUAL_XFB];
+	static std::array<const XFBSourceBase*, MAX_VIRTUAL_XFB> m_overlappingXFBArray;
 
 	static unsigned int s_last_xfb_width;
 	static unsigned int s_last_xfb_height;
 };
 
-extern FramebufferManagerBase *g_framebuffer_manager;
+extern std::unique_ptr<FramebufferManagerBase> g_framebuffer_manager;

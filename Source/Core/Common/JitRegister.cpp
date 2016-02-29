@@ -1,10 +1,11 @@
 // Copyright 2014 Dolphin Emulator Project
-// Licensed under GPLv2
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <cinttypes>
 #include <cstddef>
 #include <cstdio>
+#include <cstdlib>
 #include <fstream>
 #include <string>
 
@@ -12,7 +13,6 @@
 #include "Common/FileUtil.h"
 #include "Common/JitRegister.h"
 #include "Common/StringUtil.h"
-#include "Core/ConfigManager.h"
 
 #ifdef _WIN32
 #include <process.h>
@@ -26,7 +26,6 @@
 
 #if defined USE_VTUNE
 #include <jitprofiling.h>
-#pragma comment(lib, "libittnotify.lib")
 #pragma comment(lib, "jitprofiling.lib")
 #endif
 
@@ -39,20 +38,20 @@ static File::IOFile s_perf_map_file;
 namespace JitRegister
 {
 
-void Init()
+void Init(const std::string& perf_dir)
 {
 #if defined USE_OPROFILE && USE_OPROFILE
 	s_agent = op_open_agent();
 #endif
 
-	const std::string& perf_dir = SConfig::GetInstance().m_LocalCoreStartupParameter.m_perfDir;
-	if (!perf_dir.empty())
+	if (!perf_dir.empty() || getenv("PERF_BUILDID_DIR"))
 	{
-		std::string filename = StringFromFormat("%s/perf-%d.map", perf_dir.data(), getpid());
+		std::string dir = perf_dir.empty() ? "/tmp" : perf_dir;
+		std::string filename = StringFromFormat("%s/perf-%d.map", dir.data(), getpid());
 		s_perf_map_file.Open(filename, "w");
 		// Disable buffering in order to avoid missing some mappings
 		// if the event of a crash:
-		std::setvbuf(s_perf_map_file.GetHandle(), NULL, _IONBF, 0);
+		std::setvbuf(s_perf_map_file.GetHandle(), nullptr, _IONBF, 0);
 	}
 }
 
@@ -71,19 +70,15 @@ void Shutdown()
 		s_perf_map_file.Close();
 }
 
-void Register(const void* base_address, u32 code_size,
-	const char* name, u32 original_address)
+void RegisterV(const void* base_address, u32 code_size,
+	const char* format, va_list args)
 {
 #if !(defined USE_OPROFILE && USE_OPROFILE) && !defined(USE_VTUNE)
 	if (!s_perf_map_file.IsOpen())
 		return;
 #endif
 
-	std::string symbol_name;
-	if (original_address)
-		symbol_name = StringFromFormat("%s_%x", name, original_address);
-	else
-		symbol_name = name;
+	std::string symbol_name = StringFromFormatV(format, args);
 
 #if defined USE_OPROFILE && USE_OPROFILE
 	op_write_native_code(s_agent, symbol_name.data(), (u64)base_address,
@@ -93,12 +88,9 @@ void Register(const void* base_address, u32 code_size,
 #ifdef USE_VTUNE
 	iJIT_Method_Load jmethod = {0};
 	jmethod.method_id = iJIT_GetNewMethodID();
-	jmethod.class_file_name = "";
-	jmethod.source_file_name = __FILE__;
-	jmethod.method_load_address = base_address;
+	jmethod.method_load_address = const_cast<void*>(base_address);
 	jmethod.method_size = code_size;
-	jmethod.line_number_size = 0;
-	jmethod.method_name = symbol_name.data();
+	jmethod.method_name = const_cast<char*>(symbol_name.data());
 	iJIT_NotifyEvent(iJVM_EVENT_TYPE_METHOD_LOAD_FINISHED, (void*)&jmethod);
 #endif
 

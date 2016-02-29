@@ -1,10 +1,13 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2015 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
 
-#include "InputCommon/KeyboardStatus.h"
+#include "Core/HW/SI_Device.h"
+
+class PointerWrap;
+struct KeyboardStatus;
 
 class CSIDevice_Keyboard : public ISIDevice
 {

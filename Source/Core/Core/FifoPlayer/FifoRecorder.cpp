@@ -1,8 +1,9 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2011 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
+#include <mutex>
 
 #include "Common/Thread.h"
 #include "Core/ConfigManager.h"
@@ -39,11 +40,13 @@ void FifoRecorder::StartRecording(s32 numFrames, CallbackFunc finishedCb)
 
 	delete m_File;
 
+	FifoAnalyzer::Init();
+
 	m_File = new FifoDataFile;
 	std::fill(m_Ram.begin(), m_Ram.end(), 0);
 	std::fill(m_ExRam.begin(), m_ExRam.end(), 0);
 
-	m_File->SetIsWii(SConfig::GetInstance().m_LocalCoreStartupParameter.bWii);
+	m_File->SetIsWii(SConfig::GetInstance().bWii);
 
 	if (!m_IsRecording)
 	{
@@ -63,11 +66,17 @@ void FifoRecorder::StopRecording()
 	m_RequestedRecordingEnd = true;
 }
 
-void FifoRecorder::WriteGPCommand(u8 *data, u32 size)
+void FifoRecorder::WriteGPCommand(u8* data, u32 size)
 {
 	if (!m_SkipNextData)
 	{
-		m_RecordAnalyzer.AnalyzeGPCommand(data);
+		// Assumes data contains all information for the command
+		// Calls FifoRecorder::UseMemory
+		u32 analyzed_size = FifoAnalyzer::AnalyzeCommand(data, FifoAnalyzer::DECODE_RECORD);
+
+		// Make sure FifoPlayer's command analyzer agrees about the size of the command.
+		if (analyzed_size != size)
+			PanicAlert("FifoRecorder: Expected command to be %i bytes long, we were given %i bytes", analyzed_size, size);
 
 		// Copy data to buffer
 		size_t currentSize = m_FifoData.size();
@@ -101,10 +110,10 @@ void FifoRecorder::WriteGPCommand(u8 *data, u32 size)
 	m_SkipNextData = m_SkipFutureData;
 }
 
-void FifoRecorder::WriteMemory(u32 address, u32 size, MemoryUpdate::Type type)
+void FifoRecorder::UseMemory(u32 address, u32 size, MemoryUpdate::Type type, bool dynamicUpdate)
 {
-	u8 *curData;
-	u8 *newData;
+	u8* curData;
+	u8* newData;
 	if (address & 0x10000000)
 	{
 		curData = &m_ExRam[address & Memory::EXRAM_MASK];
@@ -116,7 +125,7 @@ void FifoRecorder::WriteMemory(u32 address, u32 size, MemoryUpdate::Type type)
 		newData = &Memory::m_pRAM[address & Memory::RAM_MASK];
 	}
 
-	if (memcmp(curData, newData, size) != 0)
+	if (!dynamicUpdate && memcmp(curData, newData, size) != 0)
 	{
 		// Update current memory
 		memcpy(curData, newData, size);
@@ -131,6 +140,11 @@ void FifoRecorder::WriteMemory(u32 address, u32 size, MemoryUpdate::Type type)
 		memcpy(memUpdate.data, newData, size);
 
 		m_CurrentFrame.memoryUpdates.push_back(memUpdate);
+	}
+	else if (dynamicUpdate)
+	{
+		// Shadow the data so it won't be recorded as changed by a future UseMemory
+		memcpy(curData, newData, size);
 	}
 }
 
@@ -194,12 +208,12 @@ void FifoRecorder::SetVideoMemory(u32 *bpMem, u32 *cpMem, u32 *xfMem, u32 *xfReg
 		memcpy(m_File->GetXFRegs(), xfRegs, xfRegsCopySize * 4);
 	}
 
-	m_RecordAnalyzer.Initialize(bpMem, cpMem);
+	FifoRecordAnalyzer::Initialize(cpMem);
 
 	sMutex.unlock();
 }
 
-FifoRecorder &FifoRecorder::GetInstance()
+FifoRecorder& FifoRecorder::GetInstance()
 {
 	return instance;
 }

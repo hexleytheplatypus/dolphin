@@ -1,13 +1,16 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2014 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
+#include <sstream>
 #include <string>
 
 #include "Common/CommonPaths.h"
+#include "Common/CommonTypes.h"
 #include "Common/FileUtil.h"
 #include "Common/IniFile.h"
 #include "Common/StringUtil.h"
+#include "Common/Logging/Log.h"
 
 #include "VideoCommon/PostProcessing.h"
 #include "VideoCommon/VideoConfig.h"
@@ -129,7 +132,7 @@ void PostProcessingShaderConfiguration::LoadOptions(const std::string& code)
 						IniFile::ParseLine(line, &key, &value);
 
 						if (!(key == "" && value == ""))
-							current_strings->m_options.push_back(std::make_pair(key, value));
+							current_strings->m_options.emplace_back(key, value);
 					}
 				}
 			}
@@ -293,7 +296,7 @@ void PostProcessingShaderConfiguration::ReloadShader()
 	m_current_shader = "";
 }
 
-void PostProcessingShaderConfiguration::SetOptionf(std::string option, int index, float value)
+void PostProcessingShaderConfiguration::SetOptionf(const std::string& option, int index, float value)
 {
 	auto it = m_options.find(option);
 
@@ -302,7 +305,7 @@ void PostProcessingShaderConfiguration::SetOptionf(std::string option, int index
 	m_any_options_dirty = true;
 }
 
-void PostProcessingShaderConfiguration::SetOptioni(std::string option, int index, s32 value)
+void PostProcessingShaderConfiguration::SetOptioni(const std::string& option, int index, s32 value)
 {
 	auto it = m_options.find(option);
 
@@ -311,7 +314,7 @@ void PostProcessingShaderConfiguration::SetOptioni(std::string option, int index
 	m_any_options_dirty = true;
 }
 
-void PostProcessingShaderConfiguration::SetOptionb(std::string option, bool value)
+void PostProcessingShaderConfiguration::SetOptionb(const std::string& option, bool value)
 {
 	auto it = m_options.find(option);
 

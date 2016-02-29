@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2010 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include <algorithm>
@@ -31,11 +31,11 @@ static const struct
 };
 
 // lil silly
-static HWND hwnd;
+static HWND m_hwnd;
 
 void InitKeyboardMouse(IDirectInput8* const idi8, std::vector<Core::Device*>& devices, HWND _hwnd)
 {
-	hwnd = _hwnd;
+	m_hwnd = _hwnd;
 
 	// mouse and keyboard are a combined device, to allow shift+click and stuff
 	// if that's dumb, I will make a VirtualDevice class that just uses ranges of inputs/outputs from other devices
@@ -124,19 +124,30 @@ void GetMousePos(ControlState* const x, ControlState* const y)
 {
 	POINT point = { 1, 1 };
 	GetCursorPos(&point);
-	// Get the cursor position relative to the upper left corner of the rendering window
-	ScreenToClient(hwnd, &point);
+	// Get the cursor position relative to the upper left corner of the current window (separate or render to main)
+	HWND hwnd = WindowFromPoint(point);
+	DWORD processId;
+	GetWindowThreadProcessId(hwnd, &processId);
+	if (processId == GetCurrentProcessId())
+	{
+		ScreenToClient(hwnd, &point);
 
-	// Get the size of the rendering window. (In my case Rect.top and Rect.left was zero.)
-	RECT rect;
-	GetClientRect(hwnd, &rect);
-	// Width and height is the size of the rendering window
-	unsigned int win_width = rect.right - rect.left;
-	unsigned int win_height = rect.bottom - rect.top;
+		// Get the size of the current window. (In my case Rect.top and Rect.left was zero.)
+		RECT rect;
+		GetClientRect(hwnd, &rect);
+		// Width and height is the size of the rendering window
+		unsigned int win_width = rect.right - rect.left;
+		unsigned int win_height = rect.bottom - rect.top;
 
-	// Return the mouse position as a range from -1 to 1
-	*x = (ControlState)point.x / (ControlState)win_width * 2 - 1;
-	*y = (ControlState)point.y / (ControlState)win_height * 2 - 1;
+		// Return the mouse position as a range from -1 to 1
+		*x = (ControlState)point.x / (ControlState)win_width * 2 - 1;
+		*y = (ControlState)point.y / (ControlState)win_height * 2 - 1;
+	}
+	else
+	{
+		*x = (ControlState)1;
+		*y = (ControlState)1;
+	}
 }
 
 void KeyboardMouse::UpdateInput()

@@ -1,31 +1,23 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2009 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #pragma once
-
-#ifdef _WIN32
-#define SLEEP(x) Sleep(x)
-#else
-#include <unistd.h>
-#define SLEEP(x) usleep(x*1000)
-#endif
 
 #ifdef __APPLE__
 #include <libkern/OSByteOrder.h>
 #endif
 
 #include <cstddef>
-#include <type_traits>
+#include <string>
 #include "Common/CommonTypes.h"
 
 // Will fail to compile on a non-array:
-// TODO: make this a function when constexpr is available
-template <typename T>
-struct ArraySizeImpl : public std::extent<T>
-{ static_assert(std::is_array<T>::value, "is array"); };
-
-#define ArraySize(x) ArraySizeImpl<decltype(x)>::value
+template <typename T, size_t N>
+constexpr size_t ArraySize(T (&arr)[N])
+{
+	return N;
+}
 
 #define b2(x)   (   (x) | (   (x) >> 1) )
 #define b4(x)   ( b2(x) | ( b2(x) >> 2) )
@@ -33,24 +25,6 @@ struct ArraySizeImpl : public std::extent<T>
 #define b16(x)  ( b8(x) | ( b8(x) >> 8) )
 #define b32(x)  (b16(x) | (b16(x) >>16) )
 #define ROUND_UP_POW2(x)  (b32(x - 1) + 1)
-
-#ifndef __GNUC_PREREQ
-	#define __GNUC_PREREQ(a, b) 0
-#endif
-
-#if (defined __GNUC__ && !__GNUC_PREREQ(4,9)) && \
-    !defined __SSSE3__ && defined _M_X86
-#include <emmintrin.h>
-static __inline __m128i __attribute__((__always_inline__))
-_mm_shuffle_epi8(__m128i a, __m128i mask)
-{
-	__m128i result;
-	__asm__("pshufb %1, %0"
-		: "=x" (result)
-		: "xm" (mask), "0" (a));
-	return result;
-}
-#endif
 
 #ifndef _WIN32
 
@@ -62,13 +36,7 @@ _mm_shuffle_epi8(__m128i a, __m128i mask)
 #endif
 
 // go to debugger mode
-	#ifdef GEKKO
-		#define Crash()
-	#elif defined _M_X86
-		#define Crash() {asm ("int $3");}
-	#else
-		#define Crash() { exit(1); }
-	#endif
+#define Crash() { __builtin_trap(); }
 
 // GCC 4.8 defines all the rotate functions now
 // Small issue with GCC's lrotl/lrotr intrinsics is they are still 32bit while we require 64bit
@@ -105,7 +73,6 @@ inline u64 _rotr64(u64 x, unsigned int shift)
 	#define strcasecmp _stricmp
 	#define strncasecmp _strnicmp
 	#define unlink _unlink
-	#define snprintf _snprintf
 	#define vscprintf _vscprintf
 
 // 64 bit offsets for Windows
@@ -121,19 +88,13 @@ extern "C"
 	__declspec(dllimport) void __stdcall DebugBreak(void);
 }
 	#define Crash() {DebugBreak();}
-
-	#if (_MSC_VER > 1800)
-	#error alignof compat can be removed
-	#else
-	#define alignof(x) __alignof(x)
-	#endif
 #endif // WIN32 ndef
 
 // Generic function to get last error message.
 // Call directly after the command or use the error num.
 // This function might change the error code.
 // Defined in Misc.cpp.
-const char* GetLastErrorMsg();
+std::string GetLastErrorMsg();
 
 namespace Common
 {
@@ -150,10 +111,6 @@ inline u32 swap24(const u8* _data) {return (_data[0] << 16) | (_data[1] << 8) | 
 inline u16 swap16(u16 _data) {return _byteswap_ushort(_data);}
 inline u32 swap32(u32 _data) {return _byteswap_ulong (_data);}
 inline u64 swap64(u64 _data) {return _byteswap_uint64(_data);}
-#elif _M_ARM_32
-inline u16 swap16 (u16 _data) { u32 data = _data; __asm__ ("rev16 %0, %1\n" : "=l" (data) : "l" (data)); return (u16)data;}
-inline u32 swap32 (u32 _data) {__asm__ ("rev %0, %1\n" : "=l" (_data) : "l" (_data)); return _data;}
-inline u64 swap64(u64 _data) {return ((u64)swap32(_data) << 32) | swap32(_data >> 32);}
 #elif __linux__ && !(ANDROID && _M_ARM_64)
 // Android NDK r10c has broken builtin byte swap routines
 // Disabled for now.
@@ -210,7 +167,7 @@ inline void swap<8>(u8* data)
 template <typename T>
 inline T FromBigEndian(T data)
 {
-	//static_assert(std::is_arithmetic<T>::value, "function only makes sense with arithmetic types");
+	static_assert(std::is_arithmetic<T>::value, "function only makes sense with arithmetic types");
 
 	swap<sizeof(data)>(reinterpret_cast<u8*>(&data));
 	return data;

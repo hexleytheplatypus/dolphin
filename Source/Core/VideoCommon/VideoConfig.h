@@ -1,5 +1,5 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 
@@ -25,10 +25,10 @@
 
 enum AspectMode
 {
-	ASPECT_AUTO       = 0,
-	ASPECT_FORCE_16_9 = 1,
-	ASPECT_FORCE_4_3  = 2,
-	ASPECT_STRETCH    = 3,
+	ASPECT_AUTO        = 0,
+	ASPECT_ANALOG_WIDE = 1,
+	ASPECT_ANALOG      = 2,
+	ASPECT_STRETCH     = 3,
 };
 
 enum EFBScale
@@ -40,8 +40,6 @@ enum EFBScale
 	SCALE_1_5X,
 	SCALE_2X,
 	SCALE_2_5X,
-	SCALE_3X,
-	SCALE_4X,
 };
 
 enum StereoMode
@@ -76,15 +74,12 @@ struct VideoConfig final
 	bool bUseRealXFB;
 
 	// Enhancements
-	int iMultisampleMode;
+	int iMultisamples;
+	bool bSSAA;
 	int iEFBScale;
 	bool bForceFiltering;
 	int iMaxAnisotropy;
 	std::string sPostProcessingShader;
-	int iStereoMode;
-	int iStereoDepth;
-	int iStereoConvergence;
-	bool bStereoSwapEyes;
 
 	// Information
 	bool bShowFPS;
@@ -92,18 +87,18 @@ struct VideoConfig final
 	bool bOverlayProjStats;
 	bool bTexFmtOverlayEnable;
 	bool bTexFmtOverlayCenter;
-	bool bShowEFBCopyRegions;
 	bool bLogRenderTimeToFile;
 
 	// Render
 	bool bWireFrame;
-	bool bDstAlphaPass;
 	bool bDisableFog;
+    int iRenderFBO;  //  OE render buffer
 
 	// Utility
 	bool bDumpTextures;
 	bool bHiresTextures;
 	bool bConvertHiresTextures;
+	bool bCacheHiresTextures;
 	bool bDumpEFBTarget;
 	bool bUseFFV1;
 	bool bFreeLook;
@@ -112,30 +107,44 @@ struct VideoConfig final
 	// Hacks
 	bool bEFBAccessEnable;
 	bool bPerfQueriesEnable;
+	bool bBBoxEnable;
+	bool bForceProgressive;
 
-	bool bEFBCopyEnable;
 	bool bEFBEmulateFormatChanges;
-	bool bCopyEFBToTexture;
+	bool bSkipEFBCopyToRam;
 	bool bCopyEFBScaled;
 	int iSafeTextureCache_ColorSamples;
 	int iPhackvalue[3];
 	std::string sPhackvalue[2];
 	float fAspectRatioHackW, fAspectRatioHackH;
 	bool bEnablePixelLighting;
-	bool bFastDepthCalc;
+	bool bForcedSlowDepth;
 	int iLog; // CONF_ bits
 	int iSaveTargetId; // TODO: Should be dropped
 
 	// Stereoscopy
+	int iStereoMode;
+	int iStereoDepth;
+	int iStereoConvergence;
+	int iStereoConvergencePercentage;
+	bool bStereoSwapEyes;
 	bool bStereoEFBMonoDepth;
 	int iStereoDepthPercentage;
-	int iStereoConvergenceMinimum;
 
 	// D3D only config, mostly to be merged into the above
 	int iAdapter;
 
 	// Debugging
 	bool bEnableShaderDebugging;
+
+	// VideoSW Debugging
+	int drawStart;
+	int drawEnd;
+	bool bZComploc;
+	bool bZFreeze;
+	bool bDumpObjects;
+	bool bDumpTevStages;
+	bool bDumpTevTextureFetches;
 
 	// Static config per API
 	// TODO: Move this out of VideoConfig
@@ -144,7 +153,7 @@ struct VideoConfig final
 		API_TYPE APIType;
 
 		std::vector<std::string> Adapters; // for D3D
-		std::vector<std::string> AAModes;
+		std::vector<int> AAModes;
 		std::vector<std::string> PPShaders; // post-processing shaders
 		std::vector<std::string> AnaglyphShaders; // anaglyph shaders
 
@@ -159,13 +168,14 @@ struct VideoConfig final
 		bool bSupportsBBox;
 		bool bSupportsGSInstancing; // Needed by GeometryShaderGen, so must stay in VideoCommon
 		bool bSupportsPostProcessing;
+		bool bSupportsPaletteConversion;
+		bool bSupportsClipControl; // Needed by VertexShaderGen, so must stay in VideoCommon
+		bool bSupportsSSAA;
 	} backend_info;
 
 	// Utility
 	bool RealXFBEnabled() const { return bUseXFB && bUseRealXFB; }
 	bool VirtualXFBEnabled() const { return bUseXFB && !bUseRealXFB; }
-	bool EFBCopiesToTextureEnabled() const { return bEFBCopyEnable && bCopyEFBToTexture; }
-	bool EFBCopiesToRamEnabled() const { return bEFBCopyEnable && !bCopyEFBToTexture; }
 	bool ExclusiveFullscreenEnabled() const { return backend_info.bSupportsExclusiveFullscreen && !bBorderlessFullscreen; }
 };
 

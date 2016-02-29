@@ -1,11 +1,12 @@
-// Copyright 2013 Dolphin Emulator Project
-// Licensed under GPLv2
+// Copyright 2008 Dolphin Emulator Project
+// Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 // Fast image conversion using OpenGL shaders.
 
 #include <string>
 
+#include "Common/Common.h"
 #include "Common/FileUtil.h"
 #include "Common/StringUtil.h"
 
@@ -14,6 +15,7 @@
 #include "VideoBackends/OGL/FramebufferManager.h"
 #include "VideoBackends/OGL/ProgramShaderCache.h"
 #include "VideoBackends/OGL/Render.h"
+#include "VideoBackends/OGL/SamplerCache.h"
 #include "VideoBackends/OGL/TextureCache.h"
 #include "VideoBackends/OGL/TextureConverter.h"
 
@@ -35,7 +37,7 @@ static GLuint s_texConvFrameBuffer[2] = {0,0};
 static GLuint s_srcTexture = 0; // for decoding from RAM
 static GLuint s_dstTexture = 0; // for encoding to RAM
 
-const int renderBufferWidth = 1024;
+const int renderBufferWidth = EFB_WIDTH * 4;
 const int renderBufferHeight = 1024;
 
 static SHADER s_rgbToYuyvProgram;
@@ -120,7 +122,7 @@ static void CreatePrograms()
 			// We switch top/bottom here. TODO: move this to screen blit.
 		"	ivec2 ts = textureSize(samp9, 0);\n"
 		"	vec4 c0 = texelFetch(samp9, ivec2(uv.x>>1, ts.y-uv.y-1), 0);\n"
-		"	float y = mix(c0.b, c0.r, (uv.x & 1) == 1);\n"
+		"	float y = mix(c0.r, c0.b, (uv.x & 1) == 1);\n"
 		"	float yComp = 1.164 * (y - 0.0625);\n"
 		"	float uComp = c0.g - 0.5;\n"
 		"	float vComp = c0.a - 0.5;\n"
@@ -172,7 +174,7 @@ void Init()
 {
 	glGenFramebuffers(2, s_texConvFrameBuffer);
 
-	glActiveTexture(GL_TEXTURE0 + 9);
+	glActiveTexture(GL_TEXTURE9);
 	glGenTextures(1, &s_srcTexture);
 	glBindTexture(GL_TEXTURE_2D, s_srcTexture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
@@ -212,12 +214,12 @@ void Shutdown()
 	s_texConvFrameBuffer[1] = 0;
 }
 
+// dst_line_size, writeStride in bytes
+
 static void EncodeToRamUsingShader(GLuint srcTexture,
-						u8* destAddr, int dstWidth, int dstHeight, int readStride,
-						bool linearFilter)
+						u8* destAddr, u32 dst_line_size, u32 dstHeight,
+						u32 writeStride, bool linearFilter)
 {
-
-
 	// switch to texture converter frame buffer
 	// attach render buffer as color destination
 	FramebufferManager::SetFramebuffer(s_texConvFrameBuffer[0]);
@@ -225,33 +227,21 @@ static void EncodeToRamUsingShader(GLuint srcTexture,
 	OpenGL_BindAttributelessVAO();
 
 	// set source texture
-	glActiveTexture(GL_TEXTURE0+9);
+	glActiveTexture(GL_TEXTURE9);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, srcTexture);
 
 	if (linearFilter)
-	{
-		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	}
+		g_sampler_cache->BindLinearSampler(9);
 	else
-	{
-		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	}
+		g_sampler_cache->BindNearestSampler(9);
 
-	glViewport(0, 0, (GLsizei)dstWidth, (GLsizei)dstHeight);
+	glViewport(0, 0, (GLsizei)(dst_line_size / 4), (GLsizei)dstHeight);
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-	// .. and then read back the results.
-	// TODO: make this less slow.
+	int dstSize = dst_line_size * dstHeight;
 
-	int writeStride = bpmem.copyMipMapStrideChannels * 32;
-	int dstSize = dstWidth*dstHeight*4;
-	int readHeight = readStride / dstWidth / 4; // 4 bytes per pixel
-	int readLoops = dstHeight / readHeight;
-
-	if (writeStride != readStride && readLoops > 1)
+	if ((writeStride != dst_line_size) && (dstHeight > 1))
 	{
 		// writing to a texture of a different size
 		// also copy more then one block line, so the different strides matters
@@ -260,13 +250,13 @@ static void EncodeToRamUsingShader(GLuint srcTexture,
 		// CPU overhead because of the pbo
 		glBindBuffer(GL_PIXEL_PACK_BUFFER, s_PBO);
 		glBufferData(GL_PIXEL_PACK_BUFFER, dstSize, nullptr, GL_STREAM_READ);
-		glReadPixels(0, 0, (GLsizei)dstWidth, (GLsizei)dstHeight, GL_BGRA, GL_UNSIGNED_BYTE, nullptr);
+		glReadPixels(0, 0, (GLsizei)(dst_line_size / 4), (GLsizei)dstHeight, GL_BGRA, GL_UNSIGNED_BYTE, nullptr);
 		u8* pbo = (u8*)glMapBufferRange(GL_PIXEL_PACK_BUFFER, 0, dstSize, GL_MAP_READ_BIT);
 
-		for (int i = 0; i < readLoops; i++)
+		for (size_t i = 0; i < dstHeight; ++i)
 		{
-			memcpy(destAddr, pbo, readStride);
-			pbo += readStride;
+			memcpy(destAddr, pbo, dst_line_size);
+			pbo += dst_line_size;
 			destAddr += writeStride;
 		}
 
@@ -275,65 +265,34 @@ static void EncodeToRamUsingShader(GLuint srcTexture,
 	}
 	else
 	{
-		glReadPixels(0, 0, (GLsizei)dstWidth, (GLsizei)dstHeight, GL_BGRA, GL_UNSIGNED_BYTE, destAddr);
+		glReadPixels(0, 0, (GLsizei)(dst_line_size / 4), (GLsizei)dstHeight, GL_BGRA, GL_UNSIGNED_BYTE, destAddr);
 	}
 }
 
-int EncodeToRamFromTexture(u32 address,GLuint source_texture, bool bFromZBuffer, bool bIsIntensityFmt, u32 copyfmt, int bScaleByHalf, const EFBRectangle& source)
+void EncodeToRamFromTexture(u8* dest_ptr, u32 format, u32 native_width, u32 bytes_per_row, u32 num_blocks_y, u32 memory_stride,
+                            PEControl::PixelFormat srcFormat, bool bIsIntensityFmt, int bScaleByHalf, const EFBRectangle& source)
 {
-	u32 format = copyfmt;
-
-	if (bFromZBuffer)
-	{
-		format |= _GX_TF_ZTF;
-		if (copyfmt == 11)
-			format = GX_TF_Z16;
-		else if (format < GX_TF_Z8 || format > GX_TF_Z24X8)
-			format |= _GX_TF_CTF;
-	}
-	else
-	{
-		if (copyfmt > GX_TF_RGBA8 || (copyfmt < GX_TF_RGB565 && !bIsIntensityFmt))
-			format |= _GX_TF_CTF;
-	}
+	g_renderer->ResetAPIState();
 
 	SHADER& texconv_shader = GetOrCreateEncodingShader(format);
 
-	u8 *dest_ptr = Memory::GetPointer(address);
-
-	int width = (source.right - source.left) >> bScaleByHalf;
-	int height = (source.bottom - source.top) >> bScaleByHalf;
-
-	int size_in_bytes = TexDecoder_GetTextureSizeInBytes(width, height, format);
-
-	u16 blkW = TexDecoder_GetBlockWidthInTexels(format) - 1;
-	u16 blkH = TexDecoder_GetBlockHeightInTexels(format) - 1;
-	u16 samples = TextureConversionShader::GetEncodedSampleCount(format);
-
-	// only copy on cache line boundaries
-	// extra pixels are copied but not displayed in the resulting texture
-	s32 expandedWidth = (width + blkW) & (~blkW);
-	s32 expandedHeight = (height + blkH) & (~blkH);
-
 	texconv_shader.Bind();
 	glUniform4i(s_encodingUniforms[format],
-		source.left, source.top,
-		expandedWidth, bScaleByHalf ? 2 : 1);
+		source.left, source.top, native_width, bScaleByHalf ? 2 : 1);
 
-	int cacheBytes = 32;
-	if ((format & 0x0f) == 6)
-		cacheBytes = 64;
+	const GLuint read_texture = (srcFormat == PEControl::Z24) ?
+		FramebufferManager::ResolveAndGetDepthTarget(source) :
+		FramebufferManager::ResolveAndGetRenderTarget(source);
 
-	int readStride = (expandedWidth * cacheBytes) /
-		TexDecoder_GetBlockWidthInTexels(format);
-	EncodeToRamUsingShader(source_texture,
-		dest_ptr, expandedWidth / samples, expandedHeight, readStride,
-		bScaleByHalf > 0 && !bFromZBuffer);
-	return size_in_bytes; // TODO: D3D11 is calculating this value differently!
+	EncodeToRamUsingShader(read_texture,
+		dest_ptr, bytes_per_row, num_blocks_y,
+		memory_stride, bScaleByHalf > 0 && srcFormat != PEControl::Z24);
 
+	FramebufferManager::SetFramebuffer(0);
+	g_renderer->RestoreAPIState();
 }
 
-void EncodeToRamYUYV(GLuint srcTexture, const TargetRectangle& sourceRc, u8* destAddr, int dstWidth, int dstHeight)
+void EncodeToRamYUYV(GLuint srcTexture, const TargetRectangle& sourceRc, u8* destAddr, u32 dstWidth, u32 dstStride, u32 dstHeight)
 {
 	g_renderer->ResetAPIState();
 
@@ -345,7 +304,7 @@ void EncodeToRamYUYV(GLuint srcTexture, const TargetRectangle& sourceRc, u8* des
 	// We enable linear filtering, because the GameCube does filtering in the vertical direction when
 	// yscale is enabled.
 	// Otherwise we get jaggies when a game uses yscaling (most PAL games)
-	EncodeToRamUsingShader(srcTexture, destAddr, dstWidth / 2, dstHeight, dstWidth*dstHeight*2, true);
+	EncodeToRamUsingShader(srcTexture, destAddr, dstWidth * 2, dstHeight, dstStride, true);
 	FramebufferManager::SetFramebuffer(0);
 	TextureCache::DisableStage(0);
 	g_renderer->RestoreAPIState();
@@ -373,9 +332,10 @@ void DecodeToTexture(u32 xfbAddr, int srcWidth, int srcHeight, GLuint destTextur
 
 	// activate source texture
 	// set srcAddr as data for source texture
-	glActiveTexture(GL_TEXTURE0+9);
+	glActiveTexture(GL_TEXTURE9);
 	glBindTexture(GL_TEXTURE_2D, s_srcTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, srcWidth / 2, srcHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, srcAddr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, srcWidth / 2, srcHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, srcAddr);
+	g_sampler_cache->BindNearestSampler(9);
 
 	glViewport(0, 0, srcWidth, srcHeight);
 	s_yuyvToRgbProgram.Bind();
