@@ -29,8 +29,8 @@
 #include <IOKit/hid/IOHIDLib.h>
 #include <Cocoa/Cocoa.h>
 
-#include "OE_OSX.h"
-#include "OE_OSXKeyboard.h"
+#include "InputCommon/ControllerInterface/OSX/OSX.h"
+//#include "OE_OSXKeyboard.h"
 #include "OE_OSXJoystick.h"
 
 #include <map>
