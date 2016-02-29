@@ -157,7 +157,6 @@ void GCPad::LoadDefaults(const ControllerInterface& ciface)
     m_buttons->SetControlExpression(2, "Button X"); // X
     m_buttons->SetControlExpression(3, "Button Y"); // Y
     m_buttons->SetControlExpression(4, "Button Z"); // Z
-    
     m_buttons->SetControlExpression(5, "Button Start"); // Start
 
     // stick modifiers to 50 %

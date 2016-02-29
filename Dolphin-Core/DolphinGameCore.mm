@@ -26,17 +26,15 @@
 
 //  Had to rename /Common/Assert.h to /Common/AssertInt.h
 //  Changed <al*> includes to <OpenAL/al*>
-// Comment out scaleing in ALG.cpp
-
-//  Updated to Dolphin Git Source 4 Feb 2016
+//  Updated to Dolphin Git Source 28 Feb 2016
 
 #import "DolphinGameCore.h"
+#include "Dolphin-Core/DolHost.h"
 #import <OpenEmuBase/OERingBuffer.h>
 
-
+#import <AppKit/AppKit.h>
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
-#include "Dolphin-Core/DolHost.h"
 
 #include <cstddef>
 #include <cstdio>
@@ -46,8 +44,6 @@
 #include <unistd.h>
 
 #include "Common/GL/GLInterface/AGL.h"
-
-#import <AppKit/AppKit.h>
 
 #define SAMPLERATE 448000
 #define SIZESOUNDBUFFER 448000 / 60 * 4
@@ -63,7 +59,6 @@
     bool _shouldReset;
     float _frameInterval;
 }
-
 @property (copy) NSString *filePath;
 @end
 
@@ -74,6 +69,7 @@ __weak DolphinGameCore *_current = 0;
 {
     if(self = [super init])
         gc_host = DolHost::GetInstance();
+
 
     _current = self;
     return self;
@@ -88,7 +84,6 @@ __weak DolphinGameCore *_current = 0;
 # pragma mark - Execution
 - (BOOL)loadFileAtPath:(NSString *)path
 {
-    gc_host->Init();
 
     NSString *resourcePath = [[[self owner] bundle] resourcePath];
     NSString *supportDirectoryPath = [self supportDirectoryPath];
@@ -134,7 +129,6 @@ __weak DolphinGameCore *_current = 0;
     gc_host->UpdateFrame();
 }
 
-
 # pragma  CoreThread
 - (void)runDolphinThread
 {
@@ -146,7 +140,7 @@ __weak DolphinGameCore *_current = 0;
         [self.renderDelegate willRenderFrameOnAlternateThread];
         
         //Get the id of the Render buffer in OpenEmu and pass it to the GC_host
-        gc_host->SetPresentationFBO([[self.renderDelegate presentationFramebuffer] integerValue]);
+        gc_host->SetPresentationFBO((int)[[self.renderDelegate presentationFramebuffer] integerValue]);
         
         //Start the Core Thread of Dolphin
         gc_host->RunCore();
@@ -201,7 +195,7 @@ __weak DolphinGameCore *_current = 0;
 
 - (OEIntSize)aspectSize
 {
-    return OEIntSizeMake(16, 9);
+    return OEIntSizeMake(4, 3);
 }
 
 - (GLenum)pixelFormat
@@ -242,14 +236,16 @@ __weak DolphinGameCore *_current = 0;
 # pragma mark - Input
 - (oneway void)didMoveGCJoystickDirection:(OEGCButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
-    gc_host->SetAxis(button, value, player);
+    gc_host->SetAxis(button, value, (int)player);
 }
+
 - (oneway void)didPushGCButton:(OEGCButton)button forPlayer:(NSUInteger)player
 {
-    gc_host->SetButtonState(button, 1, player);
+    gc_host->SetButtonState(button, 1, (int)player);
 }
+
 - (oneway void)didReleaseGCButton:(OEGCButton)button forPlayer:(NSUInteger)player
 {
-    gc_host->SetButtonState(button, 0, player);
+    gc_host->SetButtonState(button, 0, (int)player);
 }
 @end
