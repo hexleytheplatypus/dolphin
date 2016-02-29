@@ -75,11 +75,7 @@ void DolHost::Init(std::string supportDirectoryPath)
     UICommon::SetUserDirectory(supportDirectoryPath);
     UICommon::CreateDirectories();
     UICommon::Init();
-    
-    LogManager::Init();
-    SConfig::Init();
-    VideoBackendBase::PopulateList();
-    VideoBackendBase::ActivateBackend(SConfig::GetInstance().m_strVideoBackend);
+
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().m_Volume = 50;
     Core::SetState(Core::CORE_RUN);
@@ -164,47 +160,7 @@ void DolHost::SetButtonState(int button,int state, int player)
             dolButton = "Button Dpad_Right";
             break;
         }
-        case OEGCAnalogUp:
-        {
-            dolButton = "Axis Y+";
-            break;
-        }
-        case OEGCAnalogDown:
-        {
-            dolButton = "Axis Y-";
-            break;
-        }
-        case OEGCAnalogLeft:
-        {
-            dolButton = "Axis X-";
-            break;
-        }
-        case OEGCAnalogRight:
-        {
-            dolButton = "Axis X+";
-            break;
-        }
-        case OEGCAnalogCUp:
-        {
-            dolButton = "Axis Cy+";
-            break;
-        }
-        case OEGCAnalogCDown:
-        {
-            dolButton = "Axis Cy-";
-            break;
-        }
-        case OEGCAnalogCLeft:
-        {
-            dolButton = "Axis Cx-";
-            break;
-        }
-        case OEGCAnalogCRight:
-        {
-            dolButton = "Axis Cx+";
-            break;
-        }
-        case OEGCButtonA:
+              case OEGCButtonA:
         {
             dolButton = "Button A";
             break;
@@ -268,14 +224,70 @@ void DolHost::SetButtonState(int button,int state, int player)
 
 void DolHost::SetAxis(int button, float value, int player)
 {
-//case OEGCAnalogUp,
-//case OEGCAnalogDown,
-//case OEGCAnalogLeft,
-//case OEGCAnalogRight,
-//case OEGCAnalogCUp,
-//case OEGCAnalogCDown,
-//case OEGCAnalogCLeft,
-//case OEGCAnalogCRight,
+    std::string dolButton;
+    std::string qualifier = "OE_GameDev" + std::to_string(player);
+    ciface::Core::Device::Input* input;
+    std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
+
+    switch (button)
+    {
+        case OEGCAnalogUp:
+        {
+            dolButton = "Axis Y+";
+            break;
+        }
+        case OEGCAnalogDown:
+        {
+            dolButton = "Axis Y-";
+            break;
+        }
+        case OEGCAnalogLeft:
+        {
+            dolButton = "Axis X-";
+            break;
+        }
+        case OEGCAnalogRight:
+        {
+            dolButton = "Axis X+";
+            break;
+        }
+        case OEGCAnalogCUp:
+        {
+            dolButton = "Axis Cy+";
+            break;
+        }
+        case OEGCAnalogCDown:
+        {
+            dolButton = "Axis Cy-";
+            break;
+        }
+        case OEGCAnalogCLeft:
+        {
+            dolButton = "Axis Cx-";
+            break;
+        }
+        case OEGCAnalogCRight:
+        {
+            dolButton = "Axis Cx+";
+            break;
+        }
+    }
+    
+    for (auto& d : devices)
+    {
+        if (d->GetName() == qualifier)
+        {
+            input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
+
+            if (input != NULL)
+            {
+                input->SetState(value);
+                break;
+            }
+        }
+    }
+
+
 }
 
 // Dolphin Render callback functions
