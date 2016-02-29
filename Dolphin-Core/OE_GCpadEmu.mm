@@ -171,8 +171,6 @@ void GCPad::LoadDefaults(const ControllerInterface& ciface)
     m_dpad->SetControlExpression(3, "Button DPadRight"); // Right
     
     // C Stick
-    m_c_stick->SetControlExpression(0, "Asix Cy+"); // Up
-    m_c_stick->SetControlExpression(1, "Asix Cy-"); // Down
     m_c_stick->SetControlExpression(0, "Axis Cy+"); // Up
     m_c_stick->SetControlExpression(1, "Axis Cy-"); // Down
     m_c_stick->SetControlExpression(2, "Axis Cx-"); // Left
