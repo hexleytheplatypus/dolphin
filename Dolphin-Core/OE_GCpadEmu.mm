@@ -173,6 +173,8 @@ void GCPad::LoadDefaults(const ControllerInterface& ciface)
     // C Stick
     m_c_stick->SetControlExpression(0, "Asix Cy+"); // Up
     m_c_stick->SetControlExpression(1, "Asix Cy-"); // Down
+    m_c_stick->SetControlExpression(0, "Axis Cy+"); // Up
+    m_c_stick->SetControlExpression(1, "Axis Cy-"); // Down
     m_c_stick->SetControlExpression(2, "Axis Cx-"); // Left
     m_c_stick->SetControlExpression(3, "Axis Cx+"); // Right
     m_c_stick->SetControlExpression(4, "Left Control"); // Modifier
