@@ -78,6 +78,8 @@ void DolHost::Init(std::string supportDirectoryPath)
 
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().m_Volume = 50;
+    SConfig::GetInstance().bOnScreenDisplayMessages = false;
+    
     Core::SetState(Core::CORE_RUN);
 }
 
