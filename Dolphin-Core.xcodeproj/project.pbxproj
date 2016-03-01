@@ -578,7 +578,6 @@
 		3E3D76731C82B33700091C4D /* TransformUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76621C82B33700091C4D /* TransformUnit.cpp */; };
 		3E3D76761C83477F00091C4D /* DolHost.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76751C83477F00091C4D /* DolHost.mm */; };
 		3E3D76771C8375C000091C4D /* OE_AGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70261C82AF2A00091C4D /* OE_AGL.mm */; };
-		3E3D76781C8375CF00091C4D /* OE_CoreAudio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */; };
 		3E3D76791C8375F100091C4D /* OE_GCpadEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */; };
 		3E3D767A1C83761B00091C4D /* OE_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */; };
 		3E3D767B1C83761B00091C4D /* OE_OSXJoystick.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D702E1C82AF2A00091C4D /* OE_OSXJoystick.mm */; };
@@ -670,6 +669,7 @@
 		3E3D775F1C840C8B00091C4D /* dis_groups.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D775D1C840C8B00091C4D /* dis_groups.cc */; };
 		3E3D77621C840CFC00091C4D /* resolve.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77601C840CFC00091C4D /* resolve.cc */; };
 		3E3D77631C840CFC00091C4D /* stdafx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77611C840CFC00091C4D /* stdafx.cc */; };
+		3E3D77641C85191500091C4D /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
 		8319B93E1A6D546700DD23A9 /* Sys in Resources */ = {isa = PBXBuildFile; fileRef = 8319B93C1A6D52FD00DD23A9 /* Sys */; };
 		8355D4C41A65393600E73302 /* libaudiocommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EAB8D2A0AA45A183467CCD /* libaudiocommon.a */; };
 		8355D4C51A65393600E73302 /* libbdisasm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65EF8E25FB448D2BA4D3070 /* libbdisasm.a */; };
@@ -5337,7 +5337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E3D76781C8375CF00091C4D /* OE_CoreAudio.mm in Sources */,
+				3E3D77641C85191500091C4D /* CoreAudioSoundStream.cpp in Sources */,
 				3E3D70971C82B03600091C4D /* AOSoundStream.cpp in Sources */,
 				3E3D70951C82B03600091C4D /* aldlist.cpp in Sources */,
 				3E3D70A01C82B03600091C4D /* WaveFile.cpp in Sources */,
