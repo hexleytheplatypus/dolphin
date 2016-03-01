@@ -130,7 +130,20 @@ void DolHost::UpdateFrame()
         updateMainFrameEvent.Set();
     }
 }
+# pragma Save states
+bool DolHost::SaveState(std::string saveStateFile)
+{
+    State::SaveAs(saveStateFile);
+    return true;
+}
 
+bool DolHost::LoadState(std::string saveStateFile)
+{
+    State::LoadAs(saveStateFile);
+    return true;
+}
+
+# pragma Controls
 void DolHost::SetButtonState(int button,int state, int player)
 {
     std::string dolButton;

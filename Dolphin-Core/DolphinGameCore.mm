@@ -227,10 +227,12 @@ __weak DolphinGameCore *_current = 0;
 # pragma mark - Save States
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
+    block(gc_host->SaveState([fileName UTF8String]),nil);
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
+     block(gc_host->LoadState([fileName UTF8String]),nil);
 }
 
 # pragma mark - Input

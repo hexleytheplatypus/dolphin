@@ -64,7 +64,9 @@ public:
     void volumeUp();
     void SetVolume(float value);
 
-    
+    bool SaveState(std::string saveStateFile);
+    bool LoadState(std::string saveStateFile);
+
     int AudioMix(short*, int);
     
     void RequestRenderSize(int w, int h);
