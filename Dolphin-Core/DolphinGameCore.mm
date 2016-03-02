@@ -53,23 +53,23 @@
 {
     DolHost *gc_host;
     NSView* dolView;
-                          
+
     uint16_t *_soundBuffer;
     bool _isInitialized;
     bool _shouldReset;
     float _frameInterval;
+    bool _CoreThreadRunning;
 }
 @property (copy) NSString *filePath;
 @end
 
-__weak DolphinGameCore *_current = 0;
+DolphinGameCore *_current = 0;
 
 @implementation DolphinGameCore
 - (id)init
 {
     if(self = [super init])
         gc_host = DolHost::GetInstance();
-
 
     _current = self;
     return self;
@@ -84,13 +84,10 @@ __weak DolphinGameCore *_current = 0;
 # pragma mark - Execution
 - (BOOL)loadFileAtPath:(NSString *)path
 {
-
-    NSString *resourcePath = [[[self owner] bundle] resourcePath];
-    NSString *supportDirectoryPath = [self supportDirectoryPath];
-    
-    gc_host->Init([supportDirectoryPath UTF8String] );
     self.filePath = path;
-    
+
+    gc_host->Init([[self supportDirectoryPath] UTF8String] );
+
     return YES;
 }
 
@@ -102,54 +99,62 @@ __weak DolphinGameCore *_current = 0;
 - (void)stopEmulation
 {
     gc_host->RequestStop();
+
+    //Wait until the Core Thread has ended
+    while(_CoreThreadRunning)
+        usleep (1000);
     
     [super stopEmulation];
 }
 
-- (void) startEmulation
+- (void)startEmulation
 {
+    //Call the Core Thread to start
     [NSThread detachNewThreadSelector:@selector(runDolphinThread) toTarget:self withObject:nil];
+
+    //Let the Core Thread finish all it's startup
+    usleep(1000);
+
+    if(gc_host->LoadFileAtPath([[self filePath] cStringUsingEncoding:NSUTF8StringEncoding]))
+        _isInitialized=true;
+
     [super startEmulation];
 }
 
 - (void)resetEmulation
 {
-    gc_host->RequestReset();
+    [self stopEmulation];
+    [self loadFileAtPath: [self filePath]];
+    [self startEmulation];
 }
 
 - (void)executeFrame
 {
-    if(!_isInitialized)
-    {
-        const char * cpath = [[self filePath] cStringUsingEncoding:NSUTF8StringEncoding];
-    
-        if(gc_host->LoadFileAtPath(cpath))
-            _isInitialized=true;
-    }
     gc_host->UpdateFrame();
 }
 
-# pragma  CoreThread
+# pragma mark - CoreThread
 - (void)runDolphinThread
 {
+    _CoreThreadRunning = true;
     @autoreleasepool
     {
         OESetThreadRealtime(1. / 50, .007, .03); // guessed from bsnes
-        
+
         //Set this thread as the render delegate so we have access to the Alternate Context
         [self.renderDelegate willRenderFrameOnAlternateThread];
-        
+
         //Get the id of the Render buffer in OpenEmu and pass it to the GC_host
         gc_host->SetPresentationFBO((int)[[self.renderDelegate presentationFramebuffer] integerValue]);
-        
+
         //Start the Core Thread of Dolphin
         gc_host->RunCore();
-        
-        [super stopEmulation];
     }
+    // Core Thread Completed
+    _CoreThreadRunning = false;
 }
 
-# pragma Core Emulator Callbacks
+# pragma mark - Render Callbacks
 - (void)makeCurrent
 {
     //This will make the OE Alternate Context the current OGL Context
@@ -232,7 +237,7 @@ __weak DolphinGameCore *_current = 0;
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-     block(gc_host->LoadState([fileName UTF8String]),nil);
+    block(gc_host->LoadState([fileName UTF8String]),nil);
 }
 
 # pragma mark - Input
