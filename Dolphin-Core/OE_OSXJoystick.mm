@@ -47,37 +47,32 @@ namespace ciface
             // Buttons
 
             //  OE DPAD buttons
-            AddInput(new Button("Dpad_UP"));
-            AddInput(new Button("Dpad_Down"));
-            AddInput(new Button("Dpad_Left"));
-            AddInput(new Button("Dpad_Right"));
+            AddInput(new Button("OEGCButtonUp"));
+            AddInput(new Button("OEGCButtonDown"));
+            AddInput(new Button("OEGCButtonLeft"));
+            AddInput(new Button("OEGCButtonRight"));
+
+            //  OE Add our analog axes as buttons
+            AddAnalogInputs(new Axis("OEGCAnalogDown",Axis::negative),
+                            new Axis("OEGCAnalogUp",Axis::positive));
+            AddAnalogInputs(new Axis("OEGCAnalogLeft",Axis::negative),
+                            new Axis("OEGCAnalogRight",Axis::positive));
+            AddAnalogInputs(new Axis("OEGCAnalogCDown",Axis::negative),
+                            new Axis("OEGCAnalogCUp",Axis::positive));
+            AddAnalogInputs(new Axis("OEGCAnalogCLeft",Axis::negative),
+                            new Axis("OEGCAnalogCRight",Axis::positive));
+
+            // Trigger Buttons
+            AddInput(new Button("OEGCButtonA"));
+            AddInput(new Button("OEGCButtonB"));
+            AddInput(new Button("OEGCButtonX"));
+            AddInput(new Button("OEGCButtonY"));
+            AddInput(new Button("OEGCButtonL"));
+            AddInput(new Button("OEGCButtonR"));
+            AddInput(new Button("OEGCButtonZ"));
 
             // OE StartButtons
-            AddInput(new Button("Start"));
-
-            // Trigger Buttons
-            AddInput(new Button("A"));
-            AddInput(new Button("B"));
-            AddInput(new Button("X"));
-            AddInput(new Button("Y"));
-
-            // Trigger Buttons
-            AddInput(new Button("L"));
-            AddInput(new Button("R"));
-            AddInput(new Button("Z"));
-
-            //  OE Add out analog axes
-            AddAnalogInputs(new Axis("X",Axis::negative),
-                            new Axis("X",Axis::positive));
-
-            AddAnalogInputs(new Axis("Y",Axis::negative),
-                            new Axis("Y",Axis::positive));
-
-            AddAnalogInputs(new Axis("Cx",Axis::negative),
-                            new Axis("Cx",Axis::positive));
-
-            AddAnalogInputs(new Axis("Cy",Axis::negative),
-                            new Axis("Cy",Axis::positive));
+            AddInput(new Button("OEGCButtonStart"));
 
             //Maybe someday this can be added
             //	// Force Feedback
@@ -112,7 +107,7 @@ namespace ciface
 
         Joystick::Button::Button(std::string description)
         {
-            m_name = std::string("Button ") + description;
+            m_name = description;
             m_state=0;
         }
 
@@ -135,8 +130,7 @@ namespace ciface
         Joystick::Axis::Axis(std::string description, direction dir)
         :m_direction(dir)
         {
-            m_name = std::string("Axis ") + description;
-            m_name.append((m_direction == positive) ? "+" : "-");
+            m_name = description;
         }
 
         ControlState Joystick::Axis::GetState() const
@@ -167,7 +161,5 @@ namespace ciface
         {
             return m_name;
         }
-        
-        
     }
 }

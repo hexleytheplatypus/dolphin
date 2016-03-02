@@ -152,40 +152,40 @@ void GCPad::LoadDefaults(const ControllerInterface& ciface)
     ControllerEmu::LoadDefaults(ciface);
     
     // Buttons
-    m_buttons->SetControlExpression(0, "Button A"); // A
-    m_buttons->SetControlExpression(1, "Button B"); // B
-    m_buttons->SetControlExpression(2, "Button X"); // X
-    m_buttons->SetControlExpression(3, "Button Y"); // Y
-    m_buttons->SetControlExpression(4, "Button Z"); // Z
-    m_buttons->SetControlExpression(5, "Button Start"); // Start
+    m_buttons->SetControlExpression(0, "OEGCButtonA"); // A
+    m_buttons->SetControlExpression(1, "OEGCButtonB"); // B
+    m_buttons->SetControlExpression(2, "OEGCButtonX"); // X
+    m_buttons->SetControlExpression(3, "OEGCButtonY"); // Y
+    m_buttons->SetControlExpression(4, "OEGCButtonZ"); // Z
+    m_buttons->SetControlExpression(5, "OEGCButtonStart"); // Start
 
     // stick modifiers to 50 %
     m_main_stick->controls[4]->control_ref->range = 0.5f;
     m_c_stick->controls[4]->control_ref->range = 0.5f;
     
     // D-Pad
-    m_dpad->SetControlExpression(0, "Button DPadUp"); // Up
-    m_dpad->SetControlExpression(1, "Button DPadDown"); // Down
-    m_dpad->SetControlExpression(2, "Button DPadLeft"); // Left
-    m_dpad->SetControlExpression(3, "Button DPadRight"); // Right
+    m_dpad->SetControlExpression(0, "OEGCButtonUp"); // Up
+    m_dpad->SetControlExpression(1, "OEGCButtonDown"); // Down
+    m_dpad->SetControlExpression(2, "OEGCButtonLeft"); // Left
+    m_dpad->SetControlExpression(3, "OEGCButtonRight"); // Right
     
     // C Stick
-    m_c_stick->SetControlExpression(0, "Axis Cy+"); // Up
-    m_c_stick->SetControlExpression(1, "Axis Cy-"); // Down
-    m_c_stick->SetControlExpression(2, "Axis Cx-"); // Left
-    m_c_stick->SetControlExpression(3, "Axis Cx+"); // Right
+    m_c_stick->SetControlExpression(0, "OEGCAnalogCUp"); // Up
+    m_c_stick->SetControlExpression(1, "OEGCAnalogCDown"); // Down
+    m_c_stick->SetControlExpression(2, "OEGCAnalogCLeft"); // Left
+    m_c_stick->SetControlExpression(3, "OEGCAnalogCRight"); // Right
     m_c_stick->SetControlExpression(4, "Left Control"); // Modifier
     
     // Control Stick
-    m_main_stick->SetControlExpression(0, "Axis Y+");     // Up
-    m_main_stick->SetControlExpression(1, "Axis Y-");   // Down
-    m_main_stick->SetControlExpression(2, "Axis X-");   // Left
-    m_main_stick->SetControlExpression(3, "Axis X+");  // Right
+    m_main_stick->SetControlExpression(0, "OEGCAnalogUp");     // Up
+    m_main_stick->SetControlExpression(1, "OEGCAnalogDown");   // Down
+    m_main_stick->SetControlExpression(2, "OEGCAnalogLeft");   // Left
+    m_main_stick->SetControlExpression(3, "OEGCAnalogRight");  // Right
     m_main_stick->SetControlExpression(4, "LSHIFT"); // Modifier
     
     // Triggers
-    m_triggers->SetControlExpression(0, "Button L"); // L
-    m_triggers->SetControlExpression(1, "Button R"); // R
+    m_triggers->SetControlExpression(0, "OEGCButtonL"); // L
+    m_triggers->SetControlExpression(1, "OEGCButtonR"); // R
 }
 
 bool GCPad::GetMicButton() const
