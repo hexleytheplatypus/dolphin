@@ -89,8 +89,8 @@ bool DolHost::LoadFileAtPath(const std::string& cpath)
     while (!Core::IsRunning())
         updateMainFrameEvent.Wait();
 
-    Core::SetState(Core::CORE_RUN);
-
+    SetUpPlayerInputs();
+    
     return true;
 }
 
@@ -147,160 +147,67 @@ bool DolHost::LoadState(std::string saveStateFile)
 }
 
 # pragma mark - Controls
-void DolHost::SetButtonState(int button,int state, int player)
+void DolHost::SetUpPlayerInputs()
 {
-    std::string dolButton;
-    std::string qualifier = "OE_GameDev" + std::to_string(player);
-    ciface::Core::Device::Input* input;
+    struct {
+        OEGCButton button;
+        std::string identifier;
+    } buttonToIdentifier[OEGCButtonCount] = {
+        { OEGCButtonUp, "OEGCButtonUp" },
+        { OEGCButtonDown, "OEGCButtonDown" },
+        { OEGCButtonLeft, "OEGCButtonLeft" },
+        { OEGCButtonRight, "OEGCButtonRight" },
+        { OEGCButtonA, "OEGCButtonA" },
+        { OEGCButtonB, "OEGCButtonB" },
+        { OEGCButtonX, "OEGCButtonX" },
+        { OEGCButtonY, "OEGCButtonY" },
+        { OEGCButtonL, "OEGCButtonL" },
+        { OEGCButtonR, "OEGCButtonR" },
+        { OEGCButtonZ, "OEGCButtonZ" },
+        { OEGCButtonStart, "OEGCButtonStart" },
+        { OEGCAnalogUp, "OEGCAnalogUp" },
+        { OEGCAnalogDown, "OEGCAnalogDown" },
+        { OEGCAnalogLeft, "OEGCAnalogLeft" },
+        { OEGCAnalogRight, "OEGCAnalogRight" },
+        { OEGCAnalogCUp, "OEGCAnalogCUp" },
+        { OEGCAnalogCDown, "OEGCAnalogCDown" },
+        { OEGCAnalogCLeft, "OEGCAnalogCLeft" },
+        { OEGCAnalogCRight, "OEGCAnalogCRight" },
+    };
+
     std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
+    for (int player = 0; player < 4; ++player) {
+        std::string qualifier = "OE_GameDev" + std::to_string(player);
+        ciface::Core::Device* device = nullptr;
+               for (auto& d : devices) {
+                        if (d->GetName() == qualifier) {
 
-    switch (button)
-    {
-        case OEGCButtonUp:
-        {
-            dolButton = "Button Dpad_UP";
-            break;
-        }
-        case OEGCButtonDown:
-        {
-            dolButton = "Button Dpad_Down";
-            break;
-        }
-        case OEGCButtonLeft:
-        {
-            dolButton = "Button Dpad_Left";
-            break;
-        }
-        case OEGCButtonRight:
-        {
-            dolButton = "Button Dpad_Right";
-            break;
-        }
-        case OEGCButtonA:
-        {
-            dolButton = "Button A";
-            break;
-        }
-        case OEGCButtonB:
-        {
-            dolButton = "Button B";
-            break;
-        }
-        case OEGCButtonX:
-        {
-            dolButton = "Button X";
-            break;
-        }
-        case OEGCButtonY:
-        {
-            dolButton = "Button Y";
-            break;
-        }
-        case OEGCButtonL:
-        {
-            dolButton = "Button L";
-            break;
-        }
-        case OEGCButtonR:
-        {
-            dolButton = "Button R";
-            break;
-        }
-        case OEGCButtonZ:
-        {
-            dolButton = "Button Z";
-            break;
-        }
-        case OEGCButtonStart:
-        {
-            dolButton = "Button Start";
-            break;
-        }
-        case  OEGCButtonCount:
-        {
-            break;
-        }
-    }
+                            device = d;
+                            break;
+                        }
+               }
+        if (device == nullptr)
+                    continue;
 
-    for (auto& d : devices)
-    {
-        if (d->GetName() == qualifier)
-        {
-            input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
+        for (int inputIndex = 0; inputIndex < OEGCButtonCount; ++inputIndex) {
+                        std::string identifier = buttonToIdentifier[inputIndex].identifier;
+                        ciface::Core::Device::Input* input = g_controller_interface.ControllerInterface::FindInput(identifier, device);
 
-            if (input != NULL)
-            {
-                input->SetState(state);
-                break;
-            }
+                        m_playerInputs[player][buttonToIdentifier[inputIndex].button] = input;
         }
     }
 }
 
+void DolHost::SetButtonState(int button, int state, int player)
+{
+    ciface::Core::Device::Input* input = m_playerInputs[player - 1][button];
+    input->SetState(state);
+}
+
 void DolHost::SetAxis(int button, float value, int player)
 {
-    std::string dolButton;
-    std::string qualifier = "OE_GameDev" + std::to_string(player);
-    ciface::Core::Device::Input* input;
-    std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
-
-    switch (button)
-    {
-        case OEGCAnalogUp:
-        {
-            dolButton = "Axis Y+";
-            break;
-        }
-        case OEGCAnalogDown:
-        {
-            dolButton = "Axis Y-";
-            break;
-        }
-        case OEGCAnalogLeft:
-        {
-            dolButton = "Axis X-";
-            break;
-        }
-        case OEGCAnalogRight:
-        {
-            dolButton = "Axis X+";
-            break;
-        }
-        case OEGCAnalogCUp:
-        {
-            dolButton = "Axis Cy+";
-            break;
-        }
-        case OEGCAnalogCDown:
-        {
-            dolButton = "Axis Cy-";
-            break;
-        }
-        case OEGCAnalogCLeft:
-        {
-            dolButton = "Axis Cx-";
-            break;
-        }
-        case OEGCAnalogCRight:
-        {
-            dolButton = "Axis Cx+";
-            break;
-        }
-    }
-
-    for (auto& d : devices)
-    {
-        if (d->GetName() == qualifier)
-        {
-            input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
-
-            if (input != NULL)
-            {
-                input->SetState(value);
-                break;
-            }
-        }
-    }
+    ciface::Core::Device::Input* input = m_playerInputs[player - 1][button];
+    input->SetState(value);
 }
 
 # pragma mark - Dolphin Host callbacks

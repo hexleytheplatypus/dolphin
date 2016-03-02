@@ -35,6 +35,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
 #import "OEGCSystemResponderClient.h"
+#import <unordered_map>
+
+#include "InputCommon/ControllerInterface/Device.h"
 
 class DolHost {
    
@@ -64,4 +67,7 @@ public:
 private:
     static DolHost* m_instance;
     DolHost();
+
+    void SetUpPlayerInputs();
+    ciface::Core::Device::Input* m_playerInputs[4][OEGCButtonCount];
 };
