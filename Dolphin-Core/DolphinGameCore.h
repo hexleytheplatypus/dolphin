@@ -36,7 +36,6 @@ OE_EXPORTED_CLASS
 
 - (void) makeCurrent;
 - (void) swapBuffers;
-
 @end
 
-extern __weak DolphinGameCore *_current;
+extern DolphinGameCore *_current;
