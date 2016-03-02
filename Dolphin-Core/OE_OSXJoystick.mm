@@ -131,6 +131,8 @@ namespace ciface
         :m_direction(dir)
         {
             m_name = description;
+            m_neutral = 1/2;
+            m_scale = 1;
         }
 
         ControlState Joystick::Axis::GetState() const
