@@ -46,7 +46,7 @@ private:
         Button(std::string description);
 		std::string GetName() const override;
 		ControlState GetState() const override;
-        void SetState(ControlState state); 
+        void SetState(ControlState state) override;
         
 	private:
 		std::string            m_name;
