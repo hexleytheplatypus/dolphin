@@ -44,41 +44,58 @@ namespace ciface
         , m_index(index)
         , m_ff_device(nullptr)
         {
+            Input* up = new Axis("OEGCAnalogUp",Axis::positive);
+            Input* down = new Axis("OEGCAnalogDown",Axis::negative);
+            Input* left = new Axis("OEGCAnalogLeft",Axis::negative);
+            Input* right = new Axis("OEGCAnalogRight",Axis::positive);
+            Input* cup = new Axis("OEGCAnalogCUp",Axis::positive);
+            Input* cdown = new Axis("OEGCAnalogCDown",Axis::negative);
+            Input* cleft = new Axis("OEGCAnalogCLeft",Axis::negative);
+            Input* cright = new Axis("OEGCAnalogCRight",Axis::positive);
+
             // Buttons
 
             //  OE DPAD buttons
-            AddInput(new Button("Dpad_UP"));
-            AddInput(new Button("Dpad_Down"));
-            AddInput(new Button("Dpad_Left"));
-            AddInput(new Button("Dpad_Right"));
+            AddInput(new Button("OEGCButtonUp"));
+            AddInput(new Button("OEGCButtonDown"));
+            AddInput(new Button("OEGCButtonLeft"));
+            AddInput(new Button("OEGCButtonRight"));
+
+            //  OE Add our analog axes as buttons
+            AddInput(up);
+            AddInput(down);
+            AddInput(left);
+            AddInput(right);
+            AddInput(cup);
+            AddInput(cdown);
+            AddInput(cleft);
+            AddInput(cright);
+
+            // Trigger Buttons
+            AddInput(new Button("OEGCButtonA"));
+            AddInput(new Button("OEGCButtonB"));
+            AddInput(new Button("OEGCButtonX"));
+            AddInput(new Button("OEGCButtonY"));
+            AddInput(new Button("OEGCButtonL"));
+            AddInput(new Button("OEGCButtonR"));
+            AddInput(new Button("OEGCButtonZ"));
 
             // OE StartButtons
-            AddInput(new Button("Start"));
+            AddInput(new Button("OEGCButtonStart"));
 
-            // Trigger Buttons
-            AddInput(new Button("A"));
-            AddInput(new Button("B"));
-            AddInput(new Button("X"));
-            AddInput(new Button("Y"));
+            //OE Create Analog Surfaces for Axis buttons
+            AddInput(new FullAnalogSurface(up, down));
+            AddInput(new FullAnalogSurface(down, up));
 
-            // Trigger Buttons
-            AddInput(new Button("L"));
-            AddInput(new Button("R"));
-            AddInput(new Button("Z"));
+            AddInput(new FullAnalogSurface(left, right));
+            AddInput(new FullAnalogSurface(right, left));
 
-            //  OE Add out analog axes
-            AddAnalogInputs(new Axis("X",Axis::negative),
-                            new Axis("X",Axis::positive));
+            AddInput(new FullAnalogSurface(cup, cdown));
+            AddInput(new FullAnalogSurface(cdown, cup));
 
-            AddAnalogInputs(new Axis("Y",Axis::negative),
-                            new Axis("Y",Axis::positive));
-
-            AddAnalogInputs(new Axis("Cx",Axis::negative),
-                            new Axis("Cx",Axis::positive));
-
-            AddAnalogInputs(new Axis("Cy",Axis::negative),
-                            new Axis("Cy",Axis::positive));
-
+            AddInput(new FullAnalogSurface(cleft, cright));
+            AddInput(new FullAnalogSurface(cright, cleft));
+           
             //Maybe someday this can be added
             //	// Force Feedback
             //	FFCAPABILITIES ff_caps;
@@ -112,7 +129,7 @@ namespace ciface
 
         Joystick::Button::Button(std::string description)
         {
-            m_name = std::string("Button ") + description;
+            m_name = description;
             m_state=0;
         }
 
@@ -135,8 +152,7 @@ namespace ciface
         Joystick::Axis::Axis(std::string description, direction dir)
         :m_direction(dir)
         {
-            m_name = std::string("Axis ") + description;
-            m_name.append((m_direction == positive) ? "+" : "-");
+            m_name = description;
         }
 
         ControlState Joystick::Axis::GetState() const
