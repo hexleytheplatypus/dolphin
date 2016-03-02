@@ -37,29 +37,26 @@
 
 namespace ciface
 {
-namespace OSX
-{
+    namespace OSX
+    {
 
-static std::map<std::string, int> kbd_name_counts, joy_name_counts;
+        static std::map<std::string, int> kbd_name_counts, joy_name_counts;
 
-void DeviceElementDebugPrint(const void *value, void *context)
-{
-}
+        void DeviceElementDebugPrint(const void *value, void *context)
+        {
+        }
 
-void Init(std::vector<Core::Device*>& devices, void *window)
-{
-    
-    // Create 4 OE joysticks
-    devices.push_back(new Joystick("OE_GameDev1", joy_name_counts["OE_GameDev1"]++));
-    devices.push_back(new Joystick("OE_GameDev2", joy_name_counts["OE_GameDev2"]++));
-    devices.push_back(new Joystick("OE_GameDev3", joy_name_counts["OE_GameDev3"]++));
-    devices.push_back(new Joystick("OE_GameDev4", joy_name_counts["OE_GameDev4"]++));
-}
-
-void DeInit()
-{
-}
-
-
-}
+        void Init(std::vector<Core::Device*>& devices, void *window)
+        {
+            // Create 4 OE joysticks
+            devices.push_back(new Joystick("OE_GameDev1", joy_name_counts["OE_GameDev1"]++));
+            devices.push_back(new Joystick("OE_GameDev2", joy_name_counts["OE_GameDev2"]++));
+            devices.push_back(new Joystick("OE_GameDev3", joy_name_counts["OE_GameDev3"]++));
+            devices.push_back(new Joystick("OE_GameDev4", joy_name_counts["OE_GameDev4"]++));
+        }
+        
+        void DeInit()
+        {
+        }
+    }
 }

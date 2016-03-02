@@ -39,21 +39,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class DolHost {
    
 public:
-    
     static DolHost* GetInstance();
-    
-    void* GetRenderHandle();
-    bool GetRenderFocus();
-    bool GetRenderFullscreen();
-    
-    void SetRenderHandle(void* handle);
-    void SetRenderFocus(bool focus);
-    void SetRenderFullscreen(bool fullscreen);
-    
+    void Init(std::string supportDirectoryPath);
+
+    bool LoadFileAtPath(const std::string&);
     void RequestStop();
-    void RequestReset();
     void UpdateFrame();
-   
+    void Pause(bool);
+
+    void RunCore();
     void SetPresentationFBO(int RenderFBO);
     
     void SetButtonState(int button,int state, int player);
@@ -67,20 +61,7 @@ public:
     bool SaveState(std::string saveStateFile);
     bool LoadState(std::string saveStateFile);
 
-    int AudioMix(short*, int);
-    
-    void RequestRenderSize(int w, int h);
-    
-    void Init(std::string supportDirectoryPath);
-    void RunCore();
-    void StopEmulator();
-    
-    void Pause(bool);
-    bool LoadFileAtPath(const std::string&);
-    
 private:
     static DolHost* m_instance;
     DolHost();
-    void* m_render_handle;
-   
 };

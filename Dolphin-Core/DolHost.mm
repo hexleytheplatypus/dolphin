@@ -56,7 +56,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AudioCommon/AudioCommon.h"
 
 DolHost* DolHost::m_instance = nullptr;
-static bool running = true;
 static Common::Event updateMainFrameEvent;
 
 DolHost* DolHost::GetInstance()
@@ -79,29 +78,20 @@ void DolHost::Init(std::string supportDirectoryPath)
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().m_Volume = 50;
     SConfig::GetInstance().bOnScreenDisplayMessages = false;
-    
-    Core::SetState(Core::CORE_RUN);
 }
 
+# pragma mark - Execution
 bool DolHost::LoadFileAtPath(const std::string& cpath)
 {
     if(!BootManager::BootCore(cpath))
         return false;
     
     while (!Core::IsRunning())
-      updateMainFrameEvent.Wait();
-    
+        updateMainFrameEvent.Wait();
+
+    Core::SetState(Core::CORE_RUN);
+
     return true;
-}
-
-void DolHost::RunCore()
-{
-    Core::EmuThread();
-}
-
-void DolHost::SetPresentationFBO(int RenderFBO)
-{
-    g_Config.iRenderFBO = RenderFBO;
 }
 
 void DolHost::Pause(bool flag)
@@ -114,25 +104,36 @@ void DolHost::RequestStop()
 {
     Core::Stop();
     while (PowerPC::GetState() != PowerPC::CPU_POWERDOWN)
-       usleep(10000);
-    VideoBackendBase::ClearList();
-    SConfig::Shutdown();
-    LogManager::Shutdown();
-}
+        usleep(1000);
 
-void DolHost::RequestReset()
-{
 }
 
 void DolHost::UpdateFrame()
 {
-    while(Core::GetState()!=Core::CORE_RUN)
+    while(Core::GetState() != Core::CORE_RUN)
     {
         Core::SetState(Core::CORE_RUN);
         updateMainFrameEvent.Set();
     }
 }
-# pragma Save states
+
+# pragma mark - Core Thread
+void DolHost::RunCore()
+{
+    Core::EmuThread();
+
+    //Clean up after the EmuThread has ended
+    VideoBackendBase::ClearList();
+    SConfig::Shutdown();
+    LogManager::Shutdown();
+}
+
+void DolHost::SetPresentationFBO(int RenderFBO)
+{
+    g_Config.iRenderFBO = RenderFBO;
+}
+
+# pragma mark - Save states
 bool DolHost::SaveState(std::string saveStateFile)
 {
     State::SaveAs(saveStateFile);
@@ -145,7 +146,7 @@ bool DolHost::LoadState(std::string saveStateFile)
     return true;
 }
 
-# pragma Controls
+# pragma mark - Controls
 void DolHost::SetButtonState(int button,int state, int player)
 {
     std::string dolButton;
@@ -175,15 +176,15 @@ void DolHost::SetButtonState(int button,int state, int player)
             dolButton = "Button Dpad_Right";
             break;
         }
-              case OEGCButtonA:
+        case OEGCButtonA:
         {
             dolButton = "Button A";
             break;
         }
         case OEGCButtonB:
         {
-           dolButton = "Button B";
-         break;
+            dolButton = "Button B";
+            break;
         }
         case OEGCButtonX:
         {
@@ -217,23 +218,22 @@ void DolHost::SetButtonState(int button,int state, int player)
         }
         case  OEGCButtonCount:
         {
-            
             break;
         }
     }
 
     for (auto& d : devices)
     {
-         if (d->GetName() == qualifier)
-         {
-             input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
-             
-             if (input != NULL)
-             {
-                 input->SetState(state);
-                 break;
-             }
-         }
+        if (d->GetName() == qualifier)
+        {
+            input = g_controller_interface.ControllerInterface::FindInput(dolButton ,d);
+
+            if (input != NULL)
+            {
+                input->SetState(state);
+                break;
+            }
+        }
     }
 }
 
@@ -287,7 +287,7 @@ void DolHost::SetAxis(int button, float value, int player)
             break;
         }
     }
-    
+
     for (auto& d : devices)
     {
         if (d->GetName() == qualifier)
@@ -301,51 +301,12 @@ void DolHost::SetAxis(int button, float value, int player)
             }
         }
     }
-
-
 }
 
-// Dolphin Render callback functions
-void* DolHost::GetRenderHandle()
-{
-    return DolHost::m_render_handle;
-}
-
-void DolHost::SetRenderHandle(void* handle)
-{
-    m_render_handle = handle;
-}
-
-bool DolHost::GetRenderFocus()
-{
-    return true;
-}
-
-bool DolHost::GetRenderFullscreen()
-{
-    return false;
-}
-
-void DolHost::SetRenderFullscreen(bool fullscreen){}
-void DolHost_Message(int id){}
-void DolHost::SetRenderFocus(bool focus){}
-
-//  Dolphin Call back functions
-void* Host_GetRenderHandle()
-{
-    return DolHost::GetInstance()->GetRenderHandle();
-}
-
-bool Host_RendererHasFocus()
-{
-    return true;
-}
-
-bool Host_RendererIsFullscreen()
-{
-    return false;
-}
-
+# pragma mark - Dolphin Host callbacks
+void* Host_GetRenderHandle(){ return nullptr; }
+bool Host_RendererHasFocus(){ return true; }
+bool Host_RendererIsFullscreen(){ return false; }
 void Host_SetWiiMoteConnectionState(int state) {}
 void Host_GetRenderWindowSize(int& x, int& y, int& width, int& height)
 {
@@ -354,27 +315,26 @@ void Host_GetRenderWindowSize(int& x, int& y, int& width, int& height)
     width = 640;
     height = 480;
 }
+
 void Host_SetStartupDebuggingParameters()
 {
-    //NSLog(@"DolphinCore: Set Startup Debugging Parameters");
+    NSLog(@"DolphinCore: Set Startup Debugging Parameters");
     SConfig& StartUp = SConfig::GetInstance();
     StartUp.bEnableDebugging = false;
-    StartUp.bBootToPause = true;
+    StartUp.bBootToPause = false;
     StartUp.bWii = false;
 }
+
 void Host_NotifyMapLoaded() {}
 void Host_RefreshDSPDebuggerWindow() {}
-void Host_Message(int Id)
-{
-    if (Id == WM_USER_STOP)
-        running = false;
-}
+void Host_Message(int Id) {}
 void Host_UpdateTitle(const std::string&) {}
 void Host_UpdateDisasmDialog() {}
 void Host_UpdateMainFrame()
 {
     updateMainFrameEvent.Set();
 }
+
 void Host_RequestRenderWindowSize(int, int) {}
 void Host_RequestFullscreen(bool) {}
 bool Host_UIHasFocus() { return false; }

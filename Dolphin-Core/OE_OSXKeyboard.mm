@@ -12,69 +12,67 @@
 
 namespace ciface
 {
-namespace OSX
-{
+    namespace OSX
+    {
 
-Keyboard::Keyboard(std::string name, int index)
-	:m_device_name(name)
-	, m_index(index)
-{
-}
+        Keyboard::Keyboard(std::string name, int index)
+        :m_device_name(name)
+        , m_index(index)
+        {
+        }
 
-void Keyboard::UpdateInput()
-{
-}
+        void Keyboard::UpdateInput()
+        {
+        }
 
-std::string Keyboard::GetName() const
-{
-	return m_device_name;
-}
+        std::string Keyboard::GetName() const
+        {
+            return m_device_name;
+        }
 
-std::string Keyboard::GetSource() const
-{
-	return 0;
-}
+        std::string Keyboard::GetSource() const
+        {
+            return 0;
+        }
 
-int Keyboard::GetId() const
-{
-	return m_index;
-}
+        int Keyboard::GetId() const
+        {
+            return m_index;
+        }
 
-Keyboard::Key::Key()
-	
-{
-}
+        Keyboard::Key::Key()
 
-ControlState Keyboard::Key::GetState() const
-{
-		return 0;
-}
+        {
+        }
 
-ControlState Keyboard::Cursor::GetState() const
-{
-    return 0;
-}
+        ControlState Keyboard::Key::GetState() const
+        {
+            return 0;
+        }
 
-ControlState Keyboard::Button::GetState() const
-{
-	return 0;
-}
-
-std::string Keyboard::Cursor::GetName() const
-{
-	return 0;
-}
-
-std::string Keyboard::Button::GetName() const
-{
-	return 0;
-}
-
-std::string Keyboard::Key::GetName() const
-{
-	return 0;
-}
-
-
-}
+        ControlState Keyboard::Cursor::GetState() const
+        {
+            return 0;
+        }
+        
+        ControlState Keyboard::Button::GetState() const
+        {
+            return 0;
+        }
+        
+        std::string Keyboard::Cursor::GetName() const
+        {
+            return 0;
+        }
+        
+        std::string Keyboard::Button::GetName() const
+        {
+            return 0;
+        }
+        
+        std::string Keyboard::Key::GetName() const
+        {
+            return 0;
+        }
+    }
 }

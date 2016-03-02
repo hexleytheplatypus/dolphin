@@ -2108,9 +2108,6 @@
 		3E3D76741C83477F00091C4D /* DolHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DolHost.h; sourceTree = "<group>"; };
 		3E3D76751C83477F00091C4D /* DolHost.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DolHost.mm; sourceTree = "<group>"; };
 		3E3D76811C839B2E00091C4D /* libenet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libenet.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E3D76831C839B2E00091C4D /* enet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = enet.hpp; sourceTree = "<group>"; };
-		3E3D76851C839B2E00091C4D /* enetPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = enetPriv.hpp; sourceTree = "<group>"; };
-		3E3D76871C839B2E00091C4D /* enet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = enet.cpp; sourceTree = "<group>"; };
 		3E3D76901C839C2700091C4D /* callbacks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = callbacks.c; path = Externals/enet/callbacks.c; sourceTree = "<group>"; };
 		3E3D76911C839C2700091C4D /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = Externals/enet/compress.c; sourceTree = "<group>"; };
 		3E3D76921C839C2700091C4D /* host.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = host.c; path = Externals/enet/host.c; sourceTree = "<group>"; };
@@ -2120,9 +2117,6 @@
 		3E3D76961C839C2700091C4D /* protocol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = protocol.c; path = Externals/enet/protocol.c; sourceTree = "<group>"; };
 		3E3D76971C839C2700091C4D /* unix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unix.c; path = Externals/enet/unix.c; sourceTree = "<group>"; };
 		3E3D76A41C839C5400091C4D /* libmbedtls.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmbedtls.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E3D76A61C839C5400091C4D /* mbedtls.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mbedtls.hpp; sourceTree = "<group>"; };
-		3E3D76A81C839C5400091C4D /* mbedtlsPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mbedtlsPriv.hpp; sourceTree = "<group>"; };
-		3E3D76AA1C839C5400091C4D /* mbedtls.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mbedtls.cpp; sourceTree = "<group>"; };
 		3E3D76B31C839C9500091C4D /* aes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = aes.c; path = Externals/mbedtls/library/aes.c; sourceTree = "<group>"; };
 		3E3D76B41C839C9500091C4D /* aesni.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = aesni.c; path = Externals/mbedtls/library/aesni.c; sourceTree = "<group>"; };
 		3E3D76B51C839C9500091C4D /* arc4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arc4.c; path = Externals/mbedtls/library/arc4.c; sourceTree = "<group>"; };
@@ -3080,16 +3074,6 @@
 			path = Pipes;
 			sourceTree = "<group>";
 		};
-		3E3D76821C839B2E00091C4D /* enet */ = {
-			isa = PBXGroup;
-			children = (
-				3E3D76831C839B2E00091C4D /* enet.hpp */,
-				3E3D76851C839B2E00091C4D /* enetPriv.hpp */,
-				3E3D76871C839B2E00091C4D /* enet.cpp */,
-			);
-			path = enet;
-			sourceTree = "<group>";
-		};
 		3E3D768E1C839B5500091C4D /* enet */ = {
 			isa = PBXGroup;
 			children = (
@@ -3111,16 +3095,6 @@
 				3E3D76971C839C2700091C4D /* unix.c */,
 			);
 			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		3E3D76A51C839C5400091C4D /* mbedtls */ = {
-			isa = PBXGroup;
-			children = (
-				3E3D76A61C839C5400091C4D /* mbedtls.hpp */,
-				3E3D76A81C839C5400091C4D /* mbedtlsPriv.hpp */,
-				3E3D76AA1C839C5400091C4D /* mbedtls.cpp */,
-			);
-			path = mbedtls;
 			sourceTree = "<group>";
 		};
 		3E3D76B11C839C6600091C4D /* mbedtls */ = {
@@ -3285,8 +3259,6 @@
 				477944455F8A44F2B33F4B2F /* Sources */,
 				A5903DB0C2B34869B79A33B1 /* Resources */,
 				832876FE1A64450F00AC06FD /* Frameworks & Libraries */,
-				3E3D76821C839B2E00091C4D /* enet */,
-				3E3D76A51C839C5400091C4D /* mbedtls */,
 				A09445139A204BCE8EB1F8D5 /* Products */,
 			);
 			sourceTree = "<group>";
