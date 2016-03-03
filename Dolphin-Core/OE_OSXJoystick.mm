@@ -61,8 +61,7 @@ namespace ciface
                             new Axis("OEGCAnalogCUp",Axis::positive));
             AddAnalogInputs(new Axis("OEGCAnalogCLeft",Axis::negative),
                             new Axis("OEGCAnalogCRight",Axis::positive));
-
-            // Trigger Buttons
+            // Buttons
             AddInput(new Button("OEGCButtonA"));
             AddInput(new Button("OEGCButtonB"));
             AddInput(new Button("OEGCButtonX"));
