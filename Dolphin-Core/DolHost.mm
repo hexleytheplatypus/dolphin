@@ -42,6 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Core/PowerPC/PowerPC.h"
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
+#include "Common/CommonPaths.h"
 #include "Common/Event.h"
 #include "Common/MsgHandler.h"
 #include "Common/Logging/LogManager.h"
@@ -69,8 +70,11 @@ DolHost::DolHost()
 {
 }
 
-void DolHost::Init(std::string supportDirectoryPath)
+void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 {
+    //Set the game file for the DolHost
+    _gamePath = cpath;
+
     UICommon::SetUserDirectory(supportDirectoryPath);
     UICommon::CreateDirectories();
     UICommon::Init();
@@ -78,19 +82,29 @@ void DolHost::Init(std::string supportDirectoryPath)
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().m_Volume = 50;
     SConfig::GetInstance().bOnScreenDisplayMessages = false;
+
+    //Create Memorycards by GameID
+    GetGameInfo();
+
+    std::string _memCardPath = File::GetUserPath(D_GCUSER_IDX) + DIR_SEP + _gameRegion + DIR_SEP + _gameID;
+    std::string _memCardA = _memCardPath + "_A.raw";
+    std::string _memCardB = _memCardPath + "_B.raw";
+
+    SConfig::GetInstance().m_strMemoryCardA = _memCardA;
+    SConfig::GetInstance().m_strMemoryCardB = _memCardB;
 }
 
 # pragma mark - Execution
-bool DolHost::LoadFileAtPath(const std::string& cpath)
+bool DolHost::LoadFileAtPath()
 {
-    if(!BootManager::BootCore(cpath))
+    if(!BootManager::BootCore(_gamePath))
         return false;
     
     while (!Core::IsRunning())
         updateMainFrameEvent.Wait();
 
     SetUpPlayerInputs();
-    
+
     return true;
 }
 
@@ -105,7 +119,6 @@ void DolHost::RequestStop()
     Core::Stop();
     while (PowerPC::GetState() != PowerPC::CPU_POWERDOWN)
         usleep(1000);
-
 }
 
 void DolHost::UpdateFrame()
@@ -208,6 +221,45 @@ void DolHost::SetAxis(int button, float value, int player)
 {
     ciface::Core::Device::Input* input = m_playerInputs[player - 1][button];
     input->SetState(value);
+}
+
+# pragma mark - DVD info
+void DolHost::GetGameInfo()
+{
+    std::unique_ptr<DiscIO::IVolume> pVolume(DiscIO::CreateVolumeFromFilename(_gamePath));
+
+    _gameID = pVolume->GetUniqueID();
+    _gameRegion =GetRegionOfCountry(pVolume->GetCountry());
+    _gameName = pVolume->GetInternalName();
+}
+
+std::string DolHost::GetRegionOfCountry(int country)
+{
+    switch (country)
+    {
+        case DiscIO::IVolume::COUNTRY_USA:
+            return USA_DIR;
+
+        case DiscIO::IVolume::COUNTRY_TAIWAN:
+        case DiscIO::IVolume::COUNTRY_KOREA:
+        case DiscIO::IVolume::COUNTRY_JAPAN:
+            return JAP_DIR;
+
+        case DiscIO::IVolume::COUNTRY_AUSTRALIA:
+        case DiscIO::IVolume::COUNTRY_EUROPE:
+        case DiscIO::IVolume::COUNTRY_FRANCE:
+        case DiscIO::IVolume::COUNTRY_GERMANY:
+        case DiscIO::IVolume::COUNTRY_ITALY:
+        case DiscIO::IVolume::COUNTRY_NETHERLANDS:
+        case DiscIO::IVolume::COUNTRY_RUSSIA:
+        case DiscIO::IVolume::COUNTRY_SPAIN:
+        case DiscIO::IVolume::COUNTRY_WORLD:
+            return EUR_DIR;
+            
+        case DiscIO::IVolume::COUNTRY_UNKNOWN:
+        default:
+            return nullptr;
+    }
 }
 
 # pragma mark - Dolphin Host callbacks

@@ -86,7 +86,7 @@ DolphinGameCore *_current = 0;
 {
     self.filePath = path;
 
-    gc_host->Init([[self supportDirectoryPath] UTF8String] );
+    gc_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
 
     return YES;
 }
@@ -115,7 +115,7 @@ DolphinGameCore *_current = 0;
     //Let the Core Thread finish all it's startup
     usleep(1000);
 
-    if(gc_host->LoadFileAtPath([[self filePath] cStringUsingEncoding:NSUTF8StringEncoding]))
+    if(gc_host->LoadFileAtPath())
         _isInitialized=true;
 
     [super startEmulation];

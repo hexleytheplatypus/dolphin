@@ -38,14 +38,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <unordered_map>
 
 #include "InputCommon/ControllerInterface/Device.h"
+#include "DiscIO/VolumeCreator.h"
 
 class DolHost {
    
 public:
     static DolHost* GetInstance();
-    void Init(std::string supportDirectoryPath);
+    void Init(std::string supportDirectoryPath, std::string cpath);
 
-    bool LoadFileAtPath(const std::string&);
+    bool LoadFileAtPath();
     void RequestStop();
     void UpdateFrame();
     void Pause(bool);
@@ -67,6 +68,13 @@ public:
 private:
     static DolHost* m_instance;
     DolHost();
+
+    void GetGameInfo();
+    std::string GetRegionOfCountry(int country);
+    std::string _gamePath;
+    std::string _gameID;
+    std::string _gameName;
+    std::string _gameRegion;
 
     void SetUpPlayerInputs();
     ciface::Core::Device::Input* m_playerInputs[4][OEGCButtonCount];
