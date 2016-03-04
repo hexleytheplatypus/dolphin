@@ -87,8 +87,8 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     GetGameInfo();
 
     std::string _memCardPath = File::GetUserPath(D_GCUSER_IDX) + DIR_SEP + _gameRegion + DIR_SEP + _gameID;
-    std::string _memCardA = _memCardPath + "_A.raw";
-    std::string _memCardB = _memCardPath + "_B.raw";
+    std::string _memCardA = _memCardPath + "_A." + _gameRegion + ".raw";
+    std::string _memCardB = _memCardPath +  "_B." + _gameRegion + ".raw";
 
     SConfig::GetInstance().m_strMemoryCardA = _memCardA;
     SConfig::GetInstance().m_strMemoryCardB = _memCardB;
