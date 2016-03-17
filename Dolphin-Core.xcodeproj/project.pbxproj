@@ -128,7 +128,6 @@
 		3E3D71641C82B0BB00091C4D /* ec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70C81C82B0BB00091C4D /* ec.cpp */; };
 		3E3D71651C82B0BB00091C4D /* ENetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70CB1C82B0BB00091C4D /* ENetUtil.cpp */; };
 		3E3D71661C82B0BB00091C4D /* FileSearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70CF1C82B0BB00091C4D /* FileSearch.cpp */; };
-		3E3D71671C82B0BB00091C4D /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70D11C82B0BB00091C4D /* FileUtil.cpp */; };
 		3E3D71681C82B0BB00091C4D /* GekkoDisassembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70D61C82B0BB00091C4D /* GekkoDisassembler.cpp */; };
 		3E3D71691C82B0BB00091C4D /* GenericCPUDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70D81C82B0BB00091C4D /* GenericCPUDetect.cpp */; };
 		3E3D716A1C82B0BB00091C4D /* GenericFPURoundMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70D91C82B0BB00091C4D /* GenericFPURoundMode.cpp */; };
@@ -286,15 +285,12 @@
 		3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728C1C82B0F900091C4D /* WII_IPC.cpp */; };
 		3E3D73CD1C82B0F900091C4D /* Wiimote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728E1C82B0F900091C4D /* Wiimote.cpp */; };
 		3E3D73CE1C82B0F900091C4D /* Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72921C82B0F900091C4D /* Attachment.cpp */; };
-		3E3D73CF1C82B0F900091C4D /* Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72941C82B0F900091C4D /* Classic.cpp */; };
 		3E3D73D01C82B0F900091C4D /* Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72961C82B0F900091C4D /* Drums.cpp */; };
 		3E3D73D11C82B0F900091C4D /* Guitar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72981C82B0F900091C4D /* Guitar.cpp */; };
-		3E3D73D21C82B0F900091C4D /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729A1C82B0F900091C4D /* Nunchuk.cpp */; };
 		3E3D73D31C82B0F900091C4D /* Turntable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729C1C82B0F900091C4D /* Turntable.cpp */; };
 		3E3D73D41C82B0F900091C4D /* EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729E1C82B0F900091C4D /* EmuSubroutines.cpp */; };
 		3E3D73D51C82B0F900091C4D /* Encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729F1C82B0F900091C4D /* Encryption.cpp */; };
 		3E3D73D61C82B0F900091C4D /* Speaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A21C82B0F900091C4D /* Speaker.cpp */; };
-		3E3D73D71C82B0F900091C4D /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A31C82B0F900091C4D /* WiimoteEmu.cpp */; };
 		3E3D73D91C82B0F900091C4D /* IOdarwin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A81C82B0F900091C4D /* IOdarwin.mm */; };
 		3E3D73DA1C82B0F900091C4D /* IODummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A91C82B0F900091C4D /* IODummy.cpp */; };
 		3E3D73DD1C82B0F900091C4D /* WiimoteReal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72AC1C82B0F900091C4D /* WiimoteReal.cpp */; };
@@ -389,7 +385,6 @@
 		3E3D746E1C82B11900091C4D /* VolumeWiiCrypted.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74591C82B11900091C4D /* VolumeWiiCrypted.cpp */; };
 		3E3D746F1C82B11900091C4D /* WbfsBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D745B1C82B11900091C4D /* WbfsBlob.cpp */; };
 		3E3D74701C82B11900091C4D /* WiiWad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D745D1C82B11900091C4D /* WiiWad.cpp */; };
-		3E3D74B11C82B14B00091C4D /* ControllerEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74721C82B14B00091C4D /* ControllerEmu.cpp */; };
 		3E3D74B31C82B14B00091C4D /* ControllerInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74781C82B14B00091C4D /* ControllerInterface.cpp */; };
 		3E3D74B41C82B14B00091C4D /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D747A1C82B14B00091C4D /* Device.cpp */; };
 		3E3D74BA1C82B14B00091C4D /* ExpressionParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D748A1C82B14B00091C4D /* ExpressionParser.cpp */; };
@@ -670,6 +665,13 @@
 		3E3D77621C840CFC00091C4D /* resolve.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77601C840CFC00091C4D /* resolve.cc */; };
 		3E3D77631C840CFC00091C4D /* stdafx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77611C840CFC00091C4D /* stdafx.cc */; };
 		3E3D77641C85191500091C4D /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
+		3E5D07BC1C963C7600641021 /* OE_ControllerEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */; };
+		3E6EF0EF1C98C8C7004C6F58 /* OE_FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */; };
+		3E6EF0F01C98D083004C6F58 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70D11C82B0BB00091C4D /* FileUtil.cpp */; };
+		3E74B9C31C90DC3E0017C7B1 /* OE_WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E53D5171C89E97A0006E44C /* OE_WiimoteEmu.cpp */; };
+		3E74B9C51C90DE100017C7B1 /* OE_Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */; };
+		3E74B9C71C90DE200017C7B1 /* OE_Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */; };
+		3E74B9C91C9105F90017C7B1 /* OE_OSXJoystick.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */; };
 		8319B93E1A6D546700DD23A9 /* Sys in Resources */ = {isa = PBXBuildFile; fileRef = 8319B93C1A6D52FD00DD23A9 /* Sys */; };
 		8355D4C41A65393600E73302 /* libaudiocommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EAB8D2A0AA45A183467CCD /* libaudiocommon.a */; };
 		8355D4C51A65393600E73302 /* libbdisasm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65EF8E25FB448D2BA4D3070 /* libbdisasm.a */; };
@@ -1178,9 +1180,7 @@
 		3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_GCpadEmu.mm; path = "Dolphin-Core/OE_GCpadEmu.mm"; sourceTree = "<group>"; };
 		3E3D702B1C82AF2A00091C4D /* OE_OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSX.h; path = "Dolphin-Core/OE_OSX.h"; sourceTree = "<group>"; };
 		3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_OSX.mm; path = "Dolphin-Core/OE_OSX.mm"; sourceTree = "<group>"; };
-		3E3D702D1C82AF2A00091C4D /* OE_OSXJoystick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSXJoystick.h; path = "Dolphin-Core/OE_OSXJoystick.h"; sourceTree = "<group>"; };
 		3E3D702E1C82AF2A00091C4D /* OE_OSXJoystick.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_OSXJoystick.mm; path = "Dolphin-Core/OE_OSXJoystick.mm"; sourceTree = "<group>"; };
-		3E3D702F1C82AF2A00091C4D /* OE_OSXKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSXKeyboard.h; path = "Dolphin-Core/OE_OSXKeyboard.h"; sourceTree = "<group>"; };
 		3E3D70301C82AF2A00091C4D /* OE_OSXKeyboard.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_OSXKeyboard.mm; path = "Dolphin-Core/OE_OSXKeyboard.mm"; sourceTree = "<group>"; };
 		3E3D70321C82AF7000091C4D /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xxhash.c; path = Externals/xxhash/xxhash.c; sourceTree = SOURCE_ROOT; };
 		3E3D70331C82AF7000091C4D /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xxhash.h; path = Externals/xxhash/xxhash.h; sourceTree = SOURCE_ROOT; };
@@ -2191,6 +2191,16 @@
 		3E3D775D1C840C8B00091C4D /* dis_groups.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dis_groups.cc; path = Externals/Bochs_disasm/dis_groups.cc; sourceTree = "<group>"; };
 		3E3D77601C840CFC00091C4D /* resolve.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resolve.cc; path = Externals/Bochs_disasm/resolve.cc; sourceTree = "<group>"; };
 		3E3D77611C840CFC00091C4D /* stdafx.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cc; path = Externals/Bochs_disasm/stdafx.cc; sourceTree = "<group>"; };
+		3E53D5171C89E97A0006E44C /* OE_WiimoteEmu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OE_WiimoteEmu.cpp; path = "Dolphin-Core/OE_WiimoteEmu.cpp"; sourceTree = "<group>"; };
+		3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_ControllerEmu.cpp; path = "Dolphin-Core/OE_ControllerEmu.cpp"; sourceTree = "<group>"; };
+		3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_FileUtil.cpp; path = "Dolphin-Core/OE_FileUtil.cpp"; sourceTree = "<group>"; };
+		3E74B9BA1C8F76EA0017C7B1 /* OEWiiSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEWiiSystemResponderClient.h; path = ../../OpenEmu/Wii/OEWiiSystemResponderClient.h; sourceTree = "<group>"; };
+		3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Nunchuk.cpp; path = "Dolphin-Core/OE_Nunchuk.cpp"; sourceTree = "<group>"; };
+		3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Classic.cpp; path = "Dolphin-Core/OE_Classic.cpp"; sourceTree = "<group>"; };
+		3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_OSXJoystick.h; path = "Dolphin-Core/OE_OSXJoystick.h"; sourceTree = "<group>"; };
+		3E74B9CA1C91060C0017C7B1 /* OE_OSXKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_OSXKeyboard.h; path = "Dolphin-Core/OE_OSXKeyboard.h"; sourceTree = "<group>"; };
+		3E76C1341C99CA2B00F966FE /* OE_Classic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Classic.h; path = "Dolphin-Core/OE_Classic.h"; sourceTree = "<group>"; };
+		3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_WiimoteEmu.h; path = "Dolphin-Core/OE_WiimoteEmu.h"; sourceTree = "<group>"; };
 		4B3F200BFA3B4AA9B8072A6A /* libsfml-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57799651D35F4D0F946361A2 /* libpng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpng.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE2ADF9B49F4F4EB95615D5 /* libcommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2373,14 +2383,22 @@
 				3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */,
 				3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */,
 				3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */,
+				3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */,
 				3E3D702B1C82AF2A00091C4D /* OE_OSX.h */,
 				3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */,
-				3E3D702D1C82AF2A00091C4D /* OE_OSXJoystick.h */,
+				3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */,
 				3E3D702E1C82AF2A00091C4D /* OE_OSXJoystick.mm */,
-				3E3D702F1C82AF2A00091C4D /* OE_OSXKeyboard.h */,
+				3E74B9CA1C91060C0017C7B1 /* OE_OSXKeyboard.h */,
 				3E3D70301C82AF2A00091C4D /* OE_OSXKeyboard.mm */,
+				3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */,
+				3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */,
+				3E53D5171C89E97A0006E44C /* OE_WiimoteEmu.cpp */,
+				3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */,
+				3E76C1341C99CA2B00F966FE /* OE_Classic.h */,
+				3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */,
 			);
 			name = Compatibilty;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E3D70C51C82B0BB00091C4D /* Crypto */ = {
@@ -3255,7 +3273,6 @@
 			isa = PBXGroup;
 			children = (
 				8355D4941A6538FD00E73302 /* Dolphin-Core */,
-				3E3D70241C82AF0600091C4D /* Compatibilty */,
 				477944455F8A44F2B33F4B2F /* Sources */,
 				A5903DB0C2B34869B79A33B1 /* Resources */,
 				832876FE1A64450F00AC06FD /* Frameworks & Libraries */,
@@ -3561,7 +3578,9 @@
 		8355D4941A6538FD00E73302 /* Dolphin-Core */ = {
 			isa = PBXGroup;
 			children = (
+				3E3D70241C82AF0600091C4D /* Compatibilty */,
 				8355D4EA1A653E2600E73302 /* OEGCSystemResponderClient.h */,
+				3E74B9BA1C8F76EA0017C7B1 /* OEWiiSystemResponderClient.h */,
 				8355D4E21A653B6600E73302 /* DolphinGameCore.h */,
 				8355D4E31A653B6600E73302 /* DolphinGameCore.mm */,
 				3E3D76741C83477F00091C4D /* DolHost.h */,
@@ -4061,6 +4080,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E74B9C91C9105F90017C7B1 /* OE_OSXJoystick.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4623,6 +4643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E74B9C31C90DC3E0017C7B1 /* OE_WiimoteEmu.cpp in Sources */,
 				3E3D76791C8375F100091C4D /* OE_GCpadEmu.mm in Sources */,
 				3E3D73FC1C82B0F900091C4D /* Interpreter_LoadStorePaired.cpp in Sources */,
 				3E3D737D1C82B0F900091C4D /* DSPJitMultiplier.cpp in Sources */,
@@ -4652,7 +4673,6 @@
 				3E3D73A01C82B0F900091C4D /* DSPHost.cpp in Sources */,
 				3E3D740C1C82B0F900091C4D /* Jit64AsmCommon.cpp in Sources */,
 				3E3D739C1C82B0F900091C4D /* ROM.cpp in Sources */,
-				3E3D73D71C82B0F900091C4D /* WiimoteEmu.cpp in Sources */,
 				3E3D742E1C82B0F900091C4D /* JitInterface.cpp in Sources */,
 				3E3D73EE1C82B0F900091C4D /* WiiMote_HID_Attr.cpp in Sources */,
 				3E3D73DA1C82B0F900091C4D /* IODummy.cpp in Sources */,
@@ -4690,7 +4710,6 @@
 				3E3D739A1C82B0F900091C4D /* GBA.cpp in Sources */,
 				3E3D735E1C82B0F900091C4D /* Core.cpp in Sources */,
 				3E3D74371C82B0F900091C4D /* State.cpp in Sources */,
-				3E3D73D21C82B0F900091C4D /* Nunchuk.cpp in Sources */,
 				3E3D73A71C82B0F900091C4D /* EXI.cpp in Sources */,
 				3E3D740D1C82B0F900091C4D /* IR_X86.cpp in Sources */,
 				3E3D74051C82B0F900091C4D /* Jit_LoadStore.cpp in Sources */,
@@ -4771,6 +4790,7 @@
 				3E3D73FD1C82B0F900091C4D /* Interpreter_Paired.cpp in Sources */,
 				3E3D73841C82B0F900091C4D /* FifoDataFile.cpp in Sources */,
 				3E3D73591C82B0F900091C4D /* Boot_ELF.cpp in Sources */,
+				3E74B9C71C90DE200017C7B1 /* OE_Classic.cpp in Sources */,
 				3E3D73E81C82B0F900091C4D /* WII_IPC_HLE_Device_net_ssl.cpp in Sources */,
 				3E3D73881C82B0F900091C4D /* FifoRecorder.cpp in Sources */,
 				3E3D73581C82B0F900091C4D /* Boot_DOL.cpp in Sources */,
@@ -4780,6 +4800,7 @@
 				3E3D73F11C82B0F900091C4D /* Movie.cpp in Sources */,
 				3E3D742A1C82B0F900091C4D /* JitILBase_LoadStoreFloating.cpp in Sources */,
 				3E3D73F31C82B0F900091C4D /* NetPlayServer.cpp in Sources */,
+				3E74B9C51C90DE100017C7B1 /* OE_Nunchuk.cpp in Sources */,
 				3E3D74291C82B0F900091C4D /* JitILBase_LoadStore.cpp in Sources */,
 				3E3D73EA1C82B0F900091C4D /* WII_IPC_HLE_Device_usb.cpp in Sources */,
 				3E3D73991C82B0F900091C4D /* CARD.cpp in Sources */,
@@ -4821,7 +4842,6 @@
 				3E3D74241C82B0F900091C4D /* TrampolineCache.cpp in Sources */,
 				3E3D73631C82B0F900091C4D /* DSPAccelerator.cpp in Sources */,
 				3E3D73C21C82B0F900091C4D /* SI_DeviceDanceMat.cpp in Sources */,
-				3E3D73CF1C82B0F900091C4D /* Classic.cpp in Sources */,
 				3E3D73941C82B0F900091C4D /* DSP.cpp in Sources */,
 				3E3D73731C82B0F900091C4D /* DSPIntMultiplier.cpp in Sources */,
 				3E3D74031C82B0F900091C4D /* Jit_FloatingPoint.cpp in Sources */,
@@ -4855,6 +4875,7 @@
 				3E3D71911C82B0BB00091C4D /* x64ABI.cpp in Sources */,
 				3E3D716A1C82B0BB00091C4D /* GenericFPURoundMode.cpp in Sources */,
 				3E3D71641C82B0BB00091C4D /* ec.cpp in Sources */,
+				3E6EF0EF1C98C8C7004C6F58 /* OE_FileUtil.cpp in Sources */,
 				3E3D716B1C82B0BB00091C4D /* GLExtensions.cpp in Sources */,
 				3E3D71681C82B0BB00091C4D /* GekkoDisassembler.cpp in Sources */,
 				3E3D71661C82B0BB00091C4D /* FileSearch.cpp in Sources */,
@@ -4869,7 +4890,6 @@
 				3E3D717C1C82B0BB00091C4D /* MathUtil.cpp in Sources */,
 				3E3D71601C82B0BB00091C4D /* BreakPoints.cpp in Sources */,
 				3E3D71951C82B0BB00091C4D /* x64FPURoundMode.cpp in Sources */,
-				3E3D71671C82B0BB00091C4D /* FileUtil.cpp in Sources */,
 				3E3D71841C82B0BB00091C4D /* PerformanceCounter.cpp in Sources */,
 				3E3D71791C82B0BB00091C4D /* ConsoleListenerNix.cpp in Sources */,
 				3E3D71881C82B0BB00091C4D /* StringUtil.cpp in Sources */,
@@ -4882,6 +4902,7 @@
 				3E3D71871C82B0BB00091C4D /* SettingsHandler.cpp in Sources */,
 				3E3D71651C82B0BB00091C4D /* ENetUtil.cpp in Sources */,
 				3E3D717F1C82B0BB00091C4D /* Misc.cpp in Sources */,
+				3E6EF0F01C98D083004C6F58 /* FileUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5043,11 +5064,11 @@
 				3E3D74BB1C82B14B00091C4D /* ForceFeedbackDevice.cpp in Sources */,
 				3E3D74F61C82B1D400091C4D /* pngrio.c in Sources */,
 				3E3D74B31C82B14B00091C4D /* ControllerInterface.cpp in Sources */,
-				3E3D74B11C82B14B00091C4D /* ControllerEmu.cpp in Sources */,
 				3E3D75701C82B28200091C4D /* mmx_optimized.cpp in Sources */,
 				3E3D75601C82B28200091C4D /* AAFilter.cpp in Sources */,
 				3E3D753C1C82B25700091C4D /* image_DXT.c in Sources */,
 				3E3D75001C82B1D400091C4D /* pngtrans.c in Sources */,
+				3E5D07BC1C963C7600641021 /* OE_ControllerEmu.cpp in Sources */,
 				3E3D75021C82B1D400091C4D /* pngvcrd.c in Sources */,
 				3E3D74F21C82B1D400091C4D /* pngpread.c in Sources */,
 				3E3D751B1C82B20700091C4D /* Socket.cpp in Sources */,
@@ -9138,6 +9159,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -9196,6 +9218,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -9249,6 +9272,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -9302,6 +9326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
