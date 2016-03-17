@@ -537,6 +537,8 @@ void EmuThread()
 		// Spawn the CPU thread
 		s_cpu_thread = std::thread(cpuThreadFunc);
 
+        Core::SetState(CORE_RUN);
+
 		// become the GPU thread
 		Fifo::RunGpuLoop();
 
