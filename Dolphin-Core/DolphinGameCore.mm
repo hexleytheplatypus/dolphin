@@ -249,6 +249,11 @@ DolphinGameCore *_current = 0;
     return SAMPLERATE;
 }
 
+-(void)setVolume:(CGFloat)volume
+{
+    gc_host->SetVolume(volume);
+}
+
 # pragma mark - Save States
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
