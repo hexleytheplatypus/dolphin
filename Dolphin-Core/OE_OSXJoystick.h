@@ -65,7 +65,7 @@ private:
 		Axis(std::string description, direction dir);
 		std::string GetName() const override;
 		ControlState GetState() const override;
-        void SetState(ControlState state)  ;
+        void SetState(ControlState state)  override;
 
 	private:
         float                 m_value;
