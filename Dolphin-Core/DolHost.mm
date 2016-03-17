@@ -44,6 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "UICommon/UICommon.h"
 #include "VideoCommon/VideoBackendBase.h"
 #include "VideoCommon/VideoConfig.h"
+#include "AudioCommon/AudioCommon.h"
 #include "InputCommon/InputConfig.h"
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 #include "DiscIO/VolumeCreator.h"
@@ -91,13 +92,13 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 
         //Clear the Nand path
         SConfig::GetInstance().m_NANDPath = "";
-    }else{
+    } else {
         //clear the GC mem card paths
         SConfig::GetInstance().m_strMemoryCardA = "";
         SConfig::GetInstance().m_strMemoryCardB = "";
 
         //Set the WiiNANDpath
-        SConfig::GetInstance().m_NANDPath = supportDirectoryPath  + DIR_SEP + "Wii";
+        SConfig::GetInstance().m_NANDPath = supportDirectoryPath  + DIR_SEP + WII_USER_DIR;
     }
 }
 
@@ -155,6 +156,13 @@ void DolHost::SetPresentationFBO(int RenderFBO)
     g_Config.iRenderFBO = RenderFBO;
 }
 
+# pragma mark - Audio 
+void DolHost::SetVolume(float value)
+{
+    SConfig::GetInstance().m_Volume = value * 100;
+    AudioCommon::UpdateSoundStream();
+}
+
 # pragma mark - Save states
 bool DolHost::SaveState(std::string saveStateFile)
 {
@@ -164,7 +172,7 @@ bool DolHost::SaveState(std::string saveStateFile)
 
 bool DolHost::LoadState(std::string saveStateFile)
 {
-    if (!SConfig::GetInstance().bWii)
+    if (!_wiiGame)
         Core::SetStateFileName(saveStateFile);
 
     State::LoadAs(saveStateFile);
