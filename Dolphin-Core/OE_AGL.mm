@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "OE_AGL.h"
 #include "DolphinGameCore.h"
+#include "Core/ConfigManager.h"
 
 void cInterfaceAGL::Swap()
 {
@@ -40,8 +41,13 @@ void cInterfaceAGL::Swap()
 bool cInterfaceAGL::Create(void *window_handle, bool core)
 {
     // Control window size and picture scaling
-    s_backbuffer_width = 640;
-    s_backbuffer_height = 480;
+    if(SConfig::GetInstance().bWii){
+        s_backbuffer_width = 800;
+        s_backbuffer_height = 600;
+    } else {
+        s_backbuffer_width = 640;
+        s_backbuffer_height = 480;
+    }
     return true;
 }
 
