@@ -24,21 +24,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#pragma once
-
-
-// Singleton that talks to the Core via the interface defined in Core/Host.h.
-// Because Host_* calls might come from different threads than the MainWindow,
-// the Host class communicates with it via signals/slots only.
-
-// Many of the Host_* functions are ignored, and some shouldn't exist.
-
 #import <Cocoa/Cocoa.h>
 #import "OEGCSystemResponderClient.h"
-#import <unordered_map>
+#import "OEWiiSystemResponderClient.h"
 
 #include "InputCommon/ControllerInterface/Device.h"
-#include "DiscIO/VolumeCreator.h"
 
 class DolHost {
    
@@ -55,6 +45,7 @@ public:
     void SetPresentationFBO(int RenderFBO);
     
     void SetButtonState(int button,int state, int player);
+    void CheckExtension(int button, int player);
     void SetAxis(int button, float value, int player);
     
     void toggleAudioMute();
@@ -75,7 +66,8 @@ private:
     std::string _gameID;
     std::string _gameName;
     std::string _gameRegion;
+    bool        _wiiGame;
 
     void SetUpPlayerInputs();
-    ciface::Core::Device::Input* m_playerInputs[4][OEGCButtonCount];
+    ciface::Core::Device::Input* m_playerInputs[4][OEWiiButtonCount];
 };
