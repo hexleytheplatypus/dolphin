@@ -36,15 +36,6 @@
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
 
-#include <cstddef>
-#include <cstdio>
-#include <cstring>
-#include <getopt.h>
-#include <string>
-#include <unistd.h>
-
-#include "Common/GL/GLInterface/AGL.h"
-
 #define SAMPLERATE 448000
 #define SIZESOUNDBUFFER 448000 / 60 * 4
 #define OpenEmu 1
@@ -55,10 +46,16 @@
     NSView* dolView;
 
     uint16_t *_soundBuffer;
+    bool _wii;
     bool _isInitialized;
     bool _shouldReset;
     float _frameInterval;
     bool _CoreThreadRunning;
+
+    NSString *_dolphinCoreModule;
+    OEIntSize _dolphinCoreAspect;
+    OEIntSize _dolphinCoreScreen;
+
 }
 @property (copy) NSString *filePath;
 @end
@@ -85,6 +82,19 @@ DolphinGameCore *_current = 0;
 - (BOOL)loadFileAtPath:(NSString *)path
 {
     self.filePath = path;
+
+    if([[self systemIdentifier] isEqualToString:@"openemu.system.gc"])
+    {
+        _dolphinCoreModule = @"gc";
+        _wii = false;
+        _dolphinCoreAspect = OEIntSizeMake(4, 3);
+        _dolphinCoreScreen = OEIntSizeMake(640, 480);
+    }else{
+        _dolphinCoreModule = @"Wii";
+        _wii = true;
+        _dolphinCoreAspect = OEIntSizeMake(16,9);
+        _dolphinCoreScreen = OEIntSizeMake(800, 600);
+    }
 
     gc_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
 
@@ -113,7 +123,7 @@ DolphinGameCore *_current = 0;
     [NSThread detachNewThreadSelector:@selector(runDolphinThread) toTarget:self withObject:nil];
 
     //Let the Core Thread finish all it's startup
-    usleep(1000);
+    usleep(5000);
 
     if(gc_host->LoadFileAtPath())
         _isInitialized=true;
@@ -167,6 +177,16 @@ DolphinGameCore *_current = 0;
     [self.renderDelegate didRenderFrameOnAlternateThread];
 }
 
+# pragma mark - Nand directory Callback
+- (const char *)getBundlePath
+{
+    NSBundle *coreBundle = [NSBundle bundleForClass:[self class]];
+    const char *dataPath;
+    dataPath = [[coreBundle resourcePath] fileSystemRepresentation];
+
+    return dataPath;
+}
+
 # pragma mark - Video
 - (OEGameCoreRendering)gameCoreRendering
 {
@@ -195,12 +215,12 @@ DolphinGameCore *_current = 0;
 
 - (OEIntSize)bufferSize
 {
-    return OEIntSizeMake(640, 480);
+    return _dolphinCoreScreen;
 }
 
 - (OEIntSize)aspectSize
 {
-    return OEIntSizeMake(4, 3);
+    return _dolphinCoreAspect;
 }
 
 - (GLenum)pixelFormat
@@ -237,10 +257,13 @@ DolphinGameCore *_current = 0;
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
+    while (! _isInitialized)
+        usleep (1000);
+    
     block(gc_host->LoadState([fileName UTF8String]),nil);
 }
 
-# pragma mark - Input
+# pragma mark - Input GC
 - (oneway void)didMoveGCJoystickDirection:(OEGCButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
     gc_host->SetAxis(button, value, (int)player);
@@ -255,4 +278,26 @@ DolphinGameCore *_current = 0;
 {
     gc_host->SetButtonState(button, 0, (int)player);
 }
+
+# pragma mark - Input Wii
+- (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
+{
+    gc_host->SetAxis(button, value, (int)player);
+}
+
+- (oneway void)didMoveWiiAccelerometer:(OEWiiButton)button withValueX:(CGFloat)valueX withValueY:(CGFloat)valueY withValueZ:(CGFloat)valueZ forPlayer:(NSUInteger)player
+{
+    //gc_host->SetAxis(button, value, (int)player);
+}
+
+- (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
+{
+    gc_host->SetButtonState(button, 1, (int)player);
+}
+
+- (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
+{
+    gc_host->SetButtonState(button, 0, (int)player);
+}
+
 @end
