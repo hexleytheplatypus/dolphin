@@ -44,43 +44,102 @@ namespace ciface
         , m_index(index)
         , m_ff_device(nullptr)
         {
-            // Buttons
+            if(SConfig::GetInstance().bWii){
 
-            //  OE DPAD buttons
-            AddInput(new Button("OEGCButtonUp"));
-            AddInput(new Button("OEGCButtonDown"));
-            AddInput(new Button("OEGCButtonLeft"));
-            AddInput(new Button("OEGCButtonRight"));
+                //  OE Wiimote DPAD buttons
+                AddInput(new Button("OEWiiMoteButtonUp"));
+                AddInput(new Button("OEWiiMoteButtonDown"));
+                AddInput(new Button("OEWiiMoteButtonLeft"));
+                AddInput(new Button("OEWiiMoteButtonRight"));
 
-            //  OE Add our analog axes as buttons
-            AddAnalogInputs(new Axis("OEGCAnalogDown",Axis::negative),
-                            new Axis("OEGCAnalogUp",Axis::positive));
-            AddAnalogInputs(new Axis("OEGCAnalogLeft",Axis::negative),
-                            new Axis("OEGCAnalogRight",Axis::positive));
-            AddAnalogInputs(new Axis("OEGCAnalogCDown",Axis::negative),
-                            new Axis("OEGCAnalogCUp",Axis::positive));
-            AddAnalogInputs(new Axis("OEGCAnalogCLeft",Axis::negative),
-                            new Axis("OEGCAnalogCRight",Axis::positive));
-            // Buttons
-            AddInput(new Button("OEGCButtonA"));
-            AddInput(new Button("OEGCButtonB"));
-            AddInput(new Button("OEGCButtonX"));
-            AddInput(new Button("OEGCButtonY"));
-            AddInput(new Button("OEGCButtonL"));
-            AddInput(new Button("OEGCButtonR"));
-            AddInput(new Button("OEGCButtonZ"));
+                // OE Wiimote Buttons
+                AddInput(new Button("OEWiiMoteButtonA"));
+                AddInput(new Button("OEWiiMoteButtonB"));
+                AddInput(new Button("OEWiiMoteButton1"));
+                AddInput(new Button("OEWiiMoteButton2"));
+                AddInput(new Button("OEWiiMoteButtonPlus"));
+                AddInput(new Button("OEWiiMoteButtonMinus"));
+                AddInput(new Button("OEWiiMoteButtonHome"));
 
-            // OE StartButtons
-            AddInput(new Button("OEGCButtonStart"));
+                //OE Nunchuk Buttons
+                AddInput(new Button("OEWiiNunchukButtonC"));
+                AddInput(new Button("OEWiiNunchukButtonZ"));
 
-            //Maybe someday this can be added
-            //	// Force Feedback
-            //	FFCAPABILITIES ff_caps;
-            //	if (SUCCEEDED(ForceFeedback::FFDeviceAdapter::Create(IOHIDDeviceGetService(m_device), &m_ff_device)) &&
-            //		SUCCEEDED(FFDeviceGetForceFeedbackCapabilities(m_ff_device->m_device, &ff_caps)))
-            //	{
-            //		InitForceFeedback(m_ff_device, ff_caps.numFfAxes);
-            //	}
+                //OE Nunchuk Axes
+                AddAnalogInputs(new Axis("OEWiiNunchukAnalogDown",Axis::negative),
+                                new Axis("OEWiiNunchukAnalogUp",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiNunchukAnalogLeft",Axis::negative),
+                                new Axis("OEWiiNunchukAnalogRight",Axis::positive));
+
+                //  OE Classic DPAD buttons
+                AddInput(new Button("OEWiiClassicButtonUp"));
+                AddInput(new Button("OEWiiClassicButtonDown"));
+                AddInput(new Button("OEWiiClassicButtonLeft"));
+                AddInput(new Button("OEWiiClassicButtonRight"));
+
+                //  OE Add our Classic analog axes as buttons
+                AddAnalogInputs(new Axis("OEWiiClassicAnalogLDown",Axis::negative),
+                                new Axis("OEWiiClassicAnalogLUp",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiClassicAnalogLLeft",Axis::negative),
+                                new Axis("OEWiiClassicAnalogLRight",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiClassicAnalogRDown",Axis::negative),
+                                new Axis("OEWiiClassicAnalogRUp",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiClassicAnalogRLeft",Axis::negative),
+                                new Axis("OEWiiClassicAnalogRRight",Axis::positive));
+
+                // Wii Classic Buttons
+                AddInput(new Button("OEWiiClassicButtonA"));
+                AddInput(new Button("OEWiiClassicButtonB"));
+                AddInput(new Button("OEWiiClassicButtonX"));
+                AddInput(new Button("OEWiiClassicButtonY"));
+                AddInput(new Button("OEWiiClassicButtonL"));
+                AddInput(new Button("OEWiiClassicButtonR"));
+                AddInput(new Button("OEWiiClassicButtonZl"));
+                AddInput(new Button("OEWiiClassicButtonZr"));
+                AddInput(new Button("OEWiiClassicButtonStart")); // + button
+                AddInput(new Button("OEWiiClassicButtonSelect")); // - button
+                AddInput(new Button("OEWiiClassicButtonHome"));
+            }
+            else
+            {
+                // Buttons
+
+                //  OE GC DPAD buttons
+                AddInput(new Button("OEGCButtonUp"));
+                AddInput(new Button("OEGCButtonDown"));
+                AddInput(new Button("OEGCButtonLeft"));
+                AddInput(new Button("OEGCButtonRight"));
+
+                //  OE Add our GC analog axes as buttons
+                AddAnalogInputs(new Axis("OEGCAnalogDown",Axis::negative),
+                                new Axis("OEGCAnalogUp",Axis::positive));
+                AddAnalogInputs(new Axis("OEGCAnalogLeft",Axis::negative),
+                                new Axis("OEGCAnalogRight",Axis::positive));
+                AddAnalogInputs(new Axis("OEGCAnalogCDown",Axis::negative),
+                                new Axis("OEGCAnalogCUp",Axis::positive));
+                AddAnalogInputs(new Axis("OEGCAnalogCLeft",Axis::negative),
+                                new Axis("OEGCAnalogCRight",Axis::positive));
+                // GC Buttons
+                AddInput(new Button("OEGCButtonA"));
+                AddInput(new Button("OEGCButtonB"));
+                AddInput(new Button("OEGCButtonX"));
+                AddInput(new Button("OEGCButtonY"));
+                AddInput(new Button("OEGCButtonL"));
+                AddInput(new Button("OEGCButtonR"));
+                AddInput(new Button("OEGCButtonZ"));
+
+                // OE GC StartButton
+                AddInput(new Button("OEGCButtonStart"));
+
+                //Maybe someday this can be added
+                //	// Force Feedback
+                //	FFCAPABILITIES ff_caps;
+                //	if (SUCCEEDED(ForceFeedback::FFDeviceAdapter::Create(IOHIDDeviceGetService(m_device), &m_ff_device)) &&
+                //		SUCCEEDED(FFDeviceGetForceFeedbackCapabilities(m_ff_device->m_device, &ff_caps)))
+                //	{
+                //		InitForceFeedback(m_ff_device, ff_caps.numFfAxes);
+                //	}
+            }
         }
 
         Joystick::~Joystick()
