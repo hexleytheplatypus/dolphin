@@ -65,6 +65,12 @@ namespace ciface
                 AddInput(new Button("OEWiiNunchukButtonC"));
                 AddInput(new Button("OEWiiNunchukButtonZ"));
 
+                //OE Nunchuck Accel Axes
+                AddInput(new Axis("OEWiiNunchukAccelX",Axis::positive));
+                AddInput(new Axis("OEWiiNunchukAccelY",Axis::positive));
+                AddInput(new Axis("OEWiiNunchukAccelZ",Axis::positive));
+
+
                 //OE Nunchuk Axes
                 AddAnalogInputs(new Axis("OEWiiNunchukAnalogDown",Axis::negative),
                                 new Axis("OEWiiNunchukAnalogUp",Axis::positive));

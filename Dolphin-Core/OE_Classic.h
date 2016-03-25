@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Core/HW/WiimoteEmu/Attachment/Attachment.h"
+#include "OE_Attachment.h"
 
 namespace WiimoteEmu
 {

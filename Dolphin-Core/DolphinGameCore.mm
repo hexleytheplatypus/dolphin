@@ -257,11 +257,16 @@ DolphinGameCore *_current = 0;
 # pragma mark - Save States
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
+    // we need to make sure we are initialized before attempting to save a state
+    while (! _isInitialized)
+        usleep (1000);
+    
     block(gc_host->SaveState([fileName UTF8String]),nil);
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
+    // we need to make sure we are initialized before attempting to load a state
     while (! _isInitialized)
         usleep (1000);
     
@@ -290,11 +295,6 @@ DolphinGameCore *_current = 0;
     gc_host->SetAxis(button, value, (int)player);
 }
 
-- (oneway void)didMoveWiiAccelerometer:(OEWiiButton)button withValueX:(CGFloat)valueX withValueY:(CGFloat)valueY withValueZ:(CGFloat)valueZ forPlayer:(NSUInteger)player
-{
-    //gc_host->SetAxis(button, value, (int)player);
-}
-
 - (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
     gc_host->SetButtonState(button, 1, (int)player);
@@ -303,6 +303,26 @@ DolphinGameCore *_current = 0;
 - (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
     gc_host->SetButtonState(button, 0, (int)player);
+}
+
+- (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
+{
+    if (accelerometer == OEWiiNunchuk){
+        gc_host->setNunchukAccel(X,Y,Z,(int)player);
+    }else{
+        gc_host->setWiimoteAccel(X,Y,Z,(int)player);
+    }
+}
+
+- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(wiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
+{
+
+    gc_host->setIRdata(IRinfo ,(int)player);
+}
+
+- (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
+{
+    gc_host->changeWiimoteExtension(extension, (int)player);
 }
 
 @end

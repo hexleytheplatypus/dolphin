@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Core/IPC_HLE/WII_IPC_HLE_Device_usb.h"
 #include "Core/IPC_HLE/WII_IPC_HLE_WiiMote.h"
 #include "Core/PowerPC/PowerPC.h"
+#include "Core/HW/WiimoteReal/WiimoteReal.h"
 #include "Common/CommonPaths.h"
 #include "Common/Event.h"
 #include "Common/Logging/LogManager.h"
@@ -77,6 +78,9 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bOnScreenDisplayMessages = false;
     SConfig::GetInstance().bMMU = true;
 
+    //Choose Wiimote Type
+    _wiiMoteType = WIIMOTE_SRC_EMU; // or WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
+    
     //Get game info frome file (disc)
     GetGameInfo();
 
@@ -90,15 +94,29 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         SConfig::GetInstance().m_strMemoryCardA = _memCardA;
         SConfig::GetInstance().m_strMemoryCardB = _memCardB;
 
-        //Clear the Nand path
+        //Clear the WiiNAND path
         SConfig::GetInstance().m_NANDPath = "";
     } else {
         //clear the GC mem card paths
         SConfig::GetInstance().m_strMemoryCardA = "";
         SConfig::GetInstance().m_strMemoryCardB = "";
 
-        //Set the WiiNANDpath
+        //Set the WiiNAND path
         SConfig::GetInstance().m_NANDPath = supportDirectoryPath  + DIR_SEP + WII_USER_DIR;
+        SConfig::GetInstance().m_WiimoteContinuousScanning = false;
+
+//        SConfig::GetInstance().m_WiimoteEnableSpeaker =true;
+//        SConfig::GetInstance().m_SYSCONF->SetData("BT.BAR","top");
+//        SConfig::GetInstance().m_SYSCONF->SetData("BT.SENS", 70);
+//        SConfig::GetInstance().m_SYSCONF->SetData("BT.SPKV", 70);
+//        SConfig::GetInstance().m_SYSCONF->SetData("BT.MOT", true);
+//
+        WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
+        WiimoteReal::ChangeWiimoteSource(1, _wiiMoteType);
+        WiimoteReal::ChangeWiimoteSource(2, _wiiMoteType);
+        WiimoteReal::ChangeWiimoteSource(3, _wiiMoteType);
+//        if( _wiiMoteType != WIIMOTE_SRC_EMU)
+//            WiimoteReal::Initialize();
     }
 }
 
@@ -112,6 +130,12 @@ bool DolHost::LoadFileAtPath()
 
     while (!Core::IsRunning())
         updateMainFrameEvent.Wait();
+
+//    if( _wiiMoteType != WIIMOTE_SRC_EMU)
+//    {
+//        WiimoteReal::Initialize();
+//        WiimoteReal::Refresh();
+//    }
 
     SetUpPlayerInputs();
 
@@ -133,11 +157,8 @@ void DolHost::RequestStop()
 
 void DolHost::UpdateFrame()
 {
-    while(Core::GetState() != Core::CORE_RUN)
-    {
-        Core::SetState(Core::CORE_RUN);
-        updateMainFrameEvent.Set();
-    }
+    updateMainFrameEvent.Set();
+    if(_onBoot) _onBoot = false;
 }
 
 # pragma mark - Core Thread
@@ -172,10 +193,25 @@ bool DolHost::SaveState(std::string saveStateFile)
 
 bool DolHost::LoadState(std::string saveStateFile)
 {
-    if (!_wiiGame)
+    if ( _onBoot )
         Core::SetStateFileName(saveStateFile);
+    else
+    {
+        State::LoadAs(saveStateFile);
 
-    State::LoadAs(saveStateFile);
+        if (_wiiGame)
+        {
+            WiimoteReal::ChangeWiimoteSource(0 , _wiiMoteType);
+            WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
+            WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
+            WiimoteReal::ChangeWiimoteSource(3 , _wiiMoteType);
+
+            if( _wiiMoteType != WIIMOTE_SRC_EMU)
+            {
+                WiimoteReal::Refresh();
+            }
+        }
+    }
     return true;
 }
 
@@ -305,10 +341,6 @@ void DolHost::SetUpPlayerInputs()
 
 void DolHost::SetButtonState(int button, int state, int player)
 {
-    if (SConfig::GetInstance().bWii && state == 1 )
-    {
-        CheckExtension(button, player);
-    }
     ciface::Core::Device::Input* input = m_playerInputs[player - 1][button];
     input->SetState(state);
 }
@@ -319,15 +351,34 @@ void DolHost::SetAxis(int button, float value, int player)
     input->SetState(value);
 }
 
-void DolHost::CheckExtension(int button, int player)
+void DolHost::changeWiimoteExtension(int extension, int player)
 {
-    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player - 1 ));
+    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player  ));
 
-    if( button >10 && button < 17 && _Wiimote->CurrentExtension() != 1) // Nunchuck button pressed
-        _Wiimote->SwitchExtension(1); // Set Nunchuk as extenstion
-    else if (button > 16 && _Wiimote->CurrentExtension() != 2)  // Classic Controller button pressed
-        _Wiimote->SwitchExtension(2); // Set Classic Controller as extension
+     _Wiimote->SwitchExtension( extension );
 }
+
+void DolHost::setNunchukAccel(double X,double Y,double Z,int player)
+{
+    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
+    if (_Wiimote->CurrentExtension() == 1)
+        _Wiimote->UpdateNunchukAccelData(X, Y, Z);
+}
+
+void DolHost::setWiimoteAccel(double X,double Y,double Z,int player)
+{
+    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
+
+    _Wiimote->UpdateAccelData(X, Y, Z);
+}
+
+void DolHost::setIRdata(wiimoteIRinfo IRinfo, int player)
+{
+    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
+
+    _Wiimote->UpdateIRdata (IRinfo.dX, IRinfo.dY, IRinfo.dSize);
+}
+
 # pragma mark - DVD info
 void DolHost::GetGameInfo()
 {

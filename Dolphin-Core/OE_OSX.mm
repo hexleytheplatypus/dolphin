@@ -30,6 +30,7 @@
 #include <Cocoa/Cocoa.h>
 
 #include "InputCommon/ControllerInterface/OSX/OSX.h"
+#include "Core/ConfigManager.h"
 //#include "OE_OSXKeyboard.h"
 #include "OE_OSXJoystick.h"
 
@@ -39,20 +40,15 @@ namespace ciface
 {
     namespace OSX
     {
-
-        static std::map<std::string, int> kbd_name_counts, joy_name_counts;
-
-        void DeviceElementDebugPrint(const void *value, void *context)
-        {
-        }
+        static std::map<std::string, int> joy_name_counts;
 
         void Init(std::vector<Core::Device*>& devices, void *window)
         {
-            // Create 4 OE joysticks
-            devices.push_back(new Joystick("OE_GameDev0", joy_name_counts["OE_GameDev0"]++));
-            devices.push_back(new Joystick("OE_GameDev1", joy_name_counts["OE_GameDev1"]++));
-            devices.push_back(new Joystick("OE_GameDev2", joy_name_counts["OE_GameDev2"]++));
-            devices.push_back(new Joystick("OE_GameDev3", joy_name_counts["OE_GameDev3"]++));
+                // Create 4 OE joysticks
+                devices.push_back(new Joystick("OE_GameDev0", joy_name_counts["OE_GameDev0"]++));
+                devices.push_back(new Joystick("OE_GameDev1", joy_name_counts["OE_GameDev1"]++));
+                devices.push_back(new Joystick("OE_GameDev2", joy_name_counts["OE_GameDev2"]++));
+                devices.push_back(new Joystick("OE_GameDev3", joy_name_counts["OE_GameDev3"]++));
         }
         
         void DeInit()

@@ -45,9 +45,15 @@ public:
     void SetPresentationFBO(int RenderFBO);
     
     void SetButtonState(int button,int state, int player);
-    void CheckExtension(int button, int player);
     void SetAxis(int button, float value, int player);
-    
+
+    void setNunchukAccel(double X,double Y,double Z,int player);
+    void setWiimoteAccel(double X,double Y,double Z,int player);
+
+    void setIRdata(wiimoteIRinfo IRinfo, int player);
+
+    void changeWiimoteExtension(int extension, int player);
+
     void toggleAudioMute();
     void volumeDown();
     void volumeUp();
@@ -66,7 +72,9 @@ private:
     std::string _gameID;
     std::string _gameName;
     std::string _gameRegion;
+    bool        _onBoot = true;
     bool        _wiiGame;
+    int         _wiiMoteType;
 
     void SetUpPlayerInputs();
     ciface::Core::Device::Input* m_playerInputs[4][OEWiiButtonCount];

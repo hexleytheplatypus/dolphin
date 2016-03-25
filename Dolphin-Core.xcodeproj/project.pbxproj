@@ -95,6 +95,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3E1684D81CA495A200475F67 /* OE_Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */; };
+		3E1684D91CA495A200475F67 /* OE_Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D01CA495A200475F67 /* OE_Drums.cpp */; };
+		3E1684DA1CA495A200475F67 /* OE_EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */; };
+		3E1684DB1CA495A200475F67 /* OE_Guitar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D31CA495A200475F67 /* OE_Guitar.cpp */; };
+		3E1684DC1CA495A200475F67 /* OE_Turntable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D61CA495A200475F67 /* OE_Turntable.cpp */; };
 		3E3D70351C82AF7000091C4D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70321C82AF7000091C4D /* xxhash.c */; };
 		3E3D70361C82AF7000091C4D /* xxhsum.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70341C82AF7000091C4D /* xxhsum.c */; };
 		3E3D70391C82AFD800091C4D /* pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70371C82AFD800091C4D /* pch.cpp */; };
@@ -285,10 +290,6 @@
 		3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728C1C82B0F900091C4D /* WII_IPC.cpp */; };
 		3E3D73CD1C82B0F900091C4D /* Wiimote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728E1C82B0F900091C4D /* Wiimote.cpp */; };
 		3E3D73CE1C82B0F900091C4D /* Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72921C82B0F900091C4D /* Attachment.cpp */; };
-		3E3D73D01C82B0F900091C4D /* Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72961C82B0F900091C4D /* Drums.cpp */; };
-		3E3D73D11C82B0F900091C4D /* Guitar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72981C82B0F900091C4D /* Guitar.cpp */; };
-		3E3D73D31C82B0F900091C4D /* Turntable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729C1C82B0F900091C4D /* Turntable.cpp */; };
-		3E3D73D41C82B0F900091C4D /* EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729E1C82B0F900091C4D /* EmuSubroutines.cpp */; };
 		3E3D73D51C82B0F900091C4D /* Encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729F1C82B0F900091C4D /* Encryption.cpp */; };
 		3E3D73D61C82B0F900091C4D /* Speaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A21C82B0F900091C4D /* Speaker.cpp */; };
 		3E3D73D91C82B0F900091C4D /* IOdarwin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A81C82B0F900091C4D /* IOdarwin.mm */; };
@@ -1173,6 +1174,16 @@
 		125948FD17D5434DA13C8293 /* libuicommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libuicommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF3F3D420B142DBBF1E1B9F /* libSOIL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSOIL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB9EC0F64AC4815A7E27952 /* libvideocommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvideocommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Attachment.cpp; path = "Dolphin-Core/OE_Attachment.cpp"; sourceTree = "<group>"; };
+		3E1684CF1CA495A200475F67 /* OE_Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Attachment.h; path = "Dolphin-Core/OE_Attachment.h"; sourceTree = "<group>"; };
+		3E1684D01CA495A200475F67 /* OE_Drums.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Drums.cpp; path = "Dolphin-Core/OE_Drums.cpp"; sourceTree = "<group>"; };
+		3E1684D11CA495A200475F67 /* OE_Drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Drums.h; path = "Dolphin-Core/OE_Drums.h"; sourceTree = "<group>"; };
+		3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_EmuSubroutines.cpp; path = "Dolphin-Core/OE_EmuSubroutines.cpp"; sourceTree = "<group>"; };
+		3E1684D31CA495A200475F67 /* OE_Guitar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Guitar.cpp; path = "Dolphin-Core/OE_Guitar.cpp"; sourceTree = "<group>"; };
+		3E1684D41CA495A200475F67 /* OE_Guitar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Guitar.h; path = "Dolphin-Core/OE_Guitar.h"; sourceTree = "<group>"; };
+		3E1684D51CA495A200475F67 /* OE_Nunchuk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Nunchuk.h; path = "Dolphin-Core/OE_Nunchuk.h"; sourceTree = "<group>"; };
+		3E1684D61CA495A200475F67 /* OE_Turntable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Turntable.cpp; path = "Dolphin-Core/OE_Turntable.cpp"; sourceTree = "<group>"; };
+		3E1684D71CA495A200475F67 /* OE_Turntable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Turntable.h; path = "Dolphin-Core/OE_Turntable.h"; sourceTree = "<group>"; };
 		3E3D70251C82AF2A00091C4D /* OE_AGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_AGL.h; path = "Dolphin-Core/OE_AGL.h"; sourceTree = "<group>"; };
 		3E3D70261C82AF2A00091C4D /* OE_AGL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_AGL.mm; path = "Dolphin-Core/OE_AGL.mm"; sourceTree = "<group>"; };
 		3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_CoreAudio.h; path = "Dolphin-Core/OE_CoreAudio.h"; sourceTree = "<group>"; };
@@ -2380,22 +2391,32 @@
 			children = (
 				3E3D70251C82AF2A00091C4D /* OE_AGL.h */,
 				3E3D70261C82AF2A00091C4D /* OE_AGL.mm */,
+				3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */,
+				3E1684CF1CA495A200475F67 /* OE_Attachment.h */,
+				3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */,
+				3E76C1341C99CA2B00F966FE /* OE_Classic.h */,
+				3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */,
 				3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */,
 				3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */,
-				3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */,
+				3E1684D01CA495A200475F67 /* OE_Drums.cpp */,
+				3E1684D11CA495A200475F67 /* OE_Drums.h */,
+				3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */,
 				3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */,
+				3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */,
+				3E1684D31CA495A200475F67 /* OE_Guitar.cpp */,
+				3E1684D41CA495A200475F67 /* OE_Guitar.h */,
+				3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */,
+				3E1684D51CA495A200475F67 /* OE_Nunchuk.h */,
 				3E3D702B1C82AF2A00091C4D /* OE_OSX.h */,
 				3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */,
 				3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */,
 				3E3D702E1C82AF2A00091C4D /* OE_OSXJoystick.mm */,
 				3E74B9CA1C91060C0017C7B1 /* OE_OSXKeyboard.h */,
 				3E3D70301C82AF2A00091C4D /* OE_OSXKeyboard.mm */,
-				3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */,
-				3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */,
+				3E1684D61CA495A200475F67 /* OE_Turntable.cpp */,
+				3E1684D71CA495A200475F67 /* OE_Turntable.h */,
 				3E53D5171C89E97A0006E44C /* OE_WiimoteEmu.cpp */,
-				3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */,
-				3E76C1341C99CA2B00F966FE /* OE_Classic.h */,
-				3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */,
+				3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */,
 			);
 			name = Compatibilty;
 			path = ..;
@@ -4645,6 +4666,7 @@
 			files = (
 				3E74B9C31C90DC3E0017C7B1 /* OE_WiimoteEmu.cpp in Sources */,
 				3E3D76791C8375F100091C4D /* OE_GCpadEmu.mm in Sources */,
+				3E1684D81CA495A200475F67 /* OE_Attachment.cpp in Sources */,
 				3E3D73FC1C82B0F900091C4D /* Interpreter_LoadStorePaired.cpp in Sources */,
 				3E3D737D1C82B0F900091C4D /* DSPJitMultiplier.cpp in Sources */,
 				3E3D73951C82B0F900091C4D /* DSPHLE.cpp in Sources */,
@@ -4706,8 +4728,10 @@
 				3E3D74081C82B0F900091C4D /* Jit_Paired.cpp in Sources */,
 				3E3D73F21C82B0F900091C4D /* NetPlayClient.cpp in Sources */,
 				3E3D73BB1C82B0F900091C4D /* Memmap.cpp in Sources */,
+				3E1684D91CA495A200475F67 /* OE_Drums.cpp in Sources */,
 				3E3D74351C82B0F900091C4D /* Profiler.cpp in Sources */,
 				3E3D739A1C82B0F900091C4D /* GBA.cpp in Sources */,
+				3E1684DA1CA495A200475F67 /* OE_EmuSubroutines.cpp in Sources */,
 				3E3D735E1C82B0F900091C4D /* Core.cpp in Sources */,
 				3E3D74371C82B0F900091C4D /* State.cpp in Sources */,
 				3E3D73A71C82B0F900091C4D /* EXI.cpp in Sources */,
@@ -4718,9 +4742,9 @@
 				3E3D73771C82B0F900091C4D /* DSPJitArithmetic.cpp in Sources */,
 				3E3D73B31C82B0F900091C4D /* GCKeyboardEmu.cpp in Sources */,
 				3E3D737B1C82B0F900091C4D /* DSPJitLoadStore.cpp in Sources */,
-				3E3D73D31C82B0F900091C4D /* Turntable.cpp in Sources */,
 				3E3D73F41C82B0F900091C4D /* PatchEngine.cpp in Sources */,
 				3E3D73781C82B0F900091C4D /* DSPJitBranch.cpp in Sources */,
+				3E1684DC1CA495A200475F67 /* OE_Turntable.cpp in Sources */,
 				3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */,
 				3E3D73B01C82B0F900091C4D /* EXI_DeviceMemoryCard.cpp in Sources */,
 				3E3D740B1C82B0F900091C4D /* JitRegCache.cpp in Sources */,
@@ -4745,14 +4769,12 @@
 				3E3D738C1C82B0F900091C4D /* HLE_Misc.cpp in Sources */,
 				3E3D73571C82B0F900091C4D /* Boot_BS2Emu.cpp in Sources */,
 				3E3D73C01C82B0F900091C4D /* SI_Device.cpp in Sources */,
-				3E3D73D11C82B0F900091C4D /* Guitar.cpp in Sources */,
 				3E3D739D1C82B0F900091C4D /* UCodes.cpp in Sources */,
 				3E3D73621C82B0F900091C4D /* PPCDebugInterface.cpp in Sources */,
 				3E3D73B71C82B0F900091C4D /* GCPad.cpp in Sources */,
 				3E3D73BC1C82B0F900091C4D /* MemoryInterface.cpp in Sources */,
 				3E3D73761C82B0F900091C4D /* DSPTables.cpp in Sources */,
 				3E3D73E71C82B0F900091C4D /* WII_IPC_HLE_Device_net.cpp in Sources */,
-				3E3D73D01C82B0F900091C4D /* Drums.cpp in Sources */,
 				3E3D73F71C82B0F900091C4D /* Interpreter.cpp in Sources */,
 				3E3D73C61C82B0F900091C4D /* SI_DeviceGCSteeringWheel.cpp in Sources */,
 				3E3D73A51C82B0F900091C4D /* DVDInterface.cpp in Sources */,
@@ -4794,7 +4816,6 @@
 				3E3D73E81C82B0F900091C4D /* WII_IPC_HLE_Device_net_ssl.cpp in Sources */,
 				3E3D73881C82B0F900091C4D /* FifoRecorder.cpp in Sources */,
 				3E3D73581C82B0F900091C4D /* Boot_DOL.cpp in Sources */,
-				3E3D73D41C82B0F900091C4D /* EmuSubroutines.cpp in Sources */,
 				3E3D73A11C82B0F900091C4D /* DSPLLE.cpp in Sources */,
 				3E3D738A1C82B0F900091C4D /* GeckoCodeConfig.cpp in Sources */,
 				3E3D73F11C82B0F900091C4D /* Movie.cpp in Sources */,
@@ -4814,6 +4835,7 @@
 				3E3D73FF1C82B0F900091C4D /* Interpreter_Tables.cpp in Sources */,
 				3E3D74361C82B0F900091C4D /* SignatureDB.cpp in Sources */,
 				3E3D73AF1C82B0F900091C4D /* EXI_DeviceIPL.cpp in Sources */,
+				3E1684DB1CA495A200475F67 /* OE_Guitar.cpp in Sources */,
 				3E3D74041C82B0F900091C4D /* Jit_Integer.cpp in Sources */,
 				3E3D738D1C82B0F900091C4D /* HLE_OS.cpp in Sources */,
 				3E3D73E21C82B0F900091C4D /* WII_IPC_HLE_Device_DI.cpp in Sources */,

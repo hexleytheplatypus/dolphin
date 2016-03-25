@@ -6,7 +6,7 @@
 
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
-#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
+#include "OE_WiimoteEmu.h"
 #include "OE_Classic.h"
 
 namespace WiimoteEmu
