@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "OEGCSystemResponderClient.h"
 #import "OEWiiSystemResponderClient.h"
 
+#include "Core/GeckoCode.h"
 #include "InputCommon/ControllerInterface/Device.h"
 
 class DolHost {
@@ -62,7 +63,11 @@ public:
     bool SaveState(std::string saveStateFile);
     bool LoadState(std::string saveStateFile);
 
-private:
+    void SetCheat(std::string code, std::string value, bool enabled);
+    std::vector<Gecko::GeckoCode> gcodes;
+    Gecko::GeckoCode gcode;
+
+    private:
     static DolHost* m_instance;
     DolHost();
 

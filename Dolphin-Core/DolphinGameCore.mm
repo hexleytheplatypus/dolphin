@@ -325,4 +325,10 @@ DolphinGameCore *_current = 0;
     gc_host->changeWiimoteExtension(extension, (int)player);
 }
 
+# pragma mark - Cheats
+- (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
+{
+    gc_host->SetCheat([code UTF8String], [type UTF8String], enabled);
+    
+}
 @end

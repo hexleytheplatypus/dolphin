@@ -1,4 +1,4 @@
-/*
+ /*
 Copyright (c) 2016, OpenEmu Team
 
 Redistribution and use in source and binary forms, with or without
@@ -77,6 +77,9 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().m_Volume = 100;
     SConfig::GetInstance().bOnScreenDisplayMessages = false;
     SConfig::GetInstance().bMMU = true;
+    SConfig::GetInstance().bEnableCheats = true;
+
+   // std::vector<ActionReplay::ARCode> arCodes;
 
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // or WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
@@ -130,12 +133,6 @@ bool DolHost::LoadFileAtPath()
 
     while (!Core::IsRunning())
         updateMainFrameEvent.Wait();
-
-//    if( _wiiMoteType != WIIMOTE_SRC_EMU)
-//    {
-//        WiimoteReal::Initialize();
-//        WiimoteReal::Refresh();
-//    }
 
     SetUpPlayerInputs();
 
@@ -194,7 +191,10 @@ bool DolHost::SaveState(std::string saveStateFile)
 bool DolHost::LoadState(std::string saveStateFile)
 {
     if ( _onBoot )
-        Core::SetStateFileName(saveStateFile);
+    {
+        if(!_wiiGame)
+            Core::SetStateFileName(saveStateFile);
+    }
     else
     {
         State::LoadAs(saveStateFile);
@@ -213,6 +213,85 @@ bool DolHost::LoadState(std::string saveStateFile)
         }
     }
     return true;
+}
+
+# pragma mark - Cheats
+
+void DolHost::SetCheat(std::string code, std::string type, bool enabled)
+{
+    NSString* nscode = [NSString stringWithUTF8String:code.c_str()];
+
+    gcode.codes.clear();
+    gcode.enabled = enabled;
+
+    // Sanitize
+    nscode = [nscode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    // Remove any spaces
+    nscode = [nscode stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    NSString *singleCode;
+    NSArray *multipleCodes = [nscode componentsSeparatedByString:@"+"];
+
+    Gecko::GeckoCode::Code gcodecode;
+    uint32_t cmd_addr, cmd_value;
+
+    for (singleCode in multipleCodes)
+    {
+        if ([singleCode length] == 16) // Gecko code
+        {
+            NSString *address = [singleCode substringWithRange:NSMakeRange(0, 8)];
+            NSString *value = [singleCode substringWithRange:NSMakeRange(8, 8)];
+
+            bool success_addr = TryParse(std::string("0x") + [address UTF8String], &cmd_addr);
+            bool success_val = TryParse(std::string("0x") + [value UTF8String], &cmd_value);
+
+            if (!success_addr || !success_val)
+                return;
+
+            gcodecode.address = cmd_addr;
+            gcodecode.data = cmd_value;
+            gcode.codes.push_back(gcodecode);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    bool exists = false;
+
+    //  cycle through the codes in our vector
+    for (Gecko::GeckoCode& gcompare : gcodes)
+    {
+        //If the code being modified is the same size as one in the vector, check each value
+        if (gcompare.codes.size() == gcode.codes.size())
+        {
+            for(int i = 0; i < gcode.codes.size() ;i++){
+                if (gcompare.codes[i].address == gcode.codes[i].address && gcompare.codes[i].data == gcode.codes[i].data)
+                {
+                    exists = true;
+                }
+                else
+                {
+                    exists = false;
+                    // If it's not the same, no need to look through all the codea
+                    break;
+                }
+            }
+        }
+        if(exists)
+        {
+            gcompare.enabled = enabled;
+            // If it exists, enable it, and we don't need to look at the rest of the codes
+            break;
+        }
+    }
+
+    if(!exists)
+        gcodes.push_back(gcode);
+
+    Gecko::SetActiveCodes(gcodes);
 }
 
 # pragma mark - Controls

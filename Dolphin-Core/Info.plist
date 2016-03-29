@@ -26,11 +26,15 @@
 	<dict>
 		<key>openemu.system.gc</key>
 		<dict>
+			<key>OEGameCoreSupportsCheatCode</key>
+			<true/>
 			<key>OEGameCoreRequiresFiles</key>
 			<false/>
 		</dict>
 		<key>openemu.system.wii</key>
 		<dict>
+			<key>OEGameCoreSupportsCheatCode</key>
+			<true/>
 			<key>OEGameCoreRequiresFiles</key>
 			<false/>
 		</dict>
