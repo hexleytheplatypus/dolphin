@@ -100,20 +100,21 @@ DolphinGameCore *_current = 0;
     return YES;
 }
 
-//- (void)setPauseEmulation:(BOOL)flag
-//{
-//   gc_host->Pause(flag);
-//
-//}
+- (void)setPauseEmulation:(BOOL)flag
+{
+   gc_host->Pause(flag);
+    if (flag)
+        [self.renderDelegate suspendFPSLimiting];
+    else
+        [self.renderDelegate resumeFPSLimiting];
+
+}
 
 - (void)stopEmulation
 {
     gc_host->RequestStop();
 
-    //  Tell the OGL3 renderer that a frame has rendered
-    //  This will stop the gameCoreHelper from waiting for the Emu
-    //  to send a frame and stopping the Core from closing
-    //[self.renderDelegate didRenderFrameOnAlternateThread];
+    [self.renderDelegate suspendFPSLimiting];
 
     [super stopEmulation];
 }
@@ -263,7 +264,10 @@ DolphinGameCore *_current = 0;
     while (! _isInitialized)
         usleep (1000);
 
+    [self.renderDelegate suspendFPSLimiting];
+
     block(gc_host->SaveState([fileName UTF8String]),nil);
+
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block

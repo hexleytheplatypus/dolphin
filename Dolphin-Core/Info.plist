@@ -10,6 +10,8 @@
 	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>org.openemu.${PRODUCT_NAME:identifier}</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -51,6 +53,6 @@
 	<key>SUEnableAutomaticChecks</key>
 	<string>0</string>
 	<key>SUFeedURL</key>
-	<string>https://none</string>
+	<string></string>
 </dict>
 </plist>

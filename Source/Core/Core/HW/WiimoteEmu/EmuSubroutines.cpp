@@ -27,7 +27,7 @@
 #include "Common/MsgHandler.h"
 #include "Common/Logging/Log.h"
 #include "Core/Core.h"
-#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
+#include "OE_WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
 #include "Core/HW/WiimoteEmu/Attachment/Attachment.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"

@@ -6054,6 +6054,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -7170,7 +7171,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -7363,7 +7364,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -7592,7 +7593,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
@@ -7631,6 +7634,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
+				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
 				USER_HEADER_SEARCH_PATHS = "$SRCROOT/Dolphin-Core";
 			};
@@ -7714,7 +7718,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
@@ -7753,6 +7759,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
+				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
 				USER_HEADER_SEARCH_PATHS = "$SRCROOT/Dolphin-Core";
 			};
@@ -8335,6 +8342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9401,6 +9409,7 @@
 		8355D4DA1A653A9D00E73302 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -9408,6 +9417,7 @@
 		8355D4DB1A653A9D00E73302 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -9415,6 +9425,7 @@
 		8355D4DC1A653A9D00E73302 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = MinSizeRel;
@@ -9422,6 +9433,7 @@
 		8355D4DD1A653A9D00E73302 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = RelWithDebInfo;
@@ -9430,6 +9442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9531,6 +9544,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9610,6 +9624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9689,6 +9704,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9892,6 +9908,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11945,6 +11962,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12512,6 +12530,8 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 2;
@@ -12551,6 +12571,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
+				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
 				USER_HEADER_SEARCH_PATHS = "$SRCROOT/Dolphin-Core";
 			};
@@ -12765,6 +12786,8 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
@@ -12803,6 +12826,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
+				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
 				USER_HEADER_SEARCH_PATHS = "$SRCROOT/Dolphin-Core";
 			};

@@ -631,7 +631,7 @@ void Initialize(bool wait)
 
 	std::lock_guard<std::recursive_mutex> lk(g_refresh_lock);
 
-	g_wiimote_scanner.WantWiimotes(0 != CalculateWantedWiimotes());
+    g_wiimote_scanner.WantWiimotes( 0 != CalculateWantedWiimotes());
 	g_wiimote_scanner.WantBB(0 != CalculateWantedBB());
 
 	// wait for connection because it should exist before state load
