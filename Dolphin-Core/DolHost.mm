@@ -108,18 +108,11 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         SConfig::GetInstance().m_NANDPath = supportDirectoryPath  + DIR_SEP + WII_USER_DIR;
         SConfig::GetInstance().m_WiimoteContinuousScanning = false;
 
-//        SConfig::GetInstance().m_WiimoteEnableSpeaker =true;
-//        SConfig::GetInstance().m_SYSCONF->SetData("BT.BAR","top");
-//        SConfig::GetInstance().m_SYSCONF->SetData("BT.SENS", 70);
-//        SConfig::GetInstance().m_SYSCONF->SetData("BT.SPKV", 70);
-//        SConfig::GetInstance().m_SYSCONF->SetData("BT.MOT", true);
-//
+
         WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(1, _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(2, _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(3, _wiiMoteType);
-//        if( _wiiMoteType != WIIMOTE_SRC_EMU)
-//            WiimoteReal::Initialize();
     }
 }
 

@@ -42,8 +42,8 @@ bool cInterfaceAGL::Create(void *window_handle, bool core)
 {
     // Control window size and picture scaling
     if(SConfig::GetInstance().bWii){
-        s_backbuffer_width = 800;
-        s_backbuffer_height = 600;
+        s_backbuffer_width = 854;
+        s_backbuffer_height = 480;
     } else {
         s_backbuffer_width = 640;
         s_backbuffer_height = 480;

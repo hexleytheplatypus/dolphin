@@ -41,6 +41,12 @@
 #define OpenEmu 1
 
 @interface DolphinGameCore () <OEGCSystemResponderClient>
+@property (copy) NSString *filePath;
+@end
+
+DolphinGameCore *_current = 0;
+
+@implementation DolphinGameCore
 {
     DolHost *gc_host;
     NSView* dolView;
@@ -55,15 +61,8 @@
     NSString *_dolphinCoreModule;
     OEIntSize _dolphinCoreAspect;
     OEIntSize _dolphinCoreScreen;
-
 }
-@property (copy) NSString *filePath;
-@end
-
-DolphinGameCore *_current = 0;
-
-@implementation DolphinGameCore
-- (id)init
+- (instancetype)init
 {
     if(self = [super init])
         gc_host = DolHost::GetInstance();
@@ -93,7 +92,7 @@ DolphinGameCore *_current = 0;
         _dolphinCoreModule = @"Wii";
         _wii = true;
         _dolphinCoreAspect = OEIntSizeMake(16,9);
-        _dolphinCoreScreen = OEIntSizeMake(800, 600);
+        _dolphinCoreScreen = OEIntSizeMake(854, 480);
     }
 
     gc_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
@@ -101,19 +100,21 @@ DolphinGameCore *_current = 0;
     return YES;
 }
 
-- (void)setPauseEmulation:(BOOL)flag
-{
-    gc_host->Pause(flag);
-}
+//- (void)setPauseEmulation:(BOOL)flag
+//{
+//   gc_host->Pause(flag);
+//
+//}
 
 - (void)stopEmulation
 {
     gc_host->RequestStop();
 
-    //Wait until the Core Thread has ended
-    while(_CoreThreadRunning)
-        usleep (1000);
-    
+    //  Tell the OGL3 renderer that a frame has rendered
+    //  This will stop the gameCoreHelper from waiting for the Emu
+    //  to send a frame and stopping the Core from closing
+    //[self.renderDelegate didRenderFrameOnAlternateThread];
+
     [super stopEmulation];
 }
 
@@ -168,12 +169,13 @@ DolphinGameCore *_current = 0;
 - (void)makeCurrent
 {
     //This will make the OE Alternate Context the current OGL Context
-    [self.renderDelegate willRenderFrameOnAlternateThread];
+    //[self.renderDelegate willRenderFrameOnAlternateThread];
 }
 
 - (void)swapBuffers
 {
     //This will render the Dolphin FBO frame
+    [self.renderDelegate presentDoubleBufferedFBO];
     [self.renderDelegate didRenderFrameOnAlternateThread];
 }
 
@@ -260,7 +262,7 @@ DolphinGameCore *_current = 0;
     // we need to make sure we are initialized before attempting to save a state
     while (! _isInitialized)
         usleep (1000);
-    
+
     block(gc_host->SaveState([fileName UTF8String]),nil);
 }
 
