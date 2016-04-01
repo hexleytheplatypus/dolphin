@@ -104,17 +104,16 @@ DolphinGameCore *_current = 0;
 {
    gc_host->Pause(flag);
     if (flag)
-        [self.renderDelegate suspendFPSLimiting];
+        [self beginPausedExecution];
     else
-        [self.renderDelegate resumeFPSLimiting];
-
+        [self endPausedExecution];
 }
 
 - (void)stopEmulation
 {
     gc_host->RequestStop();
 
-    [self.renderDelegate suspendFPSLimiting];
+    [self beginPausedExecution];
 
     [super stopEmulation];
 }
@@ -128,7 +127,7 @@ DolphinGameCore *_current = 0;
     usleep(5000);
 
     if(gc_host->LoadFileAtPath())
-        _isInitialized=true;
+        _isInitialized = true;
 
     [super startEmulation];
 }
@@ -143,6 +142,7 @@ DolphinGameCore *_current = 0;
 - (void)executeFrame
 {
     gc_host->UpdateFrame();
+
 }
 
 # pragma mark - CoreThread
@@ -264,7 +264,7 @@ DolphinGameCore *_current = 0;
     while (! _isInitialized)
         usleep (1000);
 
-    [self.renderDelegate suspendFPSLimiting];
+   [self beginPausedExecution];
 
     block(gc_host->SaveState([fileName UTF8String]),nil);
 
@@ -275,7 +275,7 @@ DolphinGameCore *_current = 0;
     // we need to make sure we are initialized before attempting to load a state
     while (! _isInitialized)
         usleep (1000);
-    
+
     block(gc_host->LoadState([fileName UTF8String]),nil);
 }
 
@@ -313,22 +313,30 @@ DolphinGameCore *_current = 0;
 
 - (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
 {
-    if (accelerometer == OEWiiNunchuk){
-        gc_host->setNunchukAccel(X,Y,Z,(int)player);
-    }else{
-        gc_host->setWiimoteAccel(X,Y,Z,(int)player);
+    if(_isInitialized)
+    {
+        if (accelerometer == OEWiiNunchuk){
+            gc_host->setNunchukAccel(X,Y,Z,(int)player);
+        }else{
+            gc_host->setWiimoteAccel(X,Y,Z,(int)player);
+        }
     }
 }
 
 - (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(wiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
 {
-
-    gc_host->setIRdata(IRinfo ,(int)player);
+    if(_isInitialized)
+    {
+        gc_host->setIRdata(IRinfo ,(int)player);
+    }
 }
 
 - (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
 {
-    gc_host->changeWiimoteExtension(extension, (int)player);
+    if(_isInitialized)
+    {
+        gc_host->changeWiimoteExtension(extension, (int)player);
+    }
 }
 
 # pragma mark - Cheats
