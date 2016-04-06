@@ -6,7 +6,7 @@
 
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
-#include "OE_WiimoteEmu.h"
+#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/Attachment/Attachment.h"
 
 namespace WiimoteEmu
@@ -49,11 +49,6 @@ void Attachment::Reset()
 void ControllerEmu::Extension::GetState(u8* const data)
 {
 	((WiimoteEmu::Attachment*)attachments[active_extension].get())->GetState(data);
-}
-
-void ControllerEmu::Extension::UpdateAccelData(float X, float Y, float Z)
-{
-    ((WiimoteEmu::Attachment*)attachments[active_extension].get())->UpdateAccelData( X,  Y, Z);
 }
 
 bool ControllerEmu::Extension::IsButtonPressed() const

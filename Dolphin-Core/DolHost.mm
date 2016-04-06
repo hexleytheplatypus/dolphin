@@ -79,8 +79,6 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bMMU = true;
     SConfig::GetInstance().bEnableCheats = true;
 
-   // std::vector<ActionReplay::ARCode> arCodes;
-
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // or WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
     
@@ -151,17 +149,7 @@ void DolHost::UpdateFrame()
     if(_onBoot) _onBoot = false;
 }
 
-# pragma mark - Core Thread
-void DolHost::RunCore()
-{
-    Core::EmuThread();
-
-    //Clean up after the EmuThread has ended
-    VideoBackendBase::ClearList();
-    SConfig::Shutdown();
-    LogManager::Shutdown();
-}
-
+# pragma mark - Render FBO
 void DolHost::SetPresentationFBO(int RenderFBO)
 {
     g_Config.iRenderFBO = RenderFBO;
@@ -185,7 +173,6 @@ bool DolHost::LoadState(std::string saveStateFile)
 {
     if ( _onBoot )
     {
-        if(!_wiiGame)
             Core::SetStateFileName(saveStateFile);
     }
     else
@@ -205,6 +192,7 @@ bool DolHost::LoadState(std::string saveStateFile)
             }
         }
     }
+    
     return true;
 }
 
@@ -268,7 +256,7 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
                 else
                 {
                     exists = false;
-                    // If it's not the same, no need to look through all the codea
+                    // If it's not the same, no need to look through all the codes
                     break;
                 }
             }
@@ -413,7 +401,36 @@ void DolHost::SetUpPlayerInputs()
 
 void DolHost::SetButtonState(int button, int state, int player)
 {
-    ciface::Core::Device::Input* input = m_playerInputs[player - 1][button];
+    player -= 1;
+
+    ciface::Core::Device::Input* input = m_playerInputs[player][button];
+
+    // really hacky, but need to be able to get the extension changed on emulated wiimote
+    if (_wiiGame )
+    {
+        if (button == (OEWiiChangeExtension) )
+        {
+            //set the Extension change state and return.  The next key pressed
+            //  while the Change Extension key is held will determine the Extension added
+            _wiiChangeExtension[player] = state;
+            return;
+        }
+
+        if ( _wiiChangeExtension[player] && state == 1)
+        {
+            if ( button < 10){
+                changeWiimoteExtension(OEWiimoteExtensionNotConnected, player);
+                Core::DisplayMessage("Extenstion Removed", 1500);
+            }else if (button > 10 && button < 17 ){
+                changeWiimoteExtension(OEWiimoteExtensionNunchuck, player);
+                Core::DisplayMessage("Nunchuk Connected", 1500);
+            }else if (button > 16 && button < 40 ){
+                changeWiimoteExtension(OEWiimoteExtensionClassicController, player);
+                Core::DisplayMessage("Classic Controller Connected", 1500);
+            }
+            return;
+        }
+    }
     input->SetState(state);
 }
 
@@ -425,9 +442,10 @@ void DolHost::SetAxis(int button, float value, int player)
 
 void DolHost::changeWiimoteExtension(int extension, int player)
 {
-    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player  ));
+    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
 
-     _Wiimote->SwitchExtension( extension );
+    if( _Wiimote->CurrentExtension() != extension )
+        _Wiimote->SwitchExtension( extension );
 }
 
 void DolHost::setNunchukAccel(double X,double Y,double Z,int player)
@@ -440,7 +458,6 @@ void DolHost::setNunchukAccel(double X,double Y,double Z,int player)
 void DolHost::setWiimoteAccel(double X,double Y,double Z,int player)
 {
     WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
-
     _Wiimote->UpdateAccelData(X, Y, Z);
 }
 
@@ -509,7 +526,7 @@ void Host_SetStartupDebuggingParameters()
     NSLog(@"DolphinCore: Set Startup Debugging Parameters");
     SConfig& StartUp = SConfig::GetInstance();
     StartUp.bEnableDebugging = false;
-    StartUp.bBootToPause = true;
+    StartUp.bBootToPause = false;
 }
 
 void Host_NotifyMapLoaded() {}

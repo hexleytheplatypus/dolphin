@@ -720,17 +720,6 @@ std::string GetBundleDirectory()
     GET_CURRENT_OR_RETURN();
 
     return [current getBundlePath];
-//
-//	CFURLRef BundleRef;
-//	char AppBundlePath[MAXPATHLEN];
-//	// Get the main bundle for the app
-//	BundleRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-//	CFStringRef BundlePath = CFURLCopyFileSystemPath(BundleRef, kCFURLPOSIXPathStyle);
-//	CFStringGetFileSystemRepresentation(BundlePath, AppBundlePath, sizeof(AppBundlePath));
-//	CFRelease(BundleRef);
-//	CFRelease(BundlePath);
-//
-//	return AppBundlePath;
 }
 #endif
 

@@ -40,8 +40,7 @@ enum EState
 bool Init();
 void Stop();
 void Shutdown();
-    
-// Function declarations
+
 void EmuThread();  //  OE  moved from Core.cpp
 
 void DeclareAsCPUThread();

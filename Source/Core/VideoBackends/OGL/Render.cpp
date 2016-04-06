@@ -52,6 +52,7 @@ void VideoConfig::UpdateProjectionHack()
 }
 
 static int OSDInternalW, OSDInternalH;
+static int s_max_texture_size;
 
 namespace OGL
 {
@@ -710,6 +711,9 @@ void Renderer::Init()
 	s_raster_font = std::make_unique<RasterFont>();
 
 	OpenGL_CreateAttributelessVAO();
+
+	// Cache this, because if you do this multiple times a frame, it shows up really high on a profile.
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &s_max_texture_size);
 }
 
 void Renderer::RenderText(const std::string& text, int left, int top, u32 color)
@@ -1344,7 +1348,7 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 		BlitScreen(targetRc, flipped_trc, tex, s_target_width, s_target_height);
 	}
 
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_Config.iRenderFBO);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER,  g_Config.iRenderFBO);
 
 	// Save screenshot
 	if (s_bScreenshot)
@@ -1693,9 +1697,7 @@ bool Renderer::SaveScreenshot(const std::string &filename, const TargetRectangle
 
 int Renderer::GetMaxTextureSize()
 {
-	int max_size;
-	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_size);
-	return max_size;
+	return s_max_texture_size;
 }
 
 }

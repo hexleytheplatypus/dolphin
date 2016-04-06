@@ -79,6 +79,7 @@ public:
     std::string _gameRegion;
     bool        _onBoot = true;
     bool        _wiiGame;
+    bool        _wiiChangeExtension[4];
     int         _wiiMoteType;
 
     void SetUpPlayerInputs();

@@ -27,6 +27,11 @@
 //  Had to rename /Common/Assert.h to /Common/AssertInt.h
 //  Changed <al*> includes to <OpenAL/al*>
 //  Updated to Dolphin Git Source 28 Feb 2016
+//  Added iRenderFBO to Videoconfig, OGL postprocessing and renderer
+//  Added SetState to device.h
+//  Add UpdateAccelData to ControllerEmu.h
+//  updated to Dolphin 4.0-9196 git
+//  Added Render on alternate thread in Core.cpp in EmuThread() Video Thread
 
 #import "DolphinGameCore.h"
 #include "Dolphin-Core/DolHost.h"
@@ -36,8 +41,8 @@
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
 
-#define SAMPLERATE 448000
-#define SIZESOUNDBUFFER 448000 / 60 * 4
+#define SAMPLERATE 48000
+#define SIZESOUNDBUFFER 48000 / 60 * 4
 #define OpenEmu 1
 
 @interface DolphinGameCore () <OEGCSystemResponderClient>
@@ -113,30 +118,28 @@ DolphinGameCore *_current = 0;
 {
     gc_host->RequestStop();
 
-    [self beginPausedExecution];
-
     [super stopEmulation];
 }
 
 - (void)startEmulation
 {
-    //Call the Core Thread to start
-    [NSThread detachNewThreadSelector:@selector(runDolphinThread) toTarget:self withObject:nil];
+    if (!_isInitialized)
+    {
+        [self.renderDelegate willRenderFrameOnAlternateThread];
 
-    //Let the Core Thread finish all it's startup
-    usleep(5000);
+        gc_host->SetPresentationFBO((int)[[self.renderDelegate presentationFramebuffer] integerValue]);
 
-    if(gc_host->LoadFileAtPath())
-        _isInitialized = true;
-
+        if(gc_host->LoadFileAtPath())
+            _isInitialized = true;
+    }
     [super startEmulation];
 }
 
 - (void)resetEmulation
 {
-    [self stopEmulation];
-    [self loadFileAtPath: [self filePath]];
-    [self startEmulation];
+    //[self stopEmulation];
+    //[self loadFileAtPath: [self filePath]];
+    //[self startEmulation];
 }
 
 - (void)executeFrame
@@ -145,34 +148,7 @@ DolphinGameCore *_current = 0;
 
 }
 
-# pragma mark - CoreThread
-- (void)runDolphinThread
-{
-    _CoreThreadRunning = true;
-    @autoreleasepool
-    {
-        OESetThreadRealtime(1. / 50, .007, .03); // guessed from bsnes
-
-        //Set this thread as the render delegate so we have access to the Alternate Context
-        [self.renderDelegate willRenderFrameOnAlternateThread];
-
-        //Get the id of the Render buffer in OpenEmu and pass it to the GC_host
-        gc_host->SetPresentationFBO((int)[[self.renderDelegate presentationFramebuffer] integerValue]);
-
-        //Start the Core Thread of Dolphin
-        gc_host->RunCore();
-    }
-    // Core Thread Completed
-    _CoreThreadRunning = false;
-}
-
-# pragma mark - Render Callbacks
-- (void)makeCurrent
-{
-    //This will make the OE Alternate Context the current OGL Context
-    //[self.renderDelegate willRenderFrameOnAlternateThread];
-}
-
+# pragma mark - Render Callback
 - (void)swapBuffers
 {
     //This will render the Dolphin FBO frame
@@ -261,22 +237,32 @@ DolphinGameCore *_current = 0;
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
     // we need to make sure we are initialized before attempting to save a state
-    while (! _isInitialized)
-        usleep (1000);
+//    while (! _isInitialized)
+//        usleep (1000);
 
-   [self beginPausedExecution];
+    //[self beginPausedExecution];
 
     block(gc_host->SaveState([fileName UTF8String]),nil);
 
+    //[self endPausedExecution];
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
     // we need to make sure we are initialized before attempting to load a state
-    while (! _isInitialized)
-        usleep (1000);
+    // in the case of autoload on start, the core will not have started yet, so start it up first
 
-    block(gc_host->LoadState([fileName UTF8String]),nil);
+    //[self beginPausedExecution];
+    {
+        if (! _isInitialized)
+        {
+            [self startEmulation];
+        }
+
+        block(gc_host->LoadState([fileName UTF8String]),nil);
+    }
+    
+    //[self endPausedExecution];
 }
 
 # pragma mark - Input GC
@@ -317,7 +303,7 @@ DolphinGameCore *_current = 0;
     {
         if (accelerometer == OEWiiNunchuk){
             gc_host->setNunchukAccel(X,Y,Z,(int)player);
-        }else{
+        } else {
             gc_host->setWiimoteAccel(X,Y,Z,(int)player);
         }
     }

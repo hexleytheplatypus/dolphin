@@ -41,7 +41,7 @@ public:
 	public:
 		virtual std::string GetName() const = 0;
 		virtual ~Control() {}
-       
+
 		bool InputGateOn();
 
 		virtual Input* ToInput() { return nullptr; }
@@ -61,6 +61,7 @@ public:
 
 		virtual ControlState GetState() const = 0;
 
+        //OE add set state
         virtual void SetState(ControlState state) = 0;
         
 		ControlState GetGatedState()
@@ -121,7 +122,7 @@ protected:
 
         void SetState(ControlState state) override
         {}
-        
+
 		ControlState GetState() const override
 		{
 			return (1 + m_high.GetState() - m_low.GetState()) / 2;

@@ -797,7 +797,7 @@ void CFrame::OnRecord(wxCommandEvent& WXUNUSED (event))
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (SConfig::GetInstance().m_SIDevice[i] == SIDEVICE_GC_CONTROLLER || SConfig::GetInstance().m_SIDevice[i] == SIDEVICE_GC_TARUKONGA)
+		if (SIDevice_IsGCController(SConfig::GetInstance().m_SIDevice[i]))
 			controllers |= (1 << i);
 
 		if (g_wiimote_sources[i] != WIIMOTE_SRC_NONE)
@@ -1792,13 +1792,15 @@ void CFrame::UpdateGUI()
 			{
 				m_ToolBar->DeleteTool(IDM_PLAY);
 				m_ToolBar->InsertTool(position, IDM_PLAY, _("Pause"), m_Bitmaps[Toolbar_Pause],
-				                      wxNullBitmap, wxITEM_NORMAL, _("Pause"));
+				                      WxUtils::CreateDisabledButtonBitmap(m_Bitmaps[Toolbar_Pause]),
+				                      wxITEM_NORMAL, _("Pause"));
 			}
 			else
 			{
 				m_ToolBar->DeleteTool(IDM_PLAY);
 				m_ToolBar->InsertTool(position, IDM_PLAY, _("Play"), m_Bitmaps[Toolbar_Play],
-				                      wxNullBitmap, wxITEM_NORMAL, _("Play"));
+				                      WxUtils::CreateDisabledButtonBitmap(m_Bitmaps[Toolbar_Play]),
+				                      wxITEM_NORMAL, _("Play"));
 			}
 			m_ToolBar->Realize();
 		}

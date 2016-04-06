@@ -9,7 +9,7 @@
 #include <SLES/OpenSLES_Android.h>
 
 #include "AudioCommon/OpenSLESStream.h"
-#include "Common/Assert.h"
+#include "Common/AssertInt.h"
 #include "Common/CommonTypes.h"
 #include "Common/Logging/Log.h"
 

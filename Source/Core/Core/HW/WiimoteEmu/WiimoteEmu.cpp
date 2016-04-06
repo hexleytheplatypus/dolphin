@@ -83,64 +83,64 @@ void EmulateShake(AccelData* const accel
 	  , ControllerEmu::Buttons* const buttons_group
 	  , u8* const shake_step )
 {
-//	// frame count of one up/down shake
-//	// < 9 no shake detection in "Wario Land: Shake It"
-//	auto const shake_step_max = 15;
-//
-//	// peak G-force
-//	auto const shake_intensity = 3.0;
-//
-//	// shake is a bitfield of X,Y,Z shake button states
-//	static const unsigned int btns[] = { 0x01, 0x02, 0x04 };
-//	unsigned int shake = 0;
-//	buttons_group->GetState(&shake, btns);
-//
-//	for (int i = 0; i != 3; ++i)
-//	{
-//		if (shake & (1 << i))
-//		{
-//			(&(accel->x))[i] = std::sin(TAU * shake_step[i] / shake_step_max) * shake_intensity;
-//			shake_step[i] = (shake_step[i] + 1) % shake_step_max;
-//		}
-//		else
-//			shake_step[i] = 0;
-//	}
+	// frame count of one up/down shake
+	// < 9 no shake detection in "Wario Land: Shake It"
+	auto const shake_step_max = 15;
+
+	// peak G-force
+	auto const shake_intensity = 3.0;
+
+	// shake is a bitfield of X,Y,Z shake button states
+	static const unsigned int btns[] = { 0x01, 0x02, 0x04 };
+	unsigned int shake = 0;
+	buttons_group->GetState(&shake, btns);
+
+	for (int i = 0; i != 3; ++i)
+	{
+		if (shake & (1 << i))
+		{
+			(&(accel->x))[i] = std::sin(TAU * shake_step[i] / shake_step_max) * shake_intensity;
+			shake_step[i] = (shake_step[i] + 1) % shake_step_max;
+		}
+		else
+			shake_step[i] = 0;
+	}
 }
 
 void EmulateTilt(AccelData* const accel
 	, ControllerEmu::Tilt* const tilt_group
 	, const bool sideways, const bool upright)
 {
-//	ControlState roll, pitch;
-//	// 180 degrees
-//	tilt_group->GetState(&roll, &pitch);
-//
-//	roll *= PI;
-//	pitch *= PI;
-//
-//	unsigned int ud = 0, lr = 0, fb = 0;
-//
-//	// some notes that no one will understand but me :p
-//	// left, forward, up
-//	// lr/ left == negative for all orientations
-//	// ud/ up == negative for upright longways
-//	// fb/ forward == positive for (sideways flat)
-//
-//	// determine which axis is which direction
-//	ud = upright ? (sideways ? 0 : 1) : 2;
-//	lr = sideways;
-//	fb = upright ? 2 : (sideways ? 0 : 1);
-//
-//	int sgn[3]={-1,1,1}; //sign fix
-//
-//	if (sideways && !upright)
-//		sgn[fb] *= -1;
-//	if (!sideways && upright)
-//		sgn[ud] *= -1;
-//
-//	(&accel->x)[ud] = (sin((PI / 2) - std::max(fabs(roll), fabs(pitch))))*sgn[ud];
-//	(&accel->x)[lr] = -sin(roll)*sgn[lr];
-//	(&accel->x)[fb] = sin(pitch)*sgn[fb];
+	ControlState roll, pitch;
+	// 180 degrees
+	tilt_group->GetState(&roll, &pitch);
+
+	roll *= PI;
+	pitch *= PI;
+
+	unsigned int ud = 0, lr = 0, fb = 0;
+
+	// some notes that no one will understand but me :p
+	// left, forward, up
+	// lr/ left == negative for all orientations
+	// ud/ up == negative for upright longways
+	// fb/ forward == positive for (sideways flat)
+
+	// determine which axis is which direction
+	ud = upright ? (sideways ? 0 : 1) : 2;
+	lr = sideways;
+	fb = upright ? 2 : (sideways ? 0 : 1);
+
+	int sgn[3]={-1,1,1}; //sign fix
+
+	if (sideways && !upright)
+		sgn[fb] *= -1;
+	if (!sideways && upright)
+		sgn[ud] *= -1;
+
+	(&accel->x)[ud] = (sin((PI / 2) - std::max(fabs(roll), fabs(pitch))))*sgn[ud];
+	(&accel->x)[lr] = -sin(roll)*sgn[lr];
+	(&accel->x)[fb] = sin(pitch)*sgn[fb];
 }
 
 #define SWING_INTENSITY  2.5//-uncalibrated(aprox) 0x40-calibrated
@@ -149,26 +149,26 @@ void EmulateSwing(AccelData* const accel
 	, ControllerEmu::Force* const swing_group
 	, const bool sideways, const bool upright)
 {
-//	ControlState swing[3];
-//	swing_group->GetState(swing);
-//
-//	s8 g_dir[3] = {-1, -1, -1};
-//	u8 axis_map[3];
-//
-//	// determine which axis is which direction
-//	axis_map[0] = upright ? (sideways ? 0 : 1) : 2; // up/down
-//	axis_map[1] = sideways; // left|right
-//	axis_map[2] = upright ? 2 : (sideways ? 0 : 1); // forward/backward
-//
-//	// some orientations have up as positive, some as negative
-//	// same with forward
-//	if (sideways && !upright)
-//		g_dir[axis_map[2]] *= -1;
-//	if (!sideways && upright)
-//		g_dir[axis_map[0]] *= -1;
-//
-//	for (unsigned int i = 0; i < 3; ++i)
-//		(&accel->x)[axis_map[i]] += swing[i] * g_dir[i] * SWING_INTENSITY;
+	ControlState swing[3];
+	swing_group->GetState(swing);
+
+	s8 g_dir[3] = {-1, -1, -1};
+	u8 axis_map[3];
+
+	// determine which axis is which direction
+	axis_map[0] = upright ? (sideways ? 0 : 1) : 2; // up/down
+	axis_map[1] = sideways; // left|right
+	axis_map[2] = upright ? 2 : (sideways ? 0 : 1); // forward/backward
+
+	// some orientations have up as positive, some as negative
+	// same with forward
+	if (sideways && !upright)
+		g_dir[axis_map[2]] *= -1;
+	if (!sideways && upright)
+		g_dir[axis_map[0]] *= -1;
+
+	for (unsigned int i = 0; i < 3; ++i)
+		(&accel->x)[axis_map[i]] += swing[i] * g_dir[i] * SWING_INTENSITY;
 }
 
 static const u16 button_bitmasks[] =

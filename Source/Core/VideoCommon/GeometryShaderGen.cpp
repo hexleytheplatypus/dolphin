@@ -82,7 +82,7 @@ static T GenerateGeometryShader(u32 primitive_type, API_TYPE ApiType)
 	uid_data->pixel_lighting = g_ActiveConfig.bEnablePixelLighting;
 
 	out.Write("struct VS_OUTPUT {\n");
-	GenerateVSOutputMembers<T>(out, ApiType);
+	GenerateVSOutputMembers<T>(out, ApiType, "");
 	out.Write("};\n");
 
 	if (ApiType == API_OPENGL)
@@ -91,11 +91,11 @@ static T GenerateGeometryShader(u32 primitive_type, API_TYPE ApiType)
 			out.Write("#define InstanceID gl_InvocationID\n");
 
 		out.Write("in VertexData {\n");
-		GenerateVSOutputMembers<T>(out, ApiType, GetInterpolationQualifier(ApiType, true, true));
+		GenerateVSOutputMembers<T>(out, ApiType, GetInterpolationQualifier(true, true));
 		out.Write("} vs[%d];\n", vertex_in);
 
 		out.Write("out VertexData {\n");
-		GenerateVSOutputMembers<T>(out, ApiType, GetInterpolationQualifier(ApiType, false, true));
+		GenerateVSOutputMembers<T>(out, ApiType, GetInterpolationQualifier(true, false));
 
 		if (g_ActiveConfig.iStereoMode > 0)
 			out.Write("\tflat int layer;\n");

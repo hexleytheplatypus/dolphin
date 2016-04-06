@@ -32,6 +32,8 @@
 			<true/>
 			<key>OEGameCoreRequiresFiles</key>
 			<false/>
+			<key>OEGameCoreHasGlitches</key>
+			<true/>
 		</dict>
 		<key>openemu.system.wii</key>
 		<dict>
@@ -39,6 +41,8 @@
 			<true/>
 			<key>OEGameCoreRequiresFiles</key>
 			<false/>
+			<key>OEGameCoreHasGlitches</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>OEGameCorePlayerCount</key>

@@ -35,7 +35,6 @@
 OE_EXPORTED_CLASS
 @interface DolphinGameCore : OEGameCore
 
-- (void) makeCurrent;
 - (void) swapBuffers;
 - (const char *) getBundlePath;
 

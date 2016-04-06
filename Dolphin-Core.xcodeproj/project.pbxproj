@@ -95,6 +95,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3E05B7991CB2C3650049A13C /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
 		3E1684D81CA495A200475F67 /* OE_Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */; };
 		3E1684D91CA495A200475F67 /* OE_Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D01CA495A200475F67 /* OE_Drums.cpp */; };
 		3E1684DA1CA495A200475F67 /* OE_EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */; };
@@ -665,7 +666,6 @@
 		3E3D775F1C840C8B00091C4D /* dis_groups.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D775D1C840C8B00091C4D /* dis_groups.cc */; };
 		3E3D77621C840CFC00091C4D /* resolve.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77601C840CFC00091C4D /* resolve.cc */; };
 		3E3D77631C840CFC00091C4D /* stdafx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77611C840CFC00091C4D /* stdafx.cc */; };
-		3E3D77641C85191500091C4D /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
 		3E5D07BC1C963C7600641021 /* OE_ControllerEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */; };
 		3E6EF0EF1C98C8C7004C6F58 /* OE_FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */; };
 		3E6EF0F01C98D083004C6F58 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70D11C82B0BB00091C4D /* FileUtil.cpp */; };
@@ -1186,8 +1186,7 @@
 		3E1684D71CA495A200475F67 /* OE_Turntable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Turntable.h; path = "Dolphin-Core/OE_Turntable.h"; sourceTree = "<group>"; };
 		3E3D70251C82AF2A00091C4D /* OE_AGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_AGL.h; path = "Dolphin-Core/OE_AGL.h"; sourceTree = "<group>"; };
 		3E3D70261C82AF2A00091C4D /* OE_AGL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_AGL.mm; path = "Dolphin-Core/OE_AGL.mm"; sourceTree = "<group>"; };
-		3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_CoreAudio.h; path = "Dolphin-Core/OE_CoreAudio.h"; sourceTree = "<group>"; };
-		3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_CoreAudio.mm; path = "Dolphin-Core/OE_CoreAudio.mm"; sourceTree = "<group>"; };
+		3E3D70281C82AF2A00091C4D /* OE_CoreAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OE_CoreAudio.cpp; path = "Dolphin-Core/OE_CoreAudio.cpp"; sourceTree = "<group>"; };
 		3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_GCpadEmu.mm; path = "Dolphin-Core/OE_GCpadEmu.mm"; sourceTree = "<group>"; };
 		3E3D702B1C82AF2A00091C4D /* OE_OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSX.h; path = "Dolphin-Core/OE_OSX.h"; sourceTree = "<group>"; };
 		3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_OSX.mm; path = "Dolphin-Core/OE_OSX.mm"; sourceTree = "<group>"; };
@@ -2396,8 +2395,7 @@
 				3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */,
 				3E76C1341C99CA2B00F966FE /* OE_Classic.h */,
 				3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */,
-				3E3D70271C82AF2A00091C4D /* OE_CoreAudio.h */,
-				3E3D70281C82AF2A00091C4D /* OE_CoreAudio.mm */,
+				3E3D70281C82AF2A00091C4D /* OE_CoreAudio.cpp */,
 				3E1684D01CA495A200475F67 /* OE_Drums.cpp */,
 				3E1684D11CA495A200475F67 /* OE_Drums.h */,
 				3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */,
@@ -5352,7 +5350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E3D77641C85191500091C4D /* CoreAudioSoundStream.cpp in Sources */,
+				3E05B7991CB2C3650049A13C /* CoreAudioSoundStream.cpp in Sources */,
 				3E3D70971C82B03600091C4D /* AOSoundStream.cpp in Sources */,
 				3E3D70951C82B03600091C4D /* aldlist.cpp in Sources */,
 				3E3D70A01C82B03600091C4D /* WaveFile.cpp in Sources */,
@@ -6959,7 +6957,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
@@ -8548,7 +8545,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
@@ -11127,7 +11123,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
@@ -11801,7 +11796,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
 					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,

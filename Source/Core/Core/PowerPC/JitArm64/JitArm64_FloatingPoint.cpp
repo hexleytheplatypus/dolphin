@@ -244,8 +244,7 @@ void JitArm64::fcmpX(UGeckoInstruction inst)
 
 	SetJumpTarget(pNaN);
 
-	ORR(XA, XA, 64 - 61, 0, true);
-	ORR(XA, XA, 0, 0, true);
+	MOVI2R(XA, PPCCRToInternal(CR_SO));
 
 	if (a != b)
 	{
@@ -265,7 +264,7 @@ void JitArm64::fcmpX(UGeckoInstruction inst)
 	}
 	SetJumpTarget(continue1);
 
-	STR(INDEX_UNSIGNED, XA, X29, PPCSTATE_OFF(cr_val[0]) + (sizeof(PowerPC::ppcState.cr_val[0]) * crf));
+	STR(INDEX_UNSIGNED, XA, PPC_REG, PPCSTATE_OFF(cr_val[0]) + (sizeof(PowerPC::ppcState.cr_val[0]) * crf));
 
 	gpr.Unlock(WA);
 }

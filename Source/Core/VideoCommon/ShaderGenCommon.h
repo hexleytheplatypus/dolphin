@@ -216,10 +216,7 @@ private:
 template<class T>
 inline void DefineOutputMember(T& object, API_TYPE api_type, const char* qualifier, const char* type, const char* name, int var_index, const char* semantic = "", int semantic_index = -1)
 {
-	if (qualifier != nullptr)
-		object.Write("\t%s %s %s", qualifier, type, name);
-	else
-		object.Write("\t%s %s", type, name);
+	object.Write("\t%s %s %s", qualifier, type, name);
 
 	if (var_index != -1)
 		object.Write("%d", var_index);
@@ -236,7 +233,7 @@ inline void DefineOutputMember(T& object, API_TYPE api_type, const char* qualifi
 }
 
 template<class T>
-inline void GenerateVSOutputMembers(T& object, API_TYPE api_type, const char* qualifier = nullptr)
+inline void GenerateVSOutputMembers(T& object, API_TYPE api_type, const char* qualifier)
 {
 	DefineOutputMember(object, api_type, qualifier, "float4", "pos", -1, "POSITION");
 	DefineOutputMember(object, api_type, qualifier, "float4", "colors_", 0, "COLOR", 0);
@@ -281,19 +278,27 @@ inline void AssignVSOutputMembers(T& object, const char* a, const char* b)
 // As a workaround, we interpolate at the centroid of the coveraged pixel, which
 // is always inside the primitive.
 // Without MSAA, this flag is defined to have no effect.
-inline const char* GetInterpolationQualifier(API_TYPE api_type, bool in = true, bool in_out = false)
+inline const char* GetInterpolationQualifier(bool in_glsl_interface_block = false, bool in = false)
 {
 	if (g_ActiveConfig.iMultisamples <= 1)
 		return "";
 
-	if (!g_ActiveConfig.bSSAA)
+	// Without GL_ARB_shading_language_420pack support, the interpolation qualifier must be
+	// "centroid in" and not "centroid", even within an interface block.
+	if (in_glsl_interface_block && !g_ActiveConfig.backend_info.bSupportsBindingLayout)
 	{
-		if (in_out && api_type == API_OPENGL && !g_ActiveConfig.backend_info.bSupportsBindingLayout)
+		if (!g_ActiveConfig.bSSAA)
 			return in ? "centroid in" : "centroid out";
-		return "centroid";
+		else
+			return in ? "sample in" : "sample out";
 	}
-
-	return "sample";
+	else
+	{
+		if (!g_ActiveConfig.bSSAA)
+			return "centroid";
+		else
+			return "sample";
+	}
 }
 
 // Constant variable names

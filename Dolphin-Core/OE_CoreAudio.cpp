@@ -30,7 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cstring>
 
-#import "OE_CoreAudio.h"
+#include "AudioCommon/CoreAudioSoundStream.h"
 #include "DolphinGameCore.h"
 
 
@@ -42,16 +42,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Core/HW/AudioInterface.h"
 #include "Core/HW/SystemTimers.h"
 
+#define SAMPLERATE 48000
+#define SIZESOUNDBUFFER 48000 * (16/8) * 2  // format.rate * (format.bits/8) * format.channels  ;
 
+static uint16_t *realtimeBuffer;
 
 bool CoreAudioSound::Start()
 {
-    m_run_thread.store(true);
     
     realtimeBuffer = (uint16_t *)malloc(SIZESOUNDBUFFER * sizeof(uint16_t));
     memset(realtimeBuffer, 0, SIZESOUNDBUFFER * sizeof(uint16_t));
-    
-    thread = std::thread(&CoreAudioSound::AudioThread, this);
 
     return true;
 }
@@ -64,32 +64,30 @@ void CoreAudioSound::SoundLoop()
 {
 }
 
-void CoreAudioSound::AudioThread()
-{
-    Common::SetCurrentThreadName("Audio thread");
-    
-    uint32 numBytesToRender = SIZESOUNDBUFFER/60/2/2; //Sound buffer size/fps/sound channels/Size of short
-    
-//    while (m_run_thread.load())
-//    {
-        numBytesToRender = m_mixer->Mix((short*)realtimeBuffer, numBytesToRender);
-        
-        {
-            //soundCriticalSection;
-             GET_CURRENT_OR_RETURN();
-            
-            [[current ringBufferAtIndex:0] write:(uint8_t*)realtimeBuffer maxLength:(numBytesToRender*2) ];
-            
-//            soundSyncEvent.Set();
-//        }
-//        
-    }
-
-}
 void CoreAudioSound::Stop()
 {}
 
 void CoreAudioSound::Update()
 {
-    AudioThread();//soundSyncEvent.Set();
+    uint32 numBytesToRender = 48000/60/2/2; // (60*1.001) * 2  ; //Sound buffer size/fps/sound channels/Size of short
+
+    // num_samples_to_render in this update - depends on SystemTimers::AUDIO_DMA_PERIOD.
+    const u32 stereo_16_bit_size = 2;
+    const u32 dma_length = 32;
+    const u64 ais_samples_per_second = 48000 * stereo_16_bit_size;
+    u64 audio_dma_period = SystemTimers::GetTicksPerSecond() / (AudioInterface::GetAIDSampleRate() * stereo_16_bit_size / dma_length);
+    u64 num_samples_to_render = (audio_dma_period * ais_samples_per_second) / SystemTimers::GetTicksPerSecond();
+
+    //unsigned int numBytesToRender = 96 * 4 ; //(unsigned int)num_samples_to_render * 2;
+
+
+    numBytesToRender = m_mixer->Mix((short*)realtimeBuffer, numBytesToRender >> 1 );
+
+    {
+
+        GET_CURRENT_OR_RETURN();
+
+        [[current ringBufferAtIndex:0] write:(uint8_t*)realtimeBuffer maxLength:(numBytesToRender) ];
+
+    }
 }

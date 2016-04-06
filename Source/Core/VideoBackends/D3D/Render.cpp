@@ -36,6 +36,7 @@
 #include "VideoCommon/OnScreenDisplay.h"
 #include "VideoCommon/PixelEngine.h"
 #include "VideoCommon/PixelShaderManager.h"
+#include "VideoCommon/SamplerCommon.h"
 #include "VideoCommon/VideoConfig.h"
 
 namespace DX11
@@ -1029,7 +1030,7 @@ void Renderer::ApplyState(bool bUseDstAlpha)
 	for (unsigned int stage = 0; stage < 8; stage++)
 	{
 		// TODO: cache SamplerState directly, not d3d object
-		gx_state.sampler[stage].max_anisotropy = 1 << g_ActiveConfig.iMaxAnisotropy;
+		gx_state.sampler[stage].max_anisotropy = UINT64_C(1) << g_ActiveConfig.iMaxAnisotropy;
 		D3D::stateman->SetSampler(stage, gx_state_cache.Get(gx_state.sampler[stage]));
 	}
 
@@ -1200,7 +1201,8 @@ void Renderer::SetSamplerState(int stage, int texindex, bool custom_tex)
 
 	if (g_ActiveConfig.bForceFiltering)
 	{
-		gx_state.sampler[stage].min_filter = 6; // 4 (linear mip) | 2 (linear min)
+		// Only use mipmaps if the game says they are available.
+		gx_state.sampler[stage].min_filter = SamplerCommon::AreBpTexMode0MipmapsEnabled(tm0) ? 6 : 4;
 		gx_state.sampler[stage].mag_filter = 1; // linear mag
 	}
 	else

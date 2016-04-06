@@ -41,9 +41,10 @@ VideoConfig::VideoConfig()
 	// disable all features by default
 	backend_info.APIType = API_NONE;
 	backend_info.bSupportsExclusiveFullscreen = false;
-    
+
     //  OE set Renderbuffer to default renderbuffer
     iRenderFBO = 0;
+
 }
 
 void VideoConfig::Load(const std::string& ini_file)
@@ -74,7 +75,7 @@ void VideoConfig::Load(const std::string& ini_file)
 	settings->Get("FreeLook", &bFreeLook, 0);
 	settings->Get("UseFFV1", &bUseFFV1, 0);
 	settings->Get("EnablePixelLighting", &bEnablePixelLighting, 0);
-	settings->Get("ForcedSlowDepth", &bForcedSlowDepth, false);
+	settings->Get("FastDepthCalc", &bFastDepthCalc, true);
 	settings->Get("MSAA", &iMultisamples, 1);
 	settings->Get("SSAA", &bSSAA, false);
 	settings->Get("EFBScale", &iEFBScale, (int)SCALE_1X); // native
@@ -168,7 +169,7 @@ void VideoConfig::GameIniLoad()
 	CHECK_SETTING("Video_Settings", "ConvertHiresTextures", bConvertHiresTextures);
 	CHECK_SETTING("Video_Settings", "CacheHiresTextures", bCacheHiresTextures);
 	CHECK_SETTING("Video_Settings", "EnablePixelLighting", bEnablePixelLighting);
-	CHECK_SETTING("Video_Settings", "ForcedSlowDepth", bForcedSlowDepth);
+	CHECK_SETTING("Video_Settings", "FastDepthCalc", bFastDepthCalc);
 	CHECK_SETTING("Video_Settings", "MSAA", iMultisamples);
 	CHECK_SETTING("Video_Settings", "SSAA", bSSAA);
 
@@ -285,7 +286,7 @@ void VideoConfig::Save(const std::string& ini_file)
 	settings->Set("FreeLook", bFreeLook);
 	settings->Set("UseFFV1", bUseFFV1);
 	settings->Set("EnablePixelLighting", bEnablePixelLighting);
-	settings->Set("ForcedSlowDepth", bForcedSlowDepth);
+	settings->Set("FastDepthCalc", bFastDepthCalc);
 	settings->Set("MSAA", iMultisamples);
 	settings->Set("SSAA", bSSAA);
 	settings->Set("EFBScale", iEFBScale);

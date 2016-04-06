@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include <memory>
+
 #include "Common/AssertInt.h"
 #include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
