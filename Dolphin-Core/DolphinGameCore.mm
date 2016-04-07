@@ -137,9 +137,7 @@ DolphinGameCore *_current = 0;
 
 - (void)resetEmulation
 {
-    //[self stopEmulation];
-    //[self loadFileAtPath: [self filePath]];
-    //[self startEmulation];
+    gc_host->Reset();
 }
 
 - (void)executeFrame

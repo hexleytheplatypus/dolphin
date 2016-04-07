@@ -39,6 +39,7 @@ public:
 
     bool LoadFileAtPath();
     void RequestStop();
+    void Reset();
     void UpdateFrame();
     void Pause(bool);
 

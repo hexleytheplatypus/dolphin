@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Core/IPC_HLE/WII_IPC_HLE_WiiMote.h"
 #include "Core/PowerPC/PowerPC.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"
+#include "Core/HW/ProcessorInterface.h"
 #include "Common/CommonPaths.h"
 #include "Common/Event.h"
 #include "Common/Logging/LogManager.h"
@@ -141,6 +142,12 @@ void DolHost::RequestStop()
     Core::Stop();
     while (PowerPC::GetState() != PowerPC::CPU_POWERDOWN)
         usleep(1000);
+    Core::Shutdown();
+}
+
+void DolHost::Reset()
+{
+    ProcessorInterface::ResetButton_Tap();
 }
 
 void DolHost::UpdateFrame()
