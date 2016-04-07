@@ -1184,6 +1184,7 @@
 		3E1684D51CA495A200475F67 /* OE_Nunchuk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Nunchuk.h; path = "Dolphin-Core/OE_Nunchuk.h"; sourceTree = "<group>"; };
 		3E1684D61CA495A200475F67 /* OE_Turntable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Turntable.cpp; path = "Dolphin-Core/OE_Turntable.cpp"; sourceTree = "<group>"; };
 		3E1684D71CA495A200475F67 /* OE_Turntable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Turntable.h; path = "Dolphin-Core/OE_Turntable.h"; sourceTree = "<group>"; };
+		3E1EFC851CB6AEB0001998A2 /* SamplerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SamplerCommon.h; path = Source/Core/VideoCommon/SamplerCommon.h; sourceTree = "<group>"; };
 		3E3D70251C82AF2A00091C4D /* OE_AGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_AGL.h; path = "Dolphin-Core/OE_AGL.h"; sourceTree = "<group>"; };
 		3E3D70261C82AF2A00091C4D /* OE_AGL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_AGL.mm; path = "Dolphin-Core/OE_AGL.mm"; sourceTree = "<group>"; };
 		3E3D70281C82AF2A00091C4D /* OE_CoreAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OE_CoreAudio.cpp; path = "Dolphin-Core/OE_CoreAudio.cpp"; sourceTree = "<group>"; };
@@ -3745,6 +3746,7 @@
 				3E3D75B91C82B2DD00091C4D /* PostProcessing.h */,
 				3E3D75BA1C82B2DE00091C4D /* RenderBase.cpp */,
 				3E3D75BB1C82B2DE00091C4D /* RenderBase.h */,
+				3E1EFC851CB6AEB0001998A2 /* SamplerCommon.h */,
 				3E3D75BC1C82B2DE00091C4D /* ShaderGenCommon.h */,
 				3E3D75BD1C82B2DE00091C4D /* Statistics.cpp */,
 				3E3D75BE1C82B2DE00091C4D /* Statistics.h */,
