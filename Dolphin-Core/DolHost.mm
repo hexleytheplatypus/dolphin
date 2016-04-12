@@ -1,4 +1,4 @@
- /*
+/*
 Copyright (c) 2016, OpenEmu Team
 
 Redistribution and use in source and binary forms, with or without
@@ -75,7 +75,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     UICommon::Init();
 
     SConfig::GetInstance().bDSPHLE = true;
-    SConfig::GetInstance().m_Volume = 100;
+    SConfig::GetInstance().m_Volume = 50;
     SConfig::GetInstance().bOnScreenDisplayMessages = false;
     SConfig::GetInstance().bMMU = true;
     SConfig::GetInstance().bEnableCheats = true;
@@ -107,7 +107,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         SConfig::GetInstance().m_NANDPath = supportDirectoryPath  + DIR_SEP + WII_USER_DIR;
         SConfig::GetInstance().m_WiimoteContinuousScanning = false;
 
-
+        //Set the Wiimote type
         WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(1, _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(2, _wiiMoteType);
@@ -139,6 +139,7 @@ void DolHost::Pause(bool flag)
 
 void DolHost::RequestStop()
 {
+    Core::SetState(Core::CORE_RUN);
     Core::Stop();
     while (PowerPC::GetState() != PowerPC::CPU_POWERDOWN)
         usleep(1000);
@@ -188,6 +189,8 @@ bool DolHost::LoadState(std::string saveStateFile)
 
         if (_wiiGame)
         {
+            // We have to set the wiimote type, cause the gamesave may
+            //    have used a different type
             WiimoteReal::ChangeWiimoteSource(0 , _wiiMoteType);
             WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
             WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
@@ -199,7 +202,7 @@ bool DolHost::LoadState(std::string saveStateFile)
             }
         }
     }
-    
+
     return true;
 }
 
@@ -415,7 +418,7 @@ void DolHost::SetButtonState(int button, int state, int player)
     // really hacky, but need to be able to get the extension changed on emulated wiimote
     if (_wiiGame )
     {
-        if (button == (OEWiiChangeExtension) )
+        if (button == OEWiiChangeExtension)
         {
             //set the Extension change state and return.  The next key pressed
             //  while the Change Extension key is held will determine the Extension added
