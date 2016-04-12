@@ -54,9 +54,6 @@ bool cInterfaceAGL::Create(void *window_handle, bool core)
 
 bool cInterfaceAGL::MakeCurrent()
 {
-//    GET_CURRENT_OR_RETURN();
-//    
-//    [current makeCurrent];
     return true;
 }
 
