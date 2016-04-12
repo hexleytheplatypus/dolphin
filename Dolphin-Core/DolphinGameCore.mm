@@ -53,15 +53,12 @@ DolphinGameCore *_current = 0;
 
 @implementation DolphinGameCore
 {
-    DolHost *gc_host;
-    NSView* dolView;
+    DolHost *dol_host;
 
     uint16_t *_soundBuffer;
-    bool _wii;
+    bool _isWii;
     bool _isInitialized;
-    bool _shouldReset;
     float _frameInterval;
-    bool _CoreThreadRunning;
 
     NSString *_dolphinCoreModule;
     OEIntSize _dolphinCoreAspect;
@@ -70,7 +67,7 @@ DolphinGameCore *_current = 0;
 - (instancetype)init
 {
     if(self = [super init])
-        gc_host = DolHost::GetInstance();
+        dol_host = DolHost::GetInstance();
 
     _current = self;
     return self;
@@ -78,7 +75,7 @@ DolphinGameCore *_current = 0;
 
 - (void)dealloc
 {
-    delete gc_host;
+    delete dol_host;
     free(_soundBuffer);
 }
 
@@ -90,33 +87,29 @@ DolphinGameCore *_current = 0;
     if([[self systemIdentifier] isEqualToString:@"openemu.system.gc"])
     {
         _dolphinCoreModule = @"gc";
-        _wii = false;
+        _isWii = false;
         _dolphinCoreAspect = OEIntSizeMake(4, 3);
         _dolphinCoreScreen = OEIntSizeMake(640, 480);
     }else{
         _dolphinCoreModule = @"Wii";
-        _wii = true;
+        _isWii = true;
         _dolphinCoreAspect = OEIntSizeMake(16,9);
         _dolphinCoreScreen = OEIntSizeMake(854, 480);
     }
 
-    gc_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
+    dol_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
 
     return YES;
 }
 
 - (void)setPauseEmulation:(BOOL)flag
 {
-   gc_host->Pause(flag);
-    if (flag)
-        [self beginPausedExecution];
-    else
-        [self endPausedExecution];
+     dol_host->Pause(flag);
 }
 
 - (void)stopEmulation
 {
-    gc_host->RequestStop();
+    dol_host->RequestStop();
 
     [super stopEmulation];
 }
@@ -127,9 +120,9 @@ DolphinGameCore *_current = 0;
     {
         [self.renderDelegate willRenderFrameOnAlternateThread];
 
-        gc_host->SetPresentationFBO((int)[[self.renderDelegate presentationFramebuffer] integerValue]);
+        dol_host->SetPresentationFBO((int)[[self.renderDelegate presentationFramebuffer] integerValue]);
 
-        if(gc_host->LoadFileAtPath())
+        if(dol_host->LoadFileAtPath())
             _isInitialized = true;
     }
     [super startEmulation];
@@ -137,12 +130,13 @@ DolphinGameCore *_current = 0;
 
 - (void)resetEmulation
 {
-    gc_host->Reset();
+    if(!_isWii)
+     dol_host->Reset();
 }
 
 - (void)executeFrame
 {
-    gc_host->UpdateFrame();
+    dol_host->UpdateFrame();
 
 }
 
@@ -228,71 +222,54 @@ DolphinGameCore *_current = 0;
 
 -(void)setVolume:(CGFloat)volume
 {
-    gc_host->SetVolume(volume);
+    dol_host->SetVolume(volume);
 }
 
 # pragma mark - Save States
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
     // we need to make sure we are initialized before attempting to save a state
-//    while (! _isInitialized)
-//        usleep (1000);
+    while (! _isInitialized)
+        usleep (1000);
 
-    //[self beginPausedExecution];
-
-    block(gc_host->SaveState([fileName UTF8String]),nil);
-
-    //[self endPausedExecution];
+    block(dol_host->SaveState([fileName UTF8String]),nil);
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-    // we need to make sure we are initialized before attempting to load a state
-    // in the case of autoload on start, the core will not have started yet, so start it up first
-
-    //[self beginPausedExecution];
-    {
-        if (! _isInitialized)
-        {
-            [self startEmulation];
-        }
-
-        block(gc_host->LoadState([fileName UTF8String]),nil);
-    }
-    
-    //[self endPausedExecution];
+    block(dol_host->LoadState([fileName UTF8String]),nil);
 }
 
 # pragma mark - Input GC
 - (oneway void)didMoveGCJoystickDirection:(OEGCButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
-    gc_host->SetAxis(button, value, (int)player);
+    dol_host->SetAxis(button, value, (int)player);
 }
 
 - (oneway void)didPushGCButton:(OEGCButton)button forPlayer:(NSUInteger)player
 {
-    gc_host->SetButtonState(button, 1, (int)player);
+    dol_host->SetButtonState(button, 1, (int)player);
 }
 
 - (oneway void)didReleaseGCButton:(OEGCButton)button forPlayer:(NSUInteger)player
 {
-    gc_host->SetButtonState(button, 0, (int)player);
+    dol_host->SetButtonState(button, 0, (int)player);
 }
 
 # pragma mark - Input Wii
 - (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
-    gc_host->SetAxis(button, value, (int)player);
+    dol_host->SetAxis(button, value, (int)player);
 }
 
 - (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
-    gc_host->SetButtonState(button, 1, (int)player);
+    dol_host->SetButtonState(button, 1, (int)player);
 }
 
 - (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
-    gc_host->SetButtonState(button, 0, (int)player);
+    dol_host->SetButtonState(button, 0, (int)player);
 }
 
 - (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
@@ -300,9 +277,9 @@ DolphinGameCore *_current = 0;
     if(_isInitialized)
     {
         if (accelerometer == OEWiiNunchuk){
-            gc_host->setNunchukAccel(X,Y,Z,(int)player);
+            dol_host->setNunchukAccel(X,Y,Z,(int)player);
         } else {
-            gc_host->setWiimoteAccel(X,Y,Z,(int)player);
+            dol_host->setWiimoteAccel(X,Y,Z,(int)player);
         }
     }
 }
@@ -311,7 +288,7 @@ DolphinGameCore *_current = 0;
 {
     if(_isInitialized)
     {
-        gc_host->setIRdata(IRinfo ,(int)player);
+        dol_host->setIRdata(IRinfo ,(int)player);
     }
 }
 
@@ -319,14 +296,14 @@ DolphinGameCore *_current = 0;
 {
     if(_isInitialized)
     {
-        gc_host->changeWiimoteExtension(extension, (int)player);
+        dol_host->changeWiimoteExtension(extension, (int)player);
     }
 }
 
 # pragma mark - Cheats
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
 {
-    gc_host->SetCheat([code UTF8String], [type UTF8String], enabled);
+    dol_host->SetCheat([code UTF8String], [type UTF8String], enabled);
     
 }
 @end
