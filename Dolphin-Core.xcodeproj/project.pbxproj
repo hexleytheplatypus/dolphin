@@ -95,12 +95,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		3E05B7991CB2C3650049A13C /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
 		3E1684D81CA495A200475F67 /* OE_Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */; };
 		3E1684D91CA495A200475F67 /* OE_Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D01CA495A200475F67 /* OE_Drums.cpp */; };
 		3E1684DA1CA495A200475F67 /* OE_EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */; };
 		3E1684DB1CA495A200475F67 /* OE_Guitar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D31CA495A200475F67 /* OE_Guitar.cpp */; };
 		3E1684DC1CA495A200475F67 /* OE_Turntable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D61CA495A200475F67 /* OE_Turntable.cpp */; };
+		3E1EFC871CB6F356001998A2 /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
 		3E3D70351C82AF7000091C4D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70321C82AF7000091C4D /* xxhash.c */; };
 		3E3D70361C82AF7000091C4D /* xxhsum.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70341C82AF7000091C4D /* xxhsum.c */; };
 		3E3D70391C82AFD800091C4D /* pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70371C82AFD800091C4D /* pch.cpp */; };
@@ -5352,7 +5352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E05B7991CB2C3650049A13C /* CoreAudioSoundStream.cpp in Sources */,
+				3E1EFC871CB6F356001998A2 /* CoreAudioSoundStream.cpp in Sources */,
 				3E3D70971C82B03600091C4D /* AOSoundStream.cpp in Sources */,
 				3E3D70951C82B03600091C4D /* aldlist.cpp in Sources */,
 				3E3D70A01C82B03600091C4D /* WaveFile.cpp in Sources */,
