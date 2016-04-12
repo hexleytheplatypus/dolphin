@@ -69,7 +69,7 @@ void CoreAudioSound::Stop()
 
 void CoreAudioSound::Update()
 {
-    uint32 numBytesToRender = 48000/60/2/2; // (60*1.001) * 2  ; //Sound buffer size/fps/sound channels/Size of short
+    uint32 numBytesToRender = 168 ; //48000/60/2/2; // (60*1.001) * 2  ; //Sound buffer size/fps/sound channels/Size of short
 
     // num_samples_to_render in this update - depends on SystemTimers::AUDIO_DMA_PERIOD.
     const u32 stereo_16_bit_size = 2;
@@ -81,13 +81,13 @@ void CoreAudioSound::Update()
     //unsigned int numBytesToRender = 96 * 4 ; //(unsigned int)num_samples_to_render * 2;
 
 
-    numBytesToRender = m_mixer->Mix((short*)realtimeBuffer, numBytesToRender >> 1 );
+    numBytesToRender = m_mixer->Mix((short*)realtimeBuffer, numBytesToRender );
 
     {
 
         GET_CURRENT_OR_RETURN();
 
-        [[current ringBufferAtIndex:0] write:(uint8_t*)realtimeBuffer maxLength:(numBytesToRender) ];
+        [[current ringBufferAtIndex:0] write:(uint8_t*)realtimeBuffer maxLength:(numBytesToRender *2) ];
 
     }
 }
