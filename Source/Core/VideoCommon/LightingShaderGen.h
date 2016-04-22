@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "VideoCommon/NativeVertexFormat.h"
 #include "VideoCommon/ShaderGenCommon.h"

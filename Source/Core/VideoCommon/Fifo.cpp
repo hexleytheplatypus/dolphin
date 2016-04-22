@@ -5,7 +5,7 @@
 #include <atomic>
 #include <cstring>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/Atomic.h"
 #include "Common/BlockingLoop.h"
 #include "Common/ChunkFile.h"

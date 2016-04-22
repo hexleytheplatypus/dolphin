@@ -8,7 +8,7 @@
 #include <string>
 #include <type_traits>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Core/ConfigManager.h"
 #include "Core/HW/MMIOHandlers.h"

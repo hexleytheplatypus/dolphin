@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Common/MathUtil.h"
 #include "Core/PowerPC/PowerPC.h"

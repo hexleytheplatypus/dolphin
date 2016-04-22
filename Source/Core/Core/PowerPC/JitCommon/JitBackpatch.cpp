@@ -7,7 +7,7 @@
 
 #include "disasm.h"
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/BitSet.h"
 #include "Common/CommonFuncs.h"
 #include "Common/CommonTypes.h"

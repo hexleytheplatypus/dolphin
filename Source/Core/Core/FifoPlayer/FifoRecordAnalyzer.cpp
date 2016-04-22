@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Core/Core.h"
 #include "Core/FifoPlayer/FifoAnalyzer.h"
 #include "Core/FifoPlayer/FifoRecordAnalyzer.h"

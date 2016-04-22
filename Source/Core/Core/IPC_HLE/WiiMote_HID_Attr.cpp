@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Common/MsgHandler.h"
 #include "Common/Logging/Log.h"

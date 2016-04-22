@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/GL/GLInterfaceBase.h"
 #include "Common/GL/GLUtil.h"
 #include "Common/Logging/Log.h"

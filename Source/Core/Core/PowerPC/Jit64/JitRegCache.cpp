@@ -7,7 +7,7 @@
 #include <cmath>
 #include <limits>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/BitSet.h"
 #include "Common/CommonTypes.h"
 #include "Common/MsgHandler.h"

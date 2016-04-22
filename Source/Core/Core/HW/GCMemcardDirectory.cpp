@@ -8,7 +8,7 @@
 #include <mutex>
 #include <string>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
 #include "Common/FileSearch.h"

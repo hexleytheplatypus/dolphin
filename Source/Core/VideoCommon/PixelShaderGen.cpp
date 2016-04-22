@@ -6,7 +6,7 @@
 #include <cstdio>
 #include <cstring>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Common/Logging/Log.h"
 #include "VideoCommon/BoundingBox.h"

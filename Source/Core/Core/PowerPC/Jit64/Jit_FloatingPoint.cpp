@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Common/CPUDetect.h"
 #include "Common/x64Emitter.h"

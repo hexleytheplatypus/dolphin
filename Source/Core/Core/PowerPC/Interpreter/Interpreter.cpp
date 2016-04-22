@@ -6,7 +6,7 @@
 #include <cinttypes>
 #include <string>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/CommonTypes.h"
 #include "Common/GekkoDisassembler.h"
 #include "Common/StringUtil.h"

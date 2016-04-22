@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "Common/AssertInt.h"
+#include "Common/Assert.h"
 #include "Common/ChunkFile.h"
 #include "Common/CommonTypes.h"
 #include "Core/HW/EXI.h"
