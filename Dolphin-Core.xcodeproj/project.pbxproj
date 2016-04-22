@@ -659,8 +659,6 @@
 		3E3D77401C839CC200091C4D /* libenet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D76811C839B2E00091C4D /* libenet.a */; };
 		3E3D77411C839CC200091C4D /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D76A41C839C5400091C4D /* libmbedtls.a */; };
 		3E3D77421C839CC200091C4D /* libxxhash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378DEC51A7862DA003DA046 /* libxxhash.a */; };
-		3E3D774B1C83DC9000091C4D /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
-		3E3D774D1C83DCA800091C4D /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		3E3D775B1C840AA000091C4D /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		3E3D775E1C840C8B00091C4D /* dis_decode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D775C1C840C8B00091C4D /* dis_decode.cc */; };
 		3E3D775F1C840C8B00091C4D /* dis_groups.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D775D1C840C8B00091C4D /* dis_groups.cc */; };
@@ -673,6 +671,7 @@
 		3E74B9C51C90DE100017C7B1 /* OE_Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */; };
 		3E74B9C71C90DE200017C7B1 /* OE_Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */; };
 		3E74B9C91C9105F90017C7B1 /* OE_OSXJoystick.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */; };
+		3EF229371CBEC21F00F66A93 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		8319B93E1A6D546700DD23A9 /* Sys in Resources */ = {isa = PBXBuildFile; fileRef = 8319B93C1A6D52FD00DD23A9 /* Sys */; };
 		8355D4C41A65393600E73302 /* libaudiocommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EAB8D2A0AA45A183467CCD /* libaudiocommon.a */; };
 		8355D4C51A65393600E73302 /* libbdisasm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65EF8E25FB448D2BA4D3070 /* libbdisasm.a */; };
@@ -2275,19 +2274,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3E3D77491C83DC8600091C4D /* Frameworks */ = {
+		3EF229361CBEC21700F66A93 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E3D774B1C83DC9000091C4D /* OpenEmuBase.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E3D774C1C83DC9D00091C4D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E3D774D1C83DCA800091C4D /* OpenEmuBase.framework in Frameworks */,
+				3EF229371CBEC21F00F66A93 /* OpenEmuBase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4185,7 +4176,6 @@
 			buildConfigurationList = C8988CB8DDFF490180F55BDD /* Build configuration list for PBXNativeTarget "common" */;
 			buildPhases = (
 				2BA2EDB14466417B953AF3A6 /* Sources */,
-				3E3D774C1C83DC9D00091C4D /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4365,6 +4355,7 @@
 			buildConfigurationList = A341324E409849AEB9AA84F9 /* Build configuration list for PBXNativeTarget "videoogl" */;
 			buildPhases = (
 				EE59D7A2C2AB4A369E4453B7 /* Sources */,
+				3EF229361CBEC21700F66A93 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4488,7 +4479,6 @@
 			buildConfigurationList = 4ECECF684B7D4500BB99419F /* Build configuration list for PBXNativeTarget "audiocommon" */;
 			buildPhases = (
 				D382F05F357E46EDB1335EEA /* Sources */,
-				3E3D77491C83DC8600091C4D /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5740,7 +5730,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -5780,8 +5770,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -5792,8 +5781,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/xxhash,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -5858,8 +5849,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -5870,9 +5859,11 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
 					$SRCROOT/Externals/libusb/libusb,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -5947,7 +5938,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -5996,7 +5987,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/libusb/libusb,
 					$SRCROOT/Externals/SFML/src,
 				);
@@ -6076,7 +6067,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6246,7 +6237,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6362,9 +6353,7 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6391,6 +6380,7 @@
 		229670D347F1421DB1F966A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -6413,8 +6403,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6485,9 +6477,7 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6514,6 +6504,7 @@
 		28A5D0521F30469998098636 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -6536,8 +6527,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -6612,7 +6605,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6778,7 +6771,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6920,7 +6913,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6947,7 +6940,8 @@
 		3558D5C36927430E874C712D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -6970,7 +6964,6 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -6998,6 +6991,7 @@
 		388458C0C5CC4F68935CD998 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -7020,8 +7014,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7084,12 +7080,9 @@
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/Source/Core,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
@@ -7097,10 +7090,11 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -7561,7 +7555,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -7588,6 +7582,7 @@
 		43E825BCFF8841F4A0E1578B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -7625,9 +7620,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -7713,6 +7706,7 @@
 		49CEE4E0AD5E4D91B34F20DC /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -7750,9 +7744,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -7787,7 +7779,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -7922,8 +7914,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -7934,8 +7925,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/xxhash,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8010,7 +8003,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8065,6 +8058,7 @@
 		56959231311F4FE6A0ED0F21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -8268,7 +8262,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -8363,7 +8357,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -8508,7 +8502,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -8535,7 +8529,8 @@
 		67F6CAA18607468DBF81BB8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -8558,7 +8553,6 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -8596,8 +8590,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -8608,9 +8600,11 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
 					$SRCROOT/Externals/libusb/libusb,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8663,6 +8657,7 @@
 		73906D850DFD4CFD8CCFCF6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -8759,12 +8754,9 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/Source/Core,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
@@ -8772,10 +8764,11 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8917,7 +8910,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -9016,7 +9009,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/libusb/libusb,
 					$SRCROOT/Externals/SFML/src,
 				);
@@ -9073,6 +9066,7 @@
 		7B2ABB6ACE364AAFB92ECE5D /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9159,7 +9153,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -9222,17 +9216,16 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
+					"$(SRCROOT)/Source/Core",
+					"$(SRCROOT)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Dolphin-Core/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.5.2/lib,
+					/usr/local/Cellar/ffmpeg/2.8.6/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -9276,17 +9269,16 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
+					"$(SRCROOT)/Source/Core",
+					"$(SRCROOT)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Dolphin-Core/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.5.2/lib,
+					/usr/local/Cellar/ffmpeg/2.8.6/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9330,17 +9322,16 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
+					"$(SRCROOT)/Source/Core",
+					"$(SRCROOT)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Dolphin-Core/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.5.2/lib,
+					/usr/local/Cellar/ffmpeg/2.8.6/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9384,17 +9375,16 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
+					"$(SRCROOT)/Source/Core",
+					"$(SRCROOT)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Dolphin-Core/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.5.2/lib,
+					/usr/local/Cellar/ffmpeg/2.8.6/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9482,7 +9472,7 @@
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
 					$SRCROOT/Externals,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
@@ -9560,7 +9550,7 @@
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
 					$SRCROOT/Externals,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
@@ -9640,7 +9630,7 @@
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
 					$SRCROOT/Externals,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
@@ -9720,7 +9710,7 @@
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
 					$SRCROOT/Externals,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
@@ -9803,7 +9793,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9878,7 +9868,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -9928,7 +9918,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -10050,7 +10040,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -10077,6 +10067,7 @@
 		8D2417379D184B2C97981280 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10149,12 +10140,35 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					"'HAVE_X11=0'",
+					"OpenEmu=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10165,9 +10179,11 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
 					$SRCROOT/Externals/libusb/libusb,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10244,7 +10260,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10307,8 +10323,6 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10319,9 +10333,11 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
 					$SRCROOT/Externals/libusb/libusb,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10450,12 +10466,9 @@
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/Source/Core,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
@@ -10463,10 +10476,11 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10543,7 +10557,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -10607,12 +10621,9 @@
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
-					$SRCROOT/Source/Core,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
 					$SRCROOT/Externals/libpng,
@@ -10620,10 +10631,11 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/enet/include,
+					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10696,9 +10708,7 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -10736,7 +10746,7 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10747,7 +10757,9 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10790,7 +10802,7 @@
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = videoogl;
 				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
+				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -10824,7 +10836,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10890,7 +10902,7 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10901,7 +10913,9 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10944,7 +10958,7 @@
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = videoogl;
 				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
+				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -10978,7 +10992,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -11056,7 +11070,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/libusb/libusb,
 					$SRCROOT/Externals/SFML/src,
 				);
@@ -11113,7 +11127,8 @@
 		C2345C277FA14850BCB0E303 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11136,7 +11151,6 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -11164,6 +11178,7 @@
 		C40723354F1F40738DD194B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -11186,8 +11201,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11262,7 +11279,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -11324,7 +11341,7 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -11335,7 +11352,9 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11376,7 +11395,7 @@
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = videoogl;
 				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
+				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -11388,6 +11407,7 @@
 		C9204305BF7846F6AE5ADDEB /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11452,7 +11472,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -11689,9 +11709,7 @@
 					$SRCROOT/Externals/miniupnpc/src,
 					$SRCROOT/Externals/polarssl/include,
 					$SRCROOT/Externals/SOIL,
-					$SRCROOT/Externals/wxWidgets3,
-					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -11786,7 +11804,8 @@
 		D395D5F65178418084E8D71F /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11809,7 +11828,6 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -11980,7 +11998,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -12036,6 +12054,7 @@
 		E08676A7CC06420E83505C37 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12254,7 +12273,7 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -12265,7 +12284,9 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12308,7 +12329,7 @@
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = videoogl;
 				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
+				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -12320,6 +12341,7 @@
 		E8A415E70EAD45D6ADC5FF81 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12386,7 +12408,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/libusb/libusb,
 					$SRCROOT/Externals/SFML/src,
 				);
@@ -12454,8 +12476,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -12466,8 +12487,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/xxhash,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12522,6 +12545,7 @@
 		F4F42743C7994EF8A39CAB19 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -12559,9 +12583,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -12576,6 +12598,7 @@
 		F6C6E57C4C4B4A70B6733D90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12641,7 +12664,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";
@@ -12710,8 +12733,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
+					/usr/local/Cellar/ffmpeg/2.8.6/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -12722,8 +12744,10 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/xxhash,
+					$SRCROOT,
+					"$(inherited)",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12778,6 +12802,7 @@
 		FAA6947016D14BA59DA6F022 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -12814,9 +12839,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/Source/Core",
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -12851,7 +12874,7 @@
 					$SRCROOT/Externals/SOIL,
 					$SRCROOT/Externals/wxWidgets3,
 					$SRCROOT/Externals/wxWidgets3/include,
-					$SRCROOT/Source/Core/Common,
+					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/gtest/include,
 				);
 				INSTALL_PATH = "";

@@ -41,8 +41,6 @@ bool Init();
 void Stop();
 void Shutdown();
 
-void EmuThread();  //  OE  moved from Core.cpp
-
 void DeclareAsCPUThread();
 void UndeclareAsCPUThread();
 

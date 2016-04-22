@@ -18,6 +18,10 @@
 #pragma comment(lib, "openal32.lib")
 #endif
 
+#ifdef OpenEmu
+#include "DolphinGameCore.h"
+#endif
+
 static soundtouch::SoundTouch soundTouch;
 
 //
@@ -330,7 +334,14 @@ void OpenALStream::SoundLoop()
 					for (u32 i = 0; i < nSamples * STEREO_CHANNELS; ++i)
 						stereo[i] = (short)((float)sampleBuffer[i] * (1 << 15));
 
+#ifdef OpenEmu
+                    //Send the autio stream bytes to OpenEmu
+                    GET_CURRENT_OR_RETURN();
+
+                    [[current ringBufferAtIndex:0] write:(const uint8_t *)stereo maxLength:nSamples * FRAME_STEREO_SHORT];
+#endif
 					alBufferData(uiBufferTemp[iBuffersFilled], AL_FORMAT_STEREO16, stereo, nSamples * FRAME_STEREO_SHORT, ulFrequency);
+
 				}
 			}
 

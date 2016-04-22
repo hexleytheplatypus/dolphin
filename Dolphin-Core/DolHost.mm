@@ -75,10 +75,13 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     UICommon::Init();
 
     SConfig::GetInstance().bDSPHLE = true;
-    SConfig::GetInstance().m_Volume = 50;
+    SConfig::GetInstance().bDSPThread = true;
+    SConfig::GetInstance().m_Volume = 0;
     SConfig::GetInstance().bOnScreenDisplayMessages = false;
     SConfig::GetInstance().bMMU = true;
+    SConfig::GetInstance().bSkipIdle = true;
     SConfig::GetInstance().bEnableCheats = true;
+    SConfig::GetInstance().sBackend = "OpenAL";
 
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // or WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL

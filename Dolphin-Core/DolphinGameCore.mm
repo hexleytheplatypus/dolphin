@@ -24,7 +24,13 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//  Had to rename /Common/Assert.h to /Common/AssertInt.h
+/*
+    What doesn't work:
+
+        - Autoload savestate on start doesn't work reliably on Wii.  some games it works most it doesn't
+        - Wii does not have a reset function, so restart only works in GC mode
+ */
+
 //  Changed <al*> includes to <OpenAL/al*>
 //  Updated to Dolphin Git Source 28 Feb 2016
 //  Added iRenderFBO to Videoconfig, OGL postprocessing and renderer
@@ -65,6 +71,7 @@ DolphinGameCore *_current = 0;
     OEIntSize _dolphinCoreAspect;
     OEIntSize _dolphinCoreScreen;
 }
+
 - (instancetype)init
 {
     if(self = [super init])
