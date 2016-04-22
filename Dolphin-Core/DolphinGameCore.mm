@@ -98,7 +98,9 @@ DolphinGameCore *_current = 0;
         _isWii = false;
         _dolphinCoreAspect = OEIntSizeMake(4, 3);
         _dolphinCoreScreen = OEIntSizeMake(640, 480);
-    }else{
+    }
+    else
+    {
         _dolphinCoreModule = @"Wii";
         _isWii = true;
         _dolphinCoreAspect = OEIntSizeMake(16,9);
@@ -117,6 +119,8 @@ DolphinGameCore *_current = 0;
 
 - (void)stopEmulation
 {
+    _isInitialized = false;
+    
     dol_host->RequestStop();
 
     [super stopEmulation];
@@ -145,7 +149,6 @@ DolphinGameCore *_current = 0;
 - (void)executeFrame
 {
     dol_host->UpdateFrame();
-
 }
 
 # pragma mark - Render Callback
@@ -226,11 +229,6 @@ DolphinGameCore *_current = 0;
 - (double)audioSampleRate
 {
     return SAMPLERATE;
-}
-
--(void)setVolume:(CGFloat)volume
-{
-    dol_host->SetVolume(volume);
 }
 
 # pragma mark - Save States

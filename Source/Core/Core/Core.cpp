@@ -10,7 +10,10 @@
 #include <windows.h>
 #endif
 
+#ifdef OpenEmu
 #include "DolphinGameCore.h"
+#endif
+
 #include "AudioCommon/AudioCommon.h"
 
 #include "Common/CommonPaths.h"
@@ -98,7 +101,7 @@ static std::atomic<u32> s_drawn_video;
 void Callback_WiimoteInterruptChannel(int _number, u16 _channelID, const void* _pData, u32 _Size);
 
 // Function declarations
-//void EmuThread();
+void EmuThread();
 
 static bool s_is_stopping = false;
 static bool s_hardware_initialized = false;
@@ -332,6 +335,13 @@ static void CpuThread()
 	else
 	{
 		Common::SetCurrentThreadName("CPU-GPU thread");
+
+#ifdef OpenEmu
+        GET_CURRENT_OR_RETURN();
+
+        [current.renderDelegate willRenderFrameOnAlternateThread];
+#endif
+        
 		g_video_backend->Video_Prepare();
 	}
 
@@ -534,10 +544,11 @@ void EmuThread()
 		// thread, and then takes over and becomes the video thread
 		Common::SetCurrentThreadName("Video thread");
 
+#ifdef OpenEmu
         GET_CURRENT_OR_RETURN();
 
         [current.renderDelegate willRenderFrameOnAlternateThread];
-        
+#endif
 		g_video_backend->Video_Prepare();
 
 		// Spawn the CPU thread

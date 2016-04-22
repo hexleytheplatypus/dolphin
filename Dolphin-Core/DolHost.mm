@@ -83,6 +83,9 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bEnableCheats = true;
     SConfig::GetInstance().sBackend = "OpenAL";
 
+    //Split CPU thread from GPU
+    SConfig::GetInstance().bCPUThread = true;
+    
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // or WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
     
@@ -101,7 +104,9 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 
         //Clear the WiiNAND path
         SConfig::GetInstance().m_NANDPath = "";
-    } else {
+    }
+    else
+    {
         //clear the GC mem card paths
         SConfig::GetInstance().m_strMemoryCardA = "";
         SConfig::GetInstance().m_strMemoryCardB = "";
@@ -264,7 +269,8 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
         //If the code being modified is the same size as one in the vector, check each value
         if (gcompare.codes.size() == gcode.codes.size())
         {
-            for(int i = 0; i < gcode.codes.size() ;i++){
+            for(int i = 0; i < gcode.codes.size() ;i++)
+            {
                 if (gcompare.codes[i].address == gcode.codes[i].address && gcompare.codes[i].data == gcode.codes[i].data)
                 {
                     exists = true;
@@ -294,7 +300,8 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
 # pragma mark - Controls
 void DolHost::SetUpPlayerInputs()
 {
-    if (SConfig::GetInstance().bWii) {
+    if (SConfig::GetInstance().bWii)
+    {
         struct {
             OEWiiButton button;
             std::string identifier;
@@ -437,10 +444,10 @@ void DolHost::SetButtonState(int button, int state, int player)
             if ( button < 10){
                 changeWiimoteExtension(OEWiimoteExtensionNotConnected, player);
                 Core::DisplayMessage("Extenstion Removed", 1500);
-            }else if (button > 10 && button < 17 ){
+            } else if (button > 10 && button < 17 ) {
                 changeWiimoteExtension(OEWiimoteExtensionNunchuck, player);
                 Core::DisplayMessage("Nunchuk Connected", 1500);
-            }else if (button > 16 && button < 40 ){
+            } else if (button > 16 && button < 40 ) {
                 changeWiimoteExtension(OEWiimoteExtensionClassicController, player);
                 Core::DisplayMessage("Classic Controller Connected", 1500);
             }

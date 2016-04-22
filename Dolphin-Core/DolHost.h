@@ -32,7 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "InputCommon/ControllerInterface/Device.h"
 
 class DolHost {
-   
 public:
     static DolHost* GetInstance();
     void Init(std::string supportDirectoryPath, std::string cpath);
