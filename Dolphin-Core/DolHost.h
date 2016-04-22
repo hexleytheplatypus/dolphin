@@ -52,7 +52,7 @@ public:
     void setNunchukAccel(double X,double Y,double Z,int player);
     void setWiimoteAccel(double X,double Y,double Z,int player);
 
-    void setIRdata(wiimoteIRinfo IRinfo, int player);
+    void setIRdata(OEwiimoteIRinfo IRinfo, int player);
 
     void changeWiimoteExtension(int extension, int player);
 
@@ -80,7 +80,7 @@ public:
     std::string _gameRegion;
     bool        _onBoot = true;
     bool        _wiiGame;
-    bool        _wiiChangeExtension[4];
+    bool        _wiiChangeExtension[4] = { false, false, false, false };
     int         _wiiMoteType;
 
     void SetUpPlayerInputs();

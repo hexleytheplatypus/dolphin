@@ -285,7 +285,7 @@ DolphinGameCore *_current = 0;
     }
 }
 
-- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(wiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
+- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(OEwiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
 {
     if(_isInitialized)
     {

@@ -471,7 +471,7 @@ void DolHost::setWiimoteAccel(double X,double Y,double Z,int player)
     _Wiimote->UpdateAccelData(X, Y, Z);
 }
 
-void DolHost::setIRdata(wiimoteIRinfo IRinfo, int player)
+void DolHost::setIRdata(OEwiimoteIRinfo IRinfo, int player)
 {
     WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
 
