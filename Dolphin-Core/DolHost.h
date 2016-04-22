@@ -63,12 +63,14 @@ public:
 
     bool SaveState(std::string saveStateFile);
     bool LoadState(std::string saveStateFile);
+    bool setAutoloadFile(std::string saveStateFile);
 
     void SetCheat(std::string code, std::string value, bool enabled);
     std::vector<Gecko::GeckoCode> gcodes;
     Gecko::GeckoCode gcode;
 
     private:
+    
     static DolHost* m_instance;
     DolHost();
 

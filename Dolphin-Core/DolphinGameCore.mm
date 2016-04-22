@@ -238,48 +238,87 @@ DolphinGameCore *_current = 0;
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-    block(dol_host->LoadState([fileName UTF8String]),nil);
+    if (!_isInitialized)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+            [self autoloadSaveState:fileName];
+        });
+
+        block(true, nil);
+    } else {
+        block(dol_host->LoadState([fileName UTF8String]),nil);
+    }
+}
+- (void) autoloadSaveState:(NSString *)fileName
+{
+    [self beginPausedExecution];
+
+    dol_host->setAutoloadFile([fileName UTF8String]);
+
+    [self endPausedExecution];
 }
 
 # pragma mark - Input GC
 - (oneway void)didMoveGCJoystickDirection:(OEGCButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
-    dol_host->SetAxis(button, value, (int)player);
+    if(_isInitialized)
+    {
+        dol_host->SetAxis(button, value, (int)player);
+    }
 }
 
 - (oneway void)didPushGCButton:(OEGCButton)button forPlayer:(NSUInteger)player
 {
-    dol_host->SetButtonState(button, 1, (int)player);
+    if(_isInitialized)
+    {
+        dol_host->SetButtonState(button, 1, (int)player);
+    }
 }
 
 - (oneway void)didReleaseGCButton:(OEGCButton)button forPlayer:(NSUInteger)player
 {
-    dol_host->SetButtonState(button, 0, (int)player);
+    if(_isInitialized)
+    {
+        dol_host->SetButtonState(button, 0, (int)player);
+    }
 }
 
 # pragma mark - Input Wii
 - (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
 {
-    dol_host->SetAxis(button, value, (int)player);
+    if(_isInitialized)
+    {
+        dol_host->SetAxis(button, value, (int)player);
+    }
 }
+
 
 - (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
-    dol_host->SetButtonState(button, 1, (int)player);
+    if(_isInitialized)
+    {
+        dol_host->SetButtonState(button, 1, (int)player);
+    }
 }
 
 - (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
-    dol_host->SetButtonState(button, 0, (int)player);
+    if(_isInitialized)
+    {
+        dol_host->SetButtonState(button, 0, (int)player);
+    }
 }
 
 - (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
 {
     if(_isInitialized)
     {
-        if (accelerometer == OEWiiNunchuk){
+        if (accelerometer == OEWiiNunchuk)
+        {
             dol_host->setNunchukAccel(X,Y,Z,(int)player);
-        } else {
+        }
+        else
+        {
             dol_host->setWiimoteAccel(X,Y,Z,(int)player);
         }
     }

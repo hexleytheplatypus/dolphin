@@ -171,6 +171,19 @@ void DolHost::SetVolume(float value)
 }
 
 # pragma mark - Save states
+bool DolHost::setAutoloadFile(std::string saveStateFile)
+{
+    while (!Core::IsRunningAndStarted())
+        usleep (100);
+
+
+    [NSThread sleepForTimeInterval:2];
+
+    LoadState(saveStateFile);
+
+    return true;
+}
+
 bool DolHost::SaveState(std::string saveStateFile)
 {
     State::SaveAs(saveStateFile);
@@ -179,30 +192,20 @@ bool DolHost::SaveState(std::string saveStateFile)
 
 bool DolHost::LoadState(std::string saveStateFile)
 {
-    if ( _onBoot )
+    State::LoadAs(saveStateFile);
+
+    if (_wiiGame)
     {
-            Core::SetStateFileName(saveStateFile);
+        // We have to set the wiimote type, cause the gamesave may
+        //    have used a different type
+        WiimoteReal::ChangeWiimoteSource(0 , _wiiMoteType);
+        WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
+        WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
+        WiimoteReal::ChangeWiimoteSource(3 , _wiiMoteType);
+
+        if( _wiiMoteType != WIIMOTE_SRC_EMU)
+            WiimoteReal::Refresh();
     }
-    else
-    {
-        State::LoadAs(saveStateFile);
-
-        if (_wiiGame)
-        {
-            // We have to set the wiimote type, cause the gamesave may
-            //    have used a different type
-            WiimoteReal::ChangeWiimoteSource(0 , _wiiMoteType);
-            WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
-            WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
-            WiimoteReal::ChangeWiimoteSource(3 , _wiiMoteType);
-
-            if( _wiiMoteType != WIIMOTE_SRC_EMU)
-            {
-                WiimoteReal::Refresh();
-            }
-        }
-    }
-
     return true;
 }
 
