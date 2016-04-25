@@ -63,7 +63,7 @@ public:
 
         //OE add set state
         virtual void SetState(ControlState state) = 0;
-        
+
 		ControlState GetGatedState()
 		{
 			if (InputGateOn())
@@ -122,7 +122,7 @@ protected:
 
         void SetState(ControlState state) override
         {}
-
+        
 		ControlState GetState() const override
 		{
 			return (1 + m_high.GetState() - m_low.GetState()) / 2;

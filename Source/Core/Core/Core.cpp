@@ -10,10 +10,6 @@
 #include <windows.h>
 #endif
 
-#ifdef OpenEmu
-#include "DolphinGameCore.h"
-#endif
-
 #include "AudioCommon/AudioCommon.h"
 
 #include "Common/CommonPaths.h"
@@ -335,13 +331,6 @@ static void CpuThread()
 	else
 	{
 		Common::SetCurrentThreadName("CPU-GPU thread");
-
-#ifdef OpenEmu
-        GET_CURRENT_OR_RETURN();
-
-        [current.renderDelegate willRenderFrameOnAlternateThread];
-#endif
-        
 		g_video_backend->Video_Prepare();
 	}
 
@@ -544,11 +533,6 @@ void EmuThread()
 		// thread, and then takes over and becomes the video thread
 		Common::SetCurrentThreadName("Video thread");
 
-#ifdef OpenEmu
-        GET_CURRENT_OR_RETURN();
-
-        [current.renderDelegate willRenderFrameOnAlternateThread];
-#endif
 		g_video_backend->Video_Prepare();
 
 		// Spawn the CPU thread

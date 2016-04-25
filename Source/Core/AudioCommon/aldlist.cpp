@@ -36,7 +36,7 @@
 #include "../../../Externals/OpenAL/include/alc.h"
 #elif defined(__APPLE__)
 #include <OpenAL/al.h>
-#include <OpenAl/alc.h>
+#include <OpenAL/alc.h>
 #else
 #include <AL/al.h>
 #include <AL/alc.h>

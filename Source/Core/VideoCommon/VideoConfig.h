@@ -93,7 +93,7 @@ struct VideoConfig final
 	bool bWireFrame;
 	bool bDisableFog;
     int iRenderFBO;  //  OE render buffer
-    
+
 	// Utility
 	bool bDumpTextures;
 	bool bHiresTextures;
