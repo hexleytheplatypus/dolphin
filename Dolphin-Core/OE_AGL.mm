@@ -25,7 +25,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#include "OE_AGL.h"
+#include "Common/GL/GLInterface/AGL.h"
 #include "DolphinGameCore.h"
 #include "Core/ConfigManager.h"
 
