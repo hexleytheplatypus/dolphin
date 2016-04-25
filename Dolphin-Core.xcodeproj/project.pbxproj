@@ -96,10 +96,7 @@
 
 /* Begin PBXBuildFile section */
 		3E1684D81CA495A200475F67 /* OE_Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */; };
-		3E1684D91CA495A200475F67 /* OE_Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D01CA495A200475F67 /* OE_Drums.cpp */; };
 		3E1684DA1CA495A200475F67 /* OE_EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */; };
-		3E1684DB1CA495A200475F67 /* OE_Guitar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D31CA495A200475F67 /* OE_Guitar.cpp */; };
-		3E1684DC1CA495A200475F67 /* OE_Turntable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1684D61CA495A200475F67 /* OE_Turntable.cpp */; };
 		3E1EFC871CB6F356001998A2 /* CoreAudioSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70801C82B03600091C4D /* CoreAudioSoundStream.cpp */; };
 		3E3D70351C82AF7000091C4D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70321C82AF7000091C4D /* xxhash.c */; };
 		3E3D70361C82AF7000091C4D /* xxhsum.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70341C82AF7000091C4D /* xxhsum.c */; };
@@ -123,7 +120,6 @@
 		3E3D709A1C82B03600091C4D /* DPL2Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70821C82B03600091C4D /* DPL2Decoder.cpp */; };
 		3E3D709B1C82B03600091C4D /* Mixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70841C82B03600091C4D /* Mixer.cpp */; };
 		3E3D709C1C82B03600091C4D /* NullSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70861C82B03600091C4D /* NullSoundStream.cpp */; };
-		3E3D709D1C82B03600091C4D /* OpenALStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70881C82B03600091C4D /* OpenALStream.cpp */; };
 		3E3D709E1C82B03600091C4D /* OpenSLESStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D708A1C82B03600091C4D /* OpenSLESStream.cpp */; };
 		3E3D70A01C82B03600091C4D /* WaveFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D708F1C82B03600091C4D /* WaveFile.cpp */; };
 		3E3D70A81C82B08500091C4D /* syntax.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70A71C82B08500091C4D /* syntax.cc */; };
@@ -181,7 +177,6 @@
 		3E3D735B1C82B0F900091C4D /* ElfReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A21C82B0F800091C4D /* ElfReader.cpp */; };
 		3E3D735C1C82B0F900091C4D /* BootManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A51C82B0F800091C4D /* BootManager.cpp */; };
 		3E3D735D1C82B0F900091C4D /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A81C82B0F800091C4D /* ConfigManager.cpp */; };
-		3E3D735E1C82B0F900091C4D /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AA1C82B0F800091C4D /* Core.cpp */; };
 		3E3D735F1C82B0F900091C4D /* CoreTiming.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AE1C82B0F800091C4D /* CoreTiming.cpp */; };
 		3E3D73601C82B0F900091C4D /* Debugger_SymbolMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71B11C82B0F800091C4D /* Debugger_SymbolMap.cpp */; };
 		3E3D73611C82B0F900091C4D /* Dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71B31C82B0F800091C4D /* Dump.cpp */; };
@@ -268,7 +263,6 @@
 		3E3D73B41C82B0F900091C4D /* GCMemcard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D725B1C82B0F900091C4D /* GCMemcard.cpp */; };
 		3E3D73B51C82B0F900091C4D /* GCMemcardDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D725D1C82B0F900091C4D /* GCMemcardDirectory.cpp */; };
 		3E3D73B61C82B0F900091C4D /* GCMemcardRaw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D725F1C82B0F900091C4D /* GCMemcardRaw.cpp */; };
-		3E3D73B71C82B0F900091C4D /* GCPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72611C82B0F900091C4D /* GCPad.cpp */; };
 		3E3D73B91C82B0F900091C4D /* GPFifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72651C82B0F900091C4D /* GPFifo.cpp */; };
 		3E3D73BA1C82B0F900091C4D /* HW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72671C82B0F900091C4D /* HW.cpp */; };
 		3E3D73BB1C82B0F900091C4D /* Memmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72691C82B0F900091C4D /* Memmap.cpp */; };
@@ -290,7 +284,6 @@
 		3E3D73CB1C82B0F900091C4D /* VideoInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728A1C82B0F900091C4D /* VideoInterface.cpp */; };
 		3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728C1C82B0F900091C4D /* WII_IPC.cpp */; };
 		3E3D73CD1C82B0F900091C4D /* Wiimote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728E1C82B0F900091C4D /* Wiimote.cpp */; };
-		3E3D73CE1C82B0F900091C4D /* Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72921C82B0F900091C4D /* Attachment.cpp */; };
 		3E3D73D51C82B0F900091C4D /* Encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729F1C82B0F900091C4D /* Encryption.cpp */; };
 		3E3D73D61C82B0F900091C4D /* Speaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A21C82B0F900091C4D /* Speaker.cpp */; };
 		3E3D73D91C82B0F900091C4D /* IOdarwin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72A81C82B0F900091C4D /* IOdarwin.mm */; };
@@ -368,7 +361,6 @@
 		3E3D74341C82B0F900091C4D /* PPCTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D734C1C82B0F900091C4D /* PPCTables.cpp */; };
 		3E3D74351C82B0F900091C4D /* Profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D734E1C82B0F900091C4D /* Profiler.cpp */; };
 		3E3D74361C82B0F900091C4D /* SignatureDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D73501C82B0F900091C4D /* SignatureDB.cpp */; };
-		3E3D74371C82B0F900091C4D /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D73521C82B0F900091C4D /* State.cpp */; };
 		3E3D745F1C82B11900091C4D /* Blob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74381C82B11900091C4D /* Blob.cpp */; };
 		3E3D74601C82B11900091C4D /* CISOBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D743A1C82B11900091C4D /* CISOBlob.cpp */; };
 		3E3D74611C82B11900091C4D /* CompressedBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D743D1C82B11900091C4D /* CompressedBlob.cpp */; };
@@ -541,7 +533,6 @@
 		3E3D76161C82B2DE00091C4D /* VertexShaderGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75DC1C82B2DE00091C4D /* VertexShaderGen.cpp */; };
 		3E3D76171C82B2DE00091C4D /* VertexShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75DE1C82B2DE00091C4D /* VertexShaderManager.cpp */; };
 		3E3D76181C82B2DE00091C4D /* VideoBackendBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E01C82B2DE00091C4D /* VideoBackendBase.cpp */; };
-		3E3D76191C82B2DE00091C4D /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */; };
 		3E3D761A1C82B2DE00091C4D /* VideoState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E51C82B2DE00091C4D /* VideoState.cpp */; };
 		3E3D761B1C82B2DE00091C4D /* XFMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E71C82B2DE00091C4D /* XFMemory.cpp */; };
 		3E3D761C1C82B2DE00091C4D /* XFStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E91C82B2DE00091C4D /* XFStructs.cpp */; };
@@ -550,10 +541,8 @@
 		3E3D763B1C82B30A00091C4D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76221C82B30A00091C4D /* main.cpp */; };
 		3E3D763C1C82B30A00091C4D /* NativeVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76231C82B30A00091C4D /* NativeVertexFormat.cpp */; };
 		3E3D763D1C82B30A00091C4D /* PerfQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76241C82B30A00091C4D /* PerfQuery.cpp */; };
-		3E3D763E1C82B30A00091C4D /* PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76261C82B30A00091C4D /* PostProcessing.cpp */; };
 		3E3D763F1C82B30A00091C4D /* ProgramShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76281C82B30A00091C4D /* ProgramShaderCache.cpp */; };
 		3E3D76401C82B30A00091C4D /* RasterFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D762A1C82B30A00091C4D /* RasterFont.cpp */; };
-		3E3D76411C82B30A00091C4D /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D762C1C82B30A00091C4D /* Render.cpp */; };
 		3E3D76421C82B30A00091C4D /* SamplerCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D762E1C82B30A00091C4D /* SamplerCache.cpp */; };
 		3E3D76431C82B30A00091C4D /* StreamBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76301C82B30A00091C4D /* StreamBuffer.cpp */; };
 		3E3D76441C82B30A00091C4D /* TextureCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76321C82B30A00091C4D /* TextureCache.cpp */; };
@@ -671,6 +660,13 @@
 		3E74B9C51C90DE100017C7B1 /* OE_Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */; };
 		3E74B9C71C90DE200017C7B1 /* OE_Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */; };
 		3E74B9C91C9105F90017C7B1 /* OE_OSXJoystick.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */; };
+		3E89F4791CCAAB5100EAE7AC /* OE_OpenALStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4781CCAAB5100EAE7AC /* OE_OpenALStream.cpp */; };
+		3E89F47C1CCAB30500EAE7AC /* OE_Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F47B1CCAB30500EAE7AC /* OE_Core.cpp */; };
+		3E89F47D1CCAB4FC00EAE7AC /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D73521C82B0F900091C4D /* State.cpp */; };
+		3E89F4811CCE850B00EAE7AC /* OE_GCPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4801CCE850B00EAE7AC /* OE_GCPad.cpp */; };
+		3E89F4841CCE8AC600EAE7AC /* OE_PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4821CCE8AC600EAE7AC /* OE_PostProcessing.cpp */; };
+		3E89F4851CCE8AC600EAE7AC /* OE_Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4831CCE8AC600EAE7AC /* OE_Render.cpp */; };
+		3E89F4881CCE8B5600EAE7AC /* OE_VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4861CCE8B5600EAE7AC /* OE_VideoConfig.cpp */; };
 		3EF229371CBEC21F00F66A93 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		8319B93E1A6D546700DD23A9 /* Sys in Resources */ = {isa = PBXBuildFile; fileRef = 8319B93C1A6D52FD00DD23A9 /* Sys */; };
 		8355D4C41A65393600E73302 /* libaudiocommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EAB8D2A0AA45A183467CCD /* libaudiocommon.a */; };
@@ -1175,18 +1171,10 @@
 		3DB9EC0F64AC4815A7E27952 /* libvideocommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvideocommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Attachment.cpp; path = "Dolphin-Core/OE_Attachment.cpp"; sourceTree = "<group>"; };
 		3E1684CF1CA495A200475F67 /* OE_Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Attachment.h; path = "Dolphin-Core/OE_Attachment.h"; sourceTree = "<group>"; };
-		3E1684D01CA495A200475F67 /* OE_Drums.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Drums.cpp; path = "Dolphin-Core/OE_Drums.cpp"; sourceTree = "<group>"; };
-		3E1684D11CA495A200475F67 /* OE_Drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Drums.h; path = "Dolphin-Core/OE_Drums.h"; sourceTree = "<group>"; };
 		3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_EmuSubroutines.cpp; path = "Dolphin-Core/OE_EmuSubroutines.cpp"; sourceTree = "<group>"; };
-		3E1684D31CA495A200475F67 /* OE_Guitar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Guitar.cpp; path = "Dolphin-Core/OE_Guitar.cpp"; sourceTree = "<group>"; };
-		3E1684D41CA495A200475F67 /* OE_Guitar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Guitar.h; path = "Dolphin-Core/OE_Guitar.h"; sourceTree = "<group>"; };
 		3E1684D51CA495A200475F67 /* OE_Nunchuk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Nunchuk.h; path = "Dolphin-Core/OE_Nunchuk.h"; sourceTree = "<group>"; };
-		3E1684D61CA495A200475F67 /* OE_Turntable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Turntable.cpp; path = "Dolphin-Core/OE_Turntable.cpp"; sourceTree = "<group>"; };
-		3E1684D71CA495A200475F67 /* OE_Turntable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Turntable.h; path = "Dolphin-Core/OE_Turntable.h"; sourceTree = "<group>"; };
 		3E1EFC851CB6AEB0001998A2 /* SamplerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SamplerCommon.h; path = Source/Core/VideoCommon/SamplerCommon.h; sourceTree = "<group>"; };
-		3E3D70251C82AF2A00091C4D /* OE_AGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_AGL.h; path = "Dolphin-Core/OE_AGL.h"; sourceTree = "<group>"; };
 		3E3D70261C82AF2A00091C4D /* OE_AGL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_AGL.mm; path = "Dolphin-Core/OE_AGL.mm"; sourceTree = "<group>"; };
-		3E3D70281C82AF2A00091C4D /* OE_CoreAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OE_CoreAudio.cpp; path = "Dolphin-Core/OE_CoreAudio.cpp"; sourceTree = "<group>"; };
 		3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_GCpadEmu.mm; path = "Dolphin-Core/OE_GCpadEmu.mm"; sourceTree = "<group>"; };
 		3E3D702B1C82AF2A00091C4D /* OE_OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OE_OSX.h; path = "Dolphin-Core/OE_OSX.h"; sourceTree = "<group>"; };
 		3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OE_OSX.mm; path = "Dolphin-Core/OE_OSX.mm"; sourceTree = "<group>"; };
@@ -1253,7 +1241,7 @@
 		3E3D70A51C82B08500091C4D /* disasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = disasm.h; path = Externals/Bochs_disasm/disasm.h; sourceTree = "<group>"; };
 		3E3D70A61C82B08500091C4D /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = Externals/Bochs_disasm/stdafx.h; sourceTree = "<group>"; };
 		3E3D70A71C82B08500091C4D /* syntax.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = syntax.cc; path = Externals/Bochs_disasm/syntax.cc; sourceTree = "<group>"; };
-		3E3D70AD1C82B0BB00091C4D /* AssertInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssertInt.h; path = Source/Core/Common/AssertInt.h; sourceTree = "<group>"; };
+		3E3D70AD1C82B0BB00091C4D /* Assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Assert.h; path = Source/Core/Common/Assert.h; sourceTree = "<group>"; };
 		3E3D70AE1C82B0BB00091C4D /* Atomic_GCC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Atomic_GCC.h; path = Source/Core/Common/Atomic_GCC.h; sourceTree = "<group>"; };
 		3E3D70AF1C82B0BB00091C4D /* Atomic_Win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Atomic_Win32.h; path = Source/Core/Common/Atomic_Win32.h; sourceTree = "<group>"; };
 		3E3D70B01C82B0BB00091C4D /* Atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Atomic.h; path = Source/Core/Common/Atomic.h; sourceTree = "<group>"; };
@@ -2211,6 +2199,16 @@
 		3E74B9CA1C91060C0017C7B1 /* OE_OSXKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_OSXKeyboard.h; path = "Dolphin-Core/OE_OSXKeyboard.h"; sourceTree = "<group>"; };
 		3E76C1341C99CA2B00F966FE /* OE_Classic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Classic.h; path = "Dolphin-Core/OE_Classic.h"; sourceTree = "<group>"; };
 		3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_WiimoteEmu.h; path = "Dolphin-Core/OE_WiimoteEmu.h"; sourceTree = "<group>"; };
+		3E89F4781CCAAB5100EAE7AC /* OE_OpenALStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_OpenALStream.cpp; path = "Dolphin-Core/OE_OpenALStream.cpp"; sourceTree = "<group>"; };
+		3E89F47B1CCAB30500EAE7AC /* OE_Core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Core.cpp; path = "Dolphin-Core/OE_Core.cpp"; sourceTree = "<group>"; };
+		3E89F47E1CCE833700EAE7AC /* OE_ControllerEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_ControllerEmu.h; path = "Dolphin-Core/OE_ControllerEmu.h"; sourceTree = "<group>"; };
+		3E89F47F1CCE84A500EAE7AC /* OE_GCPadEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_GCPadEmu.h; path = "Dolphin-Core/OE_GCPadEmu.h"; sourceTree = "<group>"; };
+		3E89F4801CCE850B00EAE7AC /* OE_GCPad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_GCPad.cpp; path = "Dolphin-Core/OE_GCPad.cpp"; sourceTree = "<group>"; };
+		3E89F4821CCE8AC600EAE7AC /* OE_PostProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_PostProcessing.cpp; path = "Dolphin-Core/OE_PostProcessing.cpp"; sourceTree = "<group>"; };
+		3E89F4831CCE8AC600EAE7AC /* OE_Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_Render.cpp; path = "Dolphin-Core/OE_Render.cpp"; sourceTree = "<group>"; };
+		3E89F4861CCE8B5600EAE7AC /* OE_VideoConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OE_VideoConfig.cpp; path = "Dolphin-Core/OE_VideoConfig.cpp"; sourceTree = "<group>"; };
+		3E89F4871CCE8B5600EAE7AC /* OE_VideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_VideoConfig.h; path = "Dolphin-Core/OE_VideoConfig.h"; sourceTree = "<group>"; };
+		3E89F4891CCE8EC600EAE7AC /* OE_Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OE_Device.h; path = "Dolphin-Core/OE_Device.h"; sourceTree = "<group>"; };
 		4B3F200BFA3B4AA9B8072A6A /* libsfml-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57799651D35F4D0F946361A2 /* libpng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpng.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE2ADF9B49F4F4EB95615D5 /* libcommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2380,33 +2378,10 @@
 		3E3D70241C82AF0600091C4D /* Compatibilty */ = {
 			isa = PBXGroup;
 			children = (
-				3E3D70251C82AF2A00091C4D /* OE_AGL.h */,
-				3E3D70261C82AF2A00091C4D /* OE_AGL.mm */,
-				3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */,
-				3E1684CF1CA495A200475F67 /* OE_Attachment.h */,
-				3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */,
-				3E76C1341C99CA2B00F966FE /* OE_Classic.h */,
-				3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */,
-				3E3D70281C82AF2A00091C4D /* OE_CoreAudio.cpp */,
-				3E1684D01CA495A200475F67 /* OE_Drums.cpp */,
-				3E1684D11CA495A200475F67 /* OE_Drums.h */,
-				3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */,
-				3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */,
-				3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */,
-				3E1684D31CA495A200475F67 /* OE_Guitar.cpp */,
-				3E1684D41CA495A200475F67 /* OE_Guitar.h */,
-				3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */,
-				3E1684D51CA495A200475F67 /* OE_Nunchuk.h */,
-				3E3D702B1C82AF2A00091C4D /* OE_OSX.h */,
-				3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */,
-				3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */,
-				3E3D702E1C82AF2A00091C4D /* OE_OSXJoystick.mm */,
-				3E74B9CA1C91060C0017C7B1 /* OE_OSXKeyboard.h */,
-				3E3D70301C82AF2A00091C4D /* OE_OSXKeyboard.mm */,
-				3E1684D61CA495A200475F67 /* OE_Turntable.cpp */,
-				3E1684D71CA495A200475F67 /* OE_Turntable.h */,
-				3E53D5171C89E97A0006E44C /* OE_WiimoteEmu.cpp */,
-				3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */,
+				3E89F47A1CCAB2A800EAE7AC /* Core */,
+				3E89F4771CCA7A1600EAE7AC /* Input */,
+				3E89F4761CCA7A0D00EAE7AC /* Video */,
+				3E89F4751CCA7A0500EAE7AC /* Audio */,
 			);
 			name = Compatibilty;
 			path = ..;
@@ -3210,6 +3185,63 @@
 			name = "Source Files";
 			sourceTree = "<group>";
 		};
+		3E89F4751CCA7A0500EAE7AC /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				3E89F4781CCAAB5100EAE7AC /* OE_OpenALStream.cpp */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		3E89F4761CCA7A0D00EAE7AC /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				3E89F4861CCE8B5600EAE7AC /* OE_VideoConfig.cpp */,
+				3E89F4871CCE8B5600EAE7AC /* OE_VideoConfig.h */,
+				3E89F4821CCE8AC600EAE7AC /* OE_PostProcessing.cpp */,
+				3E89F4831CCE8AC600EAE7AC /* OE_Render.cpp */,
+				3E3D70261C82AF2A00091C4D /* OE_AGL.mm */,
+			);
+			name = Video;
+			sourceTree = "<group>";
+		};
+		3E89F4771CCA7A1600EAE7AC /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				3E89F4891CCE8EC600EAE7AC /* OE_Device.h */,
+				3E89F4801CCE850B00EAE7AC /* OE_GCPad.cpp */,
+				3E89F47E1CCE833700EAE7AC /* OE_ControllerEmu.h */,
+				3E3D70291C82AF2A00091C4D /* OE_GCpadEmu.mm */,
+				3E89F47F1CCE84A500EAE7AC /* OE_GCPadEmu.h */,
+				3E74B9C41C90DE100017C7B1 /* OE_Nunchuk.cpp */,
+				3E1684D51CA495A200475F67 /* OE_Nunchuk.h */,
+				3E3D702B1C82AF2A00091C4D /* OE_OSX.h */,
+				3E3D702C1C82AF2A00091C4D /* OE_OSX.mm */,
+				3E74B9C81C9105F90017C7B1 /* OE_OSXJoystick.h */,
+				3E3D702E1C82AF2A00091C4D /* OE_OSXJoystick.mm */,
+				3E74B9CA1C91060C0017C7B1 /* OE_OSXKeyboard.h */,
+				3E3D70301C82AF2A00091C4D /* OE_OSXKeyboard.mm */,
+				3E53D5171C89E97A0006E44C /* OE_WiimoteEmu.cpp */,
+				3E76C1351C99F8AA00F966FE /* OE_WiimoteEmu.h */,
+				3E1684CE1CA495A200475F67 /* OE_Attachment.cpp */,
+				3E1684CF1CA495A200475F67 /* OE_Attachment.h */,
+				3E74B9C61C90DE200017C7B1 /* OE_Classic.cpp */,
+				3E76C1341C99CA2B00F966FE /* OE_Classic.h */,
+				3E5D07BB1C963C7600641021 /* OE_ControllerEmu.cpp */,
+			);
+			name = Input;
+			sourceTree = "<group>";
+		};
+		3E89F47A1CCAB2A800EAE7AC /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3E6EF0EE1C98C8C7004C6F58 /* OE_FileUtil.cpp */,
+				3E1684D21CA495A200475F67 /* OE_EmuSubroutines.cpp */,
+				3E89F47B1CCAB30500EAE7AC /* OE_Core.cpp */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		4548110F0199420BA5CE8956 /* videocommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -3294,7 +3326,7 @@
 		6305742E350948A6A90BE776 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				3E3D70AD1C82B0BB00091C4D /* AssertInt.h */,
+				3E3D70AD1C82B0BB00091C4D /* Assert.h */,
 				3E3D70AE1C82B0BB00091C4D /* Atomic_GCC.h */,
 				3E3D70AF1C82B0BB00091C4D /* Atomic_Win32.h */,
 				3E3D70B01C82B0BB00091C4D /* Atomic.h */,
@@ -4654,6 +4686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E89F47D1CCAB4FC00EAE7AC /* State.cpp in Sources */,
 				3E74B9C31C90DC3E0017C7B1 /* OE_WiimoteEmu.cpp in Sources */,
 				3E3D76791C8375F100091C4D /* OE_GCpadEmu.mm in Sources */,
 				3E1684D81CA495A200475F67 /* OE_Attachment.cpp in Sources */,
@@ -4678,6 +4711,7 @@
 				3E3D73D91C82B0F900091C4D /* IOdarwin.mm in Sources */,
 				3E3D73641C82B0F900091C4D /* DSPAnalyzer.cpp in Sources */,
 				3E3D739E1C82B0F900091C4D /* Zelda.cpp in Sources */,
+				3E89F47C1CCAB30500EAE7AC /* OE_Core.cpp in Sources */,
 				3E3D73A61C82B0F900091C4D /* DVDThread.cpp in Sources */,
 				3E3D736A1C82B0F900091C4D /* DSPEmitter.cpp in Sources */,
 				3E3D736E1C82B0F900091C4D /* DSPIntCCUtil.cpp in Sources */,
@@ -4718,12 +4752,9 @@
 				3E3D74081C82B0F900091C4D /* Jit_Paired.cpp in Sources */,
 				3E3D73F21C82B0F900091C4D /* NetPlayClient.cpp in Sources */,
 				3E3D73BB1C82B0F900091C4D /* Memmap.cpp in Sources */,
-				3E1684D91CA495A200475F67 /* OE_Drums.cpp in Sources */,
 				3E3D74351C82B0F900091C4D /* Profiler.cpp in Sources */,
 				3E3D739A1C82B0F900091C4D /* GBA.cpp in Sources */,
 				3E1684DA1CA495A200475F67 /* OE_EmuSubroutines.cpp in Sources */,
-				3E3D735E1C82B0F900091C4D /* Core.cpp in Sources */,
-				3E3D74371C82B0F900091C4D /* State.cpp in Sources */,
 				3E3D73A71C82B0F900091C4D /* EXI.cpp in Sources */,
 				3E3D740D1C82B0F900091C4D /* IR_X86.cpp in Sources */,
 				3E3D74051C82B0F900091C4D /* Jit_LoadStore.cpp in Sources */,
@@ -4734,7 +4765,6 @@
 				3E3D737B1C82B0F900091C4D /* DSPJitLoadStore.cpp in Sources */,
 				3E3D73F41C82B0F900091C4D /* PatchEngine.cpp in Sources */,
 				3E3D73781C82B0F900091C4D /* DSPJitBranch.cpp in Sources */,
-				3E1684DC1CA495A200475F67 /* OE_Turntable.cpp in Sources */,
 				3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */,
 				3E3D73B01C82B0F900091C4D /* EXI_DeviceMemoryCard.cpp in Sources */,
 				3E3D740B1C82B0F900091C4D /* JitRegCache.cpp in Sources */,
@@ -4761,7 +4791,6 @@
 				3E3D73C01C82B0F900091C4D /* SI_Device.cpp in Sources */,
 				3E3D739D1C82B0F900091C4D /* UCodes.cpp in Sources */,
 				3E3D73621C82B0F900091C4D /* PPCDebugInterface.cpp in Sources */,
-				3E3D73B71C82B0F900091C4D /* GCPad.cpp in Sources */,
 				3E3D73BC1C82B0F900091C4D /* MemoryInterface.cpp in Sources */,
 				3E3D73761C82B0F900091C4D /* DSPTables.cpp in Sources */,
 				3E3D73E71C82B0F900091C4D /* WII_IPC_HLE_Device_net.cpp in Sources */,
@@ -4794,7 +4823,6 @@
 				3E3D73B21C82B0F900091C4D /* GCKeyboard.cpp in Sources */,
 				3E3D73E91C82B0F900091C4D /* WII_IPC_HLE_Device_sdio_slot0.cpp in Sources */,
 				3E3D73EB1C82B0F900091C4D /* WII_IPC_HLE_Device_usb_kbd.cpp in Sources */,
-				3E3D73CE1C82B0F900091C4D /* Attachment.cpp in Sources */,
 				3E3D73F01C82B0F900091C4D /* MemTools.cpp in Sources */,
 				3E3D73BF1C82B0F900091C4D /* SI.cpp in Sources */,
 				3E3D739B1C82B0F900091C4D /* INIT.cpp in Sources */,
@@ -4825,10 +4853,10 @@
 				3E3D73FF1C82B0F900091C4D /* Interpreter_Tables.cpp in Sources */,
 				3E3D74361C82B0F900091C4D /* SignatureDB.cpp in Sources */,
 				3E3D73AF1C82B0F900091C4D /* EXI_DeviceIPL.cpp in Sources */,
-				3E1684DB1CA495A200475F67 /* OE_Guitar.cpp in Sources */,
 				3E3D74041C82B0F900091C4D /* Jit_Integer.cpp in Sources */,
 				3E3D738D1C82B0F900091C4D /* HLE_OS.cpp in Sources */,
 				3E3D73E21C82B0F900091C4D /* WII_IPC_HLE_Device_DI.cpp in Sources */,
+				3E89F4811CCE850B00EAE7AC /* OE_GCPad.cpp in Sources */,
 				3E3D73BA1C82B0F900091C4D /* HW.cpp in Sources */,
 				3E3D73681C82B0F900091C4D /* DSPCore.cpp in Sources */,
 				3E3D73611C82B0F900091C4D /* Dump.cpp in Sources */,
@@ -5213,6 +5241,7 @@
 				3E3D75FA1C82B2DE00091C4D /* HiresTextures.cpp in Sources */,
 				3E3D76141C82B2DE00091C4D /* VertexLoaderX64.cpp in Sources */,
 				3E3D76171C82B2DE00091C4D /* VertexShaderManager.cpp in Sources */,
+				3E89F4881CCE8B5600EAE7AC /* OE_VideoConfig.cpp in Sources */,
 				3E3D760E1C82B2DE00091C4D /* VertexLoader_Position.cpp in Sources */,
 				3E3D76111C82B2DE00091C4D /* VertexLoaderARM64.cpp in Sources */,
 				3E3D76091C82B2DE00091C4D /* TextureDecoder_Common.cpp in Sources */,
@@ -5236,7 +5265,6 @@
 				3E3D761A1C82B2DE00091C4D /* VideoState.cpp in Sources */,
 				3E3D76151C82B2DE00091C4D /* VertexManagerBase.cpp in Sources */,
 				3E3D760D1C82B2DE00091C4D /* VertexLoader_Normal.cpp in Sources */,
-				3E3D76191C82B2DE00091C4D /* VideoConfig.cpp in Sources */,
 				3E3D76081C82B2DE00091C4D /* TextureConversionShader.cpp in Sources */,
 				3E3D75FE1C82B2DE00091C4D /* OnScreenDisplay.cpp in Sources */,
 				3E3D76181C82B2DE00091C4D /* VideoBackendBase.cpp in Sources */,
@@ -5347,11 +5375,11 @@
 				3E3D70951C82B03600091C4D /* aldlist.cpp in Sources */,
 				3E3D70A01C82B03600091C4D /* WaveFile.cpp in Sources */,
 				3E3D709C1C82B03600091C4D /* NullSoundStream.cpp in Sources */,
-				3E3D709D1C82B03600091C4D /* OpenALStream.cpp in Sources */,
 				3E3D709E1C82B03600091C4D /* OpenSLESStream.cpp in Sources */,
 				3E3D709A1C82B03600091C4D /* DPL2Decoder.cpp in Sources */,
 				3E3D70981C82B03600091C4D /* AudioCommon.cpp in Sources */,
 				3E3D709B1C82B03600091C4D /* Mixer.cpp in Sources */,
+				3E89F4791CCAAB5100EAE7AC /* OE_OpenALStream.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5360,19 +5388,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E3D76391C82B30A00091C4D /* BoundingBox.cpp in Sources */,
+				3E89F4851CCE8AC600EAE7AC /* OE_Render.cpp in Sources */,
 				3E3D763C1C82B30A00091C4D /* NativeVertexFormat.cpp in Sources */,
 				3E3D76441C82B30A00091C4D /* TextureCache.cpp in Sources */,
 				3E3D763D1C82B30A00091C4D /* PerfQuery.cpp in Sources */,
 				3E3D763A1C82B30A00091C4D /* FramebufferManager.cpp in Sources */,
-				3E3D763E1C82B30A00091C4D /* PostProcessing.cpp in Sources */,
 				3E3D763F1C82B30A00091C4D /* ProgramShaderCache.cpp in Sources */,
 				3E3D76461C82B30A00091C4D /* VertexManager.cpp in Sources */,
 				3E3D763B1C82B30A00091C4D /* main.cpp in Sources */,
-				3E3D76411C82B30A00091C4D /* Render.cpp in Sources */,
 				3E3D76401C82B30A00091C4D /* RasterFont.cpp in Sources */,
 				3E3D76451C82B30A00091C4D /* TextureConverter.cpp in Sources */,
 				3E3D76421C82B30A00091C4D /* SamplerCache.cpp in Sources */,
 				3E3D76431C82B30A00091C4D /* StreamBuffer.cpp in Sources */,
+				3E89F4841CCE8AC600EAE7AC /* OE_PostProcessing.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

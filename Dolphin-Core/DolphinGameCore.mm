@@ -39,6 +39,7 @@
 //  updated to Dolphin 4.0-9196 git
 //  Added Render on alternate thread in Core.cpp in EmuThread() Video Thread
 //  Updated to dolphin 4.0-9211 - 12 Apr 2016
+//  Added Render on alternate thread in Cope.cpp in CPUThread() to support single thread mode CPU/GPU
 
 #import "DolphinGameCore.h"
 #include "Dolphin-Core/DolHost.h"

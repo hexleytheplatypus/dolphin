@@ -18,10 +18,7 @@
 #include "OE_WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
 #include "OE_Classic.h"
-#include "OE_Drums.h"
-#include "OE_Guitar.h"
 #include "OE_Nunchuk.h"
-#include "OE_Turntable.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"
 
 namespace
@@ -191,9 +188,7 @@ namespace WiimoteEmu
         m_extension->attachments.emplace_back(new WiimoteEmu::None(m_reg_ext));
         m_extension->attachments.emplace_back(new WiimoteEmu::Nunchuk(m_reg_ext));
         m_extension->attachments.emplace_back(new WiimoteEmu::Classic(m_reg_ext));
-        m_extension->attachments.emplace_back(new WiimoteEmu::Guitar(m_reg_ext));
-        m_extension->attachments.emplace_back(new WiimoteEmu::Drums(m_reg_ext));
-        m_extension->attachments.emplace_back(new WiimoteEmu::Turntable(m_reg_ext));
+    
 
         m_extension->settings.emplace_back(new ControlGroup::Setting(_trans("Motion Plus"), 0, 0, 1));
 

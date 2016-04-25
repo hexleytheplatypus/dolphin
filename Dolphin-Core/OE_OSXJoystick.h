@@ -27,8 +27,6 @@
 
 #pragma once
 
-#include <IOKit/hid/IOHIDLib.h>
-
 #include "InputCommon/ControllerInterface/Device.h"
 #include "InputCommon/ControllerInterface/ForceFeedback/ForceFeedbackDevice.h"
 

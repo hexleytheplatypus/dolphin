@@ -28,10 +28,9 @@
 #include <sstream>
 
 #include <Foundation/Foundation.h>
-//#include <IOKit/hid/IOHIDLib.h>
 
 #include "OE_OSXJoystick.h"
-#include "InputCommon/ControllerEmu.h"
+#include "OE_ControllerEmu.h"
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 
 

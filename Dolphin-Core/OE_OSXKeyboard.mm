@@ -5,7 +5,6 @@
 #include <sstream>
 
 #include <Foundation/Foundation.h>
-#include <IOKit/hid/IOHIDLib.h>
 #include <Cocoa/Cocoa.h>
 
 #include "OE_OSXKeyboard.h"

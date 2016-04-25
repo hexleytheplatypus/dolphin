@@ -28,7 +28,7 @@
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
 #include "Core/Host.h"
-#include "Core/HW/GCPadEmu.h"
+#include "OE_GCPadEmu.h"
 
 static const u16 button_bitmasks[] =
 {
