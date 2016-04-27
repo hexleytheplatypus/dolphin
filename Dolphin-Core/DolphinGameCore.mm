@@ -115,7 +115,11 @@ DolphinGameCore *_current = 0;
 
 - (void)setPauseEmulation:(BOOL)flag
 {
+    flag ? [self beginPausedExecution ] : [self endPausedExecution];
+    
      dol_host->Pause(flag);
+
+    [super setPauseEmulation:flag];
 }
 
 - (void)stopEmulation
@@ -155,6 +159,9 @@ DolphinGameCore *_current = 0;
 # pragma mark - Render Callback
 - (void)swapBuffers
 {
+    if ([self isEmulationPaused])
+        return;
+
     //This will render the Dolphin FBO frame
     [self.renderDelegate presentDoubleBufferedFBO];
     [self.renderDelegate didRenderFrameOnAlternateThread];
@@ -239,7 +246,10 @@ DolphinGameCore *_current = 0;
     while (! _isInitialized)
         usleep (1000);
 
+   [self beginPausedExecution];
+
     block(dol_host->SaveState([fileName UTF8String]),nil);
+    [self endPausedExecution];
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
@@ -252,7 +262,9 @@ DolphinGameCore *_current = 0;
 
         block(true, nil);
     } else {
+        [self beginPausedExecution];
         block(dol_host->LoadState([fileName UTF8String]),nil);
+        [self endPausedExecution];
     }
 }
 - (void) autoloadSaveState:(NSString *)fileName
