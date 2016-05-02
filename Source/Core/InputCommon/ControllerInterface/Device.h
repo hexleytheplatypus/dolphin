@@ -61,7 +61,6 @@ public:
 
 		virtual ControlState GetState() const = 0;
 
-        //OE add set state
         virtual void SetState(ControlState state) = 0;
 
 		ControlState GetGatedState()
@@ -120,14 +119,15 @@ protected:
 			: m_low(*low), m_high(*high)
 		{}
 
-        void SetState(ControlState state) override
-        {}
-        
 		ControlState GetState() const override
 		{
 			return (1 + m_high.GetState() - m_low.GetState()) / 2;
 		}
 
+
+        void SetState(ControlState state) override
+        {}
+        
 		std::string GetName() const override
 		{
 			return m_low.GetName() + *m_high.GetName().rbegin();

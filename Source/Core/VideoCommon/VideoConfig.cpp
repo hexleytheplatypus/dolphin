@@ -41,6 +41,9 @@ VideoConfig::VideoConfig()
 	// disable all features by default
 	backend_info.APIType = API_NONE;
 	backend_info.bSupportsExclusiveFullscreen = false;
+
+    //Set Render Framebuffer Oject to default FBO
+    iRenderFBO = 0;
 }
 
 void VideoConfig::Load(const std::string& ini_file)

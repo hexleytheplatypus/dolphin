@@ -7106,6 +7106,31 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					"'HAVE_X11=0'",
+					"OpenEmu=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
@@ -8779,6 +8804,7 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"'HAVE_X11=0'",
+					"OpenEmu=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -10492,6 +10518,31 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					"'HAVE_X11=0'",
+					"OpenEmu=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,
@@ -10647,6 +10698,31 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					"'HAVE_X11=0'",
+					"OpenEmu=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Externals/SFML/include,

@@ -19,7 +19,9 @@
 #include "Common/FileUtil.h"
 #include "Common/Logging/Log.h"
 
+#ifdef OpenEmu
 #include "DolphinGameCore.h"
+#endif
 
 #ifdef _WIN32
 #include <commdlg.h>   // for GetSaveFileName
@@ -717,9 +719,22 @@ std::string GetTempFilenameForAtomicWrite(const std::string& path)
 #if defined(__APPLE__)
 std::string GetBundleDirectory()
 {
+#ifdef OpenEmu
     GET_CURRENT_OR_RETURN();
 
     return [current getBundlePath];
+#else
+    CFURLRef BundleRef;
+    char AppBundlePath[MAXPATHLEN];
+    // Get the main bundle for the app
+    BundleRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    CFStringRef BundlePath = CFURLCopyFileSystemPath(BundleRef, kCFURLPOSIXPathStyle);
+    CFStringGetFileSystemRepresentation(BundlePath, AppBundlePath, sizeof(AppBundlePath));
+    CFRelease(BundleRef);
+    CFRelease(BundlePath);
+
+    return AppBundlePath;
+#endif
 }
 #endif
 
