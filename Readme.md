@@ -1,10 +1,19 @@
-# Dolphin - A GameCube / Wii / Triforce Emulator
+# Dolphin - A GameCube / Wii / Triforce Emulator core that works on OpenEmu
 
-[Homepage](https://dolphin-emu.org/) | [Project Site](https://github.com/dolphin-emu/dolphin) | [Forums](https://forums.dolphin-emu.org/) | [Wiki](https://wiki.dolphin-emu.org/) | [Issue Tracker](https://bugs.dolphin-emu.org/projects/emulator/issues) | [Coding Style](https://github.com/dolphin-emu/dolphin/blob/master/Contributing.md) | [Transifex Page](https://www.transifex.com/projects/p/dolphin-emu/)
+
+NOTE:   This is not a core supported by the OpenEmu Team.  Issues will not be handled by the OpenEmu team.
+        Most issues such as sound and graphics are rooted in the dolphin emulator and not OpenEmu.
+        This is a Working-As-Is core.
+
+        The un-official fork of OpenEmu with Wii Support is not supported by the OpenEmu Team and issues with 
+        the this fork will not be handled by the OpenEmu Team.
+
+         Do not contact the OpenEmu IRC with questions about this core or the Open-Emu fork here.
+
 
 Dolphin-Core is GameCube and Wii emulation core for OpenEmu.
 
-It is a Work in Progress and is already running many GameCube in the lastest OpenEmu compiled from git source
+It is a Work in Progress and is already running many GameCube in the lastest OpenEmu compiled from git source.
 
 Wii support is added with the git source fork of Open-Emu and OpenEmu-SDK from https://github.com/duckey77.
 
@@ -18,8 +27,8 @@ Please read the [FAQ](https://dolphin-emu.org/docs/faq/) before using Dolphin.
 
 ### Dolphin-Core supports the following file formats
 Wii:
-  Wad
-  Ciso
+  wad
+  ciso
   iso
   
 GC:
