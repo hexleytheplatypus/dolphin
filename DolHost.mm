@@ -51,6 +51,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 #include "DiscIO/VolumeCreator.h"
 
+
+
+
 DolHost* DolHost::m_instance = nullptr;
 static Common::Event updateMainFrameEvent;
 
@@ -77,7 +80,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().bDSPThread = true;
     SConfig::GetInstance().m_Volume = 0;
-    SConfig::GetInstance().bOnScreenDisplayMessages = false;
+    SConfig::GetInstance().bOnScreenDisplayMessages = true;
     SConfig::GetInstance().bMMU = true;
     SConfig::GetInstance().bSkipIdle = true;
     SConfig::GetInstance().bEnableCheats = true;
@@ -321,6 +324,17 @@ void DolHost::SetUpPlayerInputs()
             { OEWiiMoteButtonPlus, "OEWiiMoteButtonPlus" },
             { OEWiiMoteButtonMinus, "OEWiiMoteButtonMinus" },
             { OEWiiMoteButtonHome, "OEWiiMoteButtonHome" },
+            { OEWiiMoteTiltLeft, "OEWiiMoteTiltLeft" },
+            { OEWiiMoteTiltRight, "OEWiiMoteTiltRight" },
+            { OEWiiMoteTiltForward, "OEWiiMoteTiltForward" },
+            { OEWiiMoteTiltBackward, "OEWiiMoteTiltBackward" },
+            { OEWiiMoteShake, "OEWiiMoteShake" },
+            { OEWiiMoteSwingUp, "OEWiiMoteSwingUp" },
+            { OEWiiMoteSwingDown, "OEWiiMoteSwingDown" },
+            { OEWiiMoteSwingLeft, "OEWiiMoteSwingLeft" },
+            { OEWiiMoteSwingRight, "OEWiiMoteSwingRight" },
+            { OEWiiMoteSwingForward, "OEWiiMoteSwingForward" },
+            { OEWiiMoteSwingBackward, "OEWiiMoteSwingBackward" },
             { OEWiiNunchukAnalogUp, "OEWiiNunchukAnalogUp" },
             { OEWiiNunchukAnalogDown, "OEWiiNunchukAnalogDown" },
             { OEWiiNunchukAnalogLeft, "OEWiiNunchukAnalogLeft" },
@@ -445,13 +459,13 @@ void DolHost::SetButtonState(int button, int state, int player)
 
         if ( _wiiChangeExtension[player] && state == 1)
         {
-            if ( button < 10){
+            if ( button < 12){
                 changeWiimoteExtension(OEWiimoteExtensionNotConnected, player);
                 Core::DisplayMessage("Extenstion Removed", 1500);
-            } else if (button > 10 && button < 17 ) {
+            } else if (button > 12 && button < 19 ) {
                 changeWiimoteExtension(OEWiimoteExtensionNunchuck, player);
                 Core::DisplayMessage("Nunchuk Connected", 1500);
-            } else if (button > 16 && button < 40 ) {
+            } else if (button > 18 && button < 42 ) {
                 changeWiimoteExtension(OEWiimoteExtensionClassicController, player);
                 Core::DisplayMessage("Classic Controller Connected", 1500);
             }
@@ -496,6 +510,11 @@ void DolHost::setIRdata(OEwiimoteIRinfo IRinfo, int player)
 }
 
 # pragma mark - DVD info
+void DolHost::DisplayMessage(std::string message)
+{
+    Core::DisplayMessage( message, 500);
+}
+
 void DolHost::GetGameInfo()
 {
     std::unique_ptr<DiscIO::IVolume> pVolume(DiscIO::CreateVolumeFromFilename( _gamePath ));

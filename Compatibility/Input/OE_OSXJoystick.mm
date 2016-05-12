@@ -60,6 +60,23 @@ namespace ciface
                 AddInput(new Button("OEWiiMoteButtonMinus"));
                 AddInput(new Button("OEWiiMoteButtonHome"));
 
+                // OE Wiimote Shake
+                AddInput(new Button("OEWiiMoteShake"));
+
+                // OE Wiimote Tilt
+                AddAnalogInputs(new Axis("OEWiiMoteTiltLeft",Axis::negative),
+                                new Axis("OEWiiMoteTiltRight",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiMoteTiltBackward",Axis::negative),
+                                new Axis("OEWiiMoteTiltForward",Axis::positive));
+
+                //OE Wiimote Swing
+                AddAnalogInputs(new Axis("OEWiiMoteSwingDown",Axis::negative),
+                                new Axis("OEWiiMoteSwingUp",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiMoteSwingLeft",Axis::negative),
+                                new Axis("OEWiiMoteSwingRight",Axis::positive));
+                AddAnalogInputs(new Axis("OEWiiMoteSwingBackward",Axis::negative),
+                                new Axis("OEWiiMoteSwingForward",Axis::positive));
+
                 //OE Nunchuk Buttons
                 AddInput(new Button("OEWiiNunchukButtonC"));
                 AddInput(new Button("OEWiiNunchukButtonZ"));

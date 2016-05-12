@@ -76,6 +76,98 @@ namespace WiimoteEmu
         { 0, 0, 0, 0, 23 },
     };
 
+    void EmulateShake(AccelData* const accel
+                      , ControllerEmu::Buttons* const buttons_group
+                      , u8* const shake_step )
+    {
+        // frame count of one up/down shake
+        // < 9 no shake detection in "Wario Land: Shake It"
+        auto const shake_step_max = 15;
+
+        // peak G-force
+        auto const shake_intensity = 3.0;
+
+        // shake is a bitfield of X,Y,Z shake button states
+        static const unsigned int btns[] = { 0x01, 0x02, 0x04 };
+        unsigned int shake = 0;
+        buttons_group->GetState(&shake, btns);
+
+        for (int i = 0; i != 3; ++i)
+        {
+            if (shake & (1 << i))
+            {
+                (&(accel->x))[i] = std::sin(TAU * shake_step[i] / shake_step_max) * shake_intensity;
+                shake_step[i] = (shake_step[i] + 1) % shake_step_max;
+            }
+            else
+                shake_step[i] = 0;
+        }
+    }
+
+    void EmulateTilt(AccelData* const accel
+                     , ControllerEmu::Tilt* const tilt_group
+                     , const bool sideways, const bool upright)
+    {
+        ControlState roll, pitch;
+        // 180 degrees
+        tilt_group->GetState(&roll, &pitch);
+
+        roll *= PI;
+        pitch *= PI;
+
+        unsigned int ud = 0, lr = 0, fb = 0;
+
+        // some notes that no one will understand but me :p
+        // left, forward, up
+        // lr/ left == negative for all orientations
+        // ud/ up == negative for upright longways
+        // fb/ forward == positive for (sideways flat)
+
+        // determine which axis is which direction
+        ud = upright ? (sideways ? 0 : 1) : 2;
+        lr = sideways;
+        fb = upright ? 2 : (sideways ? 0 : 1);
+
+        int sgn[3]={-1,1,1}; //sign fix
+
+        if (sideways && !upright)
+            sgn[fb] *= -1;
+        if (!sideways && upright)
+            sgn[ud] *= -1;
+
+        (&accel->x)[ud] = (sin((PI / 2) - std::max(fabs(roll), fabs(pitch))))*sgn[ud];
+        (&accel->x)[lr] = -sin(roll)*sgn[lr];
+        (&accel->x)[fb] = sin(pitch)*sgn[fb];
+    }
+
+#define SWING_INTENSITY  2.5//-uncalibrated(aprox) 0x40-calibrated
+
+    void EmulateSwing(AccelData* const accel
+                      , ControllerEmu::Force* const swing_group
+                      , const bool sideways, const bool upright)
+    {
+        ControlState swing[3];
+        swing_group->GetState(swing);
+        
+        s8 g_dir[3] = {-1, -1, -1};
+        u8 axis_map[3];
+        
+        // determine which axis is which direction
+        axis_map[0] = upright ? (sideways ? 0 : 1) : 2; // up/down
+        axis_map[1] = sideways; // left|right
+        axis_map[2] = upright ? 2 : (sideways ? 0 : 1); // forward/backward
+        
+        // some orientations have up as positive, some as negative
+        // same with forward
+        if (sideways && !upright)
+            g_dir[axis_map[2]] *= -1;
+        if (!sideways && upright)
+            g_dir[axis_map[0]] *= -1;
+        
+        for (unsigned int i = 0; i < 3; ++i)
+            (&accel->x)[axis_map[i]] += swing[i] * g_dir[i] * SWING_INTENSITY;
+    }
+
     static const u16 button_bitmasks[] =
     {
         Wiimote::BUTTON_A,
@@ -319,16 +411,50 @@ namespace WiimoteEmu
 
     void Wiimote::GetAccelData(u8* const data, const ReportFeatures& rptf)
     {
+
+        const bool is_sideways = m_options->settings[1]->value != 0;
+        const bool is_upright = m_options->settings[2]->value != 0;
+
         wm_accel& accel = *(wm_accel*)(data + rptf.accel);
         wm_buttons& core = *(wm_buttons*)(data + rptf.core);
+        
 
-        accel.x =  m_accel.x ;
-        accel.y =  m_accel.y;
-        accel.z =  m_accel.z;
+        EmulateTilt(&m_accel, m_tilt, is_sideways, is_upright);
+        EmulateSwing(&m_accel, m_swing, is_sideways, is_upright);
+        EmulateShake(&m_accel, m_shake, m_shake_step);
 
-        core.acc_x_lsb = m_accel.x;
-        core.acc_y_lsb = m_accel.y;
-        core.acc_z_lsb = m_accel.z;
+
+
+        // We now use 2 bits more precision, so multiply by 4 before converting to int
+        s16 x = (s16)(4 * (m_accel.x * ACCEL_RANGE + ACCEL_ZERO_G));
+        s16 y = (s16)(4 * (m_accel.y * ACCEL_RANGE + ACCEL_ZERO_G));
+        s16 z = (s16)(4 * (m_accel.z * ACCEL_RANGE + ACCEL_ZERO_G));
+
+        x = MathUtil::Clamp<s16>(x, 0, 1024);
+        y = MathUtil::Clamp<s16>(y, 0, 1024);
+        z = MathUtil::Clamp<s16>(z, 0, 1024);
+
+       // wm_accel& accel = *(wm_accel*)(data + rptf.accel);
+       // wm_buttons& core = *(wm_buttons*)(data + rptf.core);
+
+        accel.x = (x >> 2) & 0xFF;
+        accel.y = (y >> 2) & 0xFF;
+        accel.z = (z >> 2) & 0xFF;
+
+        core.acc_x_lsb = x & 0x3;
+        core.acc_y_lsb = (y >> 1) & 0x1;
+        core.acc_z_lsb = (z >> 1) & 0x1;
+//    }
+//    else
+//    {
+//        accel.x =  m_accel.x ;
+//        accel.y =  m_accel.y;
+//        accel.z =  m_accel.z;
+//
+//        core.acc_x_lsb = m_accel.x;
+//        core.acc_y_lsb = m_accel.y;
+//        core.acc_z_lsb = m_accel.z;
+//    }
     }
 
     inline void LowPassFilter(double& var, double newval, double period)
@@ -740,36 +866,46 @@ namespace WiimoteEmu
         ControllerEmu::LoadDefaults(ciface);
 
         // Buttons
-
         m_buttons->SetControlExpression(0, "OEWiiMoteButtonA"); // A
         m_buttons->SetControlExpression(1, "OEWiiMoteButtonB"); // B
-        
         m_buttons->SetControlExpression(2, "OEWiiMoteButton1"); // 1
         m_buttons->SetControlExpression(3, "OEWiiMoteButton2"); // 2
         m_buttons->SetControlExpression(4, "OEWiiMoteButtonMinus"); // -
         m_buttons->SetControlExpression(5, "OEWiiMoteButtonPlus"); // +
-
         m_buttons->SetControlExpression(6, "OEWiiMoteButtonHome"); // Home
         
         // Shake
         for (int i = 0; i < 3; ++i)
-            m_shake->SetControlExpression(i, "Click 2");
-        
+            m_shake->SetControlExpression(i, "OEWiiMoteShake");
+
+        //Swing
+        m_swing->SetControlExpression(0, "OEWiiMoteSwingUp");
+        m_swing->SetControlExpression(1, "OEWiiMoteSwingDown");
+        m_swing->SetControlExpression(2, "OEWiiMoteSwingLeft");
+        m_swing->SetControlExpression(3, "OEWiiMoteSwingRight");
+        m_swing->SetControlExpression(4, "OEWiiMoteSwingForward");
+        m_swing->SetControlExpression(5, "OEWiiMoteSwingBackward");
+
+        //Tilt
+        m_tilt->SetControlExpression(0, "OEWiiMoteTiltForward");
+        m_tilt->SetControlExpression(1, "OEWiiMoteTiltBackward");
+        m_tilt->SetControlExpression(2, "OEWiiMoteTiltLeft");
+        m_tilt->SetControlExpression(3, "OEWiiMoteTiltRight");
+
         // IR
-        m_ir->SetControlExpression(0, "Cursor Y-");
-        m_ir->SetControlExpression(1, "Cursor Y+");
-        m_ir->SetControlExpression(2, "Cursor X-");
-        m_ir->SetControlExpression(3, "Cursor X+");
+        m_ir->SetControlExpression(0, "OEWiiMoteIRDown");
+        m_ir->SetControlExpression(1, "OEWiiMoteIRUp");
+        m_ir->SetControlExpression(2, "OEWiiMoteIRLeft");
+        m_ir->SetControlExpression(3, "OEWiiMoteIRRight");
         
         // DPad
         m_dpad->SetControlExpression(0, "OEWiiMoteButtonUp");    // Up
         m_dpad->SetControlExpression(1, "OEWiiMoteButtonDown");  // Down
         m_dpad->SetControlExpression(2, "OEWiiMoteButtonLeft");  // Left
         m_dpad->SetControlExpression(3, "OEWiiMoteButtonRight"); // Right
-        
-        
+
         // ugly stuff
-        // enable nunchuk
+        // remove Extension
         m_extension->switch_extension = 0;
         
         // set nunchuk defaults

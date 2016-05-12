@@ -358,6 +358,27 @@ DolphinGameCore *_current = 0;
     }
 }
 
+- (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
+{
+    if (_isInitialized)
+    {
+        int dX = 1024.0 - (1024.0 / 854 * X);
+        int dY = 768.0 / 480 * Y;
+
+        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dX ] UTF8String]);
+        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dY ] UTF8String]);
+
+        OEwiimoteIRinfo IRData;
+
+        for (int i=0; i < 4; i++){
+            IRData.dX[i] = dX;
+            IRData.dY[i] =  dY;
+        }
+        dol_host->setIRdata(IRData, 0);
+    }
+}
+
+
 # pragma mark - Cheats
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
 {
