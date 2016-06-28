@@ -52,7 +52,7 @@ void VideoConfig::UpdateProjectionHack()
 }
 
 static int OSDInternalW, OSDInternalH;
-static int s_max_texture_size;
+static int s_max_texture_size = 0;
 
 namespace OGL
 {
@@ -404,6 +404,9 @@ Renderer::Renderer()
 		}
 	}
 
+	// Copy the GPU name to g_Config, so Analytics can see it.
+	g_Config.backend_info.AdapterName = g_ogl_config.gl_renderer;
+
 	g_Config.backend_info.bSupportsDualSourceBlend = GLExtensions::Supports("GL_ARB_blend_func_extended") ||
 	                                                 GLExtensions::Supports("GL_EXT_blend_func_extended");
 	g_Config.backend_info.bSupportsPrimitiveRestart = !DriverDetails::HasBug(DriverDetails::BUG_PRIMITIVERESTART) &&
@@ -455,7 +458,7 @@ Renderer::Renderer()
 		g_ogl_config.bSupportsGLSLCache = true;
 		g_ogl_config.bSupportsGLSync = true;
 
-		if (strstr(g_ogl_config.glsl_version, "3.0") || DriverDetails::HasBug(DriverDetails::BUG_BROKENGLES31))
+		if (strstr(g_ogl_config.glsl_version, "3.0"))
 		{
 			g_ogl_config.eSupportedGLSLVersion = GLSLES_300;
 			g_ogl_config.bSupportsAEP = false;
@@ -711,9 +714,6 @@ void Renderer::Init()
 	s_raster_font = std::make_unique<RasterFont>();
 
 	OpenGL_CreateAttributelessVAO();
-
-	// Cache this, because if you do this multiple times a frame, it shows up really high on a profile.
-	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &s_max_texture_size);
 }
 
 void Renderer::RenderText(const std::string& text, int left, int top, u32 color)
@@ -1309,6 +1309,11 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 			{
 				drawRc = flipped_trc;
 				sourceRc.right -= fbStride - fbWidth;
+
+				// RealXFB doesn't call ConvertEFBRectangle for sourceRc, therefore it is still assuming a top-left origin.
+				// The top offset is always zero (see FramebufferManagerBase::GetRealXFBSource).
+				sourceRc.top = sourceRc.bottom;
+				sourceRc.bottom = 0;
 			}
 			else
 			{
@@ -1348,7 +1353,7 @@ void Renderer::SwapImpl(u32 xfbAddr, u32 fbWidth, u32 fbStride, u32 fbHeight, co
 		BlitScreen(targetRc, flipped_trc, tex, s_target_width, s_target_height);
 	}
 
-	glBindFramebuffer(GL_READ_FRAMEBUFFER,  g_Config.iRenderFBO);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_Config.iRenderFBO);
 
 	// Save screenshot
 	if (s_bScreenshot)
@@ -1697,6 +1702,10 @@ bool Renderer::SaveScreenshot(const std::string &filename, const TargetRectangle
 
 int Renderer::GetMaxTextureSize()
 {
+	// Right now nvidia seems to do something very weird if we try to cache GL_MAX_TEXTURE_SIZE in init. This is a workaround that lets
+	// us keep the perf improvement that caching it gives us.
+	if (s_max_texture_size == 0)
+		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &s_max_texture_size);
 	return s_max_texture_size;
 }
 

@@ -51,11 +51,6 @@ void ControllerEmu::Extension::GetState(u8* const data)
 	((WiimoteEmu::Attachment*)attachments[active_extension].get())->GetState(data);
 }
 
-void ControllerEmu::Extension::UpdateAccelData(float X, float Y, float Z)
-{
-    ((WiimoteEmu::Attachment*)attachments[active_extension].get())->UpdateAccelData( X,  Y, Z);
-}
-
 bool ControllerEmu::Extension::IsButtonPressed() const
 {
 	// Extension == 0 means no Extension, > 0 means one is connected

@@ -18,8 +18,6 @@ public:
 	void GetState(u8* const data) override;
 	bool IsButtonPressed() const override;
 
-    void LoadDefaults(const ControllerInterface& ciface) override;
-
 	enum
 	{
 		PAD_RIGHT    = 0x80,

@@ -26,19 +26,14 @@
 
 /*
     What doesn't work:
+         If I got everything in GC working
 
-        - Autoload savestate on start doesn't work reliably on Wii.  some games it works most it doesn't
-        - Wii does not have a reset function, so restart only works in GC mode
  */
 
 //  Changed <al*> includes to <OpenAL/al*>
-//  Updated to Dolphin Git Source 28 Feb 2016
 //  Added iRenderFBO to Videoconfig, OGL postprocessing and renderer
-//  Added SetState to device.h
-//  Add UpdateAccelData to ControllerEmu.h
-//  updated to Dolphin 4.0-9196 git
+//  Added SetState to device.h for input and FullAnalogControl
 //  Added Render on alternate thread in Core.cpp in EmuThread() Video Thread
-//  Updated to dolphin 4.0-9211 - 12 Apr 2016
 //  Added Render on alternate thread in Cope.cpp in CPUThread() to support single thread mode CPU/GPU
 
 #import "DolphinGameCore.h"
@@ -79,6 +74,7 @@ DolphinGameCore *_current = 0;
         dol_host = DolHost::GetInstance();
 
     _current = self;
+
     return self;
 }
 
@@ -115,10 +111,9 @@ DolphinGameCore *_current = 0;
 
 - (void)setPauseEmulation:(BOOL)flag
 {
-    flag ? [self beginPausedExecution ] : [self endPausedExecution];
     
      dol_host->Pause(flag);
-
+    
     [super setPauseEmulation:flag];
 }
 
@@ -143,16 +138,22 @@ DolphinGameCore *_current = 0;
             _isInitialized = true;
     }
     [super startEmulation];
+
+    //Disable the OE framelimiting
+    [self.renderDelegate suspendFPSLimiting];
 }
 
 - (void)resetEmulation
 {
-    if(!_isWii)
      dol_host->Reset();
 }
 
 - (void)executeFrame
 {
+    if (![self isEmulationPaused])
+        if (!dol_host->CoreRunning())
+            dol_host->Pause(false);
+
     dol_host->UpdateFrame();
 }
 
@@ -246,10 +247,8 @@ DolphinGameCore *_current = 0;
     while (! _isInitialized)
         usleep (1000);
 
-   [self beginPausedExecution];
-
     block(dol_host->SaveState([fileName UTF8String]),nil);
-    [self endPausedExecution];
+
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
@@ -262,18 +261,12 @@ DolphinGameCore *_current = 0;
 
         block(true, nil);
     } else {
-        [self beginPausedExecution];
         block(dol_host->LoadState([fileName UTF8String]),nil);
-        [self endPausedExecution];
     }
 }
 - (void) autoloadSaveState:(NSString *)fileName
 {
-    [self beginPausedExecution];
-
     dol_host->setAutoloadFile([fileName UTF8String]);
-
-    [self endPausedExecution];
 }
 
 # pragma mark - Input GC
@@ -301,83 +294,82 @@ DolphinGameCore *_current = 0;
     }
 }
 
-# pragma mark - Input Wii
-- (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
-{
-    if(_isInitialized)
-    {
-        dol_host->SetAxis(button, value, (int)player);
-    }
-}
+//# pragma mark - Input Wii
+//- (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
+//{
+//    if(_isInitialized)
+//    {
+//        dol_host->SetAxis(button, value, (int)player);
+//    }
+//}
+//
+//
+//- (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
+//{
+//    if(_isInitialized)
+//    {
+//        dol_host->SetButtonState(button, 1, (int)player);
+//    }
+//}
+//
+//- (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
+//{
+//    if(_isInitialized)
+//    {
+//        dol_host->SetButtonState(button, 0, (int)player);
+//    }
+//}
 
+//- (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
+//{
+//    if(_isInitialized)
+//    {
+//        if (accelerometer == OEWiiNunchuk)
+//        {
+//            dol_host->setNunchukAccel(X,Y,Z,(int)player);
+//        }
+//        else
+//        {
+//            dol_host->setWiimoteAccel(X,Y,Z,(int)player);
+//        }
+//    }
+//}
+//
+//- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(OEwiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
+//{
+//    if(_isInitialized)
+//    {
+//        dol_host->setIRdata(IRinfo ,(int)player);
+//    }
+//}
+//
+//- (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
+//{
+//    if(_isInitialized)
+//    {
+//        dol_host->changeWiimoteExtension(extension, (int)player);
+//    }
+//}
 
-- (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
-{
-    if(_isInitialized)
-    {
-        dol_host->SetButtonState(button, 1, (int)player);
-    }
-}
-
-- (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
-{
-    if(_isInitialized)
-    {
-        dol_host->SetButtonState(button, 0, (int)player);
-    }
-}
-
-- (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
-{
-    if(_isInitialized)
-    {
-        if (accelerometer == OEWiiNunchuk)
-        {
-            dol_host->setNunchukAccel(X,Y,Z,(int)player);
-        }
-        else
-        {
-            dol_host->setWiimoteAccel(X,Y,Z,(int)player);
-        }
-    }
-}
-
-- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(OEwiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
-{
-    if(_isInitialized)
-    {
-        dol_host->setIRdata(IRinfo ,(int)player);
-    }
-}
-
-- (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
-{
-    if(_isInitialized)
-    {
-        dol_host->changeWiimoteExtension(extension, (int)player);
-    }
-}
-
-- (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
-{
-    if (_isInitialized)
-    {
-        int dX = 1024.0 - (1024.0 / 854 * X);
-        int dY = 768.0 / 480 * Y;
-
-        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dX ] UTF8String]);
-        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dY ] UTF8String]);
-
-        OEwiimoteIRinfo IRData;
-
-        for (int i=0; i < 4; i++){
-            IRData.dX[i] = dX;
-            IRData.dY[i] =  dY;
-        }
-        dol_host->setIRdata(IRData, 0);
-    }
-}
-
+//- (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
+//{
+//    if (_isInitialized)
+//    {
+//        int dX = 1024.0 - (1024.0 / 854 * X);
+//        int dY = 768.0 / 480 * Y;
+//
+////        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dX ] UTF8String]);
+////        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dY ] UTF8String]);
+//
+//        OEwiimoteIRinfo IRData;
+//
+//        for (int i=0; i < 4; i++){
+//            IRData.dX[i] = dX;
+//            IRData.dY[i] =  dY;
+//        }
+//        dol_host->setIRdata(IRData, 0);
+//    }
+//}
 
 # pragma mark - Cheats
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled

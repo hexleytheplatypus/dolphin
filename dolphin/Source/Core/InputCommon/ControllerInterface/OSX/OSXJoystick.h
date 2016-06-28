@@ -24,8 +24,6 @@ private:
 			: m_element(element), m_device(device) {}
 		std::string GetName() const override;
 		ControlState GetState() const override;
-        
-
 	private:
 		const IOHIDElementRef m_element;
 		const IOHIDDeviceRef  m_device;
@@ -43,7 +41,6 @@ private:
 		Axis(IOHIDElementRef element, IOHIDDeviceRef device, direction dir);
 		std::string GetName() const override;
 		ControlState GetState() const override;
-        void SetState(ControlState state) override;
 
 	private:
 		const IOHIDElementRef m_element;
@@ -68,7 +65,6 @@ private:
 		Hat(IOHIDElementRef element, IOHIDDeviceRef device, direction dir);
 		std::string GetName() const override;
 		ControlState GetState() const override;
-        void SetState(ControlState state) override;
 
 	private:
 		const IOHIDElementRef m_element;

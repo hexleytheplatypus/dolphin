@@ -18,7 +18,6 @@ public:
 
 	virtual void GetState(u8* const data) {}
 	virtual bool IsButtonPressed() const { return false; }
-    virtual void UpdateAccelData(float X, float Y, float Z) {}
 	void Reset();
 	std::string GetName() const override;
 

@@ -7,13 +7,15 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 // Git version number
-extern const char* scm_desc_str;
-extern const char* scm_branch_str;
-extern const char* scm_rev_str;
-extern const char* scm_rev_git_str;
-extern const char* netplay_dolphin_ver;
+extern const std::string scm_desc_str;
+extern const std::string scm_branch_str;
+extern const std::string scm_rev_str;
+extern const std::string scm_rev_git_str;
+extern const std::string netplay_dolphin_ver;
+extern const std::string scm_distributor_str;
 
 // Force enable logging in the right modes. For some reason, something had changed
 // so that debugfast no longer logged.
@@ -82,6 +84,7 @@ enum HOST_COMM
 	WM_USER_STOP = 10,
 	WM_USER_CREATE,
 	WM_USER_SETCURSOR,
+	WM_USER_JOB_DISPATCH,
 };
 
 // Used for notification on emulation state

@@ -40,8 +40,6 @@ public:
 
 	void LoadDefaults(const ControllerInterface& ciface) override;
 
-    void UpdateAccelData(float X, float Y, float Z) override;
-
 private:
 	Tilt*        m_tilt;
 	Force*       m_swing;
@@ -50,8 +48,6 @@ private:
 
 	Buttons*     m_buttons;
 	AnalogStick* m_stick;
-
-    AccelData m_accel;
 
 	u8 m_shake_step[3];
 };

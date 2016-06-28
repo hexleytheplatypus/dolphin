@@ -105,7 +105,6 @@ enum
 	IDM_TOGGLE_DUMP_AUDIO,
 
 	// File menu
-	IDM_BROWSE,
 	IDM_DRIVES,
 	IDM_DRIVE1,
 	IDM_DRIVE24 = IDM_DRIVE1 + 23,//248,
@@ -332,10 +331,11 @@ enum
 
 // custom message macro
 #define EVT_HOST_COMMAND(id, fn) \
-	DECLARE_EVENT_TABLE_ENTRY(\
-			wxEVT_HOST_COMMAND, id, wxID_ANY, \
-			(wxObjectEventFunction)(wxEventFunction) wxStaticCastEvent(wxCommandEventFunction, &fn), \
-			(wxObject*) nullptr \
-			),
+	EVT_COMMAND(id, wxEVT_HOST_COMMAND, fn)
 
 wxDECLARE_EVENT(wxEVT_HOST_COMMAND, wxCommandEvent);
+
+// Sent to wxTheApp
+// GetString() == Game's Unique ID
+// GetInt() == Game's Revision
+wxDECLARE_EVENT(DOLPHIN_EVT_LOCAL_INI_CHANGED, wxCommandEvent);

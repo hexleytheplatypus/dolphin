@@ -92,8 +92,8 @@ struct VideoConfig final
 	// Render
 	bool bWireFrame;
 	bool bDisableFog;
-    int  iRenderFBO;
-    
+    int iRenderFBO;
+
 	// Utility
 	bool bDumpTextures;
 	bool bHiresTextures;
@@ -156,6 +156,9 @@ struct VideoConfig final
 		std::vector<int> AAModes;
 		std::vector<std::string> PPShaders; // post-processing shaders
 		std::vector<std::string> AnaglyphShaders; // anaglyph shaders
+
+		// TODO: merge AdapterName and Adapters array
+		std::string AdapterName; // for OpenGL
 
 		bool bSupportsExclusiveFullscreen;
 		bool bSupportsDualSourceBlend;

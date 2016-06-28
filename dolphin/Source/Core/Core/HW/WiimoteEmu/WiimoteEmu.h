@@ -37,11 +37,6 @@ struct AccelData
 	double x,y,z;
 };
 
-struct IRdata
-{
-    unsigned int x[4], y[4], s[4];
-};
-
 struct ADPCMState
 {
 	s32 predictor, step;
@@ -126,12 +121,7 @@ public:
 	void LoadDefaults(const ControllerInterface& ciface) override;
 
 	int CurrentExtension() const { return m_extension->active_extension; }
-    void SwitchExtension(int ext) { m_extension->switch_extension = ext; }
 
-    void UpdateAccelData (float X, float Y, float Z);
-    void UpdateNunchukAccelData (float X, float Y, float Z);
-
-    void UpdateIRdata (double* dX, double* dY, double* dSize);
 protected:
 	bool Step();
 	void HidOutputReport(const wm_report* const sr, const bool send_ack = true);
@@ -172,11 +162,8 @@ private:
 	Extension*     m_extension;
 	ControlGroup*  m_options;
 
-    // Wiimote accel data
-    AccelData      m_accel;
-
-    // Wiimote IR Data
-    IRdata         m_IRdata;
+	// Wiimote accel data
+	AccelData      m_accel;
 
 	// Wiimote index, 0-3
 	const u8       m_index;

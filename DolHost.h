@@ -26,7 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
 #import "OEGCSystemResponderClient.h"
-#import "OEWiiSystemResponderClient.h"
+//#import "OEWiiSystemResponderClient.h"
 
 #include "Core/GeckoCode.h"
 #include "InputCommon/ControllerInterface/Device.h"
@@ -42,18 +42,19 @@ public:
     void UpdateFrame();
     void Pause(bool);
 
+
     void RunCore();
     void SetPresentationFBO(int RenderFBO);
     
     void SetButtonState(int button,int state, int player);
     void SetAxis(int button, float value, int player);
 
-    void setNunchukAccel(double X,double Y,double Z,int player);
-    void setWiimoteAccel(double X,double Y,double Z,int player);
+    //void setNunchukAccel(double X,double Y,double Z,int player);
+    //void setWiimoteAccel(double X,double Y,double Z,int player);
 
-    void setIRdata(OEwiimoteIRinfo IRinfo, int player);
+    //void setIRdata(OEwiimoteIRinfo IRinfo, int player);
 
-    void changeWiimoteExtension(int extension, int player);
+    //void changeWiimoteExtension(int extension, int player);
 
     void toggleAudioMute();
     void volumeDown();
@@ -64,6 +65,8 @@ public:
     bool SaveState(std::string saveStateFile);
     bool LoadState(std::string saveStateFile);
     bool setAutoloadFile(std::string saveStateFile);
+
+    bool CoreRunning();
 
     void SetCheat(std::string code, std::string value, bool enabled);
     std::vector<Gecko::GeckoCode> gcodes;
@@ -86,5 +89,5 @@ public:
     int         _wiiMoteType;
 
     void SetUpPlayerInputs();
-    ciface::Core::Device::Input* m_playerInputs[4][OEWiiButtonCount];
+    ciface::Core::Device::Input* m_playerInputs[4][OEGCButtonCount];
 };

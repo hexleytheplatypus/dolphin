@@ -28,7 +28,7 @@
 #import <OpenEmuBase/OEGameCore.h>
 #import <OpenEmuBase/OETimingUtils.h>
 #import "OEGCSystemResponderClient.h"
-#import "OEWiiSystemResponderClient.h"
+//#import "OEWiiSystemResponderClient.h"
 
 @class OERingBuffer;
 
