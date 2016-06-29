@@ -96,8 +96,8 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bBootToPause = false;
 
     //Debug Settings
-    SConfig::GetInstance().bOnScreenDisplayMessages = true;
-    SConfig::GetInstance().m_ShowFrameCount = true;
+    SConfig::GetInstance().bOnScreenDisplayMessages = false;
+    SConfig::GetInstance().m_ShowFrameCount = false;
     
     //Set the Sound Backend
     SConfig::GetInstance().sBackend = "OpenAL";
