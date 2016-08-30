@@ -10,6 +10,7 @@
 #include "Core/HW/WiimoteEmu/Encryption.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
 #include "InputCommon/ControllerEmu.h"
+//#include "OE_ControllerEmu.h"
 
 // Registry sizes
 #define WIIMOTE_EEPROM_SIZE       (16*1024)
@@ -36,7 +37,7 @@ namespace WiimoteEmu
     {
         double x,y,z;
     };
-    
+
     struct IRdata
     {
         unsigned int x[4], y[4], s[4];
@@ -70,7 +71,6 @@ namespace WiimoteEmu
         // address 0xFA
         u8 constant_id[6];
     };
-
 
     void EmulateShake(AccelData* const accel_data
                       , ControllerEmu::Buttons* const buttons_group
@@ -127,6 +127,7 @@ namespace WiimoteEmu
         void LoadDefaults(const ControllerInterface& ciface) override;
 
         int CurrentExtension() const { return m_extension->active_extension; }
+
         void SwitchExtension(int ext) { m_extension->switch_extension = ext; }
 
         void UpdateAccelData (float X, float Y, float Z);
@@ -146,8 +147,6 @@ namespace WiimoteEmu
 
         bool HaveExtension() const { return m_extension->active_extension > 0; }
         bool WantExtension() const { return m_extension->switch_extension != 0; }
-
-
 
     private:
         struct ReadRequest

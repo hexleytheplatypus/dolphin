@@ -7,7 +7,7 @@
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
-#include "Core/HW/WiimoteEmu/Attachment/Classic.h"
+#include "OE_Classic.h" //"Core/HW/WiimoteEmu/Attachment/Classic.h"
 
 namespace WiimoteEmu
 {
@@ -121,24 +121,24 @@ namespace WiimoteEmu
             ControlState trigs[2] = { 0, 0 };
             u8 lt, rt;
             m_triggers->GetState(&ccdata->bt.hex, classic_trigger_bitmasks, trigs);
-            
+
             lt = static_cast<u8>(trigs[0] * Classic::LEFT_TRIGGER_RANGE);
             rt = static_cast<u8>(trigs[1] * Classic::RIGHT_TRIGGER_RANGE);
-            
+
             ccdata->lt1 = lt;
             ccdata->lt2 = lt >> 3;
             ccdata->rt = rt;
         }
-        
+
         // buttons
         m_buttons->GetState(&ccdata->bt.hex, classic_button_bitmasks);
         // dpad
         m_dpad->GetState(&ccdata->bt.hex, classic_dpad_bitmasks);
-        
+
         // flip button bits
         ccdata->bt.hex ^= 0xFFFF;
     }
-    
+
     bool Classic::IsButtonPressed() const
     {
         u16 buttons = 0;

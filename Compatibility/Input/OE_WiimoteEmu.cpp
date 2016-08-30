@@ -16,9 +16,12 @@
 #include "Core/NetPlayClient.h"
 #include "Core/HW/WiimoteEmu/MatrixMath.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
+//#include "OE_WiimoteEmu.h"
 #include "Core/HW/WiimoteEmu/WiimoteHid.h"
-#include "Core/HW/WiimoteEmu/Attachment/Classic.h"
+//#include "Core/HW/WiimoteEmu/Attachment/Classic.h"
+#include "OE_Classic.h"
 #include "Core/HW/WiimoteEmu/Attachment/Nunchuk.h"
+//#include "OE_Nunchuk.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"
 
 namespace
@@ -148,22 +151,22 @@ namespace WiimoteEmu
     {
         ControlState swing[3];
         swing_group->GetState(swing);
-        
+
         s8 g_dir[3] = {-1, -1, -1};
         u8 axis_map[3];
-        
+
         // determine which axis is which direction
         axis_map[0] = upright ? (sideways ? 0 : 1) : 2; // up/down
         axis_map[1] = sideways; // left|right
         axis_map[2] = upright ? 2 : (sideways ? 0 : 1); // forward/backward
-        
+
         // some orientations have up as positive, some as negative
         // same with forward
         if (sideways && !upright)
             g_dir[axis_map[2]] *= -1;
         if (!sideways && upright)
             g_dir[axis_map[0]] *= -1;
-        
+
         for (unsigned int i = 0; i < 3; ++i)
             (&accel->x)[axis_map[i]] += swing[i] * g_dir[i] * SWING_INTENSITY;
     }
@@ -280,7 +283,7 @@ namespace WiimoteEmu
         m_extension->attachments.emplace_back(new WiimoteEmu::None(m_reg_ext));
         m_extension->attachments.emplace_back(new WiimoteEmu::Nunchuk(m_reg_ext));
         m_extension->attachments.emplace_back(new WiimoteEmu::Classic(m_reg_ext));
-    
+
 
         m_extension->settings.emplace_back(new ControlGroup::Setting(_trans("Motion Plus"), 0, 0, 1));
 
@@ -313,31 +316,31 @@ namespace WiimoteEmu
     {
         return std::string("Wiimote") + char('1'+m_index);
     }
+//
+//    void Wiimote::UpdateAccelData (float X, float Y, float Z)
+//    {
+//        m_accel.x = X;
+//        m_accel.y = Y;
+//        m_accel.z = Z;
+//
+//    }
+//
+//    void Wiimote::UpdateNunchukAccelData (float X, float Y, float Z)
+//    {
+//        m_extension->UpdateAccelData (X, Y, Z);
+//    }
 
-    void Wiimote::UpdateAccelData (float X, float Y, float Z)
-    {
-        m_accel.x = X;
-        m_accel.y = Y;
-        m_accel.z = Z;
-
-    }
-
-    void Wiimote::UpdateNunchukAccelData (float X, float Y, float Z)
-    {
-        m_extension->UpdateAccelData (X, Y, Z);
-    }
-
-    void Wiimote::UpdateIRdata (double* dX ,double* dY,double* dSize){
-        for ( int i = 0; i < 4; i++)
-        {
-           //  Make sure the dots are visible
-           if (dX[i] < 1024 && dY[i] < 768){
-                m_IRdata.x[i] = dX[i];
-                m_IRdata.y[i] = dY[i];
-                m_IRdata.s[i] = dSize[i];
-           }
-        }
-    }
+//    void Wiimote::UpdateIRdata (double* dX ,double* dY,double* dSize){
+//        for ( int i = 0; i < 4; i++)
+//        {
+//            //  Make sure the dots are visible
+//            if (dX[i] < 1024 && dY[i] < 768){
+//                m_IRdata.x[i] = dX[i];
+//                m_IRdata.y[i] = dY[i];
+//                m_IRdata.s[i] = dSize[i];
+//            }
+//        }
+//    }
 
     bool Wiimote::Step()
     {
@@ -417,7 +420,7 @@ namespace WiimoteEmu
 
         wm_accel& accel = *(wm_accel*)(data + rptf.accel);
         wm_buttons& core = *(wm_buttons*)(data + rptf.core);
-        
+
 
         EmulateTilt(&m_accel, m_tilt, is_sideways, is_upright);
         EmulateSwing(&m_accel, m_swing, is_sideways, is_upright);
@@ -434,8 +437,8 @@ namespace WiimoteEmu
         y = MathUtil::Clamp<s16>(y, 0, 1024);
         z = MathUtil::Clamp<s16>(z, 0, 1024);
 
-       // wm_accel& accel = *(wm_accel*)(data + rptf.accel);
-       // wm_buttons& core = *(wm_buttons*)(data + rptf.core);
+        // wm_accel& accel = *(wm_accel*)(data + rptf.accel);
+        // wm_buttons& core = *(wm_buttons*)(data + rptf.core);
 
         accel.x = (x >> 2) & 0xFF;
         accel.y = (y >> 2) & 0xFF;
@@ -444,17 +447,17 @@ namespace WiimoteEmu
         core.acc_x_lsb = x & 0x3;
         core.acc_y_lsb = (y >> 1) & 0x1;
         core.acc_z_lsb = (z >> 1) & 0x1;
-//    }
-//    else
-//    {
-//        accel.x =  m_accel.x ;
-//        accel.y =  m_accel.y;
-//        accel.z =  m_accel.z;
-//
-//        core.acc_x_lsb = m_accel.x;
-//        core.acc_y_lsb = m_accel.y;
-//        core.acc_z_lsb = m_accel.z;
-//    }
+        //    }
+        //    else
+        //    {
+        //        accel.x =  m_accel.x ;
+        //        accel.y =  m_accel.y;
+        //        accel.z =  m_accel.z;
+        //
+        //        core.acc_x_lsb = m_accel.x;
+        //        core.acc_y_lsb = m_accel.y;
+        //        core.acc_z_lsb = m_accel.z;
+        //    }
     }
 
     inline void LowPassFilter(double& var, double newval, double period)
@@ -471,72 +474,72 @@ namespace WiimoteEmu
 
         if (m_reg_ir.data[0x30] ) // && _needIRupdate )
         {
-            switch (m_reg_ir.mode)
-            {
-                case 1:
-                {
-                    memset(data, 0xFF, 10);
-                    wm_ir_basic* const irdata = (wm_ir_basic*)data;
-
-                    if (m_IRdata.x[0] < 1024 && m_IRdata.y[0] < 768)
-                    {
-                        irdata[0].x1 = static_cast<u8>(m_IRdata.x[1]);
-                        irdata[0].x1hi = m_IRdata.x[0] >> 8;
-
-                        irdata[0].y1 = static_cast<u8>(m_IRdata.y[0]);
-                        irdata[0].y1hi = m_IRdata.y[0] >> 8;
-                    }
-
-                    if (m_IRdata.x[1] < 1024 && m_IRdata.y[1] < 768)
-                    {
-                        irdata[0].x2 = static_cast<u8>(m_IRdata.x[0]);
-                        irdata[0].x2hi = m_IRdata.x[1] >> 8;
-
-                        irdata[0].y2 = static_cast<u8>(m_IRdata.y[1]);
-                        irdata[0].y2hi = m_IRdata.y[1] >> 8;
-                    }
-
-                    if (m_IRdata.x[2] < 1024 && m_IRdata.y[2] < 768)
-                    {
-                        irdata[1].x1 = static_cast<u8>(m_IRdata.x[3]);
-                        irdata[1].x1hi = m_IRdata.x[2] >> 8;
-
-                        irdata[1].y1 = static_cast<u8>(m_IRdata.y[2]);
-                        irdata[1].y1hi = m_IRdata.y[2] >> 8;
-                    }
-
-                    if (m_IRdata.x[3] < 1024 && m_IRdata.y[3] < 768)
-                    {
-                        irdata[1].x2 = static_cast<u8>(m_IRdata.x[2]);
-                        irdata[1].x2hi = m_IRdata.x[3] >> 8;
-
-                        irdata[1].y2 = static_cast<u8>(m_IRdata.y[3]);
-                        irdata[1].y2hi = m_IRdata.y[3] >> 8;
-
-                    }
-                }
-                    break;
-                case 3:
-                {
-                    memset(data, 0xFF, 12);
-                    wm_ir_extended* const irdata = (wm_ir_extended*)data;
-
-                    for (unsigned int i = 0; i < 4; ++i)
-                        if (m_IRdata.x[i] < 1024 && m_IRdata.y[i] < 768)
-                        {
-                            irdata[i].x = static_cast<u8>(m_IRdata.x[i]);
-                            irdata[i].xhi = m_IRdata.x[i] >> 8;
-
-                            irdata[i].y = static_cast<u8>(m_IRdata.y[i]);
-                            irdata[i].yhi = m_IRdata.y[i] >> 8;
-
-                            irdata[i].size = m_IRdata.s[i];
-                        }
-                }
-                    break;
-                    
-            }
-           // _needIRupdate = false;
+//            switch (m_reg_ir.mode)
+//            {
+//                case 1:
+//                {
+//                    memset(data, 0xFF, 10);
+//                    wm_ir_basic* const irdata = (wm_ir_basic*)data;
+//
+//                    if (m_IRdata.x[0] < 1024 && m_IRdata.y[0] < 768)
+//                    {
+//                        irdata[0].x1 = static_cast<u8>(m_IRdata.x[1]);
+//                        irdata[0].x1hi = m_IRdata.x[0] >> 8;
+//
+//                        irdata[0].y1 = static_cast<u8>(m_IRdata.y[0]);
+//                        irdata[0].y1hi = m_IRdata.y[0] >> 8;
+//                    }
+//
+//                    if (m_IRdata.x[1] < 1024 && m_IRdata.y[1] < 768)
+//                    {
+//                        irdata[0].x2 = static_cast<u8>(m_IRdata.x[0]);
+//                        irdata[0].x2hi = m_IRdata.x[1] >> 8;
+//
+//                        irdata[0].y2 = static_cast<u8>(m_IRdata.y[1]);
+//                        irdata[0].y2hi = m_IRdata.y[1] >> 8;
+//                    }
+//
+//                    if (m_IRdata.x[2] < 1024 && m_IRdata.y[2] < 768)
+//                    {
+//                        irdata[1].x1 = static_cast<u8>(m_IRdata.x[3]);
+//                        irdata[1].x1hi = m_IRdata.x[2] >> 8;
+//
+//                        irdata[1].y1 = static_cast<u8>(m_IRdata.y[2]);
+//                        irdata[1].y1hi = m_IRdata.y[2] >> 8;
+//                    }
+//
+//                    if (m_IRdata.x[3] < 1024 && m_IRdata.y[3] < 768)
+//                    {
+//                        irdata[1].x2 = static_cast<u8>(m_IRdata.x[2]);
+//                        irdata[1].x2hi = m_IRdata.x[3] >> 8;
+//
+//                        irdata[1].y2 = static_cast<u8>(m_IRdata.y[3]);
+//                        irdata[1].y2hi = m_IRdata.y[3] >> 8;
+//
+//                    }
+//                }
+//                    break;
+//                case 3:
+//                {
+//                    memset(data, 0xFF, 12);
+//                    wm_ir_extended* const irdata = (wm_ir_extended*)data;
+//
+//                    for (unsigned int i = 0; i < 4; ++i)
+//                        if (m_IRdata.x[i] < 1024 && m_IRdata.y[i] < 768)
+//                        {
+//                            irdata[i].x = static_cast<u8>(m_IRdata.x[i]);
+//                            irdata[i].xhi = m_IRdata.x[i] >> 8;
+//
+//                            irdata[i].y = static_cast<u8>(m_IRdata.y[i]);
+//                            irdata[i].yhi = m_IRdata.y[i] >> 8;
+//
+//                            irdata[i].size = m_IRdata.s[i];
+//                        }
+//                }
+//                    break;
+//
+//            }
+            // _needIRupdate = false;
         }
     }
 
@@ -877,7 +880,7 @@ namespace WiimoteEmu
         // Shake
         for (int i = 0; i < 3; ++i)
             m_shake->SetControlExpression(i, "OEWiiMoteShake");
-
+        
         //Swing
         m_swing->SetControlExpression(0, "OEWiiMoteSwingUp");
         m_swing->SetControlExpression(1, "OEWiiMoteSwingDown");
@@ -885,13 +888,13 @@ namespace WiimoteEmu
         m_swing->SetControlExpression(3, "OEWiiMoteSwingRight");
         m_swing->SetControlExpression(4, "OEWiiMoteSwingForward");
         m_swing->SetControlExpression(5, "OEWiiMoteSwingBackward");
-
+        
         //Tilt
         m_tilt->SetControlExpression(0, "OEWiiMoteTiltForward");
         m_tilt->SetControlExpression(1, "OEWiiMoteTiltBackward");
         m_tilt->SetControlExpression(2, "OEWiiMoteTiltLeft");
         m_tilt->SetControlExpression(3, "OEWiiMoteTiltRight");
-
+        
         // IR
         m_ir->SetControlExpression(0, "OEWiiMoteIRDown");
         m_ir->SetControlExpression(1, "OEWiiMoteIRUp");
@@ -903,7 +906,7 @@ namespace WiimoteEmu
         m_dpad->SetControlExpression(1, "OEWiiMoteButtonDown");  // Down
         m_dpad->SetControlExpression(2, "OEWiiMoteButtonLeft");  // Left
         m_dpad->SetControlExpression(3, "OEWiiMoteButtonRight"); // Right
-
+        
         // ugly stuff
         // remove Extension
         m_extension->switch_extension = 0;
