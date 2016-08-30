@@ -370,7 +370,7 @@ static void CpuThread()
   // This needs to be delayed until after the video backend is ready.
 	DolphinAnalytics::Instance()->ReportGameStart();
 
-	if (_CoreParameter.bFastmem)
+    if (_CoreParameter.bFastmem)
 		EMM::InstallExceptionHandler(); // Let's run under memory watch
 
 	if (!s_state_filename.empty())

@@ -199,7 +199,7 @@ struct SConfig : NonCopyable
 	SIDevices m_SIDevice[4];
 	std::string m_bba_mac;
 
-	// interface language
+    // interface language
 	int m_InterfaceLanguage;
 	float m_EmulationSpeed;
 	bool m_OCEnable;

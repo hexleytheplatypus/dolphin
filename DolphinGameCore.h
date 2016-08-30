@@ -28,6 +28,8 @@
 #import <OpenEmuBase/OEGameCore.h>
 #import <OpenEmuBase/OETimingUtils.h>
 #import "OEGCSystemResponderClient.h"
+#import "Wii/OEWiiSystemResponderClient.h"
+
 //#import "OEWiiSystemResponderClient.h"
 
 @class OERingBuffer;

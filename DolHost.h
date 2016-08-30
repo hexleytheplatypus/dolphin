@@ -26,7 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
 #import "OEGCSystemResponderClient.h"
-//#import "OEWiiSystemResponderClient.h"
+#import "Wii/OEWiiSystemResponderClient.h"
 
 #include "Core/GeckoCode.h"
 #include "InputCommon/ControllerInterface/Device.h"
@@ -49,12 +49,7 @@ public:
     void SetButtonState(int button,int state, int player);
     void SetAxis(int button, float value, int player);
 
-    //void setNunchukAccel(double X,double Y,double Z,int player);
-    //void setWiimoteAccel(double X,double Y,double Z,int player);
-
-    //void setIRdata(OEwiimoteIRinfo IRinfo, int player);
-
-    //void changeWiimoteExtension(int extension, int player);
+    void changeWiimoteExtension(int extension, int player);
 
     void toggleAudioMute();
     void volumeDown();
@@ -88,6 +83,8 @@ public:
     bool        _wiiChangeExtension[4] = { false, false, false, false };
     int         _wiiMoteType;
 
+    std::string autoSaveStateFile;
+
     void SetUpPlayerInputs();
-    ciface::Core::Device::Input* m_playerInputs[4][OEGCButtonCount];
+    ciface::Core::Device::Input* m_playerInputs[4][OEWiiButtonCount];
 };

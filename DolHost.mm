@@ -59,9 +59,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "DiscIO/VolumeCreator.h"
 #include "DiscIO/NANDContentLoader.h"
 
-
-
-
 DolHost* DolHost::m_instance = nullptr;
 static Common::Event updateMainFrameEvent;
 
@@ -110,8 +107,6 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     
     //Get game info frome file (disc)
     GetGameInfo();
-
-    
 
     if (!_wiiGame && !_wiiWAD)
     {
@@ -162,8 +157,9 @@ bool DolHost::LoadFileAtPath()
 
     SetUpPlayerInputs();
 
-    //We have to set FPS display here of it doesn't work
+    //We have to set FPS display here or it doesn't work
     g_Config.bShowFPS = SConfig::GetInstance().m_ShowFrameCount;
+
     return true;
 }
 
@@ -200,12 +196,11 @@ bool DolHost::CoreRunning()
 
     return false;
 }
+
 # pragma mark - Render FBO
 void DolHost::SetPresentationFBO(int RenderFBO)
 {
     g_Config.iRenderFBO = RenderFBO;
-    g_Config.bSSAA = true;
-    g_Config.iEFBScale = 11;
 }
 
 # pragma mark - Audio 
@@ -218,13 +213,8 @@ void DolHost::SetVolume(float value)
 # pragma mark - Save states
 bool DolHost::setAutoloadFile(std::string saveStateFile)
 {
-    while (!Core::IsRunningAndStarted())
-        usleep (100);
 
-
-    [NSThread sleepForTimeInterval:2];
-
-    LoadState(saveStateFile);
+    Core::SetStateFileName(saveStateFile);
 
     return true;
 }
@@ -255,7 +245,6 @@ bool DolHost::LoadState(std::string saveStateFile)
 }
 
 # pragma mark - Cheats
-
 void DolHost::SetCheat(std::string code, std::string type, bool enabled)
 {
     NSString* nscode = [NSString stringWithUTF8String:code.c_str()];
@@ -335,91 +324,96 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
 }
 
 # pragma mark - Controls
+void DolHost::DisplayMessage(std::string message)
+{
+    Core::DisplayMessage( message, 500);
+}
+
 void DolHost::SetUpPlayerInputs()
 {
-//    if (SConfig::GetInstance().bWii)
-//    {
-//        struct {
-//            OEWiiButton button;
-//            std::string identifier;
-//        } buttonToIdentifier[OEWiiButtonCount] = {
-//            { OEWiiMoteButtonUp, "OEWiiMoteButtonUp" },
-//            { OEWiiMoteButtonDown, "OEWiiMoteButtonDown" },
-//            { OEWiiMoteButtonLeft, "OEWiiMoteButtonLeft" },
-//            { OEWiiMoteButtonRight, "OEWiiMoteButtonRight" },
-//            { OEWiiMoteButtonA, "OEWiiMoteButtonA" },
-//            { OEWiiMoteButtonB, "OEWiiMoteButtonB" },
-//            { OEWiiMoteButton1, "OEWiiMoteButton1" },
-//            { OEWiiMoteButton2, "OEWiiMoteButton2" },
-//            { OEWiiMoteButtonPlus, "OEWiiMoteButtonPlus" },
-//            { OEWiiMoteButtonMinus, "OEWiiMoteButtonMinus" },
-//            { OEWiiMoteButtonHome, "OEWiiMoteButtonHome" },
-//            { OEWiiMoteTiltLeft, "OEWiiMoteTiltLeft" },
-//            { OEWiiMoteTiltRight, "OEWiiMoteTiltRight" },
-//            { OEWiiMoteTiltForward, "OEWiiMoteTiltForward" },
-//            { OEWiiMoteTiltBackward, "OEWiiMoteTiltBackward" },
-//            { OEWiiMoteShake, "OEWiiMoteShake" },
-//            { OEWiiMoteSwingUp, "OEWiiMoteSwingUp" },
-//            { OEWiiMoteSwingDown, "OEWiiMoteSwingDown" },
-//            { OEWiiMoteSwingLeft, "OEWiiMoteSwingLeft" },
-//            { OEWiiMoteSwingRight, "OEWiiMoteSwingRight" },
-//            { OEWiiMoteSwingForward, "OEWiiMoteSwingForward" },
-//            { OEWiiMoteSwingBackward, "OEWiiMoteSwingBackward" },
-//            { OEWiiNunchukAnalogUp, "OEWiiNunchukAnalogUp" },
-//            { OEWiiNunchukAnalogDown, "OEWiiNunchukAnalogDown" },
-//            { OEWiiNunchukAnalogLeft, "OEWiiNunchukAnalogLeft" },
-//            { OEWiiNunchukAnalogRight, "OEWiiNunchukAnalogRight" },
-//            { OEWiiNunchukButtonC, "OEWiiNunchukButtonC" },
-//            { OEWiiNunchuckButtonZ, "OEWiiNunchukButtonZ" },
-//            { OEWiiClassicButtonUp, "OEWiiClassicButtonUp" },
-//            { OEWiiClassicButtonDown, "OEWiiClassicButtonDown" },
-//            { OEWiiClassicButtonLeft, "OEWiiClassicButtonLeft" },
-//            { OEWiiClassicButtonRight, "OEWiiClassicButtonRight" },
-//            { OEWiiClassicAnalogLUp, "OEWiiClassicAnalogLUp" },
-//            { OEWiiClassicAnalogLDown, "OEWiiClassicAnalogLDown" },
-//            { OEWiiClassicAnalogLLeft, "OEWiiClassicAnalogLLeft" },
-//            { OEWiiClassicAnalogLRight, "OEWiiClassicAnalogLRight" },
-//            { OEWiiClassicAnalogRUp, "OEWiiClassicAnalogRUp" },
-//            { OEWiiClassicAnalogRDown, "OEWiiClassicAnalogRDown" },
-//            { OEWiiClassicAnalogRLeft, "OEWiiClassicAnalogRLeft" },
-//            { OEWiiClassicAnalogRRight, "OEWiiClassicAnalogRRight" },
-//            { OEWiiClassicButtonA, "OEWiiClassicButtonA" },
-//            { OEWiiClassicButtonB, "OEWiiClassicButtonB" },
-//            { OEWiiClassicButtonX, "OEWiiClassicButtonX" },
-//            { OEWiiClassicButtonY, "OEWiiClassicButtonY" },
-//            { OEWiiClassicButtonL, "OEWiiClassicButtonL" },
-//            { OEWiiClassicButtonR, "OEWiiClassicButtonR" },
-//            { OEWiiClassicButtonZl, "OEWiiClassicButtonZl" },
-//            { OEWiiClassicButtonZr, "OEWiiClassicButtonZr" },
-//            { OEWiiClassicButtonStart, "OEWiiClassicButtonStart" },
-//            { OEWiiClassicButtonSelect, "OEWiiClassicButtonSelect" },
-//            { OEWiiClassicButtonHome, "OEWiiClassicButtonHome" },
-//        };
-//
-//        std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
-//        for (int player = 0; player < 4; ++player) {
-//            std::string qualifier = "OE_GameDev" + std::to_string(player);
-//            ciface::Core::Device* device = nullptr;
-//            for (auto& d : devices) {
-//                if (d->GetName() == qualifier) {
-//
-//                    device = d;
-//                    break;
-//                }
-//            }
-//            if (device == nullptr)
-//                continue;
-//
-//            for (int inputIndex = 0; inputIndex < OEWiiButtonCount; ++inputIndex) {
-//                std::string identifier = buttonToIdentifier[inputIndex].identifier;
-//                ciface::Core::Device::Input* input = g_controller_interface.ControllerInterface::FindInput(identifier, device);
-//
-//                m_playerInputs[player][buttonToIdentifier[inputIndex].button] = input;
-//            }
-//        }
-//    }
-//    else
-//    {
+    if (SConfig::GetInstance().bWii)
+    {
+        struct {
+            OEWiiButton button;
+            std::string identifier;
+        } buttonToIdentifier[OEWiiButtonCount] = {
+            { OEWiiMoteButtonUp, "OEWiiMoteButtonUp" },
+            { OEWiiMoteButtonDown, "OEWiiMoteButtonDown" },
+            { OEWiiMoteButtonLeft, "OEWiiMoteButtonLeft" },
+            { OEWiiMoteButtonRight, "OEWiiMoteButtonRight" },
+            { OEWiiMoteButtonA, "OEWiiMoteButtonA" },
+            { OEWiiMoteButtonB, "OEWiiMoteButtonB" },
+            { OEWiiMoteButton1, "OEWiiMoteButton1" },
+            { OEWiiMoteButton2, "OEWiiMoteButton2" },
+            { OEWiiMoteButtonPlus, "OEWiiMoteButtonPlus" },
+            { OEWiiMoteButtonMinus, "OEWiiMoteButtonMinus" },
+            { OEWiiMoteButtonHome, "OEWiiMoteButtonHome" },
+            { OEWiiMoteTiltLeft, "OEWiiMoteTiltLeft" },
+            { OEWiiMoteTiltRight, "OEWiiMoteTiltRight" },
+            { OEWiiMoteTiltForward, "OEWiiMoteTiltForward" },
+            { OEWiiMoteTiltBackward, "OEWiiMoteTiltBackward" },
+            { OEWiiMoteShake, "OEWiiMoteShake" },
+            { OEWiiMoteSwingUp, "OEWiiMoteSwingUp" },
+            { OEWiiMoteSwingDown, "OEWiiMoteSwingDown" },
+            { OEWiiMoteSwingLeft, "OEWiiMoteSwingLeft" },
+            { OEWiiMoteSwingRight, "OEWiiMoteSwingRight" },
+            { OEWiiMoteSwingForward, "OEWiiMoteSwingForward" },
+            { OEWiiMoteSwingBackward, "OEWiiMoteSwingBackward" },
+            { OEWiiNunchukAnalogUp, "OEWiiNunchukAnalogUp" },
+            { OEWiiNunchukAnalogDown, "OEWiiNunchukAnalogDown" },
+            { OEWiiNunchukAnalogLeft, "OEWiiNunchukAnalogLeft" },
+            { OEWiiNunchukAnalogRight, "OEWiiNunchukAnalogRight" },
+            { OEWiiNunchukButtonC, "OEWiiNunchukButtonC" },
+            { OEWiiNunchuckButtonZ, "OEWiiNunchukButtonZ" },
+            { OEWiiClassicButtonUp, "OEWiiClassicButtonUp" },
+            { OEWiiClassicButtonDown, "OEWiiClassicButtonDown" },
+            { OEWiiClassicButtonLeft, "OEWiiClassicButtonLeft" },
+            { OEWiiClassicButtonRight, "OEWiiClassicButtonRight" },
+            { OEWiiClassicAnalogLUp, "OEWiiClassicAnalogLUp" },
+            { OEWiiClassicAnalogLDown, "OEWiiClassicAnalogLDown" },
+            { OEWiiClassicAnalogLLeft, "OEWiiClassicAnalogLLeft" },
+            { OEWiiClassicAnalogLRight, "OEWiiClassicAnalogLRight" },
+            { OEWiiClassicAnalogRUp, "OEWiiClassicAnalogRUp" },
+            { OEWiiClassicAnalogRDown, "OEWiiClassicAnalogRDown" },
+            { OEWiiClassicAnalogRLeft, "OEWiiClassicAnalogRLeft" },
+            { OEWiiClassicAnalogRRight, "OEWiiClassicAnalogRRight" },
+            { OEWiiClassicButtonA, "OEWiiClassicButtonA" },
+            { OEWiiClassicButtonB, "OEWiiClassicButtonB" },
+            { OEWiiClassicButtonX, "OEWiiClassicButtonX" },
+            { OEWiiClassicButtonY, "OEWiiClassicButtonY" },
+            { OEWiiClassicButtonL, "OEWiiClassicButtonL" },
+            { OEWiiClassicButtonR, "OEWiiClassicButtonR" },
+            { OEWiiClassicButtonZl, "OEWiiClassicButtonZl" },
+            { OEWiiClassicButtonZr, "OEWiiClassicButtonZr" },
+            { OEWiiClassicButtonStart, "OEWiiClassicButtonStart" },
+            { OEWiiClassicButtonSelect, "OEWiiClassicButtonSelect" },
+            { OEWiiClassicButtonHome, "OEWiiClassicButtonHome" },
+        };
+
+        std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
+        for (int player = 0; player < 4; ++player) {
+            std::string qualifier = "OE_GameDev" + std::to_string(player);
+            ciface::Core::Device* device = nullptr;
+            for (auto& d : devices) {
+                if (d->GetName() == qualifier) {
+
+                    device = d;
+                    break;
+                }
+            }
+            if (device == nullptr)
+                continue;
+
+            for (int inputIndex = 0; inputIndex < OEWiiButtonCount; ++inputIndex) {
+                std::string identifier = buttonToIdentifier[inputIndex].identifier;
+                ciface::Core::Device::Input* input = g_controller_interface.ControllerInterface::FindInput(identifier, device);
+
+                m_playerInputs[player][buttonToIdentifier[inputIndex].button] = input;
+            }
+        }
+    }
+    else
+    {
         struct {
             OEGCButton button;
             std::string identifier;
@@ -467,7 +461,7 @@ void DolHost::SetUpPlayerInputs()
                 m_playerInputs[player][buttonToIdentifier[inputIndex].button] = input;
             }
         }
-//    }
+    }
 }
 
 void DolHost::SetButtonState(int button, int state, int player)
@@ -477,31 +471,31 @@ void DolHost::SetButtonState(int button, int state, int player)
     ciface::Core::Device::Input* input = m_playerInputs[player][button];
 
     // really hacky, but need to be able to get the extension changed on emulated wiimote
-//    if (_wiiGame )
-//    {
-//        if (button == OEWiiChangeExtension)
-//        {
-//            //set the Extension change state and return.  The next key pressed
-//            //  while the Change Extension key is held will determine the Extension added
-//            _wiiChangeExtension[player] = state;
-//            return;
-//        }
-//
-//        if ( _wiiChangeExtension[player] && state == 1)
-//        {
-//            if ( button < 12){
-//                changeWiimoteExtension(OEWiimoteExtensionNotConnected, player);
-//                Core::DisplayMessage("Extenstion Removed", 1500);
-//            } else if (button > 12 && button < 19 ) {
-//                changeWiimoteExtension(OEWiimoteExtensionNunchuck, player);
-//                Core::DisplayMessage("Nunchuk Connected", 1500);
-//            } else if (button > 18 && button < 42 ) {
-//                changeWiimoteExtension(OEWiimoteExtensionClassicController, player);
-//                Core::DisplayMessage("Classic Controller Connected", 1500);
-//            }
-//            return;
-//        }
-//    }
+    if (_wiiGame )
+    {
+        if (button == OEWiiChangeExtension)
+        {
+            //set the Extension change state and return.  The next key pressed
+            //  while the Change Extension key is held will determine the Extension added
+            _wiiChangeExtension[player] = state;
+            return;
+        }
+
+        if ( _wiiChangeExtension[player] && state == 1)
+        {
+            if ( button <= OEWiiMoteSwingBackward ){
+                changeWiimoteExtension(OEWiimoteExtensionNotConnected, player);
+                Core::DisplayMessage("Extenstion Removed", 1500);
+            } else if (button <= OEWiiNunchuckButtonZ ) {
+                changeWiimoteExtension(OEWiimoteExtensionNunchuck, player);
+                Core::DisplayMessage("Nunchuk Connected", 1500);
+            } else if (button <= OEWiiClassicButtonHome ) {
+                changeWiimoteExtension(OEWiimoteExtensionClassicController, player);
+                Core::DisplayMessage("Classic Controller Connected", 1500);
+            }
+            return;
+        }
+    }
     input->SetState(state);
 }
 
@@ -511,39 +505,15 @@ void DolHost::SetAxis(int button, float value, int player)
     input->SetState(value);
 }
 
-//void DolHost::changeWiimoteExtension(int extension, int player)
-//{
-//    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
-//
-//    if( _Wiimote->CurrentExtension() != extension )
-//        _Wiimote->SwitchExtension( extension );
-//}
+void DolHost::changeWiimoteExtension(int extension, int player)
+{
+    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
 
-//void DolHost::setNunchukAccel(double X,double Y,double Z,int player)
-//{
-//    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
-//    if (_Wiimote->CurrentExtension() == 1)
-//        _Wiimote->UpdateNunchukAccelData(X, Y, Z);
-//}
-
-//void DolHost::setWiimoteAccel(double X,double Y,double Z,int player)
-//{
-//    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
-//    _Wiimote->UpdateAccelData(X, Y, Z);
-//}
-
-//void DolHost::setIRdata(OEwiimoteIRinfo IRinfo, int player)
-//{
-//    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
-//
-//    _Wiimote->UpdateIRdata (IRinfo.dX, IRinfo.dY, IRinfo.dSize);
-//}
+    if( _Wiimote->CurrentExtension() != extension )
+        _Wiimote->SwitchExtension( extension );
+}
 
 # pragma mark - DVD info
-void DolHost::DisplayMessage(std::string message)
-{
-    Core::DisplayMessage( message, 500);
-}
 
 void DolHost::GetGameInfo()
 {
@@ -631,4 +601,3 @@ void Host_ConnectWiimote(int wm_idx, bool connect)
 }
 
 void Host_ShowVideoConfig(void*, const std::string&, const std::string&) {}
-

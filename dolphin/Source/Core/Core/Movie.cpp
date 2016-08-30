@@ -238,8 +238,8 @@ void Init()
 
 	s_frameSkipCounter = s_framesToSkip;
 	memset(&s_padState, 0, sizeof(s_padState));
-	if (!tmpHeader.bFromSaveState || !IsPlayingInput())
-		Core::SetStateFileName("");
+//	if (!tmpHeader.bFromSaveState || !IsPlayingInput())
+//		Core::SetStateFileName("");
 
 	for (auto& disp : s_InputDisplay)
 		disp.clear();

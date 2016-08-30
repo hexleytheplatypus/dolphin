@@ -255,18 +255,11 @@ DolphinGameCore *_current = 0;
 {
     if (!_isInitialized)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
-            [self autoloadSaveState:fileName];
-        });
-
+        dol_host->setAutoloadFile([fileName UTF8String]);
         block(true, nil);
     } else {
         block(dol_host->LoadState([fileName UTF8String]),nil);
     }
-}
-- (void) autoloadSaveState:(NSString *)fileName
-{
-    dol_host->setAutoloadFile([fileName UTF8String]);
 }
 
 # pragma mark - Input GC
@@ -294,31 +287,31 @@ DolphinGameCore *_current = 0;
     }
 }
 
-//# pragma mark - Input Wii
-//- (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
-//{
-//    if(_isInitialized)
-//    {
-//        dol_host->SetAxis(button, value, (int)player);
-//    }
-//}
-//
-//
-//- (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
-//{
-//    if(_isInitialized)
-//    {
-//        dol_host->SetButtonState(button, 1, (int)player);
-//    }
-//}
-//
-//- (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
-//{
-//    if(_isInitialized)
-//    {
-//        dol_host->SetButtonState(button, 0, (int)player);
-//    }
-//}
+# pragma mark - Input Wii
+- (oneway void)didMoveWiiJoystickDirection:(OEWiiButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
+{
+    if(_isInitialized)
+    {
+        dol_host->SetAxis(button, value, (int)player);
+    }
+}
+
+
+- (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
+{
+    if(_isInitialized)
+    {
+        dol_host->SetButtonState(button, 1, (int)player);
+    }
+}
+
+- (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
+{
+    if(_isInitialized)
+    {
+        dol_host->SetButtonState(button, 0, (int)player);
+    }
+}
 
 //- (oneway void) didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)X withValue:(CGFloat)Y withValue:(CGFloat)Z forPlayer:(NSUInteger)player
 //{
@@ -343,13 +336,13 @@ DolphinGameCore *_current = 0;
 //    }
 //}
 //
-//- (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
-//{
-//    if(_isInitialized)
-//    {
-//        dol_host->changeWiimoteExtension(extension, (int)player);
-//    }
-//}
+- (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
+{
+    if(_isInitialized)
+    {
+        dol_host->changeWiimoteExtension(extension, (int)player);
+    }
+}
 
 //- (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
 //{
