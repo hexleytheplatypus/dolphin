@@ -31,41 +31,30 @@
 @implementation OEWiiSystemController
 
 // Read header to detect Wii ISO, WBFS & CISO
-- (OECanHandleState)canHandleFile:(NSString *)path
+- (OEFileSupport)canHandleFile:(__kindof OEFile *)file
 {
-    BOOL handleFileExtension = [super canHandleFileExtension:[path pathExtension]];
-    OECanHandleState canHandleFile = OECanHandleNo;
-
-    if(handleFileExtension)
-    {
         // Handle wbfs file and return early
-        if([[[path pathExtension] lowercaseString] isEqualToString:@"wbfs"])
-            return OECanHandleYes;
+        if([file.fileExtension isEqualToString:@"wbfs"])
+            return OEFileSupportYes;
 
         // Handle wad file and return early
-        if([[[path pathExtension] lowercaseString] isEqualToString:@"wad"])
-            return OECanHandleYes;
+        if([file.fileExtension isEqualToString:@"wad"])
+            return OEFileSupportYes;
 
-        NSFileHandle *dataFile;
-        NSData *dataBuffer;
+    NSRange dataRange = NSMakeRange(0x018, 4);
 
-        dataFile = [NSFileHandle fileHandleForReadingAtPath:path];
+    // Handle ciso file and set the offset for the Magicword in compressed iso.
+    if ([file.fileExtension isEqualToString:@"ciso"])
+        dataRange.location = 0x8018;
 
-        // Handle ciso file and set the offset for the Magicword in compressed iso
-        if([[[path pathExtension] lowercaseString] isEqualToString:@"ciso"])
-            [dataFile seekToFileOffset: 0x8018];
-        else
-            [dataFile seekToFileOffset: 0x018];
+    // Wii Magicword 0x5D1C9EA3
+    NSData *dataBuffer = [file readDataInRange:dataRange];
+    NSData *comparisonData = [[NSData alloc] initWithBytes:(const uint8_t[]){ 0x5D, 0x1C, 0x9E, 0xA3 } length:4];
 
-        dataBuffer = [dataFile readDataOfLength:4]; // Wii Magicword 0x5D1C9EA3
-        NSString *dataString = [[NSString alloc] initWithData:dataBuffer encoding:NSMacOSRomanStringEncoding];
-        NSLog(@"'%@'", dataString);
+    if ([dataBuffer isEqualToData:comparisonData])
+        return OEFileSupportYes;
 
-        if([dataString isEqualToString:@"]\x1cû£"])
-            canHandleFile = OECanHandleYes;
+    return OEFileSupportNo;
 
-        [dataFile closeFile];
-    }
-    return canHandleFile;
 }
 @end

@@ -8505,7 +8505,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -8548,7 +8548,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -8591,7 +8591,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -8634,7 +8634,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9014,7 +9014,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
@@ -9130,7 +9130,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
@@ -13404,7 +13404,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
@@ -13629,7 +13629,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
