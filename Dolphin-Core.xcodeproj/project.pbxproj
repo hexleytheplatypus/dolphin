@@ -6884,7 +6884,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/2.8.6/include,
+					/usr/local/Cellar/ffmpeg/3.1.3/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -8505,7 +8505,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -8548,7 +8548,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -8591,7 +8591,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -8634,7 +8634,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9014,7 +9014,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
@@ -9130,7 +9130,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
@@ -9283,7 +9283,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/2.8.6/include,
+					/usr/local/Cellar/ffmpeg/3.1.3/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -10454,7 +10454,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.8.6/lib,
+					/usr/local/Cellar/ffmpeg/3.1.3/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -10506,7 +10506,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.8.6/lib,
+					/usr/local/Cellar/ffmpeg/3.1.3/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -10558,7 +10558,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.8.6/lib,
+					/usr/local/Cellar/ffmpeg/3.1.3/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -10610,7 +10610,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/2.8.6/lib,
+					/usr/local/Cellar/ffmpeg/3.1.3/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -13303,7 +13303,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/2.8.6/include,
+					/usr/local/Cellar/ffmpeg/3.1.3/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -13404,7 +13404,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
@@ -13529,7 +13529,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/2.8.6/include,
+					/usr/local/Cellar/ffmpeg/3.1.3/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -13629,7 +13629,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx10.12;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
 				STRIP_STYLE = debugging;
 				SYMROOT = $SRCROOT/build;
