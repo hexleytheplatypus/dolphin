@@ -22,8 +22,10 @@
 	<integer>20</integer>
 	<key>OEWiiClassicButtonR</key>
 	<integer>7</integer>
-	<key>OEWiiClassicButtonZ</key>
+	<key>OEWiiClassicButtonZr</key>
 	<integer>9</integer>
+	<key>OEWiiClassicButtonZl</key>
+	<integer>11</integer>
 	<key>OEWiiClassicButtonStart</key>
 	<integer>40</integer>
 </dict>

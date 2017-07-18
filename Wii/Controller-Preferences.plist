@@ -44,7 +44,9 @@
 		<string>{0, 0}</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>{0, 0}</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
+		<string>{0, 0}</string>
+		<key>OEWiiClassicButtonZl</key>
 		<string>{0, 0}</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>{0, 0}</string>

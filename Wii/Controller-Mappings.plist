@@ -32,8 +32,10 @@
 		<string>OEControllerMicrosoftXbox360ButtonLeftTrigger</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerMicrosoftXbox360ButtonRightTrigger</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerMicrosoftXbox360ButtonRightShoulder</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerMicrosoftXbox360ButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerMicrosoftXbox360ButtonStart</string>
 	</dict>
@@ -67,8 +69,10 @@
 		<string>OEControllerSonyPS3SixaxisButtonL2</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerSonyPS3SixaxisButtonR2</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerSonyPS3SixaxisButtonR1</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerSonyPS3SixaxisButtonL1</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerSonyPS3SixaxisButtonStart</string>
 	</dict>
@@ -96,8 +100,10 @@
 		<string>OEControllerLogitechDualActionButtonLeftTrigger</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerLogitechDualActionButtonRightTrigger</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerLogitechDualActionButtonRightShoulder</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerLogitechDualActionButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerLogitechDualActionButtonStart</string>
 	</dict>
@@ -112,7 +118,7 @@
 		<key>OEWiiClassicButtonX</key>
 		<string>OEControllerSegaSaturnButtonB</string>
 		<key>OEWiiClassicButtonA</key>
-		<string>OEControllerSegaSaturnButtonZ</string>
+		<string>OEControllerSegaSaturnButtonZr</string>
 		<key>OEWiiClassicButtonY</key>
 		<string>OEControllerSegaSaturnButtonY</string>
 		<key>OEWiiClassicButtonL</key>
@@ -142,8 +148,10 @@
 		<string>OEControllerGravisGamePadProButtonLeftTrigger</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerGravisGamePadProButtonRightTrigger</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerGravisGamePadProButtonRightShoulder</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerGravisGamePadProButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerGravisGamePadProButtonStart</string>
 	</dict>
@@ -165,7 +173,7 @@
 		<string>OEControllerRetroUSBSNESButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerRetroUSBSNESButtonRightShoulder</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerRetroUSBSNESButtonSelect</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerRetroUSBSNESButtonStart</string>
@@ -186,8 +194,10 @@
 		<string>OEControllerPS3NeoGeoPadButtonL2</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerPS3NeoGeoPadButtonR2</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerPS3NeoGeoPadButtonR1</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerPS3NeoGeoPadButtonL1</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerPS3NeoGeoPadButtonStart</string>
 	</dict>
@@ -209,7 +219,7 @@
 		<string>OEControllerRetrodeButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerRetrodeButtonRightShoulder</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerRetrodeButtonSelect</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerRetrodeButtonStart</string>
@@ -232,7 +242,7 @@
 		<string>OEControllerRetrolinkSNESButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerRetrolinkSNESButtonRightShoulder</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerRetrolinkSNESButtonSelect</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerRetrolinkSNESButtonStart</string>
@@ -257,7 +267,7 @@
 		<string>OEControllerRetrolinkN64ButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerRetrolinkN64ButtonRightShoulder</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerRetrolinkN64ButtonZ</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerRetrolinkN64ButtonStart</string>
@@ -288,7 +298,7 @@
 		<string>OEControllerAdaptoidN64ButtonLeftShoulder</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerAdaptoidN64ButtonRightShoulder</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerAdaptoidN64ButtonZ</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerAdaptoidN64ButtonStart</string>
@@ -323,8 +333,10 @@
 		<string>OEControllerNintendoWiiUProControllerButtonZL</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerNintendoWiiUProControllerButtonZR</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerNintendoWiiUProControllerButtonR</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerNintendoWiiUProControllerButtonL</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerNintendoWiiUProControllerButtonPlus</string>
 	</dict>
@@ -352,8 +364,10 @@
 		<string>OEControllerSonyPS4Dualshock4ButtonL2</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerSonyPS4Dualshock4ButtonR2</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerSonyPS4Dualshock4ButtonR1</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerSonyPS4Dualshock4ButtonL1</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerSonyPS4Dualshock4ButtonOptions</string>
 	</dict>
@@ -387,8 +401,10 @@
 		<string>OEControllerSteelSeriesWirelessButtonL2</string>
 		<key>OEWiiClassicButtonR</key>
 		<string>OEControllerSteelSeriesWirelessButtonR2</string>
-		<key>OEWiiClassicButtonZ</key>
+		<key>OEWiiClassicButtonZr</key>
 		<string>OEControllerSteelSeriesWirelessButtonR1</string>
+        <key>OEWiiClassicButtonZl</key>
+        <string>OEControllerSteelSeriesWirelessButtonL1</string>
 		<key>OEWiiClassicButtonStart</key>
 		<string>OEControllerSteelSeriesWirelessButtonHome</string>
 	</dict>
