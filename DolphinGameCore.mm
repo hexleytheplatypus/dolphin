@@ -104,6 +104,7 @@ DolphinGameCore *_current = 0;
         _dolphinCoreScreen = OEIntSizeMake(854, 480);
     }
 
+    
     dol_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
 
     return YES;

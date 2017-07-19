@@ -833,6 +833,10 @@
 		3EDD631E1D74E20200D657D6 /* ControllerEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74721C82B14B00091C4D /* ControllerEmu.cpp */; };
 		3EDFAE531CDBFBF500B0FF3C /* GCPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72611C82B0F900091C4D /* GCPad.cpp */; };
 		3EDFAE561CDC081100B0FF3C /* EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D729E1C82B0F900091C4D /* EmuSubroutines.cpp */; };
+		3EE7BF631F1FDD9200117AF6 /* libavcodec-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF5F1F1FDD9200117AF6 /* libavcodec-dc.a */; };
+		3EE7BF641F1FDD9200117AF6 /* libavformat-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF601F1FDD9200117AF6 /* libavformat-dc.a */; };
+		3EE7BF651F1FDD9200117AF6 /* libavutil-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF611F1FDD9200117AF6 /* libavutil-dc.a */; };
+		3EE7BF661F1FDD9200117AF6 /* libswscale-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF621F1FDD9200117AF6 /* libswscale-dc.a */; };
 		3EEFE6561CDBC5C1007A6C31 /* PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76261C82B30A00091C4D /* PostProcessing.cpp */; };
 		3EEFE6571CDBC5C1007A6C31 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D762C1C82B30A00091C4D /* Render.cpp */; };
 		3EEFE6581CDBC677007A6C31 /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */; };
@@ -862,10 +866,6 @@
 		8355D4EE1A653E7200E73302 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974161A643E4E00E0B28E /* IOBluetooth.framework */; };
 		8355D4EF1A653E7D00E73302 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974201A643EA800E0B28E /* CoreGraphics.framework */; };
 		8355D4F01A653E8B00E73302 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974241A643EBC00E0B28E /* Cocoa.framework */; };
-		8355D4F11A653EB800E73302 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8349744D1A64434C00E0B28E /* libavcodec.a */; };
-		8355D4F21A653EB800E73302 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8349744E1A64434C00E0B28E /* libavformat.a */; };
-		8355D4F31A653EB800E73302 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8349744F1A64434D00E0B28E /* libavutil.a */; };
-		8355D4F41A653EB800E73302 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974501A64434D00E0B28E /* libswscale.a */; };
 		8355D4F51A653ED300E73302 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8349741C1A643E8B00E0B28E /* AudioUnit.framework */; };
 		8355D4F71A653ED300E73302 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8355D4F61A653ED300E73302 /* CoreAudio.framework */; };
 		8355D4F81A653EDB00E73302 /* ForceFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974221A643EB500E0B28E /* ForceFeedback.framework */; };
@@ -2692,6 +2692,10 @@
 		3E8D2C171D21EA810086BA59 /* stdcheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdcheaders.h; path = dolphin/Externals/curl/include/curl/stdcheaders.h; sourceTree = SOURCE_ROOT; };
 		3E8D2C181D21EA810086BA59 /* typecheck-gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "typecheck-gcc.h"; path = "dolphin/Externals/curl/include/curl/typecheck-gcc.h"; sourceTree = SOURCE_ROOT; };
 		3EC6F7681CDBBCE30044AC7E /* Sys */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sys; path = dolphin/Data/Sys; sourceTree = "<group>"; };
+		3EE7BF5F1F1FDD9200117AF6 /* libavcodec-dc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libavcodec-dc.a"; path = "Externals/ffmpeg/lib/libavcodec-dc.a"; sourceTree = "<group>"; };
+		3EE7BF601F1FDD9200117AF6 /* libavformat-dc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libavformat-dc.a"; path = "Externals/ffmpeg/lib/libavformat-dc.a"; sourceTree = "<group>"; };
+		3EE7BF611F1FDD9200117AF6 /* libavutil-dc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libavutil-dc.a"; path = "Externals/ffmpeg/lib/libavutil-dc.a"; sourceTree = "<group>"; };
+		3EE7BF621F1FDD9200117AF6 /* libswscale-dc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libswscale-dc.a"; path = "Externals/ffmpeg/lib/libswscale-dc.a"; sourceTree = "<group>"; };
 		4B3F200BFA3B4AA9B8072A6A /* libsfml-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57799651D35F4D0F946361A2 /* libpng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpng.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE2ADF9B49F4F4EB95615D5 /* libcommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2715,10 +2719,6 @@
 		834974461A64401000E0B28E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		834974491A64403300E0B28E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		8349744B1A64404400E0B28E /* libdl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdl.dylib; path = usr/lib/libdl.dylib; sourceTree = SDKROOT; };
-		8349744D1A64434C00E0B28E /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = /usr/local/Cellar/ffmpeg/2.5.2/lib/libavcodec.a; sourceTree = "<absolute>"; };
-		8349744E1A64434C00E0B28E /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = /usr/local/Cellar/ffmpeg/2.5.2/lib/libavformat.a; sourceTree = "<absolute>"; };
-		8349744F1A64434D00E0B28E /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavutil.a; path = /usr/local/Cellar/ffmpeg/2.5.2/lib/libavutil.a; sourceTree = "<absolute>"; };
-		834974501A64434D00E0B28E /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = /usr/local/Cellar/ffmpeg/2.5.2/lib/libswscale.a; sourceTree = "<absolute>"; };
 		834974551A64435700E0B28E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8355D4931A6538FD00E73302 /* Dolphin-Core.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dolphin-Core.oecoreplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8355D4961A6538FD00E73302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2793,15 +2793,12 @@
 				3E3D77401C839CC200091C4D /* libenet.a in Frameworks */,
 				3E3D77411C839CC200091C4D /* libmbedtls.a in Frameworks */,
 				3E3D77421C839CC200091C4D /* libxxhash.a in Frameworks */,
+				3EE7BF661F1FDD9200117AF6 /* libswscale-dc.a in Frameworks */,
 				8355D4FA1A653EF200E73302 /* libiconv.dylib in Frameworks */,
 				8355D4F91A653EE600E73302 /* IOKit.framework in Frameworks */,
 				8355D4F81A653EDB00E73302 /* ForceFeedback.framework in Frameworks */,
 				8355D4F71A653ED300E73302 /* CoreAudio.framework in Frameworks */,
 				8355D4F51A653ED300E73302 /* AudioUnit.framework in Frameworks */,
-				8355D4F11A653EB800E73302 /* libavcodec.a in Frameworks */,
-				8355D4F21A653EB800E73302 /* libavformat.a in Frameworks */,
-				8355D4F31A653EB800E73302 /* libavutil.a in Frameworks */,
-				8355D4F41A653EB800E73302 /* libswscale.a in Frameworks */,
 				8355D4F01A653E8B00E73302 /* Cocoa.framework in Frameworks */,
 				8355D4EF1A653E7D00E73302 /* CoreGraphics.framework in Frameworks */,
 				8355D4EE1A653E7200E73302 /* IOBluetooth.framework in Frameworks */,
@@ -2811,11 +2808,13 @@
 				8355D4C41A65393600E73302 /* libaudiocommon.a in Frameworks */,
 				8355D4C51A65393600E73302 /* libbdisasm.a in Frameworks */,
 				8355D4C61A65393600E73302 /* libcommon.a in Frameworks */,
+				3EE7BF651F1FDD9200117AF6 /* libavutil-dc.a in Frameworks */,
 				8355D4C71A65393600E73302 /* libcore.a in Frameworks */,
 				8355D4C81A65393600E73302 /* libdiscio.a in Frameworks */,
 				8355D4CA1A65393600E73302 /* libinputcommon.a in Frameworks */,
 				8355D4CB1A65393600E73302 /* liblzo2.a in Frameworks */,
 				8355D4CC1A65393600E73302 /* libminiupnpc.a in Frameworks */,
+				3EE7BF641F1FDD9200117AF6 /* libavformat-dc.a in Frameworks */,
 				8355D4CD1A65393600E73302 /* libpch.a in Frameworks */,
 				8355D4CE1A65393600E73302 /* libpng.a in Frameworks */,
 				8355D4D01A65393600E73302 /* libsfml-network.a in Frameworks */,
@@ -2824,6 +2823,7 @@
 				8355D4D31A65393600E73302 /* libSoundTouch.a in Frameworks */,
 				8355D4D41A65393600E73302 /* libuicommon.a in Frameworks */,
 				8355D4D51A65393600E73302 /* libvideocommon.a in Frameworks */,
+				3EE7BF631F1FDD9200117AF6 /* libavcodec-dc.a in Frameworks */,
 				8355D4D61A65393600E73302 /* libvideoogl.a in Frameworks */,
 				8355D4D71A65393600E73302 /* libvideosoftware.a in Frameworks */,
 			);
@@ -4425,6 +4425,10 @@
 		832876FE1A64450F00AC06FD /* Frameworks & Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3EE7BF5F1F1FDD9200117AF6 /* libavcodec-dc.a */,
+				3EE7BF601F1FDD9200117AF6 /* libavformat-dc.a */,
+				3EE7BF611F1FDD9200117AF6 /* libavutil-dc.a */,
+				3EE7BF621F1FDD9200117AF6 /* libswscale-dc.a */,
 				3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */,
 				8355D4F61A653ED300E73302 /* CoreAudio.framework */,
 				8319AFB31A6D466300DD23A9 /* AppKit.framework */,
@@ -4441,12 +4445,8 @@
 				834974221A643EB500E0B28E /* ForceFeedback.framework */,
 				834974161A643E4E00E0B28E /* IOBluetooth.framework */,
 				834974181A643E5C00E0B28E /* IOKit.framework */,
-				8349744D1A64434C00E0B28E /* libavcodec.a */,
-				8349744E1A64434C00E0B28E /* libavformat.a */,
-				8349744F1A64434D00E0B28E /* libavutil.a */,
 				8349744B1A64404400E0B28E /* libdl.dylib */,
 				834974491A64403300E0B28E /* libiconv.dylib */,
-				834974501A64434D00E0B28E /* libswscale.a */,
 				834974551A64435700E0B28E /* libz.dylib */,
 				8349743C1A643F7200E0B28E /* OpenAL.framework */,
 				834974461A64401000E0B28E /* OpenGL.framework */,
@@ -6838,7 +6838,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -6884,7 +6883,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/3.1.3/include,
+					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -7025,7 +7024,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -7275,7 +7273,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -7382,7 +7379,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -7494,7 +7490,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -7608,7 +7603,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -7876,7 +7870,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -8934,7 +8927,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -9150,7 +9142,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -9283,7 +9274,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/3.1.3/include,
+					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -9579,7 +9570,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -9787,7 +9777,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10156,7 +10145,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10372,7 +10360,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -10454,7 +10441,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/3.1.3/lib,
+					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -10506,7 +10493,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/3.1.3/lib,
+					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -10558,7 +10545,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/3.1.3/lib,
+					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -10610,7 +10597,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/ffmpeg/3.1.3/lib,
+					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -10998,7 +10985,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -11146,7 +11132,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -11799,7 +11784,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -12265,7 +12249,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -12438,7 +12421,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -12646,7 +12628,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
@@ -13303,7 +13284,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/3.1.3/include,
+					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -13529,7 +13510,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/ffmpeg/3.1.3/include,
+					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SOIL,
@@ -13649,7 +13630,6 @@
 					$SRCROOT/Externals/SFML/include,
 					$SRCROOT/Externals/GL,
 					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenAL.framework/Headers,
-					/usr/local/Cellar/ffmpeg/2.5.2/include,
 					$SRCROOT/Source/Core,
 					$SRCROOT/Externals/Bochs_disasm,
 					$SRCROOT/Externals/LZO,
