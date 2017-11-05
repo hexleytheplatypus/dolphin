@@ -1,39 +1,58 @@
-/*
-Copyright (c) 2016, OpenEmu Team
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-* Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright
-notice, this list of conditions and the following disclaimer in the
-documentation and/or other materials provided with the distribution.
-* Neither the name of the OpenEmu Team nor the
-names of its contributors may be used to endorse or promote products
-derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-
-#include "Common/GL/GLInterface/AGL.h"
+// Copyright 2012 Dolphin Emulator Project
+// Licensed under GPLv2+
+// Refer to the license.txt file included.
 #include "DolphinGameCore.h"
+
 #include "Core/ConfigManager.h"
+#include "Common/GL/GLInterface/AGL.h"
+#include "Common/Logging/Log.h"
+
+static bool UpdateCachedDimensions(NSView* view, u32* width, u32* height)
+{
+    NSWindow* window = [view window];
+    NSSize size = [view frame].size;
+
+    float scale = [window backingScaleFactor];
+    size.width *= scale;
+    size.height *= scale;
+
+    if (*width == size.width && *height == size.height)
+        return false;
+
+    *width = size.width;
+    *height = size.height;
+
+    return true;
+}
+
+static bool AttachContextToView(NSOpenGLContext* context, NSView* view, u32* width, u32* height)
+{
+    // Enable high-resolution display support.
+    [view setWantsBestResolutionOpenGLSurface:YES];
+
+    NSWindow* window = [view window];
+    if (window == nil)
+    {
+        ERROR_LOG(VIDEO, "failed to get NSWindow");
+        return false;
+    }
+
+    (void)UpdateCachedDimensions(view, width, height);
+
+    [window makeFirstResponder:view];
+    [context setView:view];
+    [window makeKeyAndOrderFront:nil];
+
+    return true;
+}
 
 void cInterfaceAGL::Swap()
 {
     GET_CURRENT_OR_RETURN();
-    
+
     [current swapBuffers];
+
+    [m_context flushBuffer];
 }
 
 // Create rendering window.
@@ -50,68 +69,93 @@ bool cInterfaceAGL::Create(void* window_handle, bool stereo, bool core)
     m_pixel_format = [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
     if (m_pixel_format == nil)
     {
-        //ERROR_LOG(VIDEO, "failed to create pixel format");
+        ERROR_LOG(VIDEO, "failed to create pixel format");
         return false;
     }
 
     m_context = [[NSOpenGLContext alloc] initWithFormat:m_pixel_format shareContext:nil];
     if (m_context == nil)
     {
-        //ERROR_LOG(VIDEO, "failed to create context");
+        ERROR_LOG(VIDEO, "failed to create context");
         return false;
     }
 
-        if(SConfig::GetInstance().bWii){
-            s_backbuffer_width = 854;
-            s_backbuffer_height = 480;
-        } else {
-            s_backbuffer_width = 640;
-            s_backbuffer_height = 480;
-        }
+    if(SConfig::GetInstance().bWii){
+        s_backbuffer_width = 854;
+        s_backbuffer_height = 480;
+    } else {
+        s_backbuffer_width = 640;
+        s_backbuffer_height = 480;
+    }
 
-//    if (!window_handle)
-//        return true;
-//
-//    m_view = static_cast<NSView*>(window_handle);
-    return true; //AttachContextToView(m_context, m_view, &s_backbuffer_width, &s_backbuffer_height);
+    if (!window_handle)
+        return true;
+
+    m_view = static_cast<NSView*>(window_handle);
+    return AttachContextToView(m_context, m_view, &s_backbuffer_width, &s_backbuffer_height);
 }
 
-// Create rendering window.
-// Call browser: Core.cpp:EmuThread() > main.cpp:Video_Initialize()
-//bool cInterfaceAGL::Create(void *window_handle, bool core)
-//{
-//    // Control window size and picture scaling
-//    if(SConfig::GetInstance().bWii){
-//        s_backbuffer_width = 854;
-//        s_backbuffer_height = 480;
-//    } else {
-//        s_backbuffer_width = 640;
-//        s_backbuffer_height = 480;
-//    }
-//    return true;
-//}
+bool cInterfaceAGL::Create(cInterfaceBase* main_context)
+{
+    cInterfaceAGL* agl_context = static_cast<cInterfaceAGL*>(main_context);
+    NSOpenGLPixelFormat* pixel_format = agl_context->m_pixel_format;
+    NSOpenGLContext* share_context = agl_context->m_context;
 
+    m_context = [[NSOpenGLContext alloc] initWithFormat:pixel_format shareContext:share_context];
+    if (m_context == nil)
+    {
+        ERROR_LOG(VIDEO, "failed to create shared context");
+        return false;
+    }
+
+    return true;
+}
+
+std::unique_ptr<cInterfaceBase> cInterfaceAGL::CreateSharedContext()
+{
+    std::unique_ptr<cInterfaceBase> context = std::make_unique<cInterfaceAGL>();
+    if (!context->Create(this))
+        return nullptr;
+    return context;
+}
 
 bool cInterfaceAGL::MakeCurrent()
 {
+    [m_context makeCurrentContext];
+
+    GET_CURRENT_OR_RETURN();
+
+    [current.renderDelegate willRenderFrameOnAlternateThread];
+
     return true;
 }
 
 bool cInterfaceAGL::ClearCurrent()
 {
+    [NSOpenGLContext clearCurrentContext];
     return true;
 }
 
 // Close backend
 void cInterfaceAGL::Shutdown()
 {
+    [m_context clearDrawable];
+    [m_context release];
+    m_context = nil;
+    [m_pixel_format release];
+    m_pixel_format = nil;
 }
 
 void cInterfaceAGL::Update()
 {
+    if (!m_view)
+        return;
+
+    if (UpdateCachedDimensions(m_view, &s_backbuffer_width, &s_backbuffer_height))
+        [m_context update];
 }
 
 void cInterfaceAGL::SwapInterval(int interval)
 {
+    [m_context setValues:static_cast<GLint*>(&interval) forParameter:NSOpenGLCPSwapInterval];
 }
-

@@ -2,67 +2,73 @@
 // Licensed under GPLv2+
 // Refer to the license.txt file included.
 
-#include <cstring>
+#include "Core/HW/WiimoteEmu/Attachment/Nunchuk.h"
+
+#include "input.h"
+
+#include <array>
+#include <cassert>
 
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
 #include "Common/MathUtil.h"
-//#include "OE_WiimoteEmu.h"  //
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
-#include "Core/HW/WiimoteEmu/Attachment/Nunchuk.h"
+
+#include "InputCommon/ControllerEmu/Control/Input.h"
+#include "InputCommon/ControllerEmu/ControlGroup/AnalogStick.h"
+#include "InputCommon/ControllerEmu/ControlGroup/Buttons.h"
+#include "InputCommon/ControllerEmu/ControlGroup/ControlGroup.h"
+#include "InputCommon/ControllerEmu/ControlGroup/Force.h"
+#include "InputCommon/ControllerEmu/ControlGroup/Tilt.h"
 
 namespace WiimoteEmu
 {
+    constexpr std::array<u8, 6> nunchuk_id{{0x00, 0x00, 0xa4, 0x20, 0x00, 0x00}};
 
-    static const u8 nunchuk_id[] = { 0x00, 0x00, 0xa4, 0x20, 0x00, 0x00 };
+    constexpr std::array<u8, 2> nunchuk_button_bitmasks{{
+        Nunchuk::BUTTON_C, Nunchuk::BUTTON_Z,
+    }};
 
-    static const u8 nunchuk_button_bitmasks[] =
-    {
-        Nunchuk::BUTTON_C,
-        Nunchuk::BUTTON_Z,
-    };
-
-
-    Nunchuk::Nunchuk(WiimoteEmu::ExtensionReg& _reg) : Attachment(_trans("Nunchuk"), _reg)
+    Nunchuk::Nunchuk(ExtensionReg& reg) : Attachment(_trans("Nunchuk"), reg)
     {
         // buttons
-        groups.emplace_back(m_buttons = new Buttons("Buttons"));
-        m_buttons->controls.emplace_back(new ControlGroup::Input("OEWiiNunchukButtonC"));
-        m_buttons->controls.emplace_back(new ControlGroup::Input("OEWiiNunchukButtonZ"));
+        groups.emplace_back(m_buttons = new ControllerEmu::Buttons(_trans("Buttons")));
+        m_buttons->controls.emplace_back(new ControllerEmu::Input("C"));
+        m_buttons->controls.emplace_back(new ControllerEmu::Input("Z"));
 
         // stick
-        groups.emplace_back(m_stick = new AnalogStick("Nunchuk Stick", DEFAULT_ATTACHMENT_STICK_RADIUS));
+        groups.emplace_back(
+                            m_stick = new ControllerEmu::AnalogStick(_trans("Stick"), DEFAULT_ATTACHMENT_STICK_RADIUS));
 
         // swing
-        groups.emplace_back(m_swing = new Force("Swing"));
+        groups.emplace_back(m_swing = new ControllerEmu::Force(_trans("Swing")));
 
         // tilt
-        groups.emplace_back(m_tilt = new Tilt("Tilt"));
+        groups.emplace_back(m_tilt = new ControllerEmu::Tilt(_trans("Tilt")));
 
         // shake
-        groups.emplace_back(m_shake = new Buttons("Shake"));
-        m_shake->controls.emplace_back(new ControlGroup::Input("OEWiiNunchukAccelX"));
-        m_shake->controls.emplace_back(new ControlGroup::Input("OEWiiNunchukAccelY"));
-        m_shake->controls.emplace_back(new ControlGroup::Input("OEWiiNunchukAccelZ"));
+        groups.emplace_back(m_shake = new ControllerEmu::Buttons(_trans("Shake")));
+        // i18n: Refers to a 3D axis (used when mapping motion controls)
+        m_shake->controls.emplace_back(new ControllerEmu::Input(_trans("X")));
+        // i18n: Refers to a 3D axis (used when mapping motion controls)
+        m_shake->controls.emplace_back(new ControllerEmu::Input(_trans("Y")));
+        // i18n: Refers to a 3D axis (used when mapping motion controls)
+        m_shake->controls.emplace_back(new ControllerEmu::Input(_trans("Z")));
 
-        // id
-        memcpy(&id, nunchuk_id, sizeof(nunchuk_id));
-
-        // this should get set to 0 on disconnect, but it isn't, o well
-        memset(m_shake_step, 0, sizeof(m_shake_step));
+        m_id = nunchuk_id;
     }
 
     void Nunchuk::GetState(u8* const data)
     {
-        wm_nc* const ncdata = (wm_nc*)data;
+        wm_nc* const ncdata = reinterpret_cast<wm_nc* const>(data);
         ncdata->bt.hex = 0;
 
         // stick
         double jx, jy;
-        m_stick->GetState(&jx, &jy);
-
-        ncdata->jx = u8(STICK_CENTER + jx * STICK_RADIUS);
-        ncdata->jy = u8(STICK_CENTER + jy * STICK_RADIUS);
+//        m_stick->GetState(&jx, &jy);
+//
+//        ncdata->jx = u8(STICK_CENTER + jx * STICK_RADIUS);
+//        ncdata->jy = u8(STICK_CENTER + jy * STICK_RADIUS);
 
         // Some terribly coded games check whether to move with a check like
         //
@@ -72,13 +78,14 @@ namespace WiimoteEmu
         // With keyboard controls, these games break if you simply hit
         // of the axes. Adjust this if you're hitting one of the axes so that
         // we slightly tweak the other axis.
-        if (ncdata->jx != STICK_CENTER || ncdata->jy != STICK_CENTER)
-        {
-            if (ncdata->jx == STICK_CENTER)
-                ++ncdata->jx;
-            if (ncdata->jy == STICK_CENTER)
-                ++ncdata->jy;
-        }
+//        if (ncdata->jx != STICK_CENTER || ncdata->jy != STICK_CENTER)
+//        {
+//            if (ncdata->jx == STICK_CENTER)
+//                ++ncdata->jx;
+//            if (ncdata->jy == STICK_CENTER)
+//                ++ncdata->jy;
+//        }
+
 
         AccelData accel;
 
@@ -88,9 +95,19 @@ namespace WiimoteEmu
         // swing
         EmulateSwing(&accel, m_swing);
         // shake
-        EmulateShake(&accel, m_shake, m_shake_step);
+        EmulateShake(&accel, m_shake, m_shake_step.data());
         // buttons
-        m_buttons->GetState(&ncdata->bt.hex, nunchuk_button_bitmasks);
+        m_buttons->GetState(&ncdata->bt.hex, nunchuk_button_bitmasks.data());
+
+        int pad_num =0;
+
+        // buttons
+        for (unsigned i = 0; i < (sizeof(WiiRemotes[pad_num].nunchuk_keymap) / sizeof(*WiiRemotes[pad_num].nunchuk_keymap)); i++)
+            ncdata->bt.hex |= WiiRemotes[pad_num].nunchuk_keymap[i].value ? WiiRemotes[pad_num].nunchuk_keymap[i].dolphinButton : 0;
+
+        // stick
+        ncdata->jx = u8(STICK_CENTER + WiiRemotes[pad_num].nunchuck_Analog.Xaxis * STICK_RADIUS);
+        ncdata->jy = u8(STICK_CENTER + WiiRemotes[pad_num].nunchuck_Analog.Yaxis * STICK_RADIUS);
 
         // flip the button bits :/
         ncdata->bt.hex ^= 0x03;
@@ -103,7 +120,7 @@ namespace WiimoteEmu
         accel_x = MathUtil::Clamp<s16>(accel_x, 0, 1024);
         accel_y = MathUtil::Clamp<s16>(accel_y, 0, 1024);
         accel_z = MathUtil::Clamp<s16>(accel_z, 0, 1024);
-        
+
         ncdata->ax = (accel_x >> 2) & 0xFF;
         ncdata->ay = (accel_y >> 2) & 0xFF;
         ncdata->az = (accel_z >> 2) & 0xFF;
@@ -111,32 +128,191 @@ namespace WiimoteEmu
         ncdata->bt.acc_y_lsb = accel_y & 0x3;
         ncdata->bt.acc_z_lsb = accel_z & 0x3;
     }
-    
+
     bool Nunchuk::IsButtonPressed() const
     {
         u8 buttons = 0;
-        m_buttons->GetState(&buttons, nunchuk_button_bitmasks);
+        m_buttons->GetState(&buttons, nunchuk_button_bitmasks.data());
         return buttons != 0;
     }
 
+    ControllerEmu::ControlGroup* Nunchuk::GetGroup(NunchukGroup group)
+    {
+        switch (group)
+        {
+            case NunchukGroup::Buttons:
+                return m_buttons;
+            case NunchukGroup::Stick:
+                return m_stick;
+            case NunchukGroup::Tilt:
+                return m_tilt;
+            case NunchukGroup::Swing:
+                return m_swing;
+            case NunchukGroup::Shake:
+                return m_shake;
+            default:
+                assert(false);
+                return nullptr;
+        }
+    }
 
     void Nunchuk::LoadDefaults(const ControllerInterface& ciface)
     {
         // Stick
-        m_stick->SetControlExpression(0, "OEWiiNunchukAnalogUp"); // up
-        m_stick->SetControlExpression(1, "OEWiiNunchukAnalogDown"); // down
-        m_stick->SetControlExpression(2, "OEWiiNunchukAnalogLeft"); // left
-        m_stick->SetControlExpression(3, "OEWiiNunchukAnalogRight"); // right
-        
+        m_stick->SetControlExpression(0, "W");  // up
+        m_stick->SetControlExpression(1, "S");  // down
+        m_stick->SetControlExpression(2, "A");  // left
+        m_stick->SetControlExpression(3, "D");  // right
+
         // Buttons
-        m_buttons->SetControlExpression(0, "OEWiiNunchukButtonC"); // C
-        m_buttons->SetControlExpression(1, "OEWiiNunchukButtonZ");   // Z
-        
-        //Accelerometer
-        m_shake->SetControlExpression(0, "OEWiiNunchukAccelX");
-        m_shake->SetControlExpression(1, "OEWiiNunchukAccelY");
-        m_shake->SetControlExpression(2, "OEWiiNunchukAccelZ");
-        
+#ifdef _WIN32
+        m_buttons->SetControlExpression(0, "LCONTROL");  // C
+        m_buttons->SetControlExpression(1, "LSHIFT");    // Z
+#elif __APPLE__
+        m_buttons->SetControlExpression(0, "Left Control");  // C
+        m_buttons->SetControlExpression(1, "Left Shift");    // Z
+#else
+        m_buttons->SetControlExpression(0, "Control_L");  // C
+        m_buttons->SetControlExpression(1, "Shift_L");    // Z
+#endif
     }
-    
+}
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//#include <cassert>
+//
+//#include "input.h"
+//
+//
+//namespace WiimoteEmu
+//{
+//    static Nunchuk* nunchuk_controllers_map[MAX_BBMOTES];
+//
+//    constexpr std::array<u8, 6> nunchuk_id{{0x00, 0x00, 0xa4, 0x20, 0x00, 0x00}};
+//
+//    Nunchuk::Nunchuk(ExtensionReg& reg) : Attachment(_trans("Nunchuk"), reg)
+//    {
+//        //nunchuk_controllers_map[current_mote_id] = this;
+//
+//        m_id = nunchuk_id;
+//    }
+//
+//    void Nunchuk::GetState(u8* const data)
+//    {
+//        wm_nc* const ncdata = reinterpret_cast<wm_nc* const>(data);
+//        ncdata->bt.hex = 0;
+//
+//        int pad_num =0;
+//
+//        // buttons
+//        for (unsigned i = 0; i < (sizeof(WiiRemotes[pad_num].nunchuk_keymap) / sizeof(*WiiRemotes[pad_num].nunchuk_keymap)); i++)
+//            ncdata->bt.hex |= WiiRemotes[pad_num].nunchuk_keymap[i].value ? WiiRemotes[pad_num].nunchuk_keymap[i].dolphinButton : 0;
+//
+//        // stick
+//
+//        ncdata->jx = u8(STICK_CENTER + WiiRemotes[pad_num].nunchuck_Analog.Xaxis * STICK_RADIUS);
+//        ncdata->jy = u8(STICK_CENTER + WiiRemotes[pad_num].nunchuck_Analog.Yaxis * STICK_RADIUS);
+//
+//
+//        //        AccelData accel;
+//        //
+//        //        // tilt
+//        //        EmulateTilt(&accel, m_tilt);
+//        //
+//        //        // swing
+//        //        EmulateSwing(&accel, m_swing);
+//        //        // shake
+//        //        EmulateShake(&accel, m_shake, m_shake_step.data());
+//        //                //        m_buttons->GetState(&ncdata->bt.hex, nunchuk_button_bitmasks.data());
+//
+//        // flip the button bits :/
+//        ncdata->bt.hex ^= 0x03;
+//
+//        //        // We now use 2 bits more precision, so multiply by 4 before converting to int
+//        //        s16 accel_x = (s16)(4 * (accel.x * ACCEL_RANGE + ACCEL_ZERO_G));
+//        //        s16 accel_y = (s16)(4 * (accel.y * ACCEL_RANGE + ACCEL_ZERO_G));
+//        //        s16 accel_z = (s16)(4 * (accel.z * ACCEL_RANGE + ACCEL_ZERO_G));
+//        //
+//        //        accel_x = MathUtil::Clamp<s16>(accel_x, 0, 1024);
+//        //        accel_y = MathUtil::Clamp<s16>(accel_y, 0, 1024);
+//        //        accel_z = MathUtil::Clamp<s16>(accel_z, 0, 1024);
+//        //
+//        //        ncdata->ax = (accel_x >> 2) & 0xFF;
+//        //        ncdata->ay = (accel_y >> 2) & 0xFF;
+//        //        ncdata->az = (accel_z >> 2) & 0xFF;
+//        //        ncdata->bt.acc_x_lsb = accel_x & 0x3;
+//        //        ncdata->bt.acc_y_lsb = accel_y & 0x3;
+//        //        ncdata->bt.acc_z_lsb = accel_z & 0x3;
+//    }
+//
+//    bool Nunchuk::IsButtonPressed() const
+//    {
+//        int pad_num;
+//
+//        for (pad_num = 0; pad_num < MAX_BBMOTES && this != nunchuk_controllers_map[pad_num]; pad_num++)
+//            ;
+//
+//        if (pad_num > 4)
+//            return false;
+//
+//        for (unsigned i = 0; i < (sizeof( WiiRemotes[pad_num].nunchuk_keymap) / sizeof(* WiiRemotes[pad_num].nunchuk_keymap)); i++)
+//            if ( WiiRemotes[pad_num].classic_keymap[i].value)
+//                return true;
+//
+//        return false;
+//    }
+//
+//    ControllerEmu::ControlGroup* Nunchuk::GetGroup(NunchukGroup group)
+//    {
+//        return nullptr;
+//    }
+//
+//    void Nunchuk::LoadDefaults(const ControllerInterface& ciface)
+//    {}
+//}
+
+void setWiiNunchukButton(int pad_num, int button , int value)
+{
+    for (unsigned i = 0; i < (sizeof(WiiRemotes[pad_num].classic_keymap) / sizeof(*WiiRemotes[pad_num].classic_keymap)); i++) {
+        if (WiiRemotes[pad_num].nunchuk_keymap[i].openemuButton == button) {
+            WiiRemotes[pad_num].nunchuk_keymap[i].value = value;
+            return;
+        }
+    }
+}
+
+void setWiiNunchukAxis(int pad_num, int button , float value)
+{
+    switch (button)
+    {
+        case OEWiiNunchukAnalogUp:
+             WiiRemotes[pad_num].nunchuck_Analog.Xaxis = value;
+            break;
+        case OEWiiNunchukAnalogDown:
+             WiiRemotes[pad_num].nunchuck_Analog.Xaxis = -value;
+            break;
+
+        case OEWiiNunchukAnalogLeft:
+             WiiRemotes[pad_num].nunchuck_Analog.Xaxis = -value;
+            break;
+        case OEWiiNunchukAnalogRight:
+             WiiRemotes[pad_num].nunchuck_Analog.Xaxis = value;
+            break;
+
+        default:
+            break;
+
+    }
 }
