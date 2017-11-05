@@ -25,42 +25,59 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "DolHost.h"
-#include "OE_OSXJoystick.h"
-#include "OE_WiimoteEmu.h"
+#include "input.h"
+
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
 #import  <Cocoa/Cocoa.h>
 
+#include "AudioCommon/AudioCommon.h"
+
+#include "Common/CommonPaths.h"
+#include "Common/CommonTypes.h"
+#include "Common/Event.h"
+#include "Common/Flag.h"
+#include "Common/Logging/LogManager.h"
+#include "Common/MsgHandler.h"
+
+#include "Core/Analytics.h"
+#include "Core/Boot/Boot.h"
 #include "Core/BootManager.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
-#include "Core/State.h"
-#include "Core/IPC_HLE/WII_IPC_HLE_Device_usb.h"
-#include "Core/IPC_HLE/WII_IPC_HLE_WiiMote.h"
-#include "Core/PowerPC/PowerPC.h"
+#include "Core/Host.h"
 #include "Core/HW/CPU.h"
+#include "Core/HW/Wiimote.h"
+#include "Core/HW/WiimoteCommon/WiimoteHid.h"
 #include "Core/HW/WiimoteReal/WiimoteReal.h"
+#include "Core/HW/WiimoteEmu/WiimoteEmu.h"
 #include "Core/HW/ProcessorInterface.h"
+#include "Core/IOS/IOS.h"
+#include "Core/IOS/STM/STM.h"
+#include "Core/PowerPC/PowerPC.h"
+#include "Core/State.h"
+#include "Core/WiiUtils.h"
 
-#include "Common/CommonPaths.h"
-#include "Common/Event.h"
-#include "Common/Logging/LogManager.h"
-
+#include "UICommon/CommandLineParse.h"
 #include "UICommon/UICommon.h"
 
+#include "InputCommon/InputConfig.h"
+#include "InputCommon/ControllerEmu/ControlGroup/Extension.h"
+#include "InputCommon/ControllerEmu/ControlGroup/Cursor.h"
+#include "InputCommon/ControllerEmu/Control/Control.h"
+#include "InputCommon/ControlReference/ControlReference.h"
+
+#include "VideoCommon/RenderBase.h"
 #include "VideoCommon/VideoBackendBase.h"
 #include "VideoCommon/VideoConfig.h"
-
-#include "AudioCommon/AudioCommon.h"
-
-#include "InputCommon/InputConfig.h"
-#include "InputCommon/ControllerInterface/ControllerInterface.h"
-
-#include "DiscIO/VolumeCreator.h"
-#include "DiscIO/NANDContentLoader.h"
+#include "VideoCommon/OnScreenDisplay.h"
 
 DolHost* DolHost::m_instance = nullptr;
 static Common::Event updateMainFrameEvent;
+static Common::Flag s_running{true};
+
+static Common::Flag s_shutdown_requested{false};
+static Common::Flag s_tried_graceful_shutdown{false};
 
 DolHost* DolHost::GetInstance()
 {
@@ -83,37 +100,63 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     UICommon::CreateDirectories();
     UICommon::Init();
 
+    // Database Settings
+    SConfig::GetInstance().m_use_builtin_title_database = true;
+
     //Setup the CPU Settings
-    SConfig::GetInstance().bDSPHLE = true;
-    SConfig::GetInstance().bDSPThread = true;
-    SConfig::GetInstance().m_Volume = 0;
     SConfig::GetInstance().bMMU = true;
-    SConfig::GetInstance().bSkipIdle = true;
+    //SConfig::GetInstance().bSkipIdle = true;
+#ifdef DEBUG
     SConfig::GetInstance().bEnableCheats = true;
+#else
+    SConfig::GetInstance().bEnableCheats = false;
+#endif
     SConfig::GetInstance().bBootToPause = false;
 
     //Debug Settings
-    SConfig::GetInstance().bOnScreenDisplayMessages = false;
+    SConfig::GetInstance().bEnableDebugging = false;
+    SConfig::GetInstance().bOnScreenDisplayMessages = true;
     SConfig::GetInstance().m_ShowFrameCount = false;
-    
-    //Set the Sound Backend
-    SConfig::GetInstance().sBackend = "OpenAL";
+
+    //Video
+    SConfig::GetInstance().m_strVideoBackend = "OGL";
+    VideoBackendBase::ActivateBackend(SConfig::GetInstance().m_strVideoBackend);
+
+    //Set the Sound
+    SConfig::GetInstance().bDSPHLE = true;
+    SConfig::GetInstance().bDSPThread = true;
+    SConfig::GetInstance().m_Volume = 0;
+    SConfig::GetInstance().sBackend = "Cubeb" ;//"OpenAL";
 
     //Split CPU thread from GPU
     SConfig::GetInstance().bCPUThread = true;
-    
+
+    //Analitics
+    SConfig::GetInstance().m_analytics_permission_asked = true;
+    SConfig::GetInstance().m_analytics_enabled =  false;
+    DolphinAnalytics::Instance()->ReloadConfig();
+
+    //Save them now
+    SConfig::GetInstance().SaveSettings();
+
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
-    
-    //Get game info frome file (disc)
+
+    //Get game info from file path
     GetGameInfo();
 
-    if (!_wiiGame && !_wiiWAD)
+    if (!DiscIO::IsWii(_gameType))
     {
+        SConfig::GetInstance().bWii = false;
+
+        //Set the wii format to false
+        _wiiWAD = false;
+
+
         //Create Memorycards by GameID
-        std::string _memCardPath = File::GetUserPath(D_GCUSER_IDX) + DIR_SEP + _gameRegion + DIR_SEP + _gameID;
-        std::string _memCardA = _memCardPath + "_A." + _gameRegion + ".raw";
-        std::string _memCardB = _memCardPath +  "_B." + _gameRegion + ".raw";
+        std::string _memCardPath = File::GetUserPath(D_GCUSER_IDX) + DIR_SEP + _gameCountryDir + DIR_SEP + _gameID;
+        std::string _memCardA = _memCardPath + "_A." + _gameCountryDir + ".raw";
+        std::string _memCardB = _memCardPath +  "_B." + _gameCountryDir + ".raw";
 
         SConfig::GetInstance().m_strMemoryCardA = _memCardA;
         SConfig::GetInstance().m_strMemoryCardB = _memCardB;
@@ -123,6 +166,14 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     }
     else
     {
+        SConfig::GetInstance().bWii = true;
+
+        //Set the wii type
+        if (_gameType ==  DiscIO::Platform::WII_WAD)
+            _wiiWAD = true;
+        else
+            _wiiWAD = false;
+
         //clear the GC mem card paths
         SConfig::GetInstance().m_strMemoryCardA = "";
         SConfig::GetInstance().m_strMemoryCardB = "";
@@ -144,38 +195,45 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 # pragma mark - Execution
 bool DolHost::LoadFileAtPath()
 {
-    SConfig::GetInstance().bWii = _wiiGame;
+
+    Core::SetOnStateChangedCallback([](Core::State state) {
+        if (state == Core::State::Uninitialized)
+            s_running.Clear();
+    });
+
+    DolphinAnalytics::Instance()->ReportDolphinStart("openEmu");
 
     if (_wiiWAD)
-        DiscIO::CNANDContentManager::Access().Install_WiiWAD(_gamePath);
+        WiiUtils::InstallWAD(_gamePath);
+//    else
+//        WiiUtils::DoDiscUpdate(nil, _gameRegionName);
 
-    if(!BootManager::BootCore(_gamePath))
-        return false;
+   if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath)))
+       return false;
 
     while (!Core::IsRunning())
         updateMainFrameEvent.Wait();
-
-    SetUpPlayerInputs();
-
-    //We have to set FPS display here or it doesn't work
-    g_Config.bShowFPS = SConfig::GetInstance().m_ShowFrameCount;
-
+    
     return true;
 }
 
 void DolHost::Pause(bool flag)
 {
-    Core::EState state = flag ? Core::CORE_PAUSE : Core::CORE_RUN;
+    Core::State state = flag ? Core::State::Paused : Core::State::Running;
     Core::SetState(state);
 }
 
 void DolHost::RequestStop()
 {
-    Core::SetState(Core::CORE_RUN);
+    Core::SetState(Core::State::Running);
+    ProcessorInterface::PowerButton_Tap();
+
     Core::Stop();
-    while (CPU::GetState() != CPU::CPU_POWERDOWN)
-        usleep(1000);
+    while (CPU::GetState() != CPU::State::PowerDown)
+       usleep(1000);
+
     Core::Shutdown();
+    UICommon::Shutdown();
 }
 
 void DolHost::Reset()
@@ -185,13 +243,15 @@ void DolHost::Reset()
 
 void DolHost::UpdateFrame()
 {
+    Core::HostDispatchJobs();
     updateMainFrameEvent.Set();
+
     if(_onBoot) _onBoot = false;
 }
 
 bool DolHost::CoreRunning()
 {
-    if (Core::GetState() == Core::CORE_RUN)
+    if (Core::GetState() == Core::State::Running)
         return true;
 
     return false;
@@ -213,7 +273,6 @@ void DolHost::SetVolume(float value)
 # pragma mark - Save states
 bool DolHost::setAutoloadFile(std::string saveStateFile)
 {
-
     Core::SetStateFileName(saveStateFile);
 
     return true;
@@ -229,7 +288,7 @@ bool DolHost::LoadState(std::string saveStateFile)
 {
     State::LoadAs(saveStateFile);
 
-    if (_wiiGame)
+    if (DiscIO::IsWii(_gameType))
     {
         // We have to set the wiimote type, cause the gamesave may
         //    have used a different type
@@ -329,150 +388,20 @@ void DolHost::DisplayMessage(std::string message)
     Core::DisplayMessage( message, 500);
 }
 
-void DolHost::SetUpPlayerInputs()
-{
-    if (SConfig::GetInstance().bWii)
-    {
-        struct {
-            OEWiiButton button;
-            std::string identifier;
-        } buttonToIdentifier[OEWiiButtonCount] = {
-            { OEWiiMoteButtonUp, "OEWiiMoteButtonUp" },
-            { OEWiiMoteButtonDown, "OEWiiMoteButtonDown" },
-            { OEWiiMoteButtonLeft, "OEWiiMoteButtonLeft" },
-            { OEWiiMoteButtonRight, "OEWiiMoteButtonRight" },
-            { OEWiiMoteButtonA, "OEWiiMoteButtonA" },
-            { OEWiiMoteButtonB, "OEWiiMoteButtonB" },
-            { OEWiiMoteButton1, "OEWiiMoteButton1" },
-            { OEWiiMoteButton2, "OEWiiMoteButton2" },
-            { OEWiiMoteButtonPlus, "OEWiiMoteButtonPlus" },
-            { OEWiiMoteButtonMinus, "OEWiiMoteButtonMinus" },
-            { OEWiiMoteButtonHome, "OEWiiMoteButtonHome" },
-            { OEWiiMoteTiltLeft, "OEWiiMoteTiltLeft" },
-            { OEWiiMoteTiltRight, "OEWiiMoteTiltRight" },
-            { OEWiiMoteTiltForward, "OEWiiMoteTiltForward" },
-            { OEWiiMoteTiltBackward, "OEWiiMoteTiltBackward" },
-            { OEWiiMoteShake, "OEWiiMoteShake" },
-            { OEWiiMoteSwingUp, "OEWiiMoteSwingUp" },
-            { OEWiiMoteSwingDown, "OEWiiMoteSwingDown" },
-            { OEWiiMoteSwingLeft, "OEWiiMoteSwingLeft" },
-            { OEWiiMoteSwingRight, "OEWiiMoteSwingRight" },
-            { OEWiiMoteSwingForward, "OEWiiMoteSwingForward" },
-            { OEWiiMoteSwingBackward, "OEWiiMoteSwingBackward" },
-            { OEWiiNunchukAnalogUp, "OEWiiNunchukAnalogUp" },
-            { OEWiiNunchukAnalogDown, "OEWiiNunchukAnalogDown" },
-            { OEWiiNunchukAnalogLeft, "OEWiiNunchukAnalogLeft" },
-            { OEWiiNunchukAnalogRight, "OEWiiNunchukAnalogRight" },
-            { OEWiiNunchukButtonC, "OEWiiNunchukButtonC" },
-            { OEWiiNunchuckButtonZ, "OEWiiNunchukButtonZ" },
-            { OEWiiClassicButtonUp, "OEWiiClassicButtonUp" },
-            { OEWiiClassicButtonDown, "OEWiiClassicButtonDown" },
-            { OEWiiClassicButtonLeft, "OEWiiClassicButtonLeft" },
-            { OEWiiClassicButtonRight, "OEWiiClassicButtonRight" },
-            { OEWiiClassicAnalogLUp, "OEWiiClassicAnalogLUp" },
-            { OEWiiClassicAnalogLDown, "OEWiiClassicAnalogLDown" },
-            { OEWiiClassicAnalogLLeft, "OEWiiClassicAnalogLLeft" },
-            { OEWiiClassicAnalogLRight, "OEWiiClassicAnalogLRight" },
-            { OEWiiClassicAnalogRUp, "OEWiiClassicAnalogRUp" },
-            { OEWiiClassicAnalogRDown, "OEWiiClassicAnalogRDown" },
-            { OEWiiClassicAnalogRLeft, "OEWiiClassicAnalogRLeft" },
-            { OEWiiClassicAnalogRRight, "OEWiiClassicAnalogRRight" },
-            { OEWiiClassicButtonA, "OEWiiClassicButtonA" },
-            { OEWiiClassicButtonB, "OEWiiClassicButtonB" },
-            { OEWiiClassicButtonX, "OEWiiClassicButtonX" },
-            { OEWiiClassicButtonY, "OEWiiClassicButtonY" },
-            { OEWiiClassicButtonL, "OEWiiClassicButtonL" },
-            { OEWiiClassicButtonR, "OEWiiClassicButtonR" },
-            { OEWiiClassicButtonZl, "OEWiiClassicButtonZl" },
-            { OEWiiClassicButtonZr, "OEWiiClassicButtonZr" },
-            { OEWiiClassicButtonStart, "OEWiiClassicButtonStart" },
-            { OEWiiClassicButtonSelect, "OEWiiClassicButtonSelect" },
-            { OEWiiClassicButtonHome, "OEWiiClassicButtonHome" },
-        };
 
-        std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
-        for (int player = 0; player < 4; ++player) {
-            std::string qualifier = "OE_GameDev" + std::to_string(player);
-            ciface::Core::Device* device = nullptr;
-            for (auto& d : devices) {
-                if (d->GetName() == qualifier) {
-
-                    device = d;
-                    break;
-                }
-            }
-            if (device == nullptr)
-                continue;
-
-            for (int inputIndex = 0; inputIndex < OEWiiButtonCount; ++inputIndex) {
-                std::string identifier = buttonToIdentifier[inputIndex].identifier;
-                ciface::Core::Device::Input* input = g_controller_interface.ControllerInterface::FindInput(identifier, device);
-
-                m_playerInputs[player][buttonToIdentifier[inputIndex].button] = input;
-            }
-        }
-    }
-    else
-    {
-        struct {
-            OEGCButton button;
-            std::string identifier;
-        } buttonToIdentifier[OEGCButtonCount] = {
-            { OEGCButtonUp, "OEGCButtonUp" },
-            { OEGCButtonDown, "OEGCButtonDown" },
-            { OEGCButtonLeft, "OEGCButtonLeft" },
-            { OEGCButtonRight, "OEGCButtonRight" },
-            { OEGCButtonA, "OEGCButtonA" },
-            { OEGCButtonB, "OEGCButtonB" },
-            { OEGCButtonX, "OEGCButtonX" },
-            { OEGCButtonY, "OEGCButtonY" },
-            { OEGCButtonL, "OEGCButtonL" },
-            { OEGCButtonR, "OEGCButtonR" },
-            { OEGCButtonZ, "OEGCButtonZ" },
-            { OEGCButtonStart, "OEGCButtonStart" },
-            { OEGCAnalogUp, "OEGCAnalogUp" },
-            { OEGCAnalogDown, "OEGCAnalogDown" },
-            { OEGCAnalogLeft, "OEGCAnalogLeft" },
-            { OEGCAnalogRight, "OEGCAnalogRight" },
-            { OEGCAnalogCUp, "OEGCAnalogCUp" },
-            { OEGCAnalogCDown, "OEGCAnalogCDown" },
-            { OEGCAnalogCLeft, "OEGCAnalogCLeft" },
-            { OEGCAnalogCRight, "OEGCAnalogCRight" },
-        };
-
-        std::vector<ciface::Core::Device*> devices = g_controller_interface.ControllerInterface::Devices();
-        for (int player = 0; player < 4; ++player) {
-            std::string qualifier = "OE_GameDev" + std::to_string(player);
-            ciface::Core::Device* device = nullptr;
-            for (auto& d : devices) {
-                if (d->GetName() == qualifier) {
-
-                    device = d;
-                    break;
-                }
-            }
-            if (device == nullptr)
-                continue;
-
-            for (int inputIndex = 0; inputIndex < OEGCButtonCount; ++inputIndex) {
-                std::string identifier = buttonToIdentifier[inputIndex].identifier;
-                ciface::Core::Device::Input* input = g_controller_interface.ControllerInterface::FindInput(identifier, device);
-
-                m_playerInputs[player][buttonToIdentifier[inputIndex].button] = input;
-            }
-        }
-    }
-}
-
-void DolHost::SetButtonState(int button, int state, int player)
+void DolHost::setButtonState(int button, int state, int player)
 {
     player -= 1;
 
-    ciface::Core::Device::Input* input = m_playerInputs[player][button];
-
-    // really hacky, but need to be able to get the extension changed on emulated wiimote
-    if (_wiiGame )
+    if (_gameType == DiscIO::Platform::GAMECUBE_DISC) {
+        setGameCubeButton(player, button, state);
+    }
+    else
     {
+        setWiiButton(player, button, state);
+    }
+
+
         if (button == OEWiiChangeExtension)
         {
             //set the Extension change state and return.  The next key pressed
@@ -483,121 +412,151 @@ void DolHost::SetButtonState(int button, int state, int player)
 
         if ( _wiiChangeExtension[player] && state == 1)
         {
-            if ( button <= OEWiiMoteSwingBackward ){
-                changeWiimoteExtension(OEWiimoteExtensionNotConnected, player);
+            if ( button <= OEWiiMoteSwingBackward ) {
+                changeWiimoteExtension(WiimoteEmu::EXT_NONE, player);
                 Core::DisplayMessage("Extenstion Removed", 1500);
             } else if (button <= OEWiiNunchuckButtonZ ) {
-                changeWiimoteExtension(OEWiimoteExtensionNunchuck, player);
+                changeWiimoteExtension(WiimoteEmu::EXT_NUNCHUK, player);
                 Core::DisplayMessage("Nunchuk Connected", 1500);
             } else if (button <= OEWiiClassicButtonHome ) {
-                changeWiimoteExtension(OEWiimoteExtensionClassicController, player);
+                changeWiimoteExtension(WiimoteEmu::EXT_CLASSIC, player);
                 Core::DisplayMessage("Classic Controller Connected", 1500);
             }
-            return;
         }
-    }
-    input->SetState(state);
 }
 
 void DolHost::SetAxis(int button, float value, int player)
 {
-    ciface::Core::Device::Input* input = m_playerInputs[player - 1][button];
-    input->SetState(value);
+    player -= 1;
+
+    if (_gameType == DiscIO::Platform::GAMECUBE_DISC) {
+        setGameCubeAxis(player, button, value);
+    }
+    else
+    {
+        setWiiAxis(player, button, value);
+    }
 }
 
 void DolHost::changeWiimoteExtension(int extension, int player)
 {
-    WiimoteEmu::Wiimote* _Wiimote = ((WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController( player ));
+    //Player has already been adjusted befor call
+   auto* ce_extension = static_cast<ControllerEmu::Extension*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Extension));
+    ce_extension->switch_extension = extension;
 
-    if( _Wiimote->CurrentExtension() != extension )
-        _Wiimote->SwitchExtension( extension );
+    WiiRemotes[player].extension = extension;
+}
+
+void DolHost::SetIR(int player, float x, float y)
+{
+    //setWiiIR(player, x,  y);
 }
 
 # pragma mark - DVD info
 
 void DolHost::GetGameInfo()
 {
-    std::unique_ptr<DiscIO::IVolume> pVolume(DiscIO::CreateVolumeFromFilename( _gamePath ));
+     std::unique_ptr<DiscIO::Volume> pVolume = DiscIO::CreateVolumeFromFilename(_gamePath );
 
-    _gameID = pVolume -> GetUniqueID();
-    _gameRegion = GetRegionOfCountry(pVolume -> GetCountry());
+    _gameID = pVolume -> GetGameID();
+    ///_gameRegion = pVolume -> GetRegion();
+    _gameCountry =  DiscIO::CountrySwitch(_gameID[3]);  //pVolume -> GetCountry();
     _gameName = pVolume -> GetInternalName();
-    _wiiGame = pVolume->GetVolumeType() == DiscIO::IVolume::WII_DISC;
-    _wiiWAD =  pVolume->GetVolumeType() == DiscIO::IVolume::WII_WAD;
+    _gameCountryDir = GetDirOfCountry(_gameCountry);
+    _gameType = pVolume->GetVolumeType();
 }
 
-std::string DolHost::GetRegionOfCountry(int country)
+std::string DolHost::GetNameOfRegion(DiscIO::Region region)
 {
-    switch (country)
+    switch (region)
     {
-        case DiscIO::IVolume::COUNTRY_USA:
-            return USA_DIR;
 
-        case DiscIO::IVolume::COUNTRY_TAIWAN:
-        case DiscIO::IVolume::COUNTRY_KOREA:
-        case DiscIO::IVolume::COUNTRY_JAPAN:
-            return JAP_DIR;
+        case DiscIO::Region::NTSC_J:
+            return "NTSC_J";
 
-        case DiscIO::IVolume::COUNTRY_AUSTRALIA:
-        case DiscIO::IVolume::COUNTRY_EUROPE:
-        case DiscIO::IVolume::COUNTRY_FRANCE:
-        case DiscIO::IVolume::COUNTRY_GERMANY:
-        case DiscIO::IVolume::COUNTRY_ITALY:
-        case DiscIO::IVolume::COUNTRY_NETHERLANDS:
-        case DiscIO::IVolume::COUNTRY_RUSSIA:
-        case DiscIO::IVolume::COUNTRY_SPAIN:
-        case DiscIO::IVolume::COUNTRY_WORLD:
-            return EUR_DIR;
+        case DiscIO::Region::NTSC_U:
+            return "NTSC_U";
 
-        case DiscIO::IVolume::COUNTRY_UNKNOWN:
+        case DiscIO::Region::PAL:
+            return "PAL";
+
+        case DiscIO::Region::NTSC_K:
+            return "NTSC_K";
+
+        case DiscIO::Region::UNKNOWN_REGION:
         default:
             return nullptr;
     }
 }
 
-# pragma mark - Dolphin Host callbacks
-void* Host_GetRenderHandle(){ return nullptr; }
-bool Host_RendererHasFocus(){ return true; }
-bool Host_RendererIsFullscreen(){ return false; }
-void Host_SetWiiMoteConnectionState(int state) {}
-void Host_GetRenderWindowSize(int& x, int& y, int& width, int& height)
+std::string DolHost::GetDirOfCountry(DiscIO::Country country)
 {
-    x = 0;
-    y = 0;
-    width = 640;
-    height = 480;
+    switch (country)
+    {
+        case DiscIO::Country::COUNTRY_USA:
+            return USA_DIR;
+
+        case DiscIO::Country::COUNTRY_TAIWAN:
+        case DiscIO::Country::COUNTRY_KOREA:
+        case DiscIO::Country::COUNTRY_JAPAN:
+            return JAP_DIR;
+
+        case DiscIO::Country::COUNTRY_AUSTRALIA:
+        case DiscIO::Country::COUNTRY_EUROPE:
+        case DiscIO::Country::COUNTRY_FRANCE:
+        case DiscIO::Country::COUNTRY_GERMANY:
+        case DiscIO::Country::COUNTRY_ITALY:
+        case DiscIO::Country::COUNTRY_NETHERLANDS:
+        case DiscIO::Country::COUNTRY_RUSSIA:
+        case DiscIO::Country::COUNTRY_SPAIN:
+        case DiscIO::Country::COUNTRY_WORLD:
+            return EUR_DIR;
+
+        case DiscIO::Country::COUNTRY_UNKNOWN:
+        default:
+           return nullptr;
+    }
 }
 
+# pragma mark - Dolphin Host callbacks
+void Host_NotifyMapLoaded() {}
+void Host_RefreshDSPDebuggerWindow() {}
+void Host_Message(int msg) {
+    if  ( msg == WM_USER_CREATE) {
+#ifdef DEBUG
+         //We have to set FPS display here or it doesn't work
+            g_Config.bShowFPS = true;
+#endif
+        // Core is up,  lets enable Hybric Ubershaders
+        g_Config.bPrecompileUberShaders = false;
+        g_Config.bBackgroundShaderCompiling = false;
+        g_Config.bDisableSpecializedShaders = false;
+
+        //Set the threads to auto (-1)
+        g_Config.iShaderCompilerThreads = -1;
+        g_Config.iShaderPrecompilerThreads = -1;
+    }
+}
+void* Host_GetRenderHandle() { return nullptr; }
+void Host_UpdateTitle(const std::string&) {}
+void Host_UpdateDisasmDialog() {}
+void Host_UpdateMainFrame() {
+    updateMainFrameEvent.Set();
+}
+void Host_RequestRenderWindowSize(int width, int height) {}
 void Host_SetStartupDebuggingParameters()
 {
-    NSLog(@"DolphinCore: Set Startup Debugging Parameters");
     SConfig& StartUp = SConfig::GetInstance();
     StartUp.bEnableDebugging = false;
     StartUp.bBootToPause = false;
 }
+bool Host_UINeedsControllerState(){ return false; }
+bool Host_RendererHasFocus() { return true; }
+bool Host_RendererIsFullscreen() { return false; }
+void Host_ShowVideoConfig(void*, const std::string&) {}
+void Host_YieldToUI() {}
+void Host_UpdateProgressDialog(const char* caption, int position, int total) {
 
-void Host_NotifyMapLoaded() {}
-void Host_RefreshDSPDebuggerWindow() {}
-void Host_Message(int Id) {}
-void Host_UpdateTitle(const std::string&) {}
-void Host_UpdateDisasmDialog() {}
-void Host_UpdateMainFrame()
-{
-    updateMainFrameEvent.Set();
+    OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total),
+                    5000);
 }
-
-void Host_RequestRenderWindowSize(int, int) {}
-void Host_RequestFullscreen(bool) {}
-bool Host_UIHasFocus() { return false; }
-void Host_ConnectWiimote(int wm_idx, bool connect)
-{
-    if (Core::IsRunning() && SConfig::GetInstance().bWii)
-    {
-        bool was_unpaused = Core::PauseAndLock(true);
-        GetUsbPointer()->AccessWiiMote(wm_idx | 0x100)->Activate(connect);
-        Host_UpdateMainFrame();
-        Core::PauseAndLock(false, was_unpaused);
-    }
-}
-
-void Host_ShowVideoConfig(void*, const std::string&, const std::string&) {}

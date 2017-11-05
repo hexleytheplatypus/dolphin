@@ -66,15 +66,14 @@
 {
     [[self client] didReleaseWiiButton:(OEWiiButton)[aKey key] forPlayer:[aKey player]];
 }
-//
-//- (void)mouseDownAtPoint:(OEIntPoint)aPoint
-//{
-//    //[[self client] didTouchScreenPoint:aPoint];
-//}
-//
-//- (void)mouseMovedAtPoint:(OEIntPoint)aPoint
-//{
-//    [[self client] IRMovedAtPoint:aPoint.x withValue:aPoint.y];
-//}
-//
+
+- (void)mouseDownAtPoint:(OEIntPoint)aPoint
+{
+}
+
+- (void)mouseMovedAtPoint:(OEIntPoint)aPoint
+{
+    [[self client] IRMovedAtPoint:aPoint.x withValue:aPoint.y];
+}
+
 @end

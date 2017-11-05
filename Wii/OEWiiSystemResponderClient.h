@@ -113,6 +113,6 @@ typedef enum _OEWiimoteExtension
 //- (oneway void)didMoveWiiAccelerometer:(OEWiiAccelerometer)accelerometer withValue:(CGFloat)valueX withValue:(CGFloat)valueY withValue:(CGFloat)valueZ forPlayer:(NSUInteger)player;
 //- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(OEwiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player;
 //- (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extensionnType forPlayer:(NSUInteger) player;
-//- (void)IRMovedAtPoint:(int) X withValue:(int) Y;
+- (void)IRMovedAtPoint:(int) X withValue:(int) Y;
 
 @end

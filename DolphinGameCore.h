@@ -30,8 +30,6 @@
 #import "OEGCSystemResponderClient.h"
 #import "Wii/OEWiiSystemResponderClient.h"
 
-//#import "OEWiiSystemResponderClient.h"
-
 @class OERingBuffer;
 
 OE_EXPORTED_CLASS

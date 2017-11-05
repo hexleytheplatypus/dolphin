@@ -93,6 +93,7 @@ DolphinGameCore *_current = 0;
     {
         _dolphinCoreModule = @"gc";
         _isWii = false;
+        _frameInterval = 60;
         _dolphinCoreAspect = OEIntSizeMake(4, 3);
         _dolphinCoreScreen = OEIntSizeMake(640, 480);
     }
@@ -100,12 +101,13 @@ DolphinGameCore *_current = 0;
     {
         _dolphinCoreModule = @"Wii";
         _isWii = true;
+        _frameInterval = 120;
         _dolphinCoreAspect = OEIntSizeMake(16,9);
         _dolphinCoreScreen = OEIntSizeMake(854, 480);
     }
 
     
-    dol_host->Init([[self supportDirectoryPath] UTF8String], [path UTF8String] );
+    dol_host->Init([[self supportDirectoryPath] fileSystemRepresentation], [path fileSystemRepresentation] );
 
     return YES;
 }
@@ -276,7 +278,7 @@ DolphinGameCore *_current = 0;
 {
     if(_isInitialized)
     {
-        dol_host->SetButtonState(button, 1, (int)player);
+        dol_host->setButtonState(button, 1, (int)player);
     }
 }
 
@@ -284,7 +286,7 @@ DolphinGameCore *_current = 0;
 {
     if(_isInitialized)
     {
-        dol_host->SetButtonState(button, 0, (int)player);
+        dol_host->setButtonState(button, 0, (int)player);
     }
 }
 
@@ -302,7 +304,7 @@ DolphinGameCore *_current = 0;
 {
     if(_isInitialized)
     {
-        dol_host->SetButtonState(button, 1, (int)player);
+        dol_host->setButtonState(button, 1, (int)player);
     }
 }
 
@@ -310,7 +312,7 @@ DolphinGameCore *_current = 0;
 {
     if(_isInitialized)
     {
-        dol_host->SetButtonState(button, 0, (int)player);
+        dol_host->setButtonState(button, 0, (int)player);
     }
 }
 
@@ -345,25 +347,18 @@ DolphinGameCore *_current = 0;
     }
 }
 
-//- (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
-//{
-//    if (_isInitialized)
-//    {
-//        int dX = 1024.0 - (1024.0 / 854 * X);
-//        int dY = 768.0 / 480 * Y;
-//
-////        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dX ] UTF8String]);
-////        dol_host->DisplayMessage([[NSString stringWithFormat:@"%d",dY ] UTF8String]);
-//
-//        OEwiimoteIRinfo IRData;
-//
-//        for (int i=0; i < 4; i++){
-//            IRData.dX[i] = dX;
-//            IRData.dY[i] =  dY;
-//        }
-//        dol_host->setIRdata(IRData, 0);
-//    }
-//}
+- (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
+{
+    if (_isInitialized)
+    {
+        int dX = (1023.0 / 854.0) * X;
+        int dY =  (767.0 / 480.0) * Y;
+
+//        dol_host->DisplayMessage([[NSString stringWithFormat:@"X: %d, Y: %d",dX,dY ] UTF8String]);
+
+       dol_host->SetIR(0, dX,dY);
+    }
+}
 
 # pragma mark - Cheats
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled

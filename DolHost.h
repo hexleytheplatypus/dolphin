@@ -31,6 +31,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Core/GeckoCode.h"
 #include "InputCommon/ControllerInterface/Device.h"
 
+#include "DiscIO/Enums.h"
+
 class DolHost {
 public:
     static DolHost* GetInstance();
@@ -46,8 +48,9 @@ public:
     void RunCore();
     void SetPresentationFBO(int RenderFBO);
     
-    void SetButtonState(int button,int state, int player);
+    void setButtonState(int button, int state, int player);
     void SetAxis(int button, float value, int player);
+    void SetIR(int player, float x, float y);
 
     void changeWiimoteExtension(int extension, int player);
 
@@ -73,13 +76,19 @@ public:
     DolHost();
 
     void GetGameInfo();
-    std::string GetRegionOfCountry(int country);
+    std::string GetDirOfCountry(DiscIO::Country country);
+    std::string GetNameOfRegion(DiscIO::Region region);
     std::string _gamePath;
     std::string _gameID;
     std::string _gameName;
-    std::string _gameRegion;
+    //DiscIO::Region _gameRegion;
+    std::string _gameRegionName;
+    DiscIO::Platform _gameType;
+    DiscIO::Country _gameCountry;
+    std::string _gameCountryDir;
+
     bool        _onBoot = true;
-    bool        _wiiGame, _wiiWAD;
+    bool        _wiiWAD;
     bool        _wiiChangeExtension[4] = { false, false, false, false };
     int         _wiiMoteType;
 
