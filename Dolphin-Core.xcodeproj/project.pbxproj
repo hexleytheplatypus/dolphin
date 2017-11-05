@@ -98,6 +98,7 @@
 		3E065A8D1F87CC4C00C4237C /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* Nunchuk.cpp */; };
 		3E065A8E1F87CC5200C4237C /* Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* Classic.cpp */; };
 		3E065A8F1F87CC5500C4237C /* GCpadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70291C82AF2A00091C4D /* GCpadEmu.cpp */; };
+		3E0A56EE1FAF7EDC00D755B8 /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */; };
 		3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AA1C82B0F800091C4D /* Core.cpp */; };
 		3E0BD12A1F8E8E2E0037C92D /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
 		3E1DDEC81D74AC1E00BB8009 /* OEWiiSystemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22178A1D74A83E00C55942 /* OEWiiSystemController.m */; };
@@ -918,7 +919,6 @@
 		3EFF29451F85679100B4FD11 /* libuicommon-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 125948FD17D5434DA13C8293 /* libuicommon-dol.a */; };
 		3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70261C82AF2A00091C4D /* AGL.mm */; };
 		3EFF294F1F85830500B4FD11 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DD1F85604F00B4FD11 /* Render.cpp */; };
-		3EFF29561F858AE200B4FD11 /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF29551F858AE200B4FD11 /* VideoConfig.cpp */; };
 		3EFF29571F85A24400B4FD11 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4831CCE8AC600EAE7AC /* Render.cpp */; };
 		3EFF295A1F85B93600B4FD11 /* CubebStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF29581F85B92E00B4FD11 /* CubebStream.cpp */; };
 		3EFF295C1F85D07000B4FD11 /* libpugixml-dol.a in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF277D1F8461BC00B4FD11 /* libpugixml-dol.a */; };
@@ -3134,7 +3134,6 @@
 		3EFF29301F85626600B4FD11 /* net_sockets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = net_sockets.c; path = dolphin/Externals/mbedtls/library/net_sockets.c; sourceTree = "<group>"; };
 		3EFF29311F85626700B4FD11 /* cmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cmac.c; path = dolphin/Externals/mbedtls/library/cmac.c; sourceTree = "<group>"; };
 		3EFF29511F858A2000B4FD11 /* VideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoConfig.h; path = VideoCommon/VideoConfig.h; sourceTree = "<group>"; };
-		3EFF29551F858AE200B4FD11 /* VideoConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = VideoConfig.cpp; path = Video/VideoConfig.cpp; sourceTree = "<group>"; };
 		3EFF29581F85B92E00B4FD11 /* CubebStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CubebStream.cpp; path = Audio/CubebStream.cpp; sourceTree = "<group>"; };
 		4B3F200BFA3B4AA9B8072A6A /* libsfml-network-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-network-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57799651D35F4D0F946361A2 /* libpng-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libpng-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3959,7 +3958,6 @@
 		3E89F4761CCA7A0D00EAE7AC /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF29551F858AE200B4FD11 /* VideoConfig.cpp */,
 				3EFF29511F858A2000B4FD11 /* VideoConfig.h */,
 				3E89F4831CCE8AC600EAE7AC /* Render.cpp */,
 				3E3D70261C82AF2A00091C4D /* AGL.mm */,
@@ -7136,7 +7134,6 @@
 				3EFF26101F84560100B4FD11 /* UPnP.cpp in Sources */,
 				3E3D716A1C82B0BB00091C4D /* GenericFPURoundMode.cpp in Sources */,
 				3E3D71641C82B0BB00091C4D /* ec.cpp in Sources */,
-				3EFF29561F858AE200B4FD11 /* VideoConfig.cpp in Sources */,
 				3E3D716B1C82B0BB00091C4D /* GLExtensions.cpp in Sources */,
 				3E3D71681C82B0BB00091C4D /* GekkoDisassembler.cpp in Sources */,
 				3EFF260C1F84560100B4FD11 /* File.cpp in Sources */,
@@ -7653,6 +7650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E0A56EE1FAF7EDC00D755B8 /* VideoConfig.cpp in Sources */,
 				3E3D75EF1C82B2DE00091C4D /* BPMemory.cpp in Sources */,
 				3E3D76051C82B2DE00091C4D /* RenderBase.cpp in Sources */,
 				3E3D75FA1C82B2DE00091C4D /* HiresTextures.cpp in Sources */,
