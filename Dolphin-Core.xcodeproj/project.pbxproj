@@ -506,8 +506,12 @@
 		3E3D77621C840CFC00091C4D /* resolve.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77601C840CFC00091C4D /* resolve.cc */; };
 		3E3D77631C840CFC00091C4D /* stdafx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77611C840CFC00091C4D /* stdafx.cc */; };
 		3E3DA54E1F8BDD080005FB1B /* OpenEmuSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3DA54F1F8BDD080005FB1B /* OpenEmuSystem.framework */; };
+		3E4457891FC7966A00469E9F /* VersionInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4457871FC7966900469E9F /* VersionInfo.cpp */; };
+		3E44578D1FC797AB00469E9F /* ConfigInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44578A1FC7979600469E9F /* ConfigInfo.cpp */; };
 		3E79CEC01F89390B003D1BD9 /* FramebufferManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76201C82B30A00091C4D /* FramebufferManager.cpp */; };
 		3E79CEC11F89390B003D1BD9 /* ProgramShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76281C82B30A00091C4D /* ProgramShaderCache.cpp */; };
+		3E7AE8E81FB4E6900017E3D1 /* WiiSaveBanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */; };
+		3E7AE8EB1FB4E9FC0017E3D1 /* Wii.oesystemplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E2217971D74AB3300C55942 /* Wii.oesystemplugin */; };
 		3E89F47D1CCAB4FC00EAE7AC /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D73521C82B0F900091C4D /* State.cpp */; };
 		3E8D25F71D21D8C80086BA59 /* Analytics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8D25F61D21D8C80086BA59 /* Analytics.cpp */; };
 		3E8D25FA1D21D8F70086BA59 /* Analytics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8D25F91D21D8F70086BA59 /* Analytics.cpp */; };
@@ -803,7 +807,6 @@
 		3EFF26481F845CA500B4FD11 /* BaseConfigLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF263C1F845CA500B4FD11 /* BaseConfigLoader.cpp */; };
 		3EFF26491F845CA500B4FD11 /* IsSettingSaveable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF263E1F845CA500B4FD11 /* IsSettingSaveable.cpp */; };
 		3EFF26BC1F845CB800B4FD11 /* DI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF264E1F845CB700B4FD11 /* DI.cpp */; };
-		3EFF26BD1F845CB800B4FD11 /* MemoryValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26501F845CB700B4FD11 /* MemoryValues.cpp */; };
 		3EFF26BE1F845CB800B4FD11 /* DeviceStub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26511F845CB700B4FD11 /* DeviceStub.cpp */; };
 		3EFF26BF1F845CB800B4FD11 /* MACUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26541F845CB700B4FD11 /* MACUtils.cpp */; };
 		3EFF26C01F845CB800B4FD11 /* Manage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26581F845CB700B4FD11 /* Manage.cpp */; };
@@ -901,7 +904,6 @@
 		3EFF28C21F855DEB00B4FD11 /* libvideosoftware-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */; };
 		3EFF28D31F855F2F00B4FD11 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */; };
 		3EFF28D41F855F2F00B4FD11 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28D11F855F2E00B4FD11 /* Config.cpp */; };
-		3EFF28D51F855F2F00B4FD11 /* Section.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28D21F855F2E00B4FD11 /* Section.cpp */; };
 		3EFF28D61F855FB800B4FD11 /* GCPadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72631C82B0F900091C4D /* GCPadEmu.cpp */; };
 		3EFF291B1F8560BA00B4FD11 /* NullBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */; };
 		3EFF291C1F8560BA00B4FD11 /* NullTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */; };
@@ -1507,6 +1509,19 @@
 			remoteInfo = videoogl;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3E7AE8EA1FB4E9BC0017E3D1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = OpenEmu.app/Contents/PlugIns/Systems;
+			dstSubfolderSpec = 16;
+			files = (
+				3E7AE8EB1FB4E9FC0017E3D1 /* Wii.oesystemplugin in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libvideosoftware-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2323,10 +2338,16 @@
 		3E3D77601C840CFC00091C4D /* resolve.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resolve.cc; path = dolphin/Externals/Bochs_disasm/resolve.cc; sourceTree = "<group>"; };
 		3E3D77611C840CFC00091C4D /* stdafx.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cc; path = dolphin/Externals/Bochs_disasm/stdafx.cc; sourceTree = "<group>"; };
 		3E3DA54F1F8BDD080005FB1B /* OpenEmuSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenEmuSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E4457871FC7966900469E9F /* VersionInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VersionInfo.cpp; sourceTree = "<group>"; };
+		3E4457881FC7966900469E9F /* VersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInfo.h; sourceTree = "<group>"; };
+		3E44578A1FC7979600469E9F /* ConfigInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigInfo.cpp; sourceTree = "<group>"; };
+		3E44578C1FC797A600469E9F /* ConfigInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigInfo.h; sourceTree = "<group>"; };
 		3E53D5171C89E97A0006E44C /* WiimoteEmu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WiimoteEmu.cpp; path = Input/WiimoteEmu.cpp; sourceTree = "<group>"; };
 		3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileUtil.cpp; path = Core/FileUtil.cpp; sourceTree = "<group>"; };
 		3E74B9C41C90DE100017C7B1 /* Nunchuk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Nunchuk.cpp; path = Input/Nunchuk.cpp; sourceTree = "<group>"; };
 		3E74B9C61C90DE200017C7B1 /* Classic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Classic.cpp; path = Input/Classic.cpp; sourceTree = "<group>"; };
+		3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WiiSaveBanner.cpp; path = dolphin/Source/Core/DiscIO/WiiSaveBanner.cpp; sourceTree = "<group>"; };
+		3E7AE8E71FB4E6750017E3D1 /* WiiSaveBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WiiSaveBanner.h; path = dolphin/Source/Core/DiscIO/WiiSaveBanner.h; sourceTree = "<group>"; };
 		3E89F4831CCE8AC600EAE7AC /* Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Render.cpp; path = Video/Render.cpp; sourceTree = "<group>"; };
 		3E8D25F61D21D8C80086BA59 /* Analytics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Analytics.cpp; path = dolphin/Source/Core/Common/Analytics.cpp; sourceTree = "<group>"; };
 		3E8D25F81D21D8DF0086BA59 /* Analytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Analytics.h; path = dolphin/Source/Core/Common/Analytics.h; sourceTree = "<group>"; };
@@ -2898,7 +2919,6 @@
 		3EFF264D1F845CB700B4FD11 /* DI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DI.h; sourceTree = "<group>"; };
 		3EFF264E1F845CB700B4FD11 /* DI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DI.cpp; sourceTree = "<group>"; };
 		3EFF264F1F845CB700B4FD11 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
-		3EFF26501F845CB700B4FD11 /* MemoryValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryValues.cpp; sourceTree = "<group>"; };
 		3EFF26511F845CB700B4FD11 /* DeviceStub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceStub.cpp; sourceTree = "<group>"; };
 		3EFF26521F845CB700B4FD11 /* DeviceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceStub.h; sourceTree = "<group>"; };
 		3EFF26541F845CB700B4FD11 /* MACUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MACUtils.cpp; sourceTree = "<group>"; };
@@ -3106,10 +3126,8 @@
 		3EFF28CC1F855F2E00B4FD11 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		3EFF28CD1F855F2E00B4FD11 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
 		3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
-		3EFF28CF1F855F2E00B4FD11 /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Section.h; sourceTree = "<group>"; };
 		3EFF28D01F855F2E00B4FD11 /* Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 		3EFF28D11F855F2E00B4FD11 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
-		3EFF28D21F855F2E00B4FD11 /* Section.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Section.cpp; sourceTree = "<group>"; };
 		3EFF28D91F85604E00B4FD11 /* NullTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NullTexture.h; path = dolphin/Source/Core/VideoBackends/Null/NullTexture.h; sourceTree = "<group>"; };
 		3EFF28DA1F85604F00B4FD11 /* VideoBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoBackend.h; path = dolphin/Source/Core/VideoBackends/Null/VideoBackend.h; sourceTree = "<group>"; };
 		3EFF28DB1F85604F00B4FD11 /* ShaderCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderCache.cpp; path = dolphin/Source/Core/VideoBackends/Null/ShaderCache.cpp; sourceTree = "<group>"; };
@@ -3370,7 +3388,7 @@
 		3E3D70241C82AF0600091C4D /* Compatibilty */ = {
 			isa = PBXGroup;
 			children = (
-				3E89F47A1CCAB2A800EAE7AC /* Core */,
+				3E89F47A1CCAB2A800EAE7AC /* Common */,
 				3E89F4771CCA7A1600EAE7AC /* Input */,
 				3E89F4761CCA7A0D00EAE7AC /* Video */,
 				3E89F4751CCA7A0500EAE7AC /* Audio */,
@@ -3978,12 +3996,12 @@
 			name = Input;
 			sourceTree = "<group>";
 		};
-		3E89F47A1CCAB2A800EAE7AC /* Core */ = {
+		3E89F47A1CCAB2A800EAE7AC /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
 			);
-			name = Core;
+			name = Common;
 			sourceTree = "<group>";
 		};
 		3E8D26041D21D9A70086BA59 /* curl */ = {
@@ -4700,10 +4718,11 @@
 		3EFF264A1F845CB700B4FD11 /* IOS */ = {
 			isa = PBXGroup;
 			children = (
+				3E4457871FC7966900469E9F /* VersionInfo.cpp */,
+				3E4457881FC7966900469E9F /* VersionInfo.h */,
 				3EFF264B1F845CB700B4FD11 /* IOS.h */,
 				3EFF264C1F845CB700B4FD11 /* DI */,
 				3EFF264F1F845CB700B4FD11 /* Device.h */,
-				3EFF26501F845CB700B4FD11 /* MemoryValues.cpp */,
 				3EFF26511F845CB700B4FD11 /* DeviceStub.cpp */,
 				3EFF26521F845CB700B4FD11 /* DeviceStub.h */,
 				3EFF26531F845CB700B4FD11 /* Network */,
@@ -5144,13 +5163,13 @@
 		3EFF28CB1F855F2E00B4FD11 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				3E44578C1FC797A600469E9F /* ConfigInfo.h */,
+				3E44578A1FC7979600469E9F /* ConfigInfo.cpp */,
 				3EFF28CC1F855F2E00B4FD11 /* Config.h */,
 				3EFF28CD1F855F2E00B4FD11 /* Layer.h */,
 				3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */,
-				3EFF28CF1F855F2E00B4FD11 /* Section.h */,
 				3EFF28D01F855F2E00B4FD11 /* Enums.h */,
 				3EFF28D11F855F2E00B4FD11 /* Config.cpp */,
-				3EFF28D21F855F2E00B4FD11 /* Section.cpp */,
 			);
 			name = Config;
 			path = dolphin/Source/Core/Common/Config;
@@ -5400,25 +5419,18 @@
 		6D2FDDCA6C6A4DB0A094382B /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF270B1F845F7100B4FD11 /* CommonTitles.h */,
-				3EFF270D1F845F7200B4FD11 /* TitleDatabase.cpp */,
-				3EFF270C1F845F7100B4FD11 /* TitleDatabase.h */,
-				3EFF270A1F845F7100B4FD11 /* WiiRoot.cpp */,
-				3EFF27081F845F7000B4FD11 /* WiiRoot.h */,
-				3EFF27071F845F6F00B4FD11 /* WiiUtils.cpp */,
-				3EFF27091F845F7000B4FD11 /* WiiUtils.h */,
-				3EFF264A1F845CB700B4FD11 /* IOS */,
-				3EFF262D1F845CA400B4FD11 /* Config */,
-				3EFF26361F845CA500B4FD11 /* ConfigLoaders */,
-				3E8D25F91D21D8F70086BA59 /* Analytics.cpp */,
-				3E8D25FB1D21D9040086BA59 /* Analytics.h */,
 				3E3D71961C82B0F800091C4D /* ActionReplay.cpp */,
 				3E3D71971C82B0F800091C4D /* ActionReplay.h */,
+				3E8D25F91D21D8F70086BA59 /* Analytics.cpp */,
+				3E8D25FB1D21D9040086BA59 /* Analytics.h */,
 				3E3D71981C82B0F800091C4D /* ARDecrypt.cpp */,
 				3E3D71991C82B0F800091C4D /* ARDecrypt.h */,
 				3E3D719A1C82B0F800091C4D /* Boot */,
 				3E3D71A51C82B0F800091C4D /* BootManager.cpp */,
 				3E3D71A61C82B0F800091C4D /* BootManager.h */,
+				3EFF270B1F845F7100B4FD11 /* CommonTitles.h */,
+				3EFF262D1F845CA400B4FD11 /* Config */,
+				3EFF26361F845CA500B4FD11 /* ConfigLoaders */,
 				3E3D71A81C82B0F800091C4D /* ConfigManager.cpp */,
 				3E3D71A91C82B0F800091C4D /* ConfigManager.h */,
 				3E3D71AA1C82B0F800091C4D /* Core.cpp */,
@@ -5441,6 +5453,7 @@
 				3E3D720B1C82B0F800091C4D /* HotkeyManager.cpp */,
 				3E3D720C1C82B0F800091C4D /* HotkeyManager.h */,
 				3E3D720D1C82B0F800091C4D /* HW */,
+				3EFF264A1F845CB700B4FD11 /* IOS */,
 				3E3D72D51C82B0F900091C4D /* MachineContext.h */,
 				3E3D72D61C82B0F900091C4D /* MemoryWatcher.cpp */,
 				3E3D72D71C82B0F900091C4D /* MemoryWatcher.h */,
@@ -5458,6 +5471,12 @@
 				3E3D72E31C82B0F900091C4D /* PowerPC */,
 				3E3D73521C82B0F900091C4D /* State.cpp */,
 				3E3D73531C82B0F900091C4D /* State.h */,
+				3EFF270D1F845F7200B4FD11 /* TitleDatabase.cpp */,
+				3EFF270C1F845F7100B4FD11 /* TitleDatabase.h */,
+				3EFF270A1F845F7100B4FD11 /* WiiRoot.cpp */,
+				3EFF27081F845F7000B4FD11 /* WiiRoot.h */,
+				3EFF27071F845F6F00B4FD11 /* WiiUtils.cpp */,
+				3EFF27091F845F7000B4FD11 /* WiiUtils.h */,
 			);
 			name = "Source Files";
 			sourceTree = "<group>";
@@ -5807,6 +5826,8 @@
 		9B490B4BB8CE45D4B2A91AE9 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */,
+				3E7AE8E71FB4E6750017E3D1 /* WiiSaveBanner.h */,
 				3E8EC56F1F84234E00D79F27 /* DirectoryBlob.cpp */,
 				3E8EC5701F84234F00D79F27 /* DirectoryBlob.h */,
 				3E8EC5721F84234F00D79F27 /* DiscExtractor.cpp */,
@@ -6169,6 +6190,7 @@
 				3E2217931D74AB3300C55942 /* Sources */,
 				3E2217941D74AB3300C55942 /* Frameworks */,
 				3E2217951D74AB3300C55942 /* Resources */,
+				3E7AE8EA1FB4E9BC0017E3D1 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -6950,7 +6972,6 @@
 				3E3D73B31C82B0F900091C4D /* GCKeyboardEmu.cpp in Sources */,
 				3E3D737B1C82B0F900091C4D /* DSPJitLoadStore.cpp in Sources */,
 				3E3D73F41C82B0F900091C4D /* PatchEngine.cpp in Sources */,
-				3EFF26BD1F845CB800B4FD11 /* MemoryValues.cpp in Sources */,
 				3E8EC6691F8434AA00D79F27 /* EXI_DeviceAGP.cpp in Sources */,
 				3E3D73781C82B0F900091C4D /* DSPJitBranch.cpp in Sources */,
 				3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */,
@@ -7017,6 +7038,7 @@
 				3E8EC6A81F8434C700D79F27 /* EmuSubroutines.cpp in Sources */,
 				3E3D73811C82B0F900091C4D /* DSPEmulator.cpp in Sources */,
 				3E3D73551C82B0F900091C4D /* ARDecrypt.cpp in Sources */,
+				3E4457891FC7966A00469E9F /* VersionInfo.cpp in Sources */,
 				3E3D738F1C82B0F900091C4D /* AudioInterface.cpp in Sources */,
 				3EFF26BC1F845CB800B4FD11 /* DI.cpp in Sources */,
 				3E3D73851C82B0F900091C4D /* FifoPlaybackAnalyzer.cpp in Sources */,
@@ -7110,6 +7132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EFF28D41F855F2F00B4FD11 /* Config.cpp in Sources */,
+				3E44578D1FC797AB00469E9F /* ConfigInfo.cpp in Sources */,
 				3E3D717E1C82B0BB00091C4D /* MemoryUtil.cpp in Sources */,
 				3E3D717B1C82B0BB00091C4D /* LogManager.cpp in Sources */,
 				3E3D71771C82B0BB00091C4D /* JitRegister.cpp in Sources */,
@@ -7127,7 +7150,6 @@
 				3E3D718B1C82B0BB00091C4D /* Thread.cpp in Sources */,
 				3E3D71631C82B0BB00091C4D /* bn.cpp in Sources */,
 				3E3D71621C82B0BB00091C4D /* ColorUtil.cpp in Sources */,
-				3EFF28D51F855F2F00B4FD11 /* Section.cpp in Sources */,
 				3E3D71821C82B0BB00091C4D /* Network.cpp in Sources */,
 				3E3D71691C82B0BB00091C4D /* GenericCPUDetect.cpp in Sources */,
 				3E3D71911C82B0BB00091C4D /* x64ABI.cpp in Sources */,
@@ -7498,6 +7520,7 @@
 				3E3D74641C82B11900091C4D /* FileBlob.cpp in Sources */,
 				3E8EC5771F84235200D79F27 /* Enums.cpp in Sources */,
 				3E3D74631C82B11900091C4D /* DriveBlob.cpp in Sources */,
+				3E7AE8E81FB4E6900017E3D1 /* WiiSaveBanner.cpp in Sources */,
 				3E8EC5791F84235200D79F27 /* NANDImporter.cpp in Sources */,
 				3E8EC57E1F84235200D79F27 /* Volume.cpp in Sources */,
 				3E3D74621C82B11900091C4D /* DiscScrubber.cpp in Sources */,
