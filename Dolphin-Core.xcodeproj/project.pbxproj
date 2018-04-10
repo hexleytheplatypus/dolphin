@@ -193,18 +193,8 @@
 		3E3D73741C82B0F900091C4D /* DSPMemoryMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71DA1C82B0F800091C4D /* DSPMemoryMap.cpp */; };
 		3E3D73751C82B0F900091C4D /* DSPStacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71DC1C82B0F800091C4D /* DSPStacks.cpp */; };
 		3E3D73761C82B0F900091C4D /* DSPTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71DE1C82B0F800091C4D /* DSPTables.cpp */; };
-		3E3D73771C82B0F900091C4D /* DSPJitArithmetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E11C82B0F800091C4D /* DSPJitArithmetic.cpp */; };
-		3E3D73781C82B0F900091C4D /* DSPJitBranch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E21C82B0F800091C4D /* DSPJitBranch.cpp */; };
-		3E3D73791C82B0F900091C4D /* DSPJitCCUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E31C82B0F800091C4D /* DSPJitCCUtil.cpp */; };
-		3E3D737A1C82B0F900091C4D /* DSPJitExtOps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E41C82B0F800091C4D /* DSPJitExtOps.cpp */; };
-		3E3D737B1C82B0F900091C4D /* DSPJitLoadStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E51C82B0F800091C4D /* DSPJitLoadStore.cpp */; };
-		3E3D737C1C82B0F900091C4D /* DSPJitMisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E61C82B0F800091C4D /* DSPJitMisc.cpp */; };
-		3E3D737D1C82B0F900091C4D /* DSPJitMultiplier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E71C82B0F800091C4D /* DSPJitMultiplier.cpp */; };
-		3E3D737E1C82B0F900091C4D /* DSPJitRegCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71E81C82B0F800091C4D /* DSPJitRegCache.cpp */; };
-		3E3D737F1C82B0F900091C4D /* DSPJitUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71EA1C82B0F800091C4D /* DSPJitUtil.cpp */; };
 		3E3D73801C82B0F900091C4D /* LabelMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71EB1C82B0F800091C4D /* LabelMap.cpp */; };
 		3E3D73811C82B0F900091C4D /* DSPEmulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71ED1C82B0F800091C4D /* DSPEmulator.cpp */; };
-		3E3D73821C82B0F900091C4D /* ec_wii.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71EF1C82B0F800091C4D /* ec_wii.cpp */; };
 		3E3D73831C82B0F900091C4D /* FifoAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71F21C82B0F800091C4D /* FifoAnalyzer.cpp */; };
 		3E3D73841C82B0F900091C4D /* FifoDataFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71F41C82B0F800091C4D /* FifoDataFile.cpp */; };
 		3E3D73851C82B0F900091C4D /* FifoPlaybackAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71F71C82B0F800091C4D /* FifoPlaybackAnalyzer.cpp */; };
@@ -368,7 +358,6 @@
 		3E3D75FA1C82B2DE00091C4D /* HiresTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75A21C82B2DD00091C4D /* HiresTextures.cpp */; };
 		3E3D75FB1C82B2DE00091C4D /* ImageWrite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75A41C82B2DD00091C4D /* ImageWrite.cpp */; };
 		3E3D75FC1C82B2DE00091C4D /* IndexGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75A61C82B2DD00091C4D /* IndexGenerator.cpp */; };
-		3E3D75FD1C82B2DE00091C4D /* MainBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75AA1C82B2DD00091C4D /* MainBase.cpp */; };
 		3E3D75FE1C82B2DE00091C4D /* OnScreenDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75AC1C82B2DD00091C4D /* OnScreenDisplay.cpp */; };
 		3E3D75FF1C82B2DE00091C4D /* OpcodeDecoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75AE1C82B2DD00091C4D /* OpcodeDecoding.cpp */; };
 		3E3D76001C82B2DE00091C4D /* PerfQueryBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75B01C82B2DD00091C4D /* PerfQueryBase.cpp */; };
@@ -728,7 +717,6 @@
 		3E8EC6BC1F8436F100D79F27 /* DSPIntMisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6B21F8436F100D79F27 /* DSPIntMisc.cpp */; };
 		3E8EC6BD1F8436F100D79F27 /* DSPIntBranch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6B31F8436F100D79F27 /* DSPIntBranch.cpp */; };
 		3E8EC6BE1F8436F100D79F27 /* DSPIntCCUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6B41F8436F100D79F27 /* DSPIntCCUtil.cpp */; };
-		3E8EC6C11F8436FE00D79F27 /* DSPEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6C01F8436FE00D79F27 /* DSPEmitter.cpp */; };
 		3E8EC6D01F84376E00D79F27 /* TrampolineCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6C41F84376900D79F27 /* TrampolineCache.cpp */; };
 		3E8EC6D11F84376E00D79F27 /* FarCodeCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6C61F84376900D79F27 /* FarCodeCache.cpp */; };
 		3E8EC6D21F84376E00D79F27 /* ConstantPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6C81F84376900D79F27 /* ConstantPool.cpp */; };
@@ -743,6 +731,8 @@
 		3E8EC6E71F8437D000D79F27 /* RSO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6E51F8437D000D79F27 /* RSO.cpp */; };
 		3E8EC6EA1F8437EC00D79F27 /* HLE_VarArgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6E81F8437EB00D79F27 /* HLE_VarArgs.cpp */; };
 		3E96B3CB1F86C452007C5799 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* input.cpp */; };
+		3E98CDFA1FD70845009A9DEA /* AbstractStagingTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CDF71FD70844009A9DEA /* AbstractStagingTexture.cpp */; };
+		3E98CDFB1FD70845009A9DEA /* TextureConverterShaderGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CDF91FD70845009A9DEA /* TextureConverterShaderGen.cpp */; };
 		3EB81EFA1F88322F000CBD2C /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E53D5171C89E97A0006E44C /* WiimoteEmu.cpp */; };
 		3EC6F7691CDBBCE30044AC7E /* Sys in Resources */ = {isa = PBXBuildFile; fileRef = 3EC6F7681CDBBCE30044AC7E /* Sys */; };
 		3EE7BF631F1FDD9200117AF6 /* libavcodec-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF5F1F1FDD9200117AF6 /* libavcodec-dc.a */; };
@@ -851,8 +841,6 @@
 		3EFF26EA1F845CB800B4FD11 /* SDIOSlot0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26AE1F845CB700B4FD11 /* SDIOSlot0.cpp */; };
 		3EFF26EB1F845CB800B4FD11 /* WFSI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26B11F845CB700B4FD11 /* WFSI.cpp */; };
 		3EFF26EC1F845CB800B4FD11 /* WFSSRV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26B21F845CB700B4FD11 /* WFSSRV.cpp */; };
-		3EFF26ED1F845CB800B4FD11 /* FileIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26B51F845CB700B4FD11 /* FileIO.cpp */; };
-		3EFF26EE1F845CB800B4FD11 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26B61F845CB700B4FD11 /* FS.cpp */; };
 		3EFF26FD1F845E9F00B4FD11 /* CachedInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26F11F845E9F00B4FD11 /* CachedInterpreter.cpp */; };
 		3EFF26FE1F845E9F00B4FD11 /* InterpreterBlockCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26F21F845E9F00B4FD11 /* InterpreterBlockCache.cpp */; };
 		3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26F71F845E9F00B4FD11 /* SignatureDB.cpp */; };
@@ -907,7 +895,6 @@
 		3EFF28D61F855FB800B4FD11 /* GCPadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72631C82B0F900091C4D /* GCPadEmu.cpp */; };
 		3EFF291B1F8560BA00B4FD11 /* NullBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */; };
 		3EFF291C1F8560BA00B4FD11 /* NullTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */; };
-		3EFF291E1F8560BA00B4FD11 /* ShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DB1F85604F00B4FD11 /* ShaderCache.cpp */; };
 		3EFF291F1F8560BA00B4FD11 /* VertexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28E41F85605100B4FD11 /* VertexManager.cpp */; };
 		3EFF29221F8560E000B4FD11 /* libvideonull-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EFF291A1F85606C00B4FD11 /* libvideonull-dol.a */; };
 		3EFF29251F85611300B4FD11 /* SWTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF29231F85611200B4FD11 /* SWTexture.cpp */; };
@@ -938,6 +925,28 @@
 		8355D4F91A653EE600E73302 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974181A643E5C00E0B28E /* IOKit.framework */; };
 		8355D4FA1A653EF200E73302 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974491A64403300E0B28E /* libiconv.dylib */; };
 		8378DED21A78665A003DA046 /* libxxhash-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378DEC51A7862DA003DA046 /* libxxhash-dol.a */; };
+		EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B882059E115008D5DDE /* OGLShader.cpp */; };
+		EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */; };
+		EE149B952059E192008D5DDE /* ShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8E2059E190008D5DDE /* ShaderCache.cpp */; };
+		EE149B962059E192008D5DDE /* AbstractFramebuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B902059E190008D5DDE /* AbstractFramebuffer.cpp */; };
+		EE149BA4205A270F008D5DDE /* DSPJitLoadStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B98205A270E008D5DDE /* DSPJitLoadStore.cpp */; };
+		EE149BA5205A270F008D5DDE /* DSPJitExtOps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B9A205A270E008D5DDE /* DSPJitExtOps.cpp */; };
+		EE149BA6205A270F008D5DDE /* DSPJitBranch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B9B205A270E008D5DDE /* DSPJitBranch.cpp */; };
+		EE149BA7205A270F008D5DDE /* DSPJitCCUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B9C205A270E008D5DDE /* DSPJitCCUtil.cpp */; };
+		EE149BA8205A270F008D5DDE /* DSPJitMultiplier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B9E205A270E008D5DDE /* DSPJitMultiplier.cpp */; };
+		EE149BA9205A270F008D5DDE /* DSPJitMisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B9F205A270E008D5DDE /* DSPJitMisc.cpp */; };
+		EE149BAA205A270F008D5DDE /* DSPEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA0205A270E008D5DDE /* DSPEmitter.cpp */; };
+		EE149BAB205A270F008D5DDE /* DSPJitUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */; };
+		EE149BAC205A270F008D5DDE /* DSPJitRegCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA2205A270E008D5DDE /* DSPJitRegCache.cpp */; };
+		EE149BAD205A270F008D5DDE /* DSPJitArithmetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */; };
+		EE32D857207ABBBA0050B549 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84C207ABBB80050B549 /* FileSystem.cpp */; };
+		EE32D858207ABBBA0050B549 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84D207ABBB90050B549 /* File.cpp */; };
+		EE32D859207ABBBA0050B549 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84F207ABBB90050B549 /* FS.cpp */; };
+		EE32D85A207ABBBA0050B549 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D851207ABBB90050B549 /* File.cpp */; };
+		EE32D85B207ABBBA0050B549 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D852207ABBB90050B549 /* FS.cpp */; };
+		EE32D85C207ABBBA0050B549 /* FileSystemProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */; };
+		EE3CCFA1205DF94100F0D04F /* GameFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3CCF9E205DF94000F0D04F /* GameFile.cpp */; };
+		EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1794,22 +1803,10 @@
 		3E3D71DD1C82B0F800091C4D /* DSPStacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPStacks.h; sourceTree = "<group>"; };
 		3E3D71DE1C82B0F800091C4D /* DSPTables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPTables.cpp; sourceTree = "<group>"; };
 		3E3D71DF1C82B0F800091C4D /* DSPTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPTables.h; sourceTree = "<group>"; };
-		3E3D71E11C82B0F800091C4D /* DSPJitArithmetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitArithmetic.cpp; sourceTree = "<group>"; };
-		3E3D71E21C82B0F800091C4D /* DSPJitBranch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitBranch.cpp; sourceTree = "<group>"; };
-		3E3D71E31C82B0F800091C4D /* DSPJitCCUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitCCUtil.cpp; sourceTree = "<group>"; };
-		3E3D71E41C82B0F800091C4D /* DSPJitExtOps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitExtOps.cpp; sourceTree = "<group>"; };
-		3E3D71E51C82B0F800091C4D /* DSPJitLoadStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitLoadStore.cpp; sourceTree = "<group>"; };
-		3E3D71E61C82B0F800091C4D /* DSPJitMisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitMisc.cpp; sourceTree = "<group>"; };
-		3E3D71E71C82B0F800091C4D /* DSPJitMultiplier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitMultiplier.cpp; sourceTree = "<group>"; };
-		3E3D71E81C82B0F800091C4D /* DSPJitRegCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitRegCache.cpp; sourceTree = "<group>"; };
-		3E3D71E91C82B0F800091C4D /* DSPJitRegCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPJitRegCache.h; sourceTree = "<group>"; };
-		3E3D71EA1C82B0F800091C4D /* DSPJitUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitUtil.cpp; sourceTree = "<group>"; };
 		3E3D71EB1C82B0F800091C4D /* LabelMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LabelMap.cpp; sourceTree = "<group>"; };
 		3E3D71EC1C82B0F800091C4D /* LabelMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelMap.h; sourceTree = "<group>"; };
 		3E3D71ED1C82B0F800091C4D /* DSPEmulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DSPEmulator.cpp; path = dolphin/Source/Core/Core/DSPEmulator.cpp; sourceTree = "<group>"; };
 		3E3D71EE1C82B0F800091C4D /* DSPEmulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DSPEmulator.h; path = dolphin/Source/Core/Core/DSPEmulator.h; sourceTree = "<group>"; };
-		3E3D71EF1C82B0F800091C4D /* ec_wii.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ec_wii.cpp; path = dolphin/Source/Core/Core/ec_wii.cpp; sourceTree = "<group>"; };
-		3E3D71F01C82B0F800091C4D /* ec_wii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ec_wii.h; path = dolphin/Source/Core/Core/ec_wii.h; sourceTree = "<group>"; };
 		3E3D71F21C82B0F800091C4D /* FifoAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FifoAnalyzer.cpp; sourceTree = "<group>"; };
 		3E3D71F31C82B0F800091C4D /* FifoAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifoAnalyzer.h; sourceTree = "<group>"; };
 		3E3D71F41C82B0F800091C4D /* FifoDataFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FifoDataFile.cpp; sourceTree = "<group>"; };
@@ -2100,7 +2097,6 @@
 		3E3D758A1C82B2DD00091C4D /* BPMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPMemory.h; path = dolphin/Source/Core/VideoCommon/BPMemory.h; sourceTree = "<group>"; };
 		3E3D758B1C82B2DD00091C4D /* BPStructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BPStructs.cpp; path = dolphin/Source/Core/VideoCommon/BPStructs.cpp; sourceTree = "<group>"; };
 		3E3D758C1C82B2DD00091C4D /* BPStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPStructs.h; path = dolphin/Source/Core/VideoCommon/BPStructs.h; sourceTree = "<group>"; };
-		3E3D758D1C82B2DD00091C4D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = dolphin/Source/Core/VideoCommon/CMakeLists.txt; sourceTree = "<group>"; };
 		3E3D758E1C82B2DD00091C4D /* CommandProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CommandProcessor.cpp; path = dolphin/Source/Core/VideoCommon/CommandProcessor.cpp; sourceTree = "<group>"; };
 		3E3D758F1C82B2DD00091C4D /* CommandProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandProcessor.h; path = dolphin/Source/Core/VideoCommon/CommandProcessor.h; sourceTree = "<group>"; };
 		3E3D75901C82B2DD00091C4D /* ConstantManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConstantManager.h; path = dolphin/Source/Core/VideoCommon/ConstantManager.h; sourceTree = "<group>"; };
@@ -2129,7 +2125,6 @@
 		3E3D75A71C82B2DD00091C4D /* IndexGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexGenerator.h; path = dolphin/Source/Core/VideoCommon/IndexGenerator.h; sourceTree = "<group>"; };
 		3E3D75A81C82B2DD00091C4D /* LightingShaderGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightingShaderGen.h; path = dolphin/Source/Core/VideoCommon/LightingShaderGen.h; sourceTree = "<group>"; };
 		3E3D75A91C82B2DD00091C4D /* LookUpTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LookUpTables.h; path = dolphin/Source/Core/VideoCommon/LookUpTables.h; sourceTree = "<group>"; };
-		3E3D75AA1C82B2DD00091C4D /* MainBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainBase.cpp; path = dolphin/Source/Core/VideoCommon/MainBase.cpp; sourceTree = "<group>"; };
 		3E3D75AB1C82B2DD00091C4D /* NativeVertexFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeVertexFormat.h; path = dolphin/Source/Core/VideoCommon/NativeVertexFormat.h; sourceTree = "<group>"; };
 		3E3D75AC1C82B2DD00091C4D /* OnScreenDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OnScreenDisplay.cpp; path = dolphin/Source/Core/VideoCommon/OnScreenDisplay.cpp; sourceTree = "<group>"; };
 		3E3D75AD1C82B2DD00091C4D /* OnScreenDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnScreenDisplay.h; path = dolphin/Source/Core/VideoCommon/OnScreenDisplay.h; sourceTree = "<group>"; };
@@ -2821,8 +2816,6 @@
 		3E8EC6B41F8436F100D79F27 /* DSPIntCCUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPIntCCUtil.cpp; sourceTree = "<group>"; };
 		3E8EC6B51F8436F100D79F27 /* DSPIntCCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPIntCCUtil.h; sourceTree = "<group>"; };
 		3E8EC6B61F8436F100D79F27 /* DSPIntUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPIntUtil.h; sourceTree = "<group>"; };
-		3E8EC6BF1F8436FE00D79F27 /* DSPEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPEmitter.h; sourceTree = "<group>"; };
-		3E8EC6C01F8436FE00D79F27 /* DSPEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPEmitter.cpp; sourceTree = "<group>"; };
 		3E8EC6C21F84376800D79F27 /* Jit64PowerPCState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jit64PowerPCState.h; sourceTree = "<group>"; };
 		3E8EC6C31F84376800D79F27 /* Jit64Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jit64Base.h; sourceTree = "<group>"; };
 		3E8EC6C41F84376900D79F27 /* TrampolineCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrampolineCache.cpp; sourceTree = "<group>"; };
@@ -2853,6 +2846,10 @@
 		3E8EC6E91F8437EC00D79F27 /* HLE_VarArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLE_VarArgs.h; sourceTree = "<group>"; };
 		3E96B3C81F86A50C007C5799 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = input.h; path = Input/input.h; sourceTree = "<group>"; };
 		3E96B3C91F86A50D007C5799 /* input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = input.cpp; path = Input/input.cpp; sourceTree = "<group>"; };
+		3E98CDF61FD70844009A9DEA /* AbstractStagingTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractStagingTexture.h; path = dolphin/Source/Core/VideoCommon/AbstractStagingTexture.h; sourceTree = "<group>"; };
+		3E98CDF71FD70844009A9DEA /* AbstractStagingTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractStagingTexture.cpp; path = dolphin/Source/Core/VideoCommon/AbstractStagingTexture.cpp; sourceTree = "<group>"; };
+		3E98CDF81FD70845009A9DEA /* TextureConverterShaderGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureConverterShaderGen.h; path = dolphin/Source/Core/VideoCommon/TextureConverterShaderGen.h; sourceTree = "<group>"; };
+		3E98CDF91FD70845009A9DEA /* TextureConverterShaderGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextureConverterShaderGen.cpp; path = dolphin/Source/Core/VideoCommon/TextureConverterShaderGen.cpp; sourceTree = "<group>"; };
 		3EC6F7681CDBBCE30044AC7E /* Sys */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sys; path = dolphin/Data/Sys; sourceTree = "<group>"; };
 		3EE7BF5F1F1FDD9200117AF6 /* libavcodec-dc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libavcodec-dc.a"; path = "Externals/ffmpeg/lib/libavcodec-dc.a"; sourceTree = "<group>"; };
 		3EE7BF601F1FDD9200117AF6 /* libavformat-dc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libavformat-dc.a"; path = "Externals/ffmpeg/lib/libavformat-dc.a"; sourceTree = "<group>"; };
@@ -3004,11 +3001,6 @@
 		3EFF26B11F845CB700B4FD11 /* WFSI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WFSI.cpp; sourceTree = "<group>"; };
 		3EFF26B21F845CB700B4FD11 /* WFSSRV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WFSSRV.cpp; sourceTree = "<group>"; };
 		3EFF26B31F845CB700B4FD11 /* WFSSRV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSSRV.h; sourceTree = "<group>"; };
-		3EFF26B51F845CB700B4FD11 /* FileIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileIO.cpp; sourceTree = "<group>"; };
-		3EFF26B61F845CB700B4FD11 /* FS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FS.cpp; sourceTree = "<group>"; };
-		3EFF26B71F845CB700B4FD11 /* FileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileIO.h; sourceTree = "<group>"; };
-		3EFF26B81F845CB700B4FD11 /* FS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FS.h; sourceTree = "<group>"; };
-		3EFF26B91F845CB700B4FD11 /* MemoryValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryValues.h; sourceTree = "<group>"; };
 		3EFF26BA1F845CB700B4FD11 /* MIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIOS.h; sourceTree = "<group>"; };
 		3EFF26BB1F845CB700B4FD11 /* IOSC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSC.h; sourceTree = "<group>"; };
 		3EFF26F01F845E9F00B4FD11 /* InterpreterBlockCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterpreterBlockCache.h; sourceTree = "<group>"; };
@@ -3130,7 +3122,6 @@
 		3EFF28D11F855F2E00B4FD11 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		3EFF28D91F85604E00B4FD11 /* NullTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NullTexture.h; path = dolphin/Source/Core/VideoBackends/Null/NullTexture.h; sourceTree = "<group>"; };
 		3EFF28DA1F85604F00B4FD11 /* VideoBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoBackend.h; path = dolphin/Source/Core/VideoBackends/Null/VideoBackend.h; sourceTree = "<group>"; };
-		3EFF28DB1F85604F00B4FD11 /* ShaderCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderCache.cpp; path = dolphin/Source/Core/VideoBackends/Null/ShaderCache.cpp; sourceTree = "<group>"; };
 		3EFF28DC1F85604F00B4FD11 /* Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Render.h; path = dolphin/Source/Core/VideoBackends/Null/Render.h; sourceTree = "<group>"; };
 		3EFF28DD1F85604F00B4FD11 /* Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Render.cpp; path = dolphin/Source/Core/VideoBackends/Null/Render.cpp; sourceTree = "<group>"; };
 		3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NullTexture.cpp; path = dolphin/Source/Core/VideoBackends/Null/NullTexture.cpp; sourceTree = "<group>"; };
@@ -3138,9 +3129,7 @@
 		3EFF28E01F85605000B4FD11 /* PerfQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerfQuery.h; path = dolphin/Source/Core/VideoBackends/Null/PerfQuery.h; sourceTree = "<group>"; };
 		3EFF28E11F85605000B4FD11 /* VertexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VertexManager.h; path = dolphin/Source/Core/VideoBackends/Null/VertexManager.h; sourceTree = "<group>"; };
 		3EFF28E21F85605100B4FD11 /* TextureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureCache.h; path = dolphin/Source/Core/VideoBackends/Null/TextureCache.h; sourceTree = "<group>"; };
-		3EFF28E31F85605100B4FD11 /* ShaderCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderCache.h; path = dolphin/Source/Core/VideoBackends/Null/ShaderCache.h; sourceTree = "<group>"; };
 		3EFF28E41F85605100B4FD11 /* VertexManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VertexManager.cpp; path = dolphin/Source/Core/VideoBackends/Null/VertexManager.cpp; sourceTree = "<group>"; };
-		3EFF28E51F85605200B4FD11 /* FramebufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FramebufferManager.h; path = dolphin/Source/Core/VideoBackends/Null/FramebufferManager.h; sourceTree = "<group>"; };
 		3EFF291A1F85606C00B4FD11 /* libvideonull-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvideonull-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFF29231F85611200B4FD11 /* SWTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SWTexture.cpp; path = dolphin/Source/Core/VideoBackends/Software/SWTexture.cpp; sourceTree = "<group>"; };
 		3EFF29241F85611200B4FD11 /* SWTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWTexture.h; path = dolphin/Source/Core/VideoBackends/Software/SWTexture.h; sourceTree = "<group>"; };
@@ -3190,6 +3179,56 @@
 		D345B2FE38FA4436A72B869F /* liblzo2-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblzo2-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D921B2DE9D654F07924FEBE0 /* libpch-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libpch-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBFD62BE775146B49EDA15A7 /* libsfml-system-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-system-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE149B7D2059D9EC008D5DDE /* SPSCQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSCQueue.h; path = dolphin/Source/Core/Common/SPSCQueue.h; sourceTree = "<group>"; };
+		EE149B7E2059D9EC008D5DDE /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = dolphin/Source/Core/Common/Version.h; sourceTree = "<group>"; };
+		EE149B7F2059D9EC008D5DDE /* Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Align.h; path = dolphin/Source/Core/Common/Align.h; sourceTree = "<group>"; };
+		EE149B822059DBD9008D5DDE /* GameFileCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameFileCache.cpp; path = dolphin/Source/Core/UICommon/GameFileCache.cpp; sourceTree = "<group>"; };
+		EE149B832059DBD9008D5DDE /* VideoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoUtils.h; path = dolphin/Source/Core/UICommon/VideoUtils.h; sourceTree = "<group>"; };
+		EE149B842059DBD9008D5DDE /* VideoUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VideoUtils.cpp; path = dolphin/Source/Core/UICommon/VideoUtils.cpp; sourceTree = "<group>"; };
+		EE149B852059DBD9008D5DDE /* USBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBUtils.h; path = dolphin/Source/Core/UICommon/USBUtils.h; sourceTree = "<group>"; };
+		EE149B862059DBDA008D5DDE /* GameFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFileCache.h; path = dolphin/Source/Core/UICommon/GameFileCache.h; sourceTree = "<group>"; };
+		EE149B872059DBDA008D5DDE /* USBUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = USBUtils.cpp; path = dolphin/Source/Core/UICommon/USBUtils.cpp; sourceTree = "<group>"; };
+		EE149B882059E115008D5DDE /* OGLShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLShader.cpp; path = dolphin/Source/Core/VideoBackends/OGL/OGLShader.cpp; sourceTree = "<group>"; };
+		EE149B892059E115008D5DDE /* OGLPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGLPipeline.h; path = dolphin/Source/Core/VideoBackends/OGL/OGLPipeline.h; sourceTree = "<group>"; };
+		EE149B8A2059E115008D5DDE /* OGLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGLShader.h; path = dolphin/Source/Core/VideoBackends/OGL/OGLShader.h; sourceTree = "<group>"; };
+		EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLPipeline.cpp; path = dolphin/Source/Core/VideoBackends/OGL/OGLPipeline.cpp; sourceTree = "<group>"; };
+		EE149B8E2059E190008D5DDE /* ShaderCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderCache.cpp; path = dolphin/Source/Core/VideoCommon/ShaderCache.cpp; sourceTree = "<group>"; };
+		EE149B8F2059E190008D5DDE /* AbstractPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractPipeline.h; path = dolphin/Source/Core/VideoCommon/AbstractPipeline.h; sourceTree = "<group>"; };
+		EE149B902059E190008D5DDE /* AbstractFramebuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractFramebuffer.cpp; path = dolphin/Source/Core/VideoCommon/AbstractFramebuffer.cpp; sourceTree = "<group>"; };
+		EE149B912059E191008D5DDE /* GXPipelineTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GXPipelineTypes.h; path = dolphin/Source/Core/VideoCommon/GXPipelineTypes.h; sourceTree = "<group>"; };
+		EE149B922059E191008D5DDE /* AbstractFramebuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractFramebuffer.h; path = dolphin/Source/Core/VideoCommon/AbstractFramebuffer.h; sourceTree = "<group>"; };
+		EE149B932059E192008D5DDE /* ShaderCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderCache.h; path = dolphin/Source/Core/VideoCommon/ShaderCache.h; sourceTree = "<group>"; };
+		EE149B942059E192008D5DDE /* AbstractShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractShader.h; path = dolphin/Source/Core/VideoCommon/AbstractShader.h; sourceTree = "<group>"; };
+		EE149B98205A270E008D5DDE /* DSPJitLoadStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitLoadStore.cpp; sourceTree = "<group>"; };
+		EE149B99205A270E008D5DDE /* DSPJitRegCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPJitRegCache.h; sourceTree = "<group>"; };
+		EE149B9A205A270E008D5DDE /* DSPJitExtOps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitExtOps.cpp; sourceTree = "<group>"; };
+		EE149B9B205A270E008D5DDE /* DSPJitBranch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitBranch.cpp; sourceTree = "<group>"; };
+		EE149B9C205A270E008D5DDE /* DSPJitCCUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitCCUtil.cpp; sourceTree = "<group>"; };
+		EE149B9D205A270E008D5DDE /* DSPEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSPEmitter.h; sourceTree = "<group>"; };
+		EE149B9E205A270E008D5DDE /* DSPJitMultiplier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitMultiplier.cpp; sourceTree = "<group>"; };
+		EE149B9F205A270E008D5DDE /* DSPJitMisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitMisc.cpp; sourceTree = "<group>"; };
+		EE149BA0205A270E008D5DDE /* DSPEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPEmitter.cpp; sourceTree = "<group>"; };
+		EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitUtil.cpp; sourceTree = "<group>"; };
+		EE149BA2205A270E008D5DDE /* DSPJitRegCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitRegCache.cpp; sourceTree = "<group>"; };
+		EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitArithmetic.cpp; sourceTree = "<group>"; };
+		EE32D84C207ABBB80050B549 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
+		EE32D84D207ABBB90050B549 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = File.cpp; path = HostBackend/File.cpp; sourceTree = "<group>"; };
+		EE32D84E207ABBB90050B549 /* FS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FS.h; path = HostBackend/FS.h; sourceTree = "<group>"; };
+		EE32D84F207ABBB90050B549 /* FS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FS.cpp; path = HostBackend/FS.cpp; sourceTree = "<group>"; };
+		EE32D851207ABBB90050B549 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
+		EE32D852207ABBB90050B549 /* FS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FS.cpp; sourceTree = "<group>"; };
+		EE32D853207ABBB90050B549 /* FS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FS.h; sourceTree = "<group>"; };
+		EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystemProxy.cpp; sourceTree = "<group>"; };
+		EE32D855207ABBBA0050B549 /* FileSystemProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemProxy.h; sourceTree = "<group>"; };
+		EE32D856207ABBBA0050B549 /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
+		EE3CCF9A205DF87400F0D04F /* TextureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureCache.h; path = dolphin/Source/Core/VideoBackends/Software/TextureCache.h; sourceTree = "<group>"; };
+		EE3CCF9B205DF87400F0D04F /* CopyRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CopyRegion.h; path = dolphin/Source/Core/VideoBackends/Software/CopyRegion.h; sourceTree = "<group>"; };
+		EE3CCF9C205DF93F00F0D04F /* CommandLineParse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CommandLineParse.cpp; path = dolphin/Source/Core/UICommon/CommandLineParse.cpp; sourceTree = "<group>"; };
+		EE3CCF9D205DF94000F0D04F /* CommandLineParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandLineParse.h; path = dolphin/Source/Core/UICommon/CommandLineParse.h; sourceTree = "<group>"; };
+		EE3CCF9E205DF94000F0D04F /* GameFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameFile.cpp; path = dolphin/Source/Core/UICommon/GameFile.cpp; sourceTree = "<group>"; };
+		EE3CCF9F205DF94000F0D04F /* GameFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFile.h; path = dolphin/Source/Core/UICommon/GameFile.h; sourceTree = "<group>"; };
+		EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QoSSession.cpp; path = dolphin/Source/Core/Common/QoSSession.cpp; sourceTree = "<group>"; };
+		EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QoSSession.h; path = dolphin/Source/Core/Common/QoSSession.h; sourceTree = "<group>"; };
 		F4EAB8D2A0AA45A183467CCD /* libaudiocommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libaudiocommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65EF8E25FB448D2BA4D3070 /* libbdisasm-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libbdisasm-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F57C176374ABD8861D732 /* libinputcommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libinputcommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3578,18 +3617,7 @@
 		3E3D71E01C82B0F800091C4D /* Jit */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC6C01F8436FE00D79F27 /* DSPEmitter.cpp */,
-				3E8EC6BF1F8436FE00D79F27 /* DSPEmitter.h */,
-				3E3D71E11C82B0F800091C4D /* DSPJitArithmetic.cpp */,
-				3E3D71E21C82B0F800091C4D /* DSPJitBranch.cpp */,
-				3E3D71E31C82B0F800091C4D /* DSPJitCCUtil.cpp */,
-				3E3D71E41C82B0F800091C4D /* DSPJitExtOps.cpp */,
-				3E3D71E51C82B0F800091C4D /* DSPJitLoadStore.cpp */,
-				3E3D71E61C82B0F800091C4D /* DSPJitMisc.cpp */,
-				3E3D71E71C82B0F800091C4D /* DSPJitMultiplier.cpp */,
-				3E3D71E81C82B0F800091C4D /* DSPJitRegCache.cpp */,
-				3E3D71E91C82B0F800091C4D /* DSPJitRegCache.h */,
-				3E3D71EA1C82B0F800091C4D /* DSPJitUtil.cpp */,
+				EE149B97205A270E008D5DDE /* x64 */,
 			);
 			path = Jit;
 			sourceTree = "<group>";
@@ -4736,7 +4764,6 @@
 				3EFF26AC1F845CB700B4FD11 /* SDIO */,
 				3EFF26AF1F845CB700B4FD11 /* WFS */,
 				3EFF26B41F845CB700B4FD11 /* FS */,
-				3EFF26B91F845CB700B4FD11 /* MemoryValues.h */,
 				3EFF26BA1F845CB700B4FD11 /* MIOS.h */,
 				3EFF26BB1F845CB700B4FD11 /* IOSC.h */,
 			);
@@ -4941,10 +4968,14 @@
 		3EFF26B41F845CB700B4FD11 /* FS */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF26B51F845CB700B4FD11 /* FileIO.cpp */,
-				3EFF26B61F845CB700B4FD11 /* FS.cpp */,
-				3EFF26B71F845CB700B4FD11 /* FileIO.h */,
-				3EFF26B81F845CB700B4FD11 /* FS.h */,
+				EE32D84D207ABBB90050B549 /* File.cpp */,
+				EE32D84C207ABBB80050B549 /* FileSystem.cpp */,
+				EE32D856207ABBBA0050B549 /* FileSystem.h */,
+				EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */,
+				EE32D855207ABBBA0050B549 /* FileSystemProxy.h */,
+				EE32D84F207ABBB90050B549 /* FS.cpp */,
+				EE32D84E207ABBB90050B549 /* FS.h */,
+				EE32D850207ABBB90050B549 /* HostBackend */,
 			);
 			path = FS;
 			sourceTree = "<group>";
@@ -5186,15 +5217,12 @@
 		3EFF28D81F85603500B4FD11 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF28E51F85605200B4FD11 /* FramebufferManager.h */,
 				3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */,
 				3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */,
 				3EFF28D91F85604E00B4FD11 /* NullTexture.h */,
 				3EFF28E01F85605000B4FD11 /* PerfQuery.h */,
 				3EFF28DD1F85604F00B4FD11 /* Render.cpp */,
 				3EFF28DC1F85604F00B4FD11 /* Render.h */,
-				3EFF28DB1F85604F00B4FD11 /* ShaderCache.cpp */,
-				3EFF28E31F85605100B4FD11 /* ShaderCache.h */,
 				3EFF28E21F85605100B4FD11 /* TextureCache.h */,
 				3EFF28E41F85605100B4FD11 /* VertexManager.cpp */,
 				3EFF28E11F85605000B4FD11 /* VertexManager.h */,
@@ -5289,6 +5317,11 @@
 		6305742E350948A6A90BE776 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */,
+				EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */,
+				EE149B7F2059D9EC008D5DDE /* Align.h */,
+				EE149B7D2059D9EC008D5DDE /* SPSCQueue.h */,
+				EE149B7E2059D9EC008D5DDE /* Version.h */,
 				3EFF28C71F855F2E00B4FD11 /* Compat */,
 				3EFF28CB1F855F2E00B4FD11 /* Config */,
 				3EFF25F11F8455D000B4FD11 /* BitUtils.h */,
@@ -5441,8 +5474,6 @@
 				3E3D71B81C82B0F800091C4D /* DSP */,
 				3E3D71ED1C82B0F800091C4D /* DSPEmulator.cpp */,
 				3E3D71EE1C82B0F800091C4D /* DSPEmulator.h */,
-				3E3D71EF1C82B0F800091C4D /* ec_wii.cpp */,
-				3E3D71F01C82B0F800091C4D /* ec_wii.h */,
 				3E3D71F11C82B0F800091C4D /* FifoPlayer */,
 				3E3D71FF1C82B0F800091C4D /* GeckoCode.cpp */,
 				3E3D72001C82B0F800091C4D /* GeckoCode.h */,
@@ -5694,6 +5725,17 @@
 		9A59815A64234E7AA215090A /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE149B902059E190008D5DDE /* AbstractFramebuffer.cpp */,
+				EE149B922059E191008D5DDE /* AbstractFramebuffer.h */,
+				EE149B8F2059E190008D5DDE /* AbstractPipeline.h */,
+				EE149B942059E192008D5DDE /* AbstractShader.h */,
+				EE149B912059E191008D5DDE /* GXPipelineTypes.h */,
+				EE149B8E2059E190008D5DDE /* ShaderCache.cpp */,
+				EE149B932059E192008D5DDE /* ShaderCache.h */,
+				3E98CDF71FD70844009A9DEA /* AbstractStagingTexture.cpp */,
+				3E98CDF61FD70844009A9DEA /* AbstractStagingTexture.h */,
+				3E98CDF91FD70845009A9DEA /* TextureConverterShaderGen.cpp */,
+				3E98CDF81FD70845009A9DEA /* TextureConverterShaderGen.h */,
 				3EFF261B1F8458E200B4FD11 /* AbstractTexture.cpp */,
 				3EFF26191F8458E200B4FD11 /* AbstractTexture.h */,
 				3E3D75811C82B2DD00091C4D /* AsyncRequests.cpp */,
@@ -5710,7 +5752,6 @@
 				3E3D758A1C82B2DD00091C4D /* BPMemory.h */,
 				3E3D758B1C82B2DD00091C4D /* BPStructs.cpp */,
 				3E3D758C1C82B2DD00091C4D /* BPStructs.h */,
-				3E3D758D1C82B2DD00091C4D /* CMakeLists.txt */,
 				3E3D758E1C82B2DD00091C4D /* CommandProcessor.cpp */,
 				3E3D758F1C82B2DD00091C4D /* CommandProcessor.h */,
 				3E3D75901C82B2DD00091C4D /* ConstantManager.h */,
@@ -5741,7 +5782,6 @@
 				3EFF26151F8458E000B4FD11 /* LightingShaderGen.cpp */,
 				3E3D75A81C82B2DD00091C4D /* LightingShaderGen.h */,
 				3E3D75A91C82B2DD00091C4D /* LookUpTables.h */,
-				3E3D75AA1C82B2DD00091C4D /* MainBase.cpp */,
 				3E3D75AB1C82B2DD00091C4D /* NativeVertexFormat.h */,
 				3E3D75AC1C82B2DD00091C4D /* OnScreenDisplay.cpp */,
 				3E3D75AD1C82B2DD00091C4D /* OnScreenDisplay.h */,
@@ -5960,6 +6000,10 @@
 		AE1C1919BD83418CACC4E304 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */,
+				EE149B892059E115008D5DDE /* OGLPipeline.h */,
+				EE149B882059E115008D5DDE /* OGLShader.cpp */,
+				EE149B8A2059E115008D5DDE /* OGLShader.h */,
 				3E3D761D1C82B30A00091C4D /* BoundingBox.cpp */,
 				3E3D761E1C82B30A00091C4D /* BoundingBox.h */,
 				3E3D76201C82B30A00091C4D /* FramebufferManager.cpp */,
@@ -6013,6 +6057,8 @@
 		BAE754C05C574A5A86FC1966 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE3CCF9B205DF87400F0D04F /* CopyRegion.h */,
+				EE3CCF9A205DF87400F0D04F /* TextureCache.h */,
 				3EFF29231F85611200B4FD11 /* SWTexture.cpp */,
 				3EFF29241F85611200B4FD11 /* SWTexture.h */,
 				3E3D76471C82B33700091C4D /* Clipper.cpp */,
@@ -6089,6 +6135,16 @@
 		DD737C318D0F4453A73E532E /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE3CCF9C205DF93F00F0D04F /* CommandLineParse.cpp */,
+				EE3CCF9D205DF94000F0D04F /* CommandLineParse.h */,
+				EE3CCF9E205DF94000F0D04F /* GameFile.cpp */,
+				EE3CCF9F205DF94000F0D04F /* GameFile.h */,
+				EE149B822059DBD9008D5DDE /* GameFileCache.cpp */,
+				EE149B862059DBDA008D5DDE /* GameFileCache.h */,
+				EE149B872059DBDA008D5DDE /* USBUtils.cpp */,
+				EE149B852059DBD9008D5DDE /* USBUtils.h */,
+				EE149B842059DBD9008D5DDE /* VideoUtils.cpp */,
+				EE149B832059DBD9008D5DDE /* VideoUtils.h */,
 				3E3D757B1C82B2A700091C4D /* Disassembler.cpp */,
 				3E3D757C1C82B2A700091C4D /* Disassembler.h */,
 				3E3D757D1C82B2A700091C4D /* UICommon.cpp */,
@@ -6130,6 +6186,35 @@
 				3E3D74CB1C82B18C00091C4D /* minilzo.h */,
 			);
 			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		EE149B97205A270E008D5DDE /* x64 */ = {
+			isa = PBXGroup;
+			children = (
+				EE149B98205A270E008D5DDE /* DSPJitLoadStore.cpp */,
+				EE149B99205A270E008D5DDE /* DSPJitRegCache.h */,
+				EE149B9A205A270E008D5DDE /* DSPJitExtOps.cpp */,
+				EE149B9B205A270E008D5DDE /* DSPJitBranch.cpp */,
+				EE149B9C205A270E008D5DDE /* DSPJitCCUtil.cpp */,
+				EE149B9D205A270E008D5DDE /* DSPEmitter.h */,
+				EE149B9E205A270E008D5DDE /* DSPJitMultiplier.cpp */,
+				EE149B9F205A270E008D5DDE /* DSPJitMisc.cpp */,
+				EE149BA0205A270E008D5DDE /* DSPEmitter.cpp */,
+				EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */,
+				EE149BA2205A270E008D5DDE /* DSPJitRegCache.cpp */,
+				EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */,
+			);
+			path = x64;
+			sourceTree = "<group>";
+		};
+		EE32D850207ABBB90050B549 /* HostBackend */ = {
+			isa = PBXGroup;
+			children = (
+				EE32D851207ABBB90050B549 /* File.cpp */,
+				EE32D852207ABBB90050B549 /* FS.cpp */,
+				EE32D853207ABBB90050B549 /* FS.h */,
+			);
+			path = HostBackend;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -6872,16 +6957,18 @@
 				3E065A8D1F87CC4C00C4237C /* Nunchuk.cpp in Sources */,
 				3EFF26431F845CA500B4FD11 /* GraphicsSettings.cpp in Sources */,
 				3E8EC66A1F8434AA00D79F27 /* EXI_DeviceEthernet.cpp in Sources */,
+				EE149BA7205A270F008D5DDE /* DSPJitCCUtil.cpp in Sources */,
 				3EFF26C01F845CB800B4FD11 /* Manage.cpp in Sources */,
 				3E89F47D1CCAB4FC00EAE7AC /* State.cpp in Sources */,
 				3E3D73FC1C82B0F900091C4D /* Interpreter_LoadStorePaired.cpp in Sources */,
 				3E8EC6A71F8434C700D79F27 /* Drums.cpp in Sources */,
 				3E8EC6641F8434AA00D79F27 /* SI_Device.cpp in Sources */,
+				EE149BA9205A270F008D5DDE /* DSPJitMisc.cpp in Sources */,
 				3EFF27121F8460BC00B4FD11 /* WiiRoot.cpp in Sources */,
-				3E3D737D1C82B0F900091C4D /* DSPJitMultiplier.cpp in Sources */,
 				3EFF26E31F845CB800B4FD11 /* Formats.cpp in Sources */,
 				3E3D73951C82B0F900091C4D /* DSPHLE.cpp in Sources */,
 				3E8EC6A31F8434C700D79F27 /* Guitar.cpp in Sources */,
+				EE149BAA205A270F008D5DDE /* DSPEmitter.cpp in Sources */,
 				3EFF26FE1F845E9F00B4FD11 /* InterpreterBlockCache.cpp in Sources */,
 				3EFF26441F845CA500B4FD11 /* MainSettings.cpp in Sources */,
 				3EFF26411F845CA500B4FD11 /* SYSCONFSettings.cpp in Sources */,
@@ -6900,6 +6987,7 @@
 				3E3D73FA1C82B0F900091C4D /* Interpreter_Integer.cpp in Sources */,
 				3E3D739F1C82B0F900091C4D /* DSPDebugInterface.cpp in Sources */,
 				3E3D736B1C82B0F900091C4D /* DSPHWInterface.cpp in Sources */,
+				EE149BA5205A270F008D5DDE /* DSPJitExtOps.cpp in Sources */,
 				3E8EC6BD1F8436F100D79F27 /* DSPIntBranch.cpp in Sources */,
 				3EFF26471F845CA500B4FD11 /* GameConfigLoader.cpp in Sources */,
 				3E3D73C81C82B0F900091C4D /* Sram.cpp in Sources */,
@@ -6910,6 +6998,7 @@
 				3E3D739E1C82B0F900091C4D /* Zelda.cpp in Sources */,
 				3E3D73A01C82B0F900091C4D /* DSPHost.cpp in Sources */,
 				3EFF27011F845E9F00B4FD11 /* CSVSignatureDB.cpp in Sources */,
+				EE149BA4205A270F008D5DDE /* DSPJitLoadStore.cpp in Sources */,
 				3EFF26DC1F845CB800B4FD11 /* BTBase.cpp in Sources */,
 				3E8EC6661F8434AA00D79F27 /* GCMemcardRaw.cpp in Sources */,
 				3E3D740C1C82B0F900091C4D /* Jit64AsmCommon.cpp in Sources */,
@@ -6923,11 +7012,11 @@
 				3E8EC65C1F8434AA00D79F27 /* SI_DeviceGCSteeringWheel.cpp in Sources */,
 				3EFF27021F845E9F00B4FD11 /* MEGASignatureDB.cpp in Sources */,
 				3E8EC6621F8434AA00D79F27 /* SI_DeviceGCController.cpp in Sources */,
+				EE149BA6205A270F008D5DDE /* DSPJitBranch.cpp in Sources */,
 				3E8EC66E1F8434AA00D79F27 /* EXI.cpp in Sources */,
 				3E3D73CD1C82B0F900091C4D /* Wiimote.cpp in Sources */,
 				3E3D74061C82B0F900091C4D /* Jit_LoadStoreFloating.cpp in Sources */,
 				3E8EC6D11F84376E00D79F27 /* FarCodeCache.cpp in Sources */,
-				3E3D737A1C82B0F900091C4D /* DSPJitExtOps.cpp in Sources */,
 				3E3D73891C82B0F900091C4D /* GeckoCode.cpp in Sources */,
 				3E3D73691C82B0F900091C4D /* DSPDisassembler.cpp in Sources */,
 				3EFF26D11F845CB800B4FD11 /* HIDv5.cpp in Sources */,
@@ -6935,7 +7024,6 @@
 				3E3D73981C82B0F900091C4D /* AXWii.cpp in Sources */,
 				3EFF26DD1F845CB800B4FD11 /* BTStub.cpp in Sources */,
 				3EFF26BF1F845CB800B4FD11 /* MACUtils.cpp in Sources */,
-				3E3D737C1C82B0F900091C4D /* DSPJitMisc.cpp in Sources */,
 				3EFF26D31F845CB800B4FD11 /* USBV5.cpp in Sources */,
 				3EFF26C11F845CB800B4FD11 /* WiiNetConfig.cpp in Sources */,
 				3E3D74201C82B0F900091C4D /* JitAsmCommon.cpp in Sources */,
@@ -6949,6 +7037,8 @@
 				3E8EC65D1F8434AA00D79F27 /* SI_DeviceGCAdapter.cpp in Sources */,
 				3EFF27001F845E9F00B4FD11 /* DSYSignatureDB.cpp in Sources */,
 				3E8EC6E71F8437D000D79F27 /* RSO.cpp in Sources */,
+				EE149BAB205A270F008D5DDE /* DSPJitUtil.cpp in Sources */,
+				EE32D859207ABBBA0050B549 /* FS.cpp in Sources */,
 				3EFF26C41F845CB800B4FD11 /* NWC24Config.cpp in Sources */,
 				3E3D73EF1C82B0F900091C4D /* MemoryWatcher.cpp in Sources */,
 				3E3D73801C82B0F900091C4D /* LabelMap.cpp in Sources */,
@@ -6968,12 +7058,9 @@
 				3E3D74051C82B0F900091C4D /* Jit_LoadStore.cpp in Sources */,
 				3E8EC6D51F84376E00D79F27 /* BlockCache.cpp in Sources */,
 				3E3D73861C82B0F900091C4D /* FifoPlayer.cpp in Sources */,
-				3E3D73771C82B0F900091C4D /* DSPJitArithmetic.cpp in Sources */,
 				3E3D73B31C82B0F900091C4D /* GCKeyboardEmu.cpp in Sources */,
-				3E3D737B1C82B0F900091C4D /* DSPJitLoadStore.cpp in Sources */,
 				3E3D73F41C82B0F900091C4D /* PatchEngine.cpp in Sources */,
 				3E8EC6691F8434AA00D79F27 /* EXI_DeviceAGP.cpp in Sources */,
-				3E3D73781C82B0F900091C4D /* DSPJitBranch.cpp in Sources */,
 				3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */,
 				3E3D740B1C82B0F900091C4D /* JitRegCache.cpp in Sources */,
 				3E3D73BD1C82B0F900091C4D /* MMIO.cpp in Sources */,
@@ -6984,6 +7071,7 @@
 				3E8EC6A61F8434C700D79F27 /* Classic.cpp in Sources */,
 				3EFF26BE1F845CB800B4FD11 /* DeviceStub.cpp in Sources */,
 				3E8EC6A91F8434C700D79F27 /* Encryption.cpp in Sources */,
+				EE32D85A207ABBBA0050B549 /* File.cpp in Sources */,
 				3EFF26DB1F845CB800B4FD11 /* BTEmu.cpp in Sources */,
 				3EFF26421F845CA500B4FD11 /* NetplaySettings.cpp in Sources */,
 				3E8EC66C1F8434AA00D79F27 /* EXI_Channel.cpp in Sources */,
@@ -6995,7 +7083,6 @@
 				3E3D74231C82B0F900091C4D /* JitCache.cpp in Sources */,
 				3EFF26D41F845CB800B4FD11 /* USBV4.cpp in Sources */,
 				3E3D74341C82B0F900091C4D /* PPCTables.cpp in Sources */,
-				3E3D737F1C82B0F900091C4D /* DSPJitUtil.cpp in Sources */,
 				3EFF27131F8460BC00B4FD11 /* WiiUtils.cpp in Sources */,
 				3E3D74001C82B0F900091C4D /* Jit.cpp in Sources */,
 				3EB81EFA1F88322F000CBD2C /* WiimoteEmu.cpp in Sources */,
@@ -7005,6 +7092,8 @@
 				3E3D73561C82B0F900091C4D /* Boot.cpp in Sources */,
 				3E8EC66D1F8434AA00D79F27 /* EXI_DeviceGecko.cpp in Sources */,
 				3EFF26CE1F845CB800B4FD11 /* IOSC.cpp in Sources */,
+				EE32D85B207ABBBA0050B549 /* FS.cpp in Sources */,
+				EE32D857207ABBBA0050B549 /* FileSystem.cpp in Sources */,
 				3E3D738C1C82B0F900091C4D /* HLE_Misc.cpp in Sources */,
 				3E3D73571C82B0F900091C4D /* Boot_BS2Emu.cpp in Sources */,
 				3E8EC6D41F84376E00D79F27 /* Jit64Base.cpp in Sources */,
@@ -7021,15 +7110,14 @@
 				3E8EC6741F8434AA00D79F27 /* EXI_DeviceAD16.cpp in Sources */,
 				3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */,
 				3E3D740A1C82B0F900091C4D /* JitAsm.cpp in Sources */,
-				3EFF26EE1F845CB800B4FD11 /* FS.cpp in Sources */,
 				3E3D73CA1C82B0F900091C4D /* SystemTimers.cpp in Sources */,
 				3E3D74331C82B0F900091C4D /* PPCSymbolDB.cpp in Sources */,
 				3E3D735F1C82B0F900091C4D /* CoreTiming.cpp in Sources */,
 				3E3D73931C82B0F900091C4D /* CPU.cpp in Sources */,
 				3E3D73BE1C82B0F900091C4D /* ProcessorInterface.cpp in Sources */,
 				3EFF25241F84432A00B4FD11 /* IOhidapi.cpp in Sources */,
+				EE149BAC205A270F008D5DDE /* DSPJitRegCache.cpp in Sources */,
 				3EFF26C51F845CB800B4FD11 /* SSL.cpp in Sources */,
-				3E8EC6C11F8436FE00D79F27 /* DSPEmitter.cpp in Sources */,
 				3E3D74021C82B0F900091C4D /* Jit_Branch.cpp in Sources */,
 				3EFF26C31F845CB800B4FD11 /* NetKDRequest.cpp in Sources */,
 				3E3D73C91C82B0F900091C4D /* StreamADPCM.cpp in Sources */,
@@ -7046,6 +7134,7 @@
 				3E8EC6BB1F8436F100D79F27 /* DSPIntLoadStore.cpp in Sources */,
 				3E3D73FB1C82B0F900091C4D /* Interpreter_LoadStore.cpp in Sources */,
 				3E8EC6E01F84378E00D79F27 /* BreakPoints.cpp in Sources */,
+				EE149BAD205A270F008D5DDE /* DSPJitArithmetic.cpp in Sources */,
 				3E3D742F1C82B0F900091C4D /* MMU.cpp in Sources */,
 				3EFF26481F845CA500B4FD11 /* BaseConfigLoader.cpp in Sources */,
 				3E3D738B1C82B0F900091C4D /* HLE.cpp in Sources */,
@@ -7083,13 +7172,11 @@
 				3E3D73611C82B0F900091C4D /* Dump.cpp in Sources */,
 				3E8EC6B91F8436F100D79F27 /* DSPIntExtOps.cpp in Sources */,
 				3E3D74301C82B0F900091C4D /* PowerPC.cpp in Sources */,
-				3E3D73821C82B0F900091C4D /* ec_wii.cpp in Sources */,
-				3E3D737E1C82B0F900091C4D /* DSPJitRegCache.cpp in Sources */,
 				3EFF26E91F845CB800B4FD11 /* TitleManagement.cpp in Sources */,
 				3E8EC6631F8434AA00D79F27 /* SI_DeviceKeyboard.cpp in Sources */,
 				3E3D73541C82B0F900091C4D /* ActionReplay.cpp in Sources */,
 				3EFF26DA1F845CB800B4FD11 /* WiimoteDevice.cpp in Sources */,
-				3E3D73791C82B0F900091C4D /* DSPJitCCUtil.cpp in Sources */,
+				EE32D85C207ABBBA0050B549 /* FileSystemProxy.cpp in Sources */,
 				3EFF25221F84432A00B4FD11 /* IOdarwin.mm in Sources */,
 				3E3D73DE1C82B0F900091C4D /* WiiSaveCrypted.cpp in Sources */,
 				3E96B3CB1F86C452007C5799 /* input.cpp in Sources */,
@@ -7101,6 +7188,7 @@
 				3EFF26E71F845CB800B4FD11 /* Views.cpp in Sources */,
 				3E3D73831C82B0F900091C4D /* FifoAnalyzer.cpp in Sources */,
 				3E8EC6671F8434AA00D79F27 /* GCMemcardDirectory.cpp in Sources */,
+				EE149BA8205A270F008D5DDE /* DSPJitMultiplier.cpp in Sources */,
 				3E3D73751C82B0F900091C4D /* DSPStacks.cpp in Sources */,
 				3E3D73871C82B0F900091C4D /* FifoRecordAnalyzer.cpp in Sources */,
 				3E3D73B91C82B0F900091C4D /* GPFifo.cpp in Sources */,
@@ -7109,7 +7197,6 @@
 				3E8EC6601F8434AA00D79F27 /* SI.cpp in Sources */,
 				3E3D73FE1C82B0F900091C4D /* Interpreter_SystemRegisters.cpp in Sources */,
 				3EFF26461F845CA500B4FD11 /* MovieConfigLoader.cpp in Sources */,
-				3EFF26ED1F845CB800B4FD11 /* FileIO.cpp in Sources */,
 				3EFF26C21F845CB800B4FD11 /* NetKDTime.cpp in Sources */,
 				3E3D73631C82B0F900091C4D /* DSPAccelerator.cpp in Sources */,
 				3E8EC6DB1F84377A00D79F27 /* GPRRegCache.cpp in Sources */,
@@ -7118,6 +7205,7 @@
 				3EFF26E11F845CB800B4FD11 /* MIOS.cpp in Sources */,
 				3E8EC6BC1F8436F100D79F27 /* DSPIntMisc.cpp in Sources */,
 				3E8EC66B1F8434AA00D79F27 /* EXI_DeviceMic.cpp in Sources */,
+				EE32D858207ABBBA0050B549 /* File.cpp in Sources */,
 				3E3D74031C82B0F900091C4D /* Jit_FloatingPoint.cpp in Sources */,
 				3EFF25231F84432A00B4FD11 /* WiimoteReal.cpp in Sources */,
 				3E3D73A21C82B0F900091C4D /* DSPLLEGlobals.cpp in Sources */,
@@ -7162,6 +7250,7 @@
 				3E3D71661C82B0BB00091C4D /* FileSearch.cpp in Sources */,
 				3E3D71831C82B0BB00091C4D /* PcapFile.cpp in Sources */,
 				3EFF260F1F84560100B4FD11 /* MD5.cpp in Sources */,
+				EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */,
 				3E3D718A1C82B0BB00091C4D /* SysConf.cpp in Sources */,
 				3E3D71861C82B0BB00091C4D /* SDCardUtil.cpp in Sources */,
 				3E3D718E1C82B0BB00091C4D /* TraversalServer.cpp in Sources */,
@@ -7499,7 +7588,6 @@
 				3EFF291C1F8560BA00B4FD11 /* NullTexture.cpp in Sources */,
 				3EFF291B1F8560BA00B4FD11 /* NullBackend.cpp in Sources */,
 				3EFF294F1F85830500B4FD11 /* Render.cpp in Sources */,
-				3EFF291E1F8560BA00B4FD11 /* ShaderCache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7509,6 +7597,7 @@
 			files = (
 				3E3D75801C82B2A700091C4D /* UICommon.cpp in Sources */,
 				3E3D757F1C82B2A700091C4D /* Disassembler.cpp in Sources */,
+				EE3CCFA1205DF94100F0D04F /* GameFile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7701,10 +7790,11 @@
 				3E3D75EC1C82B2DE00091C4D /* AVIDump.cpp in Sources */,
 				3E3D761B1C82B2DE00091C4D /* XFMemory.cpp in Sources */,
 				3E3D75F71C82B2DE00091C4D /* FramebufferManagerBase.cpp in Sources */,
+				3E98CDFA1FD70845009A9DEA /* AbstractStagingTexture.cpp in Sources */,
 				3EFF26261F8458E600B4FD11 /* UberShaderVertex.cpp in Sources */,
 				3E3D760A1C82B2DE00091C4D /* TextureDecoder_Generic.cpp in Sources */,
-				3E3D75FD1C82B2DE00091C4D /* MainBase.cpp in Sources */,
 				3E3D761A1C82B2DE00091C4D /* VideoState.cpp in Sources */,
+				EE149B962059E192008D5DDE /* AbstractFramebuffer.cpp in Sources */,
 				3E3D76151C82B2DE00091C4D /* VertexManagerBase.cpp in Sources */,
 				3E3D760D1C82B2DE00091C4D /* VertexLoader_Normal.cpp in Sources */,
 				3E3D76081C82B2DE00091C4D /* TextureConversionShader.cpp in Sources */,
@@ -7717,6 +7807,7 @@
 				3E3D76131C82B2DE00091C4D /* VertexLoaderManager.cpp in Sources */,
 				3E3D75EB1C82B2DE00091C4D /* AsyncRequests.cpp in Sources */,
 				3EFF26281F8458E600B4FD11 /* AbstractTexture.cpp in Sources */,
+				EE149B952059E192008D5DDE /* ShaderCache.cpp in Sources */,
 				3E3D75F01C82B2DE00091C4D /* BPStructs.cpp in Sources */,
 				3E3D75F61C82B2DE00091C4D /* FPSCounter.cpp in Sources */,
 				3E3D75F41C82B2DE00091C4D /* DriverDetails.cpp in Sources */,
@@ -7728,6 +7819,7 @@
 				3E3D75EE1C82B2DE00091C4D /* BPFunctions.cpp in Sources */,
 				3E3D76041C82B2DE00091C4D /* PostProcessing.cpp in Sources */,
 				3E3D76161C82B2DE00091C4D /* VertexShaderGen.cpp in Sources */,
+				3E98CDFB1FD70845009A9DEA /* TextureConverterShaderGen.cpp in Sources */,
 				3E3D75F51C82B2DE00091C4D /* Fifo.cpp in Sources */,
 				3E3D76121C82B2DE00091C4D /* VertexLoaderBase.cpp in Sources */,
 				3E3D76001C82B2DE00091C4D /* PerfQueryBase.cpp in Sources */,
@@ -7837,6 +7929,8 @@
 				3EFF27621F84617A00B4FD11 /* pugixml.cpp in Sources */,
 				3E3D76391C82B30A00091C4D /* BoundingBox.cpp in Sources */,
 				3E3D763C1C82B30A00091C4D /* NativeVertexFormat.cpp in Sources */,
+				EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */,
+				EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */,
 				3E3D76441C82B30A00091C4D /* TextureCache.cpp in Sources */,
 				3E3D763D1C82B30A00091C4D /* PerfQuery.cpp in Sources */,
 				3E3D76461C82B30A00091C4D /* VertexManager.cpp in Sources */,
@@ -12050,7 +12144,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",

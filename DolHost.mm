@@ -1,28 +1,28 @@
 /*
-Copyright (c) 2016, OpenEmu Team
+ Copyright (c) 2016, OpenEmu Team
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-* Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright
-notice, this list of conditions and the following disclaimer in the
-documentation and/or other materials provided with the distribution.
-* Neither the name of the OpenEmu Team nor the
-names of its contributors may be used to endorse or promote products
-derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ * Neither the name of the OpenEmu Team nor the
+ names of its contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include "DolHost.h"
 #include "input.h"
@@ -33,12 +33,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "AudioCommon/AudioCommon.h"
 
+#include "Common/CPUDetect.h"
 #include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
-#include "Common/Event.h"
-#include "Common/Flag.h"
+#include "Common/FileUtil.h"
+#include "Common/IniFile.h"
 #include "Common/Logging/LogManager.h"
 #include "Common/MsgHandler.h"
+#include "Common/Thread.h"
+#include "Common/Version.h"
+
+//#include "Common/CommonPaths.h"
+//#include "Common/CommonTypes.h"
+//#include "Common/Event.h"
+//#include "Common/Flag.h"
+//#include "Common/Logging/LogManager.h"
+//#include "Common/MsgHandler.h"
+//#include "Common/GL/GLInterfaceBase.h"
 
 #include "Core/Analytics.h"
 #include "Core/Boot/Boot.h"
@@ -71,6 +82,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "VideoCommon/VideoBackendBase.h"
 #include "VideoCommon/VideoConfig.h"
 #include "VideoCommon/OnScreenDisplay.h"
+#include "VideoBackends/OGL/ProgramShaderCache.h"
 
 DolHost* DolHost::m_instance = nullptr;
 static Common::Event updateMainFrameEvent;
@@ -105,12 +117,9 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 
     //Setup the CPU Settings
     SConfig::GetInstance().bMMU = true;
-    //SConfig::GetInstance().bSkipIdle = true;
-#ifdef DEBUG
+    // SConfig::GetInstance().bSkipIdle = true;
+
     SConfig::GetInstance().bEnableCheats = true;
-#else
-    SConfig::GetInstance().bEnableCheats = false;
-#endif
     SConfig::GetInstance().bBootToPause = false;
 
     //Debug Settings
@@ -126,7 +135,6 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().bDSPThread = true;
     SConfig::GetInstance().m_Volume = 0;
-    SConfig::GetInstance().sBackend = "Cubeb" ;//"OpenAL";
 
     //Split CPU thread from GPU
     SConfig::GetInstance().bCPUThread = true;
@@ -169,7 +177,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         SConfig::GetInstance().bWii = true;
 
         //Set the wii type
-        if (_gameType ==  DiscIO::Platform::WII_WAD)
+        if (_gameType ==  DiscIO::Platform::WiiWAD)
             _wiiWAD = true;
         else
             _wiiWAD = false;
@@ -201,19 +209,19 @@ bool DolHost::LoadFileAtPath()
             s_running.Clear();
     });
 
-    DolphinAnalytics::Instance()->ReportDolphinStart("openEmu");
+//    DolphinAnalytics::Instance()->ReportDolphinStart("openEmu");
+//
+//    if (_wiiWAD)
+//        WiiUtils::InstallWAD(_gamePath);
+//    //    else
+//    //        WiiUtils::DoDiscUpdate(nil, _gameRegionName);
 
-    if (_wiiWAD)
-        WiiUtils::InstallWAD(_gamePath);
-//    else
-//        WiiUtils::DoDiscUpdate(nil, _gameRegionName);
+    if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath)))
+        return false;
 
-   if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath)))
-       return false;
+//    while (!Core::IsRunning())
+//        updateMainFrameEvent.Wait();
 
-    while (!Core::IsRunning())
-        updateMainFrameEvent.Wait();
-    
     return true;
 }
 
@@ -230,7 +238,7 @@ void DolHost::RequestStop()
 
     Core::Stop();
     while (CPU::GetState() != CPU::State::PowerDown)
-       usleep(1000);
+        usleep(1000);
 
     Core::Shutdown();
     UICommon::Shutdown();
@@ -261,7 +269,17 @@ bool DolHost::CoreRunning()
 void DolHost::SetPresentationFBO(int RenderFBO)
 {
     g_Config.iRenderFBO = RenderFBO;
+//    g_Config.bCrop = false;
+//    g_Config.bWidescreenHack = false;
+//    g_Config.bHiresTextures = false;
+//    g_Config.bSSAA = false;
+//    g_Config.iEFBScale = 2;
 }
+
+void DolHost::SetBackBufferSize(int width, int height) {
+    //GLInterface->SetBackBufferDimensions(width, height);
+}
+
 
 # pragma mark - Audio 
 void DolHost::SetVolume(float value)
@@ -273,8 +291,6 @@ void DolHost::SetVolume(float value)
 # pragma mark - Save states
 bool DolHost::setAutoloadFile(std::string saveStateFile)
 {
-    Core::SetStateFileName(saveStateFile);
-
     return true;
 }
 
@@ -306,80 +322,80 @@ bool DolHost::LoadState(std::string saveStateFile)
 # pragma mark - Cheats
 void DolHost::SetCheat(std::string code, std::string type, bool enabled)
 {
-    NSString* nscode = [NSString stringWithUTF8String:code.c_str()];
-
-    gcode.codes.clear();
-    gcode.enabled = enabled;
-
-    // Sanitize
-    nscode = [nscode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    // Remove any spaces
-    nscode = [nscode stringByReplacingOccurrencesOfString:@" " withString:@""];
-
-    NSString *singleCode;
-    NSArray *multipleCodes = [nscode componentsSeparatedByString:@"+"];
-
-    Gecko::GeckoCode::Code gcodecode;
-    uint32_t cmd_addr, cmd_value;
-
-    for (singleCode in multipleCodes)
-    {
-        if ([singleCode length] == 16) // Gecko code
-        {
-            NSString *address = [singleCode substringWithRange:NSMakeRange(0, 8)];
-            NSString *value = [singleCode substringWithRange:NSMakeRange(8, 8)];
-
-            bool success_addr = TryParse(std::string("0x") + [address UTF8String], &cmd_addr);
-            bool success_val = TryParse(std::string("0x") + [value UTF8String], &cmd_value);
-
-            if (!success_addr || !success_val)
-                return;
-
-            gcodecode.address = cmd_addr;
-            gcodecode.data = cmd_value;
-            gcode.codes.push_back(gcodecode);
-        }
-        else
-        {
-            return;
-        }
-    }
-
-    bool exists = false;
-
-    //  cycle through the codes in our vector
-    for (Gecko::GeckoCode& gcompare : gcodes)
-    {
-        //If the code being modified is the same size as one in the vector, check each value
-        if (gcompare.codes.size() == gcode.codes.size())
-        {
-            for(int i = 0; i < gcode.codes.size() ;i++)
-            {
-                if (gcompare.codes[i].address == gcode.codes[i].address && gcompare.codes[i].data == gcode.codes[i].data)
-                {
-                    exists = true;
-                }
-                else
-                {
-                    exists = false;
-                    // If it's not the same, no need to look through all the codes
-                    break;
-                }
-            }
-        }
-        if(exists)
-        {
-            gcompare.enabled = enabled;
-            // If it exists, enable it, and we don't need to look at the rest of the codes
-            break;
-        }
-    }
-
-    if(!exists)
-        gcodes.push_back(gcode);
-
-    Gecko::SetActiveCodes(gcodes);
+//    NSString* nscode = [NSString stringWithUTF8String:code.c_str()];
+//
+//    gcode.codes.clear();
+//    gcode.enabled = enabled;
+//
+//    // Sanitize
+//    nscode = [nscode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//
+//    // Remove any spaces
+//    nscode = [nscode stringByReplacingOccurrencesOfString:@" " withString:@""];
+//
+//    NSString *singleCode;
+//    NSArray *multipleCodes = [nscode componentsSeparatedByString:@"+"];
+//
+//    Gecko::GeckoCode::Code gcodecode;
+//    uint32_t cmd_addr, cmd_value;
+//
+//    for (singleCode in multipleCodes)
+//    {
+//        if ([singleCode length] == 16) // Gecko code
+//        {
+//            NSString *address = [singleCode substringWithRange:NSMakeRange(0, 8)];
+//            NSString *value = [singleCode substringWithRange:NSMakeRange(8, 8)];
+//
+//            bool success_addr = TryParse(std::string("0x") + [address UTF8String], &cmd_addr);
+//            bool success_val = TryParse(std::string("0x") + [value UTF8String], &cmd_value);
+//
+//            if (!success_addr || !success_val)
+//                return;
+//
+//            gcodecode.address = cmd_addr;
+//            gcodecode.data = cmd_value;
+//            gcode.codes.push_back(gcodecode);
+//        }
+//        else
+//        {
+//            return;
+//        }
+//    }
+//
+//    bool exists = false;
+//
+//    //  cycle through the codes in our vector
+//    for (Gecko::GeckoCode& gcompare : gcodes)
+//    {
+//        //If the code being modified is the same size as one in the vector, check each value
+//        if (gcompare.codes.size() == gcode.codes.size())
+//        {
+//            for(int i = 0; i < gcode.codes.size() ;i++)
+//            {
+//                if (gcompare.codes[i].address == gcode.codes[i].address && gcompare.codes[i].data == gcode.codes[i].data)
+//                {
+//                    exists = true;
+//                }
+//                else
+//                {
+//                    exists = false;
+//                    // If it's not the same, no need to look through all the codes
+//                    break;
+//                }
+//            }
+//        }
+//        if(exists)
+//        {
+//            gcompare.enabled = enabled;
+//            // If it exists, enable it, and we don't need to look at the rest of the codes
+//            break;
+//        }
+//    }
+//
+//    if(!exists)
+//        gcodes.push_back(gcode);
+//
+//    Gecko::SetActiveCodes(gcodes);
 }
 
 # pragma mark - Controls
@@ -393,7 +409,7 @@ void DolHost::setButtonState(int button, int state, int player)
 {
     player -= 1;
 
-    if (_gameType == DiscIO::Platform::GAMECUBE_DISC) {
+    if (_gameType == DiscIO::Platform::GameCubeDisc) {
         setGameCubeButton(player, button, state);
     }
     else
@@ -402,34 +418,34 @@ void DolHost::setButtonState(int button, int state, int player)
     }
 
 
-        if (button == OEWiiChangeExtension)
-        {
-            //set the Extension change state and return.  The next key pressed
-            //  while the Change Extension key is held will determine the Extension added
-            _wiiChangeExtension[player] = state;
-            return;
-        }
+    if (button == OEWiiChangeExtension)
+    {
+        //set the Extension change state and return.  The next key pressed
+        //  while the Change Extension key is held will determine the Extension added
+        _wiiChangeExtension[player] = state;
+        return;
+    }
 
-        if ( _wiiChangeExtension[player] && state == 1)
-        {
-            if ( button <= OEWiiMoteSwingBackward ) {
-                changeWiimoteExtension(WiimoteEmu::EXT_NONE, player);
-                Core::DisplayMessage("Extenstion Removed", 1500);
-            } else if (button <= OEWiiNunchuckButtonZ ) {
-                changeWiimoteExtension(WiimoteEmu::EXT_NUNCHUK, player);
-                Core::DisplayMessage("Nunchuk Connected", 1500);
-            } else if (button <= OEWiiClassicButtonHome ) {
-                changeWiimoteExtension(WiimoteEmu::EXT_CLASSIC, player);
-                Core::DisplayMessage("Classic Controller Connected", 1500);
-            }
+    if ( _wiiChangeExtension[player] && state == 1)
+    {
+        if ( button <= OEWiiMoteSwingBackward ) {
+            changeWiimoteExtension(WiimoteEmu::EXT_NONE, player);
+            Core::DisplayMessage("Extenstion Removed", 1500);
+        } else if (button <= OEWiiNunchuckButtonZ ) {
+            changeWiimoteExtension(WiimoteEmu::EXT_NUNCHUK, player);
+            Core::DisplayMessage("Nunchuk Connected", 1500);
+        } else if (button <= OEWiiClassicButtonHome ) {
+            changeWiimoteExtension(WiimoteEmu::EXT_CLASSIC, player);
+            Core::DisplayMessage("Classic Controller Connected", 1500);
         }
+    }
 }
 
 void DolHost::SetAxis(int button, float value, int player)
 {
     player -= 1;
 
-    if (_gameType == DiscIO::Platform::GAMECUBE_DISC) {
+    if (_gameType == DiscIO::Platform::GameCubeDisc) {
         setGameCubeAxis(player, button, value);
     }
     else
@@ -441,7 +457,7 @@ void DolHost::SetAxis(int button, float value, int player)
 void DolHost::changeWiimoteExtension(int extension, int player)
 {
     //Player has already been adjusted befor call
-   auto* ce_extension = static_cast<ControllerEmu::Extension*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Extension));
+    auto* ce_extension = static_cast<ControllerEmu::Extension*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Extension));
     ce_extension->switch_extension = extension;
 
     WiiRemotes[player].extension = extension;
@@ -456,10 +472,10 @@ void DolHost::SetIR(int player, float x, float y)
 
 void DolHost::GetGameInfo()
 {
-     std::unique_ptr<DiscIO::Volume> pVolume = DiscIO::CreateVolumeFromFilename(_gamePath );
+    std::unique_ptr<DiscIO::Volume> pVolume = DiscIO::CreateVolumeFromFilename(_gamePath );
 
-    _gameID = pVolume -> GetGameID();
-    ///_gameRegion = pVolume -> GetRegion();
+    _gameID = pVolume->GetGameID();
+    _gameRegion = pVolume->GetRegion() ;
     _gameCountry =  DiscIO::CountrySwitch(_gameID[3]);  //pVolume -> GetCountry();
     _gameName = pVolume -> GetInternalName();
     _gameCountryDir = GetDirOfCountry(_gameCountry);
@@ -483,7 +499,7 @@ std::string DolHost::GetNameOfRegion(DiscIO::Region region)
         case DiscIO::Region::NTSC_K:
             return "NTSC_K";
 
-        case DiscIO::Region::UNKNOWN_REGION:
+        case DiscIO::Region::Unknown:
         default:
             return nullptr;
     }
@@ -493,28 +509,28 @@ std::string DolHost::GetDirOfCountry(DiscIO::Country country)
 {
     switch (country)
     {
-        case DiscIO::Country::COUNTRY_USA:
+        case DiscIO::Country::USA:
             return USA_DIR;
 
-        case DiscIO::Country::COUNTRY_TAIWAN:
-        case DiscIO::Country::COUNTRY_KOREA:
-        case DiscIO::Country::COUNTRY_JAPAN:
+        case DiscIO::Country::Taiwan:
+        case DiscIO::Country::Korea:
+        case DiscIO::Country::Japan:
             return JAP_DIR;
 
-        case DiscIO::Country::COUNTRY_AUSTRALIA:
-        case DiscIO::Country::COUNTRY_EUROPE:
-        case DiscIO::Country::COUNTRY_FRANCE:
-        case DiscIO::Country::COUNTRY_GERMANY:
-        case DiscIO::Country::COUNTRY_ITALY:
-        case DiscIO::Country::COUNTRY_NETHERLANDS:
-        case DiscIO::Country::COUNTRY_RUSSIA:
-        case DiscIO::Country::COUNTRY_SPAIN:
-        case DiscIO::Country::COUNTRY_WORLD:
+        case DiscIO::Country::Australia:
+        case DiscIO::Country::Europe:
+        case DiscIO::Country::France:
+        case DiscIO::Country::Germany:
+        case DiscIO::Country::Italy:
+        case DiscIO::Country::Netherlands:
+        case DiscIO::Country::Russia:
+        case DiscIO::Country::Spain:
+        case DiscIO::Country::World:
             return EUR_DIR;
 
-        case DiscIO::Country::COUNTRY_UNKNOWN:
+        case DiscIO::Country::Unknown:
         default:
-           return nullptr;
+            return nullptr;
     }
 }
 
@@ -524,17 +540,24 @@ void Host_RefreshDSPDebuggerWindow() {}
 void Host_Message(int msg) {
     if  ( msg == WM_USER_CREATE) {
 #ifdef DEBUG
-         //We have to set FPS display here or it doesn't work
-            g_Config.bShowFPS = true;
+        //We have to set FPS display here or it doesn't work
+        g_Config.bShowFPS = true;
 #endif
+
+        // Set the aspect to stretch
+        g_Config.aspect_mode = AspectMode::Stretch;
+
         // Core is up,  lets enable Hybric Ubershaders
-        g_Config.bPrecompileUberShaders = false;
-        g_Config.bBackgroundShaderCompiling = false;
-        g_Config.bDisableSpecializedShaders = false;
+//        g_Config.bPrecompileUberShaders = true;
+//        g_Config.bBackgroundShaderCompiling = true;
+//        g_Config.bDisableSpecializedShaders = false;
+
 
         //Set the threads to auto (-1)
         g_Config.iShaderCompilerThreads = -1;
         g_Config.iShaderPrecompilerThreads = -1;
+        
+        
     }
 }
 void* Host_GetRenderHandle() { return nullptr; }
@@ -543,20 +566,21 @@ void Host_UpdateDisasmDialog() {}
 void Host_UpdateMainFrame() {
     updateMainFrameEvent.Set();
 }
-void Host_RequestRenderWindowSize(int width, int height) {}
+
+void Host_RequestRenderWindowSize(int width, int height){}
 void Host_SetStartupDebuggingParameters()
 {
     SConfig& StartUp = SConfig::GetInstance();
     StartUp.bEnableDebugging = false;
     StartUp.bBootToPause = false;
 }
+
 bool Host_UINeedsControllerState(){ return false; }
 bool Host_RendererHasFocus() { return true; }
 bool Host_RendererIsFullscreen() { return false; }
 void Host_ShowVideoConfig(void*, const std::string&) {}
 void Host_YieldToUI() {}
 void Host_UpdateProgressDialog(const char* caption, int position, int total) {
-
     OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total),
                     5000);
 }

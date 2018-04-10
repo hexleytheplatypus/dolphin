@@ -37,6 +37,7 @@ OE_EXPORTED_CLASS
 
 - (void) swapBuffers;
 - (const char *) getBundlePath;
+- (void) SetScreenSize:(int)width :(int)height;
 
 @end
 

@@ -26,7 +26,7 @@
 
 /*
     What doesn't work:
-         If I got everything in GC working
+          I got everything in GC working
 
  */
 
@@ -101,21 +101,20 @@ DolphinGameCore *_current = 0;
     {
         _dolphinCoreModule = @"Wii";
         _isWii = true;
-        _frameInterval = 120;
+        _frameInterval = 60;
         _dolphinCoreAspect = OEIntSizeMake(16,9);
         _dolphinCoreScreen = OEIntSizeMake(854, 480);
     }
 
-    
     dol_host->Init([[self supportDirectoryPath] fileSystemRepresentation], [path fileSystemRepresentation] );
 
+    usleep(5000);
     return YES;
 }
 
 - (void)setPauseEmulation:(BOOL)flag
 {
-    
-     dol_host->Pause(flag);
+    dol_host->Pause(flag);
     
     [super setPauseEmulation:flag];
 }
@@ -139,6 +138,7 @@ DolphinGameCore *_current = 0;
 
         if(dol_host->LoadFileAtPath())
             _isInitialized = true;
+
     }
     [super startEmulation];
 
@@ -153,22 +153,14 @@ DolphinGameCore *_current = 0;
 
 - (void)executeFrame
 {
-    if (![self isEmulationPaused])
-        if (!dol_host->CoreRunning())
-            dol_host->Pause(false);
-
-    dol_host->UpdateFrame();
-}
-
-# pragma mark - Render Callback
-- (void)swapBuffers
-{
-    if ([self isEmulationPaused])
-        return;
-
-    //This will render the Dolphin FBO frame
-    [self.renderDelegate presentDoubleBufferedFBO];
-    [self.renderDelegate didRenderFrameOnAlternateThread];
+   if (![self isEmulationPaused])
+    {
+//        if(!dol_host->CoreRunning()) {
+//        dol_host->Pause(false);
+//        }
+//    
+      dol_host->UpdateFrame();
+    }
 }
 
 # pragma mark - Nand directory Callback
@@ -194,7 +186,7 @@ DolphinGameCore *_current = 0;
 
 - (BOOL)needsDoubleBufferedFBO
 {
-    return YES;
+    return NO;
 }
 
 - (const void *)videoBuffer
@@ -215,6 +207,10 @@ DolphinGameCore *_current = 0;
 - (OEIntSize)aspectSize
 {
     return _dolphinCoreAspect;
+}
+
+- (void) SetScreenSize:(int)width :(int)height
+{
 }
 
 - (GLenum)pixelFormat
@@ -330,7 +326,7 @@ DolphinGameCore *_current = 0;
 //        }
 //    }
 //}
-//
+
 //- (oneway void)didMoveWiiIR:(OEWiiButton)button IRinfo:(OEwiimoteIRinfo)IRinfo forPlayer:(NSUInteger)player
 //{
 //    if(_isInitialized)
@@ -338,7 +334,7 @@ DolphinGameCore *_current = 0;
 //        dol_host->setIRdata(IRinfo ,(int)player);
 //    }
 //}
-//
+
 - (oneway void)didChangeWiiExtension:(OEWiimoteExtension)extension forPlayer:(NSUInteger)player
 {
     if(_isInitialized)
@@ -349,21 +345,20 @@ DolphinGameCore *_current = 0;
 
 - (oneway void)IRMovedAtPoint:(int)X withValue:(int)Y
 {
-    if (_isInitialized)
-    {
-        int dX = (1023.0 / 854.0) * X;
-        int dY =  (767.0 / 480.0) * Y;
-
-//        dol_host->DisplayMessage([[NSString stringWithFormat:@"X: %d, Y: %d",dX,dY ] UTF8String]);
-
-       dol_host->SetIR(0, dX,dY);
-    }
+//    if (_isInitialized)
+//    {
+//        int dX = (1023.0 / 854.0) * X;
+//        int dY =  (767.0 / 480.0) * Y;
+//
+////        dol_host->DisplayMessage([[NSString stringWithFormat:@"X: %d, Y: %d",dX,dY ] UTF8String]);
+//
+//       dol_host->SetIR(0, dX,dY);
+//    }
 }
 
 # pragma mark - Cheats
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
 {
     dol_host->SetCheat([code UTF8String], [type UTF8String], enabled);
-    
 }
 @end

@@ -47,7 +47,8 @@ public:
 
     void RunCore();
     void SetPresentationFBO(int RenderFBO);
-    
+    void SetBackBufferSize(int width, int height);
+
     void setButtonState(int button, int state, int player);
     void SetAxis(int button, float value, int player);
     void SetIR(int player, float x, float y);
@@ -81,7 +82,7 @@ public:
     std::string _gamePath;
     std::string _gameID;
     std::string _gameName;
-    //DiscIO::Region _gameRegion;
+    DiscIO::Region _gameRegion;
     std::string _gameRegionName;
     DiscIO::Platform _gameType;
     DiscIO::Country _gameCountry;

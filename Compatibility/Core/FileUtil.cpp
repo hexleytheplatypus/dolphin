@@ -656,7 +656,7 @@ namespace File
     }
 #endif
 
-    std::string& GetExeDirectory()
+    std::string GetExeDirectory()
     {
         static std::string DolphinPath;
         if (DolphinPath.empty())
