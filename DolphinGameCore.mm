@@ -155,10 +155,10 @@ DolphinGameCore *_current = 0;
 {
    if (![self isEmulationPaused])
     {
-//        if(!dol_host->CoreRunning()) {
-//        dol_host->Pause(false);
-//        }
-//    
+        if(!dol_host->CoreRunning()) {
+        dol_host->Pause(false);
+        }
+    
       dol_host->UpdateFrame();
     }
 }
@@ -294,7 +294,6 @@ DolphinGameCore *_current = 0;
         dol_host->SetAxis(button, value, (int)player);
     }
 }
-
 
 - (oneway void)didPushWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {

@@ -40,7 +40,6 @@
 				6FC6BB26C8914BAFBC5AF9AD /* PBXTargetDependency */,
 				5A2D4C59687F475DA9817249 /* PBXTargetDependency */,
 				C8931119EAC24714A46A33C6 /* PBXTargetDependency */,
-				886C865D801D450E8404FD35 /* PBXTargetDependency */,
 				8C69B192B58A4CD192AFAB29 /* PBXTargetDependency */,
 				C2964C9104E54F8C88C9CA79 /* PBXTargetDependency */,
 				94515B6B806A471292AF088C /* PBXTargetDependency */,
@@ -95,9 +94,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		3E065A8D1F87CC4C00C4237C /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* Nunchuk.cpp */; };
-		3E065A8E1F87CC5200C4237C /* Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* Classic.cpp */; };
-		3E065A8F1F87CC5500C4237C /* GCpadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70291C82AF2A00091C4D /* GCpadEmu.cpp */; };
 		3E0A56EE1FAF7EDC00D755B8 /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */; };
 		3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AA1C82B0F800091C4D /* Core.cpp */; };
 		3E0BD12A1F8E8E2E0037C92D /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
@@ -160,7 +156,6 @@
 		3E3D71871C82B0BB00091C4D /* SettingsHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71441C82B0BB00091C4D /* SettingsHandler.cpp */; };
 		3E3D71881C82B0BB00091C4D /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71461C82B0BB00091C4D /* StringUtil.cpp */; };
 		3E3D71891C82B0BB00091C4D /* SymbolDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71481C82B0BB00091C4D /* SymbolDB.cpp */; };
-		3E3D718A1C82B0BB00091C4D /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D714A1C82B0BB00091C4D /* SysConf.cpp */; };
 		3E3D718B1C82B0BB00091C4D /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D714C1C82B0BB00091C4D /* Thread.cpp */; };
 		3E3D718C1C82B0BB00091C4D /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D714E1C82B0BB00091C4D /* Timer.cpp */; };
 		3E3D718D1C82B0BB00091C4D /* TraversalClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71501C82B0BB00091C4D /* TraversalClient.cpp */; };
@@ -239,7 +234,6 @@
 		3E3D73CB1C82B0F900091C4D /* VideoInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728A1C82B0F900091C4D /* VideoInterface.cpp */; };
 		3E3D73CC1C82B0F900091C4D /* WII_IPC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728C1C82B0F900091C4D /* WII_IPC.cpp */; };
 		3E3D73CD1C82B0F900091C4D /* Wiimote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D728E1C82B0F900091C4D /* Wiimote.cpp */; };
-		3E3D73DE1C82B0F900091C4D /* WiiSaveCrypted.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72AF1C82B0F900091C4D /* WiiSaveCrypted.cpp */; };
 		3E3D73EF1C82B0F900091C4D /* MemoryWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72D61C82B0F900091C4D /* MemoryWatcher.cpp */; };
 		3E3D73F01C82B0F900091C4D /* MemTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72D81C82B0F900091C4D /* MemTools.cpp */; };
 		3E3D73F11C82B0F900091C4D /* Movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72DA1C82B0F900091C4D /* Movie.cpp */; };
@@ -320,10 +314,6 @@
 		3E3D752B1C82B22E00091C4D /* Err.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75281C82B22E00091C4D /* Err.cpp */; };
 		3E3D752D1C82B22E00091C4D /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75291C82B22E00091C4D /* String.cpp */; };
 		3E3D752F1C82B22E00091C4D /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D752A1C82B22E00091C4D /* Time.cpp */; };
-		3E3D753B1C82B25700091C4D /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75311C82B25700091C4D /* image_DXT.c */; };
-		3E3D753D1C82B25700091C4D /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75331C82B25700091C4D /* image_helper.c */; };
-		3E3D753F1C82B25700091C4D /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75351C82B25700091C4D /* SOIL.c */; };
-		3E3D75411C82B25700091C4D /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75371C82B25700091C4D /* stb_image_aug.c */; };
 		3E3D755F1C82B28200091C4D /* AAFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75431C82B28200091C4D /* AAFilter.cpp */; };
 		3E3D75611C82B28200091C4D /* BPMDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75451C82B28200091C4D /* BPMDetect.cpp */; };
 		3E3D75631C82B28200091C4D /* cpu_detect_x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75471C82B28200091C4D /* cpu_detect_x86.cpp */; };
@@ -705,7 +695,6 @@
 		3E8EC6A21F8434C700D79F27 /* Attachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC68A1F8434C600D79F27 /* Attachment.cpp */; };
 		3E8EC6A31F8434C700D79F27 /* Guitar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC68B1F8434C600D79F27 /* Guitar.cpp */; };
 		3E8EC6A51F8434C700D79F27 /* Turntable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6911F8434C600D79F27 /* Turntable.cpp */; };
-		3E8EC6A61F8434C700D79F27 /* Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6931F8434C600D79F27 /* Classic.cpp */; };
 		3E8EC6A71F8434C700D79F27 /* Drums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6941F8434C600D79F27 /* Drums.cpp */; };
 		3E8EC6A81F8434C700D79F27 /* EmuSubroutines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6981F8434C600D79F27 /* EmuSubroutines.cpp */; };
 		3E8EC6A91F8434C700D79F27 /* Encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6991F8434C600D79F27 /* Encryption.cpp */; };
@@ -730,10 +719,8 @@
 		3E8EC6E41F8437BC00D79F27 /* DolReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6E31F8437BB00D79F27 /* DolReader.cpp */; };
 		3E8EC6E71F8437D000D79F27 /* RSO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6E51F8437D000D79F27 /* RSO.cpp */; };
 		3E8EC6EA1F8437EC00D79F27 /* HLE_VarArgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6E81F8437EB00D79F27 /* HLE_VarArgs.cpp */; };
-		3E96B3CB1F86C452007C5799 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* input.cpp */; };
 		3E98CDFA1FD70845009A9DEA /* AbstractStagingTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CDF71FD70844009A9DEA /* AbstractStagingTexture.cpp */; };
 		3E98CDFB1FD70845009A9DEA /* TextureConverterShaderGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CDF91FD70845009A9DEA /* TextureConverterShaderGen.cpp */; };
-		3EB81EFA1F88322F000CBD2C /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E53D5171C89E97A0006E44C /* WiimoteEmu.cpp */; };
 		3EC6F7691CDBBCE30044AC7E /* Sys in Resources */ = {isa = PBXBuildFile; fileRef = 3EC6F7681CDBBCE30044AC7E /* Sys */; };
 		3EE7BF631F1FDD9200117AF6 /* libavcodec-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF5F1F1FDD9200117AF6 /* libavcodec-dc.a */; };
 		3EE7BF641F1FDD9200117AF6 /* libavformat-dc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7BF601F1FDD9200117AF6 /* libavformat-dc.a */; };
@@ -874,7 +861,6 @@
 		3EFF28841F85534100B4FD11 /* liblibusb-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EFF28751F85514300B4FD11 /* liblibusb-dol.a */; };
 		3EFF28861F85578F00B4FD11 /* libcubeb-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EFF27861F8461CA00B4FD11 /* libcubeb-dol.a */; };
 		3EFF28891F85581700B4FD11 /* libminiupnpc-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C3A8A5609646488CCDC348 /* libminiupnpc-dol.a */; };
-		3EFF288C1F85586000B4FD11 /* libSOIL-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF3F3D420B142DBBF1E1B9F /* libSOIL-dol.a */; };
 		3EFF288D1F85587700B4FD11 /* libSoundTouch-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8630BA4D77A74D9BA90EDC9F /* libSoundTouch-dol.a */; };
 		3EFF28961F8559F900B4FD11 /* libmbedtls-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D76A41C839C5400091C4D /* libmbedtls-dol.a */; };
 		3EFF28991F855A2100B4FD11 /* libpng-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57799651D35F4D0F946361A2 /* libpng-dol.a */; };
@@ -892,7 +878,6 @@
 		3EFF28C21F855DEB00B4FD11 /* libvideosoftware-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */; };
 		3EFF28D31F855F2F00B4FD11 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */; };
 		3EFF28D41F855F2F00B4FD11 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28D11F855F2E00B4FD11 /* Config.cpp */; };
-		3EFF28D61F855FB800B4FD11 /* GCPadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72631C82B0F900091C4D /* GCPadEmu.cpp */; };
 		3EFF291B1F8560BA00B4FD11 /* NullBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */; };
 		3EFF291C1F8560BA00B4FD11 /* NullTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */; };
 		3EFF291F1F8560BA00B4FD11 /* VertexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28E41F85605100B4FD11 /* VertexManager.cpp */; };
@@ -910,7 +895,6 @@
 		3EFF294F1F85830500B4FD11 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DD1F85604F00B4FD11 /* Render.cpp */; };
 		3EFF29571F85A24400B4FD11 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4831CCE8AC600EAE7AC /* Render.cpp */; };
 		3EFF295A1F85B93600B4FD11 /* CubebStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF29581F85B92E00B4FD11 /* CubebStream.cpp */; };
-		3EFF295C1F85D07000B4FD11 /* libpugixml-dol.a in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF277D1F8461BC00B4FD11 /* libpugixml-dol.a */; };
 		3EFF295F1F85D08700B4FD11 /* libpugixml-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EFF277D1F8461BC00B4FD11 /* libpugixml-dol.a */; };
 		8355D4C71A65393600E73302 /* libcore-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0C8A955FC946C29B9EDABF /* libcore-dol.a */; };
 		8355D4E41A653B6600E73302 /* DolphinGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8355D4E31A653B6600E73302 /* DolphinGameCore.mm */; };
@@ -939,6 +923,7 @@
 		EE149BAB205A270F008D5DDE /* DSPJitUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */; };
 		EE149BAC205A270F008D5DDE /* DSPJitRegCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA2205A270E008D5DDE /* DSPJitRegCache.cpp */; };
 		EE149BAD205A270F008D5DDE /* DSPJitArithmetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */; };
+		EE1FAE9120AD027000748BE0 /* WiiSave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE1FAE9020AD027000748BE0 /* WiiSave.cpp */; };
 		EE32D857207ABBBA0050B549 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84C207ABBB80050B549 /* FileSystem.cpp */; };
 		EE32D858207ABBBA0050B549 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84D207ABBB90050B549 /* File.cpp */; };
 		EE32D859207ABBBA0050B549 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84F207ABBB90050B549 /* FS.cpp */; };
@@ -946,7 +931,16 @@
 		EE32D85B207ABBBA0050B549 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D852207ABBB90050B549 /* FS.cpp */; };
 		EE32D85C207ABBBA0050B549 /* FileSystemProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */; };
 		EE3CCFA1205DF94100F0D04F /* GameFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3CCF9E205DF94000F0D04F /* GameFile.cpp */; };
+		EE5F71A220B322F80083D8D8 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE5F71A120B322F80083D8D8 /* Image.cpp */; };
+		EE9C006C20A4F94000312609 /* Watches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006920A4F93F00312609 /* Watches.cpp */; };
+		EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006E20A4FA8B00312609 /* SysConf.cpp */; };
+		EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */; };
 		EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */; };
+		EEF8A0EF20B34506008678D3 /* GCpadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70291C82AF2A00091C4D /* GCpadEmu.cpp */; };
+		EEF8A0F020B34DA8008678D3 /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E53D5171C89E97A0006E44C /* WiimoteEmu.cpp */; };
+		EEF8A0F120B350FB008678D3 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* input.cpp */; };
+		EEF8A0F220B35191008678D3 /* Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* Classic.cpp */; };
+		EEF8A0F320B3524E008678D3 /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* Nunchuk.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1097,13 +1091,6 @@
 			remoteGlobalIDString = B0D48831F54442B2AEF377D1;
 			remoteInfo = miniupnpc;
 		};
-		3EFF288A1F85585B00B4FD11 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 228C8249185E4B5982C7E232;
-			remoteInfo = SOIL;
-		};
 		3EFF288E1F8559A100B4FD11 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
@@ -1208,13 +1195,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = B7D6D77CD9AE47AE971CBE25;
 			remoteInfo = "sfml-system";
-		};
-		3EFF28F31F85606C00B4FD11 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 228C8249185E4B5982C7E232;
-			remoteInfo = SOIL;
 		};
 		3EFF28F51F85606C00B4FD11 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1349,13 +1329,6 @@
 			remoteGlobalIDString = AECE51C4C7E0411EA86B7548;
 			remoteInfo = pch;
 		};
-		69F8BD21AF9646B48F2AF835 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 228C8249185E4B5982C7E232;
-			remoteInfo = SOIL;
-		};
 		700827076A3F4B62999D8595 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
@@ -1404,13 +1377,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 79836D15F4E048CFBA06C188;
 			remoteInfo = bdisasm;
-		};
-		8C8A85A49336418BA6842958 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 228C8249185E4B5982C7E232;
-			remoteInfo = SOIL;
 		};
 		9874756A48B44F9BA9752BDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1535,7 +1501,6 @@
 /* Begin PBXFileReference section */
 		0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libvideosoftware-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		125948FD17D5434DA13C8293 /* libuicommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libuicommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AF3F3D420B142DBBF1E1B9F /* libSOIL-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libSOIL-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB9EC0F64AC4815A7E27952 /* libvideocommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libvideocommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1EFC851CB6AEB0001998A2 /* SamplerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SamplerCommon.h; path = dolphin/Source/Core/VideoCommon/SamplerCommon.h; sourceTree = "<group>"; };
 		3E2217891D74A83E00C55942 /* OEWiiSystemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEWiiSystemController.h; path = Wii/OEWiiSystemController.h; sourceTree = "<group>"; };
@@ -1632,7 +1597,6 @@
 		3E3D70CB1C82B0BB00091C4D /* ENetUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ENetUtil.cpp; path = dolphin/Source/Core/Common/ENetUtil.cpp; sourceTree = "<group>"; };
 		3E3D70CC1C82B0BB00091C4D /* ENetUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENetUtil.h; path = dolphin/Source/Core/Common/ENetUtil.h; sourceTree = "<group>"; };
 		3E3D70CD1C82B0BB00091C4D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = dolphin/Source/Core/Common/Event.h; sourceTree = "<group>"; };
-		3E3D70CE1C82B0BB00091C4D /* FifoQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FifoQueue.h; path = dolphin/Source/Core/Common/FifoQueue.h; sourceTree = "<group>"; };
 		3E3D70CF1C82B0BB00091C4D /* FileSearch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileSearch.cpp; path = dolphin/Source/Core/Common/FileSearch.cpp; sourceTree = "<group>"; };
 		3E3D70D01C82B0BB00091C4D /* FileSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileSearch.h; path = dolphin/Source/Core/Common/FileSearch.h; sourceTree = "<group>"; };
 		3E3D70D11C82B0BB00091C4D /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileUtil.cpp; path = dolphin/Source/Core/Common/FileUtil.cpp; sourceTree = "<group>"; };
@@ -1735,8 +1699,6 @@
 		3E3D71471C82B0BB00091C4D /* StringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringUtil.h; path = dolphin/Source/Core/Common/StringUtil.h; sourceTree = "<group>"; };
 		3E3D71481C82B0BB00091C4D /* SymbolDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SymbolDB.cpp; path = dolphin/Source/Core/Common/SymbolDB.cpp; sourceTree = "<group>"; };
 		3E3D71491C82B0BB00091C4D /* SymbolDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymbolDB.h; path = dolphin/Source/Core/Common/SymbolDB.h; sourceTree = "<group>"; };
-		3E3D714A1C82B0BB00091C4D /* SysConf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SysConf.cpp; path = dolphin/Source/Core/Common/SysConf.cpp; sourceTree = "<group>"; };
-		3E3D714B1C82B0BB00091C4D /* SysConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SysConf.h; path = dolphin/Source/Core/Common/SysConf.h; sourceTree = "<group>"; };
 		3E3D714C1C82B0BB00091C4D /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Thread.cpp; path = dolphin/Source/Core/Common/Thread.cpp; sourceTree = "<group>"; };
 		3E3D714D1C82B0BB00091C4D /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thread.h; path = dolphin/Source/Core/Common/Thread.h; sourceTree = "<group>"; };
 		3E3D714E1C82B0BB00091C4D /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Timer.cpp; path = dolphin/Source/Core/Common/Timer.cpp; sourceTree = "<group>"; };
@@ -1902,8 +1864,6 @@
 		3E3D728D1C82B0F900091C4D /* WII_IPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WII_IPC.h; sourceTree = "<group>"; };
 		3E3D728E1C82B0F900091C4D /* Wiimote.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wiimote.cpp; sourceTree = "<group>"; };
 		3E3D728F1C82B0F900091C4D /* Wiimote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wiimote.h; sourceTree = "<group>"; };
-		3E3D72AF1C82B0F900091C4D /* WiiSaveCrypted.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WiiSaveCrypted.cpp; sourceTree = "<group>"; };
-		3E3D72B01C82B0F900091C4D /* WiiSaveCrypted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiSaveCrypted.h; sourceTree = "<group>"; };
 		3E3D72D51C82B0F900091C4D /* MachineContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachineContext.h; path = dolphin/Source/Core/Core/MachineContext.h; sourceTree = "<group>"; };
 		3E3D72D61C82B0F900091C4D /* MemoryWatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryWatcher.cpp; path = dolphin/Source/Core/Core/MemoryWatcher.cpp; sourceTree = "<group>"; };
 		3E3D72D71C82B0F900091C4D /* MemoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryWatcher.h; path = dolphin/Source/Core/Core/MemoryWatcher.h; sourceTree = "<group>"; };
@@ -2043,16 +2003,6 @@
 		3E3D75281C82B22E00091C4D /* Err.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Err.cpp; path = dolphin/Externals/SFML/src/SFML/System/Err.cpp; sourceTree = "<group>"; };
 		3E3D75291C82B22E00091C4D /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = String.cpp; path = dolphin/Externals/SFML/src/SFML/System/String.cpp; sourceTree = "<group>"; };
 		3E3D752A1C82B22E00091C4D /* Time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Time.cpp; path = dolphin/Externals/SFML/src/SFML/System/Time.cpp; sourceTree = "<group>"; };
-		3E3D75311C82B25700091C4D /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = image_DXT.c; path = dolphin/Externals/SOIL/image_DXT.c; sourceTree = "<group>"; };
-		3E3D75321C82B25700091C4D /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = image_DXT.h; path = dolphin/Externals/SOIL/image_DXT.h; sourceTree = "<group>"; };
-		3E3D75331C82B25700091C4D /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = image_helper.c; path = dolphin/Externals/SOIL/image_helper.c; sourceTree = "<group>"; };
-		3E3D75341C82B25700091C4D /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = image_helper.h; path = dolphin/Externals/SOIL/image_helper.h; sourceTree = "<group>"; };
-		3E3D75351C82B25700091C4D /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SOIL.c; path = dolphin/Externals/SOIL/SOIL.c; sourceTree = "<group>"; };
-		3E3D75361C82B25700091C4D /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOIL.h; path = dolphin/Externals/SOIL/SOIL.h; sourceTree = "<group>"; };
-		3E3D75371C82B25700091C4D /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stb_image_aug.c; path = dolphin/Externals/SOIL/stb_image_aug.c; sourceTree = "<group>"; };
-		3E3D75381C82B25700091C4D /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image_aug.h; path = dolphin/Externals/SOIL/stb_image_aug.h; sourceTree = "<group>"; };
-		3E3D75391C82B25700091C4D /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stbi_DDS_aug_c.h; path = dolphin/Externals/SOIL/stbi_DDS_aug_c.h; sourceTree = "<group>"; };
-		3E3D753A1C82B25700091C4D /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stbi_DDS_aug.h; path = dolphin/Externals/SOIL/stbi_DDS_aug.h; sourceTree = "<group>"; };
 		3E3D75431C82B28200091C4D /* AAFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AAFilter.cpp; path = dolphin/Externals/soundtouch/AAFilter.cpp; sourceTree = "<group>"; };
 		3E3D75441C82B28200091C4D /* AAFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAFilter.h; path = dolphin/Externals/soundtouch/AAFilter.h; sourceTree = "<group>"; };
 		3E3D75451C82B28200091C4D /* BPMDetect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BPMDetect.cpp; path = dolphin/Externals/soundtouch/BPMDetect.cpp; sourceTree = "<group>"; };
@@ -3170,7 +3120,7 @@
 		8355D4961A6538FD00E73302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8355D4E21A653B6600E73302 /* DolphinGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DolphinGameCore.h; sourceTree = "<group>"; };
 		8355D4E31A653B6600E73302 /* DolphinGameCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DolphinGameCore.mm; sourceTree = "<group>"; };
-		8355D4EA1A653E2600E73302 /* OEGCSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEGCSystemResponderClient.h; path = ../OpenEmu/GameCube/OEGCSystemResponderClient.h; sourceTree = "<group>"; };
+		8355D4EA1A653E2600E73302 /* OEGCSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEGCSystemResponderClient.h; path = ../OpenEmu/OpenEmu/GameCube/OEGCSystemResponderClient.h; sourceTree = "<group>"; };
 		8355D4F61A653ED300E73302 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		8378DEC51A7862DA003DA046 /* libxxhash-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxxhash-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8630BA4D77A74D9BA90EDC9F /* libSoundTouch-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libSoundTouch-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3211,6 +3161,8 @@
 		EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitUtil.cpp; sourceTree = "<group>"; };
 		EE149BA2205A270E008D5DDE /* DSPJitRegCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitRegCache.cpp; sourceTree = "<group>"; };
 		EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSPJitArithmetic.cpp; sourceTree = "<group>"; };
+		EE1FAE8F20AD027000748BE0 /* WiiSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiSave.h; sourceTree = "<group>"; };
+		EE1FAE9020AD027000748BE0 /* WiiSave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WiiSave.cpp; sourceTree = "<group>"; };
 		EE32D84C207ABBB80050B549 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
 		EE32D84D207ABBB90050B549 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = File.cpp; path = HostBackend/File.cpp; sourceTree = "<group>"; };
 		EE32D84E207ABBB90050B549 /* FS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FS.h; path = HostBackend/FS.h; sourceTree = "<group>"; };
@@ -3227,8 +3179,19 @@
 		EE3CCF9D205DF94000F0D04F /* CommandLineParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandLineParse.h; path = dolphin/Source/Core/UICommon/CommandLineParse.h; sourceTree = "<group>"; };
 		EE3CCF9E205DF94000F0D04F /* GameFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameFile.cpp; path = dolphin/Source/Core/UICommon/GameFile.cpp; sourceTree = "<group>"; };
 		EE3CCF9F205DF94000F0D04F /* GameFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFile.h; path = dolphin/Source/Core/UICommon/GameFile.h; sourceTree = "<group>"; };
+		EE5F71A020B322F70083D8D8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = dolphin/Source/Core/Common/Image.h; sourceTree = "<group>"; };
+		EE5F71A120B322F80083D8D8 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = dolphin/Source/Core/Common/Image.cpp; sourceTree = "<group>"; };
+		EE9C006820A4F93F00312609 /* Watches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Watches.h; sourceTree = "<group>"; };
+		EE9C006920A4F93F00312609 /* Watches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Watches.cpp; sourceTree = "<group>"; };
+		EE9C006E20A4FA8B00312609 /* SysConf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SysConf.cpp; path = dolphin/Source/Core/Core/SysConf.cpp; sourceTree = "<group>"; };
+		EE9C006F20A4FA8C00312609 /* SysConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SysConf.h; path = dolphin/Source/Core/Core/SysConf.h; sourceTree = "<group>"; };
+		EEA7CF5B20A4F2DD0033BB8A /* FloatUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloatUtils.h; path = dolphin/Source/Core/Common/FloatUtils.h; sourceTree = "<group>"; };
+		EEA7CF5C20A4F2DD0033BB8A /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Result.h; path = dolphin/Source/Core/Common/Result.h; sourceTree = "<group>"; };
+		EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FloatUtils.cpp; path = dolphin/Source/Core/Common/FloatUtils.cpp; sourceTree = "<group>"; };
+		EEA7CF5F20A4F70B0033BB8A /* scmrev.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scmrev.h; path = Common/scmrev.h; sourceTree = "<group>"; };
 		EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QoSSession.cpp; path = dolphin/Source/Core/Common/QoSSession.cpp; sourceTree = "<group>"; };
 		EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QoSSession.h; path = dolphin/Source/Core/Common/QoSSession.h; sourceTree = "<group>"; };
+		EEF8A0F520B38A81008678D3 /* WiimoteEmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WiimoteEmu.h; path = Input/WiimoteEmu.h; sourceTree = "<group>"; };
 		F4EAB8D2A0AA45A183467CCD /* libaudiocommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libaudiocommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65EF8E25FB448D2BA4D3070 /* libbdisasm-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libbdisasm-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F57C176374ABD8861D732 /* libinputcommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libinputcommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3352,7 +3315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EFF28991F855A2100B4FD11 /* libpng-dol.a in Frameworks */,
-				3EFF288C1F85586000B4FD11 /* libSOIL-dol.a in Frameworks */,
 				8378DED21A78665A003DA046 /* libxxhash-dol.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3661,6 +3623,8 @@
 		3E3D720D1C82B0F800091C4D /* HW */ = {
 			isa = PBXGroup;
 			children = (
+				EE1FAE9020AD027000748BE0 /* WiiSave.cpp */,
+				EE1FAE8F20AD027000748BE0 /* WiiSave.h */,
 				3E8EC6851F8434C600D79F27 /* WiimoteEmu */,
 				3E8EC6761F8434C600D79F27 /* WiimoteReal */,
 				3E8EC6151F8434A700D79F27 /* DVD */,
@@ -3709,8 +3673,6 @@
 				3E3D728D1C82B0F900091C4D /* WII_IPC.h */,
 				3E3D728E1C82B0F900091C4D /* Wiimote.cpp */,
 				3E3D728F1C82B0F900091C4D /* Wiimote.h */,
-				3E3D72AF1C82B0F900091C4D /* WiiSaveCrypted.cpp */,
-				3E3D72B01C82B0F900091C4D /* WiiSaveCrypted.h */,
 			);
 			name = HW;
 			path = dolphin/Source/Core/Core/HW;
@@ -4019,6 +3981,7 @@
 				3E74B9C61C90DE200017C7B1 /* Classic.cpp */,
 				3E3D70291C82AF2A00091C4D /* GCpadEmu.cpp */,
 				3E74B9C41C90DE100017C7B1 /* Nunchuk.cpp */,
+				EEF8A0F520B38A81008678D3 /* WiimoteEmu.h */,
 				3E53D5171C89E97A0006E44C /* WiimoteEmu.cpp */,
 			);
 			name = Input;
@@ -4027,6 +3990,7 @@
 		3E89F47A1CCAB2A800EAE7AC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EEA7CF5F20A4F70B0033BB8A /* scmrev.h */,
 				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
 			);
 			name = Common;
@@ -4668,7 +4632,6 @@
 				0588553125EF4BA9A3531BA0 /* png */,
 				1E0EF848B23C4F3C9DDC1471 /* sfml-network */,
 				5CE1D8CBDE2D4135862D6E21 /* sfml-system */,
-				8877D32E7779498EB8FA39F8 /* SOIL */,
 				A47A3B0F48194396A2DB8291 /* SoundTouch */,
 				8378DEC61A7862FD003DA046 /* xxhash */,
 			);
@@ -5317,6 +5280,12 @@
 		6305742E350948A6A90BE776 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE5F71A120B322F80083D8D8 /* Image.cpp */,
+				EE5F71A020B322F70083D8D8 /* Image.h */,
+				EE9C006720A4F93F00312609 /* Debug */,
+				EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */,
+				EEA7CF5B20A4F2DD0033BB8A /* FloatUtils.h */,
+				EEA7CF5C20A4F2DD0033BB8A /* Result.h */,
 				EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */,
 				EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */,
 				EE149B7F2059D9EC008D5DDE /* Align.h */,
@@ -5368,7 +5337,6 @@
 				3E3D70CB1C82B0BB00091C4D /* ENetUtil.cpp */,
 				3E3D70CC1C82B0BB00091C4D /* ENetUtil.h */,
 				3E3D70CD1C82B0BB00091C4D /* Event.h */,
-				3E3D70CE1C82B0BB00091C4D /* FifoQueue.h */,
 				3E3D70CF1C82B0BB00091C4D /* FileSearch.cpp */,
 				3E3D70D01C82B0BB00091C4D /* FileSearch.h */,
 				3E3D70D11C82B0BB00091C4D /* FileUtil.cpp */,
@@ -5419,8 +5387,6 @@
 				3E3D71471C82B0BB00091C4D /* StringUtil.h */,
 				3E3D71481C82B0BB00091C4D /* SymbolDB.cpp */,
 				3E3D71491C82B0BB00091C4D /* SymbolDB.h */,
-				3E3D714A1C82B0BB00091C4D /* SysConf.cpp */,
-				3E3D714B1C82B0BB00091C4D /* SysConf.h */,
 				3E3D714C1C82B0BB00091C4D /* Thread.cpp */,
 				3E3D714D1C82B0BB00091C4D /* Thread.h */,
 				3E3D714E1C82B0BB00091C4D /* Timer.cpp */,
@@ -5452,6 +5418,8 @@
 		6D2FDDCA6C6A4DB0A094382B /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE9C006E20A4FA8B00312609 /* SysConf.cpp */,
+				EE9C006F20A4FA8C00312609 /* SysConf.h */,
 				3E3D71961C82B0F800091C4D /* ActionReplay.cpp */,
 				3E3D71971C82B0F800091C4D /* ActionReplay.h */,
 				3E8D25F91D21D8F70086BA59 /* Analytics.cpp */,
@@ -5665,14 +5633,6 @@
 			);
 			name = xxhash;
 			path = Externals/xxhash;
-			sourceTree = "<group>";
-		};
-		8877D32E7779498EB8FA39F8 /* SOIL */ = {
-			isa = PBXGroup;
-			children = (
-				AB8E5C734DDA4F0CAE809987 /* Source Files */,
-			);
-			name = SOIL;
 			sourceTree = "<group>";
 		};
 		934B384BCF6F497EB5DC7A1E /* Source Files */ = {
@@ -5930,7 +5890,6 @@
 				4B3F200BFA3B4AA9B8072A6A /* libsfml-network-dol.a */,
 				EBFD62BE775146B49EDA15A7 /* libsfml-system-dol.a */,
 				71C3A8A5609646488CCDC348 /* libminiupnpc-dol.a */,
-				3AF3F3D420B142DBBF1E1B9F /* libSOIL-dol.a */,
 				D921B2DE9D654F07924FEBE0 /* libpch-dol.a */,
 				F4EAB8D2A0AA45A183467CCD /* libaudiocommon-dol.a */,
 				5AE2ADF9B49F4F4EB95615D5 /* libcommon-dol.a */,
@@ -5970,23 +5929,6 @@
 				3EC6F7681CDBBCE30044AC7E /* Sys */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		AB8E5C734DDA4F0CAE809987 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				3E3D75311C82B25700091C4D /* image_DXT.c */,
-				3E3D75321C82B25700091C4D /* image_DXT.h */,
-				3E3D75331C82B25700091C4D /* image_helper.c */,
-				3E3D75341C82B25700091C4D /* image_helper.h */,
-				3E3D75351C82B25700091C4D /* SOIL.c */,
-				3E3D75361C82B25700091C4D /* SOIL.h */,
-				3E3D75371C82B25700091C4D /* stb_image_aug.c */,
-				3E3D75381C82B25700091C4D /* stb_image_aug.h */,
-				3E3D75391C82B25700091C4D /* stbi_DDS_aug_c.h */,
-				3E3D753A1C82B25700091C4D /* stbi_DDS_aug.h */,
-			);
-			name = "Source Files";
 			sourceTree = "<group>";
 		};
 		AB94A054CA154990BB4CDEE9 /* inputcommon */ = {
@@ -6217,6 +6159,16 @@
 			path = HostBackend;
 			sourceTree = "<group>";
 		};
+		EE9C006720A4F93F00312609 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				EE9C006820A4F93F00312609 /* Watches.h */,
+				EE9C006920A4F93F00312609 /* Watches.cpp */,
+			);
+			name = Debug;
+			path = dolphin/Source/Core/Common/Debug;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -6253,21 +6205,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		228C8249185E4B5982C7E232 /* SOIL */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 17D9EA36BD2D4F1999702AE6 /* Build configuration list for PBXNativeTarget "SOIL" */;
-			buildPhases = (
-				454B6CB4EE59454F8494BBBC /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SOIL;
-			productName = SOIL;
-			productReference = 3AF3F3D420B142DBBF1E1B9F /* libSOIL-dol.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		3E2217961D74AB3300C55942 /* Wii */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E22179A1D74AB3300C55942 /* Build configuration list for PBXNativeTarget "Wii" */;
@@ -6409,7 +6346,6 @@
 				3EFF28EC1F85606C00B4FD11 /* PBXTargetDependency */,
 				3EFF28EE1F85606C00B4FD11 /* PBXTargetDependency */,
 				3EFF28F01F85606C00B4FD11 /* PBXTargetDependency */,
-				3EFF28F21F85606C00B4FD11 /* PBXTargetDependency */,
 				3EFF28F41F85606C00B4FD11 /* PBXTargetDependency */,
 				3EFF28F61F85606C00B4FD11 /* PBXTargetDependency */,
 				3EFF28F81F85606C00B4FD11 /* PBXTargetDependency */,
@@ -6698,7 +6634,6 @@
 				95385AA515C44BE4B21728CD /* PBXTargetDependency */,
 				6BFD861EEB5840C980DEF063 /* PBXTargetDependency */,
 				029CA03109144AB19E86B29C /* PBXTargetDependency */,
-				8280AC2F8F904417936FA12D /* PBXTargetDependency */,
 				0AFA40AA076E45D1ACD9958B /* PBXTargetDependency */,
 				1BD713080C8F4796BC6A6816 /* PBXTargetDependency */,
 				B123876EC7A547C2953A8E2A /* PBXTargetDependency */,
@@ -6740,7 +6675,6 @@
 			);
 			dependencies = (
 				3EFF28981F855A1D00B4FD11 /* PBXTargetDependency */,
-				3EFF288B1F85585B00B4FD11 /* PBXTargetDependency */,
 				8378DED01A786335003DA046 /* PBXTargetDependency */,
 				AE8B9146B6514DB4986FDB1F /* PBXTargetDependency */,
 			);
@@ -6819,7 +6753,6 @@
 				93DC42BE7F7E4655BA37E803 /* sfml-network */,
 				B7D6D77CD9AE47AE971CBE25 /* sfml-system */,
 				B0D48831F54442B2AEF377D1 /* miniupnpc */,
-				228C8249185E4B5982C7E232 /* SOIL */,
 				AECE51C4C7E0411EA86B7548 /* pch */,
 				FFA5E2D5A7C543E9AEF69BE8 /* audiocommon */,
 				43265322269841A88B884F87 /* common */,
@@ -6954,7 +6887,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E065A8D1F87CC4C00C4237C /* Nunchuk.cpp in Sources */,
 				3EFF26431F845CA500B4FD11 /* GraphicsSettings.cpp in Sources */,
 				3E8EC66A1F8434AA00D79F27 /* EXI_DeviceEthernet.cpp in Sources */,
 				EE149BA7205A270F008D5DDE /* DSPJitCCUtil.cpp in Sources */,
@@ -6972,6 +6904,7 @@
 				3EFF26FE1F845E9F00B4FD11 /* InterpreterBlockCache.cpp in Sources */,
 				3EFF26441F845CA500B4FD11 /* MainSettings.cpp in Sources */,
 				3EFF26411F845CA500B4FD11 /* SYSCONFSettings.cpp in Sources */,
+				EEF8A0F120B350FB008678D3 /* input.cpp in Sources */,
 				3EFF26C61F845CB800B4FD11 /* Socket.cpp in Sources */,
 				3E8EC6E11F84378E00D79F27 /* GDBStub.cpp in Sources */,
 				3E8EC6B71F8436F100D79F27 /* DSPIntMultiplier.cpp in Sources */,
@@ -7031,9 +6964,9 @@
 				3E3D73741C82B0F900091C4D /* DSPMemoryMap.cpp in Sources */,
 				3E8EC6D31F84376E00D79F27 /* EmuCodeBlock.cpp in Sources */,
 				3EFF26D71F845CB800B4FD11 /* USBV0.cpp in Sources */,
-				3EFF28D61F855FB800B4FD11 /* GCPadEmu.cpp in Sources */,
 				3EFF26CF1F845CB800B4FD11 /* Common.cpp in Sources */,
 				3E3D73F91C82B0F900091C4D /* Interpreter_FloatingPoint.cpp in Sources */,
+				EEF8A0EF20B34506008678D3 /* GCpadEmu.cpp in Sources */,
 				3E8EC65D1F8434AA00D79F27 /* SI_DeviceGCAdapter.cpp in Sources */,
 				3EFF27001F845E9F00B4FD11 /* DSYSignatureDB.cpp in Sources */,
 				3E8EC6E71F8437D000D79F27 /* RSO.cpp in Sources */,
@@ -7068,7 +7001,6 @@
 				3E3D74311C82B0F900091C4D /* PPCAnalyst.cpp in Sources */,
 				3EFF26451F845CA500B4FD11 /* NetPlayConfigLoader.cpp in Sources */,
 				3E3D74321C82B0F900091C4D /* PPCCache.cpp in Sources */,
-				3E8EC6A61F8434C700D79F27 /* Classic.cpp in Sources */,
 				3EFF26BE1F845CB800B4FD11 /* DeviceStub.cpp in Sources */,
 				3E8EC6A91F8434C700D79F27 /* Encryption.cpp in Sources */,
 				EE32D85A207ABBBA0050B549 /* File.cpp in Sources */,
@@ -7077,7 +7009,6 @@
 				3E8EC66C1F8434AA00D79F27 /* EXI_Channel.cpp in Sources */,
 				3EFF26D21F845CB800B4FD11 /* USB_KBD.cpp in Sources */,
 				3E3D74011C82B0F900091C4D /* Jit64_Tables.cpp in Sources */,
-				3E065A8E1F87CC5200C4237C /* Classic.cpp in Sources */,
 				3E3D73F81C82B0F900091C4D /* Interpreter_Branch.cpp in Sources */,
 				3E3D74221C82B0F900091C4D /* JitBase.cpp in Sources */,
 				3E3D74231C82B0F900091C4D /* JitCache.cpp in Sources */,
@@ -7085,7 +7016,6 @@
 				3E3D74341C82B0F900091C4D /* PPCTables.cpp in Sources */,
 				3EFF27131F8460BC00B4FD11 /* WiiUtils.cpp in Sources */,
 				3E3D74001C82B0F900091C4D /* Jit.cpp in Sources */,
-				3EB81EFA1F88322F000CBD2C /* WiimoteEmu.cpp in Sources */,
 				3EFF26FD1F845E9F00B4FD11 /* CachedInterpreter.cpp in Sources */,
 				3E3D735B1C82B0F900091C4D /* ElfReader.cpp in Sources */,
 				3EFF26E51F845CB800B4FD11 /* ES.cpp in Sources */,
@@ -7108,6 +7038,7 @@
 				3E8EC6BA1F8436F100D79F27 /* DSPIntArithmetic.cpp in Sources */,
 				3E3D73F71C82B0F900091C4D /* Interpreter.cpp in Sources */,
 				3E8EC6741F8434AA00D79F27 /* EXI_DeviceAD16.cpp in Sources */,
+				EEF8A0F320B3524E008678D3 /* Nunchuk.cpp in Sources */,
 				3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */,
 				3E3D740A1C82B0F900091C4D /* JitAsm.cpp in Sources */,
 				3E3D73CA1C82B0F900091C4D /* SystemTimers.cpp in Sources */,
@@ -7117,6 +7048,7 @@
 				3E3D73BE1C82B0F900091C4D /* ProcessorInterface.cpp in Sources */,
 				3EFF25241F84432A00B4FD11 /* IOhidapi.cpp in Sources */,
 				EE149BAC205A270F008D5DDE /* DSPJitRegCache.cpp in Sources */,
+				EEF8A0F020B34DA8008678D3 /* WiimoteEmu.cpp in Sources */,
 				3EFF26C51F845CB800B4FD11 /* SSL.cpp in Sources */,
 				3E3D74021C82B0F900091C4D /* Jit_Branch.cpp in Sources */,
 				3EFF26C31F845CB800B4FD11 /* NetKDRequest.cpp in Sources */,
@@ -7141,13 +7073,13 @@
 				3E8EC6EA1F8437EC00D79F27 /* HLE_VarArgs.cpp in Sources */,
 				3EFF26E21F845CB800B4FD11 /* TitleInformation.cpp in Sources */,
 				3E3D73B21C82B0F900091C4D /* GCKeyboard.cpp in Sources */,
-				3E065A8F1F87CC5500C4237C /* GCpadEmu.cpp in Sources */,
 				3E3D73F01C82B0F900091C4D /* MemTools.cpp in Sources */,
 				3E3D739B1C82B0F900091C4D /* INIT.cpp in Sources */,
 				3E3D73FD1C82B0F900091C4D /* Interpreter_Paired.cpp in Sources */,
 				3E3D73841C82B0F900091C4D /* FifoDataFile.cpp in Sources */,
 				3E8EC65A1F8434AA00D79F27 /* DVDMath.cpp in Sources */,
 				3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */,
+				EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */,
 				3E3D73881C82B0F900091C4D /* FifoRecorder.cpp in Sources */,
 				3E3D73A11C82B0F900091C4D /* DSPLLE.cpp in Sources */,
 				3E3D738A1C82B0F900091C4D /* GeckoCodeConfig.cpp in Sources */,
@@ -7178,8 +7110,6 @@
 				3EFF26DA1F845CB800B4FD11 /* WiimoteDevice.cpp in Sources */,
 				EE32D85C207ABBBA0050B549 /* FileSystemProxy.cpp in Sources */,
 				3EFF25221F84432A00B4FD11 /* IOdarwin.mm in Sources */,
-				3E3D73DE1C82B0F900091C4D /* WiiSaveCrypted.cpp in Sources */,
-				3E96B3CB1F86C452007C5799 /* input.cpp in Sources */,
 				3E8EC6D01F84376E00D79F27 /* TrampolineCache.cpp in Sources */,
 				3EFF26E81F845CB800B4FD11 /* TitleContents.cpp in Sources */,
 				3E3D735A1C82B0F900091C4D /* Boot_WiiWAD.cpp in Sources */,
@@ -7190,6 +7120,7 @@
 				3E8EC6671F8434AA00D79F27 /* GCMemcardDirectory.cpp in Sources */,
 				EE149BA8205A270F008D5DDE /* DSPJitMultiplier.cpp in Sources */,
 				3E3D73751C82B0F900091C4D /* DSPStacks.cpp in Sources */,
+				EEF8A0F220B35191008678D3 /* Classic.cpp in Sources */,
 				3E3D73871C82B0F900091C4D /* FifoRecordAnalyzer.cpp in Sources */,
 				3E3D73B91C82B0F900091C4D /* GPFifo.cpp in Sources */,
 				3E3D74071C82B0F900091C4D /* Jit_LoadStorePaired.cpp in Sources */,
@@ -7202,6 +7133,7 @@
 				3E8EC6DB1F84377A00D79F27 /* GPRRegCache.cpp in Sources */,
 				3E3D73941C82B0F900091C4D /* DSP.cpp in Sources */,
 				3E8EC6591F8434AA00D79F27 /* FileMonitor.cpp in Sources */,
+				EE1FAE9120AD027000748BE0 /* WiiSave.cpp in Sources */,
 				3EFF26E11F845CB800B4FD11 /* MIOS.cpp in Sources */,
 				3E8EC6BC1F8436F100D79F27 /* DSPIntMisc.cpp in Sources */,
 				3E8EC66B1F8434AA00D79F27 /* EXI_DeviceMic.cpp in Sources */,
@@ -7238,6 +7170,7 @@
 				3E3D718B1C82B0BB00091C4D /* Thread.cpp in Sources */,
 				3E3D71631C82B0BB00091C4D /* bn.cpp in Sources */,
 				3E3D71621C82B0BB00091C4D /* ColorUtil.cpp in Sources */,
+				EE5F71A220B322F80083D8D8 /* Image.cpp in Sources */,
 				3E3D71821C82B0BB00091C4D /* Network.cpp in Sources */,
 				3E3D71691C82B0BB00091C4D /* GenericCPUDetect.cpp in Sources */,
 				3E3D71911C82B0BB00091C4D /* x64ABI.cpp in Sources */,
@@ -7251,12 +7184,12 @@
 				3E3D71831C82B0BB00091C4D /* PcapFile.cpp in Sources */,
 				3EFF260F1F84560100B4FD11 /* MD5.cpp in Sources */,
 				EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */,
-				3E3D718A1C82B0BB00091C4D /* SysConf.cpp in Sources */,
 				3E3D71861C82B0BB00091C4D /* SDCardUtil.cpp in Sources */,
 				3E3D718E1C82B0BB00091C4D /* TraversalServer.cpp in Sources */,
 				3E3D71891C82B0BB00091C4D /* SymbolDB.cpp in Sources */,
 				3E3D718C1C82B0BB00091C4D /* Timer.cpp in Sources */,
 				3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */,
+				EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */,
 				3E3D71851C82B0BB00091C4D /* Profiler.cpp in Sources */,
 				3E3D717C1C82B0BB00091C4D /* MathUtil.cpp in Sources */,
 				3E3D71951C82B0BB00091C4D /* x64FPURoundMode.cpp in Sources */,
@@ -7268,6 +7201,7 @@
 				3E3D71761C82B0BB00091C4D /* IniFile.cpp in Sources */,
 				3E3D71931C82B0BB00091C4D /* x64CPUDetect.cpp in Sources */,
 				3E0BD12A1F8E8E2E0037C92D /* FileUtil.cpp in Sources */,
+				EE9C006C20A4F94000312609 /* Watches.cpp in Sources */,
 				3E3D71751C82B0BB00091C4D /* Hash.cpp in Sources */,
 				3E3D71871C82B0BB00091C4D /* SettingsHandler.cpp in Sources */,
 				3E3D71651C82B0BB00091C4D /* ENetUtil.cpp in Sources */,
@@ -7544,7 +7478,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EFF295C1F85D07000B4FD11 /* libpugixml-dol.a in Sources */,
 				3EFF27871F8461DF00B4FD11 /* pugixml.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7626,17 +7559,6 @@
 				3E8EC57A1F84235200D79F27 /* DirectoryBlob.cpp in Sources */,
 				3E8EC5781F84235200D79F27 /* TGCBlob.cpp in Sources */,
 				3E3D746C1C82B11900091C4D /* VolumeGC.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		454B6CB4EE59454F8494BBBC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E3D753B1C82B25700091C4D /* image_DXT.c in Sources */,
-				3E3D753D1C82B25700091C4D /* image_helper.c in Sources */,
-				3E3D753F1C82B25700091C4D /* SOIL.c in Sources */,
-				3E3D75411C82B25700091C4D /* stb_image_aug.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8019,11 +7941,6 @@
 			target = B0D48831F54442B2AEF377D1 /* miniupnpc */;
 			targetProxy = 3EFF28871F85580B00B4FD11 /* PBXContainerItemProxy */;
 		};
-		3EFF288B1F85585B00B4FD11 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 228C8249185E4B5982C7E232 /* SOIL */;
-			targetProxy = 3EFF288A1F85585B00B4FD11 /* PBXContainerItemProxy */;
-		};
 		3EFF288F1F8559A100B4FD11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 93DC42BE7F7E4655BA37E803 /* sfml-network */;
@@ -8098,11 +8015,6 @@
 			isa = PBXTargetDependency;
 			target = B7D6D77CD9AE47AE971CBE25 /* sfml-system */;
 			targetProxy = 3EFF28F11F85606C00B4FD11 /* PBXContainerItemProxy */;
-		};
-		3EFF28F21F85606C00B4FD11 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 228C8249185E4B5982C7E232 /* SOIL */;
-			targetProxy = 3EFF28F31F85606C00B4FD11 /* PBXContainerItemProxy */;
 		};
 		3EFF28F41F85606C00B4FD11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8234,11 +8146,6 @@
 			target = 43265322269841A88B884F87 /* common */;
 			targetProxy = A5BFBAF0E2444A669EB51FEF /* PBXContainerItemProxy */;
 		};
-		8280AC2F8F904417936FA12D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 228C8249185E4B5982C7E232 /* SOIL */;
-			targetProxy = 8C8A85A49336418BA6842958 /* PBXContainerItemProxy */;
-		};
 		8355D4B71A65392600E73302 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 42A1E11FFDFD470D8368323A /* core */;
@@ -8253,11 +8160,6 @@
 			isa = PBXTargetDependency;
 			target = 8378DE981A7862DA003DA046 /* xxhash */;
 			targetProxy = 8378DECF1A786335003DA046 /* PBXContainerItemProxy */;
-		};
-		886C865D801D450E8404FD35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 228C8249185E4B5982C7E232 /* SOIL */;
-			targetProxy = 69F8BD21AF9646B48F2AF835 /* PBXContainerItemProxy */;
 		};
 		8C69B192B58A4CD192AFAB29 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8436,7 +8338,7 @@
 					__STDC_CONSTANT_MACROS,
 					"'HAVE_X11=0'",
 					OpenEmu,
-					"'HAVE_FFMPEG=1'",
+					"'HAVE_FFMPEG=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -8536,7 +8438,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -8552,7 +8453,8 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -8783,44 +8685,6 @@
 			};
 			name = Debug;
 		};
-		18C95B22C3AE4AE5A8184EC7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-x",
-					"objective-c",
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-DNDEBUG",
-					"-msse2",
-					"-Wall",
-					"-fno-strict-aliasing",
-					"-fno-exceptions",
-				);
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
 		1A0EAAE8AC9F4BF7BDF9FC8C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9029,7 +8893,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
@@ -9143,7 +9007,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
@@ -9565,7 +9429,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
@@ -9661,9 +9525,10 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
+					$SRCROOT/dolphin/Externals/libpng,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12445,7 +12310,7 @@
 					__STDC_CONSTANT_MACROS,
 					"'HAVE_X11=0'",
 					OpenEmu,
-					"'HAVE_FFMPEG=1'",
+					"'HAVE_FFMPEG=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -13069,7 +12934,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -13085,7 +12949,8 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13241,9 +13106,10 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
+					$SRCROOT/dolphin/Externals/libpng,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13399,44 +13265,6 @@
 				);
 			};
 			name = Debug;
-		};
-		79715B3442814AFD8B93B3D6 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-x",
-					"objective-c",
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-DNDEBUG",
-					"-msse2",
-					"-Wall",
-					"-fno-strict-aliasing",
-					"-fno-exceptions",
-				);
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
 		};
 		7979D13279224D33A118E4D7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -14528,7 +14356,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -14544,7 +14371,8 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14699,7 +14527,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -14715,7 +14542,8 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14868,9 +14696,10 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
+					$SRCROOT/dolphin/Externals/libpng,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -15030,9 +14859,10 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
+					$SRCROOT/dolphin/Externals/libpng,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -15514,7 +15344,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
 				);
 				INSTALL_PATH = "";
@@ -15912,44 +15742,6 @@
 			};
 			name = Release;
 		};
-		CE375CB130E7452CACF72544 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-x",
-					"objective-c",
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-DNDEBUG",
-					"-msse2",
-					"-Wall",
-					"-fno-strict-aliasing",
-					"-fno-exceptions",
-				);
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
 		CF783FD8FA8A4B4E8386D323 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -16152,43 +15944,6 @@
 				);
 			};
 			name = MinSizeRel;
-		};
-		D913FCC4BA0C4351A0338A19 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-x",
-					"objective-c",
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-msse2",
-					"-Wall",
-					"-fno-strict-aliasing",
-					"-fno-exceptions",
-				);
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
 		};
 		DA7E057F71A44967864EE9DA /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
@@ -16651,7 +16406,7 @@
 					__STDC_CONSTANT_MACROS,
 					"'HAVE_X11=0'",
 					OpenEmu,
-					"'HAVE_FFMPEG=1'",
+					"'HAVE_FFMPEG=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -16907,7 +16662,7 @@
 					__STDC_CONSTANT_MACROS,
 					"'HAVE_X11=0'",
 					OpenEmu,
-					"'HAVE_FFMPEG=1'",
+					"'HAVE_FFMPEG=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -17078,17 +16833,6 @@
 				3558D5C36927430E874C712D /* Release */,
 				C2345C277FA14850BCB0E303 /* MinSizeRel */,
 				D395D5F65178418084E8D71F /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		17D9EA36BD2D4F1999702AE6 /* Build configuration list for PBXNativeTarget "SOIL" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D913FCC4BA0C4351A0338A19 /* Debug */,
-				18C95B22C3AE4AE5A8184EC7 /* Release */,
-				79715B3442814AFD8B93B3D6 /* MinSizeRel */,
-				CE375CB130E7452CACF72544 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

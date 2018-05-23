@@ -43,14 +43,6 @@
 #include "Common/Thread.h"
 #include "Common/Version.h"
 
-//#include "Common/CommonPaths.h"
-//#include "Common/CommonTypes.h"
-//#include "Common/Event.h"
-//#include "Common/Flag.h"
-//#include "Common/Logging/LogManager.h"
-//#include "Common/MsgHandler.h"
-//#include "Common/GL/GLInterfaceBase.h"
-
 #include "Core/Analytics.h"
 #include "Core/Boot/Boot.h"
 #include "Core/BootManager.h"
@@ -110,8 +102,9 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     //Configure UI for OpenEmu directory structure
     UICommon::SetUserDirectory(supportDirectoryPath);
     UICommon::CreateDirectories();
+    //  Init the UI
     UICommon::Init();
-
+    
     // Database Settings
     SConfig::GetInstance().m_use_builtin_title_database = true;
 
@@ -147,6 +140,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     //Save them now
     SConfig::GetInstance().SaveSettings();
 
+   
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
 
@@ -219,9 +213,13 @@ bool DolHost::LoadFileAtPath()
     if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath)))
         return false;
 
-//    while (!Core::IsRunning())
-//        updateMainFrameEvent.Wait();
-
+    while (!Core::IsRunningAndStarted() && s_running.IsSet())
+    {
+        Core::HostDispatchJobs();
+    }
+    
+    Core::SetState(Core::State::Running);
+    
     return true;
 }
 
@@ -252,7 +250,6 @@ void DolHost::Reset()
 void DolHost::UpdateFrame()
 {
     Core::HostDispatchJobs();
-    updateMainFrameEvent.Set();
 
     if(_onBoot) _onBoot = false;
 }
@@ -269,11 +266,11 @@ bool DolHost::CoreRunning()
 void DolHost::SetPresentationFBO(int RenderFBO)
 {
     g_Config.iRenderFBO = RenderFBO;
-//    g_Config.bCrop = false;
-//    g_Config.bWidescreenHack = false;
-//    g_Config.bHiresTextures = false;
-//    g_Config.bSSAA = false;
-//    g_Config.iEFBScale = 2;
+    g_Config.bCrop = false;
+    g_Config.bWidescreenHack = false;
+    g_Config.bHiresTextures = false;
+    g_Config.bSSAA = false;
+    g_Config.iEFBScale = 2;
 }
 
 void DolHost::SetBackBufferSize(int width, int height) {
@@ -401,22 +398,20 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
 # pragma mark - Controls
 void DolHost::DisplayMessage(std::string message)
 {
-    Core::DisplayMessage( message, 500);
+    //Core::DisplayMessage( message, 500);
 }
-
 
 void DolHost::setButtonState(int button, int state, int player)
 {
     player -= 1;
 
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
-        setGameCubeButton(player, button, state);
+       setGameCubeButton(player, button, state);
     }
     else
     {
-        setWiiButton(player, button, state);
+       setWiiButton(player, button, state);
     }
-
 
     if (button == OEWiiChangeExtension)
     {
@@ -476,7 +471,7 @@ void DolHost::GetGameInfo()
 
     _gameID = pVolume->GetGameID();
     _gameRegion = pVolume->GetRegion() ;
-    _gameCountry =  DiscIO::CountrySwitch(_gameID[3]);  //pVolume -> GetCountry();
+    _gameCountry =  DiscIO::CountrySwitch(_gameID[3]);
     _gameName = pVolume -> GetInternalName();
     _gameCountryDir = GetDirOfCountry(_gameCountry);
     _gameType = pVolume->GetVolumeType();
@@ -542,21 +537,21 @@ void Host_Message(int msg) {
 #ifdef DEBUG
         //We have to set FPS display here or it doesn't work
         g_Config.bShowFPS = true;
+        Core::SetState(Core::State::Running);
 #endif
 
         // Set the aspect to stretch
         g_Config.aspect_mode = AspectMode::Stretch;
 
         // Core is up,  lets enable Hybric Ubershaders
-//        g_Config.bPrecompileUberShaders = true;
-//        g_Config.bBackgroundShaderCompiling = true;
-//        g_Config.bDisableSpecializedShaders = false;
-
+        g_Config.iShaderCompilationMode = ShaderCompilationMode::SynchronousUberShaders;
+        //g_Config.bPrecompileUberShaders = true;
+        //g_Config.bBackgroundShaderCompiling = true;
+        //g_Config.bDisableSpecializedShaders = false;
 
         //Set the threads to auto (-1)
         g_Config.iShaderCompilerThreads = -1;
         g_Config.iShaderPrecompilerThreads = -1;
-        
         
     }
 }
@@ -564,7 +559,7 @@ void* Host_GetRenderHandle() { return nullptr; }
 void Host_UpdateTitle(const std::string&) {}
 void Host_UpdateDisasmDialog() {}
 void Host_UpdateMainFrame() {
-    updateMainFrameEvent.Set();
+    //updateMainFrameEvent.Set();
 }
 
 void Host_RequestRenderWindowSize(int width, int height){}
@@ -581,6 +576,5 @@ bool Host_RendererIsFullscreen() { return false; }
 void Host_ShowVideoConfig(void*, const std::string&) {}
 void Host_YieldToUI() {}
 void Host_UpdateProgressDialog(const char* caption, int position, int total) {
-    OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total),
-                    5000);
+   // OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total), 5000);
 }
