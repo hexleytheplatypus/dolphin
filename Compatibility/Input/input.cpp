@@ -2,8 +2,15 @@
 
 #include "input.h"
 
+
 void setWiiButton(int pad_num, int button , int value) {
 
+    if (button <= OEWiiMoteButtonHome || button == OEWiiMoteShake || button == OEWiiSideways)
+    {
+        setWiimoteButton(pad_num, button , value);
+        
+        return;
+    }
     if (button >= OEWiiClassicButtonUp)
     {
         setWiiClassicButton(pad_num, button , value);
@@ -14,10 +21,8 @@ void setWiiButton(int pad_num, int button , int value) {
         setWiiNunchukButton(pad_num, button , value);
         return;
     }
-    if (button <= OEWiiMoteButtonHome || button == OEWiiMoteShake)
-    {
-        setWiimoteButton(pad_num, button , value);
-    }
+    
+    //static_cast<WiimoteEmu::Wiimote*>(s_config.GetController(pad_num))->Update()
 }
 
 void setWiiAxis(int pad_num, int button , float value){
@@ -26,7 +31,7 @@ void setWiiAxis(int pad_num, int button , float value){
         setWiiClassicAxis(pad_num, button , value);
         return;
     }
-    if (button >=  OEWiiNunchukButtonC)
+    if (button >=  OEWiiNunchukAnalogUp)
     {
         setWiiNunchukAxis(pad_num, button , value);
         return;

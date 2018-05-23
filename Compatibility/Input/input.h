@@ -5,17 +5,22 @@
 #include "Core/HW/WiimoteEmu/Attachment/Classic.h"
 #include "Core/HW/WiimoteEmu/Attachment/Nunchuk.h"
 #include "Core/HW/WiimoteEmu/WiimoteEmu.h"
+#include "Core/ConfigManager.h"
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
 
 #include "Core/Host.h"
 
+#include "InputCommon/InputConfig.h"
 #include "InputCommon/GCPadStatus.h"
+
 #include "DolphinGameCore.h"
 #include "Wii/OEWiiSystemResponderClient.h"
 
 static unsigned connected_wiimote_type[MAX_BBMOTES];
 static int current_mote_id;
+//static InputConfig s_config(WIIMOTE_INI_NAME, _trans("Wii Remote"), "Wiimote");
+
 
 typedef struct
 {
@@ -73,10 +78,10 @@ typedef struct
         {OEWiiMoteButtonDown, WiimoteEmu::Wiimote::PAD_LEFT, 0},
         {OEWiiMoteButtonUp, WiimoteEmu::Wiimote::PAD_RIGHT, 0},
         {OEWiiMoteButtonPlus, WiimoteEmu::Wiimote::BUTTON_PLUS, 0},
+        {OEWiiMoteButton2, WiimoteEmu::Wiimote::BUTTON_TWO, 0},
+        {OEWiiMoteButton1, WiimoteEmu::Wiimote::BUTTON_ONE, 0},
         {OEWiiMoteButtonB, WiimoteEmu::Wiimote::BUTTON_B, 0},
         {OEWiiMoteButtonA, WiimoteEmu::Wiimote::BUTTON_A, 0},
-        {OEWiiMoteButton1, WiimoteEmu::Wiimote::BUTTON_ONE, 0},
-        {OEWiiMoteButton2, WiimoteEmu::Wiimote::BUTTON_TWO, 0},
         {OEWiiMoteButtonMinus, WiimoteEmu::Wiimote::BUTTON_MINUS, 0},
         {OEWiiMoteButtonHome, WiimoteEmu::Wiimote::BUTTON_HOME, 0},
     };
@@ -84,6 +89,7 @@ typedef struct
     axismap wiimote_tilt;
     axismap wiimote_swing;
     bool emuShake;
+    bool Sideways;
     
     keymap nunchuk_keymap[2] = {
         {OEWiiNunchukButtonC, WiimoteEmu::Nunchuk::BUTTON_C, 0},
@@ -95,11 +101,11 @@ typedef struct
     keymap classic_keymap[15] = {
         {OEWiiClassicButtonRight, WiimoteEmu::Classic::PAD_RIGHT, 0},
         {OEWiiClassicButtonDown, WiimoteEmu::Classic::PAD_DOWN, 0},
-        {OEWiiClassicButtonLeft, WiimoteEmu::Classic::TRIGGER_L, 0},
+        {OEWiiClassicButtonL, WiimoteEmu::Classic::TRIGGER_L, 0},
         {OEWiiClassicButtonSelect, WiimoteEmu::Classic::BUTTON_MINUS, 0},
         {OEWiiClassicButtonHome, WiimoteEmu::Classic::BUTTON_HOME, 0},
         {OEWiiClassicButtonStart, WiimoteEmu::Classic::BUTTON_PLUS, 0},
-        {OEWiiClassicButtonRight, WiimoteEmu::Classic::TRIGGER_R, 0},
+        {OEWiiClassicButtonR, WiimoteEmu::Classic::TRIGGER_R, 0},
         {OEWiiClassicButtonZl, WiimoteEmu::Classic::BUTTON_ZL, 0},
         {OEWiiClassicButtonB, WiimoteEmu::Classic::BUTTON_B, 0},
         {OEWiiClassicButtonY, WiimoteEmu::Classic::BUTTON_Y, 0},
@@ -112,16 +118,18 @@ typedef struct
 
     axismap classic_AnalogLeft;
     axismap classic_AnalogRight;
-
+    axismap classic_TriggerLeft;
+    axismap classic_TriggerRight;
+    
     int extension;
     ControlState dx, dy;
     
 } wii_remote;
 
 
-static gc_pad GameCubePads[4];
-static wii_remote WiiRemotes[4];
-static int want_extension[4];
+ static gc_pad GameCubePads[4];
+ static wii_remote WiiRemotes[4];
+ static int want_extension[4];
 
 
 void setGameCubeButton(int pad_num, int button , int value);

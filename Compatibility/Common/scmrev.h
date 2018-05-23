@@ -4,3 +4,4 @@
 #define SCM_BRANCH_STR "master"
 #define SCM_IS_MASTER 1
 #define SCM_DISTRIBUTOR_STR "Duckey77"
+#define SCM_UPDATE_TRACK_STR "none"

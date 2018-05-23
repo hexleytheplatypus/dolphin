@@ -68,7 +68,7 @@ namespace WiimoteEmu
         for (const char* button_name : classic_button_names)
         {
             const std::string& ui_name = (button_name == std::string("Home")) ? "HOME" : button_name;
-            m_buttons->controls.emplace_back(new ControllerEmu::Input(button_name, ui_name));
+//            m_buttons->controls.emplace_back(new ControllerEmu::Input(button_name, ui_name));
         }
 
         // sticks
@@ -80,12 +80,12 @@ namespace WiimoteEmu
         // triggers
         groups.emplace_back(m_triggers = new ControllerEmu::MixedTriggers(_trans("Triggers")));
         for (const char* trigger_name : classic_trigger_names)
-            m_triggers->controls.emplace_back(new ControllerEmu::Input(trigger_name));
+//            m_triggers->controls.emplace_back(new ControllerEmu::Input(trigger_name));
 
         // dpad
         groups.emplace_back(m_dpad = new ControllerEmu::Buttons(_trans("D-Pad")));
         for (const char* named_direction : named_directions)
-            m_dpad->controls.emplace_back(new ControllerEmu::Input(named_direction));
+//            m_dpad->controls.emplace_back(new ControllerEmu::Input(named_direction));
 
         // Set up register
         m_calibration = classic_calibration;
@@ -103,8 +103,8 @@ namespace WiimoteEmu
 
         // left stick
         {
-            ControlState x, y;
-            m_left_stick->GetState(&x, &y);
+            //ControlState x, y;
+            //m_left_stick->GetState(&x, &y);
 
             ccdata->regular_data.lx =
             static_cast<u8>(Classic::LEFT_STICK_CENTER_X + ( WiiRemotes[pad_num].classic_AnalogLeft.Xaxis * Classic::LEFT_STICK_RADIUS));
@@ -115,7 +115,7 @@ namespace WiimoteEmu
 
         // right stick
         {
-            ControlState x, y;
+            //ControlState x, y;
             u8 x_, y_;
             x_ = static_cast<u8>(Classic::RIGHT_STICK_CENTER_X + ( WiiRemotes[pad_num].classic_AnalogRight.Xaxis * Classic::RIGHT_STICK_RADIUS));
             y_ = static_cast<u8>(Classic::RIGHT_STICK_CENTER_Y + ( WiiRemotes[pad_num].classic_AnalogRight.Yaxis * Classic::RIGHT_STICK_RADIUS));
@@ -133,8 +133,8 @@ namespace WiimoteEmu
             u8 lt, rt;
             m_triggers->GetState(&ccdata->bt.hex, classic_trigger_bitmasks.data(), trigs);
 
-            lt = static_cast<u8>(trigs[0] * Classic::LEFT_TRIGGER_RANGE);
-            rt = static_cast<u8>(trigs[1] * Classic::RIGHT_TRIGGER_RANGE);
+            lt = static_cast<u8>(WiiRemotes[pad_num].classic_TriggerLeft.Xaxis * Classic::LEFT_TRIGGER_RANGE);
+            rt = static_cast<u8>(WiiRemotes[pad_num].classic_TriggerRight.Xaxis * Classic::RIGHT_TRIGGER_RANGE);
 
             ccdata->lt1 = lt;
             ccdata->lt2 = lt >> 3;
@@ -197,75 +197,6 @@ namespace WiimoteEmu
     }
 }
 
-//    void Classic::GetState(u8* const data)
-//    {
-//        wm_classic_extension* const ccdata = (wm_classic_extension*)data;
-//
-//        int pad_num= 0;
-//
-//        //left analog
-//        ccdata->regular_data.lx =
-//        static_cast<u8>(Classic::LEFT_STICK_CENTER_X + ( WiiRemotes[pad_num].classic_AnalogLeft.Xaxis * Classic::LEFT_STICK_RADIUS));
-//        ccdata->regular_data.ly =
-//        static_cast<u8>(Classic::LEFT_STICK_CENTER_Y + ( WiiRemotes[pad_num].classic_AnalogLeft.Yaxis * Classic::LEFT_STICK_RADIUS));
-//
-//        //right anolog
-//        u8 x_, y_;
-//        x_ = static_cast<u8>(Classic::RIGHT_STICK_CENTER_X + ( WiiRemotes[pad_num].classic_AnalogRight.Xaxis * Classic::RIGHT_STICK_RADIUS));
-//        y_ = static_cast<u8>(Classic::RIGHT_STICK_CENTER_Y + ( WiiRemotes[pad_num].classic_AnalogRight.Yaxis * Classic::RIGHT_STICK_RADIUS));
-//
-//        ccdata->rx1 = x_;
-//        ccdata->rx2 = x_ >> 1;
-//        ccdata->rx3 = x_ >> 3;
-//        ccdata->ry = y_;
-//
-//        //buttons
-//        ccdata->bt.hex = 0;
-//
-//        for (unsigned i = 0; i < (sizeof( WiiRemotes[pad_num].classic_keymap) / sizeof(* WiiRemotes[pad_num].classic_keymap)); i++)
-//            ccdata->bt.hex |=  WiiRemotes[pad_num].classic_keymap[i].value ?  WiiRemotes[pad_num].classic_keymap[i].dolphinButton : 0;
-//
-//        //                // triggers
-//        //                {
-//        //                  ControlState trigs[2] = {0, 0};
-//        //                  u8 lt, rt;
-//        //                  m_triggers->GetState(&ccdata->bt.hex, classic_trigger_bitmasks.data(), trigs);
-//        //
-//        //                  lt = static_cast<u8>(trigs[0] * Classic::LEFT_TRIGGER_RANGE);
-//        //                  rt = static_cast<u8>(trigs[1] * Classic::RIGHT_TRIGGER_RANGE);
-//        //
-//        //                  ccdata->lt1 = lt;
-//        //                  ccdata->lt2 = lt >> 3;
-//        //                  ccdata->rt = rt;
-//        //                }
-//
-//        //    flip button bits
-//        ccdata->bt.hex ^= 0xFFFF;
-//    }
-//
-//    bool Classic::IsButtonPressed() const
-//    {
-//        int pad_num;
-//
-//        for (pad_num = 0; pad_num < MAX_BBMOTES && this != classic_controllers_map[pad_num]; pad_num++)
-//            ;
-//
-//        if (pad_num > 4)
-//            return false;
-//
-//        for (unsigned i = 0; i < (sizeof( WiiRemotes[pad_num].classic_keymap) / sizeof(* WiiRemotes[pad_num].classic_keymap)); i++)
-//            if ( WiiRemotes[pad_num].classic_keymap[i].value)
-//                return true;
-//
-//        return false;
-//    }
-//
-//    ControllerEmu::ControlGroup* Classic::GetGroup(ClassicGroup group)
-//    {
-//        return nullptr;
-//    }
-//}
-
 
 void setWiiClassicButton(int pad_num, int button , int value)
 {
@@ -282,10 +213,10 @@ void setWiiClassicAxis(int pad_num, int button , float value)
     switch (button)
     {
         case OEWiiClassicAnalogLUp:
-            WiiRemotes[pad_num].classic_AnalogLeft.Xaxis = value;
+            WiiRemotes[pad_num].classic_AnalogLeft.Yaxis = value;
             break;
         case OEWiiClassicAnalogLDown:
-            WiiRemotes[pad_num].classic_AnalogLeft.Xaxis = -value;
+            WiiRemotes[pad_num].classic_AnalogLeft.Yaxis = -value;
             break;
 
         case OEWiiClassicAnalogLLeft:
@@ -296,10 +227,10 @@ void setWiiClassicAxis(int pad_num, int button , float value)
             break;
 
         case OEWiiClassicAnalogRUp:
-            WiiRemotes[pad_num].classic_AnalogRight.Xaxis = value;
+            WiiRemotes[pad_num].classic_AnalogRight.Yaxis = value;
             break;
         case OEWiiClassicAnalogRDown:
-            WiiRemotes[pad_num].classic_AnalogRight.Xaxis = -value;
+            WiiRemotes[pad_num].classic_AnalogRight.Yaxis = -value;
             break;
 
         case OEWiiClassicAnalogRLeft:
@@ -309,6 +240,13 @@ void setWiiClassicAxis(int pad_num, int button , float value)
             WiiRemotes[pad_num].classic_AnalogRight.Xaxis = value;
             break;
 
+        case OEWiiClassicButtonL:
+            WiiRemotes[pad_num].classic_TriggerLeft.Xaxis = value;
+            break;
+        case OEWiiClassicButtonR:
+            WiiRemotes[pad_num].classic_TriggerRight.Xaxis = value;
+            break;
+            
         default:
             break;
 

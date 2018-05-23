@@ -76,8 +76,8 @@ namespace OGL
     static std::vector<u32>
     s_efbCache[2][EFB_CACHE_WIDTH * EFB_CACHE_HEIGHT];  // 2 for PeekZ and PeekColor
     
-    void APIENTRY ErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
-                                const char* message, const void* userParam)
+    static void APIENTRY ErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
+                                       GLsizei length, const char* message, const void* userParam)
     {
         const char* s_source;
         const char* s_type;
@@ -725,15 +725,15 @@ namespace OGL
                                          g_ogl_config.gl_renderer, g_ogl_config.gl_version),
                         5000);
         
-        if (!g_ogl_config.bSupportsGLBufferStorage && !g_ogl_config.bSupportsGLPinnedMemory)
-        {
-            OSD::AddMessage(
-                            StringFromFormat("Your OpenGL driver does not support %s_buffer_storage.",
-                                             GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGLES3 ? "EXT" : "ARB"),
-                            60000);
-            OSD::AddMessage("This device's performance will be terrible.", 60000);
-            OSD::AddMessage("Please ask your device vendor for an updated OpenGL driver.", 60000);
-        }
+//        if (!g_ogl_config.bSupportsGLBufferStorage && !g_ogl_config.bSupportsGLPinnedMemory)
+//        {
+//            OSD::AddMessage(
+//                            StringFromFormat("Your OpenGL driver does not support %s_buffer_storage.",
+//                                             GLInterface->GetMode() == GLInterfaceMode::MODE_OPENGLES3 ? "EXT" : "ARB"),
+//                            60000);
+//            OSD::AddMessage("This device's performance will be terrible.", 60000);
+//            OSD::AddMessage("Please ask your device vendor for an updated OpenGL driver.", 60000);
+//        }
         
         WARN_LOG(VIDEO, "Missing OGL Extensions: %s%s%s%s%s%s%s%s%s%s%s%s%s%s",
                  g_ActiveConfig.backend_info.bSupportsDualSourceBlend ? "" : "DualSourceBlend ",
@@ -1302,22 +1302,22 @@ namespace OGL
         }
         else
         {
-            const GLenum src_factors[8] = {
-                GL_ZERO,
+            const GLenum src_factors[8] = {GL_ZERO,
                 GL_ONE,
                 GL_DST_COLOR,
                 GL_ONE_MINUS_DST_COLOR,
                 useDualSource ? GL_SRC1_ALPHA : (GLenum)GL_SRC_ALPHA,
-                useDualSource ? GL_ONE_MINUS_SRC1_ALPHA : (GLenum)GL_ONE_MINUS_SRC_ALPHA,
+                useDualSource ? GL_ONE_MINUS_SRC1_ALPHA :
+                (GLenum)GL_ONE_MINUS_SRC_ALPHA,
                 GL_DST_ALPHA,
                 GL_ONE_MINUS_DST_ALPHA};
-            const GLenum dst_factors[8] = {
-                GL_ZERO,
+            const GLenum dst_factors[8] = {GL_ZERO,
                 GL_ONE,
                 GL_SRC_COLOR,
                 GL_ONE_MINUS_SRC_COLOR,
                 useDualSource ? GL_SRC1_ALPHA : (GLenum)GL_SRC_ALPHA,
-                useDualSource ? GL_ONE_MINUS_SRC1_ALPHA : (GLenum)GL_ONE_MINUS_SRC_ALPHA,
+                useDualSource ? GL_ONE_MINUS_SRC1_ALPHA :
+                (GLenum)GL_ONE_MINUS_SRC_ALPHA,
                 GL_DST_ALPHA,
                 GL_ONE_MINUS_DST_ALPHA};
             
@@ -1365,8 +1365,7 @@ namespace OGL
     }
     
     // This function has the final picture. We adjust the aspect ratio here.
-    void Renderer::SwapImpl(AbstractTexture* texture, const EFBRectangle& xfb_region, u64 ticks,
-                            float Gamma)
+    void Renderer::SwapImpl(AbstractTexture* texture, const EFBRectangle& xfb_region, u64 ticks)
     {
         if (g_ogl_config.bSupportsDebug)
         {
@@ -1395,10 +1394,10 @@ namespace OGL
         std::swap(flipped_trc.top, flipped_trc.bottom);
         
         // Skip screen rendering when running in headless mode.
-        if (true)
+        if (IsHeadless())
         {
             // Clear the framebuffer before drawing anything.
-            glBindFramebuffer(GL_FRAMEBUFFER, g_Config.iRenderFBO);
+            glBindFramebuffer(GL_FRAMEBUFFER,  g_Config.iRenderFBO);
             glClearColor(0, 0, 0, 0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             m_current_framebuffer = nullptr;
