@@ -375,6 +375,12 @@
 				<key>OEControlListKeyNameKey</key>
 				<string>OEWiiChangeExtension</string>
 			</dict>
+			<dict>
+				<key>OEControlListKeyLabelKey</key>
+				<string>Sideways</string>
+				<key>OEControlListKeyNameKey</key>
+				<string>OEWiiSideways</string>
+			</dict>
 		</array>
 	</array>
 	<key>OEControlTypesKey</key>
@@ -389,58 +395,60 @@
 			<string>OEWiiClassicAnalogRDown</string>
 			<string>OEWiiClassicAnalogRLeft</string>
 			<string>OEWiiClassicAnalogRRight</string>
+			<string>OEWiiClassicButtonL</string>
+			<string>OEWiiClassicButtonR</string>
 			<string>OEWiiNunchukAnalogUp</string>
 			<string>OEWiiNunchukAnalogDown</string>
 			<string>OEWiiNunchukAnalogLeft</string>
 			<string>OEWiiNunchukAnalogRight</string>
-            <string>OEWiiMoteSwingUp</string>
-            <string>OEWiiMoteSwingDown</string>
-            <string>OEWiiMoteSwingLeft</string>
-            <string>OEWiiMoteSwingRight</string>
-            <string>OEWiiMoteSwingForward</string>
-            <string>OEWiiMoteSwingBackward</string>
-            <string>OEWiiMoteTiltLeft</string>
-            <string>OEWiiMoteTiltRight</string>
-            <string>OEWiiMoteTiltForward</string>
-            <string>OEWiiMoteTiltBackward</string>
+			<string>OEWiiMoteSwingUp</string>
+			<string>OEWiiMoteSwingDown</string>
+			<string>OEWiiMoteSwingLeft</string>
+			<string>OEWiiMoteSwingRight</string>
+			<string>OEWiiMoteSwingForward</string>
+			<string>OEWiiMoteSwingBackward</string>
+			<string>OEWiiMoteTiltLeft</string>
+			<string>OEWiiMoteTiltRight</string>
+			<string>OEWiiMoteTiltForward</string>
+			<string>OEWiiMoteTiltBackward</string>
 		</array>
-        <key>OEAxisControlsKey</key>
-        <array>
-            <array>
-                <string>OEWiiMoteSwingUp</string>
-                <string>OEWiiMoteSwingDown</string>
-            </array>
-            <array>
-                <string>OEWiiMoteSwingLeft</string>
-                <string>OEWiiMoteSwingRight</string>
-            </array>
-            <array>
-                <string>OEWiiMoteSwingForward</string>
-                <string>OEWiiMoteSwingBackward</string>
-            </array>
-            <array>
-                <string>OEWiiMoteTiltLeft</string>
-                <string>OEWiiMoteTiltRight</string>
-            </array>
-            <array>
-                <string>OEWiiMoteTiltForward</string>
-                <string>OEWiiMoteTiltBackward</string>
-            </array>
-            <array>
-                <string>OEWiiClassicAnalogLUp</string>
-                <string>OEWiiClassicAnalogLDown</string>
-            </array>
-            <array>
-                <string>OEWiiClassicAnalogLLeft</string>
-                <string>OEWiiClassicAnalogLRight</string>
-            </array>
-            <array>
-                <string>OEWiiClassicAnalogRUp</string>
-                <string>OEWiiClassicAnalogRDown</string>
-            </array>
-            <array>
-                <string>OEWiiClassicAnalogRLeft</string>
-                <string>OEWiiClassicAnalogRRight</string>
+		<key>OEAxisControlsKey</key>
+		<array>
+			<array>
+				<string>OEWiiMoteSwingUp</string>
+				<string>OEWiiMoteSwingDown</string>
+			</array>
+			<array>
+				<string>OEWiiMoteSwingLeft</string>
+				<string>OEWiiMoteSwingRight</string>
+			</array>
+			<array>
+				<string>OEWiiMoteSwingForward</string>
+				<string>OEWiiMoteSwingBackward</string>
+			</array>
+			<array>
+				<string>OEWiiMoteTiltLeft</string>
+				<string>OEWiiMoteTiltRight</string>
+			</array>
+			<array>
+				<string>OEWiiMoteTiltForward</string>
+				<string>OEWiiMoteTiltBackward</string>
+			</array>
+			<array>
+				<string>OEWiiClassicAnalogLUp</string>
+				<string>OEWiiClassicAnalogLDown</string>
+			</array>
+			<array>
+				<string>OEWiiClassicAnalogLLeft</string>
+				<string>OEWiiClassicAnalogLRight</string>
+			</array>
+			<array>
+				<string>OEWiiClassicAnalogRUp</string>
+				<string>OEWiiClassicAnalogRDown</string>
+			</array>
+			<array>
+				<string>OEWiiClassicAnalogRLeft</string>
+				<string>OEWiiClassicAnalogRRight</string>
 			</array>
 			<array>
 				<string>OEWiiNunchukAnalogUp</string>
@@ -544,6 +552,7 @@
 		<string>OEWiiClassicButtonSelect</string>
 		<string>OEWiiClassicButtonHome</string>
 		<string>OEWiiChangeExtension</string>
+		<string>OEWiiSideways</string>
 	</array>
 	<key>OENumberOfPlayersKey</key>
 	<integer>4</integer>

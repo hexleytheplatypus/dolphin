@@ -82,7 +82,8 @@ typedef enum _OEWiiButton
     OEWiiClassicButtonSelect,
     OEWiiClassicButtonHome,
     OEWiiButtonCount,
-    OEWiiChangeExtension = 51
+    OEWiiChangeExtension = 51,
+    OEWiiSideways
 
 } OEWiiButton;
 
