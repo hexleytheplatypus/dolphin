@@ -932,6 +932,7 @@
 		EE32D85C207ABBBA0050B549 /* FileSystemProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */; };
 		EE3CCFA1205DF94100F0D04F /* GameFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3CCF9E205DF94000F0D04F /* GameFile.cpp */; };
 		EE5F71A220B322F80083D8D8 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE5F71A120B322F80083D8D8 /* Image.cpp */; };
+		EE89731420B60C3F00F073C1 /* MemoryPatches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89731220B60C3E00F073C1 /* MemoryPatches.cpp */; };
 		EE9C006C20A4F94000312609 /* Watches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006920A4F93F00312609 /* Watches.cpp */; };
 		EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006E20A4FA8B00312609 /* SysConf.cpp */; };
 		EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */; };
@@ -3120,7 +3121,7 @@
 		8355D4961A6538FD00E73302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8355D4E21A653B6600E73302 /* DolphinGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DolphinGameCore.h; sourceTree = "<group>"; };
 		8355D4E31A653B6600E73302 /* DolphinGameCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DolphinGameCore.mm; sourceTree = "<group>"; };
-		8355D4EA1A653E2600E73302 /* OEGCSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEGCSystemResponderClient.h; path = ../OpenEmu/OpenEmu/GameCube/OEGCSystemResponderClient.h; sourceTree = "<group>"; };
+		8355D4EA1A653E2600E73302 /* OEGCSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEGCSystemResponderClient.h; path = ../OpenEmu/GameCube/OEGCSystemResponderClient.h; sourceTree = "<group>"; };
 		8355D4F61A653ED300E73302 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		8378DEC51A7862DA003DA046 /* libxxhash-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxxhash-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8630BA4D77A74D9BA90EDC9F /* libSoundTouch-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libSoundTouch-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3181,6 +3182,8 @@
 		EE3CCF9F205DF94000F0D04F /* GameFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameFile.h; path = dolphin/Source/Core/UICommon/GameFile.h; sourceTree = "<group>"; };
 		EE5F71A020B322F70083D8D8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = dolphin/Source/Core/Common/Image.h; sourceTree = "<group>"; };
 		EE5F71A120B322F80083D8D8 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = dolphin/Source/Core/Common/Image.cpp; sourceTree = "<group>"; };
+		EE89731220B60C3E00F073C1 /* MemoryPatches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryPatches.cpp; sourceTree = "<group>"; };
+		EE89731320B60C3E00F073C1 /* MemoryPatches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryPatches.h; sourceTree = "<group>"; };
 		EE9C006820A4F93F00312609 /* Watches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Watches.h; sourceTree = "<group>"; };
 		EE9C006920A4F93F00312609 /* Watches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Watches.cpp; sourceTree = "<group>"; };
 		EE9C006E20A4FA8B00312609 /* SysConf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SysConf.cpp; path = dolphin/Source/Core/Core/SysConf.cpp; sourceTree = "<group>"; };
@@ -6162,6 +6165,8 @@
 		EE9C006720A4F93F00312609 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
+				EE89731220B60C3E00F073C1 /* MemoryPatches.cpp */,
+				EE89731320B60C3E00F073C1 /* MemoryPatches.h */,
 				EE9C006820A4F93F00312609 /* Watches.h */,
 				EE9C006920A4F93F00312609 /* Watches.cpp */,
 			);
@@ -7194,6 +7199,7 @@
 				3E3D717C1C82B0BB00091C4D /* MathUtil.cpp in Sources */,
 				3E3D71951C82B0BB00091C4D /* x64FPURoundMode.cpp in Sources */,
 				3E3D71841C82B0BB00091C4D /* PerformanceCounter.cpp in Sources */,
+				EE89731420B60C3F00F073C1 /* MemoryPatches.cpp in Sources */,
 				3E3D71791C82B0BB00091C4D /* ConsoleListenerNix.cpp in Sources */,
 				3E3D71881C82B0BB00091C4D /* StringUtil.cpp in Sources */,
 				3E3D71741C82B0BB00091C4D /* GLUtil.cpp in Sources */,
@@ -8339,6 +8345,7 @@
 					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
+					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -8453,7 +8460,7 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
@@ -8893,8 +8900,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
-					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9007,8 +9013,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
-					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9429,8 +9434,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
-					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9525,7 +9529,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -12311,6 +12315,7 @@
 					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
+					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -12949,7 +12954,7 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
@@ -13106,7 +13111,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -14371,7 +14376,7 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
@@ -14542,7 +14547,7 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 				);
 				INSTALL_PATH = "";
@@ -14696,7 +14701,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -14859,7 +14864,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -15344,8 +15349,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/OpenEmu/GameCube",
-					"$(SRCROOT)/../OpenEmu/Wii",
+					"$(SRCROOT)/../OpenEmu/GameCube",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16407,6 +16411,7 @@
 					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
+					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -16480,7 +16485,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -16663,6 +16668,7 @@
 					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
+					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
