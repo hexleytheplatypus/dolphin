@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9A047C158727B80F588F7722FD3120E4E5B96C4C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9A047C158727B80F588F7722FD3120E4E5B96C4C" : 0,
+    "B3DAFA4E8DC41169A7FC9D30D8420929A5ED0B16" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0ACA0AE4-EE51-458C-ADC7-D0373A326399",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9A047C158727B80F588F7722FD3120E4E5B96C4C" : "dolphin\/",
+    "B3DAFA4E8DC41169A7FC9D30D8420929A5ED0B16" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Dolphin-Core",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Dolphin-Core.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/duckey77\/dolphin.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9A047C158727B80F588F7722FD3120E4E5B96C4C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/OpenEmu\/OpenEmu.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B3DAFA4E8DC41169A7FC9D30D8420929A5ED0B16"
+    }
+  ]
+}
