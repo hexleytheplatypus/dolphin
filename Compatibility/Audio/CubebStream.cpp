@@ -30,7 +30,7 @@ long CubebStream::DataCallback(cubeb_stream* stream, void* user_data, const void
     else
     {
         self->m_mixer->MixSurround(static_cast<float*>(output_buffer), num_frames);
-        [[_current ringBufferAtIndex:0] write:(const uint8_t *)output_buffer maxLength:num_frames * 2]; //FRAME_STEREO_SHORT];
+        [[_current ringBufferAtIndex:0] write:(const uint8_t *)output_buffer maxLength:num_frames * 2]; //FRAME_MONO_SHORT];
     }
     
     return num_frames;
