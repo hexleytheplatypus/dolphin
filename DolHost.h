@@ -29,6 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "Wii/OEWiiSystemResponderClient.h"
 
 #include "Core/GeckoCode.h"
+#include "Core/ActionReplay.h"
+#include "Core/ARDecrypt.h"
+
 #include "InputCommon/ControllerInterface/Device.h"
 
 #include "DiscIO/Enums.h"
@@ -68,9 +71,13 @@ public:
     bool CoreRunning();
 
     void SetCheat(std::string code, std::string value, bool enabled);
+    //Vector of all Codes
     std::vector<Gecko::GeckoCode> gcodes;
+    std::vector<ActionReplay::ARCode> arcodes;
+    //Individual codes
     Gecko::GeckoCode gcode;
-
+    ActionReplay::ARCode arcode;
+    
     private:
     
     static DolHost* m_instance;
