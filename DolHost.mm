@@ -1,6 +1,6 @@
 /*
  Copyright (c) 2016, OpenEmu Team
-
+ 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -11,7 +11,7 @@
  * Neither the name of the OpenEmu Team nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
-
+ 
  THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -96,96 +96,97 @@ DolHost::DolHost()
 
 void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 {
-    //Set the game file for the DolHost
+    // Set the game file for the DolHost
     _gamePath = cpath;
-
+    
     //Configure UI for OpenEmu directory structure
     UICommon::SetUserDirectory(supportDirectoryPath);
     UICommon::CreateDirectories();
-    //  Init the UI
+    // Init the UI
     UICommon::Init();
     
     // Database Settings
     SConfig::GetInstance().m_use_builtin_title_database = true;
-
+    
     //Setup the CPU Settings
     SConfig::GetInstance().bMMU = true;
     // SConfig::GetInstance().bSkipIdle = true;
-
     SConfig::GetInstance().bEnableCheats = true;
     SConfig::GetInstance().bBootToPause = false;
-
+    
     //Debug Settings
     SConfig::GetInstance().bEnableDebugging = false;
+#ifdef DEBUG
     SConfig::GetInstance().bOnScreenDisplayMessages = true;
+#else
+    SConfig::GetInstance().bOnScreenDisplayMessages = false;
+#endif
     SConfig::GetInstance().m_ShowFrameCount = false;
-
+    
     //Video
     SConfig::GetInstance().m_strVideoBackend = "OGL";
     VideoBackendBase::ActivateBackend(SConfig::GetInstance().m_strVideoBackend);
-
+    
     //Set the Sound
     SConfig::GetInstance().bDSPHLE = true;
     SConfig::GetInstance().bDSPThread = true;
     SConfig::GetInstance().m_Volume = 0;
-
+    
     //Split CPU thread from GPU
-    SConfig::GetInstance().bCPUThread = true;
-
+    SConfig::GetInstance().bCPUThread = false;
+    
     //Analitics
     SConfig::GetInstance().m_analytics_permission_asked = true;
     SConfig::GetInstance().m_analytics_enabled =  false;
     DolphinAnalytics::Instance()->ReloadConfig();
-
+    
     //Save them now
     SConfig::GetInstance().SaveSettings();
-
-   
+    
+    
     //Choose Wiimote Type
     _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
-
+    
     //Get game info from file path
     GetGameInfo();
-
+    
     if (!DiscIO::IsWii(_gameType))
     {
         SConfig::GetInstance().bWii = false;
-
+        
         //Set the wii format to false
         _wiiWAD = false;
-
-
+        
         //Create Memorycards by GameID
         std::string _memCardPath = File::GetUserPath(D_GCUSER_IDX) + DIR_SEP + _gameCountryDir + DIR_SEP + _gameID;
         std::string _memCardA = _memCardPath + "_A." + _gameCountryDir + ".raw";
         std::string _memCardB = _memCardPath +  "_B." + _gameCountryDir + ".raw";
-
+        
         SConfig::GetInstance().m_strMemoryCardA = _memCardA;
         SConfig::GetInstance().m_strMemoryCardB = _memCardB;
-
-        //Clear the WiiNAND path
-        SConfig::GetInstance().m_NANDPath = "";
+        
+        
     }
     else
     {
         SConfig::GetInstance().bWii = true;
-
+        
         //Set the wii type
         if (_gameType ==  DiscIO::Platform::WiiWAD)
             _wiiWAD = true;
         else
             _wiiWAD = false;
-
+        
         //clear the GC mem card paths
         SConfig::GetInstance().m_strMemoryCardA = "";
         SConfig::GetInstance().m_strMemoryCardB = "";
-
-        //Set the WiiNAND path
-        SConfig::GetInstance().m_NANDPath = supportDirectoryPath  + DIR_SEP + WII_USER_DIR;
-
+        
+        //Disable WiiNAD checks
+        SConfig::GetInstance().m_enable_signature_checks = false;
+        
         // Disable wiimote continuous scanning
         SConfig::GetInstance().m_WiimoteContinuousScanning = false;
-
+        
         //Set the Wiimote type
         WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(1, _wiiMoteType);
@@ -197,22 +198,22 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 # pragma mark - Execution
 bool DolHost::LoadFileAtPath()
 {
-
+    
     Core::SetOnStateChangedCallback([](Core::State state) {
         if (state == Core::State::Uninitialized)
             s_running.Clear();
     });
-
-//    DolphinAnalytics::Instance()->ReportDolphinStart("openEmu");
-//
-//    if (_wiiWAD)
-//        WiiUtils::InstallWAD(_gamePath);
-//    //    else
-//    //        WiiUtils::DoDiscUpdate(nil, _gameRegionName);
-
+    
+    //    DolphinAnalytics::Instance()->ReportDolphinStart("openEmu");
+    //
+    //    if (_wiiWAD)
+    //        WiiUtils::InstallWAD(_gamePath);
+    //    //    else
+    //    //        WiiUtils::DoDiscUpdate(nil, _gameRegionName);
+    
     if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath)))
         return false;
-
+    
     while (!Core::IsRunningAndStarted() && s_running.IsSet())
     {
         Core::HostDispatchJobs();
@@ -233,11 +234,11 @@ void DolHost::RequestStop()
 {
     Core::SetState(Core::State::Running);
     ProcessorInterface::PowerButton_Tap();
-
+    
     Core::Stop();
     while (CPU::GetState() != CPU::State::PowerDown)
         usleep(1000);
-
+    
     Core::Shutdown();
     UICommon::Shutdown();
 }
@@ -250,7 +251,7 @@ void DolHost::Reset()
 void DolHost::UpdateFrame()
 {
     Core::HostDispatchJobs();
-
+    
     if(_onBoot) _onBoot = false;
 }
 
@@ -258,7 +259,7 @@ bool DolHost::CoreRunning()
 {
     if (Core::GetState() == Core::State::Running)
         return true;
-
+    
     return false;
 }
 
@@ -288,6 +289,7 @@ void DolHost::SetVolume(float value)
 # pragma mark - Save states
 bool DolHost::setAutoloadFile(std::string saveStateFile)
 {
+    DolHost::LoadState(saveStateFile);
     return true;
 }
 
@@ -300,7 +302,7 @@ bool DolHost::SaveState(std::string saveStateFile)
 bool DolHost::LoadState(std::string saveStateFile)
 {
     State::LoadAs(saveStateFile);
-
+    
     if (DiscIO::IsWii(_gameType))
     {
         // We have to set the wiimote type, cause the gamesave may
@@ -309,7 +311,7 @@ bool DolHost::LoadState(std::string saveStateFile)
         WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
         WiimoteReal::ChangeWiimoteSource(3 , _wiiMoteType);
-
+        
         if( _wiiMoteType != WIIMOTE_SRC_EMU)
             WiimoteReal::Refresh();
     }
@@ -319,100 +321,152 @@ bool DolHost::LoadState(std::string saveStateFile)
 # pragma mark - Cheats
 void DolHost::SetCheat(std::string code, std::string type, bool enabled)
 {
-//    NSString* nscode = [NSString stringWithUTF8String:code.c_str()];
-//
-//    gcode.codes.clear();
-//    gcode.enabled = enabled;
-//
-//    // Sanitize
-//    nscode = [nscode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//
-//    // Remove any spaces
-//    nscode = [nscode stringByReplacingOccurrencesOfString:@" " withString:@""];
-//
-//    NSString *singleCode;
-//    NSArray *multipleCodes = [nscode componentsSeparatedByString:@"+"];
-//
-//    Gecko::GeckoCode::Code gcodecode;
-//    uint32_t cmd_addr, cmd_value;
-//
-//    for (singleCode in multipleCodes)
-//    {
-//        if ([singleCode length] == 16) // Gecko code
-//        {
-//            NSString *address = [singleCode substringWithRange:NSMakeRange(0, 8)];
-//            NSString *value = [singleCode substringWithRange:NSMakeRange(8, 8)];
-//
-//            bool success_addr = TryParse(std::string("0x") + [address UTF8String], &cmd_addr);
-//            bool success_val = TryParse(std::string("0x") + [value UTF8String], &cmd_value);
-//
-//            if (!success_addr || !success_val)
-//                return;
-//
-//            gcodecode.address = cmd_addr;
-//            gcodecode.data = cmd_value;
-//            gcode.codes.push_back(gcodecode);
-//        }
-//        else
-//        {
-//            return;
-//        }
-//    }
-//
-//    bool exists = false;
-//
-//    //  cycle through the codes in our vector
-//    for (Gecko::GeckoCode& gcompare : gcodes)
-//    {
-//        //If the code being modified is the same size as one in the vector, check each value
-//        if (gcompare.codes.size() == gcode.codes.size())
-//        {
-//            for(int i = 0; i < gcode.codes.size() ;i++)
-//            {
-//                if (gcompare.codes[i].address == gcode.codes[i].address && gcompare.codes[i].data == gcode.codes[i].data)
-//                {
-//                    exists = true;
-//                }
-//                else
-//                {
-//                    exists = false;
-//                    // If it's not the same, no need to look through all the codes
-//                    break;
-//                }
-//            }
-//        }
-//        if(exists)
-//        {
-//            gcompare.enabled = enabled;
-//            // If it exists, enable it, and we don't need to look at the rest of the codes
-//            break;
-//        }
-//    }
-//
-//    if(!exists)
-//        gcodes.push_back(gcode);
-//
-//    Gecko::SetActiveCodes(gcodes);
+    gcode.codes.clear();
+    gcode.enabled = enabled;
+    arcode.ops.clear();
+    arcode.active = enabled;
+    
+    Gecko::GeckoCode::Code gcodecode;
+    uint32_t cmd_addr, cmd_value;
+    
+    std::vector<std::string> arcode_encrypted_lines;
+    
+    //Get the code sent and sanitize it.
+    NSString* nscode = [NSString stringWithUTF8String:code.c_str()];
+    
+    //Remove whitespace
+    nscode = [nscode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    // Remove any spaces and dashes
+    nscode = [nscode stringByReplacingOccurrencesOfString:@" " withString:@""];
+    nscode = [nscode stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    
+    //Check if it is a valid Gecko or ActionReplay code
+    NSString *singleCode;
+    NSArray *multipleCodes = [nscode componentsSeparatedByString:@"+"];
+    
+    for (singleCode in multipleCodes)
+    {
+        if ([singleCode length] == 16) // Gecko code
+        {
+            NSString *address = [singleCode substringWithRange:NSMakeRange(0, 8)];
+            NSString *value = [singleCode substringWithRange:NSMakeRange(8, 8)];
+            
+            bool success_addr = TryParse(std::string("0x") + [address UTF8String], &cmd_addr);
+            bool success_val = TryParse(std::string("0x") + [value UTF8String], &cmd_value);
+            
+            if (!success_addr || !success_val)
+                return;
+            
+            gcodecode.address = cmd_addr;
+            gcodecode.data = cmd_value;
+            gcode.codes.push_back(gcodecode);
+        }
+        else if ([singleCode length] == 13) // Encrypted AR code
+        {
+            // Add the code to list encrypted lines
+            arcode_encrypted_lines.emplace_back([singleCode UTF8String]);
+        }
+        else
+        {
+            // Not a good code
+            return;
+        }
+    }
+    
+    if (arcode_encrypted_lines.size())
+    {
+        DecryptARCode(arcode_encrypted_lines,  &arcode.ops);
+    }
+    
+    bool exists = false;
+    
+    //Check to make sure the Gecko codes are not already in the list
+    //  cycle through the codes in our Gecko vector
+    for (Gecko::GeckoCode& gcompare : gcodes)
+    {
+        //If the code being modified is the same size as one in the vector, check each value
+        if (gcompare.codes.size() == gcode.codes.size())
+        {
+            for(int i = 0; i < gcode.codes.size() ;i++)
+            {
+                if (gcompare.codes[i].address == gcode.codes[i].address && gcompare.codes[i].data == gcode.codes[i].data)
+                {
+                    exists = true;
+                }
+                else
+                {
+                    exists = false;
+                    // If it's not the same, no need to look through all the codes
+                    break;
+                }
+            }
+        }
+        if(exists)
+        {
+            gcompare.enabled = enabled;
+            // If it exists, enable it, and we don't need to look at the rest of the codes
+            break;
+        }
+    }
+    
+    if(!exists)
+        gcodes.push_back(gcode);
+    
+    Gecko::SetActiveCodes(gcodes);
+    
+    
+    //Check to make sure the ARcode is not already in the list
+    //  cycle through the codes in our AR vector
+    for (ActionReplay::ARCode& acompare : arcodes)
+    {
+        if (acompare.ops.size() == arcode.ops.size())
+        {
+            for(int i = 0; i < arcode.ops.size() ;i++)
+            {
+                if (acompare.ops[i].cmd_addr == arcode.ops[i].cmd_addr && acompare.ops[i].value == arcode.ops[i].value)
+                {
+                    exists = true;
+                }
+                else
+                {
+                    exists = false;
+                    // If it's not the same, no need to look through all the codes
+                    break;
+                }
+            }
+        }
+        if(exists)
+        {
+            acompare.active = enabled;
+            // If it exists, enable it, and we don't need to look at the rest of the codes
+            break;
+        }
+    }
+    
+    if(!exists)
+        arcodes.push_back(arcode);
+    
+    ActionReplay::RunAllActive();
 }
 
 # pragma mark - Controls
 void DolHost::DisplayMessage(std::string message)
 {
-    //Core::DisplayMessage( message, 500);
 }
 
 void DolHost::setButtonState(int button, int state, int player)
 {
     player -= 1;
-
+    
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
-       setGameCubeButton(player, button, state);
+        setGameCubeButton(player, button, state);
     }
     else
     {
-       setWiiButton(player, button, state);
+        setWiiButton(player, button, state);
     }
-
+    
     if (button == OEWiiChangeExtension)
     {
         //set the Extension change state and return.  The next key pressed
@@ -420,7 +474,7 @@ void DolHost::setButtonState(int button, int state, int player)
         _wiiChangeExtension[player] = state;
         return;
     }
-
+    
     if ( _wiiChangeExtension[player] && state == 1)
     {
         if ( button <= OEWiiMoteSwingBackward ) {
@@ -439,7 +493,7 @@ void DolHost::setButtonState(int button, int state, int player)
 void DolHost::SetAxis(int button, float value, int player)
 {
     player -= 1;
-
+    
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
         setGameCubeAxis(player, button, value);
     }
@@ -454,7 +508,7 @@ void DolHost::changeWiimoteExtension(int extension, int player)
     //Player has already been adjusted befor call
     auto* ce_extension = static_cast<ControllerEmu::Extension*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Extension));
     ce_extension->switch_extension = extension;
-
+    
     WiiRemotes[player].extension = extension;
 }
 
@@ -468,7 +522,7 @@ void DolHost::SetIR(int player, float x, float y)
 void DolHost::GetGameInfo()
 {
     std::unique_ptr<DiscIO::Volume> pVolume = DiscIO::CreateVolumeFromFilename(_gamePath );
-
+    
     _gameID = pVolume->GetGameID();
     _gameRegion = pVolume->GetRegion() ;
     _gameCountry =  DiscIO::CountrySwitch(_gameID[3]);
@@ -481,19 +535,19 @@ std::string DolHost::GetNameOfRegion(DiscIO::Region region)
 {
     switch (region)
     {
-
+            
         case DiscIO::Region::NTSC_J:
             return "NTSC_J";
-
+            
         case DiscIO::Region::NTSC_U:
             return "NTSC_U";
-
+            
         case DiscIO::Region::PAL:
             return "PAL";
-
+            
         case DiscIO::Region::NTSC_K:
             return "NTSC_K";
-
+            
         case DiscIO::Region::Unknown:
         default:
             return nullptr;
@@ -506,12 +560,12 @@ std::string DolHost::GetDirOfCountry(DiscIO::Country country)
     {
         case DiscIO::Country::USA:
             return USA_DIR;
-
+            
         case DiscIO::Country::Taiwan:
         case DiscIO::Country::Korea:
         case DiscIO::Country::Japan:
             return JAP_DIR;
-
+            
         case DiscIO::Country::Australia:
         case DiscIO::Country::Europe:
         case DiscIO::Country::France:
@@ -522,7 +576,7 @@ std::string DolHost::GetDirOfCountry(DiscIO::Country country)
         case DiscIO::Country::Spain:
         case DiscIO::Country::World:
             return EUR_DIR;
-
+            
         case DiscIO::Country::Unknown:
         default:
             return nullptr;
@@ -532,23 +586,23 @@ std::string DolHost::GetDirOfCountry(DiscIO::Country country)
 # pragma mark - Dolphin Host callbacks
 void Host_NotifyMapLoaded() {}
 void Host_RefreshDSPDebuggerWindow() {}
-void Host_Message(int msg) {
-    if  ( msg == WM_USER_CREATE) {
+void Host_Message(HostMessageID id) {
+    if  ( id == HostMessageID::WMUserCreate ) {
 #ifdef DEBUG
         //We have to set FPS display here or it doesn't work
         g_Config.bShowFPS = true;
         Core::SetState(Core::State::Running);
 #endif
-
+        
         // Set the aspect to stretch
         g_Config.aspect_mode = AspectMode::Stretch;
-
+        
         // Core is up,  lets enable Hybric Ubershaders
         g_Config.iShaderCompilationMode = ShaderCompilationMode::SynchronousUberShaders;
         //g_Config.bPrecompileUberShaders = true;
         //g_Config.bBackgroundShaderCompiling = true;
         //g_Config.bDisableSpecializedShaders = false;
-
+        
         //Set the threads to auto (-1)
         g_Config.iShaderCompilerThreads = -1;
         g_Config.iShaderPrecompilerThreads = -1;
@@ -576,5 +630,5 @@ bool Host_RendererIsFullscreen() { return false; }
 void Host_ShowVideoConfig(void*, const std::string&) {}
 void Host_YieldToUI() {}
 void Host_UpdateProgressDialog(const char* caption, int position, int total) {
-   // OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total), 5000);
+    // OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total), 5000);
 }
