@@ -711,7 +711,7 @@ namespace File
 #if defined(_WIN32) || defined(LINUX_LOCAL_DEV)
 #define SYSDATA_DIR "Sys"
 #elif defined __APPLE__
-#define SYSDATA_DIR "Contents/Resources/Sys"
+#define SYSDATA_DIR "Sys"
 #else
 #ifdef DATA_DIR
 #define SYSDATA_DIR DATA_DIR "sys"
