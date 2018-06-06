@@ -63,9 +63,11 @@ DolphinGameCore *_current = 0;
     bool _isInitialized;
     float _frameInterval;
 
+    NSString *autoLoadStatefileName;
     NSString *_dolphinCoreModule;
     OEIntSize _dolphinCoreAspect;
     OEIntSize _dolphinCoreScreen;
+    
 }
 
 - (instancetype)init
@@ -254,10 +256,25 @@ DolphinGameCore *_current = 0;
 {
     if (!_isInitialized)
     {
-        dol_host->setAutoloadFile([fileName UTF8String]);
+        //Start a separate thread to load
+        autoLoadStatefileName = fileName;
+        
+        [NSThread detachNewThreadSelector:@selector(autoloadWaitThread) toTarget:self withObject:nil];
         block(true, nil);
     } else {
         block(dol_host->LoadState([fileName UTF8String]),nil);
+    }
+}
+
+- (void)autoloadWaitThread
+{
+    @autoreleasepool
+    {
+        //Wait here until we get the signal for full initialization
+        while (!_isInitialized)
+            usleep (100);
+        
+        dol_host->LoadState([autoLoadStatefileName UTF8String]);
     }
 }
 
