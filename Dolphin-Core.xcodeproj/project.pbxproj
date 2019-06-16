@@ -939,6 +939,11 @@
 		EE45F41E22B4389200C5D0C0 /* VulkanContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC411224A9F5900BA7436 /* VulkanContext.cpp */; };
 		EE45F41F22B4389200C5D0C0 /* VulkanLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC40F224A9F5900BA7436 /* VulkanLoader.cpp */; };
 		EE45F43222B43AC100C5D0C0 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC417224A9F5A00BA7436 /* BoundingBox.cpp */; };
+		EE45F43722B552A900C5D0C0 /* VolumeVerifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43522B552A900C5D0C0 /* VolumeVerifier.cpp */; };
+		EE45F43A22B552C500C5D0C0 /* LibusbUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43822B552C500C5D0C0 /* LibusbUtils.cpp */; };
+		EE45F43D22B5532100C5D0C0 /* AddressSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43C22B5532100C5D0C0 /* AddressSpace.cpp */; };
+		EE45F44022B553BF00C5D0C0 /* GCIFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */; };
+		EE45F44522B5542E00C5D0C0 /* DynamicLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F44422B5542E00C5D0C0 /* DynamicLibrary.cpp */; };
 		EE475766224AB2F30027BA05 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EE47576D224AB3160027BA05 /* InReadableOrder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EF12224AB2870077748D /* InReadableOrder.cpp */; };
 		EE47576E224AB3160027BA05 /* SpvBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EF16224AB2870077748D /* SpvBuilder.cpp */; };
@@ -1034,11 +1039,11 @@
 		EEF4EF0A224AAFCB0077748D /* Link.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EECB224AAE650077748D /* Link.cpp */; };
 		EEF4EF0D224AB1C30077748D /* libglslang-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF4EEEC224AAF5D0077748D /* libglslang-dol.a */; };
 		EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */; };
-		EEF8A0EF20B34506008678D3 /* GCpadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70291C82AF2A00091C4D /* GCpadEmu.cpp */; };
-		EEF8A0F020B34DA8008678D3 /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E53D5171C89E97A0006E44C /* WiimoteEmu.cpp */; };
+		EEF8A0EF20B34506008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		EEF8A0F020B34DA8008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		EEF8A0F120B350FB008678D3 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* input.cpp */; };
-		EEF8A0F220B35191008678D3 /* Classic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C61C90DE200017C7B1 /* Classic.cpp */; };
-		EEF8A0F320B3524E008678D3 /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E74B9C41C90DE100017C7B1 /* Nunchuk.cpp */; };
+		EEF8A0F220B35191008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		EEF8A0F320B3524E008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3268,6 +3273,16 @@
 		EE3EC41B224A9F5B00BA7436 /* StreamBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StreamBuffer.h; path = dolphin/Source/Core/VideoBackends/Vulkan/StreamBuffer.h; sourceTree = "<group>"; };
 		EE3EC41C224A9F5B00BA7436 /* CommandBufferManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandBufferManager.cpp; path = dolphin/Source/Core/VideoBackends/Vulkan/CommandBufferManager.cpp; sourceTree = "<group>"; };
 		EE3EC435224AA01500BA7436 /* libvideovulkan-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvideovulkan-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE45F43522B552A900C5D0C0 /* VolumeVerifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VolumeVerifier.cpp; path = dolphin/Source/Core/DiscIO/VolumeVerifier.cpp; sourceTree = "<group>"; };
+		EE45F43622B552A900C5D0C0 /* VolumeVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VolumeVerifier.h; path = dolphin/Source/Core/DiscIO/VolumeVerifier.h; sourceTree = "<group>"; };
+		EE45F43822B552C500C5D0C0 /* LibusbUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibusbUtils.cpp; path = dolphin/Source/Core/Core/LibusbUtils.cpp; sourceTree = "<group>"; };
+		EE45F43922B552C500C5D0C0 /* LibusbUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibusbUtils.h; path = dolphin/Source/Core/Core/LibusbUtils.h; sourceTree = "<group>"; };
+		EE45F43B22B5532100C5D0C0 /* AddressSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressSpace.h; sourceTree = "<group>"; };
+		EE45F43C22B5532100C5D0C0 /* AddressSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddressSpace.cpp; sourceTree = "<group>"; };
+		EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GCIFile.cpp; sourceTree = "<group>"; };
+		EE45F43F22B553BF00C5D0C0 /* GCIFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCIFile.h; sourceTree = "<group>"; };
+		EE45F44422B5542E00C5D0C0 /* DynamicLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicLibrary.cpp; sourceTree = "<group>"; };
+		EE45F44622B5543300C5D0C0 /* DynamicLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLibrary.h; sourceTree = "<group>"; };
 		EE47576C224AB2F30027BA05 /* libSPIRV-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSPIRV-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5F71A020B322F70083D8D8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = dolphin/Source/Core/Common/Image.h; sourceTree = "<group>"; };
 		EE5F71A120B322F80083D8D8 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = dolphin/Source/Core/Common/Image.cpp; sourceTree = "<group>"; };
@@ -3483,7 +3498,6 @@
 		EEF4EF25224AB2870077748D /* disassemble.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = disassemble.cpp; sourceTree = "<group>"; };
 		EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QoSSession.cpp; path = dolphin/Source/Core/Common/QoSSession.cpp; sourceTree = "<group>"; };
 		EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QoSSession.h; path = dolphin/Source/Core/Common/QoSSession.h; sourceTree = "<group>"; };
-		EEF8A0F520B38A81008678D3 /* WiimoteEmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WiimoteEmu.h; path = Input/WiimoteEmu.h; sourceTree = "<group>"; };
 		F4EAB8D2A0AA45A183467CCD /* libaudiocommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libaudiocommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65EF8E25FB448D2BA4D3070 /* libbdisasm-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libbdisasm-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F57C176374ABD8861D732 /* libinputcommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libinputcommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3959,6 +3973,8 @@
 		3E3D720D1C82B0F800091C4D /* HW */ = {
 			isa = PBXGroup;
 			children = (
+				EE45F43C22B5532100C5D0C0 /* AddressSpace.cpp */,
+				EE45F43B22B5532100C5D0C0 /* AddressSpace.h */,
 				EE68204B210537FC008D5405 /* WiiSaveStructs.h */,
 				EE1FAE9020AD027000748BE0 /* WiiSave.cpp */,
 				EE1FAE8F20AD027000748BE0 /* WiiSave.h */,
@@ -4832,6 +4848,8 @@
 		3E8EC6351F8434A900D79F27 /* GCMemcard */ = {
 			isa = PBXGroup;
 			children = (
+				EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */,
+				EE45F43F22B553BF00C5D0C0 /* GCIFile.h */,
 				3E8EC6361F8434A900D79F27 /* GCMemcard.cpp */,
 				3E8EC6371F8434A900D79F27 /* GCMemcard.h */,
 				3E8EC6381F8434A900D79F27 /* GCMemcardRaw.cpp */,
@@ -5620,6 +5638,8 @@
 		6305742E350948A6A90BE776 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE45F44422B5542E00C5D0C0 /* DynamicLibrary.cpp */,
+				EE45F44622B5543300C5D0C0 /* DynamicLibrary.h */,
 				EE8DD2BD224A7D01005E1AF5 /* Matrix.cpp */,
 				EE8DD2C0224A7D02005E1AF5 /* Matrix.h */,
 				EE8DD2BF224A7D02005E1AF5 /* VariantUtil.h */,
@@ -5766,6 +5786,8 @@
 		6D2FDDCA6C6A4DB0A094382B /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE45F43822B552C500C5D0C0 /* LibusbUtils.cpp */,
+				EE45F43922B552C500C5D0C0 /* LibusbUtils.h */,
 				EE9C006E20A4FA8B00312609 /* SysConf.cpp */,
 				EE9C006F20A4FA8C00312609 /* SysConf.h */,
 				3E3D71961C82B0F800091C4D /* ActionReplay.cpp */,
@@ -6176,6 +6198,8 @@
 		9B490B4BB8CE45D4B2A91AE9 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE45F43522B552A900C5D0C0 /* VolumeVerifier.cpp */,
+				EE45F43622B552A900C5D0C0 /* VolumeVerifier.h */,
 				3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */,
 				3E7AE8E71FB4E6750017E3D1 /* WiiSaveBanner.h */,
 				3E8EC56F1F84234E00D79F27 /* DirectoryBlob.cpp */,
@@ -7662,7 +7686,7 @@
 			name = "CMake Rules";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "make -C $SRCROOT -f $SRCROOT/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			shellScript = "make -C $SRCROOT -f $SRCROOT/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all\n";
 			showEnvVarsInLog = 0;
 		};
 		D9F51C2BE3ED498E88652CCD /* CMake PostBuild Rules */ = {
@@ -7727,6 +7751,7 @@
 				3E3D739F1C82B0F900091C4D /* DSPDebugInterface.cpp in Sources */,
 				3E3D736B1C82B0F900091C4D /* DSPHWInterface.cpp in Sources */,
 				EE149BA5205A270F008D5DDE /* DSPJitExtOps.cpp in Sources */,
+				EE45F44022B553BF00C5D0C0 /* GCIFile.cpp in Sources */,
 				3E8EC6BD1F8436F100D79F27 /* DSPIntBranch.cpp in Sources */,
 				3EFF26471F845CA500B4FD11 /* GameConfigLoader.cpp in Sources */,
 				3E3D73C81C82B0F900091C4D /* Sram.cpp in Sources */,
@@ -7743,6 +7768,7 @@
 				EE8DD29222493134005E1AF5 /* ExtensionPort.cpp in Sources */,
 				3E3D740C1C82B0F900091C4D /* Jit64AsmCommon.cpp in Sources */,
 				EE8DD29422493134005E1AF5 /* I2CBus.cpp in Sources */,
+				EE45F43D22B5532100C5D0C0 /* AddressSpace.cpp in Sources */,
 				3E8EC6651F8434AA00D79F27 /* GCMemcard.cpp in Sources */,
 				3EFF26CD1F845CB800B4FD11 /* STM.cpp in Sources */,
 				EE8DD29722493134005E1AF5 /* Guitar.cpp in Sources */,
@@ -7776,7 +7802,7 @@
 				3EFF26D71F845CB800B4FD11 /* USBV0.cpp in Sources */,
 				3EFF26CF1F845CB800B4FD11 /* Common.cpp in Sources */,
 				3E3D73F91C82B0F900091C4D /* Interpreter_FloatingPoint.cpp in Sources */,
-				EEF8A0EF20B34506008678D3 /* GCpadEmu.cpp in Sources */,
+				EEF8A0EF20B34506008678D3 /* (null) in Sources */,
 				3E8EC65D1F8434AA00D79F27 /* SI_DeviceGCAdapter.cpp in Sources */,
 				3EFF27001F845E9F00B4FD11 /* DSYSignatureDB.cpp in Sources */,
 				3E8EC6E71F8437D000D79F27 /* RSO.cpp in Sources */,
@@ -7849,7 +7875,7 @@
 				3E8EC6BA1F8436F100D79F27 /* DSPIntArithmetic.cpp in Sources */,
 				3E3D73F71C82B0F900091C4D /* Interpreter.cpp in Sources */,
 				3E8EC6741F8434AA00D79F27 /* EXI_DeviceAD16.cpp in Sources */,
-				EEF8A0F320B3524E008678D3 /* Nunchuk.cpp in Sources */,
+				EEF8A0F320B3524E008678D3 /* (null) in Sources */,
 				3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */,
 				3E3D740A1C82B0F900091C4D /* JitAsm.cpp in Sources */,
 				3E3D73CA1C82B0F900091C4D /* SystemTimers.cpp in Sources */,
@@ -7860,7 +7886,7 @@
 				3EFF25241F84432A00B4FD11 /* IOhidapi.cpp in Sources */,
 				EE8DD29A22493134005E1AF5 /* Classic.cpp in Sources */,
 				EE149BAC205A270F008D5DDE /* DSPJitRegCache.cpp in Sources */,
-				EEF8A0F020B34DA8008678D3 /* WiimoteEmu.cpp in Sources */,
+				EEF8A0F020B34DA8008678D3 /* (null) in Sources */,
 				3EFF26C51F845CB800B4FD11 /* SSL.cpp in Sources */,
 				3E3D74021C82B0F900091C4D /* Jit_Branch.cpp in Sources */,
 				3EFF26C31F845CB800B4FD11 /* NetKDRequest.cpp in Sources */,
@@ -7942,7 +7968,7 @@
 				3E8EC6671F8434AA00D79F27 /* GCMemcardDirectory.cpp in Sources */,
 				EE149BA8205A270F008D5DDE /* DSPJitMultiplier.cpp in Sources */,
 				3E3D73751C82B0F900091C4D /* DSPStacks.cpp in Sources */,
-				EEF8A0F220B35191008678D3 /* Classic.cpp in Sources */,
+				EEF8A0F220B35191008678D3 /* (null) in Sources */,
 				3E3D73871C82B0F900091C4D /* FifoRecordAnalyzer.cpp in Sources */,
 				3E3D73B91C82B0F900091C4D /* GPFifo.cpp in Sources */,
 				3E3D74071C82B0F900091C4D /* Jit_LoadStorePaired.cpp in Sources */,
@@ -8013,6 +8039,7 @@
 				3E3D718E1C82B0BB00091C4D /* TraversalServer.cpp in Sources */,
 				3E3D71891C82B0BB00091C4D /* SymbolDB.cpp in Sources */,
 				3E3D718C1C82B0BB00091C4D /* Timer.cpp in Sources */,
+				EE45F44522B5542E00C5D0C0 /* DynamicLibrary.cpp in Sources */,
 				3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */,
 				EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */,
 				3E3D71851C82B0BB00091C4D /* Profiler.cpp in Sources */,
@@ -8377,6 +8404,7 @@
 				3E3D74601C82B11900091C4D /* CISOBlob.cpp in Sources */,
 				3E3D74611C82B11900091C4D /* CompressedBlob.cpp in Sources */,
 				3E3D74671C82B11900091C4D /* FileSystemGCWii.cpp in Sources */,
+				EE45F43A22B552C500C5D0C0 /* LibusbUtils.cpp in Sources */,
 				3E3D746D1C82B11900091C4D /* VolumeWad.cpp in Sources */,
 				3E3D745F1C82B11900091C4D /* Blob.cpp in Sources */,
 				3E8EC57C1F84235200D79F27 /* DiscExtractor.cpp in Sources */,
@@ -8386,6 +8414,7 @@
 				3E8EC57A1F84235200D79F27 /* DirectoryBlob.cpp in Sources */,
 				3E8EC5781F84235200D79F27 /* TGCBlob.cpp in Sources */,
 				3E3D746C1C82B11900091C4D /* VolumeGC.cpp in Sources */,
+				EE45F43722B552A900C5D0C0 /* VolumeVerifier.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9236,7 +9265,7 @@
 		098D706D88F5476AB3F87766 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9486,7 +9515,7 @@
 		10E805D1AC08401CAA14F257 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9555,7 +9584,7 @@
 		15FA53E6E93B41BBAED4E9D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -12933,7 +12962,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -13050,7 +13079,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -13149,6 +13178,7 @@
 		4BC25E013F36494A9574A3A4 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13212,7 +13242,7 @@
 		525CBF637C2B418390686DFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13307,7 +13337,7 @@
 		557EF7ACEE8441178F76C109 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13624,7 +13654,7 @@
 		62F05EAE5B6D492A948C8945 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -14098,6 +14128,7 @@
 		7507BABEF5044674979D7E12 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14205,7 +14236,7 @@
 		7979D13279224D33A118E4D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14928,7 +14959,7 @@
 		8399FF363C10476EA3F596FF /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15041,7 +15072,7 @@
 		87E6FC0AC4E54581878556F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -15364,7 +15395,7 @@
 		9528A9B0D3964B67B091B29C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15901,7 +15932,7 @@
 		ACE3815271814EA68A385D6E /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15966,7 +15997,7 @@
 		B3DE03CF80984E219B552383 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16033,7 +16064,7 @@
 		B7BD9FDF6EFD4E989E69B64C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16163,7 +16194,7 @@
 		C185D7D662624640B3B8D2BF /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16386,7 +16417,7 @@
 		C8168A83F3A04FDE954055A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16622,6 +16653,7 @@
 		CDD6955DC1184656A98FC154 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16825,6 +16857,7 @@
 		D6787AE7AD5549ECA4F14D15 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16888,7 +16921,7 @@
 		DA7E057F71A44967864EE9DA /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -17141,7 +17174,7 @@
 		E7A50BDC45124E0F8CC00C7D /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17249,7 +17282,7 @@
 		E8D5D0D212324F67A9699452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17316,7 +17349,7 @@
 		EA2599831FF7477E8C2E5704 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17413,7 +17446,7 @@
 		EE3EC431224AA01500BA7436 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17504,7 +17537,7 @@
 		EE3EC432224AA01500BA7436 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17573,7 +17606,7 @@
 		EE3EC433224AA01500BA7436 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17642,7 +17675,7 @@
 		EE3EC434224AA01500BA7436 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -19170,7 +19203,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -19330,7 +19363,7 @@
 		F91334B38832461B8490C1BE /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -19428,7 +19461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
