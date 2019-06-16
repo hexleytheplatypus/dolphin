@@ -730,7 +730,6 @@
 		3EFF25C41F8444D200B4FD11 /* Tilt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5A71F842CB500D79F27 /* Tilt.cpp */; };
 		3EFF25C51F8444D200B4FD11 /* ModifySettingsButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5A81F842CB500D79F27 /* ModifySettingsButton.cpp */; };
 		3EFF25C61F8444D200B4FD11 /* Force.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5AB1F842CB500D79F27 /* Force.cpp */; };
-		3EFF25C71F8444D200B4FD11 /* BooleanSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5AE1F842CB500D79F27 /* BooleanSetting.cpp */; };
 		3EFF25C81F8444D200B4FD11 /* NumericSetting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5B11F842CB500D79F27 /* NumericSetting.cpp */; };
 		3EFF25C91F8444D200B4FD11 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5B51F842CB500D79F27 /* Input.cpp */; };
 		3EFF25CA1F8444D200B4FD11 /* Output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5B71F842CB500D79F27 /* Output.cpp */; };
@@ -2705,10 +2704,7 @@
 		3E8EC5A91F842CB500D79F27 /* AnalogStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogStick.h; sourceTree = "<group>"; };
 		3E8EC5AA1F842CB500D79F27 /* MixedTriggers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixedTriggers.h; sourceTree = "<group>"; };
 		3E8EC5AB1F842CB500D79F27 /* Force.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Force.cpp; sourceTree = "<group>"; };
-		3E8EC5AD1F842CB500D79F27 /* BooleanSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooleanSetting.h; sourceTree = "<group>"; };
-		3E8EC5AE1F842CB500D79F27 /* BooleanSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BooleanSetting.cpp; sourceTree = "<group>"; };
 		3E8EC5AF1F842CB500D79F27 /* NumericSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumericSetting.h; sourceTree = "<group>"; };
-		3E8EC5B01F842CB500D79F27 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		3E8EC5B11F842CB500D79F27 /* NumericSetting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumericSetting.cpp; sourceTree = "<group>"; };
 		3E8EC5B31F842CB500D79F27 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
 		3E8EC5B41F842CB500D79F27 /* Control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Control.h; sourceTree = "<group>"; };
@@ -4703,10 +4699,7 @@
 		3E8EC5AC1F842CB500D79F27 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC5AD1F842CB500D79F27 /* BooleanSetting.h */,
-				3E8EC5AE1F842CB500D79F27 /* BooleanSetting.cpp */,
 				3E8EC5AF1F842CB500D79F27 /* NumericSetting.h */,
-				3E8EC5B01F842CB500D79F27 /* Setting.h */,
 				3E8EC5B11F842CB500D79F27 /* NumericSetting.cpp */,
 			);
 			path = Setting;
@@ -8423,7 +8416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EFF25C41F8444D200B4FD11 /* Tilt.cpp in Sources */,
-				3EFF25C71F8444D200B4FD11 /* BooleanSetting.cpp in Sources */,
 				3EFF25BB1F8444D100B4FD11 /* ControllerEmu.cpp in Sources */,
 				3EFF25B41F8444D100B4FD11 /* OSXJoystick.mm in Sources */,
 				3EFF25C01F8444D100B4FD11 /* Triggers.cpp in Sources */,
@@ -9838,7 +9830,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9952,7 +9944,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10168,7 +10160,7 @@
 		317BF5D950F8415BAB5C0A6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10374,7 +10366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15724,7 +15716,7 @@
 		A63110C819D34F00AA752A86 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16129,7 +16121,7 @@
 		BA983C9BDCB14B26B8F88E6F /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16300,7 +16292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -19298,7 +19290,7 @@
 		F8D393DDB7B145579EF2A181 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
