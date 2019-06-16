@@ -34,6 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "InputCommon/ControllerInterface/Device.h"
 
+#include "DolphinNoGUI/Platform.h"
+
 #include "DiscIO/Enums.h"
 
 class DolHost {

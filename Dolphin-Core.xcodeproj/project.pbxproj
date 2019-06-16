@@ -912,6 +912,22 @@
 		EE32D85A207ABBBA0050B549 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D851207ABBB90050B549 /* File.cpp */; };
 		EE32D85B207ABBBA0050B549 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D852207ABBB90050B549 /* FS.cpp */; };
 		EE32D85C207ABBBA0050B549 /* FileSystemProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */; };
+		EE3A462122B5DCBB00031B56 /* DynamicLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462022B5DCBA00031B56 /* DynamicLibrary.cpp */; };
+		EE3A462A22B5EECA00031B56 /* rsa_internal.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462222B5EEC800031B56 /* rsa_internal.c */; };
+		EE3A462B22B5EECA00031B56 /* platform_util.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462322B5EEC900031B56 /* platform_util.c */; };
+		EE3A462C22B5EECA00031B56 /* hkdf.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462422B5EEC900031B56 /* hkdf.c */; };
+		EE3A462D22B5EECA00031B56 /* nist_kw.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462522B5EEC900031B56 /* nist_kw.c */; };
+		EE3A462E22B5EECA00031B56 /* chachapoly.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462622B5EEC900031B56 /* chachapoly.c */; };
+		EE3A462F22B5EECA00031B56 /* aria.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462722B5EEC900031B56 /* aria.c */; };
+		EE3A463022B5EECA00031B56 /* chacha20.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462822B5EEC900031B56 /* chacha20.c */; };
+		EE3A463122B5EECA00031B56 /* poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462922B5EECA00031B56 /* poly1305.c */; };
+		EE3A463822B5F23C00031B56 /* TaTaCon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3A463322B5F23B00031B56 /* TaTaCon.cpp */; };
+		EE3A463922B5F23C00031B56 /* UDrawTablet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3A463422B5F23B00031B56 /* UDrawTablet.cpp */; };
+		EE3A463A22B5F23C00031B56 /* DrawsomeTablet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3A463622B5F23C00031B56 /* DrawsomeTablet.cpp */; };
+		EE3A463E22B5F5A900031B56 /* NetPlayGolfUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3A463B22B5F29C00031B56 /* NetPlayGolfUI.cpp */; };
+		EE3A465B22B6878C00031B56 /* posix.cc in Sources */ = {isa = PBXBuildFile; fileRef = EE3A461D22B5D9D700031B56 /* posix.cc */; };
+		EE3A465C22B6878F00031B56 /* format.cc in Sources */ = {isa = PBXBuildFile; fileRef = EE3A461E22B5D9D700031B56 /* format.cc */; };
+		EE3A465F22B6880800031B56 /* libfmt-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3A465A22B6874500031B56 /* libfmt-dol.a */; };
 		EE3CCFA1205DF94100F0D04F /* GameFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3CCF9E205DF94000F0D04F /* GameFile.cpp */; };
 		EE3EC3EC224A819500BA7436 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD26122492A9F005E1AF5 /* imgui_widgets.cpp */; };
 		EE3EC3ED224A819A00BA7436 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD26922492A9F005E1AF5 /* imgui_draw.cpp */; };
@@ -942,7 +958,6 @@
 		EE45F43A22B552C500C5D0C0 /* LibusbUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43822B552C500C5D0C0 /* LibusbUtils.cpp */; };
 		EE45F43D22B5532100C5D0C0 /* AddressSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43C22B5532100C5D0C0 /* AddressSpace.cpp */; };
 		EE45F44022B553BF00C5D0C0 /* GCIFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */; };
-		EE45F44522B5542E00C5D0C0 /* DynamicLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE45F44422B5542E00C5D0C0 /* DynamicLibrary.cpp */; };
 		EE475766224AB2F30027BA05 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EE47576D224AB3160027BA05 /* InReadableOrder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EF12224AB2870077748D /* InReadableOrder.cpp */; };
 		EE47576E224AB3160027BA05 /* SpvBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EF16224AB2870077748D /* SpvBuilder.cpp */; };
@@ -963,7 +978,6 @@
 		EE68205C2105393D008D5405 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6820592105393C008D5405 /* Random.cpp */; };
 		EE68205D2105393D008D5405 /* SFMLHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68205A2105393C008D5405 /* SFMLHelper.cpp */; };
 		EE68206321053A31008D5405 /* DiscordPresence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68206121053A31008D5405 /* DiscordPresence.cpp */; };
-		EE68206821053AFC008D5405 /* WiimoteInputSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68206421053AFB008D5405 /* WiimoteInputSettings.cpp */; };
 		EE68206921053AFC008D5405 /* UISettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68206721053AFC008D5405 /* UISettings.cpp */; };
 		EE89731420B60C3F00F073C1 /* MemoryPatches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89731220B60C3E00F073C1 /* MemoryPatches.cpp */; };
 		EE8DD25922492637005E1AF5 /* Attachments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD25722492636005E1AF5 /* Attachments.cpp */; };
@@ -1472,6 +1486,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B0D48831F54442B2AEF377D1;
 			remoteInfo = miniupnpc;
+		};
+		EE3A465D22B687FA00031B56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE3A464922B6874500031B56;
+			remoteInfo = fmt;
 		};
 		EE3EC41F224AA01500BA7436 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3222,6 +3243,70 @@
 		EE32D854207ABBBA0050B549 /* FileSystemProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystemProxy.cpp; sourceTree = "<group>"; };
 		EE32D855207ABBBA0050B549 /* FileSystemProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemProxy.h; sourceTree = "<group>"; };
 		EE32D856207ABBBA0050B549 /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
+		EE3A45F322B5D9D700031B56 /* time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = time.h; sourceTree = "<group>"; };
+		EE3A45F422B5D9D700031B56 /* ostream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
+		EE3A45F522B5D9D700031B56 /* format-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "format-inl.h"; sourceTree = "<group>"; };
+		EE3A45F622B5D9D700031B56 /* ranges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ranges.h; sourceTree = "<group>"; };
+		EE3A45F722B5D9D700031B56 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
+		EE3A45F822B5D9D700031B56 /* locale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = locale.h; sourceTree = "<group>"; };
+		EE3A45F922B5D9D700031B56 /* chrono.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chrono.h; sourceTree = "<group>"; };
+		EE3A45FA22B5D9D700031B56 /* color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		EE3A45FB22B5D9D700031B56 /* printf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = printf.h; sourceTree = "<group>"; };
+		EE3A45FC22B5D9D700031B56 /* posix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = posix.h; sourceTree = "<group>"; };
+		EE3A45FD22B5D9D700031B56 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		EE3A460022B5D9D700031B56 /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
+		EE3A460222B5D9D700031B56 /* fmt.pc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = fmt.pc.in; sourceTree = "<group>"; };
+		EE3A460322B5D9D700031B56 /* fmt-config.cmake.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fmt-config.cmake.in"; sourceTree = "<group>"; };
+		EE3A460422B5D9D700031B56 /* FindSetEnv.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = FindSetEnv.cmake; sourceTree = "<group>"; };
+		EE3A460522B5D9D700031B56 /* run-cmake.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = "run-cmake.bat"; sourceTree = "<group>"; };
+		EE3A460622B5D9D700031B56 /* cxx14.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = cxx14.cmake; sourceTree = "<group>"; };
+		EE3A460722B5D9D700031B56 /* docopt.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = docopt.py; sourceTree = "<group>"; };
+		EE3A460822B5D9D700031B56 /* travis-build.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "travis-build.py"; sourceTree = "<group>"; };
+		EE3A460922B5D9D700031B56 /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AndroidManifest.xml; sourceTree = "<group>"; };
+		EE3A460A22B5D9D700031B56 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		EE3A460B22B5D9D700031B56 /* appveyor.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = appveyor.yml; sourceTree = "<group>"; };
+		EE3A460C22B5D9D700031B56 /* appveyor-build.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "appveyor-build.py"; sourceTree = "<group>"; };
+		EE3A460D22B5D9D700031B56 /* build.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = build.gradle; sourceTree = "<group>"; };
+		EE3A460F22B5D9D700031B56 /* index.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.rst; sourceTree = "<group>"; };
+		EE3A461022B5D9D700031B56 /* conf.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = conf.py; sourceTree = "<group>"; };
+		EE3A461222B5D9D700031B56 /* layout.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = layout.html; sourceTree = "<group>"; };
+		EE3A461322B5D9D700031B56 /* theme.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = theme.conf; sourceTree = "<group>"; };
+		EE3A461422B5D9D700031B56 /* compute-powers.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "compute-powers.py"; sourceTree = "<group>"; };
+		EE3A461522B5D9D700031B56 /* fmt.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = fmt.pro; sourceTree = "<group>"; };
+		EE3A461622B5D9D700031B56 /* manage.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = manage.py; sourceTree = "<group>"; };
+		EE3A461722B5D9D700031B56 /* update-coverity-branch.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "update-coverity-branch.py"; sourceTree = "<group>"; };
+		EE3A461822B5D9D700031B56 /* rst2md.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = rst2md.py; sourceTree = "<group>"; };
+		EE3A461D22B5D9D700031B56 /* posix.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = posix.cc; sourceTree = "<group>"; };
+		EE3A461E22B5D9D700031B56 /* format.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = format.cc; sourceTree = "<group>"; };
+		EE3A461F22B5DCBA00031B56 /* DynamicLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLibrary.h; path = dolphin/Source/Core/Common/DynamicLibrary.h; sourceTree = "<group>"; };
+		EE3A462022B5DCBA00031B56 /* DynamicLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DynamicLibrary.cpp; path = dolphin/Source/Core/Common/DynamicLibrary.cpp; sourceTree = "<group>"; };
+		EE3A462222B5EEC800031B56 /* rsa_internal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rsa_internal.c; path = dolphin/Externals/mbedtls/library/rsa_internal.c; sourceTree = "<group>"; };
+		EE3A462322B5EEC900031B56 /* platform_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = platform_util.c; path = dolphin/Externals/mbedtls/library/platform_util.c; sourceTree = "<group>"; };
+		EE3A462422B5EEC900031B56 /* hkdf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hkdf.c; path = dolphin/Externals/mbedtls/library/hkdf.c; sourceTree = "<group>"; };
+		EE3A462522B5EEC900031B56 /* nist_kw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = nist_kw.c; path = dolphin/Externals/mbedtls/library/nist_kw.c; sourceTree = "<group>"; };
+		EE3A462622B5EEC900031B56 /* chachapoly.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = chachapoly.c; path = dolphin/Externals/mbedtls/library/chachapoly.c; sourceTree = "<group>"; };
+		EE3A462722B5EEC900031B56 /* aria.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = aria.c; path = dolphin/Externals/mbedtls/library/aria.c; sourceTree = "<group>"; };
+		EE3A462822B5EEC900031B56 /* chacha20.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = chacha20.c; path = dolphin/Externals/mbedtls/library/chacha20.c; sourceTree = "<group>"; };
+		EE3A462922B5EECA00031B56 /* poly1305.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = poly1305.c; path = dolphin/Externals/mbedtls/library/poly1305.c; sourceTree = "<group>"; };
+		EE3A463222B5F23A00031B56 /* UDrawTablet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDrawTablet.h; sourceTree = "<group>"; };
+		EE3A463322B5F23B00031B56 /* TaTaCon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TaTaCon.cpp; sourceTree = "<group>"; };
+		EE3A463422B5F23B00031B56 /* UDrawTablet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDrawTablet.cpp; sourceTree = "<group>"; };
+		EE3A463522B5F23B00031B56 /* DrawsomeTablet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawsomeTablet.h; sourceTree = "<group>"; };
+		EE3A463622B5F23C00031B56 /* DrawsomeTablet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawsomeTablet.cpp; sourceTree = "<group>"; };
+		EE3A463722B5F23C00031B56 /* TaTaCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaTaCon.h; sourceTree = "<group>"; };
+		EE3A463B22B5F29C00031B56 /* NetPlayGolfUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NetPlayGolfUI.cpp; path = dolphin/Source/Core/VideoCommon/NetPlayGolfUI.cpp; sourceTree = "<group>"; };
+		EE3A463C22B5F29D00031B56 /* NetPlayGolfUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetPlayGolfUI.h; path = dolphin/Source/Core/VideoCommon/NetPlayGolfUI.h; sourceTree = "<group>"; };
+		EE3A463F22B682EA00031B56 /* SocketSelector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SocketSelector.hpp; path = dolphin/Externals/SFML/include/SFML/Network/SocketSelector.hpp; sourceTree = "<group>"; };
+		EE3A464022B682EA00031B56 /* Http.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Http.hpp; path = dolphin/Externals/SFML/include/SFML/Network/Http.hpp; sourceTree = "<group>"; };
+		EE3A464122B682EA00031B56 /* Socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Socket.hpp; path = dolphin/Externals/SFML/include/SFML/Network/Socket.hpp; sourceTree = "<group>"; };
+		EE3A464222B682EA00031B56 /* SocketHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SocketHandle.hpp; path = dolphin/Externals/SFML/include/SFML/Network/SocketHandle.hpp; sourceTree = "<group>"; };
+		EE3A464322B682EB00031B56 /* IPAddress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IPAddress.hpp; path = dolphin/Externals/SFML/include/SFML/Network/IPAddress.hpp; sourceTree = "<group>"; };
+		EE3A464422B682EB00031B56 /* Packet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Packet.hpp; path = dolphin/Externals/SFML/include/SFML/Network/Packet.hpp; sourceTree = "<group>"; };
+		EE3A464522B682EB00031B56 /* Export.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Export.hpp; path = dolphin/Externals/SFML/include/SFML/Network/Export.hpp; sourceTree = "<group>"; };
+		EE3A464622B682EB00031B56 /* TcpSocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TcpSocket.hpp; path = dolphin/Externals/SFML/include/SFML/Network/TcpSocket.hpp; sourceTree = "<group>"; };
+		EE3A464722B682EB00031B56 /* UdpSocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UdpSocket.hpp; path = dolphin/Externals/SFML/include/SFML/Network/UdpSocket.hpp; sourceTree = "<group>"; };
+		EE3A464822B682EB00031B56 /* TcpListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TcpListener.hpp; path = dolphin/Externals/SFML/include/SFML/Network/TcpListener.hpp; sourceTree = "<group>"; };
+		EE3A465A22B6874500031B56 /* libfmt-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libfmt-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3CCF9A205DF87400F0D04F /* TextureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureCache.h; path = dolphin/Source/Core/VideoBackends/Software/TextureCache.h; sourceTree = "<group>"; };
 		EE3CCF9B205DF87400F0D04F /* CopyRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CopyRegion.h; path = dolphin/Source/Core/VideoBackends/Software/CopyRegion.h; sourceTree = "<group>"; };
 		EE3CCF9C205DF93F00F0D04F /* CommandLineParse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CommandLineParse.cpp; path = dolphin/Source/Core/UICommon/CommandLineParse.cpp; sourceTree = "<group>"; };
@@ -3277,8 +3362,6 @@
 		EE45F43C22B5532100C5D0C0 /* AddressSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddressSpace.cpp; sourceTree = "<group>"; };
 		EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GCIFile.cpp; sourceTree = "<group>"; };
 		EE45F43F22B553BF00C5D0C0 /* GCIFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCIFile.h; sourceTree = "<group>"; };
-		EE45F44422B5542E00C5D0C0 /* DynamicLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicLibrary.cpp; sourceTree = "<group>"; };
-		EE45F44622B5543300C5D0C0 /* DynamicLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicLibrary.h; sourceTree = "<group>"; };
 		EE47576C224AB2F30027BA05 /* libSPIRV-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSPIRV-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5F71A020B322F70083D8D8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = dolphin/Source/Core/Common/Image.h; sourceTree = "<group>"; };
 		EE5F71A120B322F80083D8D8 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = dolphin/Source/Core/Common/Image.cpp; sourceTree = "<group>"; };
@@ -3297,8 +3380,6 @@
 		EE68205B2105393D008D5405 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = dolphin/Source/Core/Common/Random.h; sourceTree = "<group>"; };
 		EE68206021053A30008D5405 /* DiscordPresence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscordPresence.h; path = dolphin/Source/Core/UICommon/DiscordPresence.h; sourceTree = "<group>"; };
 		EE68206121053A31008D5405 /* DiscordPresence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DiscordPresence.cpp; path = dolphin/Source/Core/UICommon/DiscordPresence.cpp; sourceTree = "<group>"; };
-		EE68206421053AFB008D5405 /* WiimoteInputSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WiimoteInputSettings.cpp; sourceTree = "<group>"; };
-		EE68206521053AFC008D5405 /* WiimoteInputSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiimoteInputSettings.h; sourceTree = "<group>"; };
 		EE68206621053AFC008D5405 /* UISettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISettings.h; sourceTree = "<group>"; };
 		EE68206721053AFC008D5405 /* UISettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UISettings.cpp; sourceTree = "<group>"; };
 		EE7D6ED621408760004EDA2F /* MMU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMU.h; sourceTree = "<group>"; };
@@ -3557,6 +3638,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE3A465F22B6880800031B56 /* libfmt-dol.a in Frameworks */,
 				EE475779224AB4C50027BA05 /* libvideovulkan-dol.a in Frameworks */,
 				EE475778224AB4BF0027BA05 /* libglslang-dol.a in Frameworks */,
 				EE475777224AB4B80027BA05 /* libSPIRV-dol.a in Frameworks */,
@@ -3624,6 +3706,13 @@
 				EE8DD2ED224A8058005E1AF5 /* libimgui-dol.a in Frameworks */,
 				3EFF28991F855A2100B4FD11 /* libpng-dol.a in Frameworks */,
 				8378DED21A78665A003DA046 /* libxxhash-dol.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE3A465322B6874500031B56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4226,6 +4315,14 @@
 		3E3D76B21C839C6F00091C4D /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE3A462722B5EEC900031B56 /* aria.c */,
+				EE3A462822B5EEC900031B56 /* chacha20.c */,
+				EE3A462622B5EEC900031B56 /* chachapoly.c */,
+				EE3A462422B5EEC900031B56 /* hkdf.c */,
+				EE3A462522B5EEC900031B56 /* nist_kw.c */,
+				EE3A462322B5EEC900031B56 /* platform_util.c */,
+				EE3A462922B5EECA00031B56 /* poly1305.c */,
+				EE3A462222B5EEC800031B56 /* rsa_internal.c */,
 				3EFF29311F85626700B4FD11 /* cmac.c */,
 				3EFF292F1F85626600B4FD11 /* ecjpake.c */,
 				3EFF29301F85626600B4FD11 /* net_sockets.c */,
@@ -4958,6 +5055,7 @@
 		3EFF25201F843C7B00B4FD11 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				EE3A45EE22B5D9D700031B56 /* fmt */,
 				EEC94A4E224ABFD200F85ABA /* OGLCompilersDLL */,
 				EEF4EF0E224AB2870077748D /* SPIRV */,
 				EEF4EE7D224AAE650077748D /* glslang */,
@@ -5022,8 +5120,6 @@
 			children = (
 				EE68206721053AFC008D5405 /* UISettings.cpp */,
 				EE68206621053AFC008D5405 /* UISettings.h */,
-				EE68206421053AFB008D5405 /* WiimoteInputSettings.cpp */,
-				EE68206521053AFC008D5405 /* WiimoteInputSettings.h */,
 				3EFF262E1F845CA400B4FD11 /* SYSCONFSettings.cpp */,
 				3EFF262F1F845CA400B4FD11 /* NetplaySettings.h */,
 				3EFF26301F845CA400B4FD11 /* GraphicsSettings.h */,
@@ -5585,6 +5681,16 @@
 		5413D8EBB5DD43B7950B938E /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE3A464522B682EB00031B56 /* Export.hpp */,
+				EE3A464022B682EA00031B56 /* Http.hpp */,
+				EE3A464322B682EB00031B56 /* IPAddress.hpp */,
+				EE3A464422B682EB00031B56 /* Packet.hpp */,
+				EE3A464122B682EA00031B56 /* Socket.hpp */,
+				EE3A464222B682EA00031B56 /* SocketHandle.hpp */,
+				EE3A463F22B682EA00031B56 /* SocketSelector.hpp */,
+				EE3A464822B682EB00031B56 /* TcpListener.hpp */,
+				EE3A464622B682EB00031B56 /* TcpSocket.hpp */,
+				EE3A464722B682EB00031B56 /* UdpSocket.hpp */,
 				3E3D750B1C82B20700091C4D /* Http.cpp */,
 				3E3D750C1C82B20700091C4D /* IPAddress.cpp */,
 				3E3D750D1C82B20700091C4D /* Packet.cpp */,
@@ -5631,8 +5737,8 @@
 		6305742E350948A6A90BE776 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				EE45F44422B5542E00C5D0C0 /* DynamicLibrary.cpp */,
-				EE45F44622B5543300C5D0C0 /* DynamicLibrary.h */,
+				EE3A462022B5DCBA00031B56 /* DynamicLibrary.cpp */,
+				EE3A461F22B5DCBA00031B56 /* DynamicLibrary.h */,
 				EE8DD2BD224A7D01005E1AF5 /* Matrix.cpp */,
 				EE8DD2C0224A7D02005E1AF5 /* Matrix.h */,
 				EE8DD2BF224A7D02005E1AF5 /* VariantUtil.h */,
@@ -6048,6 +6154,8 @@
 		9A59815A64234E7AA215090A /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE3A463B22B5F29C00031B56 /* NetPlayGolfUI.cpp */,
+				EE3A463C22B5F29D00031B56 /* NetPlayGolfUI.h */,
 				EE3EC3F0224A827B00BA7436 /* NetPlayChatUI.cpp */,
 				EE3EC3EF224A827B00BA7436 /* NetPlayChatUI.h */,
 				EE8DD27522492B87005E1AF5 /* FramebufferManager.cpp */,
@@ -6284,6 +6392,7 @@
 				EEF4EEEC224AAF5D0077748D /* libglslang-dol.a */,
 				EE47576C224AB2F30027BA05 /* libSPIRV-dol.a */,
 				EEC94A62224ABFDC00F85ABA /* libOGLCompilersDLL-dol.a */,
+				EE3A465A22B6874500031B56 /* libfmt-dol.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6528,6 +6637,105 @@
 			path = HostBackend;
 			sourceTree = "<group>";
 		};
+		EE3A45EE22B5D9D700031B56 /* fmt */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A45F122B5D9D700031B56 /* include */,
+				EE3A45FF22B5D9D700031B56 /* support */,
+				EE3A461C22B5D9D700031B56 /* src */,
+			);
+			name = fmt;
+			path = dolphin/Externals/fmt;
+			sourceTree = "<group>";
+		};
+		EE3A45F122B5D9D700031B56 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A45F222B5D9D700031B56 /* fmt */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		EE3A45F222B5D9D700031B56 /* fmt */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A45F322B5D9D700031B56 /* time.h */,
+				EE3A45F422B5D9D700031B56 /* ostream.h */,
+				EE3A45F522B5D9D700031B56 /* format-inl.h */,
+				EE3A45F622B5D9D700031B56 /* ranges.h */,
+				EE3A45F722B5D9D700031B56 /* core.h */,
+				EE3A45F822B5D9D700031B56 /* locale.h */,
+				EE3A45F922B5D9D700031B56 /* chrono.h */,
+				EE3A45FA22B5D9D700031B56 /* color.h */,
+				EE3A45FB22B5D9D700031B56 /* printf.h */,
+				EE3A45FC22B5D9D700031B56 /* posix.h */,
+				EE3A45FD22B5D9D700031B56 /* format.h */,
+			);
+			path = fmt;
+			sourceTree = "<group>";
+		};
+		EE3A45FF22B5D9D700031B56 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A460022B5D9D700031B56 /* Android.mk */,
+				EE3A460122B5D9D700031B56 /* cmake */,
+				EE3A460722B5D9D700031B56 /* docopt.py */,
+				EE3A460822B5D9D700031B56 /* travis-build.py */,
+				EE3A460922B5D9D700031B56 /* AndroidManifest.xml */,
+				EE3A460A22B5D9D700031B56 /* README */,
+				EE3A460B22B5D9D700031B56 /* appveyor.yml */,
+				EE3A460C22B5D9D700031B56 /* appveyor-build.py */,
+				EE3A460D22B5D9D700031B56 /* build.gradle */,
+				EE3A460E22B5D9D700031B56 /* rtd */,
+				EE3A461422B5D9D700031B56 /* compute-powers.py */,
+				EE3A461522B5D9D700031B56 /* fmt.pro */,
+				EE3A461622B5D9D700031B56 /* manage.py */,
+				EE3A461722B5D9D700031B56 /* update-coverity-branch.py */,
+				EE3A461822B5D9D700031B56 /* rst2md.py */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		EE3A460122B5D9D700031B56 /* cmake */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A460222B5D9D700031B56 /* fmt.pc.in */,
+				EE3A460322B5D9D700031B56 /* fmt-config.cmake.in */,
+				EE3A460422B5D9D700031B56 /* FindSetEnv.cmake */,
+				EE3A460522B5D9D700031B56 /* run-cmake.bat */,
+				EE3A460622B5D9D700031B56 /* cxx14.cmake */,
+			);
+			path = cmake;
+			sourceTree = "<group>";
+		};
+		EE3A460E22B5D9D700031B56 /* rtd */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A460F22B5D9D700031B56 /* index.rst */,
+				EE3A461022B5D9D700031B56 /* conf.py */,
+				EE3A461122B5D9D700031B56 /* theme */,
+			);
+			path = rtd;
+			sourceTree = "<group>";
+		};
+		EE3A461122B5D9D700031B56 /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A461222B5D9D700031B56 /* layout.html */,
+				EE3A461322B5D9D700031B56 /* theme.conf */,
+			);
+			path = theme;
+			sourceTree = "<group>";
+		};
+		EE3A461C22B5D9D700031B56 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				EE3A461D22B5D9D700031B56 /* posix.cc */,
+				EE3A461E22B5D9D700031B56 /* format.cc */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		EE3EC3F5224A9EF200BA7436 /* videovulkan */ = {
 			isa = PBXGroup;
 			children = (
@@ -6604,6 +6812,12 @@
 		EE8DD28122493133005E1AF5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				EE3A463622B5F23C00031B56 /* DrawsomeTablet.cpp */,
+				EE3A463522B5F23B00031B56 /* DrawsomeTablet.h */,
+				EE3A463322B5F23B00031B56 /* TaTaCon.cpp */,
+				EE3A463722B5F23C00031B56 /* TaTaCon.h */,
+				EE3A463422B5F23B00031B56 /* UDrawTablet.cpp */,
+				EE3A463222B5F23A00031B56 /* UDrawTablet.h */,
 				EE8DD28222493133005E1AF5 /* Extension.cpp */,
 				EE8DD28322493133005E1AF5 /* Guitar.cpp */,
 				EE8DD28422493133005E1AF5 /* Nunchuk.h */,
@@ -6926,6 +7140,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE3A465422B6874500031B56 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -7095,6 +7316,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EE3A465E22B687FA00031B56 /* PBXTargetDependency */,
 				EE47577B224AB4D20027BA05 /* PBXTargetDependency */,
 				3EFF295E1F85D07E00B4FD11 /* PBXTargetDependency */,
 				3EFF28BC1F855D2600B4FD11 /* PBXTargetDependency */,
@@ -7362,6 +7584,23 @@
 			productReference = 0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		EE3A464922B6874500031B56 /* fmt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE3A465522B6874500031B56 /* Build configuration list for PBXNativeTarget "fmt" */;
+			buildPhases = (
+				EE3A464A22B6874500031B56 /* Sources */,
+				EE3A465322B6874500031B56 /* Frameworks */,
+				EE3A465422B6874500031B56 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fmt;
+			productName = enet;
+			productReference = EE3A465A22B6874500031B56 /* libfmt-dol.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		EE3EC41D224AA01500BA7436 /* videovulkan */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE3EC430224AA01500BA7436 /* Build configuration list for PBXNativeTarget "videovulkan" */;
@@ -7599,6 +7838,7 @@
 				EEF4EECC224AAF5D0077748D /* glslang */,
 				EE475745224AB2F30027BA05 /* SPIRV */,
 				EEC94A52224ABFDC00F85ABA /* OGLCompilersDLL */,
+				EE3A464922B6874500031B56 /* fmt */,
 			);
 		};
 /* End PBXProject section */
@@ -7792,6 +8032,7 @@
 				3EFF26C81F845CB800B4FD11 /* ICMPLin.cpp in Sources */,
 				3E3D73741C82B0F900091C4D /* DSPMemoryMap.cpp in Sources */,
 				3E8EC6D31F84376E00D79F27 /* EmuCodeBlock.cpp in Sources */,
+				EE3A463A22B5F23C00031B56 /* DrawsomeTablet.cpp in Sources */,
 				3EFF26D71F845CB800B4FD11 /* USBV0.cpp in Sources */,
 				3EFF26CF1F845CB800B4FD11 /* Common.cpp in Sources */,
 				3E3D73F91C82B0F900091C4D /* Interpreter_FloatingPoint.cpp in Sources */,
@@ -7885,6 +8126,7 @@
 				3EFF26C31F845CB800B4FD11 /* NetKDRequest.cpp in Sources */,
 				3E3D73C91C82B0F900091C4D /* StreamADPCM.cpp in Sources */,
 				3E3D735C1C82B0F900091C4D /* BootManager.cpp in Sources */,
+				EE3A463922B5F23C00031B56 /* UDrawTablet.cpp in Sources */,
 				3EFF26E41F845CB800B4FD11 /* NandUtils.cpp in Sources */,
 				EEC11BB922612C750071C25E /* Device.cpp in Sources */,
 				3E8EC6A81F8434C700D79F27 /* EmuSubroutines.cpp in Sources */,
@@ -7907,6 +8149,7 @@
 				3E3D738B1C82B0F900091C4D /* HLE.cpp in Sources */,
 				3E8EC6EA1F8437EC00D79F27 /* HLE_VarArgs.cpp in Sources */,
 				EE8DD2AB2249347D005E1AF5 /* JitRegCache.cpp in Sources */,
+				EE3A463822B5F23C00031B56 /* TaTaCon.cpp in Sources */,
 				EE68206921053AFC008D5405 /* UISettings.cpp in Sources */,
 				3EFF26E21F845CB800B4FD11 /* TitleInformation.cpp in Sources */,
 				3E3D73B21C82B0F900091C4D /* GCKeyboard.cpp in Sources */,
@@ -7924,7 +8167,6 @@
 				3EFF26E01F845CB800B4FD11 /* Host.cpp in Sources */,
 				3E3D73F31C82B0F900091C4D /* NetPlayServer.cpp in Sources */,
 				3E3D73991C82B0F900091C4D /* CARD.cpp in Sources */,
-				EE68206821053AFC008D5405 /* WiimoteInputSettings.cpp in Sources */,
 				3E3D73971C82B0F900091C4D /* AX.cpp in Sources */,
 				3E3D735D1C82B0F900091C4D /* ConfigManager.cpp in Sources */,
 				3EFF26D81F845CB800B4FD11 /* WiimoteHIDAttr.cpp in Sources */,
@@ -8005,6 +8247,7 @@
 				3EFF28D31F855F2F00B4FD11 /* Layer.cpp in Sources */,
 				3E3D71901C82B0BB00091C4D /* Version.cpp in Sources */,
 				3EFF260A1F84560100B4FD11 /* CommonFuncs.cpp in Sources */,
+				EE3A462122B5DCBB00031B56 /* DynamicLibrary.cpp in Sources */,
 				3E3D71611C82B0BB00091C4D /* CDUtils.cpp in Sources */,
 				3E3D71941C82B0BB00091C4D /* x64Emitter.cpp in Sources */,
 				3E8D25F71D21D8C80086BA59 /* Analytics.cpp in Sources */,
@@ -8032,7 +8275,6 @@
 				3E3D718E1C82B0BB00091C4D /* TraversalServer.cpp in Sources */,
 				3E3D71891C82B0BB00091C4D /* SymbolDB.cpp in Sources */,
 				3E3D718C1C82B0BB00091C4D /* Timer.cpp in Sources */,
-				EE45F44522B5542E00C5D0C0 /* DynamicLibrary.cpp in Sources */,
 				3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */,
 				EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */,
 				3E3D71851C82B0BB00091C4D /* Profiler.cpp in Sources */,
@@ -8088,10 +8330,12 @@
 				3E3D771A1C839C9600091C4D /* md5.c in Sources */,
 				3E3D76FB1C839C9600091C4D /* aesni.c in Sources */,
 				3E3D77121C839C9600091C4D /* gcm.c in Sources */,
+				EE3A463122B5EECA00031B56 /* poly1305.c in Sources */,
 				3E3D77251C839C9600091C4D /* pkparse.c in Sources */,
 				3E3D77361C839C9600091C4D /* version_features.c in Sources */,
 				3E3D77021C839C9600091C4D /* camellia.c in Sources */,
 				3E3D772E1C839C9600091C4D /* ssl_ciphersuites.c in Sources */,
+				EE3A462E22B5EECA00031B56 /* chachapoly.c in Sources */,
 				3E3D77091C839C9600091C4D /* des.c in Sources */,
 				3EFF29361F85627000B4FD11 /* cmac.c in Sources */,
 				3E3D77351C839C9600091C4D /* timing.c in Sources */,
@@ -8102,6 +8346,7 @@
 				3E3D770B1C839C9600091C4D /* ecdh.c in Sources */,
 				3E3D77131C839C9600091C4D /* havege.c in Sources */,
 				3E3D773A1C839C9600091C4D /* x509_crt.c in Sources */,
+				EE3A462B22B5EECA00031B56 /* platform_util.c in Sources */,
 				3E3D77391C839C9600091C4D /* x509_crl.c in Sources */,
 				3E3D77291C839C9600091C4D /* rsa.c in Sources */,
 				3E3D770E1C839C9600091C4D /* ecp.c in Sources */,
@@ -8109,6 +8354,7 @@
 				3E3D77221C839C9600091C4D /* pkcs5.c in Sources */,
 				3E3D77341C839C9600091C4D /* threading.c in Sources */,
 				3E3D76FC1C839C9600091C4D /* arc4.c in Sources */,
+				EE3A462D22B5EECA00031B56 /* nist_kw.c in Sources */,
 				3E3D771B1C839C9600091C4D /* memory_buffer_alloc.c in Sources */,
 				3E3D772F1C839C9600091C4D /* ssl_cli.c in Sources */,
 				3E3D77161C839C9600091C4D /* md_wrap.c in Sources */,
@@ -8125,13 +8371,16 @@
 				3E3D77171C839C9600091C4D /* md.c in Sources */,
 				3E3D76FE1C839C9600091C4D /* asn1write.c in Sources */,
 				3E3D76FD1C839C9600091C4D /* asn1parse.c in Sources */,
+				EE3A462F22B5EECA00031B56 /* aria.c in Sources */,
 				3E3D77041C839C9600091C4D /* certs.c in Sources */,
+				EE3A462C22B5EECA00031B56 /* hkdf.c in Sources */,
 				3E3D773B1C839C9600091C4D /* x509_csr.c in Sources */,
 				3E3D76FF1C839C9600091C4D /* base64.c in Sources */,
 				3E3D76FA1C839C9600091C4D /* aes.c in Sources */,
 				3E3D773F1C839C9600091C4D /* xtea.c in Sources */,
 				3E3D773D1C839C9600091C4D /* x509write_crt.c in Sources */,
 				3E3D77301C839C9600091C4D /* ssl_cookie.c in Sources */,
+				EE3A462A22B5EECA00031B56 /* rsa_internal.c in Sources */,
 				3E3D77181C839C9600091C4D /* md2.c in Sources */,
 				3E3D77061C839C9600091C4D /* cipher.c in Sources */,
 				3E3D77111C839C9600091C4D /* error.c in Sources */,
@@ -8148,6 +8397,7 @@
 				3EFF29371F85627000B4FD11 /* ecjpake.c in Sources */,
 				3E3D77051C839C9600091C4D /* cipher_wrap.c in Sources */,
 				3E3D77231C839C9600091C4D /* pkcs11.c in Sources */,
+				EE3A463022B5EECA00031B56 /* chacha20.c in Sources */,
 				3E3D77261C839C9600091C4D /* pkwrite.c in Sources */,
 				3E3D77031C839C9600091C4D /* ccm.c in Sources */,
 				3E3D77331C839C9600091C4D /* ssl_tls.c in Sources */,
@@ -8549,6 +8799,7 @@
 				3E3D76111C82B2DE00091C4D /* VertexLoaderARM64.cpp in Sources */,
 				3E3D76091C82B2DE00091C4D /* TextureDecoder_Common.cpp in Sources */,
 				3E3D761C1C82B2DE00091C4D /* XFStructs.cpp in Sources */,
+				EE3A463E22B5F5A900031B56 /* NetPlayGolfUI.cpp in Sources */,
 				3E3D760B1C82B2DE00091C4D /* TextureDecoder_x64.cpp in Sources */,
 				3E3D75FF1C82B2DE00091C4D /* OpcodeDecoding.cpp in Sources */,
 				3E3D75F21C82B2DE00091C4D /* CPMemory.cpp in Sources */,
@@ -8694,6 +8945,15 @@
 				3E3D70981C82B03600091C4D /* AudioCommon.cpp in Sources */,
 				3E3D709B1C82B03600091C4D /* Mixer.cpp in Sources */,
 				3E8EC58C1F8428E500D79F27 /* AudioStretcher.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE3A464A22B6874500031B56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE3A465C22B6878F00031B56 /* format.cc in Sources */,
+				EE3A465B22B6878C00031B56 /* posix.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9135,6 +9395,11 @@
 			target = AECE51C4C7E0411EA86B7548 /* pch */;
 			targetProxy = 64A64D118E9A420FA0458C02 /* PBXContainerItemProxy */;
 		};
+		EE3A465E22B687FA00031B56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE3A464922B6874500031B56 /* fmt */;
+			targetProxy = EE3A465D22B687FA00031B56 /* PBXContainerItemProxy */;
+		};
 		EE3EC41E224AA01500BA7436 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D825688E394642D19FD24A29 /* videosoftware */;
@@ -9285,7 +9550,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
@@ -9300,6 +9564,8 @@
 					$SRCROOT/dolphin/Externals/SOIL,
 					$SRCROOT/dolphin/Externals/xxhash,
 					$SRCROOT/dolphin/Externals/imgui,
+					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -9354,7 +9620,7 @@
 		0CF871F2A55246DDBAE30D00 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -9382,7 +9648,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
 				);
@@ -9390,6 +9655,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
+					$SRCROOT/dolphin/Externals/imgui,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -9838,14 +10104,15 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)",
+					"$(inherited)",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 				);
 				INSTALL_PATH = "";
@@ -9952,14 +10219,15 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)",
+					"$(inherited)",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 				);
 				INSTALL_PATH = "";
@@ -10330,7 +10598,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10374,14 +10642,15 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)",
+					"$(inherited)",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 				);
 				INSTALL_PATH = "";
@@ -10437,7 +10706,7 @@
 		3BA7B981243B4320AB679F9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10465,7 +10734,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -10482,9 +10750,11 @@
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/fmt/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -10496,7 +10766,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wtype-limits",
@@ -10518,7 +10787,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
@@ -10537,7 +10805,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10571,7 +10839,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Wii/WII-Info.plist";
 				INSTALL_PATH = "\"$USER_LIBRARY_DIR/Application Support/OpenEmu/Systems\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.Wii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10585,7 +10853,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10614,7 +10882,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Wii/WII-Info.plist";
 				INSTALL_PATH = "\"$USER_LIBRARY_DIR/Application Support/OpenEmu/Systems\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.Wii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10628,7 +10896,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10657,7 +10925,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Wii/WII-Info.plist";
 				INSTALL_PATH = "\"$USER_LIBRARY_DIR/Application Support/OpenEmu/Systems\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.Wii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10671,7 +10939,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10700,7 +10968,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Wii/WII-Info.plist";
 				INSTALL_PATH = "\"$USER_LIBRARY_DIR/Application Support/OpenEmu/Systems\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.Wii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10714,7 +10982,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10752,7 +11020,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/enet/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -10763,7 +11031,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10796,7 +11064,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/enet/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -10807,7 +11075,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10840,7 +11108,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/enet/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -10851,7 +11119,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10884,7 +11152,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/enet/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -10895,7 +11163,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10933,7 +11201,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -10944,7 +11212,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10977,7 +11245,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -10988,7 +11256,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11021,7 +11289,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -11032,7 +11300,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11065,7 +11333,7 @@
 					"$(SRCROOT)/Dolphin-Core",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -11076,7 +11344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11122,7 +11390,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
 				);
@@ -11138,7 +11405,7 @@
 					"$(SRCROOT)/dolphin/Externals/curl/lib",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -11149,7 +11416,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11193,7 +11460,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
 				);
@@ -11209,7 +11475,7 @@
 					"$(SRCROOT)/dolphin/Externals/curl/lib",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -11220,7 +11486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11264,7 +11530,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
 				);
@@ -11280,7 +11545,7 @@
 					"$(SRCROOT)/dolphin/Externals/curl/lib",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -11291,7 +11556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11335,7 +11600,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
 				);
@@ -11351,7 +11615,7 @@
 					"$(SRCROOT)/dolphin/Externals/curl/lib",
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SDKROOT = macosx;
@@ -11361,7 +11625,7 @@
 		3EFF25761F84437500B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11424,7 +11688,7 @@
 		3EFF25771F84437500B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11489,7 +11753,7 @@
 		3EFF25781F84437500B4FD11 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11554,7 +11818,7 @@
 		3EFF25791F84437500B4FD11 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11619,7 +11883,7 @@
 		3EFF27791F8461BC00B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11682,7 +11946,7 @@
 		3EFF277A1F8461BC00B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11747,7 +12011,7 @@
 		3EFF277B1F8461BC00B4FD11 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11812,7 +12076,7 @@
 		3EFF277C1F8461BC00B4FD11 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11877,7 +12141,7 @@
 		3EFF27821F8461CA00B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11905,7 +12169,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -11972,7 +12235,7 @@
 		3EFF27831F8461CA00B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12000,7 +12263,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12069,7 +12331,7 @@
 		3EFF27841F8461CA00B4FD11 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12097,7 +12359,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12166,7 +12427,7 @@
 		3EFF27851F8461CA00B4FD11 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12194,7 +12455,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12263,7 +12523,7 @@
 		3EFF28711F85514300B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12291,7 +12551,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12357,7 +12616,7 @@
 		3EFF28721F85514300B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12385,7 +12644,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12453,7 +12711,7 @@
 		3EFF28731F85514300B4FD11 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12481,7 +12739,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12549,7 +12806,7 @@
 		3EFF28741F85514300B4FD11 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12577,7 +12834,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -12645,7 +12901,7 @@
 		3EFF29161F85606C00B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -12709,7 +12965,7 @@
 		3EFF29171F85606C00B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -12775,7 +13031,7 @@
 		3EFF29181F85606C00B4FD11 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -12841,7 +13097,7 @@
 		3EFF29191F85606C00B4FD11 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -12986,7 +13242,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 				);
 				HEADER_SEARCH_PATHS = (
@@ -12994,7 +13249,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/Dolphin-Core",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -13103,7 +13358,6 @@
 					"'HAVE_WX=0'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 				);
 				HEADER_SEARCH_PATHS = (
@@ -13111,7 +13365,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/Dolphin-Core",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -13262,7 +13516,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
@@ -13277,6 +13530,8 @@
 					$SRCROOT/dolphin/Externals/SOIL,
 					$SRCROOT/dolphin/Externals/xxhash,
 					$SRCROOT/dolphin/Externals/imgui,
+					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13820,7 +14075,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13855,7 +14110,7 @@
 		734DA293A12F4BF49E0302B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13883,7 +14138,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
 				);
@@ -13891,6 +14145,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
+					$SRCROOT/dolphin/Externals/imgui,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -14023,7 +14278,7 @@
 		73C0A223F64C448F97CDA857 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14051,7 +14306,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -14068,9 +14322,11 @@
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/fmt/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -14081,7 +14337,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wtype-limits",
@@ -14102,7 +14357,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
@@ -14409,7 +14663,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -14471,7 +14725,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -14494,6 +14748,30 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -14528,7 +14806,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -14551,6 +14829,30 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=0'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -14585,7 +14887,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -14608,6 +14910,30 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -14677,7 +15003,7 @@
 		8378DEC11A7862DA003DA046 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -14705,13 +15031,12 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -14762,7 +15087,7 @@
 		8378DEC21A7862DA003DA046 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -14772,7 +15097,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -14825,7 +15150,7 @@
 		8378DEC31A7862DA003DA046 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -14835,7 +15160,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -14888,7 +15213,7 @@
 		8378DEC41A7862DA003DA046 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -14898,7 +15223,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -15280,7 +15605,7 @@
 		92293AACE1F64C17A580A2C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15308,7 +15633,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
 				);
@@ -15316,6 +15640,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
+					$SRCROOT/dolphin/Externals/imgui,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -15369,7 +15694,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
@@ -15452,7 +15776,7 @@
 		99C5A4E0B351470E9788DDC6 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15480,7 +15804,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
 				);
@@ -15488,6 +15811,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
+					$SRCROOT/dolphin/Externals/imgui,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -15617,7 +15941,7 @@
 		A464DDDC551349EAB1AC9E75 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15645,7 +15969,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -15662,9 +15985,11 @@
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/fmt/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -15676,7 +16001,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wtype-limits",
@@ -15698,7 +16022,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
@@ -15781,7 +16104,7 @@
 		AB2F9C0D335247BB81731B8D /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15809,7 +16132,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					"OpenEmu=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -15826,9 +16148,11 @@
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
 					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/fmt/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = (
 					"-x",
 					"objective-c",
@@ -15840,7 +16164,6 @@
 					"-msse2",
 					"-Wall",
 					"-fno-strict-aliasing",
-					"-fno-exceptions",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-Wtype-limits",
@@ -16256,7 +16579,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -16300,14 +16623,15 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					$SRCROOT,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)",
+					"$(inherited)",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 				);
 				INSTALL_PATH = "";
@@ -16437,7 +16761,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -16814,7 +17137,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17369,7 +17692,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
@@ -17384,6 +17706,8 @@
 					$SRCROOT/dolphin/Externals/SOIL,
 					$SRCROOT/dolphin/Externals/xxhash,
 					$SRCROOT/dolphin/Externals/imgui,
+					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -17435,6 +17759,191 @@
 			};
 			name = Release;
 		};
+		EE3A465622B6874500031B56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Dolphin-Core",
+					$SRCROOT/dolphin/Externals/fmt/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)-dol";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		EE3A465722B6874500031B56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Dolphin-Core",
+					$SRCROOT/dolphin/Externals/fmt/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)-dol";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		EE3A465822B6874500031B56 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Dolphin-Core",
+					$SRCROOT/dolphin/Externals/fmt/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)-dol";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = MinSizeRel;
+		};
+		EE3A465922B6874500031B56 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Dolphin-Core",
+					$SRCROOT/dolphin/Externals/fmt/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)-dol";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = RelWithDebInfo;
+		};
 		EE3EC431224AA01500BA7436 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -17466,7 +17975,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -17736,7 +18244,7 @@
 		EE475768224AB2F30027BA05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17764,7 +18272,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/SPIRV;
@@ -17819,7 +18326,7 @@
 		EE475769224AB2F30027BA05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17880,7 +18387,7 @@
 		EE47576A224AB2F30027BA05 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -17941,7 +18448,7 @@
 		EE47576B224AB2F30027BA05 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18002,7 +18509,7 @@
 		EE8DD26E22492AAB005E1AF5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18064,7 +18571,7 @@
 		EE8DD26F22492AAB005E1AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18128,7 +18635,7 @@
 		EE8DD27022492AAB005E1AF5 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18192,7 +18699,7 @@
 		EE8DD27122492AAB005E1AF5 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18256,7 +18763,7 @@
 		EE8DD2E2224A7F04005E1AF5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18284,7 +18791,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -18349,7 +18855,7 @@
 		EE8DD2E3224A7F04005E1AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18377,7 +18883,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -18444,7 +18949,7 @@
 		EE8DD2E4224A7F04005E1AF5 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18472,7 +18977,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -18539,7 +19043,7 @@
 		EE8DD2E5224A7F04005E1AF5 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18567,7 +19071,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
@@ -18634,7 +19137,7 @@
 		EEC94A5E224ABFDC00F85ABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18662,7 +19165,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/OGLCompilersDLL;
@@ -18717,7 +19219,7 @@
 		EEC94A5F224ABFDC00F85ABA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18778,7 +19280,7 @@
 		EEC94A60224ABFDC00F85ABA /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18839,7 +19341,7 @@
 		EEC94A61224ABFDC00F85ABA /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18900,7 +19402,7 @@
 		EEF4EEE8224AAF5D0077748D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -18928,7 +19430,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -18990,7 +19491,7 @@
 		EEF4EEE9224AAF5D0077748D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -19058,7 +19559,7 @@
 		EEF4EEEA224AAF5D0077748D /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -19126,7 +19627,7 @@
 		EEF4EEEB224AAF5D0077748D /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -19227,7 +19728,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 				);
 				HEADER_SEARCH_PATHS = (
@@ -19235,7 +19735,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/Dolphin-Core",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -19383,7 +19883,6 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 					"'HAVE_FFMPEG=0'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
@@ -19398,6 +19897,8 @@
 					$SRCROOT/dolphin/Externals/SOIL,
 					$SRCROOT/dolphin/Externals/xxhash,
 					$SRCROOT/dolphin/Externals/imgui,
+					$SRCROOT/dolphin/Externals/SFML/include,
+					$SRCROOT/dolphin/Externals/enet/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -19484,7 +19985,6 @@
 					"'HAVE_WX=0'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					"'HAVE_X11=0'",
 					OpenEmu,
 				);
 				HEADER_SEARCH_PATHS = (
@@ -19492,7 +19992,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/Dolphin-Core",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = $BUILD_DIR/$CONFIGURATION;
@@ -19921,6 +20421,17 @@
 				EA2599831FF7477E8C2E5704 /* Release */,
 				F91334B38832461B8490C1BE /* MinSizeRel */,
 				098D706D88F5476AB3F87766 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE3A465522B6874500031B56 /* Build configuration list for PBXNativeTarget "fmt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE3A465622B6874500031B56 /* Debug */,
+				EE3A465722B6874500031B56 /* Release */,
+				EE3A465822B6874500031B56 /* MinSizeRel */,
+				EE3A465922B6874500031B56 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
