@@ -12,7 +12,7 @@
 
 void init_Callback() {
     NSLog(@"Input Callback has set-up");
-    retro_set_input_state(input_cb);
+    openemu_set_input_state(input_cb);
 }
 
 typedef struct
@@ -31,18 +31,18 @@ typedef struct
 typedef struct
 {
     keymap gc_pad_keymap[12] = {
-        {OEGCButtonLeft, RETRO_DEVICE_ID_JOYPAD_LEFT, 0},
-        {OEGCButtonRight, RETRO_DEVICE_ID_JOYPAD_RIGHT, 0},
-        {OEGCButtonDown,RETRO_DEVICE_ID_JOYPAD_DOWN, 0},
-        {OEGCButtonUp, RETRO_DEVICE_ID_JOYPAD_UP, 0},
-        //{OEGCButtonZ, OE_DEVICE_ID_JOYPAD_Z, 0},
-        {OEGCButtonR, RETRO_DEVICE_ID_JOYPAD_R, 0},
-        {OEGCButtonL, RETRO_DEVICE_ID_JOYPAD_L, 0},
-        {OEGCButtonA, RETRO_DEVICE_ID_JOYPAD_A, 0},
-        {OEGCButtonB, RETRO_DEVICE_ID_JOYPAD_B, 0},
-        {OEGCButtonX, RETRO_DEVICE_ID_JOYPAD_X, 0},
-        {OEGCButtonY, RETRO_DEVICE_ID_JOYPAD_Y, 0},
-        {OEGCButtonStart, RETRO_DEVICE_ID_JOYPAD_START, 0},
+        {OEGCButtonLeft, OPENEMU_DEVICE_ID_JOYPAD_LEFT, 0},
+        {OEGCButtonRight, OPENEMU_DEVICE_ID_JOYPAD_RIGHT, 0},
+        {OEGCButtonDown,OPENEMU_DEVICE_ID_JOYPAD_DOWN, 0},
+        {OEGCButtonUp, OPENEMU_DEVICE_ID_JOYPAD_UP, 0},
+        //{OEGCButtonZ, OPENEMU_DEVICE_ID_JOYPAD_Z, 0},
+        {OEGCButtonR, OPENEMU_DEVICE_ID_JOYPAD_R, 0},
+        {OEGCButtonL, OPENEMU_DEVICE_ID_JOYPAD_L, 0},
+        {OEGCButtonA, OPENEMU_DEVICE_ID_JOYPAD_A, 0},
+        {OEGCButtonB, OPENEMU_DEVICE_ID_JOYPAD_B, 0},
+        {OEGCButtonX, OPENEMU_DEVICE_ID_JOYPAD_X, 0},
+        {OEGCButtonY, OPENEMU_DEVICE_ID_JOYPAD_Y, 0},
+        {OEGCButtonStart, OPENEMU_DEVICE_ID_JOYPAD_START, 0},
     };
 
     axismap gc_pad_Analog;
