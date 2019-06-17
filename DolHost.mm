@@ -219,13 +219,13 @@ bool DolHost::LoadFileAtPath()
     if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath), s_platform->GetWindowSystemInfo()))
         return false;
     
-    libOE::Input::Init();
+    Openemu_Input_Init();
+    
     //OPENEMUCORE::Input::ResetControllers();
     openemu_set_controller_port_device(1, OPENEMU_DEVICE_WIIMOTE_CC);
-    openemu_set_controller_port_device(2, OPENEMU_DEVICE_WIIMOTE_CC);
-    openemu_set_controller_port_device(3, OPENEMU_DEVICE_WIIMOTE_CC);
-    openemu_set_controller_port_device(4, OPENEMU_DEVICE_WIIMOTE_CC);
     
+    
+    init_Callback();
     
     while (!Core::IsRunningAndStarted() && s_running.IsSet())
     {

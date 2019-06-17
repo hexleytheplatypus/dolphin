@@ -90,8 +90,4 @@ typedef int16_t (*openemu_input_state_t)(unsigned port, unsigned device, unsigne
 void openemu_set_controller_port_device(unsigned port, unsigned device);
 void openemu_set_input_state(openemu_input_state_t);
 
-namespace libOE {
-    namespace Input {
-        void Init();
-    }
-}
+void Openemu_Input_Init();
