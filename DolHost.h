@@ -72,6 +72,8 @@ public:
 
     bool CoreRunning();
 
+    WindowSystemInfo GetWSI();
+    
     void SetCheat(std::string code, std::string value, bool enabled);
     //Vector of all Codes
     std::vector<Gecko::GeckoCode> gcodes;
@@ -106,4 +108,6 @@ public:
 
     void SetUpPlayerInputs();
     ciface::Core::Device::Input* m_playerInputs[4][OEWiiButtonCount];
+    
+    
 };

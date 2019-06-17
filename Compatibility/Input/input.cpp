@@ -377,7 +377,7 @@ namespace libOE
         {
  //           environ_cb(OPENEMU_ENVIRONMENT_GET_RUMBLE_INTERFACE, &rumble);
             
-            //g_controller_interface.Initialize(DolHost::GetInstance()->GetWSI());
+            g_controller_interface.Initialize(DolHost::GetInstance()->GetWSI());
             
             g_controller_interface.AddDevice(std::make_shared<Device>(OPENEMU_DEVICE_KEYBOARD, 0));
             

@@ -597,6 +597,11 @@ std::string DolHost::GetDirOfCountry(DiscIO::Country country)
     }
 }
 
+WindowSystemInfo DolHost::GetWSI()
+{
+    return s_platform->GetWindowSystemInfo();
+}
+
 # pragma mark - Dolphin Host callbacks
 void Host_NotifyMapLoaded() {}
 void Host_RefreshDSPDebuggerWindow() {}
