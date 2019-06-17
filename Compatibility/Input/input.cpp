@@ -21,7 +21,6 @@
 #include "InputCommon/ControlReference/ExpressionParser.h"
 #include "InputCommon/ControllerEmu/Control/Control.h"
 #include "InputCommon/ControllerEmu/ControlGroup/Attachments.h"
-//#include "InputCommon/ControllerEmu/Setting/BooleanSetting.h"
 #include "InputCommon/ControllerEmu/Setting/NumericSetting.h"
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 #include "InputCommon/GCPadStatus.h"
@@ -31,7 +30,7 @@
 
 extern WindowSystemInfo wsi;
 
-namespace Libretro
+namespace libOE
 {
     namespace Video
 
@@ -39,13 +38,10 @@ namespace Libretro
        
     }
     
- //   extern openemu_environment_t environ_cb;
     namespace Input
     {
-        static openemu_input_poll_t poll_cb;
         static openemu_input_state_t input_cb;
-        struct openemu_rumble_interface rumble;
-        static const std::string source = "Libretro";
+        static const std::string source = "OpenEmu";
         static unsigned input_types[4];
         
         static struct openemu_input_descriptor descGC[] = {
@@ -176,12 +172,12 @@ namespace Libretro
                     return "Analog";
                 case OPENEMU_DEVICE_MOUSE:
                     return "Mouse";
-                case OPENEMU_DEVICE_POINTER:
-                    return "Pointer";
-                case OPENEMU_DEVICE_KEYBOARD:
-                    return "Keyboard";
-                case OPENEMU_DEVICE_LIGHTGUN:
-                    return "Lightgun";
+//                case OPENEMU_DEVICE_POINTER:
+//                    return "Pointer";
+//                case OPENEMU_DEVICE_KEYBOARD:
+//                    return "Keyboard";
+//                case OPENEMU_DEVICE_LIGHTGUN:
+//                    return "Lightgun";
             }
             return "Unknown";
         }
@@ -243,8 +239,8 @@ namespace Libretro
                 {
                     uint16_t str = std::min(std::max(0.0, state), 1.0) * 0xFFFF;
                     
-                    rumble.set_rumble_state(m_port, OPENEMU_RUMBLE_WEAK, str);
-                    rumble.set_rumble_state(m_port, OPENEMU_RUMBLE_STRONG, str);
+                    //rumble.set_rumble_state(m_port, OPENEMU_RUMBLE_WEAK, str);
+                    //rumble.set_rumble_state(m_port, OPENEMU_RUMBLE_STRONG, str);
                 }
                 
             private:
@@ -265,7 +261,7 @@ namespace Libretro
             void UpdateInput() override
             {
 #if 0
-                Libretro::poll_cb();
+                libOE::poll_cb();
 #endif
             }
             std::string GetName() const override { return GetDeviceName(m_device); }
@@ -398,6 +394,7 @@ namespace Libretro
                     {"WiiMote + Nunchuk", OPENEMU_DEVICE_WIIMOTE_NC},
                     {"WiiMote + Classic Controller", OPENEMU_DEVICE_WIIMOTE_CC},
                     {"Real WiiMote", OPENEMU_DEVICE_REAL_WIIMOTE},
+                    {0},
                 };
                 
                 static const struct openemu_controller_info ports[] = {
@@ -435,12 +432,12 @@ namespace Libretro
             Pad::Shutdown();
             g_controller_interface.Shutdown();
             
-            rumble.set_rumble_state = nullptr;
+            //rumble.set_rumble_state = nullptr;
         }
         
         void Update()
         {
-            poll_cb();
+            //poll_cb();
 #ifdef __ANDROID__
             /* Android doesn't support input polling on all threads by default
              * this will force the poll for this frame to happen in the main thread
@@ -456,16 +453,16 @@ namespace Libretro
         }
         
     }  // namespace Input
-}  // namespace Libretro
+}  // namespace libOE
 
-void openemu_set_input_poll(openemu_input_poll_t cb)
-{
-    Libretro::Input::poll_cb = cb;
-}
+//void openemu_set_input_poll(openemu_input_poll_t cb)
+//{
+//    libOE::Input::poll_cb = cb;
+//}
 
 void openemu_set_input_state(openemu_input_state_t cb)
 {
-    Libretro::Input::input_cb = cb;
+    libOE::Input::input_cb = cb;
 }
 
 void openemu_set_controller_port_device(unsigned port, unsigned device)
@@ -473,20 +470,20 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
     if (port > 3)
         return;
     
-    Libretro::Input::input_types[port] = device;
+    libOE::Input::input_types[port] = device;
     
-    std::string devJoypad = Libretro::Input::GetQualifiedName(port, OPENEMU_DEVICE_JOYPAD);
-    std::string devAnalog = Libretro::Input::GetQualifiedName(port, OPENEMU_DEVICE_ANALOG);
-    std::string devPointer = Libretro::Input::GetQualifiedName(port, OPENEMU_DEVICE_POINTER);
+    std::string devJoypad = libOE::Input::GetQualifiedName(port, OPENEMU_DEVICE_JOYPAD);
+    std::string devAnalog = libOE::Input::GetQualifiedName(port, OPENEMU_DEVICE_ANALOG);
+    std::string devPointer = libOE::Input::GetQualifiedName(port, OPENEMU_DEVICE_POINTER);
 #if 0
-    std::string devMouse = Libretro::Input::GetQualifiedName(port, OPENEMU_DEVICE_MOUSE);
-    std::string devKeyboard = Libretro::Input::GetQualifiedName(port, OPENEMU_DEVICE_KEYBOARD);
-    std::string devLightgun = Libretro::Input::GetQualifiedName(port, OPENEMU_DEVICE_LIGHTGUN);
+    std::string devMouse = libOE::Input::GetQualifiedName(port, OPENEMU_DEVICE_MOUSE);
+    std::string devKeyboard = libOE::Input::GetQualifiedName(port, OPENEMU_DEVICE_KEYBOARD);
+    std::string devLightgun = libOE::Input::GetQualifiedName(port, OPENEMU_DEVICE_LIGHTGUN);
 #endif
     
-    Libretro::Input::RemoveDevicesForPort(port);
+    libOE::Input::RemoveDevicesForPort(port);
     if ((device & 0xff) != OPENEMU_DEVICE_NONE)
-        Libretro::Input::AddDevicesForPort(port);
+        libOE::Input::AddDevicesForPort(port);
     
     if (!SConfig::GetInstance().bWii)
     {
@@ -573,7 +570,7 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
             ccLeftStick->SetControlExpression(2, "`" + devAnalog + ":X0-`");      // Left
             ccLeftStick->SetControlExpression(3, "`" + devAnalog + ":X0+`");      // Right
             
-//            if (Libretro::Options::irMode != 1 && Libretro::Options::irMode != 2)
+//            if (libOE::Options::irMode != 1 && libOE::Options::irMode != 2)
 //            {
 //                ccRightStick->SetControlExpression(0, "`" + devAnalog + ":Y1-`");     // Up
 //                ccRightStick->SetControlExpression(1, "`" + devAnalog + ":Y1+`");     // Down
@@ -595,9 +592,9 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
             
             wmButtons->SetControlExpression(0, "A | `" + devPointer + ":Pressed0`");  // A
             wmButtons->SetControlExpression(1, "B");                                  // B
-//            wmIR->numeric_settings[0]->SetValue(Libretro::Options::irCenter / 100.0); // IR Center
-//            wmIR->numeric_settings[1]->SetValue(Libretro::Options::irWidth / 100.0);  // IR Width
-//            wmIR->numeric_settings[2]->SetValue(Libretro::Options::irHeight / 100.0); // IR Height
+//            wmIR->numeric_settings[0]->SetValue(libOE::Options::irCenter / 100.0); // IR Center
+//            wmIR->numeric_settings[1]->SetValue(libOE::Options::irWidth / 100.0);  // IR Width
+//            wmIR->numeric_settings[2]->SetValue(libOE::Options::irHeight / 100.0); // IR Height
             
             if (device == OPENEMU_DEVICE_WIIMOTE_NC)
             {
@@ -624,7 +621,7 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
                 wmButtons->SetControlExpression(4, "L");       // -
                 wmButtons->SetControlExpression(5, "R");       // +
                 
-//                if (Libretro::Options::irMode != 1 && Libretro::Options::irMode != 2)
+//                if (libOE::Options::irMode != 1 && libOE::Options::irMode != 2)
 //                {
 //                    wmTilt->SetControlExpression(0, "`" + devAnalog + ":Y1-`");  // Forward
 //                    wmTilt->SetControlExpression(1, "`" + devAnalog + ":Y1+`");  // Backward
@@ -650,14 +647,14 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
             wmDPad->SetControlExpression(2, "Left");                    // Left
             wmDPad->SetControlExpression(3, "Right");                   // Right
             
-//            if (Libretro::Options::irMode == 1 || Libretro::Options::irMode == 2)
+//            if (libOE::Options::irMode == 1 || libOE::Options::irMode == 2)
 //            {
 //                // Set right stick to control the IR
 //                wmIR->SetControlExpression(0, "`" + devAnalog + ":Y1-`");     // Up
 //                wmIR->SetControlExpression(1, "`" + devAnalog + ":Y1+`");     // Down
 //                wmIR->SetControlExpression(2, "`" + devAnalog + ":X1-`");     // Left
 //                wmIR->SetControlExpression(3, "`" + devAnalog + ":X1+`");     // Right
-//                wmIR->boolean_settings[0]->SetValue(Libretro::Options::irMode == 1); // Relative input
+//                wmIR->boolean_settings[0]->SetValue(libOE::Options::irMode == 1); // Relative input
 //                wmIR->boolean_settings[1]->SetValue(true);                    // Auto hide
 //            }
 //            else
@@ -727,7 +724,7 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
         wm->UpdateReferences(g_controller_interface);
         ::Wiimote::GetConfig()->SaveConfig();
     }
-    else if (Libretro::Input::input_types[port] == OPENEMU_DEVICE_REAL_WIIMOTE)
+    else if (libOE::Input::input_types[port] == OPENEMU_DEVICE_REAL_WIIMOTE)
         WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_REAL);
     
     std::vector<openemu_input_descriptor> all_descs;
@@ -736,22 +733,22 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
     {
         openemu_input_descriptor* desc;
         
-        switch (Libretro::Input::input_types[i])
+        switch (libOE::Input::input_types[i])
         {
             case OPENEMU_DEVICE_WIIMOTE:
-                desc = Libretro::Input::descWiimote;
+                desc = libOE::Input::descWiimote;
                 break;
                 
             case OPENEMU_DEVICE_WIIMOTE_SW:
-                desc = Libretro::Input::descWiimoteSideways;
+                desc = libOE::Input::descWiimoteSideways;
                 break;
                 
             case OPENEMU_DEVICE_WIIMOTE_NC:
-                desc = Libretro::Input::descWiimoteNunchuk;
+                desc = libOE::Input::descWiimoteNunchuk;
                 break;
                 
             case OPENEMU_DEVICE_WIIMOTE_CC:
-                desc = Libretro::Input::descWiimoteCC;
+                desc = libOE::Input::descWiimoteCC;
                 break;
                 
             case OPENEMU_DEVICE_REAL_WIIMOTE:
@@ -759,7 +756,7 @@ void openemu_set_controller_port_device(unsigned port, unsigned device)
                 continue;
                 
             default:
-                desc = Libretro::Input::descGC;
+                desc = libOE::Input::descGC;
                 break;
         }
         for (int j = 0; desc[j].device != 0; j++)

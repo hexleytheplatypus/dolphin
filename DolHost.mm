@@ -219,7 +219,7 @@ bool DolHost::LoadFileAtPath()
     if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath), s_platform->GetWindowSystemInfo()))
         return false;
     
-    Libretro::Input::Init();
+    libOE::Input::Init();
     //OPENEMUCORE::Input::ResetControllers();
     openemu_set_controller_port_device(1, OPENEMU_DEVICE_WIIMOTE_CC);
     openemu_set_controller_port_device(2, OPENEMU_DEVICE_WIIMOTE_CC);
