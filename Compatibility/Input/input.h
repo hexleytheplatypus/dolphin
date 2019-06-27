@@ -64,30 +64,36 @@
 #define OPENEMU_DEVICE_WIIMOTE_CC ((4 << 8) | OPENEMU_DEVICE_JOYPAD)
 #define OPENEMU_DEVICE_REAL_WIIMOTE ((6 << 8) | OPENEMU_DEVICE_NONE)
 
-struct openemu_controller_description
+namespace Input
 {
-    const char *desc;
-    unsigned id;
-};
-
-struct openemu_controller_info
-{
-    const struct openemu_controller_description *types;
-    unsigned num_types;
-};
-
-struct openemu_input_descriptor
-{
-    unsigned port;
-    unsigned device;
-    unsigned index;
-    unsigned id;
-    const char *description;
-};
-
-typedef int16_t (*openemu_input_state_t)(unsigned port, unsigned device, unsigned index, unsigned id);
-
-void openemu_set_controller_port_device(unsigned port, unsigned device);
-void openemu_set_input_state(openemu_input_state_t);
-
-void Openemu_Input_Init();
+    struct openemu_controller_description
+    {
+        const char *desc;
+        unsigned id;
+    };
+    
+    struct openemu_controller_info
+    {
+        const struct openemu_controller_description *types;
+        unsigned num_types;
+    };
+    
+    struct openemu_input_descriptor
+    {
+        unsigned port;
+        unsigned device;
+        unsigned index;
+        unsigned id;
+        const char *description;
+    };
+    
+    typedef int16_t (*openemu_input_state_t)(unsigned port, unsigned device, unsigned index, unsigned id);
+    typedef int16_t (*openemu_input_poll_t)();
+    
+    void openemu_set_controller_port_device(unsigned port, unsigned device);
+    void openemu_set_input_state(openemu_input_state_t);
+    void openemu_set_input_poll(openemu_input_poll_t);
+    
+    void Openemu_Input_Init();
+    void OpenEmu_Input_Update();
+}

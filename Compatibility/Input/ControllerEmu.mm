@@ -2,17 +2,23 @@
 #include "DolHost.h"
 #include "input.h"
 
- int16_t input_cb_f(unsigned m_port, unsigned  m_device, unsigned m_index, unsigned m_id){
-    
+ int16_t input_poll_f()
+{
      NSLog(@"Input Callback has been called");
     return 0;
-    
+};
+
+int16_t input_state_f(unsigned port, unsigned device, unsigned index, unsigned id)
+{
+    NSLog(@"Input Callback has been called");
+    return 0;
 };
 
 
 void init_Callback() {
     NSLog(@"Input Callback has set-up");
-    openemu_set_input_state(input_cb_f);
+    Input::openemu_set_input_poll(input_poll_f);
+    Input::openemu_set_input_state(input_state_f);
 }
 
 typedef struct
