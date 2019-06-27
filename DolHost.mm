@@ -218,13 +218,12 @@ bool DolHost::LoadFileAtPath()
     
     if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath), s_platform->GetWindowSystemInfo()))
         return false;
+   
+    Input::Openemu_Input_Init();
     
-    Openemu_Input_Init();
-    
-    //OPENEMUCORE::Input::ResetControllers();
-    openemu_set_controller_port_device(1, OPENEMU_DEVICE_WIIMOTE_CC);
-    
-    
+    for (int i = 0; i < 4; i++)
+        Input::openemu_set_controller_port_device(i, OPENEMU_DEVICE_WIIMOTE_CC);
+
     init_Callback();
     
     while (!Core::IsRunningAndStarted() && s_running.IsSet())
@@ -264,6 +263,8 @@ void DolHost::Reset()
 void DolHost::UpdateFrame()
 {
     Core::HostDispatchJobs();
+    
+ //  Input::OpenEmu_Input_Update();
     
     if(_onBoot) _onBoot = false;
 }
@@ -628,13 +629,10 @@ void Host_Message(HostMessageID id) {
         
     }
 }
-void* Host_GetRenderHandle() { return nullptr; }
+void* Host_GetRenderHandle() { return (void *)-1; }
 void Host_UpdateTitle(const std::string&) {}
 void Host_UpdateDisasmDialog() {}
-void Host_UpdateMainFrame() {
-    //updateMainFrameEvent.Set();
-}
-
+void Host_UpdateMainFrame() {}
 void Host_RequestRenderWindowSize(int width, int height){}
 void Host_SetStartupDebuggingParameters()
 {
@@ -650,6 +648,4 @@ bool Host_RendererIsFullscreen() { return false; }
 void Host_ShowVideoConfig(void*, const std::string&) {}
 void Host_YieldToUI() {}
 void Host_TitleChanged() {}
-void Host_UpdateProgressDialog(const char* caption, int position, int total) {
-    // OSD::AddMessage(StringFromFormat("Processing: %d of %d shaders.", position, total), 5000);
-}
+void Host_UpdateProgressDialog(const char* caption, int position, int total) {}

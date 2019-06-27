@@ -170,7 +170,6 @@
 		3E3D735A1C82B0F900091C4D /* Boot_WiiWAD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A11C82B0F800091C4D /* Boot_WiiWAD.cpp */; };
 		3E3D735B1C82B0F900091C4D /* ElfReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A21C82B0F800091C4D /* ElfReader.cpp */; };
 		3E3D735C1C82B0F900091C4D /* BootManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A51C82B0F800091C4D /* BootManager.cpp */; };
-		3E3D735D1C82B0F900091C4D /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71A81C82B0F800091C4D /* ConfigManager.cpp */; };
 		3E3D735F1C82B0F900091C4D /* CoreTiming.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AE1C82B0F800091C4D /* CoreTiming.cpp */; };
 		3E3D73601C82B0F900091C4D /* Debugger_SymbolMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71B11C82B0F800091C4D /* Debugger_SymbolMap.cpp */; };
 		3E3D73611C82B0F900091C4D /* Dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71B31C82B0F800091C4D /* Dump.cpp */; };
@@ -716,7 +715,6 @@
 		3EFF25B51F8444D100B4FD11 /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5E51F842CFC00D79F27 /* Device.cpp */; };
 		3EFF25B61F8444D100B4FD11 /* Pipes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5E81F842CFC00D79F27 /* Pipes.cpp */; };
 		3EFF25B71F8444D100B4FD11 /* ForceFeedbackDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5EA1F842CFC00D79F27 /* ForceFeedbackDevice.cpp */; };
-		3EFF25B81F8444D100B4FD11 /* ControllerInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6011F842CFC00D79F27 /* ControllerInterface.cpp */; };
 		3EFF25B91F8444D100B4FD11 /* ControlReference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5CC1F842CFB00D79F27 /* ControlReference.cpp */; };
 		3EFF25BA1F8444D100B4FD11 /* ExpressionParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5CD1F842CFB00D79F27 /* ExpressionParser.cpp */; };
 		3EFF25BB1F8444D100B4FD11 /* ControllerEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5941F842CB500D79F27 /* ControllerEmu.cpp */; };
@@ -735,7 +733,6 @@
 		3EFF25CA1F8444D200B4FD11 /* Output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5B71F842CB500D79F27 /* Output.cpp */; };
 		3EFF25CB1F8444D200B4FD11 /* Control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5B81F842CB500D79F27 /* Control.cpp */; };
 		3EFF25CC1F8444D200B4FD11 /* GCAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74A91C82B14B00091C4D /* GCAdapter.cpp */; };
-		3EFF25CD1F8444D200B4FD11 /* InputConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74AE1C82B14B00091C4D /* InputConfig.cpp */; };
 		3EFF260A1F84560100B4FD11 /* CommonFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF25F61F8455D300B4FD11 /* CommonFuncs.cpp */; };
 		3EFF260C1F84560100B4FD11 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF25F91F8455D500B4FD11 /* File.cpp */; };
 		3EFF260D1F84560100B4FD11 /* HttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF25F21F8455D000B4FD11 /* HttpRequest.cpp */; };
@@ -884,7 +881,6 @@
 		8355D4F91A653EE600E73302 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974181A643E5C00E0B28E /* IOKit.framework */; };
 		8355D4FA1A653EF200E73302 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974491A64403300E0B28E /* libiconv.dylib */; };
 		8378DED21A78665A003DA046 /* libxxhash-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378DEC51A7862DA003DA046 /* libxxhash-dol.a */; };
-		EE04F454224C162600105B1E /* ControlInterfaceOpenEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE04F453224C162600105B1E /* ControlInterfaceOpenEmu.cpp */; };
 		EE04F45822512FFC00105B1E /* ControllerEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE04F45722512A8B00105B1E /* ControllerEmu.mm */; };
 		EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B882059E115008D5DDE /* OGLShader.cpp */; };
 		EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */; };
@@ -1021,6 +1017,10 @@
 		EEE07D3822C271D1006D46FD /* OpenEmuAudioStream.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D3422C26D0A006D46FD /* OpenEmuAudioStream.mm */; };
 		EEE07D3922C271D1006D46FD /* AudioCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D3622C26DA7006D46FD /* AudioCommon.cpp */; };
 		EEE07D3C22C272D5006D46FD /* libaudiocommon-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EAB8D2A0AA45A183467CCD /* libaudiocommon-dol.a */; };
+		EEE07D3D22C42D86006D46FD /* OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC5DE1F842CFC00D79F27 /* OSX.mm */; };
+		EEE07D4022C43C40006D46FD /* ControllerInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D3E22C43C40006D46FD /* ControllerInterface.cpp */; };
+		EEE07D4122C43C40006D46FD /* InputConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D3F22C43C40006D46FD /* InputConfig.cpp */; };
+		EEE07D4422C43C5E006D46FD /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D4222C43C52006D46FD /* ConfigManager.cpp */; };
 		EEF4EEE6224AAF5D0077748D /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EEF4EEED224AAF980077748D /* ossource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EE81224AAE650077748D /* ossource.cpp */; };
 		EEF4EEEE224AAFB50077748D /* ParseHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EE98224AAE650077748D /* ParseHelper.cpp */; };
@@ -3204,7 +3204,6 @@
 		D345B2FE38FA4436A72B869F /* liblzo2-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblzo2-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D921B2DE9D654F07924FEBE0 /* libpch-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libpch-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBFD62BE775146B49EDA15A7 /* libsfml-system-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-system-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE04F453224C162600105B1E /* ControlInterfaceOpenEmu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ControlInterfaceOpenEmu.cpp; path = Input/ControlInterfaceOpenEmu.cpp; sourceTree = "<group>"; };
 		EE04F45722512A8B00105B1E /* ControllerEmu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ControllerEmu.mm; path = Input/ControllerEmu.mm; sourceTree = "<group>"; };
 		EE04F459225138BE00105B1E /* ControllerEmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ControllerEmu.h; path = Input/ControllerEmu.h; sourceTree = "<group>"; };
 		EE149B7D2059D9EC008D5DDE /* SPSCQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSCQueue.h; path = dolphin/Source/Core/Common/SPSCQueue.h; sourceTree = "<group>"; };
@@ -3490,6 +3489,9 @@
 		EEE07D3322C26CD7006D46FD /* OpenEmuAudioStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenEmuAudioStream.h; path = Audio/OpenEmuAudioStream.h; sourceTree = "<group>"; };
 		EEE07D3422C26D0A006D46FD /* OpenEmuAudioStream.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenEmuAudioStream.mm; path = Audio/OpenEmuAudioStream.mm; sourceTree = "<group>"; };
 		EEE07D3622C26DA7006D46FD /* AudioCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AudioCommon.cpp; path = Audio/AudioCommon.cpp; sourceTree = "<group>"; };
+		EEE07D3E22C43C40006D46FD /* ControllerInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ControllerInterface.cpp; path = Input/ControllerInterface.cpp; sourceTree = "<group>"; };
+		EEE07D3F22C43C40006D46FD /* InputConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputConfig.cpp; path = Input/InputConfig.cpp; sourceTree = "<group>"; };
+		EEE07D4222C43C52006D46FD /* ConfigManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigManager.cpp; path = Core/ConfigManager.cpp; sourceTree = "<group>"; };
 		EEF4EE7E224AAE650077748D /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		EEF4EE81224AAE650077748D /* ossource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ossource.cpp; sourceTree = "<group>"; };
 		EEF4EE82224AAE650077748D /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -4433,11 +4435,12 @@
 		3E89F4771CCA7A1600EAE7AC /* Input */ = {
 			isa = PBXGroup;
 			children = (
+				EEE07D3E22C43C40006D46FD /* ControllerInterface.cpp */,
+				EEE07D3F22C43C40006D46FD /* InputConfig.cpp */,
 				EE04F45722512A8B00105B1E /* ControllerEmu.mm */,
 				EE04F459225138BE00105B1E /* ControllerEmu.h */,
 				3E96B3C91F86A50D007C5799 /* input.cpp */,
 				3E96B3C81F86A50C007C5799 /* input.h */,
-				EE04F453224C162600105B1E /* ControlInterfaceOpenEmu.cpp */,
 			);
 			name = Input;
 			sourceTree = "<group>";
@@ -4445,6 +4448,7 @@
 		3E89F47A1CCAB2A800EAE7AC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EEE07D4222C43C52006D46FD /* ConfigManager.cpp */,
 				EEA7CF5F20A4F70B0033BB8A /* scmrev.h */,
 				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
 			);
@@ -8166,6 +8170,7 @@
 				EE8DD2AB2249347D005E1AF5 /* JitRegCache.cpp in Sources */,
 				EE3A463822B5F23C00031B56 /* TaTaCon.cpp in Sources */,
 				EE68206921053AFC008D5405 /* UISettings.cpp in Sources */,
+				EEE07D4422C43C5E006D46FD /* ConfigManager.cpp in Sources */,
 				3EFF26E21F845CB800B4FD11 /* TitleInformation.cpp in Sources */,
 				3E3D73B21C82B0F900091C4D /* GCKeyboard.cpp in Sources */,
 				3E3D73F01C82B0F900091C4D /* MemTools.cpp in Sources */,
@@ -8183,7 +8188,6 @@
 				3E3D73F31C82B0F900091C4D /* NetPlayServer.cpp in Sources */,
 				3E3D73991C82B0F900091C4D /* CARD.cpp in Sources */,
 				3E3D73971C82B0F900091C4D /* AX.cpp in Sources */,
-				3E3D735D1C82B0F900091C4D /* ConfigManager.cpp in Sources */,
 				3EFF26D81F845CB800B4FD11 /* WiimoteHIDAttr.cpp in Sources */,
 				EE68204E2105383D008D5405 /* DSPIntTables.cpp in Sources */,
 				EE3EC3F3224A82BD00BA7436 /* GCPad.cpp in Sources */,
@@ -8686,6 +8690,7 @@
 				3EFF25C01F8444D100B4FD11 /* Triggers.cpp in Sources */,
 				3EFF25BD1F8444D100B4FD11 /* ControlGroup.cpp in Sources */,
 				3EFF25C81F8444D200B4FD11 /* NumericSetting.cpp in Sources */,
+				EEE07D4122C43C40006D46FD /* InputConfig.cpp in Sources */,
 				3EFF25B51F8444D100B4FD11 /* Device.cpp in Sources */,
 				3EFF25BA1F8444D100B4FD11 /* ExpressionParser.cpp in Sources */,
 				EE8DD2B0224A7915005E1AF5 /* StickGate.cpp in Sources */,
@@ -8697,15 +8702,14 @@
 				3EFF25BF1F8444D100B4FD11 /* Buttons.cpp in Sources */,
 				3EFF25C21F8444D100B4FD11 /* Cursor.cpp in Sources */,
 				3EFF25C11F8444D100B4FD11 /* MixedTriggers.cpp in Sources */,
-				3EFF25B81F8444D100B4FD11 /* ControllerInterface.cpp in Sources */,
-				3EFF25CD1F8444D200B4FD11 /* InputConfig.cpp in Sources */,
 				EE8DD25922492637005E1AF5 /* Attachments.cpp in Sources */,
+				EEE07D3D22C42D86006D46FD /* OSX.mm in Sources */,
 				3EFF292D1F8561F100B4FD11 /* Quartz.mm in Sources */,
 				3EFF292E1F8561F100B4FD11 /* QuartzKeyboardAndMouse.mm in Sources */,
 				3EFF25BE1F8444D100B4FD11 /* AnalogStick.cpp in Sources */,
 				3EFF25B61F8444D100B4FD11 /* Pipes.cpp in Sources */,
 				EE682057210538C3008D5405 /* InputProfile.cpp in Sources */,
-				EE04F454224C162600105B1E /* ControlInterfaceOpenEmu.cpp in Sources */,
+				EEE07D4022C43C40006D46FD /* ControllerInterface.cpp in Sources */,
 				3EFF25CA1F8444D200B4FD11 /* Output.cpp in Sources */,
 				3EFF25CB1F8444D200B4FD11 /* Control.cpp in Sources */,
 				3EFF25B71F8444D100B4FD11 /* ForceFeedbackDevice.cpp in Sources */,
