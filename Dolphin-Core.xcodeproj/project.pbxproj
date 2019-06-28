@@ -881,7 +881,7 @@
 		8355D4F91A653EE600E73302 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974181A643E5C00E0B28E /* IOKit.framework */; };
 		8355D4FA1A653EF200E73302 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974491A64403300E0B28E /* libiconv.dylib */; };
 		8378DED21A78665A003DA046 /* libxxhash-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378DEC51A7862DA003DA046 /* libxxhash-dol.a */; };
-		EE04F45822512FFC00105B1E /* ControllerEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE04F45722512A8B00105B1E /* ControllerEmu.mm */; };
+		EE04F45822512FFC00105B1E /* OpenEmuController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE04F45722512A8B00105B1E /* OpenEmuController.mm */; };
 		EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B882059E115008D5DDE /* OGLShader.cpp */; };
 		EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */; };
 		EE149B952059E192008D5DDE /* ShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8E2059E190008D5DDE /* ShaderCache.cpp */; };
@@ -900,7 +900,7 @@
 		EE2CDFCE22565FFC00318BE7 /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD28522493133005E1AF5 /* Nunchuk.cpp */; };
 		EE2CDFCF2256600200318BE7 /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6871F8434C600D79F27 /* WiimoteEmu.cpp */; };
 		EE2CDFD02256600500318BE7 /* Movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72DA1C82B0F900091C4D /* Movie.cpp */; };
-		EE2CDFD222566F8B00318BE7 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* input.cpp */; };
+		EE2CDFD222566F8B00318BE7 /* OpenEmuInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */; };
 		EE32D857207ABBBA0050B549 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84C207ABBB80050B549 /* FileSystem.cpp */; };
 		EE32D858207ABBBA0050B549 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84D207ABBB90050B549 /* File.cpp */; };
 		EE32D859207ABBBA0050B549 /* FS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE32D84F207ABBB90050B549 /* FS.cpp */; };
@@ -929,7 +929,6 @@
 		EE3EC3EE224A820200BA7436 /* libFreeSurround-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8DD2E6224A7F04005E1AF5 /* libFreeSurround-dol.a */; };
 		EE3EC3F1224A827B00BA7436 /* NetPlayChatUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC3F0224A827B00BA7436 /* NetPlayChatUI.cpp */; };
 		EE3EC3F3224A82BD00BA7436 /* GCPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72611C82B0F900091C4D /* GCPad.cpp */; };
-		EE3EC3F4224A82D000BA7436 /* GCPadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72631C82B0F900091C4D /* GCPadEmu.cpp */; };
 		EE3EC42F224AA01500BA7436 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EE45F40F22B4389200C5D0C0 /* CommandBufferManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC41C224A9F5B00BA7436 /* CommandBufferManager.cpp */; };
 		EE45F41022B4389200C5D0C0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC412224A9F5900BA7436 /* main.cpp */; };
@@ -1021,6 +1020,7 @@
 		EEE07D4022C43C40006D46FD /* ControllerInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D3E22C43C40006D46FD /* ControllerInterface.cpp */; };
 		EEE07D4122C43C40006D46FD /* InputConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D3F22C43C40006D46FD /* InputConfig.cpp */; };
 		EEE07D4422C43C5E006D46FD /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE07D4222C43C52006D46FD /* ConfigManager.cpp */; };
+		EEE07D4922C6661C006D46FD /* GCPadEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72631C82B0F900091C4D /* GCPadEmu.cpp */; };
 		EEF4EEE6224AAF5D0077748D /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EEF4EEED224AAF980077748D /* ossource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EE81224AAE650077748D /* ossource.cpp */; };
 		EEF4EEEE224AAFB50077748D /* ParseHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF4EE98224AAE650077748D /* ParseHelper.cpp */; };
@@ -1056,7 +1056,7 @@
 		EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */; };
 		EEF8A0EF20B34506008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		EEF8A0F020B34DA8008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		EEF8A0F120B350FB008678D3 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* input.cpp */; };
+		EEF8A0F120B350FB008678D3 /* OpenEmuInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */; };
 		EEF8A0F220B35191008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		EEF8A0F320B3524E008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -2870,8 +2870,8 @@
 		3E8EC6E61F8437D000D79F27 /* RSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSO.h; sourceTree = "<group>"; };
 		3E8EC6E81F8437EB00D79F27 /* HLE_VarArgs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HLE_VarArgs.cpp; sourceTree = "<group>"; };
 		3E8EC6E91F8437EC00D79F27 /* HLE_VarArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLE_VarArgs.h; sourceTree = "<group>"; };
-		3E96B3C81F86A50C007C5799 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = input.h; path = Input/input.h; sourceTree = "<group>"; };
-		3E96B3C91F86A50D007C5799 /* input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = input.cpp; path = Input/input.cpp; sourceTree = "<group>"; };
+		3E96B3C81F86A50C007C5799 /* OpenEmuInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenEmuInput.h; path = Input/OpenEmuInput.h; sourceTree = "<group>"; };
+		3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OpenEmuInput.cpp; path = Input/OpenEmuInput.cpp; sourceTree = "<group>"; };
 		3E98CDF61FD70844009A9DEA /* AbstractStagingTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractStagingTexture.h; path = dolphin/Source/Core/VideoCommon/AbstractStagingTexture.h; sourceTree = "<group>"; };
 		3E98CDF71FD70844009A9DEA /* AbstractStagingTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractStagingTexture.cpp; path = dolphin/Source/Core/VideoCommon/AbstractStagingTexture.cpp; sourceTree = "<group>"; };
 		3E98CDF81FD70845009A9DEA /* TextureConverterShaderGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureConverterShaderGen.h; path = dolphin/Source/Core/VideoCommon/TextureConverterShaderGen.h; sourceTree = "<group>"; };
@@ -3204,8 +3204,8 @@
 		D345B2FE38FA4436A72B869F /* liblzo2-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblzo2-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D921B2DE9D654F07924FEBE0 /* libpch-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libpch-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBFD62BE775146B49EDA15A7 /* libsfml-system-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-system-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE04F45722512A8B00105B1E /* ControllerEmu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ControllerEmu.mm; path = Input/ControllerEmu.mm; sourceTree = "<group>"; };
-		EE04F459225138BE00105B1E /* ControllerEmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ControllerEmu.h; path = Input/ControllerEmu.h; sourceTree = "<group>"; };
+		EE04F45722512A8B00105B1E /* OpenEmuController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenEmuController.mm; path = Input/OpenEmuController.mm; sourceTree = "<group>"; };
+		EE04F459225138BE00105B1E /* OpenEmuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenEmuController.h; path = Input/OpenEmuController.h; sourceTree = "<group>"; };
 		EE149B7D2059D9EC008D5DDE /* SPSCQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSCQueue.h; path = dolphin/Source/Core/Common/SPSCQueue.h; sourceTree = "<group>"; };
 		EE149B7E2059D9EC008D5DDE /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = dolphin/Source/Core/Common/Version.h; sourceTree = "<group>"; };
 		EE149B7F2059D9EC008D5DDE /* Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Align.h; path = dolphin/Source/Core/Common/Align.h; sourceTree = "<group>"; };
@@ -4437,10 +4437,10 @@
 			children = (
 				EEE07D3E22C43C40006D46FD /* ControllerInterface.cpp */,
 				EEE07D3F22C43C40006D46FD /* InputConfig.cpp */,
-				EE04F45722512A8B00105B1E /* ControllerEmu.mm */,
-				EE04F459225138BE00105B1E /* ControllerEmu.h */,
-				3E96B3C91F86A50D007C5799 /* input.cpp */,
-				3E96B3C81F86A50C007C5799 /* input.h */,
+				EE04F45722512A8B00105B1E /* OpenEmuController.mm */,
+				EE04F459225138BE00105B1E /* OpenEmuController.h */,
+				3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */,
+				3E96B3C81F86A50C007C5799 /* OpenEmuInput.h */,
 			);
 			name = Input;
 			sourceTree = "<group>";
@@ -6094,9 +6094,9 @@
 				3E2217881D74A81600C55942 /* Wii Plugin */,
 				3E3D70241C82AF0600091C4D /* Compatibilty */,
 				8355D4EA1A653E2600E73302 /* OEGCSystemResponderClient.h */,
+				3E3D76741C83477F00091C4D /* DolHost.h */,
 				8355D4E21A653B6600E73302 /* DolphinGameCore.h */,
 				8355D4E31A653B6600E73302 /* DolphinGameCore.mm */,
-				3E3D76741C83477F00091C4D /* DolHost.h */,
 				3E3D76751C83477F00091C4D /* DolHost.mm */,
 				8355D4951A6538FD00E73302 /* Supporting Files */,
 			);
@@ -7987,7 +7987,7 @@
 				3EFF26FE1F845E9F00B4FD11 /* InterpreterBlockCache.cpp in Sources */,
 				3EFF26441F845CA500B4FD11 /* MainSettings.cpp in Sources */,
 				3EFF26411F845CA500B4FD11 /* SYSCONFSettings.cpp in Sources */,
-				EEF8A0F120B350FB008678D3 /* input.cpp in Sources */,
+				EEF8A0F120B350FB008678D3 /* OpenEmuInput.cpp in Sources */,
 				3EFF26C61F845CB800B4FD11 /* Socket.cpp in Sources */,
 				EE8DD29322493134005E1AF5 /* Camera.cpp in Sources */,
 				3E8EC6B71F8436F100D79F27 /* DSPIntMultiplier.cpp in Sources */,
@@ -8203,9 +8203,8 @@
 				3E3D73681C82B0F900091C4D /* DSPCore.cpp in Sources */,
 				3E3D73611C82B0F900091C4D /* Dump.cpp in Sources */,
 				3E8EC6B91F8436F100D79F27 /* DSPIntExtOps.cpp in Sources */,
-				EE3EC3F4224A82D000BA7436 /* GCPadEmu.cpp in Sources */,
 				3E3D74301C82B0F900091C4D /* PowerPC.cpp in Sources */,
-				EE2CDFD222566F8B00318BE7 /* input.cpp in Sources */,
+				EE2CDFD222566F8B00318BE7 /* OpenEmuInput.cpp in Sources */,
 				3EFF26E91F845CB800B4FD11 /* TitleManagement.cpp in Sources */,
 				3E8EC6631F8434AA00D79F27 /* SI_DeviceKeyboard.cpp in Sources */,
 				3E3D73541C82B0F900091C4D /* ActionReplay.cpp in Sources */,
@@ -8230,6 +8229,7 @@
 				3E8EC6601F8434AA00D79F27 /* SI.cpp in Sources */,
 				3E3D73FE1C82B0F900091C4D /* Interpreter_SystemRegisters.cpp in Sources */,
 				3EFF26461F845CA500B4FD11 /* MovieConfigLoader.cpp in Sources */,
+				EEE07D4922C6661C006D46FD /* GCPadEmu.cpp in Sources */,
 				3EFF26C21F845CB800B4FD11 /* NetKDTime.cpp in Sources */,
 				3E3D73631C82B0F900091C4D /* DSPAccelerator.cpp in Sources */,
 				3E3D73941C82B0F900091C4D /* DSP.cpp in Sources */,
@@ -8768,7 +8768,7 @@
 				8355D4E41A653B6600E73302 /* DolphinGameCore.mm in Sources */,
 				EE8DD2B9224A7A99005E1AF5 /* PlatformHeadless.cpp in Sources */,
 				EE8DD2BA224A7A99005E1AF5 /* Platform.cpp in Sources */,
-				EE04F45822512FFC00105B1E /* ControllerEmu.mm in Sources */,
+				EE04F45822512FFC00105B1E /* OpenEmuController.mm in Sources */,
 				3E3D76761C83477F00091C4D /* DolHost.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

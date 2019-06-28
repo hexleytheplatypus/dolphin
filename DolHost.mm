@@ -25,8 +25,8 @@
  */
 
 #include "DolHost.h"
-#include "input.h"
-#include "ControllerEmu.h"
+#include "OpenEmuInput.h"
+#include "OpenEmuController.h"
 
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
@@ -219,10 +219,12 @@ bool DolHost::LoadFileAtPath()
     if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath), s_platform->GetWindowSystemInfo()))
         return false;
    
+    // Initialize Input
     Input::Openemu_Input_Init();
     
+    //Add 4 Joypads to the emulator (They will get changed during Creation to GC or WII controlelr)
     for (int i = 0; i < 4; i++)
-        Input::openemu_set_controller_port_device(i, OPENEMU_DEVICE_WIIMOTE_CC);
+        Input::openemu_set_controller_port_device(i, OEDolDevJoy);
 
     init_Callback();
     
@@ -474,20 +476,20 @@ void DolHost::setButtonState(int button, int state, int player)
     player -= 1;
     
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
-       // setGameCubeButton(player, button, state);
+        setGameCubeButton(player, button, state);
     }
     else
     {
-        //setWiiButton(player, button, state);
+      //  setWiiButton(player, button, state);
     }
     
-    if (button == OEWiiChangeExtension)
-    {
-        //set the Extension change state and return.  The next key pressed
-        //  while the Change Extension key is held will determine the Extension added
-        _wiiChangeExtension[player] = state;
-        return;
-    }
+//    if (button == OEWiiChangeExtension)
+//    {
+//        //set the Extension change state and return.  The next key pressed
+//        //  while the Change Extension key is held will determine the Extension added
+//        _wiiChangeExtension[player] = state;
+//        return;
+//    }
     
 //    if ( _wiiChangeExtension[player] && state == 1)
 //    {
@@ -509,7 +511,7 @@ void DolHost::SetAxis(int button, float value, int player)
     player -= 1;
     
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
-        //setGameCubeAxis(player, button, value);
+        setGameCubeAxis(player, button, value);
     }
     else
     {
