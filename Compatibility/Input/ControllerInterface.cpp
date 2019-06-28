@@ -8,29 +8,6 @@
 
 #include "Common/Logging/Log.h"
 
-#ifdef CIFACE_USE_WIN32
-#include "InputCommon/ControllerInterface/Win32/Win32.h"
-#endif
-#ifdef CIFACE_USE_XLIB
-#include "InputCommon/ControllerInterface/Xlib/XInput2.h"
-#endif
-#ifdef CIFACE_USE_OSX
-#include "InputCommon/ControllerInterface/OSX/OSX.h"
-#include "InputCommon/ControllerInterface/Quartz/Quartz.h"
-#endif
-#ifdef CIFACE_USE_SDL
-#include "InputCommon/ControllerInterface/SDL/SDL.h"
-#endif
-#ifdef CIFACE_USE_ANDROID
-#include "InputCommon/ControllerInterface/Android/Android.h"
-#endif
-#ifdef CIFACE_USE_EVDEV
-#include "InputCommon/ControllerInterface/evdev/evdev.h"
-#endif
-#ifdef CIFACE_USE_PIPES
-#include "InputCommon/ControllerInterface/Pipes/Pipes.h"
-#endif
-
 ControllerInterface g_controller_interface;
 
 void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
@@ -44,31 +21,6 @@ void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
   m_is_init = true;
 
   m_is_populating_devices = true;
-
-#ifdef CIFACE_USE_WIN32
-  ciface::Win32::Init(wsi.render_surface);
-#endif
-#ifdef CIFACE_USE_XLIB
-// nothing needed
-#endif
-#ifdef CIFACE_USE_OSX
-  if (m_wsi.type == WindowSystemType::MacOS)
-    ciface::OSX::Init(wsi.render_surface);
-// nothing needed for Quartz
-#endif
-#ifdef CIFACE_USE_SDL
-  ciface::SDL::Init();
-#endif
-#ifdef CIFACE_USE_ANDROID
-// nothing needed
-#endif
-#ifdef CIFACE_USE_EVDEV
-  ciface::evdev::Init();
-#endif
-#ifdef CIFACE_USE_PIPES
-// nothing needed
-#endif
-
   RefreshDevices();
 }
 
@@ -83,6 +35,7 @@ void ControllerInterface::ChangeWindow(void* hwnd)
 
 void ControllerInterface::RefreshDevices()
 {
+    //OpenEmu Stub
     return ;
 }
 
@@ -111,26 +64,6 @@ void ControllerInterface::Shutdown()
   // This will update control references so shared_ptr<Device>s are freed up
   // BEFORE we shutdown the backends.
   InvokeDevicesChangedCallbacks();
-
-#ifdef CIFACE_USE_WIN32
-  ciface::Win32::DeInit();
-#endif
-#ifdef CIFACE_USE_XLIB
-// nothing needed
-#endif
-#ifdef CIFACE_USE_OSX
-  ciface::OSX::DeInit();
-  ciface::Quartz::DeInit();
-#endif
-#ifdef CIFACE_USE_SDL
-  ciface::SDL::DeInit();
-#endif
-#ifdef CIFACE_USE_ANDROID
-// nothing needed
-#endif
-#ifdef CIFACE_USE_EVDEV
-  ciface::evdev::Shutdown();
-#endif
 }
 
 void ControllerInterface::AddDevice(std::shared_ptr<ciface::Core::Device> device)

@@ -500,7 +500,7 @@ void SConfig::LoadCoreSettings(IniFile& ini)
   for (int i = 0; i < SerialInterface::MAX_SI_CHANNELS; ++i)
   {
     core->Get(StringFromFormat("SIDevice%i", i), (u32*)&m_SIDevice[i],
-              SerialInterface::SIDEVICE_GC_CONTROLLER );
+              SerialInterface::SIDEVICE_GC_CONTROLLER ); // OpenEmu default all SI DEvices to GC Controller
     core->Get(StringFromFormat("AdapterRumble%i", i), &m_AdapterRumble[i], true);
     core->Get(StringFromFormat("SimulateKonga%i", i), &m_AdapterKonga[i], false);
   }
