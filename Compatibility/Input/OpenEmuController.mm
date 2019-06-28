@@ -1,0 +1,83 @@
+#include "DolphinGameCore.h"
+#include "DolHost.h"
+#include "OpenEmuInput.h"
+#include "OpenEmuController.h"
+
+#include "Core/ConfigManager.h"
+
+void input_poll_f()
+{
+    //This is called every chance the Dolphin Emulator has to poll input from the frontend
+    //  OpenEmu handles this, so it could be used to perfom a task per per input polling
+    return;
+};
+
+int16_t input_state_f(unsigned port, unsigned device, unsigned index, unsigned button)
+{
+    if (SConfig::GetInstance().bWii && !SConfig::GetInstance().m_bt_passthrough_enabled)
+    {
+        
+    } else {
+         return GameCubePads[port].gc_pad_keymap[button].value;
+//        switch (device)
+//        {
+//            case OEDolDevJoy:
+//                return GameCubePads[port].gc_pad_keymap[button].value;
+//                break;
+//
+//            case OEDolDevAnalog:
+//                switch (index)
+//                {
+//                    case OEGCAnalog:
+//                        return GameCubePads[port].gc_pad_Analog.Xaxis;
+//                        break;
+//                    case OEGCAnalogC:
+//                        break;
+//                    case OEGCAnalogTrigger:
+//                        break;
+//              }
+//                break;
+//        }
+    }
+    //This is where we must translate the OpenEmu frontend keys presses stored in the keymap to bitmasks for Dolphin.
+    return 0;
+};
+
+void init_Callback() {
+    //Dolphin Polling Callback
+    Input::openemu_set_input_poll(input_poll_f);
+    
+    //Controller input Callbacks
+    Input::openemu_set_input_state(input_state_f);
+}
+
+void setGameCubeButton(int pad_num, int button , int value) {
+//    for (unsigned i = 0; i < (sizeof( GameCubePads[pad_num].gc_pad_keymap) / sizeof(* GameCubePads[pad_num].gc_pad_keymap)); i++)
+//        if ( GameCubePads[pad_num].gc_pad_keymap[i].openemuButton == button)
+//        {
+//            GameCubePads[pad_num].gc_pad_keymap[i].value = value;
+//            return;
+//        }
+    
+//    if (button >= (int)OEGCButtonA)
+//        button -= 8;
+//
+    GameCubePads[pad_num].gc_pad_keymap[button].value = value;
+}
+
+void setGameCubeAxis(int pad_num, int button , float value)
+{
+    switch (button)
+    {
+        case OEGCAnalogUp:
+        case OEGCAnalogLeft:
+        case OEGCAnalogCUp:
+        case OEGCAnalogCLeft:
+            value *= -0x8000;
+            break;
+        default:
+            value *= 0x7FFF;
+            break;
+    }
+    GameCubePads[pad_num].gc_pad_keymap[button].value = value;
+}
