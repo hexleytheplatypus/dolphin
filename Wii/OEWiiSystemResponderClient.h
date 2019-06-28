@@ -57,7 +57,8 @@ typedef enum _OEWiiButton
     OEWiiNunchukAnalogLeft,
     OEWiiNunchukAnalogRight,
     OEWiiNunchukButtonC,
-    OEWiiNunchuckButtonZ,
+    OEWiiNunchukButtonZ,
+    OEWiiNunchukShake,
     OEWiiClassicButtonUp,
     OEWiiClassicButtonDown,
     OEWiiClassicButtonLeft,
@@ -82,7 +83,7 @@ typedef enum _OEWiiButton
     OEWiiClassicButtonSelect,
     OEWiiClassicButtonHome,
     OEWiiButtonCount,
-    OEWiiChangeExtension = 51,
+    OEWiiChangeExtension = 90,
     OEWiiSideways
 
 } OEWiiButton;

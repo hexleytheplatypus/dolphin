@@ -215,6 +215,12 @@
 				<key>OEControlListKeyNameKey</key>
 				<string>OEWiiNunchukButtonZ</string>
 			</dict>
+			<dict>
+				<key>OEControlListKeyLabelKey</key>
+				<string>Shake</string>
+				<key>OEControlListKeyNameKey</key>
+				<string>OEWiiNunchukShake</string>
+			</dict>
 		</array>
 		<array>
 			<string>Classic Controller</string>
@@ -528,6 +534,7 @@
 		<string>OEWiiNunchukAnalogRight</string>
 		<string>OEWiiNunchukButtonC</string>
 		<string>OEWiiNunchukButtonZ</string>
+		<string>OEWiiNunchukShake</string>
 		<string>OEWiiClassicButtonUp</string>
 		<string>OEWiiClassicButtonDown</string>
 		<string>OEWiiClassicButtonLeft</string>
