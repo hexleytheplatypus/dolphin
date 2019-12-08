@@ -65,6 +65,11 @@ namespace AudioCommon
         return backends;
     }
     
+DPL2Quality GetDefaultDPL2Quality()
+{
+  return DPL2Quality::High;
+}
+
     bool SupportsDPL2Decoder(const std::string& backend)
     {
         return false;

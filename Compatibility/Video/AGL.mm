@@ -34,7 +34,7 @@ void GLContextAGL::Swap()
 
 // Create rendering window.
 // Call browser: Core.cpp:EmuThread() > main.cpp:Video_Initialize()
-bool GLContextAGL::Initialize(void* display_handle, void* window_handle, bool stereo, bool core)
+bool GLContextAGL::Initialize(const WindowSystemInfo& wsi, bool stereo, bool core)
 {
     MakeCurrent();
         // Control window size and picture scaling
