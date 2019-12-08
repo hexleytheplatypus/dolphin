@@ -141,7 +141,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     //Analitics
     SConfig::GetInstance().m_analytics_permission_asked = true;
     SConfig::GetInstance().m_analytics_enabled =  false;
-    DolphinAnalytics::Instance()->ReloadConfig();
+    //DolphinAnalytics::Instance()->ReloadConfig();
     
     //Save them now
     SConfig::GetInstance().SaveSettings();
@@ -185,7 +185,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         //SConfig::GetInstance().m_strMemoryCardB = "";
         
         //Disable WiiNAD checks
-        SConfig::GetInstance().m_enable_signature_checks = false;
+       // SConfig::GetInstance().m_enable_signature_checks = false;
         
         // Disable wiimote continuous scanning
         SConfig::GetInstance().m_WiimoteContinuousScanning = false;
@@ -537,7 +537,7 @@ void DolHost::SetIR(int player, float x, float y)
 
 void DolHost::GetGameInfo()
 {
-    std::unique_ptr<DiscIO::Volume> pVolume = DiscIO::CreateVolumeFromFilename(_gamePath );
+    std::unique_ptr<DiscIO::Volume> pVolume = DiscIO::CreateVolume(_gamePath );
     
     _gameID = pVolume->GetGameID();
     _gameRegion = pVolume->GetRegion();
