@@ -826,7 +826,6 @@
 		EE2CDFCE22565FFC00318BE7 /* Nunchuk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD28522493133005E1AF5 /* Nunchuk.cpp */; };
 		EE2CDFCF2256600200318BE7 /* WiimoteEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6871F8434C600D79F27 /* WiimoteEmu.cpp */; };
 		EE2CDFD02256600500318BE7 /* Movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D72DA1C82B0F900091C4D /* Movie.cpp */; };
-		EE2CDFD222566F8B00318BE7 /* OpenEmuInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */; };
 		EE3A462122B5DCBB00031B56 /* DynamicLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462022B5DCBA00031B56 /* DynamicLibrary.cpp */; };
 		EE3A462A22B5EECA00031B56 /* rsa_internal.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462222B5EEC800031B56 /* rsa_internal.c */; };
 		EE3A462B22B5EECA00031B56 /* platform_util.c in Sources */ = {isa = PBXBuildFile; fileRef = EE3A462322B5EEC900031B56 /* platform_util.c */; };
@@ -883,6 +882,7 @@
 		EE475776224AB42A0027BA05 /* libSPIRV-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE47576C224AB2F30027BA05 /* libSPIRV-dol.a */; };
 		EE475777224AB4B80027BA05 /* libSPIRV-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE47576C224AB2F30027BA05 /* libSPIRV-dol.a */; };
 		EE475778224AB4BF0027BA05 /* libglslang-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF4EEEC224AAF5D0077748D /* libglslang-dol.a */; };
+		EE4EFB39239ED6F50085CA75 /* OpenEmuInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */; };
 		EE5F71A220B322F80083D8D8 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE5F71A120B322F80083D8D8 /* Image.cpp */; };
 		EE68204E2105383D008D5405 /* DSPIntTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68204D2105383D008D5405 /* DSPIntTables.cpp */; };
 		EE68205121053853008D5405 /* DSPEmitterBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68204F21053853008D5405 /* DSPEmitterBase.cpp */; };
@@ -1057,7 +1057,6 @@
 		EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */; };
 		EEF8A0EF20B34506008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		EEF8A0F020B34DA8008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		EEF8A0F120B350FB008678D3 /* OpenEmuInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */; };
 		EEF8A0F220B35191008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		EEF8A0F320B3524E008678D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -8001,7 +8000,6 @@
 				3EFF26FE1F845E9F00B4FD11 /* InterpreterBlockCache.cpp in Sources */,
 				3EFF26441F845CA500B4FD11 /* MainSettings.cpp in Sources */,
 				3EFF26411F845CA500B4FD11 /* SYSCONFSettings.cpp in Sources */,
-				EEF8A0F120B350FB008678D3 /* OpenEmuInput.cpp in Sources */,
 				EE8DD29322493134005E1AF5 /* Camera.cpp in Sources */,
 				3E8EC6B71F8436F100D79F27 /* DSPIntMultiplier.cpp in Sources */,
 				3E3D74091C82B0F900091C4D /* Jit_SystemRegisters.cpp in Sources */,
@@ -8215,7 +8213,6 @@
 				EE6ABEC6239C78AE005E5F7D /* Identity.cpp in Sources */,
 				3E8EC6B91F8436F100D79F27 /* DSPIntExtOps.cpp in Sources */,
 				3E3D74301C82B0F900091C4D /* PowerPC.cpp in Sources */,
-				EE2CDFD222566F8B00318BE7 /* OpenEmuInput.cpp in Sources */,
 				3E8EC6631F8434AA00D79F27 /* SI_DeviceKeyboard.cpp in Sources */,
 				EE6ABEB0239C7890005E5F7D /* WFSSRV.cpp in Sources */,
 				3E3D73541C82B0F900091C4D /* ActionReplay.cpp in Sources */,
@@ -8716,6 +8713,7 @@
 				EE6ABE45239C36AD005E5F7D /* AnalogStick.cpp in Sources */,
 				EE6ABE44239C36AD005E5F7D /* MixedTriggers.cpp in Sources */,
 				EE6ABE42239C36AD005E5F7D /* ControlGroup.cpp in Sources */,
+				EE4EFB39239ED6F50085CA75 /* OpenEmuInput.cpp in Sources */,
 				EE6ABE46239C36AD005E5F7D /* IMUGyroscope.cpp in Sources */,
 				EE6ABE47239C36AD005E5F7D /* Cursor.cpp in Sources */,
 				EE6ABE20239C368C005E5F7D /* NumericSetting.cpp in Sources */,
