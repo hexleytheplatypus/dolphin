@@ -35,125 +35,6 @@ static Input::openemu_input_poll_t poll_cb;
 static const std::string source = "OpenEmu";
 static unsigned input_types[4];
 
-namespace Input
-{
-    static struct openemu_input_descriptor descGC[] = {
-        {0, OEDolDevJoy, 0, OEGCButtonLeft , "Left"},
-        {0, OEDolDevJoy, 0, OEGCButtonUp, "Up"},
-        {0, OEDolDevJoy, 0, OEGCButtonDown, "Down"},
-        {0, OEDolDevJoy, 0, OEGCButtonRight, "Right"},
-        {0, OEDolDevJoy, 0, OEGCButtonB, "B"},
-        {0, OEDolDevJoy, 0, OEGCButtonA, "A"},
-        {0, OEDolDevJoy, 0, OEGCButtonX, "X"},
-        {0, OEDolDevJoy, 0, OEGCButtonY, "Y"},
-        {0, OEDolDevJoy, 0, OEGCButtonL, "L"},
-        {0, OEDolDevJoy, 0, OEGCButtonR, "R"},
-        {0, OEDolDevJoy, 0, OEGCButtonZ, "Z"},
-        {0, OEDolDevJoy, 0, OEGCButtonStart, "Start"},
-        {0, OEDolDevAnalog, OEGCAnalog, OEGCAnalogX  ,
-            "Control Stick X"},
-        {0, OEDolDevAnalog, OEGCAnalog, OEGCAnalogY,
-            "Control Stick Y"},
-        {0, OEDolDevAnalog, OEGCAnalogC, OEGCAnalogCX,
-            "C Buttons X"},
-        {0, OEDolDevAnalog, OEGCAnalogC, OEGCAnalogCY,
-            "C Buttons Y"},
-        {0},
-    };
-//
-//    static struct openemu_input_descriptor descWiimoteCC[] = {
-//        {0, OEDolDevJoy, 0, OEDolJoypadLeft, "Left"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadUp, "Up"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadDown, "Down"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadRight, "Right"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadB, "B"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadA, "A"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadX, "X"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadY, "Y"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadL2, "L"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR2, "R"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadL, "ZL"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR, "ZR"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR3, "Home"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadStart, "+"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadSelect, "-"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogX,
-//            "Left Stick X"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogY,
-//            "Left Stick Y"},
-//        {0, OEDolDevAnalog, OEGCAnalogC, OEDolAnalogX,
-//            "Right Stick X"},
-//        {0, OEDolDevAnalog, OEGCAnalogC, OEDolAnalogY,
-//            "Right Stick Y"},
-//        {0},
-//    };
-//
-//    static struct openemu_input_descriptor descWiimote[] = {
-//        {0, OEDolDevJoy, 0, OEDolJoypadLeft, "Left"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadUp, "Up"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadDown, "Down"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadRight, "Right"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadB, "B"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadA, "A"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadX, "1"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadY, "2"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR2, "Shake Wiimote"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadStart, "+"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadSelect, "-"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR3, "Home"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogX,
-//            "Tilt Left/Right"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogY,
-//            "Tilt Forward/Backward"},
-//        {0},
-//    };
-//
-//    static struct openemu_input_descriptor descWiimoteSideways[] = {
-//        {0, OEDolDevJoy, 0, OEDolJoypadLeft, "Up"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadUp, "Right"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadDown, "Left"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadRight, "Down"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadB, "1"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadA, "2"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadX, "A"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadY, "B"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR2, "Shake Wiimote"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadStart, "+"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadSelect, "-"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR3, "Home"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogX,
-//            "Tilt Left/Right"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogY,
-//            "Tilt Forward/Backward"},
-//        {0},
-//    };
-//
-//    static struct openemu_input_descriptor descWiimoteNunchuk[] = {
-//        {0, OEDolDevJoy, 0, OEDolJoypadLeft, "Left"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadUp, "Up"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadDown, "Down"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadRight, "Right"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadB, "B"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadA, "A"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadL, "C"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR, "Z"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadSelect, "-"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadStart, "+"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR2, "Shake Wiimote"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadL2, "Shake Nunchuk"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadX, "1"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadY, "2"},
-//        {0, OEDolDevJoy, 0, OEDolJoypadR3, "Home"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogX,
-//            "Nunchuk Stick X"},
-//        {0, OEDolDevAnalog, OEGCAnalog, OEDolAnalogY,
-//            "Nunchuk Stick Y"},
-//        {0, OEDolDevAnalog, OEGCAnalogC, OEDolAnalogX,
-//            "Tilt Left/Right"},
-//        {0, OEDolDevAnalog, OEGCAnalogC, OEDolAnalogY,
-//            "Tilt Forward/Backward"},
-//        {0},
-//    };
 
     static std::string GetDeviceName(unsigned device)
     {
@@ -229,13 +110,12 @@ namespace Input
             {
                 uint16_t str = std::min(std::max(0.0, state), 1.0) * 0xFFFF;
 
-                //rumble.set_rumble_state(m_port, OPENEMU_RUMBLE_WEAK, str);
-                //rumble.set_rumble_state(m_port, OPENEMU_RUMBLE_STRONG, str);
             }
 
         private:
             const u8 m_port;
         };
+        
         void AddButton(unsigned id, const char* name, unsigned index = 0)
         {
             AddInput(new Button(m_port, m_device, index, id, name));
@@ -292,14 +172,6 @@ namespace Input
                 AddAxis(OEDolJoypadL2, 0x7FFF, "Trigger0+", OEGCAnalogTrigger);
                 AddAxis(OEDolJoypadR2, 0x7FFF, "Trigger1+", OEGCAnalogTrigger);
                 return;
-
-//            case OEDolDevPointer:
-//                AddButton(OPENEMU_DEVICE_ID_POINTER_PRESSED, "Pressed0", 0);
-//                AddAxis(OPENEMU_DEVICE_ID_POINTER_X, -0x8000, "X0-", 0);
-//                AddAxis(OPENEMU_DEVICE_ID_POINTER_X, 0x7FFF, "X0+", 0);
-//                AddAxis(OPENEMU_DEVICE_ID_POINTER_Y, -0x8000, "Y0-", 0);
-//                AddAxis(OPENEMU_DEVICE_ID_POINTER_Y, 0x7FFF, "Y0+", 0);
-//                return;
         }
     }
 
@@ -321,7 +193,7 @@ namespace Input
         });
     }
 
-    void Openemu_Input_Init()
+    void Input::Openemu_Input_Init()
     {
         g_controller_interface.Initialize(DolHost::GetInstance()->GetWSI());
 
@@ -329,42 +201,8 @@ namespace Input
 
         Pad::Initialize();
         Keyboard::Initialize();
-
-//        if (SConfig::GetInstance().bWii && !SConfig::GetInstance().m_bt_passthrough_enabled)
-//        {
-//            Wiimote::Initialize(Wiimote::InitializeMode::DO_NOT_WAIT_FOR_WIIMOTES);
-//
-//            static const struct openemu_controller_description wiimote_desc[] = {
-//                {"WiiMote", OEWiimote},
-//                {"WiiMote (sideways)", OEWiimoteSW},
-//                {"WiiMote + Nunchuk",  OEWiimoteNC},
-//                {"WiiMote + Classic Controller",  OEWiimoteCC},
-//                {"Real WiiMote",  OEWiiMoteReal},
-//                {0},
-//            };
-//
-//            static const struct openemu_controller_info ports[] = {
-//                {wiimote_desc, sizeof(wiimote_desc) / sizeof(*wiimote_desc)},
-//                {wiimote_desc, sizeof(wiimote_desc) / sizeof(*wiimote_desc)},
-//                {wiimote_desc, sizeof(wiimote_desc) / sizeof(*wiimote_desc)},
-//                {wiimote_desc, sizeof(wiimote_desc) / sizeof(*wiimote_desc)},
-//                {0},
-//            };
-//        }
-//        else
-//        {
-            static const struct openemu_controller_description gcpad_desc[] = {
-                {"GameCube Controller", OEDolDevJoy},
-            };
-
-            static const struct openemu_controller_info ports[] = {
-                {gcpad_desc, sizeof(gcpad_desc) / sizeof(*gcpad_desc)},
-                {gcpad_desc, sizeof(gcpad_desc) / sizeof(*gcpad_desc)},
-                {gcpad_desc, sizeof(gcpad_desc) / sizeof(*gcpad_desc)},
-                {gcpad_desc, sizeof(gcpad_desc) / sizeof(*gcpad_desc)},
-                {0},
-            };
-//        }
+        
+        Input::ResetControllers();
     }
 
     void Shutdown()
@@ -373,31 +211,29 @@ namespace Input
         Keyboard::Shutdown();
         Pad::Shutdown();
         g_controller_interface.Shutdown();
-
-        //rumble.set_rumble_state = nullptr;
     }
 
     void OpenEmu_Input_Update()
     {
     }
 
-    void ResetControllers()
+    void Input::ResetControllers()
     {
         for (int port = 0; port < 4; port++)
-            openemu_set_controller_port_device(port, input_types[port]);
+            Input::openemu_set_controller_port_device(port, input_types[port]);
     }
 
-    void openemu_set_input_state(openemu_input_state_t cb)
+void Input::openemu_set_input_state(Input::openemu_input_state_t cb)
     {
         input_cb = cb;
     }
 
-    void openemu_set_input_poll(openemu_input_poll_t cb)
+void Input::openemu_set_input_poll(Input::openemu_input_poll_t cb)
     {
         poll_cb = cb;
     }
 
-    void openemu_set_controller_port_device(unsigned port, unsigned device)
+    void Input::openemu_set_controller_port_device(unsigned port, unsigned device)
     {
         if (port > 3)
             return;
@@ -412,8 +248,7 @@ namespace Input
         if ((device & 0xff) != OEDolDevNone)
             AddDevicesForPort(port);
 
-//        if (!SConfig::GetInstance().bWii)
-//        {
+
             GCPad* gcPad = (GCPad*)Pad::GetConfig()->GetController(port);
             // load an empty inifile section, clears everything
             IniFile::Section sec;
@@ -457,241 +292,6 @@ namespace Input
 
             gcPad->UpdateReferences(g_controller_interface);
             Pad::GetConfig()->SaveConfig();
-//        }
-//        else if (!SConfig::GetInstance().m_bt_passthrough_enabled && (device & 0xff) != OEDolDevNone)
-//        {
-//            WiimoteEmu::Wiimote* wm = (WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController(port);
-//            // load an empty inifile section, clears everything
-//            IniFile::Section sec;
-//            wm->LoadConfig(&sec);
-//            wm->SetDefaultDevice(devJoypad);
-//
-//            using namespace WiimoteEmu;
-//            if (device == OEWiimoteCC)
-//            {
-//                ControllerEmu::ControlGroup* ccButtons = wm->GetClassicGroup(ClassicGroup::Buttons);
-//                ControllerEmu::ControlGroup* ccTriggers = wm->GetClassicGroup(ClassicGroup::Triggers);
-//                ControllerEmu::ControlGroup* ccDpad = wm->GetClassicGroup(ClassicGroup::DPad);
-//                ControllerEmu::ControlGroup* ccLeftStick = wm->GetClassicGroup(ClassicGroup::LeftStick);
-//                ControllerEmu::ControlGroup* ccRightStick = wm->GetClassicGroup(ClassicGroup::RightStick);
-//
-//                ccButtons->SetControlExpression(0, "A");                              // A
-//                ccButtons->SetControlExpression(1, "B");                              // B
-//                ccButtons->SetControlExpression(2, "X");                              // X
-//                ccButtons->SetControlExpression(3, "Y");                              // Y
-//                ccButtons->SetControlExpression(4, "L");                              // ZL
-//                ccButtons->SetControlExpression(5, "R");                              // ZR
-//                ccButtons->SetControlExpression(6, "Select");                         // -
-//                ccButtons->SetControlExpression(7, "Start");                          // +
-//                ccButtons->SetControlExpression(8, "R3");                             // Home
-//                ccTriggers->SetControlExpression(0, "L2");                            // L-trigger
-//                ccTriggers->SetControlExpression(1, "R2");                            // R-trigger
-//                ccTriggers->SetControlExpression(2, "`" + devAnalog + ":Trigger0+`"); // L-trigger Analog
-//                ccTriggers->SetControlExpression(3, "`" + devAnalog + ":Trigger1+`"); // R-trigger Analog
-//                ccDpad->SetControlExpression(0, "Up");                                // Up
-//                ccDpad->SetControlExpression(1, "Down");                              // Down
-//                ccDpad->SetControlExpression(2, "Left");                              // Left
-//                ccDpad->SetControlExpression(3, "Right");                             // Right
-//                ccLeftStick->SetControlExpression(0, "`" + devAnalog + ":Y0-`");      // Up
-//                ccLeftStick->SetControlExpression(1, "`" + devAnalog + ":Y0+`");      // Down
-//                ccLeftStick->SetControlExpression(2, "`" + devAnalog + ":X0-`");      // Left
-//                ccLeftStick->SetControlExpression(3, "`" + devAnalog + ":X0+`");      // Right
-//
-//                //            if (libOE::Options::irMode != 1 && libOE::Options::irMode != 2)
-//                //            {
-//                //                ccRightStick->SetControlExpression(0, "`" + devAnalog + ":Y1-`");     // Up
-//                //                ccRightStick->SetControlExpression(1, "`" + devAnalog + ":Y1+`");     // Down
-//                //                ccRightStick->SetControlExpression(2, "`" + devAnalog + ":X1-`");     // Left
-//                //                ccRightStick->SetControlExpression(3, "`" + devAnalog + ":X1+`");     // Right
-//                //            }
-//            }
-//            else
-//            {
-//                ControllerEmu::ControlGroup* wmButtons = wm->GetWiimoteGroup(WiimoteGroup::Buttons);
-//                ControllerEmu::ControlGroup* wmDPad = wm->GetWiimoteGroup(WiimoteGroup::DPad);
-//                //ControllerEmu::ControlGroup* wmIR = wm->GetWiimoteGroup(WiimoteGroup::IR);
-//                ControllerEmu::ControlGroup* wmShake = wm->GetWiimoteGroup(WiimoteGroup::Shake);
-//                ControllerEmu::ControlGroup* wmTilt = wm->GetWiimoteGroup(WiimoteGroup::Tilt);
-//#if 0
-//                ControllerEmu::ControlGroup* wmSwing = wm->GetWiimoteGroup(WiimoteGroup::Swing);
-//                ControllerEmu::ControlGroup* wmHotkeys = wm->GetWiimoteGroup(WiimoteGroup::Hotkeys);
-//#endif
-//
-//                wmButtons->SetControlExpression(0, "A | `" + devPointer + ":Pressed0`");  // A
-//                wmButtons->SetControlExpression(1, "B");                                  // B
-//                //            wmIR->numeric_settings[0]->SetValue(libOE::Options::irCenter / 100.0); // IR Center
-//                //            wmIR->numeric_settings[1]->SetValue(libOE::Options::irWidth / 100.0);  // IR Width
-//                //            wmIR->numeric_settings[2]->SetValue(libOE::Options::irHeight / 100.0); // IR Height
-//
-//                if (device == OEWiimoteNC)
-//                {
-//                    ControllerEmu::ControlGroup* ncButtons = wm->GetNunchukGroup(NunchukGroup::Buttons);
-//                    ControllerEmu::ControlGroup* ncStick = wm->GetNunchukGroup(NunchukGroup::Stick);
-//                    ControllerEmu::ControlGroup* ncShake = wm->GetNunchukGroup(NunchukGroup::Shake);
-//#if 0
-//                    ControllerEmu::ControlGroup* ncTilt = wm->GetNunchukGroup(NunchukGroup::Tilt);
-//                    ControllerEmu::ControlGroup* ncSwing = wm->GetNunchukGroup(NunchukGroup::Swing);
-//#endif
-//
-//                    ncButtons->SetControlExpression(0, "X");                      // C
-//                    ncButtons->SetControlExpression(1, "Y");                      // Z
-//                    ncStick->SetControlExpression(0, "`" + devAnalog + ":Y0-`");  // Up
-//                    ncStick->SetControlExpression(1, "`" + devAnalog + ":Y0+`");  // Down
-//                    ncStick->SetControlExpression(2, "`" + devAnalog + ":X0-`");  // Left
-//                    ncStick->SetControlExpression(3, "`" + devAnalog + ":X0+`");  // Right
-//                    ncShake->SetControlExpression(0, "L2");                       // X
-//                    ncShake->SetControlExpression(1, "L2");                       // Y
-//                    ncShake->SetControlExpression(2, "L2");                       // Z
-//
-//                    wmButtons->SetControlExpression(2, "Start");   // 1
-//                    wmButtons->SetControlExpression(3, "Select");  // 2
-//                    wmButtons->SetControlExpression(4, "L");       // -
-//                    wmButtons->SetControlExpression(5, "R");       // +
-//
-//                    //                if (libOE::Options::irMode != 1 && libOE::Options::irMode != 2)
-//                    //                {
-//                    //                    wmTilt->SetControlExpression(0, "`" + devAnalog + ":Y1-`");  // Forward
-//                    //                    wmTilt->SetControlExpression(1, "`" + devAnalog + ":Y1+`");  // Backward
-//                    //                    wmTilt->SetControlExpression(2, "`" + devAnalog + ":X1-`");  // Left
-//                    //                    wmTilt->SetControlExpression(3, "`" + devAnalog + ":X1+`");  // Right
-//                    //                }
-//                }
-//                else
-//                {
-//                    wmButtons->SetControlExpression(2, "X");       // 1
-//                    wmButtons->SetControlExpression(3, "Y");       // 2
-//                    wmButtons->SetControlExpression(4, "Select");  // -
-//                    wmButtons->SetControlExpression(5, "Start");   // +
-//                    wmTilt->SetControlExpression(0, "`" + devAnalog + ":Y0-`");  // Forward
-//                    wmTilt->SetControlExpression(1, "`" + devAnalog + ":Y0+`");  // Backward
-//                    wmTilt->SetControlExpression(2, "`" + devAnalog + ":X0-`");  // Left
-//                    wmTilt->SetControlExpression(3, "`" + devAnalog + ":X0+`");  // Right
-//                }
-//
-//                wmButtons->SetControlExpression(6, "R3");                   // Home
-//                wmDPad->SetControlExpression(0, "Up");                      // Up
-//                wmDPad->SetControlExpression(1, "Down");                    // Down
-//                wmDPad->SetControlExpression(2, "Left");                    // Left
-//                wmDPad->SetControlExpression(3, "Right");                   // Right
-//
-//                //            if (libOE::Options::irMode == 1 || libOE::Options::irMode == 2)
-//                //            {
-//                //                // Set right stick to control the IR
-//                //                wmIR->SetControlExpression(0, "`" + devAnalog + ":Y1-`");     // Up
-//                //                wmIR->SetControlExpression(1, "`" + devAnalog + ":Y1+`");     // Down
-//                //                wmIR->SetControlExpression(2, "`" + devAnalog + ":X1-`");     // Left
-//                //                wmIR->SetControlExpression(3, "`" + devAnalog + ":X1+`");     // Right
-//                //                wmIR->boolean_settings[0]->SetValue(libOE::Options::irMode == 1); // Relative input
-//                //                wmIR->boolean_settings[1]->SetValue(true);                    // Auto hide
-//                //            }
-//                //            else
-//                {
-//                    // Mouse controls IR
-//                    //                wmIR->SetControlExpression(0, "`" + devPointer + ":Y0-`");  // Up
-//                    //                wmIR->SetControlExpression(1, "`" + devPointer + ":Y0+`");  // Down
-//                    //                wmIR->SetControlExpression(2, "`" + devPointer + ":X0-`");  // Left
-//                    //                wmIR->SetControlExpression(3, "`" + devPointer + ":X0+`");  // Right
-//                    //                wmIR->boolean_settings[0]->SetValue(false);                 // Relative input
-//                    //                wmIR->boolean_settings[1]->SetValue(false);                 // Auto hide
-//                }
-//                wmShake->SetControlExpression(0, "R2");                     // X
-//                wmShake->SetControlExpression(1, "R2");                     // Y
-//                wmShake->SetControlExpression(2, "R2");                     // Z
-//#if 0
-//                wmHotkeys->SetControlExpression(0, "");  // Sideways Toggle
-//                wmHotkeys->SetControlExpression(1, "");  // Upright Toggle
-//                wmHotkeys->SetControlExpression(2, "");  // Sideways Hold
-//                wmHotkeys->SetControlExpression(3, "");  // Upright Hold
-//                wmShake->SetControlExpression(0, "");  // X
-//                wmShake->SetControlExpression(1, "");  // Y
-//                wmShake->SetControlExpression(2, "");  // Z
-//#endif
-//            }
-//
-//            ControllerEmu::ControlGroup* wmRumble = wm->GetWiimoteGroup(WiimoteGroup::Rumble);
-//            ControllerEmu::ControlGroup* wmOptions = wm->GetWiimoteGroup(WiimoteGroup::Options);
-//            ControllerEmu::Extension* wmExtension = (ControllerEmu::Extension*)wm->GetWiimoteGroup(WiimoteGroup::Attachments);
-//
-////                    wmOptions->boolean_settings[0]->SetValue(true);        // Forward Wiimote
-////                    wmOptions->boolean_settings[1]->SetValue(false);       // Upright Wiimote
-////                    wmOptions->boolean_settings[2]->SetValue(false);       // Sideways Wiimote
-////                    wmOptions->numeric_settings[0]->SetValue(0);           // Speaker Pan [-127, 127]
-////                    wmOptions->numeric_settings[1]->SetValue(95.0 / 100);  // Battery
-//            wmRumble->SetControlExpression(0, "Rumble");
-//
-//            switch (device)
-//            {
-//                case OEWiimote:
-//                    //wmExtension->switch_extension = EXT_NONE;
-//                    WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_EMU);
-//                    break;
-//
-//                case OEWiimoteSW:
-//                    //wmExtension->switch_extension = EXT_NONE;
-//                    //                wmOptions->boolean_settings[2]->SetValue(true);  // Sideways Wiimote
-//                    WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_EMU);
-//                    break;
-//
-//                case OEWiimoteNC:
-//                    //wmExtension->switch_extension = EXT_NUNCHUK;
-//                    WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_EMU);
-//                    break;
-//
-//                case OEWiimoteCC:
-//                    //wmExtension->switch_extension = EXT_CLASSIC;
-//                    WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_EMU);
-//                    break;
-//
-//                default:
-//                    WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_NONE);
-//                    break;
-//            }
-//
-//            wm->UpdateReferences(g_controller_interface);
-//            ::Wiimote::GetConfig()->SaveConfig();
-//        }
-//        else if (input_types[port] == OEWiiMoteReal)
-//            WiimoteReal::ChangeWiimoteSource(port, WIIMOTE_SRC_REAL);
 
-//        std::vector<openemu_input_descriptor> all_descs;
-//
-//        for (int i = 0; i < 4; i++)
-//        {
-//            openemu_input_descriptor* desc;
-//
-//            switch (input_types[i])
-//            {
-//                case OEWiimote:
-//                    desc = descWiimote;
-//                    break;
-//
-//                case OEWiimoteSW:
-//                    desc = descWiimoteSideways;
-//                    break;
-//
-//                case OEWiimoteNC:
-//                    desc = descWiimoteNunchuk;
-//                    break;
-//
-//                case OEWiimoteCC:
-//                    desc = descWiimoteCC;
-//                    break;
-//
-//                case OEWiiMoteReal:
-//                case OEDolDevNone:
-//                    continue;
-//
-//                default:
-//                    desc = descGC;
-//                    break;
-//            }
-//            for (int j = 0; desc[j].device != 0; j++)
-//            {
-//                openemu_input_descriptor new_desc = desc[j];
-//                new_desc.port = i;
-//                all_descs.push_back(new_desc);
-//            }
-//        }
 //        all_descs.push_back({ 0 });
     }
-} // namespace Input

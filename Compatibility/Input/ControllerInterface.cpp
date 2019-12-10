@@ -8,6 +8,8 @@
 
 #include "Common/Logging/Log.h"
 
+#include "OpenEmuInput.h"
+
 ControllerInterface g_controller_interface;
 
 void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
@@ -21,7 +23,12 @@ void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
   m_is_init = true;
 
   m_is_populating_devices = true;
+
+  Input::Openemu_Input_Init();
+    
   RefreshDevices();
+    
+    m_is_populating_devices = false;
 }
 
 void ControllerInterface::ChangeWindow(void* hwnd)
@@ -35,8 +42,21 @@ void ControllerInterface::ChangeWindow(void* hwnd)
 
 void ControllerInterface::RefreshDevices()
 {
-    //OpenEmu Stub
-    return ;
+  if (!m_is_init)
+    return;
+
+//  {
+//    std::lock_guard<std::mutex> lk(m_devices_mutex);
+//    m_devices.clear();
+//  }
+
+  m_is_populating_devices = true;
+
+  // Make sure shared_ptr<Device> objects are released before repopulating.
+  //InvokeDevicesChangedCallbacks();
+
+  m_is_populating_devices = false;
+  //InvokeDevicesChangedCallbacks();
 }
 
 // Remove all devices and call library cleanup functions
@@ -64,6 +84,7 @@ void ControllerInterface::Shutdown()
   // This will update control references so shared_ptr<Device>s are freed up
   // BEFORE we shutdown the backends.
   InvokeDevicesChangedCallbacks();
+
 }
 
 void ControllerInterface::AddDevice(std::shared_ptr<ciface::Core::Device> device)

@@ -92,4 +92,6 @@ namespace Input
     
     void Openemu_Input_Init();
     void OpenEmu_Input_Update();
+    void ResetControllers();
+
 }

@@ -16,31 +16,12 @@ int16_t input_state_f(unsigned port, unsigned device, unsigned index, unsigned b
 {
     if (SConfig::GetInstance().bWii && !SConfig::GetInstance().m_bt_passthrough_enabled)
     {
-        
+        //This is where we must translate the OpenEmu frontend keys presses stored in the keymap to bitmasks for Dolphin.
+        return 0;
     } else {
          return GameCubePads[port].gc_pad_keymap[button].value;
-//        switch (device)
-//        {
-//            case OEDolDevJoy:
-//                return GameCubePads[port].gc_pad_keymap[button].value;
-//                break;
-//
-//            case OEDolDevAnalog:
-//                switch (index)
-//                {
-//                    case OEGCAnalog:
-//                        return GameCubePads[port].gc_pad_Analog.Xaxis;
-//                        break;
-//                    case OEGCAnalogC:
-//                        break;
-//                    case OEGCAnalogTrigger:
-//                        break;
-//              }
-//                break;
-//        }
     }
-    //This is where we must translate the OpenEmu frontend keys presses stored in the keymap to bitmasks for Dolphin.
-    return 0;
+    
 };
 
 void init_Callback() {
@@ -52,16 +33,6 @@ void init_Callback() {
 }
 
 void setGameCubeButton(int pad_num, int button , int value) {
-//    for (unsigned i = 0; i < (sizeof( GameCubePads[pad_num].gc_pad_keymap) / sizeof(* GameCubePads[pad_num].gc_pad_keymap)); i++)
-//        if ( GameCubePads[pad_num].gc_pad_keymap[i].openemuButton == button)
-//        {
-//            GameCubePads[pad_num].gc_pad_keymap[i].value = value;
-//            return;
-//        }
-    
-//    if (button >= (int)OEGCButtonA)
-//        button -= 8;
-//
     GameCubePads[pad_num].gc_pad_keymap[button].value = value;
 }
 
