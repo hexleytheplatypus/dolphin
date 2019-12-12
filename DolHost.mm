@@ -105,6 +105,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     //Configure UI for OpenEmu directory structure
     UICommon::SetUserDirectory(supportDirectoryPath);
     UICommon::CreateDirectories();
+    
     // Init the UI
     UICommon::Init();
     
@@ -222,7 +223,7 @@ bool DolHost::LoadFileAtPath()
     // Initialize Input
     Input::Openemu_Input_Init();
     
-    //Add 4 Joypads to the emulator (They will get changed during Creation to GC or WII controlelr)
+    //Add 4 Joypads
     for (int i = 0; i < 4; i++)
         Input::openemu_set_controller_port_device(i, OEDolDevJoy);
 

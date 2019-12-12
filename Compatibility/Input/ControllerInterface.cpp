@@ -4,6 +4,10 @@
 
 #include "InputCommon/ControllerInterface/ControllerInterface.h"
 
+#ifdef CIFACE_USE_OSX
+#undef CIFACE_USE_OSX
+#endif
+
 #include <algorithm>
 
 #include "Common/Logging/Log.h"
@@ -45,18 +49,8 @@ void ControllerInterface::RefreshDevices()
   if (!m_is_init)
     return;
 
-//  {
-//    std::lock_guard<std::mutex> lk(m_devices_mutex);
-//    m_devices.clear();
-//  }
-
-  m_is_populating_devices = true;
-
-  // Make sure shared_ptr<Device> objects are released before repopulating.
-  //InvokeDevicesChangedCallbacks();
-
   m_is_populating_devices = false;
-  //InvokeDevicesChangedCallbacks();
+  InvokeDevicesChangedCallbacks();
 }
 
 // Remove all devices and call library cleanup functions

@@ -202,7 +202,6 @@ static unsigned input_types[4];
         Pad::Initialize();
         Keyboard::Initialize();
         
-        Input::ResetControllers();
     }
 
     void Shutdown()
