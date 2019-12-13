@@ -157,7 +157,7 @@ static unsigned input_types[4];
                 AddButton(OEGCButtonX, "X");
                 AddButton(OEGCButtonL, "L");
                 AddButton(OEGCButtonR, "R");
-                AddButton(OEGCButtonZ, "R2");
+                AddButton(OEGCButtonZ, "Z");
                 return;
                 
             case OEDolDevAnalog:
@@ -269,7 +269,7 @@ void Input::openemu_set_input_poll(Input::openemu_input_poll_t cb)
             gcButtons->SetControlExpression(1, "B");                              // B
             gcButtons->SetControlExpression(2, "X");                              // X
             gcButtons->SetControlExpression(3, "Y");                              // Y
-            gcButtons->SetControlExpression(4, "R");                              // Z
+            gcButtons->SetControlExpression(4, "Z");                              // Z
             gcButtons->SetControlExpression(5, "Start");                          // Start
             gcMainStick->SetControlExpression(0, "`" + devAnalog + ":Y0-`");      // Up
             gcMainStick->SetControlExpression(1, "`" + devAnalog + ":Y0+`");      // Down
@@ -283,8 +283,8 @@ void Input::openemu_set_input_poll(Input::openemu_input_poll_t cb)
             gcDPad->SetControlExpression(1, "Down");                              // Down
             gcDPad->SetControlExpression(2, "Left");                              // Left
             gcDPad->SetControlExpression(3, "Right");                             // Right
-            gcTriggers->SetControlExpression(0, "L2");                            // L-trigger
-            gcTriggers->SetControlExpression(1, "R2");                            // R-trigger
+            gcTriggers->SetControlExpression(0, "L");                            // L-trigger
+            gcTriggers->SetControlExpression(1, "R");                            // R-trigger
             gcTriggers->SetControlExpression(2, "`" + devAnalog + ":Trigger0+`"); // L-trigger Analog
             gcTriggers->SetControlExpression(3, "`" + devAnalog + ":Trigger1+`"); // R-trigger Analog
             gcRumble->SetControlExpression(0, "Rumble");
