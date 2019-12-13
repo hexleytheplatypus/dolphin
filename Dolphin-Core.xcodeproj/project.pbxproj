@@ -916,7 +916,6 @@
 		EE6ABE57239C36D7005E5F7D /* ControlReference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE52239C36D7005E5F7D /* ControlReference.cpp */; };
 		EE6ABE58239C36D7005E5F7D /* ExpressionParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE54239C36D7005E5F7D /* ExpressionParser.cpp */; };
 		EE6ABE59239C36D7005E5F7D /* FunctionExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE55239C36D7005E5F7D /* FunctionExpression.cpp */; };
-		EE6ABE5E239C3724005E5F7D /* ControllerInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE5A239C3723005E5F7D /* ControllerInterface.cpp */; };
 		EE6ABE5F239C3724005E5F7D /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE5B239C3723005E5F7D /* Device.cpp */; };
 		EE6ABE62239C3738005E5F7D /* ForceFeedbackDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE60239C3738005E5F7D /* ForceFeedbackDevice.cpp */; };
 		EE6ABE67239C3756005E5F7D /* Pipes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE6ABE65239C3756005E5F7D /* Pipes.cpp */; };
@@ -8699,7 +8698,6 @@
 				EE6ABE3E239C36AD005E5F7D /* Triggers.cpp in Sources */,
 				EE6ABE48239C36AD005E5F7D /* Tilt.cpp in Sources */,
 				EEE07D4122C43C40006D46FD /* InputConfig.cpp in Sources */,
-				EE6ABE5E239C3724005E5F7D /* ControllerInterface.cpp in Sources */,
 				EE6ABE50239C36C4005E5F7D /* ControllerEmu.cpp in Sources */,
 				EE6ABE1C239C3679005E5F7D /* Input.cpp in Sources */,
 				EE6ABE59239C36D7005E5F7D /* FunctionExpression.cpp in Sources */,
