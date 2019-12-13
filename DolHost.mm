@@ -621,10 +621,8 @@ void Host_Message(HostMessageID id) {
         g_Config.aspect_mode = AspectMode::Stretch;
         
         // Core is up,  lets enable Hybric Ubershaders
-        g_Config.iShaderCompilationMode = ShaderCompilationMode::SynchronousUberShaders;
-        //g_Config.bPrecompileUberShaders = true;
-        //g_Config.bBackgroundShaderCompiling = true;
-        //g_Config.bDisableSpecializedShaders = false;
+        g_Config.iShaderCompilationMode = ShaderCompilationMode::AsynchronousUberShaders;
+        g_Config.bWaitForShadersBeforeStarting = false;
         
         //Set the threads to auto (-1)
         g_Config.iShaderCompilerThreads = -1;
