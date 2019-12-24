@@ -3040,7 +3040,7 @@
 		834974491A64403300E0B28E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		8349744B1A64404400E0B28E /* libdl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdl.dylib; path = usr/lib/libdl.dylib; sourceTree = SDKROOT; };
 		834974551A64435700E0B28E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		8355D4931A6538FD00E73302 /* Dolphin-Core.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dolphin-Core.oecoreplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8355D4931A6538FD00E73302 /* dolphin.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dolphin.oecoreplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8355D4961A6538FD00E73302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8355D4E21A653B6600E73302 /* DolphinGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DolphinGameCore.h; sourceTree = "<group>"; };
 		8355D4E31A653B6600E73302 /* DolphinGameCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DolphinGameCore.mm; sourceTree = "<group>"; };
@@ -6395,7 +6395,7 @@
 				3DB9EC0F64AC4815A7E27952 /* libvideocommon-dol.a */,
 				AAAFBCFB3D78404A8E6EF873 /* libvideoogl-dol.a */,
 				0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */,
-				8355D4931A6538FD00E73302 /* Dolphin-Core.oecoreplugin */,
+				8355D4931A6538FD00E73302 /* dolphin.oecoreplugin */,
 				8378DEC51A7862DA003DA046 /* libxxhash-dol.a */,
 				3E3D76811C839B2E00091C4D /* libenet-dol.a */,
 				3E3D76A41C839C5400091C4D /* libmbedtls-dol.a */,
@@ -7424,9 +7424,9 @@
 			productReference = F65EF8E25FB448D2BA4D3070 /* libbdisasm-dol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		8355D4921A6538FD00E73302 /* Dolphin-Core */ = {
+		8355D4921A6538FD00E73302 /* dolphin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8355D4971A6538FD00E73302 /* Build configuration list for PBXNativeTarget "Dolphin-Core" */;
+			buildConfigurationList = 8355D4971A6538FD00E73302 /* Build configuration list for PBXNativeTarget "dolphin" */;
 			buildPhases = (
 				8355D48F1A6538FD00E73302 /* Sources */,
 				8355D4901A6538FD00E73302 /* Frameworks */,
@@ -7438,9 +7438,9 @@
 				3E3DA5511F8C121D0005FB1B /* PBXTargetDependency */,
 				8355D4B71A65392600E73302 /* PBXTargetDependency */,
 			);
-			name = "Dolphin-Core";
+			name = dolphin;
 			productName = "Dolphin-Core";
-			productReference = 8355D4931A6538FD00E73302 /* Dolphin-Core.oecoreplugin */;
+			productReference = 8355D4931A6538FD00E73302 /* dolphin.oecoreplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		8378DE981A7862DA003DA046 /* xxhash */ = {
@@ -7817,7 +7817,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 714ED1DDE37248CABAB2852A /* Build configuration list for PBXProject "Dolphin-Core" */;
+			buildConfigurationList = 714ED1DDE37248CABAB2852A /* Build configuration list for PBXProject "dolphin" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -7854,7 +7854,7 @@
 				EE3EC41D224AA01500BA7436 /* videovulkan */,
 				D825688E394642D19FD24A29 /* videosoftware */,
 				8378DE981A7862DA003DA046 /* xxhash */,
-				8355D4921A6538FD00E73302 /* Dolphin-Core */,
+				8355D4921A6538FD00E73302 /* dolphin */,
 				8355D4D91A653A9D00E73302 /* Build & Install Dolphin */,
 				3E3D76801C839B2E00091C4D /* enet */,
 				3E3D76A31C839C5400091C4D /* mbedtls */,
@@ -9361,7 +9361,7 @@
 		};
 		8355D4E01A653AA900E73302 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8355D4921A6538FD00E73302 /* Dolphin-Core */;
+			target = 8355D4921A6538FD00E73302 /* dolphin */;
 			targetProxy = 8355D4DF1A653AA900E73302 /* PBXContainerItemProxy */;
 		};
 		8378DED01A786335003DA046 /* PBXTargetDependency */ = {
@@ -20314,7 +20314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		714ED1DDE37248CABAB2852A /* Build configuration list for PBXProject "Dolphin-Core" */ = {
+		714ED1DDE37248CABAB2852A /* Build configuration list for PBXProject "dolphin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FAA6947016D14BA59DA6F022 /* Debug */,
@@ -20325,7 +20325,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		8355D4971A6538FD00E73302 /* Build configuration list for PBXNativeTarget "Dolphin-Core" */ = {
+		8355D4971A6538FD00E73302 /* Build configuration list for PBXNativeTarget "dolphin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8355D4981A6538FD00E73302 /* Debug */,
