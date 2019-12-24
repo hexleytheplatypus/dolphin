@@ -778,7 +778,6 @@
 		3EFF28C01F855D7900B4FD11 /* liblzo2-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D345B2FE38FA4436A72B869F /* liblzo2-dol.a */; };
 		3EFF28C11F855DEB00B4FD11 /* libvideoogl-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAAFBCFB3D78404A8E6EF873 /* libvideoogl-dol.a */; };
 		3EFF28C21F855DEB00B4FD11 /* libvideosoftware-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */; };
-		3EFF28D31F855F2F00B4FD11 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */; };
 		3EFF28D41F855F2F00B4FD11 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28D11F855F2E00B4FD11 /* Config.cpp */; };
 		3EFF291B1F8560BA00B4FD11 /* NullBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */; };
 		3EFF291C1F8560BA00B4FD11 /* NullTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */; };
@@ -1010,6 +1009,7 @@
 		EE9C006C20A4F94000312609 /* Watches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006920A4F93F00312609 /* Watches.cpp */; };
 		EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006E20A4FA8B00312609 /* SysConf.cpp */; };
 		EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */; };
+		EEC2B7B623B2B29B006E959C /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC2B7B523B2B139006E959C /* Layer.cpp */; };
 		EEC94A5C224ABFDC00F85ABA /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EEC94A63224AC02F00F85ABA /* InitializeDll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC94A51224ABFD200F85ABA /* InitializeDll.cpp */; };
 		EEC94A68224AC13A00F85ABA /* libOGLCompilersDLL-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC94A62224ABFDC00F85ABA /* libOGLCompilersDLL-dol.a */; };
@@ -3485,6 +3485,7 @@
 		EEA7CF5C20A4F2DD0033BB8A /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Result.h; path = dolphin/Source/Core/Common/Result.h; sourceTree = "<group>"; };
 		EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FloatUtils.cpp; path = dolphin/Source/Core/Common/FloatUtils.cpp; sourceTree = "<group>"; };
 		EEA7CF5F20A4F70B0033BB8A /* scmrev.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scmrev.h; path = Common/scmrev.h; sourceTree = "<group>"; };
+		EEC2B7B523B2B139006E959C /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Layer.cpp; path = Common/Layer.cpp; sourceTree = "<group>"; };
 		EEC94A4F224ABFD200F85ABA /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		EEC94A50224ABFD200F85ABA /* InitializeDll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InitializeDll.h; sourceTree = "<group>"; };
 		EEC94A51224ABFD200F85ABA /* InitializeDll.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InitializeDll.cpp; sourceTree = "<group>"; };
@@ -4448,6 +4449,7 @@
 		3E89F47A1CCAB2A800EAE7AC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EEC2B7B523B2B139006E959C /* Layer.cpp */,
 				EEE07D4222C43C52006D46FD /* ConfigManager.cpp */,
 				EEA7CF5F20A4F70B0033BB8A /* scmrev.h */,
 				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
@@ -8272,7 +8274,6 @@
 				3E3D717D1C82B0BB00091C4D /* MemArena.cpp in Sources */,
 				3E3D718D1C82B0BB00091C4D /* TraversalClient.cpp in Sources */,
 				3EFF260D1F84560100B4FD11 /* HttpRequest.cpp in Sources */,
-				3EFF28D31F855F2F00B4FD11 /* Layer.cpp in Sources */,
 				3E3D71901C82B0BB00091C4D /* Version.cpp in Sources */,
 				3EFF260A1F84560100B4FD11 /* CommonFuncs.cpp in Sources */,
 				EE3A462122B5DCBB00031B56 /* DynamicLibrary.cpp in Sources */,
@@ -8302,6 +8303,7 @@
 				3E3D71861C82B0BB00091C4D /* SDCardUtil.cpp in Sources */,
 				3E3D718E1C82B0BB00091C4D /* TraversalServer.cpp in Sources */,
 				3E3D71891C82B0BB00091C4D /* SymbolDB.cpp in Sources */,
+				EEC2B7B623B2B29B006E959C /* Layer.cpp in Sources */,
 				3E3D718C1C82B0BB00091C4D /* Timer.cpp in Sources */,
 				3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */,
 				EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */,
