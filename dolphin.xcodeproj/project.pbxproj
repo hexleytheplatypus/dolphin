@@ -1145,13 +1145,6 @@
 			remoteGlobalIDString = AECE51C4C7E0411EA86B7548;
 			remoteInfo = pch;
 		};
-		3E3DA5501F8C121D0005FB1B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3E2217961D74AB3300C55942;
-			remoteInfo = Wii;
-		};
 		3E8D27CE1D21DA830086BA59 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
@@ -7437,7 +7430,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3E3DA5511F8C121D0005FB1B /* PBXTargetDependency */,
 				8355D4B71A65392600E73302 /* PBXTargetDependency */,
 			);
 			name = dolphin;
@@ -9145,11 +9137,6 @@
 			isa = PBXTargetDependency;
 			target = C8D71164030546149D73799E /* SoundTouch */;
 			targetProxy = 254D0F01EF154DD7AD279062 /* PBXContainerItemProxy */;
-		};
-		3E3DA5511F8C121D0005FB1B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3E2217961D74AB3300C55942 /* Wii */;
-			targetProxy = 3E3DA5501F8C121D0005FB1B /* PBXContainerItemProxy */;
 		};
 		3E8D27CF1D21DA830086BA59 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
