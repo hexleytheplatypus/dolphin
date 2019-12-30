@@ -155,22 +155,22 @@ static unsigned input_types[4];
                 AddButton(OEGCButtonRight, "Right");
                 AddButton(OEGCButtonA, "A");
                 AddButton(OEGCButtonX, "X");
-                AddButton(OEGCButtonL, "L");
-                AddButton(OEGCButtonR, "R");
+                AddButton(OEGCDigitalL, "L");
+                AddButton(OEGCDigitalR, "R");
                 AddButton(OEGCButtonZ, "Z");
                 return;
                 
             case OEDolDevAnalog:
-                AddAxis(OEGCAnalogLeft, -0x8000, "X0-", OEGCAnalog);
-                AddAxis(OEGCAnalogRight, 0x7FFF, "X0+", OEGCAnalog);
-                AddAxis(OEGCAnalogUp, -0x8000, "Y0-", OEGCAnalog);
-                AddAxis(OEGCAnalogDown, 0x7FFF, "Y0+", OEGCAnalog);
-                AddAxis(OEGCAnalogCLeft, -0x8000, "X1-", OEGCAnalogC);
-                AddAxis(OEGCAnalogCRight, 0x7FFF, "X1+", OEGCAnalogC);
-                AddAxis(OEGCAnalogCUp, -0x8000, "Y1-", OEGCAnalogC);
-                AddAxis(OEGCAnalogCDown, 0x7FFF, "Y1+", OEGCAnalogC);
-                AddAxis(OEDolJoypadL2, 0x7FFF, "Trigger0+", OEGCAnalogTrigger);
-                AddAxis(OEDolJoypadR2, 0x7FFF, "Trigger1+", OEGCAnalogTrigger);
+                AddAxis(OEGCAnalogLeft, -0x8000, "X0-");
+                AddAxis(OEGCAnalogRight, 0x7FFF, "X0+");
+                AddAxis(OEGCAnalogUp, -0x8000, "Y0-");
+                AddAxis(OEGCAnalogDown, 0x7FFF, "Y0+");
+                AddAxis(OEGCAnalogCLeft, -0x8000, "X1-");
+                AddAxis(OEGCAnalogCRight, 0x7FFF, "X1+");
+                AddAxis(OEGCAnalogCUp, -0x8000, "Y1-");
+                AddAxis(OEGCAnalogCDown, 0x7FFF, "Y1+");
+                AddAxis(OEGCButtonL, 0x7FFF, "Trigger0+");
+                AddAxis(OEGCButtonR, 0x7FFF, "Trigger1+");
                 return;
         }
     }
@@ -234,7 +234,7 @@ void Input::openemu_set_input_poll(Input::openemu_input_poll_t cb)
 
     void Input::openemu_set_controller_port_device(unsigned port, unsigned device)
     {
-        if (port > 3)
+        if (port > 4)
             return;
 
         input_types[port] = device;

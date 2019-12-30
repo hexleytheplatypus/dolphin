@@ -483,28 +483,6 @@ void DolHost::setButtonState(int button, int state, int player)
     {
       //  setWiiButton(player, button, state);
     }
-    
-//    if (button == OEWiiChangeExtension)
-//    {
-//        //set the Extension change state and return.  The next key pressed
-//        //  while the Change Extension key is held will determine the Extension added
-//        _wiiChangeExtension[player] = state;
-//        return;
-//    }
-    
-//    if ( _wiiChangeExtension[player] && state == 1)
-//    {
-//        if ( button <= OEWiiMoteSwingBackward ) {
-//            changeWiimoteExtension(WiimoteEmu::EXT_NONE, player);
-//            Core::DisplayMessage("Extenstion Removed", 1500);
-//        } else if (button <= OEWiiNunchuckButtonZ ) {
-//            changeWiimoteExtension(WiimoteEmu::EXT_NUNCHUK, player);
-//            Core::DisplayMessage("Nunchuk Connected", 1500);
-//        } else if (button <= OEWiiClassicButtonHome ) {
-//            changeWiimoteExtension(WiimoteEmu::EXT_CLASSIC, player);
-//            Core::DisplayMessage("Classic Controller Connected", 1500);
-//        }
-//    }
 }
 
 void DolHost::SetAxis(int button, float value, int player)
@@ -513,6 +491,11 @@ void DolHost::SetAxis(int button, float value, int player)
     
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
         setGameCubeAxis(player, button, value);
+        if (button == OEGCButtonR || button == OEGCButtonL) {
+            int digVal = 0;
+            if (value == 1) digVal = 1;
+            setGameCubeButton(player, button + 5, digVal);
+        }
     }
     else
     {

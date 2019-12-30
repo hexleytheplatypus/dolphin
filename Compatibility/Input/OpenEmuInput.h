@@ -8,6 +8,11 @@ typedef enum _OEDolDev
     OEDolDevAnalog,
     OEDolDevPointer
 } OEDolDevs;
+typedef enum _OEGCDigital
+{
+    OEGCDigitalL = 21,
+    OEGCDigitalR
+} OEGCDigital;
 
 typedef enum _OEDolJoyControls
 {

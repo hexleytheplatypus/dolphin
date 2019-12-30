@@ -3,44 +3,35 @@
 typedef struct
 {
     int openemuButton;
-    unsigned dolphinButton;
     int value;
 } keymap;
 
 typedef struct
 {
-    float Xaxis;
-    float Yaxis;
-} axismap;
-
-typedef struct
-{
-    keymap gc_pad_keymap[20] = {
-        {OEGCButtonUp, OEDolJoypadUp, 0},
-        {OEGCButtonDown,OEDolJoypadDown, 0},
-        {OEGCButtonLeft, OEDolJoypadLeft, 0},
-        {OEGCButtonRight, OEDolJoypadRight, 0},
-        {OEGCAnalogUp, OEGCAnalog, 0},
-        {OEGCAnalogDown, OEGCAnalog, 0},
-        {OEGCAnalogLeft, OEGCAnalog, 0},
-        {OEGCAnalogRight, OEGCAnalog, 0},
-        {OEGCAnalogCUp, OEGCAnalogC, 0},
-        {OEGCAnalogCDown, OEGCAnalogC, 0},
-        {OEGCAnalogCLeft, OEGCAnalogC, 0},
-        {OEGCAnalogCRight, OEGCAnalogC, 0},
-        {OEGCButtonA, OEDolJoypadA, 0},
-        {OEGCButtonB, OEDolJoypadB, 0},
-        {OEGCButtonX, OEDolJoypadX, 0},
-        {OEGCButtonY, OEDolJoypadY, 0},
-        {OEGCButtonL, OEDolJoypadL, 0},
-        {OEGCButtonR, OEDolJoypadR, 0},
-        {OEGCButtonZ, OEDolJoypadR2, 0},
-        {OEGCButtonStart, OEDolJoypadStart, 0},
+    keymap gc_pad_keymap[22] = {
+        {OEGCButtonUp, 0},
+        {OEGCButtonDown, 0},
+        {OEGCButtonLeft, 0},
+        {OEGCButtonRight, 0},
+        {OEGCAnalogUp, 0},
+        {OEGCAnalogDown, 0},
+        {OEGCAnalogLeft, 0},
+        {OEGCAnalogRight,  0},
+        {OEGCAnalogCUp,  0},
+        {OEGCAnalogCDown, 0},
+        {OEGCAnalogCLeft, 0},
+        {OEGCAnalogCRight,  0},
+        {OEGCButtonA,  0},
+        {OEGCButtonB, 0},
+        {OEGCButtonX, 0},
+        {OEGCButtonY, 0},
+        {OEGCButtonL, 0},
+        {OEGCButtonR, 0},
+        {OEGCButtonZ, 0},
+        {OEGCButtonStart, 0},
+        {OEGCDigitalL, 0},
+        {OEGCDigitalR, 0},
     };
-    
-//    axismap gc_pad_Analog;
-//    axismap gc_pad_AnalogC;
-    axismap gc_pad_Trigger;
 } gc_pad;
 
 
@@ -50,96 +41,79 @@ void init_Callback();
 
 static gc_pad GameCubePads[4];
 
-//
-//static unsigned connected_wiimote_type[MAX_BBMOTES];
-//static int current_mote_id;
-//static InputConfig s_config(WIIMOTE_INI_NAME, _trans("Wii Remote"), "Wiimote");
+typedef struct
+{
+    keymap wiimote_dpad[4] = {
+        {OEWiiMoteButtonLeft, 0},
+        {OEWiiMoteButtonRight, 0},
+        {OEWiiMoteButtonDown, 0},
+        {OEWiiMoteButtonUp, 0},
+    };
+    
+    keymap wiimote_sideways[4] = {
+        {OEWiiMoteButtonUp, 0},
+        {OEWiiMoteButtonDown, 0},
+        {OEWiiMoteButtonLeft, 0},
+        {OEWiiMoteButtonRight, 0},
+    };
+    
+    keymap wiimote_keymap[48] = {
+        {OEWiiMoteButtonA, 0},
+        {OEWiiMoteButtonB, 0},
+        {OEWiiMoteButton1, 0},
+        {OEWiiMoteButton2, 0},
+        {OEWiiMoteButtonPlus, 0},
+        {OEWiiMoteButtonMinus, 0},
+        {OEWiiMoteButtonHome, 0},
+        {OEWiiMoteTiltLeft, 0},
+        {OEWiiMoteTiltRight, 0},
+        {OEWiiMoteTiltForward, 0},
+        {OEWiiMoteTiltBackward, 0},
+        {OEWiiMoteShake, 0},
+        {OEWiiMoteSwingUp, 0},
+        {OEWiiMoteSwingDown, 0},
+        {OEWiiMoteSwingLeft, 0},
+        {OEWiiMoteSwingRight, 0},
+        {OEWiiMoteSwingForward, 0},
+        {OEWiiMoteSwingBackward, 0},
+        {OEWiiNunchukAnalogUp, 0},
+        {OEWiiNunchukAnalogDown, 0},
+        {OEWiiNunchukAnalogLeft, 0},
+        {OEWiiNunchukAnalogRight, 0},
+        {OEWiiNunchukButtonC, 0},
+        {OEWiiNunchukButtonZ, 0},
+        {OEWiiNunchukShake, 0},
+        {OEWiiClassicButtonUp, 0},
+        {OEWiiClassicButtonDown, 0},
+        {OEWiiClassicButtonLeft, 0},
+        {OEWiiClassicButtonRight, 0},
+        {OEWiiClassicAnalogLUp, 0},
+        {OEWiiClassicAnalogLDown, 0},
+        {OEWiiClassicAnalogLLeft, 0},
+        {OEWiiClassicAnalogLRight, 0},
+        {OEWiiClassicAnalogRUp, 0},
+        {OEWiiClassicAnalogRDown, 0},
+        {OEWiiClassicAnalogRLeft, 0},
+        {OEWiiClassicAnalogRRight, 0},
+        {OEWiiClassicButtonA, 0},
+        {OEWiiClassicButtonB, 0},
+        {OEWiiClassicButtonX, 0},
+        {OEWiiClassicButtonY, 0},
+        {OEWiiClassicButtonL, 0},
+        {OEWiiClassicButtonR, 0},
+        {OEWiiClassicButtonZl, 0},
+        {OEWiiClassicButtonZr, 0},
+        {OEWiiClassicButtonStart, 0},
+        {OEWiiClassicButtonSelect, 0},
+        {OEWiiClassicButtonHome, 0},
+    };
+    
+    OEWiiController wiimoteType;
+    ControlState dx, dy;
+} wii_remote;
 
-//
-//typedef struct
-//{
-//    keymap wiimote_keymap[12] = {
-//        {OEWiiMoteButtonLeft, OEDolJoypadLeft, 0},
-//        {OEWiiMoteButtonRight, OEDolJoypadRight, 0},
-//        {OEWiiMoteButtonDown, OEDolJoypadDown, 0},
-//        {OEWiiMoteButtonUp, OEDolJoypadUp, 0},
-//        {OEWiiMoteButtonPlus, OEDolJoypadStart, 0},
-//        {OEWiiMoteButton2, OEDolJoypadY, 0},
-//        {OEWiiMoteButton1, OEDolJoypadX, 0},
-//        {OEWiiMoteButtonB, OEDolJoypadB, 0},
-//        {OEWiiMoteButtonA, OEDolJoypadA, 0},
-//        {OEWiiMoteButtonMinus, OEDolJoypadSelect, 0},
-//        {OEWiiMoteButtonHome, OEDolJoypadR3, 0},
-//        {OEWiiMoteShake, OEDolJoypadR2, 0},
-//    };
-//
-//    keymap sideways_keymap[12] = {
-//        {OEWiiMoteButtonLeft, OEDolJoypadUp, 0},
-//        {OEWiiMoteButtonRight, OEDolJoypadDown, 0},
-//        {OEWiiMoteButtonDown, OEDolJoypadLeft, 0},
-//        {OEWiiMoteButtonUp, OEDolJoypadRight, 0},
-//        {OEWiiMoteButtonPlus, OEDolJoypadStart, 0},
-//        {OEWiiMoteButton2, OEDolJoypadB, 0},
-//        {OEWiiMoteButton1, OEDolJoypadA, 0},
-//        {OEWiiMoteButtonB, OEDolJoypadY, 0},
-//        {OEWiiMoteButtonA, OEDolJoypadX, 0},
-//        {OEWiiMoteButtonMinus, OEDolJoypadSelect, 0},
-//        {OEWiiMoteButtonHome, OEDolJoypadR3, 0},
-//        {OEWiiMoteShake, OEDolJoypadR2, 0},
-//};
-//
-//    axismap wiimote_tilt_LR;
-//    axismap wiimote_tilt_FB;
-//
-//    keymap nunchuk_keymap[3] = {
-//        {OEWiiNunchukButtonC, OEDolJoypadL, 0},
-//        {OEWiiNunchukButtonZ, OEDolJoypadR, 0},
-//        {OEWiiNunchukShake, OEDolJoypadL3, 0},
-//    };
-//
-//    axismap nunchuck_Analog;
-//
-//    keymap classic_keymap[15] = {
-//        {OEWiiClassicButtonRight, WiimoteEmu::Classic::PAD_RIGHT, 0},
-//        {OEWiiClassicButtonDown, WiimoteEmu::Classic::PAD_DOWN, 0},
-//        {OEWiiClassicButtonL, WiimoteEmu::Classic::TRIGGER_L, 0},
-//        {OEWiiClassicButtonSelect, WiimoteEmu::Classic::BUTTON_MINUS, 0},
-//        {OEWiiClassicButtonHome, WiimoteEmu::Classic::BUTTON_HOME, 0},
-//        {OEWiiClassicButtonStart, WiimoteEmu::Classic::BUTTON_PLUS, 0},
-//        {OEWiiClassicButtonR, WiimoteEmu::Classic::TRIGGER_R, 0},
-//        {OEWiiClassicButtonZl, WiimoteEmu::Classic::BUTTON_ZL, 0},
-//        {OEWiiClassicButtonB, WiimoteEmu::Classic::BUTTON_B, 0},
-//        {OEWiiClassicButtonY, WiimoteEmu::Classic::BUTTON_Y, 0},
-//        {OEWiiClassicButtonX, WiimoteEmu::Classic::BUTTON_X, 0},
-//        {OEWiiClassicButtonA, WiimoteEmu::Classic::BUTTON_A, 0},
-//        {OEWiiClassicButtonZr, WiimoteEmu::Classic::BUTTON_ZR, 0},
-//        {OEWiiClassicButtonLeft, WiimoteEmu::Classic::PAD_LEFT, 0},
-//        {OEWiiClassicButtonUp, WiimoteEmu::Classic::PAD_UP, 0},
-//    };
-//
-//    axismap classic_AnalogLeft;
-//    axismap classic_AnalogRight;
-//    axismap classic_TriggerLeft;
-//    axismap classic_TriggerRight;
-//
-//    int extension;
-//    ControlState dx, dy;
-//
-//} wii_remote;
-
-// static gc_pad GameCubePads[4];
-// static wii_remote WiiRemotes[4];
+static wii_remote WiiRemotes[4];
 // static int want_extension[4];
 
-//void setWiiButton(int pad_num, int button , int value);
-//void setWiimoteButton(int pad_num, int button , int value);
-//void setWiiClassicButton(int pad_num, int button , int value);
-//void setWiiNunchukButton(int pad_num, int button , int value);
-//
-//void setWiiAxis(int pad_num, int button , float value);
-//void setWiimoteAxis(int pad_num, int button , float value);
-//void setWiiClassicAxis(int pad_num, int button , float value);
-//void setWiiNunchukAxis(int pad_num, int button , float value);
-//void setWiiIR(int pad_num, float x , float y);
-//
-//int getWiiExtension (int pad_num);
+void setWiiButton(int pad_num, int button , int value);
+void setWiiAxis(int pad_num, int button , int value);
