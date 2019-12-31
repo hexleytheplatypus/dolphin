@@ -13282,6 +13282,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/dolphin",
 				);
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -13399,6 +13400,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/dolphin",
 				);
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -19762,6 +19764,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/dolphin",
 				);
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -20021,6 +20024,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/dolphin",
 				);
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
