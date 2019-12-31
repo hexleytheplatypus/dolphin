@@ -13247,6 +13247,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -13363,6 +13364,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -14735,14 +14737,15 @@
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
 				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
+				PRODUCT_NAME = dolphin;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = oecoreplugin;
@@ -14816,14 +14819,15 @@
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
 				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
+				PRODUCT_NAME = dolphin;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = oecoreplugin;
@@ -14897,14 +14901,15 @@
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
 				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
+				PRODUCT_NAME = dolphin;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = oecoreplugin;
@@ -14978,14 +14983,15 @@
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
 				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Externals/ffmpeg/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
+				PRODUCT_NAME = dolphin;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = oecoreplugin;
@@ -19721,6 +19727,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -19980,6 +19987,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_TEMP_DIR = $BUILD_DIR/$CONFIGURATION;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
