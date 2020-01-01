@@ -96,7 +96,6 @@
 /* Begin PBXBuildFile section */
 		3E0A56EE1FAF7EDC00D755B8 /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */; };
 		3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AA1C82B0F800091C4D /* Core.cpp */; };
-		3E0BD12A1F8E8E2E0037C92D /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
 		3E1DDEC81D74AC1E00BB8009 /* OEWiiSystemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22178A1D74A83E00C55942 /* OEWiiSystemController.m */; };
 		3E1DDEC91D74AC1E00BB8009 /* OEWiiSystemResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22178C1D74A83E00C55942 /* OEWiiSystemResponder.m */; };
 		3E1DDECA1D74AC2E00BB8009 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974241A643EBC00E0B28E /* Cocoa.framework */; };
@@ -725,7 +724,6 @@
 		3EFF262C1F8458E600B4FD11 /* UberShaderCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26211F8458E500B4FD11 /* UberShaderCommon.cpp */; };
 		3EFF26411F845CA500B4FD11 /* SYSCONFSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF262E1F845CA400B4FD11 /* SYSCONFSettings.cpp */; };
 		3EFF26421F845CA500B4FD11 /* NetplaySettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26311F845CA400B4FD11 /* NetplaySettings.cpp */; };
-		3EFF26431F845CA500B4FD11 /* GraphicsSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26331F845CA400B4FD11 /* GraphicsSettings.cpp */; };
 		3EFF26441F845CA500B4FD11 /* MainSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26341F845CA400B4FD11 /* MainSettings.cpp */; };
 		3EFF26451F845CA500B4FD11 /* NetPlayConfigLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26381F845CA500B4FD11 /* NetPlayConfigLoader.cpp */; };
 		3EFF26461F845CA500B4FD11 /* MovieConfigLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26391F845CA500B4FD11 /* MovieConfigLoader.cpp */; };
@@ -1008,6 +1006,8 @@
 		EE8DD2ED224A8058005E1AF5 /* libimgui-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8DD27222492AAB005E1AF5 /* libimgui-dol.a */; };
 		EE9C006C20A4F94000312609 /* Watches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006920A4F93F00312609 /* Watches.cpp */; };
 		EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006E20A4FA8B00312609 /* SysConf.cpp */; };
+		EE9E292D23BCF8F700EFD1A8 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
+		EE9E292E23BCF90B00EFD1A8 /* GraphicsSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9E292B23BCF8DB00EFD1A8 /* GraphicsSettings.cpp */; };
 		EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */; };
 		EEC2B7B623B2B29B006E959C /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC2B7B523B2B139006E959C /* Layer.cpp */; };
 		EEC94A5C224ABFDC00F85ABA /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
@@ -3474,6 +3474,7 @@
 		EE9C006920A4F93F00312609 /* Watches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Watches.cpp; sourceTree = "<group>"; };
 		EE9C006E20A4FA8B00312609 /* SysConf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SysConf.cpp; path = dolphin/Source/Core/Core/SysConf.cpp; sourceTree = "<group>"; };
 		EE9C006F20A4FA8C00312609 /* SysConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SysConf.h; path = dolphin/Source/Core/Core/SysConf.h; sourceTree = "<group>"; };
+		EE9E292B23BCF8DB00EFD1A8 /* GraphicsSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GraphicsSettings.cpp; path = Core/GraphicsSettings.cpp; sourceTree = "<group>"; };
 		EEA7CF5B20A4F2DD0033BB8A /* FloatUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloatUtils.h; path = dolphin/Source/Core/Common/FloatUtils.h; sourceTree = "<group>"; };
 		EEA7CF5C20A4F2DD0033BB8A /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Result.h; path = dolphin/Source/Core/Common/Result.h; sourceTree = "<group>"; };
 		EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FloatUtils.cpp; path = dolphin/Source/Core/Common/FloatUtils.cpp; sourceTree = "<group>"; };
@@ -3830,6 +3831,7 @@
 		3E3D70241C82AF0600091C4D /* Compatibilty */ = {
 			isa = PBXGroup;
 			children = (
+				EE9E292C23BCF8E600EFD1A8 /* Core */,
 				3E89F47A1CCAB2A800EAE7AC /* Common */,
 				3E89F4771CCA7A1600EAE7AC /* Input */,
 				3E89F4761CCA7A0D00EAE7AC /* Video */,
@@ -4443,9 +4445,7 @@
 			isa = PBXGroup;
 			children = (
 				EEC2B7B523B2B139006E959C /* Layer.cpp */,
-				EEE07D4222C43C52006D46FD /* ConfigManager.cpp */,
 				EEA7CF5F20A4F70B0033BB8A /* scmrev.h */,
-				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -6948,6 +6948,16 @@
 			path = dolphin/Source/Core/Common/Debug;
 			sourceTree = "<group>";
 		};
+		EE9E292C23BCF8E600EFD1A8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
+				EEE07D4222C43C52006D46FD /* ConfigManager.cpp */,
+				EE9E292B23BCF8DB00EFD1A8 /* GraphicsSettings.cpp */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		EEC94A4E224ABFD200F85ABA /* OGLCompilersDLL */ = {
 			isa = PBXGroup;
 			children = (
@@ -7977,7 +7987,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE6ABEC0239C78AE005E5F7D /* TitleContents.cpp in Sources */,
-				3EFF26431F845CA500B4FD11 /* GraphicsSettings.cpp in Sources */,
 				3E8EC66A1F8434AA00D79F27 /* EXI_DeviceEthernet.cpp in Sources */,
 				EE149BA7205A270F008D5DDE /* DSPJitCCUtil.cpp in Sources */,
 				3E89F47D1CCAB4FC00EAE7AC /* State.cpp in Sources */,
@@ -8133,6 +8142,7 @@
 				3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */,
 				3E3D740A1C82B0F900091C4D /* JitAsm.cpp in Sources */,
 				3E3D73CA1C82B0F900091C4D /* SystemTimers.cpp in Sources */,
+				EE9E292D23BCF8F700EFD1A8 /* FileUtil.cpp in Sources */,
 				3E3D74331C82B0F900091C4D /* PPCSymbolDB.cpp in Sources */,
 				3E3D735F1C82B0F900091C4D /* CoreTiming.cpp in Sources */,
 				3E3D73931C82B0F900091C4D /* CPU.cpp in Sources */,
@@ -8179,6 +8189,7 @@
 				3E3D739B1C82B0F900091C4D /* INIT.cpp in Sources */,
 				3E3D73FD1C82B0F900091C4D /* Interpreter_Paired.cpp in Sources */,
 				3E3D73841C82B0F900091C4D /* FifoDataFile.cpp in Sources */,
+				EE9E292E23BCF90B00EFD1A8 /* GraphicsSettings.cpp in Sources */,
 				3E8EC65A1F8434AA00D79F27 /* DVDMath.cpp in Sources */,
 				3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */,
 				EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */,
@@ -8310,7 +8321,6 @@
 				3E3D71741C82B0BB00091C4D /* GLUtil.cpp in Sources */,
 				3E3D71761C82B0BB00091C4D /* IniFile.cpp in Sources */,
 				3E3D71931C82B0BB00091C4D /* x64CPUDetect.cpp in Sources */,
-				3E0BD12A1F8E8E2E0037C92D /* FileUtil.cpp in Sources */,
 				EE9C006C20A4F94000312609 /* Watches.cpp in Sources */,
 				3E3D71751C82B0BB00091C4D /* Hash.cpp in Sources */,
 				3E3D71871C82B0BB00091C4D /* SettingsHandler.cpp in Sources */,
