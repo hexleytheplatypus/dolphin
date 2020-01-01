@@ -108,7 +108,7 @@ typedef struct
         {OEWiiClassicButtonHome, 0},
     };
     
-    OEWiiController wiimoteType;
+    OEWiiConType wiimoteType;
     ControlState dx, dy;
 } wii_remote;
 
