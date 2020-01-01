@@ -284,11 +284,6 @@ bool DolHost::CoreRunning()
 void DolHost::SetPresentationFBO(int RenderFBO)
 {
     g_Config.iRenderFBO = RenderFBO;
-    g_Config.bCrop = false;
-    g_Config.bWidescreenHack = false;
-    g_Config.bHiresTextures = false;
-    g_Config.bSSAA = false;
-    g_Config.iEFBScale = 2;
 }
 
 void DolHost::SetBackBufferSize(int width, int height) {
@@ -592,27 +587,7 @@ WindowSystemInfo DolHost::GetWSI()
 # pragma mark - Dolphin Host callbacks
 void Host_NotifyMapLoaded() {}
 void Host_RefreshDSPDebuggerWindow() {}
-void Host_Message(HostMessageID id) {
-    if  ( id == HostMessageID::WMUserCreate ) {
-#ifdef DEBUG
-        //We have to set FPS display here or it doesn't work
-        g_Config.bShowFPS = true;
-        Core::SetState(Core::State::Running);
-#endif
-        
-        // Set the aspect to stretch
-        g_Config.aspect_mode = AspectMode::Stretch;
-        
-        // Core is up,  lets enable Hybric Ubershaders
-        g_Config.iShaderCompilationMode = ShaderCompilationMode::AsynchronousUberShaders;
-        g_Config.bWaitForShadersBeforeStarting = false;
-        
-        //Set the threads to auto (-1)
-        g_Config.iShaderCompilerThreads = -1;
-        g_Config.iShaderPrecompilerThreads = -1;
-        
-    }
-}
+void Host_Message(HostMessageID id) {}
 void* Host_GetRenderHandle() { return (void *)-1; }
 void Host_UpdateTitle(const std::string&) {}
 void Host_UpdateDisasmDialog() {}
