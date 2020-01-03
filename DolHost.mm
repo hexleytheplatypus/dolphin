@@ -84,8 +84,6 @@ static Common::Flag s_running{true};
 static Common::Flag s_shutdown_requested{false};
 static Common::Flag s_tried_graceful_shutdown{false};
 
-static std::unique_ptr<Platform> s_platform;
-
 WindowSystemInfo wsi(WindowSystemType::Headless, nullptr, nullptr);
  
 DolHost* DolHost::GetInstance()
@@ -264,9 +262,9 @@ void DolHost::Reset()
 
 void DolHost::UpdateFrame()
 {
-    Core::HostDispatchJobs();
+    //Core::HostDispatchJobs();
     
- //  Input::OpenEmu_Input_Update();
+    //Input::OpenEmu_Input_Update();
     
     if(_onBoot) _onBoot = false;
 }
