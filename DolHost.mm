@@ -526,6 +526,11 @@ void DolHost::GetGameInfo()
     _gameType = pVolume->GetVolumeType();
 }
 
+float DolHost::GetFrameInterval()
+{
+    return DiscIO::IsNTSC(SConfig::GetInstance().m_region)  ? (60.0f / 1.001f) : 50.0f;
+}
+
 std::string DolHost::GetNameOfRegion(DiscIO::Region region)
 {
     switch (region)

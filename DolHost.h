@@ -65,6 +65,7 @@ public:
     void volumeUp();
     void SetVolume(float value);
     void DisplayMessage(std::string message);
+    float GetFrameInterval();
 
     bool SaveState(std::string saveStateFile);
     bool LoadState(std::string saveStateFile);
