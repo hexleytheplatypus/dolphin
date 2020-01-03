@@ -28,8 +28,6 @@
 
 #include "DolHost.h"
 
-extern WindowSystemInfo wsi;
-
 static Input::openemu_input_state_t input_cb;
 static Input::openemu_input_poll_t poll_cb;
 static const std::string source = "OpenEmu";

@@ -99,7 +99,6 @@ extern std::unique_ptr<SoundStream> g_sound_stream;
     {
         _dolphinCoreModule = @"gc";
         _isWii = false;
-        _frameInterval = 60;
         _dolphinCoreAspect = OEIntSizeMake(4, 3);
         _dolphinCoreScreen = OEIntSizeMake(640, 480);
     }
@@ -107,7 +106,6 @@ extern std::unique_ptr<SoundStream> g_sound_stream;
     {
         _dolphinCoreModule = @"Wii";
         _isWii = true;
-        _frameInterval = 60;
         _dolphinCoreAspect = OEIntSizeMake(16,9);
         _dolphinCoreScreen = OEIntSizeMake(854, 480);
     }
@@ -144,7 +142,9 @@ extern std::unique_ptr<SoundStream> g_sound_stream;
 
         if(dol_host->LoadFileAtPath())
             _isInitialized = true;
-
+        
+        _frameInterval = dol_host->GetFrameInterval();
+        
     }
     [super startEmulation];
 
