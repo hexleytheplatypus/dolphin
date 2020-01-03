@@ -86,6 +86,8 @@ static Common::Flag s_tried_graceful_shutdown{false};
 
 static std::unique_ptr<Platform> s_platform;
 
+WindowSystemInfo wsi(WindowSystemType::Headless, nullptr, nullptr);
+ 
 DolHost* DolHost::GetInstance()
 {
     if (DolHost::m_instance == nullptr)
@@ -202,8 +204,6 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 # pragma mark - Execution
 bool DolHost::LoadFileAtPath()
 {
-     s_platform = Platform::CreateHeadlessPlatform();
-    
     Core::SetOnStateChangedCallback([](Core::State state) {
         if (state == Core::State::Uninitialized)
             s_running.Clear();
@@ -215,9 +215,8 @@ bool DolHost::LoadFileAtPath()
     //        WiiUtils::InstallWAD(_gamePath);
     //    //    else
     //    //        WiiUtils::DoDiscUpdate(nil, _gameRegionName);
-    
-    
-    if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath), s_platform->GetWindowSystemInfo()))
+
+    if (!BootManager::BootCore(BootParameters::GenerateFromFile(_gamePath), wsi))
         return false;
    
     // Initialize Input
@@ -581,7 +580,7 @@ std::string DolHost::GetDirOfCountry(DiscIO::Country country)
 
 WindowSystemInfo DolHost::GetWSI()
 {
-    return s_platform->GetWindowSystemInfo();
+    return wsi;
 }
 
 # pragma mark - Dolphin Host callbacks
