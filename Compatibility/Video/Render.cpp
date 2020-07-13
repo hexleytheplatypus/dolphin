@@ -10,10 +10,7 @@
 #include <cstdio>
 #include <memory>
 #include <string>
-#include <tuple>
-#include <vector>
 
-#include "Common/Assert.h"
 #include "Common/Atomic.h"
 #include "Common/CommonTypes.h"
 #include "Common/GL/GLContext.h"
@@ -24,7 +21,6 @@
 #include "Common/StringUtil.h"
 
 #include "Core/Config/GraphicsSettings.h"
-#include "Core/Core.h"
 
 #include "VideoBackends/OGL/BoundingBox.h"
 #include "VideoBackends/OGL/OGLPipeline.h"
@@ -32,22 +28,16 @@
 #include "VideoBackends/OGL/OGLTexture.h"
 #include "VideoBackends/OGL/ProgramShaderCache.h"
 #include "VideoBackends/OGL/SamplerCache.h"
-#include "VideoBackends/OGL/StreamBuffer.h"
 #include "VideoBackends/OGL/VertexManager.h"
 
 #include "VideoCommon/BPFunctions.h"
 #include "VideoCommon/DriverDetails.h"
 #include "VideoCommon/FramebufferManager.h"
-#include "VideoCommon/IndexGenerator.h"
 #include "VideoCommon/OnScreenDisplay.h"
-#include "VideoCommon/PixelEngine.h"
 #include "VideoCommon/PostProcessing.h"
 #include "VideoCommon/RenderState.h"
-#include "VideoCommon/ShaderGenCommon.h"
-#include "VideoCommon/VertexShaderManager.h"
-#include "VideoCommon/VideoBackendBase.h"
+#include "VideoCommon/VideoCommon.h"
 #include "VideoCommon/VideoConfig.h"
-#include "VideoCommon/XFMemory.h"
 
 namespace OGL
 {
@@ -144,28 +134,35 @@ static void APIENTRY ClearDepthf(GLfloat depthval)
 
 static void InitDriverInfo()
 {
-  std::string svendor = std::string(g_ogl_config.gl_vendor);
-  std::string srenderer = std::string(g_ogl_config.gl_renderer);
-  std::string sversion = std::string(g_ogl_config.gl_version);
+  const std::string_view svendor(g_ogl_config.gl_vendor);
+  const std::string_view srenderer(g_ogl_config.gl_renderer);
+  const std::string_view sversion(g_ogl_config.gl_version);
   DriverDetails::Vendor vendor = DriverDetails::VENDOR_UNKNOWN;
   DriverDetails::Driver driver = DriverDetails::DRIVER_UNKNOWN;
   DriverDetails::Family family = DriverDetails::Family::UNKNOWN;
   double version = 0.0;
 
   // Get the vendor first
-  if (svendor == "NVIDIA Corporation" && srenderer != "NVIDIA Tegra")
+  if (svendor == "NVIDIA Corporation")
   {
-    vendor = DriverDetails::VENDOR_NVIDIA;
+    if (srenderer != "NVIDIA Tegra")
+    {
+      vendor = DriverDetails::VENDOR_NVIDIA;
+    }
+    else
+    {
+      vendor = DriverDetails::VENDOR_TEGRA;
+    }
   }
   else if (svendor == "ATI Technologies Inc." || svendor == "Advanced Micro Devices, Inc.")
   {
     vendor = DriverDetails::VENDOR_ATI;
   }
-  else if (std::string::npos != sversion.find("Mesa"))
+  else if (sversion.find("Mesa") != std::string::npos)
   {
     vendor = DriverDetails::VENDOR_MESA;
   }
-  else if (std::string::npos != svendor.find("Intel"))
+  else if (svendor.find("Intel") != std::string::npos)
   {
     vendor = DriverDetails::VENDOR_INTEL;
   }
@@ -185,10 +182,6 @@ static void InitDriverInfo()
   else if (svendor == "Imagination Technologies")
   {
     vendor = DriverDetails::VENDOR_IMGTEC;
-  }
-  else if (svendor == "NVIDIA Corporation" && srenderer == "NVIDIA Tegra")
-  {
-    vendor = DriverDetails::VENDOR_TEGRA;
   }
   else if (svendor == "Vivante Corporation")
   {
@@ -238,8 +231,8 @@ static void InitDriverInfo()
       else if (srenderer.find("Ivybridge") != std::string::npos)
         family = DriverDetails::Family::INTEL_IVY;
     }
-    else if (std::string::npos != srenderer.find("AMD") ||
-             std::string::npos != srenderer.find("ATI"))
+    else if (srenderer.find("AMD") != std::string::npos ||
+             srenderer.find("ATI") != std::string::npos)
     {
       driver = DriverDetails::DRIVER_R600;
     }
@@ -339,16 +332,16 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
       m_current_depth_state(RenderState::GetInvalidDepthState()),
       m_current_blend_state(RenderState::GetInvalidBlendingState())
 {
-//   Create the window framebuffer.
-          if (!m_main_gl_context->IsHeadless())
-          {
-              //OpenEmu Video FBO attached here
-              m_system_framebuffer = std::make_unique<OGLFramebuffer>(
-                                                                      nullptr, nullptr, AbstractTextureFormat::RGBA8, AbstractTextureFormat::Undefined,
-                                                                      std::max(m_main_gl_context->GetBackBufferWidth(), 1u),
-                                                                      std::max(m_main_gl_context->GetBackBufferHeight(), 1u), 1, 1, g_Config.iRenderFBO);
-              m_current_framebuffer = m_system_framebuffer.get();
-          }
+  // Create the window framebuffer.
+  if (!m_main_gl_context->IsHeadless())
+  {
+    //OpenEmu Framebuffer attaches here
+    m_system_framebuffer = std::make_unique<OGLFramebuffer>(
+        nullptr, nullptr, AbstractTextureFormat::RGBA8, AbstractTextureFormat::Undefined,
+        std::max(m_main_gl_context->GetBackBufferWidth(), 1u),
+        std::max(m_main_gl_context->GetBackBufferHeight(), 1u), 1, 1, g_Config.iRenderFBO);
+    m_current_framebuffer = m_system_framebuffer.get();
+  }
 
   bool bSuccess = true;
   bool supports_glsl_cache = false;
@@ -518,6 +511,10 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
 
     // GLES does not support logic op.
     g_Config.backend_info.bSupportsLogicOp = false;
+
+    // glReadPixels() can't be used with non-color formats. But, if we support
+    // ARB_get_texture_sub_image (unlikely, except maybe on NVIDIA), we can use that instead.
+    g_Config.backend_info.bSupportsDepthReadback = g_ogl_config.bSupportsTextureSubImage;
 
     if (GLExtensions::Supports("GL_EXT_shader_framebuffer_fetch"))
     {
@@ -721,10 +718,10 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
     // MSAA on default framebuffer isn't working because of glBlitFramebuffer.
     // It also isn't useful as we don't render anything to the default framebuffer.
     // We also try to get a non-msaa fb, so this only happens when forced by the driver.
-    PanicAlert("MSAA on default framebuffer isn't supported.\n"
-               "Please avoid forcing Dolphin to use MSAA by the driver.\n"
-               "%d samples on default framebuffer found.",
-               samples);
+    PanicAlertT("The graphics driver is forcibly enabling anti-aliasing for Dolphin. You need to "
+                "turn this off in the graphics driver's settings in order for Dolphin to work.\n\n"
+                "(MSAA with %d samples found on default framebuffer)",
+                samples);
     bSuccess = false;
   }
 
