@@ -669,7 +669,6 @@
 		3E8EC66C1F8434AA00D79F27 /* EXI_Channel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6441F8434A900D79F27 /* EXI_Channel.cpp */; };
 		3E8EC66D1F8434AA00D79F27 /* EXI_DeviceGecko.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6471F8434A900D79F27 /* EXI_DeviceGecko.cpp */; };
 		3E8EC66E1F8434AA00D79F27 /* EXI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC64A1F8434A900D79F27 /* EXI.cpp */; };
-		3E8EC6711F8434AA00D79F27 /* TAP_Apple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC64F1F8434A900D79F27 /* TAP_Apple.cpp */; };
 		3E8EC6721F8434AA00D79F27 /* EXI_DeviceIPL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6511F8434A900D79F27 /* EXI_DeviceIPL.cpp */; };
 		3E8EC6731F8434AA00D79F27 /* EXI_DeviceMemoryCard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6531F8434A900D79F27 /* EXI_DeviceMemoryCard.cpp */; };
 		3E8EC6741F8434AA00D79F27 /* EXI_DeviceAD16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EC6561F8434A900D79F27 /* EXI_DeviceAD16.cpp */; };
@@ -1004,6 +1003,89 @@
 		EE8DD2E9224A7F29005E1AF5 /* FreeSurroundDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD2D3224A7EE8005E1AF5 /* FreeSurroundDecoder.cpp */; };
 		EE8DD2EA224A7F29005E1AF5 /* KissFFTR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD2D4224A7EE8005E1AF5 /* KissFFTR.cpp */; };
 		EE8DD2ED224A8058005E1AF5 /* libimgui-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8DD27222492AAB005E1AF5 /* libimgui-dol.a */; };
+		EE98BE0624B8E13D00FFFDD7 /* StandAlone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0124B8E13D00FFFDD7 /* StandAlone.cpp */; };
+		EE98BE0724B8E13D00FFFDD7 /* spirv-remap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0224B8E13D00FFFDD7 /* spirv-remap.cpp */; };
+		EE98BE0824B8E13D00FFFDD7 /* ResourceLimits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0424B8E13D00FFFDD7 /* ResourceLimits.cpp */; };
+		EE98BE0B24B8F43900FFFDD7 /* FreeLookCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0924B8F43800FFFDD7 /* FreeLookCamera.cpp */; };
+		EE98BE1924B8F4A400FFFDD7 /* WiiEncryptionCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0D24B8F4A200FFFDD7 /* WiiEncryptionCache.cpp */; };
+		EE98BE1A24B8F4A400FFFDD7 /* LaggedFibonacciGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0F24B8F4A200FFFDD7 /* LaggedFibonacciGenerator.cpp */; };
+		EE98BE1B24B8F4A400FFFDD7 /* ScrubbedBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE1024B8F4A200FFFDD7 /* ScrubbedBlob.cpp */; };
+		EE98BE1C24B8F4A400FFFDD7 /* WIABlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE1224B8F4A300FFFDD7 /* WIABlob.cpp */; };
+		EE98BE1D24B8F4A400FFFDD7 /* VolumeDisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE1524B8F4A300FFFDD7 /* VolumeDisc.cpp */; };
+		EE98BE1E24B8F4A400FFFDD7 /* WIACompression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE1624B8F4A300FFFDD7 /* WIACompression.cpp */; };
+		EE98BE6724B8F65000FFFDD7 /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3424B8F64F00FFFDD7 /* zstdmt_compress.c */; };
+		EE98BE6924B8F65000FFFDD7 /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3524B8F64F00FFFDD7 /* zstd_double_fast.c */; };
+		EE98BE6B24B8F65000FFFDD7 /* zstd_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3624B8F64F00FFFDD7 /* zstd_fast.c */; };
+		EE98BE6D24B8F65000FFFDD7 /* zstd_compress_sequences.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3924B8F64F00FFFDD7 /* zstd_compress_sequences.c */; };
+		EE98BE6F24B8F65000FFFDD7 /* zstd_ldm.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3B24B8F64F00FFFDD7 /* zstd_ldm.c */; };
+		EE98BE7124B8F65000FFFDD7 /* hist.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3C24B8F64F00FFFDD7 /* hist.c */; };
+		EE98BE7324B8F65000FFFDD7 /* zstd_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3D24B8F64F00FFFDD7 /* zstd_compress.c */; };
+		EE98BE7524B8F65000FFFDD7 /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE3F24B8F64F00FFFDD7 /* zstd_lazy.c */; };
+		EE98BE7724B8F65000FFFDD7 /* zstd_compress_literals.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4124B8F64F00FFFDD7 /* zstd_compress_literals.c */; };
+		EE98BE7924B8F65000FFFDD7 /* huf_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4224B8F64F00FFFDD7 /* huf_compress.c */; };
+		EE98BE7B24B8F65000FFFDD7 /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4324B8F64F00FFFDD7 /* zstd_opt.c */; };
+		EE98BE7D24B8F65000FFFDD7 /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4524B8F64F00FFFDD7 /* fse_compress.c */; };
+		EE98BE7F24B8F65000FFFDD7 /* zstd_ddict.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4824B8F64F00FFFDD7 /* zstd_ddict.c */; };
+		EE98BE8124B8F65000FFFDD7 /* huf_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4924B8F64F00FFFDD7 /* huf_decompress.c */; };
+		EE98BE8324B8F65000FFFDD7 /* zstd_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4C24B8F64F00FFFDD7 /* zstd_decompress.c */; };
+		EE98BE8524B8F65000FFFDD7 /* zstd_decompress_block.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE4E24B8F64F00FFFDD7 /* zstd_decompress_block.c */; };
+		EE98BE8724B8F65000FFFDD7 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE5424B8F65000FFFDD7 /* entropy_common.c */; };
+		EE98BE8924B8F65000FFFDD7 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE5724B8F65000FFFDD7 /* fse_decompress.c */; };
+		EE98BE8B24B8F65000FFFDD7 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE5824B8F65000FFFDD7 /* debug.c */; };
+		EE98BE8D24B8F65000FFFDD7 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE5924B8F65000FFFDD7 /* xxhash.c */; };
+		EE98BE8F24B8F65000FFFDD7 /* pool.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE5D24B8F65000FFFDD7 /* pool.c */; };
+		EE98BE9124B8F65000FFFDD7 /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE6024B8F65000FFFDD7 /* threading.c */; };
+		EE98BE9324B8F65000FFFDD7 /* zstd_common.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE6124B8F65000FFFDD7 /* zstd_common.c */; };
+		EE98BE9524B8F65000FFFDD7 /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE6424B8F65000FFFDD7 /* error_private.c */; };
+		EE98BE9924B8FA8500FFFDD7 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE98BE2724B8F60B00FFFDD7 /* libzstd.a */; };
+		EE98BF6924B8FC8500FFFDD7 /* simple_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BED224B8FC8500FFFDD7 /* simple_decoder.c */; };
+		EE98BF6B24B8FC8500FFFDD7 /* simple_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BED324B8FC8500FFFDD7 /* simple_encoder.c */; };
+		EE98BF6D24B8FC8500FFFDD7 /* simple_coder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BED424B8FC8500FFFDD7 /* simple_coder.c */; };
+		EE98BF6F24B8FC8500FFFDD7 /* filter_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BED824B8FC8500FFFDD7 /* filter_decoder.c */; };
+		EE98BF7324B8FC8500FFFDD7 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEDC24B8FC8500FFFDD7 /* common.c */; };
+		EE98BFCF24B8FC8600FFFDD7 /* lz_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF3A24B8FC8500FFFDD7 /* lz_decoder.c */; };
+		EE98BFD124B8FC8600FFFDD7 /* lz_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF3B24B8FC8500FFFDD7 /* lz_encoder.c */; };
+		EE98BFD324B8FC8600FFFDD7 /* lz_encoder_mf.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF3C24B8FC8500FFFDD7 /* lz_encoder_mf.c */; };
+		EE98BFE524B8FC8600FFFDD7 /* fastpos_tablegen.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4E24B8FC8500FFFDD7 /* fastpos_tablegen.c */; };
+		EE98BFE724B8FC8600FFFDD7 /* lzma_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5224B8FC8500FFFDD7 /* lzma_decoder.c */; };
+		EE98BFE924B8FC8600FFFDD7 /* lzma2_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5324B8FC8500FFFDD7 /* lzma2_decoder.c */; };
+		EE98BFEB24B8FC8600FFFDD7 /* lzma_encoder_optimum_normal.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5424B8FC8500FFFDD7 /* lzma_encoder_optimum_normal.c */; };
+		EE98BFED24B8FC8600FFFDD7 /* fastpos_table.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5524B8FC8500FFFDD7 /* fastpos_table.c */; };
+		EE98BFEF24B8FC8600FFFDD7 /* lzma_encoder_presets.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5624B8FC8500FFFDD7 /* lzma_encoder_presets.c */; };
+		EE98BFF124B8FC8600FFFDD7 /* lzma_encoder_optimum_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5724B8FC8500FFFDD7 /* lzma_encoder_optimum_fast.c */; };
+		EE98BFF324B8FC8600FFFDD7 /* lzma_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5924B8FC8500FFFDD7 /* lzma_encoder.c */; };
+		EE98BFF524B8FC8600FFFDD7 /* lzma2_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF5A24B8FC8500FFFDD7 /* lzma2_encoder.c */; };
+		EE98BFF624B8FCB100FFFDD7 /* liblzma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE98BEB924B8FC5600FFFDD7 /* liblzma.a */; };
+		EE98BFF724B90B9600FFFDD7 /* delta_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEBC24B8FC8400FFFDD7 /* delta_decoder.c */; };
+		EE98BFF824B90B9600FFFDD7 /* delta_common.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEC124B8FC8400FFFDD7 /* delta_common.c */; };
+		EE98BFF924B90B9600FFFDD7 /* delta_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEC224B8FC8400FFFDD7 /* delta_encoder.c */; };
+		EE98BFFA24B910A300FFFDD7 /* filter_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF0C24B8FC8500FFFDD7 /* filter_encoder.c */; };
+		EE98BFFB24B9131000FFFDD7 /* filter_buffer_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEE224B8FC8500FFFDD7 /* filter_buffer_decoder.c */; };
+		EE98BFFC24B9131200FFFDD7 /* filter_common.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEFD24B8FC8500FFFDD7 /* filter_common.c */; };
+		EE98BFFD24B9157400FFFDD7 /* price_table.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BEC824B8FC8400FFFDD7 /* price_table.c */; };
+		EE98BFFE24B9158200FFFDD7 /* price_tablegen.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BECC24B8FC8500FFFDD7 /* price_tablegen.c */; };
+		EE98C02F24B91E4100FFFDD7 /* randtable.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00024B91E0D00FFFDD7 /* randtable.c */; };
+		EE98C03024B91E4900FFFDD7 /* decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00524B91E0D00FFFDD7 /* decompress.c */; };
+		EE98C03124B91E4900FFFDD7 /* blocksort.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00924B91E0D00FFFDD7 /* blocksort.c */; };
+		EE98C03224B91E4900FFFDD7 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00A24B91E0D00FFFDD7 /* huffman.c */; };
+		EE98C03324B91E4900FFFDD7 /* crctable.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00C24B91E0D00FFFDD7 /* crctable.c */; };
+		EE98C03424B91E4900FFFDD7 /* bzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00D24B91E0D00FFFDD7 /* bzlib.c */; };
+		EE98C03524B91E4900FFFDD7 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98C00424B91E0D00FFFDD7 /* compress.c */; };
+		EE98C03624B91E5F00FFFDD7 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE98C02E24B91E1700FFFDD7 /* libbzip2.a */; };
+		EE98C03724B9249700FFFDD7 /* crc32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4024B8FC8500FFFDD7 /* crc32_table.c */; };
+		EE98C03824B9249700FFFDD7 /* crc32_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4324B8FC8500FFFDD7 /* crc32_fast.c */; };
+		EE98C03924B9249700FFFDD7 /* check.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4224B8FC8500FFFDD7 /* check.c */; };
+		EE98C03A24B9249700FFFDD7 /* sha256.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4A24B8FC8500FFFDD7 /* sha256.c */; };
+		EE98C03B24B9249700FFFDD7 /* crc64_table.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4424B8FC8500FFFDD7 /* crc64_table.c */; };
+		EE98C03C24B9249700FFFDD7 /* crc32_tablegen.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4524B8FC8500FFFDD7 /* crc32_tablegen.c */; };
+		EE98C03D24B9249700FFFDD7 /* crc64_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4C24B8FC8500FFFDD7 /* crc64_fast.c */; };
+		EE98C03E24B9249700FFFDD7 /* crc64_tablegen.c in Sources */ = {isa = PBXBuildFile; fileRef = EE98BF4724B8FC8500FFFDD7 /* crc64_tablegen.c */; };
+		EE98C04224B924EE00FFFDD7 /* SpvTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C03F24B924ED00FFFDD7 /* SpvTools.cpp */; };
+		EE98C04324B924EE00FFFDD7 /* SpvPostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C04124B924EE00FFFDD7 /* SpvPostProcess.cpp */; };
+		EE98C04A24B926B600FFFDD7 /* TAP_Apple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C04724B9268400FFFDD7 /* TAP_Apple.cpp */; };
+		EE98C04E24B92ADA00FFFDD7 /* Wiimote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C04D24B92AD900FFFDD7 /* Wiimote.cpp */; };
+		EE98C05224B92B5200FFFDD7 /* OSThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C05024B92B5100FFFDD7 /* OSThread.cpp */; };
+		EE98C05324B92D0200FFFDD7 /* XLINK_KAI_BBA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C04924B9268400FFFDD7 /* XLINK_KAI_BBA.cpp */; };
 		EE9C006C20A4F94000312609 /* Watches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006920A4F93F00312609 /* Watches.cpp */; };
 		EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006E20A4FA8B00312609 /* SysConf.cpp */; };
 		EE9E292D23BCF8F700EFD1A8 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
@@ -1543,6 +1625,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9C44D53AD3A548718E1CFB61;
 			remoteInfo = ALL_BUILD;
+		};
+		EE98BE9624B8F68D00FFFDD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE98BE1F24B8F60B00FFFDD7;
+			remoteInfo = zstd;
 		};
 		EEC94A64224AC08500F85ABA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2748,10 +2837,6 @@
 		3E8EC6491F8434A900D79F27 /* EXI_DeviceMic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXI_DeviceMic.h; sourceTree = "<group>"; };
 		3E8EC64A1F8434A900D79F27 /* EXI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EXI.cpp; sourceTree = "<group>"; };
 		3E8EC64B1F8434A900D79F27 /* EXI_DeviceMemoryCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXI_DeviceMemoryCard.h; sourceTree = "<group>"; };
-		3E8EC64D1F8434A900D79F27 /* TAP_Unix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TAP_Unix.cpp; sourceTree = "<group>"; };
-		3E8EC64E1F8434A900D79F27 /* TAP_Win32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TAP_Win32.cpp; sourceTree = "<group>"; };
-		3E8EC64F1F8434A900D79F27 /* TAP_Apple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TAP_Apple.cpp; sourceTree = "<group>"; };
-		3E8EC6501F8434A900D79F27 /* TAP_Win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAP_Win32.h; sourceTree = "<group>"; };
 		3E8EC6511F8434A900D79F27 /* EXI_DeviceIPL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EXI_DeviceIPL.cpp; sourceTree = "<group>"; };
 		3E8EC6521F8434A900D79F27 /* EXI_DeviceDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXI_DeviceDummy.h; sourceTree = "<group>"; };
 		3E8EC6531F8434A900D79F27 /* EXI_DeviceMemoryCard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EXI_DeviceMemoryCard.cpp; sourceTree = "<group>"; };
@@ -3470,6 +3555,267 @@
 		EE8DD2D5224A7EE8005E1AF5 /* FreeSurround.vcxproj */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FreeSurround.vcxproj; sourceTree = "<group>"; };
 		EE8DD2D6224A7EE8005E1AF5 /* FreeSurround.vcxproj.filters */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FreeSurround.vcxproj.filters; sourceTree = "<group>"; };
 		EE8DD2E6224A7F04005E1AF5 /* libFreeSurround-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFreeSurround-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE98BDFF24B8E13D00FFFDD7 /* ResourceLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceLimits.h; sourceTree = "<group>"; };
+		EE98BE0124B8E13D00FFFDD7 /* StandAlone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StandAlone.cpp; sourceTree = "<group>"; };
+		EE98BE0224B8E13D00FFFDD7 /* spirv-remap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "spirv-remap.cpp"; sourceTree = "<group>"; };
+		EE98BE0324B8E13D00FFFDD7 /* Worklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worklist.h; sourceTree = "<group>"; };
+		EE98BE0424B8E13D00FFFDD7 /* ResourceLimits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceLimits.cpp; sourceTree = "<group>"; };
+		EE98BE0524B8E13D00FFFDD7 /* DirStackFileIncluder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirStackFileIncluder.h; sourceTree = "<group>"; };
+		EE98BE0924B8F43800FFFDD7 /* FreeLookCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FreeLookCamera.cpp; path = dolphin/Source/Core/VideoCommon/FreeLookCamera.cpp; sourceTree = "<group>"; };
+		EE98BE0A24B8F43800FFFDD7 /* FreeLookCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeLookCamera.h; path = dolphin/Source/Core/VideoCommon/FreeLookCamera.h; sourceTree = "<group>"; };
+		EE98BE0C24B8F4A200FFFDD7 /* LaggedFibonacciGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LaggedFibonacciGenerator.h; path = dolphin/Source/Core/DiscIO/LaggedFibonacciGenerator.h; sourceTree = "<group>"; };
+		EE98BE0D24B8F4A200FFFDD7 /* WiiEncryptionCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WiiEncryptionCache.cpp; path = dolphin/Source/Core/DiscIO/WiiEncryptionCache.cpp; sourceTree = "<group>"; };
+		EE98BE0E24B8F4A200FFFDD7 /* WIACompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WIACompression.h; path = dolphin/Source/Core/DiscIO/WIACompression.h; sourceTree = "<group>"; };
+		EE98BE0F24B8F4A200FFFDD7 /* LaggedFibonacciGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LaggedFibonacciGenerator.cpp; path = dolphin/Source/Core/DiscIO/LaggedFibonacciGenerator.cpp; sourceTree = "<group>"; };
+		EE98BE1024B8F4A200FFFDD7 /* ScrubbedBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScrubbedBlob.cpp; path = dolphin/Source/Core/DiscIO/ScrubbedBlob.cpp; sourceTree = "<group>"; };
+		EE98BE1124B8F4A200FFFDD7 /* MultithreadedCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultithreadedCompressor.h; path = dolphin/Source/Core/DiscIO/MultithreadedCompressor.h; sourceTree = "<group>"; };
+		EE98BE1224B8F4A300FFFDD7 /* WIABlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WIABlob.cpp; path = dolphin/Source/Core/DiscIO/WIABlob.cpp; sourceTree = "<group>"; };
+		EE98BE1324B8F4A300FFFDD7 /* ScrubbedBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrubbedBlob.h; path = dolphin/Source/Core/DiscIO/ScrubbedBlob.h; sourceTree = "<group>"; };
+		EE98BE1424B8F4A300FFFDD7 /* VolumeDisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VolumeDisc.h; path = dolphin/Source/Core/DiscIO/VolumeDisc.h; sourceTree = "<group>"; };
+		EE98BE1524B8F4A300FFFDD7 /* VolumeDisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VolumeDisc.cpp; path = dolphin/Source/Core/DiscIO/VolumeDisc.cpp; sourceTree = "<group>"; };
+		EE98BE1624B8F4A300FFFDD7 /* WIACompression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WIACompression.cpp; path = dolphin/Source/Core/DiscIO/WIACompression.cpp; sourceTree = "<group>"; };
+		EE98BE1724B8F4A300FFFDD7 /* WIABlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WIABlob.h; path = dolphin/Source/Core/DiscIO/WIABlob.h; sourceTree = "<group>"; };
+		EE98BE1824B8F4A400FFFDD7 /* WiiEncryptionCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WiiEncryptionCache.h; path = dolphin/Source/Core/DiscIO/WiiEncryptionCache.h; sourceTree = "<group>"; };
+		EE98BE2724B8F60B00FFFDD7 /* libzstd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzstd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE98BE2924B8F64F00FFFDD7 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		EE98BE2A24B8F64F00FFFDD7 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		EE98BE2B24B8F64F00FFFDD7 /* zstd.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = zstd.vcxproj; sourceTree = "<group>"; };
+		EE98BE2C24B8F64F00FFFDD7 /* zstd.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = zstd.vcxproj.filters; sourceTree = "<group>"; };
+		EE98BE2D24B8F64F00FFFDD7 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		EE98BE3024B8F64F00FFFDD7 /* zstd_compress_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_compress_internal.h; sourceTree = "<group>"; };
+		EE98BE3124B8F64F00FFFDD7 /* hist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hist.h; sourceTree = "<group>"; };
+		EE98BE3224B8F64F00FFFDD7 /* zstd_ldm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_ldm.h; sourceTree = "<group>"; };
+		EE98BE3324B8F64F00FFFDD7 /* zstd_lazy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_lazy.h; sourceTree = "<group>"; };
+		EE98BE3424B8F64F00FFFDD7 /* zstdmt_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstdmt_compress.c; sourceTree = "<group>"; };
+		EE98BE3524B8F64F00FFFDD7 /* zstd_double_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_double_fast.c; sourceTree = "<group>"; };
+		EE98BE3624B8F64F00FFFDD7 /* zstd_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_fast.c; sourceTree = "<group>"; };
+		EE98BE3724B8F64F00FFFDD7 /* zstd_opt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_opt.h; sourceTree = "<group>"; };
+		EE98BE3824B8F64F00FFFDD7 /* zstd_cwksp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_cwksp.h; sourceTree = "<group>"; };
+		EE98BE3924B8F64F00FFFDD7 /* zstd_compress_sequences.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_compress_sequences.c; sourceTree = "<group>"; };
+		EE98BE3A24B8F64F00FFFDD7 /* zstd_compress_literals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_compress_literals.h; sourceTree = "<group>"; };
+		EE98BE3B24B8F64F00FFFDD7 /* zstd_ldm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_ldm.c; sourceTree = "<group>"; };
+		EE98BE3C24B8F64F00FFFDD7 /* hist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hist.c; sourceTree = "<group>"; };
+		EE98BE3D24B8F64F00FFFDD7 /* zstd_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_compress.c; sourceTree = "<group>"; };
+		EE98BE3E24B8F64F00FFFDD7 /* zstd_double_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_double_fast.h; sourceTree = "<group>"; };
+		EE98BE3F24B8F64F00FFFDD7 /* zstd_lazy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_lazy.c; sourceTree = "<group>"; };
+		EE98BE4024B8F64F00FFFDD7 /* zstdmt_compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstdmt_compress.h; sourceTree = "<group>"; };
+		EE98BE4124B8F64F00FFFDD7 /* zstd_compress_literals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_compress_literals.c; sourceTree = "<group>"; };
+		EE98BE4224B8F64F00FFFDD7 /* huf_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_compress.c; sourceTree = "<group>"; };
+		EE98BE4324B8F64F00FFFDD7 /* zstd_opt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_opt.c; sourceTree = "<group>"; };
+		EE98BE4424B8F64F00FFFDD7 /* zstd_compress_sequences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_compress_sequences.h; sourceTree = "<group>"; };
+		EE98BE4524B8F64F00FFFDD7 /* fse_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_compress.c; sourceTree = "<group>"; };
+		EE98BE4624B8F64F00FFFDD7 /* zstd_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_fast.h; sourceTree = "<group>"; };
+		EE98BE4824B8F64F00FFFDD7 /* zstd_ddict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_ddict.c; sourceTree = "<group>"; };
+		EE98BE4924B8F64F00FFFDD7 /* huf_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_decompress.c; sourceTree = "<group>"; };
+		EE98BE4A24B8F64F00FFFDD7 /* zstd_decompress_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_block.h; sourceTree = "<group>"; };
+		EE98BE4B24B8F64F00FFFDD7 /* zstd_decompress_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_internal.h; sourceTree = "<group>"; };
+		EE98BE4C24B8F64F00FFFDD7 /* zstd_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_decompress.c; sourceTree = "<group>"; };
+		EE98BE4D24B8F64F00FFFDD7 /* zstd_ddict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_ddict.h; sourceTree = "<group>"; };
+		EE98BE4E24B8F64F00FFFDD7 /* zstd_decompress_block.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_decompress_block.c; sourceTree = "<group>"; };
+		EE98BE5024B8F65000FFFDD7 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
+		EE98BE5124B8F65000FFFDD7 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		EE98BE5224B8F65000FFFDD7 /* pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
+		EE98BE5324B8F65000FFFDD7 /* compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
+		EE98BE5424B8F65000FFFDD7 /* entropy_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entropy_common.c; sourceTree = "<group>"; };
+		EE98BE5524B8F65000FFFDD7 /* threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
+		EE98BE5624B8F65000FFFDD7 /* error_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_private.h; sourceTree = "<group>"; };
+		EE98BE5724B8F65000FFFDD7 /* fse_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_decompress.c; sourceTree = "<group>"; };
+		EE98BE5824B8F65000FFFDD7 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		EE98BE5924B8F65000FFFDD7 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
+		EE98BE5A24B8F65000FFFDD7 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		EE98BE5B24B8F65000FFFDD7 /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
+		EE98BE5C24B8F65000FFFDD7 /* zstd_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
+		EE98BE5D24B8F65000FFFDD7 /* pool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pool.c; sourceTree = "<group>"; };
+		EE98BE5E24B8F65000FFFDD7 /* huf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
+		EE98BE5F24B8F65000FFFDD7 /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
+		EE98BE6024B8F65000FFFDD7 /* threading.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
+		EE98BE6124B8F65000FFFDD7 /* zstd_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_common.c; sourceTree = "<group>"; };
+		EE98BE6224B8F65000FFFDD7 /* fse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
+		EE98BE6324B8F65000FFFDD7 /* zstd_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_internal.h; sourceTree = "<group>"; };
+		EE98BE6424B8F65000FFFDD7 /* error_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
+		EE98BE6524B8F65000FFFDD7 /* zstd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
+		EE98BEB924B8FC5600FFFDD7 /* liblzma.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblzma.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE98BEBC24B8FC8400FFFDD7 /* delta_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = delta_decoder.c; sourceTree = "<group>"; };
+		EE98BEBD24B8FC8400FFFDD7 /* delta_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = delta_common.h; sourceTree = "<group>"; };
+		EE98BEBE24B8FC8400FFFDD7 /* delta_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = delta_encoder.h; sourceTree = "<group>"; };
+		EE98BEBF24B8FC8400FFFDD7 /* delta_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = delta_decoder.h; sourceTree = "<group>"; };
+		EE98BEC024B8FC8400FFFDD7 /* delta_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = delta_private.h; sourceTree = "<group>"; };
+		EE98BEC124B8FC8400FFFDD7 /* delta_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = delta_common.c; sourceTree = "<group>"; };
+		EE98BEC224B8FC8400FFFDD7 /* delta_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = delta_encoder.c; sourceTree = "<group>"; };
+		EE98BEC324B8FC8400FFFDD7 /* liblzma.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = liblzma.vcxproj; sourceTree = "<group>"; };
+		EE98BEC424B8FC8400FFFDD7 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		EE98BEC524B8FC8400FFFDD7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		EE98BEC624B8FC8400FFFDD7 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		EE98BEC824B8FC8400FFFDD7 /* price_table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = price_table.c; sourceTree = "<group>"; };
+		EE98BEC924B8FC8500FFFDD7 /* range_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = range_decoder.h; sourceTree = "<group>"; };
+		EE98BECA24B8FC8500FFFDD7 /* price.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = price.h; sourceTree = "<group>"; };
+		EE98BECB24B8FC8500FFFDD7 /* range_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = range_common.h; sourceTree = "<group>"; };
+		EE98BECC24B8FC8500FFFDD7 /* price_tablegen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = price_tablegen.c; sourceTree = "<group>"; };
+		EE98BECD24B8FC8500FFFDD7 /* range_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = range_encoder.h; sourceTree = "<group>"; };
+		EE98BECE24B8FC8500FFFDD7 /* liblzma.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = liblzma.vcxproj.filters; sourceTree = "<group>"; };
+		EE98BED024B8FC8500FFFDD7 /* simple_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simple_encoder.h; sourceTree = "<group>"; };
+		EE98BED124B8FC8500FFFDD7 /* simple_coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simple_coder.h; sourceTree = "<group>"; };
+		EE98BED224B8FC8500FFFDD7 /* simple_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = simple_decoder.c; sourceTree = "<group>"; };
+		EE98BED324B8FC8500FFFDD7 /* simple_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = simple_encoder.c; sourceTree = "<group>"; };
+		EE98BED424B8FC8500FFFDD7 /* simple_coder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = simple_coder.c; sourceTree = "<group>"; };
+		EE98BED524B8FC8500FFFDD7 /* simple_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simple_private.h; sourceTree = "<group>"; };
+		EE98BED624B8FC8500FFFDD7 /* simple_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simple_decoder.h; sourceTree = "<group>"; };
+		EE98BED824B8FC8500FFFDD7 /* filter_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_decoder.c; sourceTree = "<group>"; };
+		EE98BED924B8FC8500FFFDD7 /* block_buffer_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block_buffer_encoder.h; sourceTree = "<group>"; };
+		EE98BEDA24B8FC8500FFFDD7 /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
+		EE98BEDB24B8FC8500FFFDD7 /* filter_flags_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_flags_encoder.c; sourceTree = "<group>"; };
+		EE98BEDC24B8FC8500FFFDD7 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common.c; sourceTree = "<group>"; };
+		EE98BEDD24B8FC8500FFFDD7 /* stream_flags_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_flags_decoder.c; sourceTree = "<group>"; };
+		EE98BEDE24B8FC8500FFFDD7 /* block_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_encoder.c; sourceTree = "<group>"; };
+		EE98BEDF24B8FC8500FFFDD7 /* hardware_cputhreads.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hardware_cputhreads.c; sourceTree = "<group>"; };
+		EE98BEE024B8FC8500FFFDD7 /* alone_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = alone_decoder.c; sourceTree = "<group>"; };
+		EE98BEE124B8FC8500FFFDD7 /* block_header_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_header_decoder.c; sourceTree = "<group>"; };
+		EE98BEE224B8FC8500FFFDD7 /* filter_buffer_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_buffer_decoder.c; sourceTree = "<group>"; };
+		EE98BEE324B8FC8500FFFDD7 /* filter_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filter_common.h; sourceTree = "<group>"; };
+		EE98BEE424B8FC8500FFFDD7 /* outqueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = outqueue.h; sourceTree = "<group>"; };
+		EE98BEE524B8FC8500FFFDD7 /* easy_buffer_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easy_buffer_encoder.c; sourceTree = "<group>"; };
+		EE98BEE624B8FC8500FFFDD7 /* stream_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_decoder.c; sourceTree = "<group>"; };
+		EE98BEE724B8FC8500FFFDD7 /* index_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = index_encoder.c; sourceTree = "<group>"; };
+		EE98BEE824B8FC8500FFFDD7 /* vli_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vli_encoder.c; sourceTree = "<group>"; };
+		EE98BEE924B8FC8500FFFDD7 /* easy_preset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easy_preset.h; sourceTree = "<group>"; };
+		EE98BEEA24B8FC8500FFFDD7 /* stream_flags_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_flags_common.h; sourceTree = "<group>"; };
+		EE98BEEB24B8FC8500FFFDD7 /* block_buffer_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_buffer_decoder.c; sourceTree = "<group>"; };
+		EE98BEEC24B8FC8500FFFDD7 /* easy_decoder_memusage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easy_decoder_memusage.c; sourceTree = "<group>"; };
+		EE98BEED24B8FC8500FFFDD7 /* filter_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filter_encoder.h; sourceTree = "<group>"; };
+		EE98BEEE24B8FC8500FFFDD7 /* stream_buffer_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_buffer_encoder.c; sourceTree = "<group>"; };
+		EE98BEEF24B8FC8500FFFDD7 /* block_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block_decoder.h; sourceTree = "<group>"; };
+		EE98BEF024B8FC8500FFFDD7 /* easy_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easy_encoder.c; sourceTree = "<group>"; };
+		EE98BEF124B8FC8500FFFDD7 /* stream_buffer_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_buffer_decoder.c; sourceTree = "<group>"; };
+		EE98BEF224B8FC8500FFFDD7 /* alone_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alone_decoder.h; sourceTree = "<group>"; };
+		EE98BEF324B8FC8500FFFDD7 /* block_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block_encoder.h; sourceTree = "<group>"; };
+		EE98BEF424B8FC8500FFFDD7 /* stream_encoder_mt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_encoder_mt.c; sourceTree = "<group>"; };
+		EE98BEF524B8FC8500FFFDD7 /* index.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = index.c; sourceTree = "<group>"; };
+		EE98BEF624B8FC8500FFFDD7 /* block_buffer_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_buffer_encoder.c; sourceTree = "<group>"; };
+		EE98BEF724B8FC8500FFFDD7 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		EE98BEF824B8FC8500FFFDD7 /* filter_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filter_decoder.h; sourceTree = "<group>"; };
+		EE98BEF924B8FC8500FFFDD7 /* vli_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vli_decoder.c; sourceTree = "<group>"; };
+		EE98BEFA24B8FC8500FFFDD7 /* outqueue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = outqueue.c; sourceTree = "<group>"; };
+		EE98BEFB24B8FC8500FFFDD7 /* easy_encoder_memusage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easy_encoder_memusage.c; sourceTree = "<group>"; };
+		EE98BEFC24B8FC8500FFFDD7 /* stream_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_encoder.c; sourceTree = "<group>"; };
+		EE98BEFD24B8FC8500FFFDD7 /* filter_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_common.c; sourceTree = "<group>"; };
+		EE98BEFE24B8FC8500FFFDD7 /* index_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = index_decoder.c; sourceTree = "<group>"; };
+		EE98BEFF24B8FC8500FFFDD7 /* index_hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = index_hash.c; sourceTree = "<group>"; };
+		EE98BF0024B8FC8500FFFDD7 /* memcmplen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memcmplen.h; sourceTree = "<group>"; };
+		EE98BF0124B8FC8500FFFDD7 /* easy_preset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easy_preset.c; sourceTree = "<group>"; };
+		EE98BF0224B8FC8500FFFDD7 /* hardware_physmem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hardware_physmem.c; sourceTree = "<group>"; };
+		EE98BF0324B8FC8500FFFDD7 /* block_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_util.c; sourceTree = "<group>"; };
+		EE98BF0424B8FC8500FFFDD7 /* block_header_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_header_encoder.c; sourceTree = "<group>"; };
+		EE98BF0524B8FC8500FFFDD7 /* index_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index_encoder.h; sourceTree = "<group>"; };
+		EE98BF0624B8FC8500FFFDD7 /* filter_buffer_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_buffer_encoder.c; sourceTree = "<group>"; };
+		EE98BF0724B8FC8500FFFDD7 /* vli_size.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vli_size.c; sourceTree = "<group>"; };
+		EE98BF0824B8FC8500FFFDD7 /* auto_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auto_decoder.c; sourceTree = "<group>"; };
+		EE98BF0924B8FC8500FFFDD7 /* stream_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_decoder.h; sourceTree = "<group>"; };
+		EE98BF0A24B8FC8500FFFDD7 /* block_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = block_decoder.c; sourceTree = "<group>"; };
+		EE98BF0B24B8FC8500FFFDD7 /* alone_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = alone_encoder.c; sourceTree = "<group>"; };
+		EE98BF0C24B8FC8500FFFDD7 /* filter_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_encoder.c; sourceTree = "<group>"; };
+		EE98BF0D24B8FC8500FFFDD7 /* stream_flags_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_flags_common.c; sourceTree = "<group>"; };
+		EE98BF0E24B8FC8500FFFDD7 /* stream_flags_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream_flags_encoder.c; sourceTree = "<group>"; };
+		EE98BF0F24B8FC8500FFFDD7 /* filter_flags_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filter_flags_decoder.c; sourceTree = "<group>"; };
+		EE98BF1024B8FC8500FFFDD7 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		EE98BF1224B8FC8500FFFDD7 /* lzma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma.h; sourceTree = "<group>"; };
+		EE98BF1424B8FC8500FFFDD7 /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
+		EE98BF1524B8FC8500FFFDD7 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		EE98BF1624B8FC8500FFFDD7 /* index_hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index_hash.h; sourceTree = "<group>"; };
+		EE98BF1724B8FC8500FFFDD7 /* lzma12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma12.h; sourceTree = "<group>"; };
+		EE98BF1824B8FC8500FFFDD7 /* container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = container.h; sourceTree = "<group>"; };
+		EE98BF1924B8FC8500FFFDD7 /* delta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = delta.h; sourceTree = "<group>"; };
+		EE98BF1A24B8FC8500FFFDD7 /* vli.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vli.h; sourceTree = "<group>"; };
+		EE98BF1B24B8FC8500FFFDD7 /* check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = check.h; sourceTree = "<group>"; };
+		EE98BF1C24B8FC8500FFFDD7 /* bcj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bcj.h; sourceTree = "<group>"; };
+		EE98BF1D24B8FC8500FFFDD7 /* stream_flags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_flags.h; sourceTree = "<group>"; };
+		EE98BF1E24B8FC8500FFFDD7 /* block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block.h; sourceTree = "<group>"; };
+		EE98BF1F24B8FC8500FFFDD7 /* hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hardware.h; sourceTree = "<group>"; };
+		EE98BF2024B8FC8500FFFDD7 /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filter.h; sourceTree = "<group>"; };
+		EE98BF2124B8FC8500FFFDD7 /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
+		EE98BF2324B8FC8500FFFDD7 /* tuklib_progname.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_progname.h; sourceTree = "<group>"; };
+		EE98BF2424B8FC8500FFFDD7 /* tuklib_integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_integer.h; sourceTree = "<group>"; };
+		EE98BF2524B8FC8500FFFDD7 /* tuklib_cpucores.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_cpucores.c; sourceTree = "<group>"; };
+		EE98BF2624B8FC8500FFFDD7 /* tuklib_mbstr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_mbstr.h; sourceTree = "<group>"; };
+		EE98BF2724B8FC8500FFFDD7 /* tuklib_mbstr_fw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_mbstr_fw.c; sourceTree = "<group>"; };
+		EE98BF2824B8FC8500FFFDD7 /* tuklib_physmem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_physmem.h; sourceTree = "<group>"; };
+		EE98BF2924B8FC8500FFFDD7 /* mythread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mythread.h; sourceTree = "<group>"; };
+		EE98BF2A24B8FC8500FFFDD7 /* tuklib_mbstr_width.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_mbstr_width.c; sourceTree = "<group>"; };
+		EE98BF2B24B8FC8500FFFDD7 /* tuklib_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_common.h; sourceTree = "<group>"; };
+		EE98BF2C24B8FC8500FFFDD7 /* tuklib_open_stdxxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_open_stdxxx.h; sourceTree = "<group>"; };
+		EE98BF2D24B8FC8500FFFDD7 /* tuklib_exit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_exit.c; sourceTree = "<group>"; };
+		EE98BF2E24B8FC8500FFFDD7 /* tuklib_gettext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_gettext.h; sourceTree = "<group>"; };
+		EE98BF2F24B8FC8500FFFDD7 /* tuklib_cpucores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_cpucores.h; sourceTree = "<group>"; };
+		EE98BF3024B8FC8500FFFDD7 /* sysdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdefs.h; sourceTree = "<group>"; };
+		EE98BF3124B8FC8500FFFDD7 /* tuklib_progname.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_progname.c; sourceTree = "<group>"; };
+		EE98BF3224B8FC8500FFFDD7 /* tuklib_open_stdxxx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_open_stdxxx.c; sourceTree = "<group>"; };
+		EE98BF3324B8FC8500FFFDD7 /* tuklib_physmem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tuklib_physmem.c; sourceTree = "<group>"; };
+		EE98BF3424B8FC8500FFFDD7 /* tuklib_exit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_exit.h; sourceTree = "<group>"; };
+		EE98BF3524B8FC8500FFFDD7 /* tuklib_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuklib_config.h; sourceTree = "<group>"; };
+		EE98BF3724B8FC8500FFFDD7 /* lz_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz_encoder.h; sourceTree = "<group>"; };
+		EE98BF3824B8FC8500FFFDD7 /* lz_encoder_hash_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz_encoder_hash_table.h; sourceTree = "<group>"; };
+		EE98BF3924B8FC8500FFFDD7 /* lz_encoder_hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz_encoder_hash.h; sourceTree = "<group>"; };
+		EE98BF3A24B8FC8500FFFDD7 /* lz_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lz_decoder.c; sourceTree = "<group>"; };
+		EE98BF3B24B8FC8500FFFDD7 /* lz_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lz_encoder.c; sourceTree = "<group>"; };
+		EE98BF3C24B8FC8500FFFDD7 /* lz_encoder_mf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lz_encoder_mf.c; sourceTree = "<group>"; };
+		EE98BF3D24B8FC8500FFFDD7 /* lz_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz_decoder.h; sourceTree = "<group>"; };
+		EE98BF3F24B8FC8500FFFDD7 /* crc_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc_macros.h; sourceTree = "<group>"; };
+		EE98BF4024B8FC8500FFFDD7 /* crc32_table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32_table.c; sourceTree = "<group>"; };
+		EE98BF4124B8FC8500FFFDD7 /* crc32_table_le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32_table_le.h; sourceTree = "<group>"; };
+		EE98BF4224B8FC8500FFFDD7 /* check.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = check.c; sourceTree = "<group>"; };
+		EE98BF4324B8FC8500FFFDD7 /* crc32_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32_fast.c; sourceTree = "<group>"; };
+		EE98BF4424B8FC8500FFFDD7 /* crc64_table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc64_table.c; sourceTree = "<group>"; };
+		EE98BF4524B8FC8500FFFDD7 /* crc32_tablegen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32_tablegen.c; sourceTree = "<group>"; };
+		EE98BF4624B8FC8500FFFDD7 /* crc32_table_be.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32_table_be.h; sourceTree = "<group>"; };
+		EE98BF4724B8FC8500FFFDD7 /* crc64_tablegen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc64_tablegen.c; sourceTree = "<group>"; };
+		EE98BF4824B8FC8500FFFDD7 /* crc64_table_be.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc64_table_be.h; sourceTree = "<group>"; };
+		EE98BF4924B8FC8500FFFDD7 /* check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = check.h; sourceTree = "<group>"; };
+		EE98BF4A24B8FC8500FFFDD7 /* sha256.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha256.c; sourceTree = "<group>"; };
+		EE98BF4B24B8FC8500FFFDD7 /* crc64_table_le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc64_table_le.h; sourceTree = "<group>"; };
+		EE98BF4C24B8FC8500FFFDD7 /* crc64_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc64_fast.c; sourceTree = "<group>"; };
+		EE98BF4E24B8FC8500FFFDD7 /* fastpos_tablegen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fastpos_tablegen.c; sourceTree = "<group>"; };
+		EE98BF4F24B8FC8500FFFDD7 /* lzma2_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma2_encoder.h; sourceTree = "<group>"; };
+		EE98BF5024B8FC8500FFFDD7 /* lzma_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma_encoder.h; sourceTree = "<group>"; };
+		EE98BF5124B8FC8500FFFDD7 /* lzma_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma_common.h; sourceTree = "<group>"; };
+		EE98BF5224B8FC8500FFFDD7 /* lzma_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma_decoder.c; sourceTree = "<group>"; };
+		EE98BF5324B8FC8500FFFDD7 /* lzma2_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma2_decoder.c; sourceTree = "<group>"; };
+		EE98BF5424B8FC8500FFFDD7 /* lzma_encoder_optimum_normal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma_encoder_optimum_normal.c; sourceTree = "<group>"; };
+		EE98BF5524B8FC8500FFFDD7 /* fastpos_table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fastpos_table.c; sourceTree = "<group>"; };
+		EE98BF5624B8FC8500FFFDD7 /* lzma_encoder_presets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma_encoder_presets.c; sourceTree = "<group>"; };
+		EE98BF5724B8FC8500FFFDD7 /* lzma_encoder_optimum_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma_encoder_optimum_fast.c; sourceTree = "<group>"; };
+		EE98BF5824B8FC8500FFFDD7 /* fastpos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fastpos.h; sourceTree = "<group>"; };
+		EE98BF5924B8FC8500FFFDD7 /* lzma_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma_encoder.c; sourceTree = "<group>"; };
+		EE98BF5A24B8FC8500FFFDD7 /* lzma2_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzma2_encoder.c; sourceTree = "<group>"; };
+		EE98BF5B24B8FC8500FFFDD7 /* lzma_encoder_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma_encoder_private.h; sourceTree = "<group>"; };
+		EE98BF5C24B8FC8500FFFDD7 /* lzma2_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma2_decoder.h; sourceTree = "<group>"; };
+		EE98BF5D24B8FC8500FFFDD7 /* lzma_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzma_decoder.h; sourceTree = "<group>"; };
+		EE98C00024B91E0D00FFFDD7 /* randtable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = randtable.c; sourceTree = "<group>"; };
+		EE98C00124B91E0D00FFFDD7 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		EE98C00224B91E0D00FFFDD7 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		EE98C00324B91E0D00FFFDD7 /* bzip2.vcxproj.filters */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = bzip2.vcxproj.filters; sourceTree = "<group>"; };
+		EE98C00424B91E0D00FFFDD7 /* compress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = compress.c; sourceTree = "<group>"; };
+		EE98C00524B91E0D00FFFDD7 /* decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = decompress.c; sourceTree = "<group>"; };
+		EE98C00624B91E0D00FFFDD7 /* bzlib_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bzlib_private.h; sourceTree = "<group>"; };
+		EE98C00724B91E0D00FFFDD7 /* CHANGES */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGES; sourceTree = "<group>"; };
+		EE98C00824B91E0D00FFFDD7 /* bzlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bzlib.h; sourceTree = "<group>"; };
+		EE98C00924B91E0D00FFFDD7 /* blocksort.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blocksort.c; sourceTree = "<group>"; };
+		EE98C00A24B91E0D00FFFDD7 /* huffman.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = huffman.c; sourceTree = "<group>"; };
+		EE98C00B24B91E0D00FFFDD7 /* bzip2.vcxproj */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = bzip2.vcxproj; sourceTree = "<group>"; };
+		EE98C00C24B91E0D00FFFDD7 /* crctable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = crctable.c; sourceTree = "<group>"; };
+		EE98C00D24B91E0D00FFFDD7 /* bzlib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bzlib.c; sourceTree = "<group>"; };
+		EE98C02E24B91E1700FFFDD7 /* libbzip2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbzip2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE98C03F24B924ED00FFFDD7 /* SpvTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpvTools.cpp; sourceTree = "<group>"; };
+		EE98C04024B924ED00FFFDD7 /* SpvTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpvTools.h; sourceTree = "<group>"; };
+		EE98C04124B924EE00FFFDD7 /* SpvPostProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpvPostProcess.cpp; sourceTree = "<group>"; };
+		EE98C04524B9268400FFFDD7 /* TAP_Unix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAP_Unix.cpp; sourceTree = "<group>"; };
+		EE98C04624B9268400FFFDD7 /* TAP_Win32.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAP_Win32.cpp; sourceTree = "<group>"; };
+		EE98C04724B9268400FFFDD7 /* TAP_Apple.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAP_Apple.cpp; sourceTree = "<group>"; };
+		EE98C04824B9268400FFFDD7 /* TAP_Win32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAP_Win32.h; sourceTree = "<group>"; };
+		EE98C04924B9268400FFFDD7 /* XLINK_KAI_BBA.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XLINK_KAI_BBA.cpp; sourceTree = "<group>"; };
+		EE98C04C24B92AD900FFFDD7 /* Wiimote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wiimote.h; sourceTree = "<group>"; };
+		EE98C04D24B92AD900FFFDD7 /* Wiimote.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wiimote.cpp; sourceTree = "<group>"; };
+		EE98C04F24B92B5100FFFDD7 /* Threads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Threads.h; sourceTree = "<group>"; };
+		EE98C05024B92B5100FFFDD7 /* OSThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OSThread.cpp; sourceTree = "<group>"; };
+		EE98C05124B92B5200FFFDD7 /* OSThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSThread.h; sourceTree = "<group>"; };
 		EE9C006820A4F93F00312609 /* Watches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Watches.h; sourceTree = "<group>"; };
 		EE9C006920A4F93F00312609 /* Watches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Watches.cpp; sourceTree = "<group>"; };
 		EE9C006E20A4FA8B00312609 /* SysConf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SysConf.cpp; path = dolphin/Source/Core/Core/SysConf.cpp; sourceTree = "<group>"; };
@@ -3744,6 +4090,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE98BE9824B8FA7C00FFFDD7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE98C03624B91E5F00FFFDD7 /* libbzip2.a in Frameworks */,
+				EE98BFF624B8FCB100FFFDD7 /* liblzma.a in Frameworks */,
+				EE98BE9924B8FA8500FFFDD7 /* libzstd.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEC94A5B224ABFDC00F85ABA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3831,6 +4187,7 @@
 		3E3D70241C82AF0600091C4D /* Compatibilty */ = {
 			isa = PBXGroup;
 			children = (
+				EE98C05424BCAADE00FFFDD7 /* Beta 12 */,
 				EE9E292C23BCF8E600EFD1A8 /* Core */,
 				3E89F47A1CCAB2A800EAE7AC /* Common */,
 				3E89F4771CCA7A1600EAE7AC /* Input */,
@@ -4851,6 +5208,7 @@
 		3E8EC5CF1F842CFC00D79F27 /* ControllerInterface */ = {
 			isa = PBXGroup;
 			children = (
+				EE98C04B24B92AD900FFFDD7 /* Wiimote */,
 				EE6ABE75239C7116005E5F7D /* DualShockUDPClient */,
 				EE6ABE5A239C3723005E5F7D /* ControllerInterface.cpp */,
 				EE6ABE5C239C3723005E5F7D /* ControllerInterface.h */,
@@ -4975,6 +5333,7 @@
 		3E8EC63C1F8434A900D79F27 /* EXI */ = {
 			isa = PBXGroup;
 			children = (
+				EE98C04424B9268400FFFDD7 /* BBA */,
 				3E8EC63D1F8434A900D79F27 /* EXI_Device.cpp */,
 				3E8EC63E1F8434A900D79F27 /* EXI_DeviceAGP.cpp */,
 				3E8EC63F1F8434A900D79F27 /* EXI_DeviceEthernet.cpp */,
@@ -4990,7 +5349,6 @@
 				3E8EC6491F8434A900D79F27 /* EXI_DeviceMic.h */,
 				3E8EC64A1F8434A900D79F27 /* EXI.cpp */,
 				3E8EC64B1F8434A900D79F27 /* EXI_DeviceMemoryCard.h */,
-				3E8EC64C1F8434A900D79F27 /* BBA-TAP */,
 				3E8EC6511F8434A900D79F27 /* EXI_DeviceIPL.cpp */,
 				3E8EC6521F8434A900D79F27 /* EXI_DeviceDummy.h */,
 				3E8EC6531F8434A900D79F27 /* EXI_DeviceMemoryCard.cpp */,
@@ -5000,17 +5358,6 @@
 				3E8EC6571F8434A900D79F27 /* EXI_DeviceDummy.cpp */,
 			);
 			path = EXI;
-			sourceTree = "<group>";
-		};
-		3E8EC64C1F8434A900D79F27 /* BBA-TAP */ = {
-			isa = PBXGroup;
-			children = (
-				3E8EC64D1F8434A900D79F27 /* TAP_Unix.cpp */,
-				3E8EC64E1F8434A900D79F27 /* TAP_Win32.cpp */,
-				3E8EC64F1F8434A900D79F27 /* TAP_Apple.cpp */,
-				3E8EC6501F8434A900D79F27 /* TAP_Win32.h */,
-			);
-			path = "BBA-TAP";
 			sourceTree = "<group>";
 		};
 		3E8EC6761F8434C600D79F27 /* WiimoteReal */ = {
@@ -5077,6 +5424,9 @@
 		3EFF25201F843C7B00B4FD11 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				EE98BFFF24B91E0D00FFFDD7 /* bzip2 */,
+				EE98BEBA24B8FC8400FFFDD7 /* liblzma */,
+				EE98BE2824B8F64F00FFFDD7 /* zstd */,
 				EE3A45EE22B5D9D700031B56 /* fmt */,
 				EEC94A4E224ABFD200F85ABA /* OGLCompilersDLL */,
 				EEF4EF0E224AB2870077748D /* SPIRV */,
@@ -6171,6 +6521,8 @@
 		9A59815A64234E7AA215090A /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE98BE0924B8F43800FFFDD7 /* FreeLookCamera.cpp */,
+				EE98BE0A24B8F43800FFFDD7 /* FreeLookCamera.h */,
 				EE6ABD75239C21C2005E5F7D /* FrameDump.cpp */,
 				EE6ABD74239C21C2005E5F7D /* FrameDump.h */,
 				EE3A463B22B5F29C00031B56 /* NetPlayGolfUI.cpp */,
@@ -6316,6 +6668,19 @@
 		9B490B4BB8CE45D4B2A91AE9 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE98BE0F24B8F4A200FFFDD7 /* LaggedFibonacciGenerator.cpp */,
+				EE98BE0C24B8F4A200FFFDD7 /* LaggedFibonacciGenerator.h */,
+				EE98BE1124B8F4A200FFFDD7 /* MultithreadedCompressor.h */,
+				EE98BE1024B8F4A200FFFDD7 /* ScrubbedBlob.cpp */,
+				EE98BE1324B8F4A300FFFDD7 /* ScrubbedBlob.h */,
+				EE98BE1524B8F4A300FFFDD7 /* VolumeDisc.cpp */,
+				EE98BE1424B8F4A300FFFDD7 /* VolumeDisc.h */,
+				EE98BE1224B8F4A300FFFDD7 /* WIABlob.cpp */,
+				EE98BE1724B8F4A300FFFDD7 /* WIABlob.h */,
+				EE98BE1624B8F4A300FFFDD7 /* WIACompression.cpp */,
+				EE98BE0E24B8F4A200FFFDD7 /* WIACompression.h */,
+				EE98BE0D24B8F4A200FFFDD7 /* WiiEncryptionCache.cpp */,
+				EE98BE1824B8F4A400FFFDD7 /* WiiEncryptionCache.h */,
 				EE45F43522B552A900C5D0C0 /* VolumeVerifier.cpp */,
 				EE45F43622B552A900C5D0C0 /* VolumeVerifier.h */,
 				3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */,
@@ -6408,6 +6773,9 @@
 				EE47576C224AB2F30027BA05 /* libSPIRV-dol.a */,
 				EEC94A62224ABFDC00F85ABA /* libOGLCompilersDLL-dol.a */,
 				EE3A465A22B6874500031B56 /* libfmt-dol.a */,
+				EE98BE2724B8F60B00FFFDD7 /* libzstd.a */,
+				EE98BEB924B8FC5600FFFDD7 /* liblzma.a */,
+				EE98C02E24B91E1700FFFDD7 /* libbzip2.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6936,9 +7304,414 @@
 			path = source;
 			sourceTree = "<group>";
 		};
+		EE98BDFE24B8E13D00FFFDD7 /* StandAlone */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BDFF24B8E13D00FFFDD7 /* ResourceLimits.h */,
+				EE98BE0124B8E13D00FFFDD7 /* StandAlone.cpp */,
+				EE98BE0224B8E13D00FFFDD7 /* spirv-remap.cpp */,
+				EE98BE0324B8E13D00FFFDD7 /* Worklist.h */,
+				EE98BE0424B8E13D00FFFDD7 /* ResourceLimits.cpp */,
+				EE98BE0524B8E13D00FFFDD7 /* DirStackFileIncluder.h */,
+			);
+			name = StandAlone;
+			path = dolphin/Externals/glslang/StandAlone;
+			sourceTree = SOURCE_ROOT;
+		};
+		EE98BE2824B8F64F00FFFDD7 /* zstd */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BE2924B8F64F00FFFDD7 /* CMakeLists.txt */,
+				EE98BE2A24B8F64F00FFFDD7 /* LICENSE */,
+				EE98BE2B24B8F64F00FFFDD7 /* zstd.vcxproj */,
+				EE98BE2C24B8F64F00FFFDD7 /* zstd.vcxproj.filters */,
+				EE98BE2D24B8F64F00FFFDD7 /* COPYING */,
+				EE98BE2E24B8F64F00FFFDD7 /* lib */,
+			);
+			name = zstd;
+			path = dolphin/Externals/zstd;
+			sourceTree = "<group>";
+		};
+		EE98BE2E24B8F64F00FFFDD7 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BE2F24B8F64F00FFFDD7 /* compress */,
+				EE98BE4724B8F64F00FFFDD7 /* decompress */,
+				EE98BE4F24B8F64F00FFFDD7 /* common */,
+				EE98BE6524B8F65000FFFDD7 /* zstd.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		EE98BE2F24B8F64F00FFFDD7 /* compress */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BE3024B8F64F00FFFDD7 /* zstd_compress_internal.h */,
+				EE98BE3124B8F64F00FFFDD7 /* hist.h */,
+				EE98BE3224B8F64F00FFFDD7 /* zstd_ldm.h */,
+				EE98BE3324B8F64F00FFFDD7 /* zstd_lazy.h */,
+				EE98BE3424B8F64F00FFFDD7 /* zstdmt_compress.c */,
+				EE98BE3524B8F64F00FFFDD7 /* zstd_double_fast.c */,
+				EE98BE3624B8F64F00FFFDD7 /* zstd_fast.c */,
+				EE98BE3724B8F64F00FFFDD7 /* zstd_opt.h */,
+				EE98BE3824B8F64F00FFFDD7 /* zstd_cwksp.h */,
+				EE98BE3924B8F64F00FFFDD7 /* zstd_compress_sequences.c */,
+				EE98BE3A24B8F64F00FFFDD7 /* zstd_compress_literals.h */,
+				EE98BE3B24B8F64F00FFFDD7 /* zstd_ldm.c */,
+				EE98BE3C24B8F64F00FFFDD7 /* hist.c */,
+				EE98BE3D24B8F64F00FFFDD7 /* zstd_compress.c */,
+				EE98BE3E24B8F64F00FFFDD7 /* zstd_double_fast.h */,
+				EE98BE3F24B8F64F00FFFDD7 /* zstd_lazy.c */,
+				EE98BE4024B8F64F00FFFDD7 /* zstdmt_compress.h */,
+				EE98BE4124B8F64F00FFFDD7 /* zstd_compress_literals.c */,
+				EE98BE4224B8F64F00FFFDD7 /* huf_compress.c */,
+				EE98BE4324B8F64F00FFFDD7 /* zstd_opt.c */,
+				EE98BE4424B8F64F00FFFDD7 /* zstd_compress_sequences.h */,
+				EE98BE4524B8F64F00FFFDD7 /* fse_compress.c */,
+				EE98BE4624B8F64F00FFFDD7 /* zstd_fast.h */,
+			);
+			path = compress;
+			sourceTree = "<group>";
+		};
+		EE98BE4724B8F64F00FFFDD7 /* decompress */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BE4824B8F64F00FFFDD7 /* zstd_ddict.c */,
+				EE98BE4924B8F64F00FFFDD7 /* huf_decompress.c */,
+				EE98BE4A24B8F64F00FFFDD7 /* zstd_decompress_block.h */,
+				EE98BE4B24B8F64F00FFFDD7 /* zstd_decompress_internal.h */,
+				EE98BE4C24B8F64F00FFFDD7 /* zstd_decompress.c */,
+				EE98BE4D24B8F64F00FFFDD7 /* zstd_ddict.h */,
+				EE98BE4E24B8F64F00FFFDD7 /* zstd_decompress_block.c */,
+			);
+			path = decompress;
+			sourceTree = "<group>";
+		};
+		EE98BE4F24B8F64F00FFFDD7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BE5024B8F65000FFFDD7 /* xxhash.h */,
+				EE98BE5124B8F65000FFFDD7 /* debug.h */,
+				EE98BE5224B8F65000FFFDD7 /* pool.h */,
+				EE98BE5324B8F65000FFFDD7 /* compiler.h */,
+				EE98BE5424B8F65000FFFDD7 /* entropy_common.c */,
+				EE98BE5524B8F65000FFFDD7 /* threading.h */,
+				EE98BE5624B8F65000FFFDD7 /* error_private.h */,
+				EE98BE5724B8F65000FFFDD7 /* fse_decompress.c */,
+				EE98BE5824B8F65000FFFDD7 /* debug.c */,
+				EE98BE5924B8F65000FFFDD7 /* xxhash.c */,
+				EE98BE5A24B8F65000FFFDD7 /* bitstream.h */,
+				EE98BE5B24B8F65000FFFDD7 /* cpu.h */,
+				EE98BE5C24B8F65000FFFDD7 /* zstd_errors.h */,
+				EE98BE5D24B8F65000FFFDD7 /* pool.c */,
+				EE98BE5E24B8F65000FFFDD7 /* huf.h */,
+				EE98BE5F24B8F65000FFFDD7 /* mem.h */,
+				EE98BE6024B8F65000FFFDD7 /* threading.c */,
+				EE98BE6124B8F65000FFFDD7 /* zstd_common.c */,
+				EE98BE6224B8F65000FFFDD7 /* fse.h */,
+				EE98BE6324B8F65000FFFDD7 /* zstd_internal.h */,
+				EE98BE6424B8F65000FFFDD7 /* error_private.c */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		EE98BEBA24B8FC8400FFFDD7 /* liblzma */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BEBB24B8FC8400FFFDD7 /* delta */,
+				EE98BEC324B8FC8400FFFDD7 /* liblzma.vcxproj */,
+				EE98BEC424B8FC8400FFFDD7 /* CMakeLists.txt */,
+				EE98BEC524B8FC8400FFFDD7 /* config.h */,
+				EE98BEC624B8FC8400FFFDD7 /* ChangeLog */,
+				EE98BEC724B8FC8400FFFDD7 /* rangecoder */,
+				EE98BECE24B8FC8500FFFDD7 /* liblzma.vcxproj.filters */,
+				EE98BECF24B8FC8500FFFDD7 /* simple */,
+				EE98BED724B8FC8500FFFDD7 /* common */,
+				EE98BF1024B8FC8500FFFDD7 /* COPYING */,
+				EE98BF1124B8FC8500FFFDD7 /* api */,
+				EE98BF2224B8FC8500FFFDD7 /* tuklib */,
+				EE98BF3624B8FC8500FFFDD7 /* lz */,
+				EE98BF3E24B8FC8500FFFDD7 /* check */,
+				EE98BF4D24B8FC8500FFFDD7 /* lzma */,
+			);
+			name = liblzma;
+			path = dolphin/Externals/liblzma;
+			sourceTree = "<group>";
+		};
+		EE98BEBB24B8FC8400FFFDD7 /* delta */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BEBC24B8FC8400FFFDD7 /* delta_decoder.c */,
+				EE98BEBD24B8FC8400FFFDD7 /* delta_common.h */,
+				EE98BEBE24B8FC8400FFFDD7 /* delta_encoder.h */,
+				EE98BEBF24B8FC8400FFFDD7 /* delta_decoder.h */,
+				EE98BEC024B8FC8400FFFDD7 /* delta_private.h */,
+				EE98BEC124B8FC8400FFFDD7 /* delta_common.c */,
+				EE98BEC224B8FC8400FFFDD7 /* delta_encoder.c */,
+			);
+			path = delta;
+			sourceTree = "<group>";
+		};
+		EE98BEC724B8FC8400FFFDD7 /* rangecoder */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BEC824B8FC8400FFFDD7 /* price_table.c */,
+				EE98BEC924B8FC8500FFFDD7 /* range_decoder.h */,
+				EE98BECA24B8FC8500FFFDD7 /* price.h */,
+				EE98BECB24B8FC8500FFFDD7 /* range_common.h */,
+				EE98BECC24B8FC8500FFFDD7 /* price_tablegen.c */,
+				EE98BECD24B8FC8500FFFDD7 /* range_encoder.h */,
+			);
+			path = rangecoder;
+			sourceTree = "<group>";
+		};
+		EE98BECF24B8FC8500FFFDD7 /* simple */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BED024B8FC8500FFFDD7 /* simple_encoder.h */,
+				EE98BED124B8FC8500FFFDD7 /* simple_coder.h */,
+				EE98BED224B8FC8500FFFDD7 /* simple_decoder.c */,
+				EE98BED324B8FC8500FFFDD7 /* simple_encoder.c */,
+				EE98BED424B8FC8500FFFDD7 /* simple_coder.c */,
+				EE98BED524B8FC8500FFFDD7 /* simple_private.h */,
+				EE98BED624B8FC8500FFFDD7 /* simple_decoder.h */,
+			);
+			path = simple;
+			sourceTree = "<group>";
+		};
+		EE98BED724B8FC8500FFFDD7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BEE024B8FC8500FFFDD7 /* alone_decoder.c */,
+				EE98BF0B24B8FC8500FFFDD7 /* alone_encoder.c */,
+				EE98BF0824B8FC8500FFFDD7 /* auto_decoder.c */,
+				EE98BEEB24B8FC8500FFFDD7 /* block_buffer_decoder.c */,
+				EE98BEF624B8FC8500FFFDD7 /* block_buffer_encoder.c */,
+				EE98BF0A24B8FC8500FFFDD7 /* block_decoder.c */,
+				EE98BEDE24B8FC8500FFFDD7 /* block_encoder.c */,
+				EE98BEE124B8FC8500FFFDD7 /* block_header_decoder.c */,
+				EE98BF0424B8FC8500FFFDD7 /* block_header_encoder.c */,
+				EE98BF0324B8FC8500FFFDD7 /* block_util.c */,
+				EE98BEDC24B8FC8500FFFDD7 /* common.c */,
+				EE98BEE524B8FC8500FFFDD7 /* easy_buffer_encoder.c */,
+				EE98BEEC24B8FC8500FFFDD7 /* easy_decoder_memusage.c */,
+				EE98BEFB24B8FC8500FFFDD7 /* easy_encoder_memusage.c */,
+				EE98BEF024B8FC8500FFFDD7 /* easy_encoder.c */,
+				EE98BF0124B8FC8500FFFDD7 /* easy_preset.c */,
+				EE98BEE224B8FC8500FFFDD7 /* filter_buffer_decoder.c */,
+				EE98BF0624B8FC8500FFFDD7 /* filter_buffer_encoder.c */,
+				EE98BEFD24B8FC8500FFFDD7 /* filter_common.c */,
+				EE98BED824B8FC8500FFFDD7 /* filter_decoder.c */,
+				EE98BF0C24B8FC8500FFFDD7 /* filter_encoder.c */,
+				EE98BF0F24B8FC8500FFFDD7 /* filter_flags_decoder.c */,
+				EE98BEDB24B8FC8500FFFDD7 /* filter_flags_encoder.c */,
+				EE98BEDF24B8FC8500FFFDD7 /* hardware_cputhreads.c */,
+				EE98BF0224B8FC8500FFFDD7 /* hardware_physmem.c */,
+				EE98BEFE24B8FC8500FFFDD7 /* index_decoder.c */,
+				EE98BEE724B8FC8500FFFDD7 /* index_encoder.c */,
+				EE98BEFF24B8FC8500FFFDD7 /* index_hash.c */,
+				EE98BEF524B8FC8500FFFDD7 /* index.c */,
+				EE98BEFA24B8FC8500FFFDD7 /* outqueue.c */,
+				EE98BEF124B8FC8500FFFDD7 /* stream_buffer_decoder.c */,
+				EE98BEEE24B8FC8500FFFDD7 /* stream_buffer_encoder.c */,
+				EE98BEE624B8FC8500FFFDD7 /* stream_decoder.c */,
+				EE98BEF424B8FC8500FFFDD7 /* stream_encoder_mt.c */,
+				EE98BEFC24B8FC8500FFFDD7 /* stream_encoder.c */,
+				EE98BF0D24B8FC8500FFFDD7 /* stream_flags_common.c */,
+				EE98BEDD24B8FC8500FFFDD7 /* stream_flags_decoder.c */,
+				EE98BF0E24B8FC8500FFFDD7 /* stream_flags_encoder.c */,
+				EE98BEF924B8FC8500FFFDD7 /* vli_decoder.c */,
+				EE98BEE824B8FC8500FFFDD7 /* vli_encoder.c */,
+				EE98BF0724B8FC8500FFFDD7 /* vli_size.c */,
+				EE98BEF224B8FC8500FFFDD7 /* alone_decoder.h */,
+				EE98BED924B8FC8500FFFDD7 /* block_buffer_encoder.h */,
+				EE98BEEF24B8FC8500FFFDD7 /* block_decoder.h */,
+				EE98BEF324B8FC8500FFFDD7 /* block_encoder.h */,
+				EE98BEF724B8FC8500FFFDD7 /* common.h */,
+				EE98BEE924B8FC8500FFFDD7 /* easy_preset.h */,
+				EE98BEE324B8FC8500FFFDD7 /* filter_common.h */,
+				EE98BEF824B8FC8500FFFDD7 /* filter_decoder.h */,
+				EE98BEED24B8FC8500FFFDD7 /* filter_encoder.h */,
+				EE98BF0524B8FC8500FFFDD7 /* index_encoder.h */,
+				EE98BEDA24B8FC8500FFFDD7 /* index.h */,
+				EE98BF0024B8FC8500FFFDD7 /* memcmplen.h */,
+				EE98BEE424B8FC8500FFFDD7 /* outqueue.h */,
+				EE98BF0924B8FC8500FFFDD7 /* stream_decoder.h */,
+				EE98BEEA24B8FC8500FFFDD7 /* stream_flags_common.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		EE98BF1124B8FC8500FFFDD7 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BF1224B8FC8500FFFDD7 /* lzma.h */,
+				EE98BF1324B8FC8500FFFDD7 /* lzma */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		EE98BF1324B8FC8500FFFDD7 /* lzma */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BF1424B8FC8500FFFDD7 /* index.h */,
+				EE98BF1524B8FC8500FFFDD7 /* version.h */,
+				EE98BF1624B8FC8500FFFDD7 /* index_hash.h */,
+				EE98BF1724B8FC8500FFFDD7 /* lzma12.h */,
+				EE98BF1824B8FC8500FFFDD7 /* container.h */,
+				EE98BF1924B8FC8500FFFDD7 /* delta.h */,
+				EE98BF1A24B8FC8500FFFDD7 /* vli.h */,
+				EE98BF1B24B8FC8500FFFDD7 /* check.h */,
+				EE98BF1C24B8FC8500FFFDD7 /* bcj.h */,
+				EE98BF1D24B8FC8500FFFDD7 /* stream_flags.h */,
+				EE98BF1E24B8FC8500FFFDD7 /* block.h */,
+				EE98BF1F24B8FC8500FFFDD7 /* hardware.h */,
+				EE98BF2024B8FC8500FFFDD7 /* filter.h */,
+				EE98BF2124B8FC8500FFFDD7 /* base.h */,
+			);
+			path = lzma;
+			sourceTree = "<group>";
+		};
+		EE98BF2224B8FC8500FFFDD7 /* tuklib */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BF2324B8FC8500FFFDD7 /* tuklib_progname.h */,
+				EE98BF2424B8FC8500FFFDD7 /* tuklib_integer.h */,
+				EE98BF2524B8FC8500FFFDD7 /* tuklib_cpucores.c */,
+				EE98BF2624B8FC8500FFFDD7 /* tuklib_mbstr.h */,
+				EE98BF2724B8FC8500FFFDD7 /* tuklib_mbstr_fw.c */,
+				EE98BF2824B8FC8500FFFDD7 /* tuklib_physmem.h */,
+				EE98BF2924B8FC8500FFFDD7 /* mythread.h */,
+				EE98BF2A24B8FC8500FFFDD7 /* tuklib_mbstr_width.c */,
+				EE98BF2B24B8FC8500FFFDD7 /* tuklib_common.h */,
+				EE98BF2C24B8FC8500FFFDD7 /* tuklib_open_stdxxx.h */,
+				EE98BF2D24B8FC8500FFFDD7 /* tuklib_exit.c */,
+				EE98BF2E24B8FC8500FFFDD7 /* tuklib_gettext.h */,
+				EE98BF2F24B8FC8500FFFDD7 /* tuklib_cpucores.h */,
+				EE98BF3024B8FC8500FFFDD7 /* sysdefs.h */,
+				EE98BF3124B8FC8500FFFDD7 /* tuklib_progname.c */,
+				EE98BF3224B8FC8500FFFDD7 /* tuklib_open_stdxxx.c */,
+				EE98BF3324B8FC8500FFFDD7 /* tuklib_physmem.c */,
+				EE98BF3424B8FC8500FFFDD7 /* tuklib_exit.h */,
+				EE98BF3524B8FC8500FFFDD7 /* tuklib_config.h */,
+			);
+			path = tuklib;
+			sourceTree = "<group>";
+		};
+		EE98BF3624B8FC8500FFFDD7 /* lz */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BF3724B8FC8500FFFDD7 /* lz_encoder.h */,
+				EE98BF3824B8FC8500FFFDD7 /* lz_encoder_hash_table.h */,
+				EE98BF3924B8FC8500FFFDD7 /* lz_encoder_hash.h */,
+				EE98BF3A24B8FC8500FFFDD7 /* lz_decoder.c */,
+				EE98BF3B24B8FC8500FFFDD7 /* lz_encoder.c */,
+				EE98BF3C24B8FC8500FFFDD7 /* lz_encoder_mf.c */,
+				EE98BF3D24B8FC8500FFFDD7 /* lz_decoder.h */,
+			);
+			path = lz;
+			sourceTree = "<group>";
+		};
+		EE98BF3E24B8FC8500FFFDD7 /* check */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BF3F24B8FC8500FFFDD7 /* crc_macros.h */,
+				EE98BF4024B8FC8500FFFDD7 /* crc32_table.c */,
+				EE98BF4124B8FC8500FFFDD7 /* crc32_table_le.h */,
+				EE98BF4224B8FC8500FFFDD7 /* check.c */,
+				EE98BF4324B8FC8500FFFDD7 /* crc32_fast.c */,
+				EE98BF4424B8FC8500FFFDD7 /* crc64_table.c */,
+				EE98BF4524B8FC8500FFFDD7 /* crc32_tablegen.c */,
+				EE98BF4624B8FC8500FFFDD7 /* crc32_table_be.h */,
+				EE98BF4724B8FC8500FFFDD7 /* crc64_tablegen.c */,
+				EE98BF4824B8FC8500FFFDD7 /* crc64_table_be.h */,
+				EE98BF4924B8FC8500FFFDD7 /* check.h */,
+				EE98BF4A24B8FC8500FFFDD7 /* sha256.c */,
+				EE98BF4B24B8FC8500FFFDD7 /* crc64_table_le.h */,
+				EE98BF4C24B8FC8500FFFDD7 /* crc64_fast.c */,
+			);
+			path = check;
+			sourceTree = "<group>";
+		};
+		EE98BF4D24B8FC8500FFFDD7 /* lzma */ = {
+			isa = PBXGroup;
+			children = (
+				EE98BF4E24B8FC8500FFFDD7 /* fastpos_tablegen.c */,
+				EE98BF4F24B8FC8500FFFDD7 /* lzma2_encoder.h */,
+				EE98BF5024B8FC8500FFFDD7 /* lzma_encoder.h */,
+				EE98BF5124B8FC8500FFFDD7 /* lzma_common.h */,
+				EE98BF5224B8FC8500FFFDD7 /* lzma_decoder.c */,
+				EE98BF5324B8FC8500FFFDD7 /* lzma2_decoder.c */,
+				EE98BF5424B8FC8500FFFDD7 /* lzma_encoder_optimum_normal.c */,
+				EE98BF5524B8FC8500FFFDD7 /* fastpos_table.c */,
+				EE98BF5624B8FC8500FFFDD7 /* lzma_encoder_presets.c */,
+				EE98BF5724B8FC8500FFFDD7 /* lzma_encoder_optimum_fast.c */,
+				EE98BF5824B8FC8500FFFDD7 /* fastpos.h */,
+				EE98BF5924B8FC8500FFFDD7 /* lzma_encoder.c */,
+				EE98BF5A24B8FC8500FFFDD7 /* lzma2_encoder.c */,
+				EE98BF5B24B8FC8500FFFDD7 /* lzma_encoder_private.h */,
+				EE98BF5C24B8FC8500FFFDD7 /* lzma2_decoder.h */,
+				EE98BF5D24B8FC8500FFFDD7 /* lzma_decoder.h */,
+			);
+			path = lzma;
+			sourceTree = "<group>";
+		};
+		EE98BFFF24B91E0D00FFFDD7 /* bzip2 */ = {
+			isa = PBXGroup;
+			children = (
+				EE98C00024B91E0D00FFFDD7 /* randtable.c */,
+				EE98C00124B91E0D00FFFDD7 /* CMakeLists.txt */,
+				EE98C00224B91E0D00FFFDD7 /* LICENSE */,
+				EE98C00324B91E0D00FFFDD7 /* bzip2.vcxproj.filters */,
+				EE98C00424B91E0D00FFFDD7 /* compress.c */,
+				EE98C00524B91E0D00FFFDD7 /* decompress.c */,
+				EE98C00624B91E0D00FFFDD7 /* bzlib_private.h */,
+				EE98C00724B91E0D00FFFDD7 /* CHANGES */,
+				EE98C00824B91E0D00FFFDD7 /* bzlib.h */,
+				EE98C00924B91E0D00FFFDD7 /* blocksort.c */,
+				EE98C00A24B91E0D00FFFDD7 /* huffman.c */,
+				EE98C00B24B91E0D00FFFDD7 /* bzip2.vcxproj */,
+				EE98C00C24B91E0D00FFFDD7 /* crctable.c */,
+				EE98C00D24B91E0D00FFFDD7 /* bzlib.c */,
+			);
+			name = bzip2;
+			path = dolphin/Externals/bzip2;
+			sourceTree = "<group>";
+		};
+		EE98C04424B9268400FFFDD7 /* BBA */ = {
+			isa = PBXGroup;
+			children = (
+				EE98C04524B9268400FFFDD7 /* TAP_Unix.cpp */,
+				EE98C04624B9268400FFFDD7 /* TAP_Win32.cpp */,
+				EE98C04724B9268400FFFDD7 /* TAP_Apple.cpp */,
+				EE98C04824B9268400FFFDD7 /* TAP_Win32.h */,
+				EE98C04924B9268400FFFDD7 /* XLINK_KAI_BBA.cpp */,
+			);
+			path = BBA;
+			sourceTree = "<group>";
+		};
+		EE98C04B24B92AD900FFFDD7 /* Wiimote */ = {
+			isa = PBXGroup;
+			children = (
+				EE98C04C24B92AD900FFFDD7 /* Wiimote.h */,
+				EE98C04D24B92AD900FFFDD7 /* Wiimote.cpp */,
+			);
+			path = Wiimote;
+			sourceTree = "<group>";
+		};
+		EE98C05424BCAADE00FFFDD7 /* Beta 12 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Beta 12";
+			sourceTree = "<group>";
+		};
 		EE9C006720A4F93F00312609 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
+				EE98C05024B92B5100FFFDD7 /* OSThread.cpp */,
+				EE98C05124B92B5200FFFDD7 /* OSThread.h */,
+				EE98C04F24B92B5100FFFDD7 /* Threads.h */,
 				EE89731220B60C3E00F073C1 /* MemoryPatches.cpp */,
 				EE89731320B60C3E00F073C1 /* MemoryPatches.h */,
 				EE9C006820A4F93F00312609 /* Watches.h */,
@@ -6972,6 +7745,7 @@
 		EEF4EE7D224AAE650077748D /* glslang */ = {
 			isa = PBXGroup;
 			children = (
+				EE98BDFE24B8E13D00FFFDD7 /* StandAlone */,
 				EEF4EE7E224AAE650077748D /* CMakeLists.txt */,
 				EEF4EE7F224AAE650077748D /* OSDependent */,
 				EEF4EE88224AAE650077748D /* Include */,
@@ -7114,6 +7888,9 @@
 		EEF4EF0E224AB2870077748D /* SPIRV */ = {
 			isa = PBXGroup;
 			children = (
+				EE98C04124B924EE00FFFDD7 /* SpvPostProcess.cpp */,
+				EE98C03F24B924ED00FFFDD7 /* SpvTools.cpp */,
+				EE98C04024B924ED00FFFDD7 /* SpvTools.h */,
 				EEF4EF0F224AB2870077748D /* SPVRemapper.h */,
 				EEF4EF10224AB2870077748D /* SpvBuilder.h */,
 				EEF4EF11224AB2870077748D /* CMakeLists.txt */,
@@ -7381,6 +8158,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EE98BE9724B8F68D00FFFDD7 /* PBXTargetDependency */,
 				3EFF28B21F855CE900B4FD11 /* PBXTargetDependency */,
 				3EFF28B01F855CE900B4FD11 /* PBXTargetDependency */,
 				3EFF28B61F855CE900B4FD11 /* PBXTargetDependency */,
@@ -7591,6 +8369,7 @@
 			buildConfigurationList = 6AF858E514F84BB5958C1788 /* Build configuration list for PBXNativeTarget "discio" */;
 			buildPhases = (
 				409A575358554ED6A5071C12 /* Sources */,
+				EE98BE9824B8FA7C00FFFDD7 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -7703,6 +8482,51 @@
 			productReference = EE8DD2E6224A7F04005E1AF5 /* libFreeSurround-dol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		EE98BE1F24B8F60B00FFFDD7 /* zstd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE98BE2224B8F60B00FFFDD7 /* Build configuration list for PBXNativeTarget "zstd" */;
+			buildPhases = (
+				EE98BE2024B8F60B00FFFDD7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = zstd;
+			productName = lzo2;
+			productReference = EE98BE2724B8F60B00FFFDD7 /* libzstd.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EE98BE9A24B8FC5600FFFDD7 /* lzma */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE98BEB424B8FC5600FFFDD7 /* Build configuration list for PBXNativeTarget "lzma" */;
+			buildPhases = (
+				EE98BE9B24B8FC5600FFFDD7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = lzma;
+			productName = lzo2;
+			productReference = EE98BEB924B8FC5600FFFDD7 /* liblzma.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EE98C00E24B91E1700FFFDD7 /* bzip2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE98C02924B91E1700FFFDD7 /* Build configuration list for PBXNativeTarget "bzip2" */;
+			buildPhases = (
+				EE98C00F24B91E1700FFFDD7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bzip2;
+			productName = lzo2;
+			productReference = EE98C02E24B91E1700FFFDD7 /* libbzip2.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		EEC94A52224ABFDC00F85ABA /* OGLCompilersDLL */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEC94A5D224ABFDC00F85ABA /* Build configuration list for PBXNativeTarget "OGLCompilersDLL" */;
@@ -7799,7 +8623,6 @@
 		8AE37EB7920C4C86939DE6E9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
 				TargetAttributes = {
 					3E2217961D74AB3300C55942 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -7874,6 +8697,9 @@
 				EE475745224AB2F30027BA05 /* SPIRV */,
 				EEC94A52224ABFDC00F85ABA /* OGLCompilersDLL */,
 				EE3A464922B6874500031B56 /* fmt */,
+				EE98BE1F24B8F60B00FFFDD7 /* zstd */,
+				EE98BE9A24B8FC5600FFFDD7 /* lzma */,
+				EE98C00E24B91E1700FFFDD7 /* bzip2 */,
 			);
 		};
 /* End PBXProject section */
@@ -8022,6 +8848,7 @@
 				3EFF26471F845CA500B4FD11 /* GameConfigLoader.cpp in Sources */,
 				EE6ABE92239C783B005E5F7D /* DI.cpp in Sources */,
 				3E3D73C81C82B0F900091C4D /* Sram.cpp in Sources */,
+				EE98C05324B92D0200FFFDD7 /* XLINK_KAI_BBA.cpp in Sources */,
 				3E8D25FA1D21D8F70086BA59 /* Analytics.cpp in Sources */,
 				3EFF27111F8460BC00B4FD11 /* TitleDatabase.cpp in Sources */,
 				EE6ABED5239C78D1005E5F7D /* USB_KBD.cpp in Sources */,
@@ -8122,7 +8949,6 @@
 				3E3D738C1C82B0F900091C4D /* HLE_Misc.cpp in Sources */,
 				3E3D73571C82B0F900091C4D /* Boot_BS2Emu.cpp in Sources */,
 				EE8DD29522493134005E1AF5 /* MotionPlus.cpp in Sources */,
-				3E8EC6711F8434AA00D79F27 /* TAP_Apple.cpp in Sources */,
 				3E3D739D1C82B0F900091C4D /* UCodes.cpp in Sources */,
 				3E3D73621C82B0F900091C4D /* PPCDebugInterface.cpp in Sources */,
 				3E3D73BC1C82B0F900091C4D /* MemoryInterface.cpp in Sources */,
@@ -8137,6 +8963,7 @@
 				3E8EC6BA1F8436F100D79F27 /* DSPIntArithmetic.cpp in Sources */,
 				3E3D73F71C82B0F900091C4D /* Interpreter.cpp in Sources */,
 				3E8EC6741F8434AA00D79F27 /* EXI_DeviceAD16.cpp in Sources */,
+				EE98C04A24B926B600FFFDD7 /* TAP_Apple.cpp in Sources */,
 				EE6ABEA4239C7874005E5F7D /* File.cpp in Sources */,
 				EEF8A0F320B3524E008678D3 /* (null) in Sources */,
 				3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */,
@@ -8318,6 +9145,7 @@
 				EE89731420B60C3F00F073C1 /* MemoryPatches.cpp in Sources */,
 				3E3D71791C82B0BB00091C4D /* ConsoleListenerNix.cpp in Sources */,
 				3E3D71881C82B0BB00091C4D /* StringUtil.cpp in Sources */,
+				EE98C05224B92B5200FFFDD7 /* OSThread.cpp in Sources */,
 				3E3D71741C82B0BB00091C4D /* GLUtil.cpp in Sources */,
 				3E3D71761C82B0BB00091C4D /* IniFile.cpp in Sources */,
 				3E3D71931C82B0BB00091C4D /* x64CPUDetect.cpp in Sources */,
@@ -8668,12 +9496,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E3D74641C82B11900091C4D /* FileBlob.cpp in Sources */,
+				EE98BE1D24B8F4A400FFFDD7 /* VolumeDisc.cpp in Sources */,
+				EE98BE1E24B8F4A400FFFDD7 /* WIACompression.cpp in Sources */,
 				3E8EC5771F84235200D79F27 /* Enums.cpp in Sources */,
 				3E3D74631C82B11900091C4D /* DriveBlob.cpp in Sources */,
 				3E7AE8E81FB4E6900017E3D1 /* WiiSaveBanner.cpp in Sources */,
 				3E8EC5791F84235200D79F27 /* NANDImporter.cpp in Sources */,
 				3E8EC57E1F84235200D79F27 /* Volume.cpp in Sources */,
+				EE98BE1A24B8F4A400FFFDD7 /* LaggedFibonacciGenerator.cpp in Sources */,
 				3E3D74621C82B11900091C4D /* DiscScrubber.cpp in Sources */,
+				EE98BE1924B8F4A400FFFDD7 /* WiiEncryptionCache.cpp in Sources */,
 				3E3D74661C82B11900091C4D /* Filesystem.cpp in Sources */,
 				3E3D74601C82B11900091C4D /* CISOBlob.cpp in Sources */,
 				3E3D74611C82B11900091C4D /* CompressedBlob.cpp in Sources */,
@@ -8681,10 +9513,12 @@
 				EE45F43A22B552C500C5D0C0 /* LibusbUtils.cpp in Sources */,
 				3E3D746D1C82B11900091C4D /* VolumeWad.cpp in Sources */,
 				3E3D745F1C82B11900091C4D /* Blob.cpp in Sources */,
+				EE98BE1C24B8F4A400FFFDD7 /* WIABlob.cpp in Sources */,
 				3E8EC57C1F84235200D79F27 /* DiscExtractor.cpp in Sources */,
 				3E8EC57B1F84235200D79F27 /* VolumeFileBlobReader.cpp in Sources */,
 				3E8EC57D1F84235200D79F27 /* VolumeWii.cpp in Sources */,
 				3E3D746F1C82B11900091C4D /* WbfsBlob.cpp in Sources */,
+				EE98BE1B24B8F4A400FFFDD7 /* ScrubbedBlob.cpp in Sources */,
 				3E8EC57A1F84235200D79F27 /* DirectoryBlob.cpp in Sources */,
 				3E8EC5781F84235200D79F27 /* TGCBlob.cpp in Sources */,
 				3E3D746C1C82B11900091C4D /* VolumeGC.cpp in Sources */,
@@ -8708,6 +9542,7 @@
 				EE6ABE62239C3738005E5F7D /* ForceFeedbackDevice.cpp in Sources */,
 				EE6ABE1B239C3679005E5F7D /* Control.cpp in Sources */,
 				EE6ABE6D239C3766005E5F7D /* OSX.mm in Sources */,
+				EE98C04E24B92ADA00FFFDD7 /* Wiimote.cpp in Sources */,
 				EE6ABE6E239C3766005E5F7D /* OSXJoystick.mm in Sources */,
 				EE6ABE49239C36AD005E5F7D /* IMUAccelerometer.cpp in Sources */,
 				3EFF25CC1F8444D200B4FD11 /* GCAdapter.cpp in Sources */,
@@ -8871,6 +9706,7 @@
 				3E3D75EB1C82B2DE00091C4D /* AsyncRequests.cpp in Sources */,
 				3EFF26281F8458E600B4FD11 /* AbstractTexture.cpp in Sources */,
 				EE149B952059E192008D5DDE /* ShaderCache.cpp in Sources */,
+				EE98BE0B24B8F43900FFFDD7 /* FreeLookCamera.cpp in Sources */,
 				3E3D75F01C82B2DE00091C4D /* BPStructs.cpp in Sources */,
 				3E3D75F61C82B2DE00091C4D /* FPSCounter.cpp in Sources */,
 				EE8DD27922492B88005E1AF5 /* FramebufferShaderGen.cpp in Sources */,
@@ -9030,7 +9866,9 @@
 				EE475773224AB3160027BA05 /* disassemble.cpp in Sources */,
 				EE475770224AB3160027BA05 /* SPVRemapper.cpp in Sources */,
 				EE47576D224AB3160027BA05 /* InReadableOrder.cpp in Sources */,
+				EE98C04324B924EE00FFFDD7 /* SpvPostProcess.cpp in Sources */,
 				EE47576E224AB3160027BA05 /* SpvBuilder.cpp in Sources */,
+				EE98C04224B924EE00FFFDD7 /* SpvTools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9075,6 +9913,91 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE98BE2024B8F60B00FFFDD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE98BE7524B8F65000FFFDD7 /* zstd_lazy.c in Sources */,
+				EE98BE7924B8F65000FFFDD7 /* huf_compress.c in Sources */,
+				EE98BE6724B8F65000FFFDD7 /* zstdmt_compress.c in Sources */,
+				EE98BE8B24B8F65000FFFDD7 /* debug.c in Sources */,
+				EE98BE9524B8F65000FFFDD7 /* error_private.c in Sources */,
+				EE98BE8324B8F65000FFFDD7 /* zstd_decompress.c in Sources */,
+				EE98BE8724B8F65000FFFDD7 /* entropy_common.c in Sources */,
+				EE98BE6D24B8F65000FFFDD7 /* zstd_compress_sequences.c in Sources */,
+				EE98BE8124B8F65000FFFDD7 /* huf_decompress.c in Sources */,
+				EE98BE9124B8F65000FFFDD7 /* threading.c in Sources */,
+				EE98BE7B24B8F65000FFFDD7 /* zstd_opt.c in Sources */,
+				EE98BE7324B8F65000FFFDD7 /* zstd_compress.c in Sources */,
+				EE98BE8924B8F65000FFFDD7 /* fse_decompress.c in Sources */,
+				EE98BE7724B8F65000FFFDD7 /* zstd_compress_literals.c in Sources */,
+				EE98BE6F24B8F65000FFFDD7 /* zstd_ldm.c in Sources */,
+				EE98BE9324B8F65000FFFDD7 /* zstd_common.c in Sources */,
+				EE98BE7F24B8F65000FFFDD7 /* zstd_ddict.c in Sources */,
+				EE98BE8524B8F65000FFFDD7 /* zstd_decompress_block.c in Sources */,
+				EE98BE7D24B8F65000FFFDD7 /* fse_compress.c in Sources */,
+				EE98BE6924B8F65000FFFDD7 /* zstd_double_fast.c in Sources */,
+				EE98BE8F24B8F65000FFFDD7 /* pool.c in Sources */,
+				EE98BE8D24B8F65000FFFDD7 /* xxhash.c in Sources */,
+				EE98BE6B24B8F65000FFFDD7 /* zstd_fast.c in Sources */,
+				EE98BE7124B8F65000FFFDD7 /* hist.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE98BE9B24B8FC5600FFFDD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE98BFD124B8FC8600FFFDD7 /* lz_encoder.c in Sources */,
+				EE98BFCF24B8FC8600FFFDD7 /* lz_decoder.c in Sources */,
+				EE98BF7324B8FC8500FFFDD7 /* common.c in Sources */,
+				EE98BFFE24B9158200FFFDD7 /* price_tablegen.c in Sources */,
+				EE98BFF724B90B9600FFFDD7 /* delta_decoder.c in Sources */,
+				EE98BFFB24B9131000FFFDD7 /* filter_buffer_decoder.c in Sources */,
+				EE98C03E24B9249700FFFDD7 /* crc64_tablegen.c in Sources */,
+				EE98BFEB24B8FC8600FFFDD7 /* lzma_encoder_optimum_normal.c in Sources */,
+				EE98BFE524B8FC8600FFFDD7 /* fastpos_tablegen.c in Sources */,
+				EE98C03824B9249700FFFDD7 /* crc32_fast.c in Sources */,
+				EE98C03B24B9249700FFFDD7 /* crc64_table.c in Sources */,
+				EE98BF6924B8FC8500FFFDD7 /* simple_decoder.c in Sources */,
+				EE98C03A24B9249700FFFDD7 /* sha256.c in Sources */,
+				EE98C03D24B9249700FFFDD7 /* crc64_fast.c in Sources */,
+				EE98BFF124B8FC8600FFFDD7 /* lzma_encoder_optimum_fast.c in Sources */,
+				EE98BFED24B8FC8600FFFDD7 /* fastpos_table.c in Sources */,
+				EE98BFFC24B9131200FFFDD7 /* filter_common.c in Sources */,
+				EE98BFD324B8FC8600FFFDD7 /* lz_encoder_mf.c in Sources */,
+				EE98BF6D24B8FC8500FFFDD7 /* simple_coder.c in Sources */,
+				EE98BFE924B8FC8600FFFDD7 /* lzma2_decoder.c in Sources */,
+				EE98BFE724B8FC8600FFFDD7 /* lzma_decoder.c in Sources */,
+				EE98BFF924B90B9600FFFDD7 /* delta_encoder.c in Sources */,
+				EE98BFFD24B9157400FFFDD7 /* price_table.c in Sources */,
+				EE98C03724B9249700FFFDD7 /* crc32_table.c in Sources */,
+				EE98BFFA24B910A300FFFDD7 /* filter_encoder.c in Sources */,
+				EE98BFF324B8FC8600FFFDD7 /* lzma_encoder.c in Sources */,
+				EE98BF6F24B8FC8500FFFDD7 /* filter_decoder.c in Sources */,
+				EE98BFF824B90B9600FFFDD7 /* delta_common.c in Sources */,
+				EE98BFF524B8FC8600FFFDD7 /* lzma2_encoder.c in Sources */,
+				EE98BF6B24B8FC8500FFFDD7 /* simple_encoder.c in Sources */,
+				EE98C03C24B9249700FFFDD7 /* crc32_tablegen.c in Sources */,
+				EE98C03924B9249700FFFDD7 /* check.c in Sources */,
+				EE98BFEF24B8FC8600FFFDD7 /* lzma_encoder_presets.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE98C00F24B91E1700FFFDD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE98C03524B91E4900FFFDD7 /* compress.c in Sources */,
+				EE98C03024B91E4900FFFDD7 /* decompress.c in Sources */,
+				EE98C03124B91E4900FFFDD7 /* blocksort.c in Sources */,
+				EE98C02F24B91E4100FFFDD7 /* randtable.c in Sources */,
+				EE98C03324B91E4900FFFDD7 /* crctable.c in Sources */,
+				EE98C03424B91E4900FFFDD7 /* bzlib.c in Sources */,
+				EE98C03224B91E4900FFFDD7 /* huffman.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEC94A53224ABFDC00F85ABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -9097,6 +10020,7 @@
 				EEF4EEF6224AAFB50077748D /* intermOut.cpp in Sources */,
 				EEF4EF05224AAFC00077748D /* Pp.cpp in Sources */,
 				EEF4EF0A224AAFCB0077748D /* Link.cpp in Sources */,
+				EE98BE0624B8E13D00FFFDD7 /* StandAlone.cpp in Sources */,
 				EEF4EF02224AAFB50077748D /* linkValidate.cpp in Sources */,
 				EEF4EEF4224AAFB50077748D /* parseConst.cpp in Sources */,
 				EEF4EEFE224AAFB50077748D /* reflection.cpp in Sources */,
@@ -9108,12 +10032,14 @@
 				EEF4EF08224AAFC00077748D /* PpScanner.cpp in Sources */,
 				EEF4EEF0224AAFB50077748D /* Scan.cpp in Sources */,
 				EEF4EEF5224AAFB50077748D /* IntermTraverse.cpp in Sources */,
+				EE98BE0724B8E13D00FFFDD7 /* spirv-remap.cpp in Sources */,
 				EEF4EEEE224AAFB50077748D /* ParseHelper.cpp in Sources */,
 				EEF4EF00224AAFB50077748D /* Versions.cpp in Sources */,
 				EEF4EEF2224AAFB50077748D /* glslang_tab.cpp in Sources */,
 				EEF4EEFF224AAFB50077748D /* RemoveTree.cpp in Sources */,
 				EEF4EF01224AAFB50077748D /* Constant.cpp in Sources */,
 				EEF4EF04224AAFC00077748D /* PpAtom.cpp in Sources */,
+				EE98BE0824B8E13D00FFFDD7 /* ResourceLimits.cpp in Sources */,
 				EEF4EEF1224AAFB50077748D /* Initialize.cpp in Sources */,
 				EEF4EEFC224AAFB50077748D /* SymbolTable.cpp in Sources */,
 				EEF4EEF8224AAFB50077748D /* PoolAlloc.cpp in Sources */,
@@ -9468,6 +10394,11 @@
 			target = EE8DD2D7224A7F04005E1AF5 /* FreeSurround */;
 			targetProxy = EE8DD2EB224A7F73005E1AF5 /* PBXContainerItemProxy */;
 		};
+		EE98BE9724B8F68D00FFFDD7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE98BE1F24B8F60B00FFFDD7 /* zstd */;
+			targetProxy = EE98BE9624B8F68D00FFFDD7 /* PBXContainerItemProxy */;
+		};
 		EEC94A65224AC08500F85ABA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EEC94A52224ABFDC00F85ABA /* OGLCompilersDLL */;
@@ -9711,6 +10642,7 @@
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10150,6 +11082,7 @@
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10267,6 +11200,7 @@
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10479,6 +11413,9 @@
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
 					$SRCROOT/dolphin/Externals/pugixml,
+					$SRCROOT/dolphin/Externals/minizip,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/zstd/lib,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10694,6 +11631,7 @@
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13252,6 +14190,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -13370,6 +14309,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -14208,6 +15148,7 @@
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14721,10 +15662,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
@@ -14747,6 +15685,7 @@
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
@@ -14785,10 +15724,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14829,6 +15765,7 @@
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
@@ -14867,10 +15804,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14911,6 +15845,7 @@
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
@@ -14949,10 +15884,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/OpenEmu-abhnzgdhcubdefbtcbvodtqephye/Build/Products/Debug",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14993,6 +15925,7 @@
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
@@ -15704,6 +16637,7 @@
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -15875,6 +16809,7 @@
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16096,6 +17031,9 @@
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
 					$SRCROOT/dolphin/Externals/pugixml,
+					$SRCROOT/dolphin/Externals/minizip,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/zstd/lib,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16501,6 +17439,9 @@
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
 					$SRCROOT/dolphin/Externals/pugixml,
+					$SRCROOT/dolphin/Externals/minizip,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/zstd/lib,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16680,6 +17621,7 @@
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
 					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)/../OpenEmu/Wii",
+					$SRCROOT/dolphin/Externals/soundtouch,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18028,6 +18970,7 @@
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18094,6 +19037,7 @@
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18162,6 +19106,7 @@
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18230,6 +19175,7 @@
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18312,7 +19258,10 @@
 					__STDC_CONSTANT_MACROS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/SPIRV;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/glslang/SPIRV,
+					$SRCROOT/dolphin/Externals/glslang,
+				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				OTHER_CFLAGS = (
@@ -18371,7 +19320,10 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/SPIRV;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/glslang/SPIRV,
+					$SRCROOT/dolphin/Externals/glslang,
+				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				OTHER_CFLAGS = (
@@ -18432,7 +19384,10 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/SPIRV;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/glslang/SPIRV,
+					$SRCROOT/dolphin/Externals/glslang,
+				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				OTHER_CFLAGS = (
@@ -18493,7 +19448,10 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/SPIRV;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/glslang/SPIRV,
+					$SRCROOT/dolphin/Externals/glslang,
+				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				OTHER_CFLAGS = (
@@ -19172,6 +20130,635 @@
 			};
 			name = RelWithDebInfo;
 		};
+		EE98BE2324B8F60B00FFFDD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/zstd/lib,
+					$SRCROOT/dolphin/Externals/zstd/lib/common,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		EE98BE2424B8F60B00FFFDD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/zstd/lib,
+					$SRCROOT/dolphin/Externals/zstd/lib/common,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		EE98BE2524B8F60B00FFFDD7 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/zstd/lib,
+					$SRCROOT/dolphin/Externals/zstd/lib/common,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		EE98BE2624B8F60B00FFFDD7 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/zstd/lib,
+					$SRCROOT/dolphin/Externals/zstd/lib/common,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		EE98BEB524B8FC5600FFFDD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=0'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					LZMA_API_STATIC,
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/liblzma,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/liblzma/common,
+					$SRCROOT/dolphin/Externals/liblzma/tuklib,
+					$SRCROOT/dolphin/Externals/liblzma/lz,
+					$SRCROOT/dolphin/Externals/liblzma/delta,
+					$SRCROOT/dolphin/Externals/liblzma/simple,
+					$SRCROOT/dolphin/Externals/liblzma/check,
+					$SRCROOT/dolphin/Externals/liblzma/rangecoder,
+					$SRCROOT/dolphin/Externals/liblzma/lzma,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		EE98BEB624B8FC5600FFFDD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=0'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					LZMA_API_STATIC,
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/liblzma,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/liblzma/common,
+					$SRCROOT/dolphin/Externals/liblzma/tuklib,
+					$SRCROOT/dolphin/Externals/liblzma/lz,
+					$SRCROOT/dolphin/Externals/liblzma/delta,
+					$SRCROOT/dolphin/Externals/liblzma/simple,
+					$SRCROOT/dolphin/Externals/liblzma/check,
+					$SRCROOT/dolphin/Externals/liblzma/rangecoder,
+					$SRCROOT/dolphin/Externals/liblzma/lzma,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		EE98BEB724B8FC5600FFFDD7 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/liblzma,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/liblzma/common,
+					$SRCROOT/dolphin/Externals/liblzma/tuklib,
+					$SRCROOT/dolphin/Externals/liblzma/lz,
+					$SRCROOT/dolphin/Externals/liblzma/delta,
+					$SRCROOT/dolphin/Externals/liblzma/simple,
+					$SRCROOT/dolphin/Externals/liblzma/check,
+					$SRCROOT/dolphin/Externals/liblzma/rangecoder,
+					$SRCROOT/dolphin/Externals/liblzma/lzma,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		EE98BEB824B8FC5600FFFDD7 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					$SRCROOT/dolphin/Externals/liblzma,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/liblzma/common,
+					$SRCROOT/dolphin/Externals/liblzma/tuklib,
+					$SRCROOT/dolphin/Externals/liblzma/lz,
+					$SRCROOT/dolphin/Externals/liblzma/delta,
+					$SRCROOT/dolphin/Externals/liblzma/simple,
+					$SRCROOT/dolphin/Externals/liblzma/check,
+					$SRCROOT/dolphin/Externals/liblzma/rangecoder,
+					$SRCROOT/dolphin/Externals/liblzma/lzma,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		EE98C02A24B91E1700FFFDD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=0'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					LZMA_API_STATIC,
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		EE98C02B24B91E1700FFFDD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=0'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					LZMA_API_STATIC,
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		EE98C02C24B91E1700FFFDD7 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		EE98C02D24B91E1700FFFDD7 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+					"-arch",
+					x86_64,
+					"-mssse3",
+					"-march=core2",
+					"-DNDEBUG",
+					"-msse2",
+					"-Wall",
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
 		EEC94A5E224ABFDC00F85ABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -19477,6 +21064,7 @@
 					$SRCROOT/dolphin/Externals/glslang/glslang/Public,
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -19535,6 +21123,31 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					"ENABLE_OPT=0",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
@@ -19543,6 +21156,7 @@
 					$SRCROOT/dolphin/Externals/glslang/glslang/Public,
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -19611,6 +21225,7 @@
 					$SRCROOT/dolphin/Externals/glslang/glslang/Public,
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -19679,6 +21294,7 @@
 					$SRCROOT/dolphin/Externals/glslang/glslang/Public,
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/xxhash,
+					$SRCROOT/dolphin/Externals/glslang,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -19734,6 +21350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -19843,6 +21460,9 @@
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
 					$SRCROOT/dolphin/Externals/pugixml,
+					$SRCROOT/dolphin/Externals/minizip,
+					$SRCROOT/dolphin/Externals/liblzma/api,
+					$SRCROOT/dolphin/Externals/zstd/lib,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -19995,6 +21615,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -20519,6 +22140,39 @@
 				EE8DD2E3224A7F04005E1AF5 /* Release */,
 				EE8DD2E4224A7F04005E1AF5 /* MinSizeRel */,
 				EE8DD2E5224A7F04005E1AF5 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE98BE2224B8F60B00FFFDD7 /* Build configuration list for PBXNativeTarget "zstd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE98BE2324B8F60B00FFFDD7 /* Debug */,
+				EE98BE2424B8F60B00FFFDD7 /* Release */,
+				EE98BE2524B8F60B00FFFDD7 /* MinSizeRel */,
+				EE98BE2624B8F60B00FFFDD7 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE98BEB424B8FC5600FFFDD7 /* Build configuration list for PBXNativeTarget "lzma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE98BEB524B8FC5600FFFDD7 /* Debug */,
+				EE98BEB624B8FC5600FFFDD7 /* Release */,
+				EE98BEB724B8FC5600FFFDD7 /* MinSizeRel */,
+				EE98BEB824B8FC5600FFFDD7 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE98C02924B91E1700FFFDD7 /* Build configuration list for PBXNativeTarget "bzip2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE98C02A24B91E1700FFFDD7 /* Debug */,
+				EE98C02B24B91E1700FFFDD7 /* Release */,
+				EE98C02C24B91E1700FFFDD7 /* MinSizeRel */,
+				EE98C02D24B91E1700FFFDD7 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
