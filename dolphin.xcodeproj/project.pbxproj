@@ -345,7 +345,6 @@
 		3E3D76041C82B2DE00091C4D /* PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75B81C82B2DD00091C4D /* PostProcessing.cpp */; };
 		3E3D76051C82B2DE00091C4D /* RenderBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75BA1C82B2DE00091C4D /* RenderBase.cpp */; };
 		3E3D76061C82B2DE00091C4D /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75BD1C82B2DE00091C4D /* Statistics.cpp */; };
-		3E3D76071C82B2DE00091C4D /* TextureCacheBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75BF1C82B2DE00091C4D /* TextureCacheBase.cpp */; };
 		3E3D76081C82B2DE00091C4D /* TextureConversionShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75C11C82B2DE00091C4D /* TextureConversionShader.cpp */; };
 		3E3D76091C82B2DE00091C4D /* TextureDecoder_Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75C31C82B2DE00091C4D /* TextureDecoder_Common.cpp */; };
 		3E3D760A1C82B2DE00091C4D /* TextureDecoder_Generic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75C41C82B2DE00091C4D /* TextureDecoder_Generic.cpp */; };
@@ -880,6 +879,8 @@
 		EE475778224AB4BF0027BA05 /* libglslang-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF4EEEC224AAF5D0077748D /* libglslang-dol.a */; };
 		EE4EFB39239ED6F50085CA75 /* OpenEmuInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E96B3C91F86A50D007C5799 /* OpenEmuInput.cpp */; };
 		EE5F71A220B322F80083D8D8 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE5F71A120B322F80083D8D8 /* Image.cpp */; };
+		EE5FDAD124F4429F00DA2D43 /* TextureCacheBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75BF1C82B2DE00091C4D /* TextureCacheBase.cpp */; };
+		EE5FDAD224F4438900DA2D43 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC2B7B523B2B139006E959C /* Layer.cpp */; };
 		EE68204E2105383D008D5405 /* DSPIntTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68204D2105383D008D5405 /* DSPIntTables.cpp */; };
 		EE68205121053853008D5405 /* DSPEmitterBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68204F21053853008D5405 /* DSPEmitterBase.cpp */; };
 		EE68205421053862008D5405 /* DSPJitTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE68205221053861008D5405 /* DSPJitTables.cpp */; };
@@ -1088,10 +1089,10 @@
 		EE98C05324B92D0200FFFDD7 /* XLINK_KAI_BBA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98C04924B9268400FFFDD7 /* XLINK_KAI_BBA.cpp */; };
 		EE9C006C20A4F94000312609 /* Watches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006920A4F93F00312609 /* Watches.cpp */; };
 		EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9C006E20A4FA8B00312609 /* SysConf.cpp */; };
-		EE9E292D23BCF8F700EFD1A8 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
 		EE9E292E23BCF90B00EFD1A8 /* GraphicsSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE9E292B23BCF8DB00EFD1A8 /* GraphicsSettings.cpp */; };
 		EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */; };
-		EEC2B7B623B2B29B006E959C /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC2B7B523B2B139006E959C /* Layer.cpp */; };
+		EEABFB4024EEEF9800878963 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */; };
+		EEABFB4424EEF5A500878963 /* GCMemcardUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEABFB4324EEF59700878963 /* GCMemcardUtils.cpp */; };
 		EEC94A5C224ABFDC00F85ABA /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3D774A1C83DC9000091C4D /* OpenEmuBase.framework */; };
 		EEC94A63224AC02F00F85ABA /* InitializeDll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC94A51224ABFD200F85ABA /* InitializeDll.cpp */; };
 		EEC94A68224AC13A00F85ABA /* libOGLCompilersDLL-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC94A62224ABFDC00F85ABA /* libOGLCompilersDLL-dol.a */; };
@@ -2465,7 +2466,7 @@
 		3E3DA54F1F8BDD080005FB1B /* OpenEmuSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenEmuSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E44578A1FC7979600469E9F /* ConfigInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigInfo.cpp; sourceTree = "<group>"; };
 		3E44578C1FC797A600469E9F /* ConfigInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigInfo.h; sourceTree = "<group>"; };
-		3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileUtil.cpp; path = Core/FileUtil.cpp; sourceTree = "<group>"; };
+		3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileUtil.cpp; path = Common/FileUtil.cpp; sourceTree = "<group>"; };
 		3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WiiSaveBanner.cpp; path = dolphin/Source/Core/DiscIO/WiiSaveBanner.cpp; sourceTree = "<group>"; };
 		3E7AE8E71FB4E6750017E3D1 /* WiiSaveBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WiiSaveBanner.h; path = dolphin/Source/Core/DiscIO/WiiSaveBanner.h; sourceTree = "<group>"; };
 		3E89F4831CCE8AC600EAE7AC /* Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Render.cpp; path = Video/Render.cpp; sourceTree = "<group>"; };
@@ -3825,11 +3826,16 @@
 		EEA7CF5C20A4F2DD0033BB8A /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Result.h; path = dolphin/Source/Core/Common/Result.h; sourceTree = "<group>"; };
 		EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FloatUtils.cpp; path = dolphin/Source/Core/Common/FloatUtils.cpp; sourceTree = "<group>"; };
 		EEA7CF5F20A4F70B0033BB8A /* scmrev.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scmrev.h; path = Common/scmrev.h; sourceTree = "<group>"; };
+		EEABFB4124EEF59700878963 /* GCMemcardUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCMemcardUtils.h; sourceTree = "<group>"; };
+		EEABFB4224EEF59700878963 /* GCMemcardBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCMemcardBase.h; sourceTree = "<group>"; };
+		EEABFB4324EEF59700878963 /* GCMemcardUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GCMemcardUtils.cpp; sourceTree = "<group>"; };
 		EEC2B7B523B2B139006E959C /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Layer.cpp; path = Common/Layer.cpp; sourceTree = "<group>"; };
 		EEC94A4F224ABFD200F85ABA /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		EEC94A50224ABFD200F85ABA /* InitializeDll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InitializeDll.h; sourceTree = "<group>"; };
 		EEC94A51224ABFD200F85ABA /* InitializeDll.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InitializeDll.cpp; sourceTree = "<group>"; };
 		EEC94A62224ABFDC00F85ABA /* libOGLCompilersDLL-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOGLCompilersDLL-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EED5036524F039AF00970E7D /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		EED5036724F039B600970E7D /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		EEE07D3322C26CD7006D46FD /* OpenEmuAudioStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenEmuAudioStream.h; path = Audio/OpenEmuAudioStream.h; sourceTree = "<group>"; };
 		EEE07D3422C26D0A006D46FD /* OpenEmuAudioStream.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenEmuAudioStream.mm; path = Audio/OpenEmuAudioStream.mm; sourceTree = "<group>"; };
 		EEE07D3622C26DA7006D46FD /* AudioCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AudioCommon.cpp; path = Audio/AudioCommon.cpp; sourceTree = "<group>"; };
@@ -4187,12 +4193,14 @@
 		3E3D70241C82AF0600091C4D /* Compatibilty */ = {
 			isa = PBXGroup;
 			children = (
-				EE98C05424BCAADE00FFFDD7 /* Beta 12 */,
-				EE9E292C23BCF8E600EFD1A8 /* Core */,
-				3E89F47A1CCAB2A800EAE7AC /* Common */,
-				3E89F4771CCA7A1600EAE7AC /* Input */,
-				3E89F4761CCA7A0D00EAE7AC /* Video */,
 				3E89F4751CCA7A0500EAE7AC /* Audio */,
+				3E89F47A1CCAB2A800EAE7AC /* Common */,
+				EE9E292C23BCF8E600EFD1A8 /* Core */,
+				3E89F4771CCA7A1600EAE7AC /* Input */,
+				EED5036624F039B600970E7D /* libusb */,
+				EED5036424F039AF00970E7D /* lzma */,
+				3E89F4761CCA7A0D00EAE7AC /* Video */,
+				EED5036124F0373000970E7D /* VideoCommon */,
 			);
 			name = Compatibilty;
 			path = Compatibility;
@@ -4778,7 +4786,6 @@
 		3E89F4761CCA7A0D00EAE7AC /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF29511F858A2000B4FD11 /* VideoConfig.h */,
 				3E89F4831CCE8AC600EAE7AC /* Render.cpp */,
 				3E3D70261C82AF2A00091C4D /* AGL.mm */,
 			);
@@ -4801,6 +4808,7 @@
 		3E89F47A1CCAB2A800EAE7AC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
 				EEC2B7B523B2B139006E959C /* Layer.cpp */,
 				EEA7CF5F20A4F70B0033BB8A /* scmrev.h */,
 			);
@@ -5318,6 +5326,9 @@
 		3E8EC6351F8434A900D79F27 /* GCMemcard */ = {
 			isa = PBXGroup;
 			children = (
+				EEABFB4224EEF59700878963 /* GCMemcardBase.h */,
+				EEABFB4324EEF59700878963 /* GCMemcardUtils.cpp */,
+				EEABFB4124EEF59700878963 /* GCMemcardUtils.h */,
 				EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */,
 				EE45F43F22B553BF00C5D0C0 /* GCIFile.h */,
 				3E8EC6361F8434A900D79F27 /* GCMemcard.cpp */,
@@ -6104,55 +6115,16 @@
 		6305742E350948A6A90BE776 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				EE3A462022B5DCBA00031B56 /* DynamicLibrary.cpp */,
-				EE3A461F22B5DCBA00031B56 /* DynamicLibrary.h */,
-				EE8DD2BD224A7D01005E1AF5 /* Matrix.cpp */,
-				EE8DD2C0224A7D02005E1AF5 /* Matrix.h */,
-				EE8DD2BF224A7D02005E1AF5 /* VariantUtil.h */,
-				EE8DD2BE224A7D02005E1AF5 /* WindowSystemInfo.h */,
-				EE6820592105393C008D5405 /* Random.cpp */,
-				EE68205B2105393D008D5405 /* Random.h */,
-				EE68205A2105393C008D5405 /* SFMLHelper.cpp */,
-				EE6820582105393C008D5405 /* SFMLHelper.h */,
-				EE5F71A120B322F80083D8D8 /* Image.cpp */,
-				EE5F71A020B322F70083D8D8 /* Image.h */,
-				EE9C006720A4F93F00312609 /* Debug */,
-				EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */,
-				EEA7CF5B20A4F2DD0033BB8A /* FloatUtils.h */,
-				EEA7CF5C20A4F2DD0033BB8A /* Result.h */,
-				EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */,
-				EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */,
 				EE149B7F2059D9EC008D5DDE /* Align.h */,
-				EE149B7D2059D9EC008D5DDE /* SPSCQueue.h */,
-				EE149B7E2059D9EC008D5DDE /* Version.h */,
-				3EFF28C71F855F2E00B4FD11 /* Compat */,
-				3EFF28CB1F855F2E00B4FD11 /* Config */,
-				3EFF25F11F8455D000B4FD11 /* BitUtils.h */,
-				3EFF25F61F8455D300B4FD11 /* CommonFuncs.cpp */,
-				3EFF25F31F8455D100B4FD11 /* CompatPatches.cpp */,
-				3EFF25F91F8455D500B4FD11 /* File.cpp */,
-				3EFF25FA1F8455D500B4FD11 /* File.h */,
-				3EFF25F21F8455D000B4FD11 /* HttpRequest.cpp */,
-				3EFF25FF1F8455D700B4FD11 /* HttpRequest.h */,
-				3EFF25FE1F8455D700B4FD11 /* Lazy.h */,
-				3EFF25F81F8455D400B4FD11 /* LdrWatcher.cpp */,
-				3EFF25FD1F8455D600B4FD11 /* LdrWatcher.h */,
-				3EFF26011F8455D800B4FD11 /* MD5.cpp */,
-				3EFF25F41F8455D100B4FD11 /* MD5.h */,
-				3EFF25F71F8455D400B4FD11 /* Semaphore.h */,
-				3EFF25FC1F8455D600B4FD11 /* Swap.h */,
-				3EFF25F51F8455D200B4FD11 /* UPnP.cpp */,
-				3EFF26001F8455D800B4FD11 /* UPnP.h */,
-				3EFF26021F8455D800B4FD11 /* WorkQueueThread.h */,
-				3EFF25FB1F8455D500B4FD11 /* x64Reg.h */,
-				3E8D25F81D21D8DF0086BA59 /* Analytics.h */,
 				3E8D25F61D21D8C80086BA59 /* Analytics.cpp */,
+				3E8D25F81D21D8DF0086BA59 /* Analytics.h */,
 				3E3D70AD1C82B0BB00091C4D /* Assert.h */,
 				3E3D70AE1C82B0BB00091C4D /* Atomic_GCC.h */,
 				3E3D70AF1C82B0BB00091C4D /* Atomic_Win32.h */,
 				3E3D70B01C82B0BB00091C4D /* Atomic.h */,
 				3E3D70B11C82B0BB00091C4D /* BitField.h */,
 				3E3D70B31C82B0BB00091C4D /* BitSet.h */,
+				3EFF25F11F8455D000B4FD11 /* BitUtils.h */,
 				3E3D70B41C82B0BB00091C4D /* BlockingLoop.h */,
 				3E3D70B71C82B0BB00091C4D /* CDUtils.cpp */,
 				3E3D70B81C82B0BB00091C4D /* CDUtils.h */,
@@ -6162,21 +6134,32 @@
 				3E3D70BC1C82B0BB00091C4D /* ColorUtil.cpp */,
 				3E3D70BD1C82B0BB00091C4D /* ColorUtil.h */,
 				3E3D70BE1C82B0BB00091C4D /* Common.h */,
+				3EFF25F61F8455D300B4FD11 /* CommonFuncs.cpp */,
 				3E3D70C11C82B0BB00091C4D /* CommonFuncs.h */,
 				3E3D70C21C82B0BB00091C4D /* CommonPaths.h */,
 				3E3D70C31C82B0BB00091C4D /* CommonTypes.h */,
+				3EFF28C71F855F2E00B4FD11 /* Compat */,
+				3EFF25F31F8455D100B4FD11 /* CompatPatches.cpp */,
+				3EFF28CB1F855F2E00B4FD11 /* Config */,
 				3E3D70C41C82B0BB00091C4D /* CPUDetect.h */,
 				3E3D70C51C82B0BB00091C4D /* Crypto */,
+				EE9C006720A4F93F00312609 /* Debug */,
 				3E3D70CA1C82B0BB00091C4D /* DebugInterface.h */,
+				EE3A462022B5DCBA00031B56 /* DynamicLibrary.cpp */,
+				EE3A461F22B5DCBA00031B56 /* DynamicLibrary.h */,
 				3E3D70CB1C82B0BB00091C4D /* ENetUtil.cpp */,
 				3E3D70CC1C82B0BB00091C4D /* ENetUtil.h */,
 				3E3D70CD1C82B0BB00091C4D /* Event.h */,
+				3EFF25F91F8455D500B4FD11 /* File.cpp */,
+				3EFF25FA1F8455D500B4FD11 /* File.h */,
 				3E3D70CF1C82B0BB00091C4D /* FileSearch.cpp */,
 				3E3D70D01C82B0BB00091C4D /* FileSearch.h */,
 				3E3D70D11C82B0BB00091C4D /* FileUtil.cpp */,
 				3E3D70D21C82B0BB00091C4D /* FileUtil.h */,
 				3E3D70D31C82B0BB00091C4D /* FixedSizeQueue.h */,
 				3E3D70D41C82B0BB00091C4D /* Flag.h */,
+				EEA7CF5D20A4F2DE0033BB8A /* FloatUtils.cpp */,
+				EEA7CF5B20A4F2DD0033BB8A /* FloatUtils.h */,
 				3E3D70D51C82B0BB00091C4D /* FPURoundMode.h */,
 				3E3D70D61C82B0BB00091C4D /* GekkoDisassembler.cpp */,
 				3E3D70D71C82B0BB00091C4D /* GekkoDisassembler.h */,
@@ -6185,16 +6168,27 @@
 				3E3D70DA1C82B0BB00091C4D /* GL */,
 				3E3D711B1C82B0BB00091C4D /* Hash.cpp */,
 				3E3D711C1C82B0BB00091C4D /* Hash.h */,
+				3EFF25F21F8455D000B4FD11 /* HttpRequest.cpp */,
+				3EFF25FF1F8455D700B4FD11 /* HttpRequest.h */,
+				EE5F71A120B322F80083D8D8 /* Image.cpp */,
+				EE5F71A020B322F70083D8D8 /* Image.h */,
 				3E3D711D1C82B0BB00091C4D /* IniFile.cpp */,
 				3E3D711E1C82B0BB00091C4D /* IniFile.h */,
 				3E3D711F1C82B0BB00091C4D /* Intrinsics.h */,
 				3E3D71201C82B0BB00091C4D /* JitRegister.cpp */,
 				3E3D71211C82B0BB00091C4D /* JitRegister.h */,
+				3EFF25FE1F8455D700B4FD11 /* Lazy.h */,
+				3EFF25F81F8455D400B4FD11 /* LdrWatcher.cpp */,
+				3EFF25FD1F8455D600B4FD11 /* LdrWatcher.h */,
 				3E3D71221C82B0BB00091C4D /* LinearDiskCache.h */,
 				3E3D71231C82B0BB00091C4D /* Logging */,
 				3E3D712B1C82B0BB00091C4D /* make_scmrev.h.js */,
 				3E3D712C1C82B0BB00091C4D /* MathUtil.cpp */,
 				3E3D712D1C82B0BB00091C4D /* MathUtil.h */,
+				EE8DD2BD224A7D01005E1AF5 /* Matrix.cpp */,
+				EE8DD2C0224A7D02005E1AF5 /* Matrix.h */,
+				3EFF26011F8455D800B4FD11 /* MD5.cpp */,
+				3EFF25F41F8455D100B4FD11 /* MD5.h */,
 				3E3D712E1C82B0BB00091C4D /* MemArena.cpp */,
 				3E3D712F1C82B0BB00091C4D /* MemArena.h */,
 				3E3D71301C82B0BB00091C4D /* MemoryUtil.cpp */,
@@ -6211,14 +6205,24 @@
 				3E3D713D1C82B0BB00091C4D /* PerformanceCounter.h */,
 				3E3D713E1C82B0BB00091C4D /* Profiler.cpp */,
 				3E3D713F1C82B0BB00091C4D /* Profiler.h */,
+				EEF6386A2069EDDE00F7FEA5 /* QoSSession.cpp */,
+				EEF6386B2069EDDF00F7FEA5 /* QoSSession.h */,
+				EE6820592105393C008D5405 /* Random.cpp */,
+				EE68205B2105393D008D5405 /* Random.h */,
+				EEA7CF5C20A4F2DD0033BB8A /* Result.h */,
 				3E3D71401C82B0BB00091C4D /* SCMRevGen.vcxproj */,
 				3E3D71411C82B0BB00091C4D /* ScopeGuard.h */,
 				3E3D71421C82B0BB00091C4D /* SDCardUtil.cpp */,
 				3E3D71431C82B0BB00091C4D /* SDCardUtil.h */,
+				3EFF25F71F8455D400B4FD11 /* Semaphore.h */,
 				3E3D71441C82B0BB00091C4D /* SettingsHandler.cpp */,
 				3E3D71451C82B0BB00091C4D /* SettingsHandler.h */,
+				EE68205A2105393C008D5405 /* SFMLHelper.cpp */,
+				EE6820582105393C008D5405 /* SFMLHelper.h */,
+				EE149B7D2059D9EC008D5DDE /* SPSCQueue.h */,
 				3E3D71461C82B0BB00091C4D /* StringUtil.cpp */,
 				3E3D71471C82B0BB00091C4D /* StringUtil.h */,
+				3EFF25FC1F8455D600B4FD11 /* Swap.h */,
 				3E3D71481C82B0BB00091C4D /* SymbolDB.cpp */,
 				3E3D71491C82B0BB00091C4D /* SymbolDB.h */,
 				3E3D714C1C82B0BB00091C4D /* Thread.cpp */,
@@ -6229,13 +6233,20 @@
 				3E3D71511C82B0BB00091C4D /* TraversalClient.h */,
 				3E3D71521C82B0BB00091C4D /* TraversalProto.h */,
 				3E3D71531C82B0BB00091C4D /* TraversalServer.cpp */,
+				3EFF25F51F8455D200B4FD11 /* UPnP.cpp */,
+				3EFF26001F8455D800B4FD11 /* UPnP.h */,
+				EE8DD2BF224A7D02005E1AF5 /* VariantUtil.h */,
 				3E3D71551C82B0BB00091C4D /* Version.cpp */,
+				EE149B7E2059D9EC008D5DDE /* Version.h */,
+				EE8DD2BE224A7D02005E1AF5 /* WindowSystemInfo.h */,
+				3EFF26021F8455D800B4FD11 /* WorkQueueThread.h */,
 				3E3D71561C82B0BB00091C4D /* x64ABI.cpp */,
 				3E3D71571C82B0BB00091C4D /* x64ABI.h */,
 				3E3D715A1C82B0BB00091C4D /* x64CPUDetect.cpp */,
 				3E3D715B1C82B0BB00091C4D /* x64Emitter.cpp */,
 				3E3D715C1C82B0BB00091C4D /* x64Emitter.h */,
 				3E3D715D1C82B0BB00091C4D /* x64FPURoundMode.cpp */,
+				3EFF25FB1F8455D500B4FD11 /* x64Reg.h */,
 			);
 			name = "Source Files";
 			sourceTree = "<group>";
@@ -7699,13 +7710,6 @@
 			path = Wiimote;
 			sourceTree = "<group>";
 		};
-		EE98C05424BCAADE00FFFDD7 /* Beta 12 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Beta 12";
-			sourceTree = "<group>";
-		};
 		EE9C006720A4F93F00312609 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
@@ -7724,7 +7728,6 @@
 		EE9E292C23BCF8E600EFD1A8 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */,
 				EEE07D4222C43C52006D46FD /* ConfigManager.cpp */,
 				EE9E292B23BCF8DB00EFD1A8 /* GraphicsSettings.cpp */,
 			);
@@ -7740,6 +7743,30 @@
 			);
 			name = OGLCompilersDLL;
 			path = dolphin/Externals/glslang/OGLCompilersDLL;
+			sourceTree = "<group>";
+		};
+		EED5036124F0373000970E7D /* VideoCommon */ = {
+			isa = PBXGroup;
+			children = (
+				3EFF29511F858A2000B4FD11 /* VideoConfig.h */,
+			);
+			name = VideoCommon;
+			sourceTree = "<group>";
+		};
+		EED5036424F039AF00970E7D /* lzma */ = {
+			isa = PBXGroup;
+			children = (
+				EED5036524F039AF00970E7D /* config.h */,
+			);
+			path = lzma;
+			sourceTree = "<group>";
+		};
+		EED5036624F039B600970E7D /* libusb */ = {
+			isa = PBXGroup;
+			children = (
+				EED5036724F039B600970E7D /* config.h */,
+			);
+			path = libusb;
 			sourceTree = "<group>";
 		};
 		EEF4EE7D224AAE650077748D /* glslang */ = {
@@ -8969,7 +8996,6 @@
 				3EFF26FF1F845E9F00B4FD11 /* SignatureDB.cpp in Sources */,
 				3E3D740A1C82B0F900091C4D /* JitAsm.cpp in Sources */,
 				3E3D73CA1C82B0F900091C4D /* SystemTimers.cpp in Sources */,
-				EE9E292D23BCF8F700EFD1A8 /* FileUtil.cpp in Sources */,
 				3E3D74331C82B0F900091C4D /* PPCSymbolDB.cpp in Sources */,
 				3E3D735F1C82B0F900091C4D /* CoreTiming.cpp in Sources */,
 				3E3D73931C82B0F900091C4D /* CPU.cpp in Sources */,
@@ -9019,6 +9045,7 @@
 				EE9E292E23BCF90B00EFD1A8 /* GraphicsSettings.cpp in Sources */,
 				3E8EC65A1F8434AA00D79F27 /* DVDMath.cpp in Sources */,
 				3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */,
+				EEABFB4424EEF5A500878963 /* GCMemcardUtils.cpp in Sources */,
 				EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */,
 				3E3D73881C82B0F900091C4D /* FifoRecorder.cpp in Sources */,
 				3E3D73A11C82B0F900091C4D /* DSPLLE.cpp in Sources */,
@@ -9109,6 +9136,7 @@
 				EE3A462122B5DCBB00031B56 /* DynamicLibrary.cpp in Sources */,
 				3E3D71611C82B0BB00091C4D /* CDUtils.cpp in Sources */,
 				3E3D71941C82B0BB00091C4D /* x64Emitter.cpp in Sources */,
+				EEABFB4024EEEF9800878963 /* FileUtil.cpp in Sources */,
 				3E8D25F71D21D8C80086BA59 /* Analytics.cpp in Sources */,
 				3E3D718B1C82B0BB00091C4D /* Thread.cpp in Sources */,
 				3E3D71631C82B0BB00091C4D /* bn.cpp in Sources */,
@@ -9128,12 +9156,12 @@
 				3EFF260C1F84560100B4FD11 /* File.cpp in Sources */,
 				3E3D71661C82B0BB00091C4D /* FileSearch.cpp in Sources */,
 				3E3D71831C82B0BB00091C4D /* PcapFile.cpp in Sources */,
+				EE5FDAD224F4438900DA2D43 /* Layer.cpp in Sources */,
 				3EFF260F1F84560100B4FD11 /* MD5.cpp in Sources */,
 				EEF6386C2069EDDF00F7FEA5 /* QoSSession.cpp in Sources */,
 				3E3D71861C82B0BB00091C4D /* SDCardUtil.cpp in Sources */,
 				3E3D718E1C82B0BB00091C4D /* TraversalServer.cpp in Sources */,
 				3E3D71891C82B0BB00091C4D /* SymbolDB.cpp in Sources */,
-				EEC2B7B623B2B29B006E959C /* Layer.cpp in Sources */,
 				3E3D718C1C82B0BB00091C4D /* Timer.cpp in Sources */,
 				3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */,
 				EEA7CF5E20A4F2DE0033BB8A /* FloatUtils.cpp in Sources */,
@@ -9700,7 +9728,6 @@
 				3E3D75F91C82B2DE00091C4D /* GeometryShaderManager.cpp in Sources */,
 				3E3D76021C82B2DE00091C4D /* PixelShaderGen.cpp in Sources */,
 				3EFF262A1F8458E600B4FD11 /* ShaderGenCommon.cpp in Sources */,
-				3E3D76071C82B2DE00091C4D /* TextureCacheBase.cpp in Sources */,
 				3E3D76131C82B2DE00091C4D /* VertexLoaderManager.cpp in Sources */,
 				EE8DD27822492B88005E1AF5 /* FramebufferManager.cpp in Sources */,
 				3E3D75EB1C82B2DE00091C4D /* AsyncRequests.cpp in Sources */,
@@ -9723,6 +9750,7 @@
 				3E3D75F51C82B2DE00091C4D /* Fifo.cpp in Sources */,
 				3E3D76121C82B2DE00091C4D /* VertexLoaderBase.cpp in Sources */,
 				3E3D76001C82B2DE00091C4D /* PerfQueryBase.cpp in Sources */,
+				EE5FDAD124F4429F00DA2D43 /* TextureCacheBase.cpp in Sources */,
 				3EFF26291F8458E600B4FD11 /* HiresTextures_DDSLoader.cpp in Sources */,
 				3E3D75F81C82B2DE00091C4D /* GeometryShaderGen.cpp in Sources */,
 			);
@@ -10525,7 +10553,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/,
 					$SRCROOT/Compatibility,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
@@ -13544,10 +13575,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/Compatibility/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13637,10 +13668,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/Compatibility/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13732,10 +13763,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/Compatibility/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -13827,10 +13858,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
-					$SRCROOT/Compatibility/libusb,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14319,7 +14350,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREFIX_HEADER = $SRCROOT/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -14508,7 +14539,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/,
 					$SRCROOT/Compatibility,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
@@ -18683,7 +18717,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/,
 					$SRCROOT/Compatibility,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
@@ -20335,6 +20372,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
 					$SRCROOT/dolphin/Externals/liblzma/api,
 					$SRCROOT/dolphin/Externals/liblzma/common,
@@ -20411,6 +20449,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
 					$SRCROOT/dolphin/Externals/liblzma/api,
 					$SRCROOT/dolphin/Externals/liblzma/common,
@@ -20461,6 +20500,7 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
 					$SRCROOT/dolphin/Externals/liblzma/api,
 					$SRCROOT/dolphin/Externals/liblzma/common,
@@ -20511,6 +20551,7 @@
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
 					$SRCROOT/dolphin/Externals/liblzma/api,
 					$SRCROOT/dolphin/Externals/liblzma/common,
@@ -21551,7 +21592,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
+					$SRCROOT/,
 					$SRCROOT/Compatibility,
+					"$(SRCROOT)/../OpenEmu/GameCube",
+					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/dolphin/Source/Core,
