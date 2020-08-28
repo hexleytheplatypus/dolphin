@@ -84,7 +84,7 @@ static Common::Flag s_running{true};
 static Common::Flag s_shutdown_requested{false};
 static Common::Flag s_tried_graceful_shutdown{false};
 
-WindowSystemInfo wsi(WindowSystemType::Headless, nullptr, nullptr);
+WindowSystemInfo wsi(WindowSystemType::Headless, nullptr, nullptr, nullptr);
  
 DolHost* DolHost::GetInstance()
 {
@@ -128,8 +128,8 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().m_ShowFrameCount = false;
     
     //Video
-    SConfig::GetInstance().m_strVideoBackend = "OGL";
-    VideoBackendBase::ActivateBackend(SConfig::GetInstance().m_strVideoBackend);
+  //  SConfig::GetInstance().m_strVideoBackend = "OGL";
+//VideoBackendBase::ActivateBackend(SConfig::GetInstance().m_strVideoBackend);
     
     //Set the Sound
     SConfig::GetInstance().bDSPHLE = true;
@@ -149,7 +149,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     
     
     //Choose Wiimote Type
-    _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
+  //  _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
     
     //Get game info from file path
     GetGameInfo();
@@ -192,10 +192,10 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         SConfig::GetInstance().m_WiimoteContinuousScanning = false;
         
         //Set the Wiimote type
-        WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
-        WiimoteReal::ChangeWiimoteSource(1, _wiiMoteType);
-        WiimoteReal::ChangeWiimoteSource(2, _wiiMoteType);
-        WiimoteReal::ChangeWiimoteSource(3, _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(1, _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(2, _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(3, _wiiMoteType);
     }
 }
 
@@ -316,13 +316,13 @@ bool DolHost::LoadState(std::string saveStateFile)
     {
         // We have to set the wiimote type, cause the gamesave may
         //    have used a different type
-        WiimoteReal::ChangeWiimoteSource(0 , _wiiMoteType);
-        WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
-        WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
-        WiimoteReal::ChangeWiimoteSource(3 , _wiiMoteType);
-        
-        if( _wiiMoteType != WIIMOTE_SRC_EMU)
-            WiimoteReal::Refresh();
+//        WiimoteReal::ChangeWiimoteSource(0 , _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(1 , _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(2 , _wiiMoteType);
+//        WiimoteReal::ChangeWiimoteSource(3 , _wiiMoteType);
+//        
+//        if( _wiiMoteType != WIIMOTE_SRC_EMU)
+//            WiimoteReal::Refresh();
     }
     return true;
 }
