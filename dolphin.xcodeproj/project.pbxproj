@@ -10555,7 +10555,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
@@ -10781,7 +10781,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/../OpenEmu/GameCube,
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
@@ -11101,9 +11101,9 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -11219,9 +11219,9 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -11650,9 +11650,9 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -11756,7 +11756,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -14541,7 +14541,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
@@ -15335,7 +15335,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -15509,7 +15509,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/../OpenEmu/GameCube,
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
@@ -15714,6 +15714,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/Compatibility",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
@@ -15794,6 +15795,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/Compatibility",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
@@ -15874,6 +15876,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/Compatibility",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
@@ -15954,6 +15957,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/Compatibility",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
@@ -16993,7 +16997,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -17161,7 +17165,7 @@
 					$SRCROOT/dolphin/Externals/miniupnpc/src,
 					$SRCROOT/dolphin/Externals/enet/include,
 					"$(SRCROOT)/../OpenEmu/Wii",
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT,
 					$SRCROOT/dolphin,
 					$SRCROOT/dolphin/Externals/libpng,
@@ -17539,7 +17543,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/../OpenEmu/GameCube,
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
@@ -17643,9 +17647,9 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../OpenEmu/GameCube",
 					"$(SRCROOT)",
 					"$(inherited)",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -18626,7 +18630,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
-					$SRCROOT/../OpenEmu/GameCube,
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/libusb/libusb,
@@ -18719,7 +18723,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
@@ -21594,7 +21598,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
-					"$(SRCROOT)/../OpenEmu/GameCube",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 					"$(SRCROOT)/../OpenEmu/Wii",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/Externals/ffmpeg/include,
