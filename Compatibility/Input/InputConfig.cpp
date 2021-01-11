@@ -28,8 +28,8 @@ InputConfig::~InputConfig() = default;
 
 bool InputConfig::LoadConfig(bool isGC)
 {
-    //OpenEmu Stub
-    return false;
+        //OpenEmu Stub
+        return false;
 }
 
 void InputConfig::SaveConfig()
@@ -78,6 +78,11 @@ void InputConfig::RegisterHotplugCallback()
 void InputConfig::UnregisterHotplugCallback()
 {
   g_controller_interface.UnregisterDevicesChangedCallback(m_hotplug_callback_handle);
+}
+
+void InputConfig::OnControllerCreated(ControllerEmu::EmulatedController& controller)
+{
+  controller.SetDynamicInputTextureManager(&m_dynamic_input_tex_config_manager);
 }
 
 bool InputConfig::IsControllerControlledByGamepadDevice(int index) const

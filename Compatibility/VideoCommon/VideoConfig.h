@@ -1,3 +1,5 @@
+//// Copyright 2008 Dolphin Emulator Project
+//// Licensed under GPLv2+
 // Copyright 2008 Dolphin Emulator Project
 // Licensed under GPLv2+
 // Refer to the license.txt file included.
@@ -49,13 +51,6 @@ enum class ShaderCompilationMode : int
   SynchronousUberShaders,
   AsynchronousUberShaders,
   AsynchronousSkipRendering
-};
-
-enum class FreelookControlType : int
-{
-  SixAxis,
-  FPS,
-  Orbital
 };
 
 // NEVER inherit from this class.
@@ -118,8 +113,6 @@ struct VideoConfig final
   std::string sDumpFormat;
   std::string sDumpPath;
   bool bInternalResolutionFrameDumps;
-  bool bFreeLook;
-  FreelookControlType iFreelookControlType;
   bool bBorderlessFullscreen;
   bool bEnableGPUTextureDecoding;
   int iBitrateKbps;

@@ -9,7 +9,7 @@
 #undef CIFACE_USE_OSX
 #endif
 
-//OpenEmu incluse OE input header
+//OpenEmu include OE input header
 #include "OpenEmuInput.h"
 
 #include <algorithm>

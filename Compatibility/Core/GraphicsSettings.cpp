@@ -21,11 +21,10 @@ const Info<int> GFX_ADAPTER{{System::GFX, "Hardware", "Adapter"}, 0};
 // Graphics.Settings
 
 const Info<bool> GFX_WIDESCREEN_HACK{{System::GFX, "Settings", "wideScreenHack"}, false};
-const Info<AspectMode> GFX_ASPECT_RATIO{{System::GFX, "Settings", "AspectRatio"}, AspectMode::Auto};
-
 //OpenEmu change apect to stretch
+const Info<AspectMode> GFX_ASPECT_RATIO{{System::GFX, "Settings", "AspectRatio"}, AspectMode::Stretch};
 const Info<AspectMode> GFX_SUGGESTED_ASPECT_RATIO{{System::GFX, "Settings", "SuggestedAspectRatio"},
-                                                  AspectMode::Stretch};
+                                                  AspectMode::Auto};
 const Info<bool> GFX_CROP{{System::GFX, "Settings", "Crop"}, false};
 const Info<int> GFX_SAFE_TEXTURE_CACHE_COLOR_SAMPLES{
     {System::GFX, "Settings", "SafeTextureCacheColorSamples"}, 128};
@@ -44,9 +43,6 @@ const Info<bool> GFX_CACHE_HIRES_TEXTURES{{System::GFX, "Settings", "CacheHiresT
 const Info<bool> GFX_DUMP_EFB_TARGET{{System::GFX, "Settings", "DumpEFBTarget"}, false};
 const Info<bool> GFX_DUMP_XFB_TARGET{{System::GFX, "Settings", "DumpXFBTarget"}, false};
 const Info<bool> GFX_DUMP_FRAMES_AS_IMAGES{{System::GFX, "Settings", "DumpFramesAsImages"}, false};
-const Info<bool> GFX_FREE_LOOK{{System::GFX, "Settings", "FreeLook"}, false};
-const Info<FreelookControlType> GFX_FREE_LOOK_CONTROL_TYPE{
-    {System::GFX, "Settings", "FreeLookControlType"}, FreelookControlType::SixAxis};
 const Info<bool> GFX_USE_FFV1{{System::GFX, "Settings", "UseFFV1"}, false};
 const Info<std::string> GFX_DUMP_FORMAT{{System::GFX, "Settings", "DumpFormat"}, "avi"};
 const Info<std::string> GFX_DUMP_CODEC{{System::GFX, "Settings", "DumpCodec"}, ""};
@@ -84,7 +80,7 @@ const Info<int> GFX_COMMAND_BUFFER_EXECUTE_INTERVAL{
     {System::GFX, "Settings", "CommandBufferExecuteInterval"}, 100};
 #endif
 
-////OpenEmu change ShaderCache True, WaitForShaders false, Compiler and Precompiler thread -1
+//////OpenEmu change ShaderCache True, WaitForShaders false, Compiler and Precompiler thread -1
 const Info<bool> GFX_SHADER_CACHE{{System::GFX, "Settings", "ShaderCache"}, true};
 const Info<bool> GFX_WAIT_FOR_SHADERS_BEFORE_STARTING{
     {System::GFX, "Settings", "WaitForShadersBeforeStarting"}, false};
@@ -95,7 +91,6 @@ const Info<int> GFX_SHADER_PRECOMPILER_THREADS{
     {System::GFX, "Settings", "ShaderPrecompilerThreads"}, -1};
 const Info<bool> GFX_SAVE_TEXTURE_CACHE_TO_STATE{
     {System::GFX, "Settings", "SaveTextureCacheToState"}, true};
-// End OpenEmu Settings
 
 const Info<bool> GFX_SW_ZCOMPLOC{{System::GFX, "Settings", "SWZComploc"}, true};
 const Info<bool> GFX_SW_ZFREEZE{{System::GFX, "Settings", "SWZFreeze"}, true};
