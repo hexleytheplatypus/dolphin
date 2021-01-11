@@ -47,6 +47,7 @@
 #include "Core/Analytics.h"
 #include "Core/Boot/Boot.h"
 #include "Core/BootManager.h"
+#include "Core/Config/MainSettings.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
 #include "Core/Host.h"
@@ -121,15 +122,15 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     //Debug Settings
     SConfig::GetInstance().bEnableDebugging = false;
 #ifdef DEBUG
-    SConfig::GetInstance().bOnScreenDisplayMessages = true;
+    Config::SetBase(Config::MAIN_OSD_MESSAGES, true);
 #else
-    SConfig::GetInstance().bOnScreenDisplayMessages = false;
+    Config::SetBase(Config::MAIN_OSD_MESSAGES, false);
 #endif
     SConfig::GetInstance().m_ShowFrameCount = false;
     
     //Video
-  //  SConfig::GetInstance().m_strVideoBackend = "OGL";
-//VideoBackendBase::ActivateBackend(SConfig::GetInstance().m_strVideoBackend);
+    Config::SetBase(Config::MAIN_GFX_BACKEND, "OGL");
+    VideoBackendBase::ActivateBackend(Config::Get(Config::MAIN_GFX_BACKEND));
     
     //Set the Sound
     SConfig::GetInstance().bDSPHLE = true;
@@ -140,16 +141,15 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().bCPUThread = true;
     
     //Analitics
-    SConfig::GetInstance().m_analytics_permission_asked = true;
-    SConfig::GetInstance().m_analytics_enabled =  false;
-    //DolphinAnalytics::Instance()->ReloadConfig();
+    Config::SetBase(Config::MAIN_ANALYTICS_PERMISSION_ASKED, true);
+    Config::SetBase(Config::MAIN_ANALYTICS_ENABLED, false);
+    DolphinAnalytics::Instance().ReloadConfig();
     
     //Save them now
     SConfig::GetInstance().SaveSettings();
     
-    
     //Choose Wiimote Type
-  //  _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
+    //  _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
     
     //Get game info from file path
     GetGameInfo();
@@ -168,8 +168,6 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
         
         //SConfig::GetInstance().m_strMemoryCardA = _memCardA;
         //SConfig::GetInstance().m_strMemoryCardB = _memCardB;
-        
-        
     }
     else
     {
@@ -333,7 +331,7 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
     gcode.codes.clear();
     gcode.enabled = enabled;
     arcode.ops.clear();
-    arcode.active = enabled;
+    arcode.enabled = enabled;
     
     Gecko::GeckoCode::Code gcodecode;
     uint32_t cmd_addr, cmd_value;
@@ -447,7 +445,7 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
         }
         if(exists)
         {
-            acompare.active = enabled;
+            acompare.enabled = enabled;
             // If it exists, enable it, and we don't need to look at the rest of the codes
             break;
         }
