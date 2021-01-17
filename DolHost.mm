@@ -115,7 +115,6 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     
     //Setup the CPU Settings
     SConfig::GetInstance().bMMU = true;
-    // SConfig::GetInstance().bSkipIdle = true;
     SConfig::GetInstance().bEnableCheats = true;
     SConfig::GetInstance().bBootToPause = false;
     
@@ -149,7 +148,10 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().SaveSettings();
     
     //Choose Wiimote Type
-    //  _wiiMoteType = WIIMOTE_SRC_EMU; // WIIMOTE_SRC_EMU, WIIMOTE_SRC_HYBRID or WIIMOTE_SRC_REAL
+    WiimoteCommon::SetSource(0, WiimoteSource::Emulated);
+    WiimoteCommon::SetSource(1, WiimoteSource::Emulated);
+    WiimoteCommon::SetSource(2, WiimoteSource::Emulated);
+    WiimoteCommon::SetSource(3, WiimoteSource::Emulated);
     
     //Get game info from file path
     GetGameInfo();
@@ -465,20 +467,16 @@ void DolHost::DisplayMessage(std::string message)
 void DolHost::setButtonState(int button, int state, int player)
 {
     player -= 1;
-    
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
         setGameCubeButton(player, button, state);
-    }
-    else
-    {
-      //  setWiiButton(player, button, state);
+    } else {
+        setWiiButton(player, button, state);
     }
 }
 
 void DolHost::SetAxis(int button, float value, int player)
 {
     player -= 1;
-    
     if (_gameType == DiscIO::Platform::GameCubeDisc) {
         setGameCubeAxis(player, button, value);
         if (button == OEGCButtonR || button == OEGCButtonL) {
@@ -486,20 +484,38 @@ void DolHost::SetAxis(int button, float value, int player)
             if (value == 1) digVal = 1;
             setGameCubeButton(player, button + 5, digVal);
         }
+    } else {
+        setWiiAxis(player, button, value);
     }
-    else
-    {
-      //  setWiiAxis(player, button, value);
+}
+
+void DolHost::processSpecialKeys (int button , int player)
+{
+    player -= 1;
+    button += 1;
+    
+    if (button == OEWiimoteSideways) {
+        _wmSideways[player] = !_wmSideways[player];
+        setWiimoteSideways(player);
+    } else if (button == OEWiimoteUpright) {
+        _wmUpright[player] = !_wmUpright[player];
+       setWiimoteUpright(player);
     }
+}
+void DolHost::setWiimoteSideways (int player)
+{
+    static_cast<ControllerEmu::NumericSetting<bool>*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Options)->numeric_settings[3].get())->SetValue(_wmSideways[player]);
+}
+
+void DolHost::setWiimoteUpright (int player)
+{
+    static_cast<ControllerEmu::NumericSetting<bool>*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Options)->numeric_settings[2].get())->SetValue(_wmUpright[player]);
 }
 
 void DolHost::changeWiimoteExtension(int extension, int player)
 {
-    //Player has already been adjusted befor call
-//    auto* ce_extension = static_cast<ControllerEmu::Extension*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Extension));
-//    ce_extension->switch_extension = extension;
-//
-//    WiiRemotes[player].extension = extension;
+    player -= 1;
+    static_cast<ControllerEmu::Attachments*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Attachments))->SetSelectedAttachment(extension);
 }
 
 void DolHost::SetIR(int player, float x, float y)

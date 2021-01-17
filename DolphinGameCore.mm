@@ -342,13 +342,17 @@ extern std::unique_ptr<SoundStream> g_sound_stream;
 {
     if(_isInitialized)
     {
-        dol_host->setButtonState(button, 1, (int)player);
+        if (button > OEWiiButtonCount) {
+            dol_host->processSpecialKeys(button , (int)player);
+        } else {
+            dol_host->setButtonState(button, 1, (int)player);
+        }
     }
 }
 
 - (oneway void)didReleaseWiiButton:(OEWiiButton)button forPlayer:(NSUInteger)player
 {
-    if(_isInitialized)
+    if(_isInitialized && button != OEWiimoteSideways && button != OEWiimoteUpright)
     {
         dol_host->setButtonState(button, 0, (int)player);
     }

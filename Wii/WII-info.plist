@@ -379,13 +379,19 @@
 				<key>OEControlListKeyLabelKey</key>
 				<string>Change Extension</string>
 				<key>OEControlListKeyNameKey</key>
-				<string>OEWiiChangeExtension</string>
+				<string>OEWiimoteChangeExtension</string>
 			</dict>
 			<dict>
 				<key>OEControlListKeyLabelKey</key>
-				<string>Sideways</string>
+				<string>Hold Sideways</string>
 				<key>OEControlListKeyNameKey</key>
-				<string>OEWiiSideways</string>
+				<string>OEWiimoteSideways</string>
+			</dict>
+			<dict>
+				<key>OEControlListKeyLabelKey</key>
+				<string>Hold Upright</string>
+				<key>OEControlListKeyNameKey</key>
+				<string>OEWiimoteUpright</string>
 			</dict>
 		</array>
 	</array>
@@ -517,10 +523,10 @@
 		<string>OEWiiMoteButtonPlus</string>
 		<string>OEWiiMoteButtonMinus</string>
 		<string>OEWiiMoteButtonHome</string>
-		<string>OEWiiMoteTiltLeft</string>
-		<string>OEWiiMoteTiltRight</string>
 		<string>OEWiiMoteTiltForward</string>
 		<string>OEWiiMoteTiltBackward</string>
+		<string>OEWiiMoteTiltLeft</string>
+		<string>OEWiiMoteTiltRight</string>
 		<string>OEWiiMoteShake</string>
 		<string>OEWiiMoteSwingUp</string>
 		<string>OEWiiMoteSwingDown</string>
@@ -558,8 +564,9 @@
 		<string>OEWiiClassicButtonStart</string>
 		<string>OEWiiClassicButtonSelect</string>
 		<string>OEWiiClassicButtonHome</string>
-		<string>OEWiiChangeExtension</string>
-		<string>OEWiiSideways</string>
+		<string>OEWiimoteChangeExtension</string>
+		<string>OEWiimoteSideways</string>
+		<string>OEWiimoteUpright</string>
 	</array>
 	<key>OENumberOfPlayersKey</key>
 	<integer>4</integer>

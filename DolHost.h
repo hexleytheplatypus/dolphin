@@ -58,6 +58,9 @@ public:
     void SetAxis(int button, float value, int player);
     void SetIR(int player, float x, float y);
 
+    void processSpecialKeys (int button , int player);
+    void setWiimoteSideways (int player);
+    void setWiimoteUpright (int player);
     void changeWiimoteExtension(int extension, int player);
 
     void toggleAudioMute();
@@ -102,9 +105,12 @@ public:
 
     bool        _onBoot = true;
     bool        _wiiWAD;
-    bool        _wiiChangeExtension[4] = { false, false, false, false };
     int         _wiiMoteType;
-
+    
+    bool _wiiChangeExtension[4] = { false, false, false, false };
+    bool _wmSideways[4] = { false, false, false, false };
+    bool _wmUpright[4] = { false, false, false, false };
+    
     std::string autoSaveStateFile;
 
     void SetUpPlayerInputs();

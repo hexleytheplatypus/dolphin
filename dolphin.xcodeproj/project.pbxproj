@@ -25,6 +25,7 @@
 				8355D4E11A653AAB00E73302 /* ShellScript */,
 			);
 			dependencies = (
+				EE09ECF225AFAC6D002C9E67 /* PBXTargetDependency */,
 				8355D4E01A653AA900E73302 /* PBXTargetDependency */,
 			);
 			name = "Build & Install Dolphin";
@@ -1563,6 +1564,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B0D48831F54442B2AEF377D1;
 			remoteInfo = miniupnpc;
+		};
+		EE09ECF125AFAC6D002C9E67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3E2217961D74AB3300C55942;
+			remoteInfo = Wii;
 		};
 		EE3A465D22B687FA00031B56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -10437,6 +10445,11 @@
 			target = AECE51C4C7E0411EA86B7548 /* pch */;
 			targetProxy = 64A64D118E9A420FA0458C02 /* PBXContainerItemProxy */;
 		};
+		EE09ECF225AFAC6D002C9E67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3E2217961D74AB3300C55942 /* Wii */;
+			targetProxy = EE09ECF125AFAC6D002C9E67 /* PBXContainerItemProxy */;
+		};
 		EE3A465E22B687FA00031B56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EE3A464922B6874500031B56 /* fmt */;
@@ -11161,6 +11174,7 @@
 					"$(SRCROOT)",
 					"$(inherited)",
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
+					"$SRCROOT/../OpenEmu-SDK",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -11279,6 +11293,7 @@
 					"$(SRCROOT)",
 					"$(inherited)",
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
+					"$SRCROOT/../OpenEmu-SDK",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -11710,6 +11725,7 @@
 					"$(SRCROOT)",
 					"$(inherited)",
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
+					"$SRCROOT/../OpenEmu-SDK",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -15780,7 +15796,7 @@
 					"$(inherited)",
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
-					"$(SRCROOT)/Compatibility",
+					"$(SRCROOT)/Compatibility/**",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
@@ -15862,7 +15878,7 @@
 					"$(inherited)",
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
-					"$(SRCROOT)/Compatibility",
+					"$(SRCROOT)/Compatibility/**",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
@@ -15944,7 +15960,7 @@
 					"$(inherited)",
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
-					"$(SRCROOT)/Compatibility",
+					"$(SRCROOT)/Compatibility/**",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
@@ -16026,7 +16042,7 @@
 					"$(inherited)",
 					$SRCROOT/Externals/ffmpeg/include,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
-					"$(SRCROOT)/Compatibility",
+					"$(SRCROOT)/Compatibility/**",
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					"$(SRCROOT)/dolphin/Source/Core",
 					"$(SRCROOT)/dolphin/Externals",
@@ -17723,6 +17739,7 @@
 					"$(SRCROOT)",
 					"$(inherited)",
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
+					"$SRCROOT/../OpenEmu-SDK",
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
@@ -21176,6 +21193,8 @@
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					"ENABLE_OPT=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -21338,6 +21357,31 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					"ENABLE_OPT=0",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
@@ -21407,6 +21451,31 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"'USER_DIR=\".dolphin-emu\"'",
+					"'_ARCH_64=1'",
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"'_FILE_OFFSET_BITS=64'",
+					_LARGEFILE_SOURCE,
+					"'HAVE_ALSA=0'",
+					"'HAVE_AO=0'",
+					"'HAVE_BLUEZ=0'",
+					"'HAVE_PULSEAUDIO=0'",
+					"'HAVE_OPENAL=1'",
+					"'HAVE_LIBAV=0'",
+					"'HAVE_PORTAUDIO=0'",
+					"'HAVE_SDL=0'",
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=1'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					"ENABLE_OPT=0",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,

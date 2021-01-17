@@ -1,5 +1,3 @@
-
-
 typedef struct
 {
     int openemuButton;
@@ -43,21 +41,11 @@ static gc_pad GameCubePads[4];
 
 typedef struct
 {
-    keymap wiimote_dpad[4] = {
+    keymap wiimote_keymap[54] = {
         {OEWiiMoteButtonLeft, 0},
         {OEWiiMoteButtonRight, 0},
         {OEWiiMoteButtonDown, 0},
         {OEWiiMoteButtonUp, 0},
-    };
-    
-    keymap wiimote_sideways[4] = {
-        {OEWiiMoteButtonUp, 0},
-        {OEWiiMoteButtonDown, 0},
-        {OEWiiMoteButtonLeft, 0},
-        {OEWiiMoteButtonRight, 0},
-    };
-    
-    keymap wiimote_keymap[48] = {
         {OEWiiMoteButtonA, 0},
         {OEWiiMoteButtonB, 0},
         {OEWiiMoteButton1, 0},
@@ -65,10 +53,10 @@ typedef struct
         {OEWiiMoteButtonPlus, 0},
         {OEWiiMoteButtonMinus, 0},
         {OEWiiMoteButtonHome, 0},
-        {OEWiiMoteTiltLeft, 0},
-        {OEWiiMoteTiltRight, 0},
         {OEWiiMoteTiltForward, 0},
         {OEWiiMoteTiltBackward, 0},
+        {OEWiiMoteTiltLeft, 0},
+        {OEWiiMoteTiltRight, 0},
         {OEWiiMoteShake, 0},
         {OEWiiMoteSwingUp, 0},
         {OEWiiMoteSwingDown, 0},
@@ -106,14 +94,17 @@ typedef struct
         {OEWiiClassicButtonStart, 0},
         {OEWiiClassicButtonSelect, 0},
         {OEWiiClassicButtonHome, 0},
+        {OEWiimoteSideways, 0},
+        {OEWiimoteUpright, 0},
     };
     
     OEWiiConType wiimoteType;
     ControlState dx, dy;
 } wii_remote;
 
-static wii_remote WiiRemotes[4];
-// static int want_extension[4];
-
 void setWiiButton(int pad_num, int button , int value);
-void setWiiAxis(int pad_num, int button , int value);
+void setWiiAxis(int pad_num, int button , float value);
+
+static wii_remote WiiRemotes[4];
+
+
