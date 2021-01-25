@@ -37,6 +37,8 @@
 		<dict>
 			<key>OEGameCoreHasGlitches</key>
 			<true/>
+			<key>OEGameCoreSupportsAdvancedMenu</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>OEGameCorePlayerCount</key>
