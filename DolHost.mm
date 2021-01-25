@@ -491,29 +491,32 @@ void DolHost::SetAxis(int button, float value, int player)
 
 void DolHost::processSpecialKeys (int button , int player)
 {
-    player -= 1;
     button += 1;
     
     if (button == OEWiimoteSideways) {
         _wmSideways[player] = !_wmSideways[player];
-        setWiimoteSideways(player);
+        setWiimoteSideways(player, _wmSideways[player - 1]);
     } else if (button == OEWiimoteUpright) {
         _wmUpright[player] = !_wmUpright[player];
-       setWiimoteUpright(player);
+       setWiimoteUpright(player ,_wmUpright[player - 1]);
     }
 }
-void DolHost::setWiimoteSideways (int player)
+
+void DolHost::setWiimoteSideways (int player, bool sideways)
 {
-    static_cast<ControllerEmu::NumericSetting<bool>*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Options)->numeric_settings[3].get())->SetValue(_wmSideways[player]);
+    player -= 1;
+    static_cast<ControllerEmu::NumericSetting<bool>*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Options)->numeric_settings[3].get())->SetValue(sideways);
 }
 
-void DolHost::setWiimoteUpright (int player)
+void DolHost::setWiimoteUpright (int player, bool upright)
 {
-    static_cast<ControllerEmu::NumericSetting<bool>*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Options)->numeric_settings[2].get())->SetValue(_wmUpright[player]);
+    player -= 1;
+    static_cast<ControllerEmu::NumericSetting<bool>*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Options)->numeric_settings[2].get())->SetValue(upright);
 }
 
 void DolHost::changeWiimoteExtension(int extension, int player)
 {
+    
     player -= 1;
     static_cast<ControllerEmu::Attachments*>(Wiimote::GetWiimoteGroup(player, WiimoteEmu::WiimoteGroup::Attachments))->SetSelectedAttachment(extension);
 }

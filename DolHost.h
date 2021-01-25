@@ -59,8 +59,8 @@ public:
     void SetIR(int player, float x, float y);
 
     void processSpecialKeys (int button , int player);
-    void setWiimoteSideways (int player);
-    void setWiimoteUpright (int player);
+    void setWiimoteSideways (int player, bool sideways);
+    void setWiimoteUpright (int player, bool upright);
     void changeWiimoteExtension(int extension, int player);
 
     void toggleAudioMute();
