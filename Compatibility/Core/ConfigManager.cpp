@@ -489,7 +489,7 @@ void SConfig::LoadCoreSettings(IniFile& ini)
     //core->Get(fmt::format("SIDevice{}", i), &m_SIDevice[i],
               //(i == 0) ? SerialInterface::SIDEVICE_GC_CONTROLLER : SerialInterface::SIDEVICE_NONE);
     core->Get(fmt::format("SIDevice{}", i), &m_SIDevice[i], SerialInterface::SIDEVICE_GC_CONTROLLER);
-    core->Get(fmt::format("AdapterRumble{}", i), &m_AdapterRumble[i], true);
+    core->Get(fmt::format("AdapterRumble{}", i), &m_AdapterRumble[i], false);
     core->Get(fmt::format("SimulateKonga{}", i), &m_AdapterKonga[i], false);
   }
   core->Get("WiiSDCard", &m_WiiSDCard, true);
