@@ -49,7 +49,7 @@
 		<string>openemu.system.wii</string>
 	</array>
 	<key>SUEnableAutomaticChecks</key>
-	<string>1</string>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>https://raw.github.com/OpenEmu/OpenEmu-Update/master/dolphin_appcast.xml</string>
 </dict>
