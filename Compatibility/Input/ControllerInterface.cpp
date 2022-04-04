@@ -44,6 +44,7 @@
 #endif
 
 ControllerInterface g_controller_interface;
+static bool m_is_populating_devices = false;
 
 void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
 {
@@ -93,7 +94,34 @@ void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
     m_is_populating_devices = false;
 }
 
-void ControllerInterface::ChangeWindow(void* hwnd)
+static thread_local ciface::InputChannel tls_input_channel = ciface::InputChannel::Host;
+
+void ControllerInterface::SetCurrentInputChannel(ciface::InputChannel input_channel)
+{
+  tls_input_channel = input_channel;
+}
+
+ciface::InputChannel ControllerInterface::GetCurrentInputChannel()
+{
+  return tls_input_channel;
+}
+
+void ControllerInterface::PlatformPopulateDevices(std::function<void()> callback)
+{
+  if (!m_is_init)
+    return;
+
+  std::lock_guard lk_population(m_devices_population_mutex);
+
+  m_populating_devices_counter.fetch_add(1);
+
+  callback();
+
+  if (m_populating_devices_counter.fetch_sub(1) == 1)
+    InvokeDevicesChangedCallbacks();
+}
+
+void ControllerInterface::ChangeWindow(void* hwnd, WindowChangeReason reason)
 {
   if (!m_is_init)
     return;
@@ -103,7 +131,7 @@ void ControllerInterface::ChangeWindow(void* hwnd)
   RefreshDevices();
 }
 
-void ControllerInterface::RefreshDevices()
+void ControllerInterface::RefreshDevices(RefreshReason reason)
 {
   if (!m_is_init)
     return;
@@ -205,11 +233,11 @@ void ControllerInterface::Shutdown()
 #endif
 }
 
-void ControllerInterface::AddDevice(std::shared_ptr<ciface::Core::Device> device)
+bool ControllerInterface::AddDevice(std::shared_ptr<ciface::Core::Device> device)
 {
   // If we are shutdown (or in process of shutting down) ignore this request:
   if (!m_is_init)
-    return;
+    return false;
 
   {
     std::lock_guard lk(m_devices_mutex);
@@ -243,9 +271,10 @@ void ControllerInterface::AddDevice(std::shared_ptr<ciface::Core::Device> device
 
   if (!m_is_populating_devices)
     InvokeDevicesChangedCallbacks();
+  return true;
 }
 
-void ControllerInterface::RemoveDevice(std::function<bool(const ciface::Core::Device*)> callback)
+void ControllerInterface::RemoveDevice(std::function<bool(const ciface::Core::Device*)> callback, bool force_devices_release)
 {
   {
     std::lock_guard lk(m_devices_mutex);

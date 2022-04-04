@@ -24,6 +24,6 @@
 
 #ifdef __x86_64__
 #include "../../dolphin/Source/Core/Common/x64CPUDetect.cpp"
-//#elif defined(__arm64__)
-//#include "../../dolphin/Source/Core/Common/ArmCPUDetect.cpp"
+#elif defined(__arm64__)
+#include "../../dolphin/Source/Core/Common/ArmCPUDetect.cpp"
 #endif

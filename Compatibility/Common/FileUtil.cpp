@@ -20,7 +20,7 @@
 #include "Common/CommonFuncs.h"
 #include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
-#include "Common/File.h"
+#include "Common/IOFile.h"
 #include "Common/FileUtil.h"
 #include "Common/Logging/Log.h"
 
@@ -479,7 +479,7 @@ bool CreateEmptyFile(const std::string& filename)
 }
 
 // Recursive or non-recursive list of files and directories under directory.
-FSTEntry ScanDirectoryTree(const std::string& directory, bool recursive)
+FSTEntry ScanDirectoryTree(std::string directory, bool recursive)
 {
   INFO_LOG_FMT(COMMON, "ScanDirectoryTree: directory {}", directory);
   FSTEntry parent_entry;
@@ -781,7 +781,7 @@ std::string GetTempFilenameForAtomicWrite(std::string path)
 std::string GetBundleDirectory()
 {
       //OpenEmu
-      GET_CURRENT_OR_RETURN();
+      GET_CURRENT_OR_RETURN("");
     
       return [current getBundlePath];
 }
@@ -993,7 +993,7 @@ const std::string& GetUserPath(unsigned int dir_index)
 
 // Sets a user directory path
 // Rebuilds internal directory structure to compensate for the new directory
-void SetUserPath(unsigned int dir_index, const std::string& path)
+void SetUserPath(unsigned int dir_index, std::string path)
 {
   if (path.empty())
     return;

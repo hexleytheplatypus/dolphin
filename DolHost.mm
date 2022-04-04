@@ -44,10 +44,11 @@
 #include "Common/Thread.h"
 #include "Common/Version.h"
 
-#include "Core/Analytics.h"
+#include "Core/DolphinAnalytics.h"
 #include "Core/Boot/Boot.h"
 #include "Core/BootManager.h"
 #include "Core/Config/MainSettings.h"
+#include "Core/Config/WiimoteSettings.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
 #include "Core/Host.h"
@@ -77,6 +78,9 @@
 #include "VideoCommon/VideoConfig.h"
 #include "VideoCommon/OnScreenDisplay.h"
 #include "VideoBackends/OGL/ProgramShaderCache.h"
+
+#include "Core/Config/MainSettings.h"
+#include "Core/ConfigManager.h"
 
 DolHost* DolHost::m_instance = nullptr;
 static Common::Event updateMainFrameEvent;
@@ -111,33 +115,33 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     UICommon::Init();
     
     // Database Settings
-    SConfig::GetInstance().m_use_builtin_title_database = true;
+    Config::SetBase(Config::MAIN_USE_BUILT_IN_TITLE_DATABASE, true);
     
     //Setup the CPU Settings
-    SConfig::GetInstance().bMMU = true;
-    SConfig::GetInstance().bEnableCheats = true;
+    Config::SetBase(Config::MAIN_MMU, true);
+    Config::SetBase(Config::MAIN_ENABLE_CHEATS, true);
     SConfig::GetInstance().bBootToPause = false;
     
     //Debug Settings
-    SConfig::GetInstance().bEnableDebugging = false;
+    Config::SetBase(Config::MAIN_ENABLE_DEBUGGING, false);
 #ifdef DEBUG
     Config::SetBase(Config::MAIN_OSD_MESSAGES, true);
 #else
     Config::SetBase(Config::MAIN_OSD_MESSAGES, false);
 #endif
-    SConfig::GetInstance().m_ShowFrameCount = false;
+    Config::SetBase(Config::MAIN_SHOW_FRAME_COUNT, false);
     
     //Video
     Config::SetBase(Config::MAIN_GFX_BACKEND, "OGL");
     VideoBackendBase::ActivateBackend(Config::Get(Config::MAIN_GFX_BACKEND));
     
     //Set the Sound
-    SConfig::GetInstance().bDSPHLE = true;
-    SConfig::GetInstance().bDSPThread = true;
-    SConfig::GetInstance().m_Volume = 0;
+    Config::SetBase(Config::MAIN_DSP_HLE, true);
+    Config::SetBase(Config::MAIN_DSP_THREAD, true);
+    Config::SetBase(Config::MAIN_AUDIO_VOLUME, 0);
     
     //Split CPU thread from GPU
-    SConfig::GetInstance().bCPUThread = true;
+    Config::SetBase(Config::MAIN_CPU_THREAD, true);
     
     //Analitics
     Config::SetBase(Config::MAIN_ANALYTICS_PERMISSION_ASKED, true);
@@ -148,10 +152,10 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     SConfig::GetInstance().SaveSettings();
     
     //Choose Wiimote Type
-    WiimoteCommon::SetSource(0, WiimoteSource::Emulated);
-    WiimoteCommon::SetSource(1, WiimoteSource::Emulated);
-    WiimoteCommon::SetSource(2, WiimoteSource::Emulated);
-    WiimoteCommon::SetSource(3, WiimoteSource::Emulated);
+    Config::SetCurrent(Config::GetInfoForWiimoteSource(0), WiimoteSource::Emulated);
+    Config::SetCurrent(Config::GetInfoForWiimoteSource(1), WiimoteSource::Emulated);
+    Config::SetCurrent(Config::GetInfoForWiimoteSource(2), WiimoteSource::Emulated);
+    Config::SetCurrent(Config::GetInfoForWiimoteSource(3), WiimoteSource::Emulated);
     
     //Get game info from file path
     GetGameInfo();
@@ -189,7 +193,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
        // SConfig::GetInstance().m_enable_signature_checks = false;
         
         // Disable wiimote continuous scanning
-        SConfig::GetInstance().m_WiimoteContinuousScanning = false;
+        Config::SetBase(Config::MAIN_WIIMOTE_CONTINUOUS_SCANNING, false);
         
         //Set the Wiimote type
 //        WiimoteReal::ChangeWiimoteSource(0, _wiiMoteType);
@@ -202,7 +206,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
 # pragma mark - Execution
 bool DolHost::LoadFileAtPath()
 {
-    Core::SetOnStateChangedCallback([](Core::State state) {
+    Core::AddOnStateChangedCallback([](Core::State state) {
         if (state == Core::State::Uninitialized)
             s_running.Clear();
     });
@@ -291,7 +295,7 @@ void DolHost::SetBackBufferSize(int width, int height) {
 # pragma mark - Audio 
 void DolHost::SetVolume(float value)
 {
-    SConfig::GetInstance().m_Volume = value * 100;
+    Config::SetBaseOrCurrent(Config::MAIN_AUDIO_VOLUME, value * 100);
     AudioCommon::UpdateSoundStream();
 }
 
@@ -612,13 +616,18 @@ void Host_RequestRenderWindowSize(int width, int height){}
 void Host_SetStartupDebuggingParameters()
 {
     SConfig& StartUp = SConfig::GetInstance();
-    StartUp.bEnableDebugging = false;
     StartUp.bBootToPause = false;
+}
+
+std::vector<std::string> Host_GetPreferredLocales()
+{
+  return {};
 }
 
 bool Host_UINeedsControllerState(){ return false; }
 bool Host_UIBlocksControllerState() { return false; }
 bool Host_RendererHasFocus() { return true; }
+bool Host_RendererHasFullFocus() { return true; }
 bool Host_RendererIsFullscreen() { return false; }
 void Host_ShowVideoConfig(void*, const std::string&) {}
 void Host_YieldToUI() {}

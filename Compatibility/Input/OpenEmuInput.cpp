@@ -5,6 +5,9 @@
 #include "Common/Common.h"
 #include "Common/CommonTypes.h"
 #include "Common/IniFile.h"
+#include "Common/Config/Config.h"
+#include "Core/Config/MainSettings.h"
+#include "Core/Config/WiimoteSettings.h"
 #include "Core/ConfigManager.h"
 #include "Core/HW/GCKeyboard.h"
 #include "Core/HW/GCPad.h"
@@ -273,7 +276,7 @@ static bool init_wiimotes = false;
         Pad::Initialize();
         Keyboard::Initialize();
         
-        if (SConfig::GetInstance().bWii && !SConfig::GetInstance().m_bt_passthrough_enabled)
+        if (SConfig::GetInstance().bWii && !Config::Get(Config::MAIN_BLUETOOTH_PASSTHROUGH_ENABLED))
           {
             init_wiimotes = true;
             Wiimote::Initialize(Wiimote::InitializeMode::DO_NOT_WAIT_FOR_WIIMOTES);
@@ -371,7 +374,7 @@ void Input::openemu_set_controller_port_device(unsigned port, unsigned device)
         gcPad->UpdateReferences(g_controller_interface);
         Pad::GetConfig()->SaveConfig();
 
-    if (SConfig::GetInstance().bWii && !SConfig::GetInstance().m_bt_passthrough_enabled)
+    if (SConfig::GetInstance().bWii && !Config::Get(Config::MAIN_BLUETOOTH_PASSTHROUGH_ENABLED))
       {
         WiimoteEmu::Wiimote* wm = (WiimoteEmu::Wiimote*)Wiimote::GetConfig()->GetController(port);
         // load an empty inifile section, clears everything
@@ -506,34 +509,34 @@ void Input::openemu_set_controller_port_device(unsigned port, unsigned device)
         {
         case OEWiimote:
           wmExtension->SetSelectedAttachment(ExtensionNumber::NONE);
-          WiimoteCommon::SetSource(port, WiimoteSource::Emulated);
+          Config::SetCurrent(Config::GetInfoForWiimoteSource(port), WiimoteSource::Emulated);
           break;
 
         case OEWiimoteSW:
           wmExtension->SetSelectedAttachment(ExtensionNumber::NONE);
           static_cast<ControllerEmu::NumericSetting<bool>*>(wmOptions->numeric_settings[2].get())
               ->SetValue(true);  // Sideways Wiimote
-          WiimoteCommon::SetSource(port, WiimoteSource::Emulated);
+          Config::SetCurrent(Config::GetInfoForWiimoteSource(port), WiimoteSource::Emulated);
           break;
 
         case OEWiimoteNC:
           wmExtension->SetSelectedAttachment(ExtensionNumber::NUNCHUK);
-          WiimoteCommon::SetSource(port, WiimoteSource::Emulated);
+          Config::SetCurrent(Config::GetInfoForWiimoteSource(port), WiimoteSource::Emulated);
           break;
 
         case OEWiimoteCC:
         case OEWiimoteCC_Pro:
           wmExtension->SetSelectedAttachment(ExtensionNumber::CLASSIC);
-          WiimoteCommon::SetSource(port, WiimoteSource::Emulated);
+          Config::SetCurrent(Config::GetInfoForWiimoteSource(port), WiimoteSource::Emulated);
           break;
 
         case OEWiiMoteReal:
           //desc = Libretro::Input::descEmpty;
-          WiimoteCommon::SetSource(port, WiimoteSource::Real);
+          Config::SetCurrent(Config::GetInfoForWiimoteSource(port), WiimoteSource::Real);
 
         default:
           //desc = Libretro::Input::descGC;
-          WiimoteCommon::SetSource(port, WiimoteSource::None);
+          Config::SetCurrent(Config::GetInfoForWiimoteSource(port), WiimoteSource::None);
           break;
         }
         wm->UpdateReferences(g_controller_interface);

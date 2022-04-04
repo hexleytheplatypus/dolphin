@@ -26,7 +26,7 @@ InputConfig::InputConfig(const std::string& ini_name, const std::string& gui_nam
 
 InputConfig::~InputConfig() = default;
 
-bool InputConfig::LoadConfig(bool isGC)
+bool InputConfig::LoadConfig(InputClass type)
 {
         //OpenEmu Stub
         return false;
@@ -45,7 +45,7 @@ void InputConfig::SaveConfig()
   inifile.Save(ini_filename);
 }
 
-ControllerEmu::EmulatedController* InputConfig::GetController(int index)
+ControllerEmu::EmulatedController* InputConfig::GetController(int index) const
 {
   return m_controllers.at(index).get();
 }
@@ -60,9 +60,9 @@ bool InputConfig::ControllersNeedToBeCreated() const
   return m_controllers.empty();
 }
 
-std::size_t InputConfig::GetControllerCount() const
+int InputConfig::GetControllerCount() const
 {
-  return m_controllers.size();
+  return static_cast<int>(m_controllers.size());
 }
 
 void InputConfig::RegisterHotplugCallback()
@@ -78,11 +78,6 @@ void InputConfig::RegisterHotplugCallback()
 void InputConfig::UnregisterHotplugCallback()
 {
   g_controller_interface.UnregisterDevicesChangedCallback(m_hotplug_callback_handle);
-}
-
-void InputConfig::OnControllerCreated(ControllerEmu::EmulatedController& controller)
-{
-  controller.SetDynamicInputTextureManager(&m_dynamic_input_tex_config_manager);
 }
 
 bool InputConfig::IsControllerControlledByGamepadDevice(int index) const
