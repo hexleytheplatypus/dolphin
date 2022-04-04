@@ -10384,7 +10384,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -10418,7 +10418,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
@@ -10462,7 +10461,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -10496,7 +10494,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10531,7 +10529,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
@@ -10583,7 +10580,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -10663,9 +10659,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
@@ -10703,7 +10698,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -10739,9 +10733,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -10773,7 +10766,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -10808,7 +10800,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10902,7 +10893,6 @@
 					MACOSX,
 					_DARWIN_C_SOURCE,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/miniupnpc/include;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10985,9 +10975,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -11030,7 +11019,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -11109,9 +11097,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -11155,7 +11142,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -11237,7 +11223,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11285,7 +11270,6 @@
 					MACOSX,
 					_DARWIN_C_SOURCE,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/miniupnpc/include;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11323,9 +11307,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/mbedtls/include,
@@ -11363,7 +11346,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -11396,9 +11378,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -11426,7 +11407,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -11546,9 +11526,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -11592,7 +11571,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -11627,7 +11605,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -11661,7 +11639,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -11703,7 +11680,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -12573,7 +12549,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -12640,7 +12615,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -12709,7 +12683,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -12778,7 +12751,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -12847,7 +12819,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -12914,7 +12885,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -12983,7 +12953,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -13052,7 +13021,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
@@ -13150,7 +13118,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
@@ -13249,7 +13216,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
@@ -13350,7 +13316,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
@@ -13451,7 +13416,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
@@ -13552,7 +13516,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13649,7 +13612,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13748,7 +13710,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13847,7 +13808,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13916,9 +13876,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -13950,7 +13909,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -13985,9 +13943,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -14020,7 +13977,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14056,9 +14012,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -14091,7 +14046,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14127,9 +14081,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -14162,7 +14115,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14281,6 +14233,7 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -14300,9 +14253,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -14333,7 +14285,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14406,6 +14357,7 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -14472,9 +14424,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -14505,7 +14456,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14540,7 +14490,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -14574,7 +14524,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
@@ -14617,7 +14566,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -14651,9 +14599,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/Compatibility,
@@ -14690,7 +14637,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14727,7 +14673,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/GL,
 					$SRCROOT/dolphin/Source/Core,
@@ -14769,9 +14714,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -14802,7 +14746,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14836,9 +14779,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14866,7 +14808,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -14948,7 +14889,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14973,9 +14913,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -15008,7 +14947,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -15042,9 +14980,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -15074,7 +15011,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -15191,7 +15127,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15226,7 +15162,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
@@ -15277,7 +15212,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -15310,7 +15244,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -15343,7 +15277,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -15377,7 +15310,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15411,7 +15344,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -15452,7 +15384,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -15486,9 +15417,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -15518,7 +15448,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -15598,9 +15527,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
@@ -15638,7 +15566,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -15673,7 +15600,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -15707,7 +15634,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16137,7 +16063,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -16162,7 +16088,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16189,7 +16114,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -16224,9 +16148,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16254,7 +16177,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16290,9 +16212,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16320,7 +16241,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16356,9 +16276,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/dolphin";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16386,7 +16305,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16422,9 +16340,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/Compatibility,
@@ -16461,7 +16378,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16543,9 +16459,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -16578,7 +16493,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16614,7 +16528,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -16684,7 +16597,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -16718,7 +16631,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16752,7 +16664,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16787,7 +16699,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
@@ -16839,7 +16750,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -16873,9 +16783,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/Compatibility,
@@ -16911,7 +16820,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -16944,7 +16852,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16979,7 +16887,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
 					$SRCROOT,
@@ -17031,7 +16938,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17064,9 +16970,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -17093,7 +16998,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -17127,7 +17031,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17161,7 +17065,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -17203,7 +17106,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17238,9 +17140,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/mbedtls/include,
@@ -17279,7 +17180,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17314,7 +17214,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17348,7 +17248,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -17390,7 +17289,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17469,9 +17367,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -17504,7 +17401,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17539,9 +17435,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/Compatibility,
@@ -17578,7 +17473,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17613,9 +17507,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -17648,7 +17541,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17683,9 +17575,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/mbedtls/include,
@@ -17724,7 +17615,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17759,9 +17649,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
@@ -17799,7 +17688,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -17873,9 +17761,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -17919,7 +17806,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18000,7 +17886,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -18025,7 +17911,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -18057,7 +17942,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -18093,7 +17977,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/GL,
 					$SRCROOT/dolphin/Source/Core,
@@ -18206,7 +18089,6 @@
 					MACOSX,
 					_DARWIN_C_SOURCE,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/miniupnpc/include;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18244,9 +18126,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -18277,7 +18158,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18355,9 +18235,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18385,7 +18264,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18458,9 +18336,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -18491,7 +18368,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18527,9 +18403,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -18562,7 +18437,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18597,7 +18471,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -18631,7 +18505,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18690,7 +18563,6 @@
 					MACOSX,
 					_DARWIN_C_SOURCE,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/miniupnpc/include;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -18726,9 +18598,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/SFML/src,
 					$SRCROOT/dolphin/Externals/SFML/include,
@@ -18759,7 +18630,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18794,9 +18664,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -18829,7 +18698,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -18866,7 +18734,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/GL,
 					$SRCROOT/dolphin/Source/Core,
@@ -18909,9 +18776,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT,
 					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
@@ -18948,7 +18814,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -18982,7 +18847,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -19017,7 +18882,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
@@ -19061,7 +18925,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -19277,7 +19140,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -19302,7 +19165,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/Vulkan/include,
@@ -19339,7 +19201,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-Wall",
@@ -19373,9 +19234,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/Vulkan/include,
@@ -19413,7 +19273,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -19448,9 +19307,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/Vulkan/include,
@@ -19488,7 +19346,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -19523,9 +19380,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Externals/Vulkan/include,
@@ -19563,7 +19419,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -19623,7 +19478,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/glslang,
@@ -19689,7 +19543,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/glslang,
@@ -19757,7 +19610,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/glslang,
@@ -19825,7 +19677,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/glslang/SPIRV,
 					$SRCROOT/dolphin/Externals/glslang,
@@ -19893,7 +19744,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/imgui,
@@ -19960,7 +19810,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/imgui,
@@ -20029,7 +19878,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/imgui,
@@ -20098,7 +19946,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/imgui,
@@ -20196,7 +20043,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20292,7 +20138,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20390,7 +20235,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20488,7 +20332,6 @@
 					"EXPORT=",
 					USE_AUDIOUNIT,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20557,7 +20400,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/zstd/lib,
 					$SRCROOT/dolphin/Externals/zstd/lib/common,
@@ -20600,7 +20442,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/zstd/lib,
 					$SRCROOT/dolphin/Externals/zstd/lib/common,
@@ -20644,7 +20485,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/zstd/lib,
 					$SRCROOT/dolphin/Externals/zstd/lib/common,
@@ -20688,7 +20528,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/zstd/lib,
 					$SRCROOT/dolphin/Externals/zstd/lib/common,
@@ -20757,7 +20596,6 @@
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
@@ -20834,7 +20672,6 @@
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
@@ -20887,7 +20724,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
@@ -20940,7 +20776,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
@@ -21020,7 +20855,6 @@
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21087,7 +20921,6 @@
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21128,7 +20961,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21169,7 +21001,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21233,7 +21064,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/OGLCompilersDLL;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21296,7 +21126,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/OGLCompilersDLL;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21361,7 +21190,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/OGLCompilersDLL;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21426,7 +21254,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/OGLCompilersDLL;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21516,7 +21343,6 @@
 					OpenEmu,
 					"ENABLE_OPT=0",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -21612,7 +21438,6 @@
 					OpenEmu,
 					"ENABLE_OPT=0",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -21710,7 +21535,6 @@
 					OpenEmu,
 					"ENABLE_OPT=0",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -21808,7 +21632,6 @@
 					OpenEmu,
 					"ENABLE_OPT=0",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
@@ -21917,6 +21740,7 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
@@ -21939,7 +21763,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/GL,
 					$SRCROOT/dolphin/Source/Core,
@@ -21981,9 +21804,8 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/mbedtls/include,
@@ -22022,7 +21844,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -22057,7 +21878,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
@@ -22091,7 +21912,6 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
 					$SRCROOT/Compatibility,
@@ -22135,7 +21955,6 @@
 					"-Winit-self",
 					"-Wmissing-declarations",
 					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
 					"-x",
 					"objective-c++",
 					"-DNDEBUG",
@@ -22207,6 +22026,7 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
