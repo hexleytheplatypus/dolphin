@@ -4219,18 +4219,18 @@
 		3E3D70DA1C82B0BB00091C4D /* GL */ = {
 			isa = PBXGroup;
 			children = (
-				EE8DD25B2249286B005E1AF5 /* GLContext.cpp */,
-				EE8DD25A2249286B005E1AF5 /* GLContext.h */,
 				3EFF28AD1F855C5700B4FD11 /* ARB_compute_shader.h */,
 				3EFF28A91F855C5600B4FD11 /* ARB_shader_image_load_store.h */,
 				3EFF28AE1F855C5700B4FD11 /* ARB_texture_compression_bptc.h */,
 				3EFF28AB1F855C5600B4FD11 /* ARB_texture_storage.h */,
 				3EFF28AA1F855C5600B4FD11 /* EXT_texture_compression_s3tc.h */,
-				3EFF28AC1F855C5700B4FD11 /* NV_depth_buffer_float.h */,
+				EE8DD25B2249286B005E1AF5 /* GLContext.cpp */,
+				EE8DD25A2249286B005E1AF5 /* GLContext.h */,
 				3E3D70DB1C82B0BB00091C4D /* GLExtensions */,
 				3E3D71081C82B0BB00091C4D /* GLInterface */,
 				3E3D71191C82B0BB00091C4D /* GLUtil.cpp */,
 				3E3D711A1C82B0BB00091C4D /* GLUtil.h */,
+				3EFF28AC1F855C5700B4FD11 /* NV_depth_buffer_float.h */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -4289,8 +4289,8 @@
 		3E3D71081C82B0BB00091C4D /* GLInterface */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC58F1F842B1200D79F27 /* AGL.mm */,
 				3E3D710A1C82B0BB00091C4D /* AGL.h */,
+				3E8EC58F1F842B1200D79F27 /* AGL.mm */,
 			);
 			path = GLInterface;
 			sourceTree = "<group>";
@@ -4310,12 +4310,12 @@
 		3E3D719A1C82B0F800091C4D /* Boot */ = {
 			isa = PBXGroup;
 			children = (
+				3E3D719D1C82B0F800091C4D /* Boot_BS2Emu.cpp */,
+				3E3D71A11C82B0F800091C4D /* Boot_WiiWAD.cpp */,
 				3E3D719B1C82B0F800091C4D /* Boot.cpp */,
 				3E3D719C1C82B0F800091C4D /* Boot.h */,
-				3E3D719D1C82B0F800091C4D /* Boot_BS2Emu.cpp */,
 				3E8EC6E31F8437BB00D79F27 /* DolReader.cpp */,
 				3E8EC6E21F8437BB00D79F27 /* DolReader.h */,
-				3E3D71A11C82B0F800091C4D /* Boot_WiiWAD.cpp */,
 				3E3D71A21C82B0F800091C4D /* ElfReader.cpp */,
 				3E3D71A31C82B0F800091C4D /* ElfReader.h */,
 				3E3D71A41C82B0F800091C4D /* ElfTypes.h */,
@@ -4326,17 +4326,17 @@
 		3E3D71B01C82B0F800091C4D /* Debugger */ = {
 			isa = PBXGroup;
 			children = (
-				EEF97C1B25A77415008C4BB2 /* OSThread.cpp */,
-				EEF97C1C25A77416008C4BB2 /* OSThread.h */,
-				3E8EC6E51F8437D000D79F27 /* RSO.cpp */,
-				3E8EC6E61F8437D000D79F27 /* RSO.h */,
 				3E3D71B11C82B0F800091C4D /* Debugger_SymbolMap.cpp */,
 				3E3D71B21C82B0F800091C4D /* Debugger_SymbolMap.h */,
 				3E3D71B31C82B0F800091C4D /* Dump.cpp */,
 				3E3D71B41C82B0F800091C4D /* Dump.h */,
 				3E3D71B51C82B0F800091C4D /* GCELF.h */,
+				EEF97C1B25A77415008C4BB2 /* OSThread.cpp */,
+				EEF97C1C25A77416008C4BB2 /* OSThread.h */,
 				3E3D71B61C82B0F800091C4D /* PPCDebugInterface.cpp */,
 				3E3D71B71C82B0F800091C4D /* PPCDebugInterface.h */,
+				3E8EC6E51F8437D000D79F27 /* RSO.cpp */,
+				3E8EC6E61F8437D000D79F27 /* RSO.h */,
 			);
 			path = Debugger;
 			sourceTree = "<group>";
@@ -4344,7 +4344,6 @@
 		3E3D71B81C82B0F800091C4D /* DSP */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC6AA1F8436F100D79F27 /* Interpreter */,
 				3E3D71B91C82B0F800091C4D /* DSPAccelerator.cpp */,
 				3E3D71BA1C82B0F800091C4D /* DSPAccelerator.h */,
 				3E3D71BB1C82B0F800091C4D /* DSPAnalyzer.cpp */,
@@ -4367,6 +4366,7 @@
 				3E3D71DC1C82B0F800091C4D /* DSPStacks.cpp */,
 				3E3D71DE1C82B0F800091C4D /* DSPTables.cpp */,
 				3E3D71DF1C82B0F800091C4D /* DSPTables.h */,
+				3E8EC6AA1F8436F100D79F27 /* Interpreter */,
 				3E3D71E01C82B0F800091C4D /* Jit */,
 				3E3D71EB1C82B0F800091C4D /* LabelMap.cpp */,
 				3E3D71EC1C82B0F800091C4D /* LabelMap.h */,
@@ -4400,14 +4400,14 @@
 		3E3D72031C82B0F800091C4D /* HLE */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC6E81F8437EB00D79F27 /* HLE_VarArgs.cpp */,
-				3E8EC6E91F8437EC00D79F27 /* HLE_VarArgs.h */,
-				3E3D72041C82B0F800091C4D /* HLE.cpp */,
-				3E3D72051C82B0F800091C4D /* HLE.h */,
 				3E3D72061C82B0F800091C4D /* HLE_Misc.cpp */,
 				3E3D72071C82B0F800091C4D /* HLE_Misc.h */,
 				3E3D72081C82B0F800091C4D /* HLE_OS.cpp */,
 				3E3D72091C82B0F800091C4D /* HLE_OS.h */,
+				3E8EC6E81F8437EB00D79F27 /* HLE_VarArgs.cpp */,
+				3E8EC6E91F8437EC00D79F27 /* HLE_VarArgs.h */,
+				3E3D72041C82B0F800091C4D /* HLE.cpp */,
+				3E3D72051C82B0F800091C4D /* HLE.h */,
 			);
 			path = HLE;
 			sourceTree = "<group>";
@@ -4417,34 +4417,27 @@
 			children = (
 				EE45F43C22B5532100C5D0C0 /* AddressSpace.cpp */,
 				EE45F43B22B5532100C5D0C0 /* AddressSpace.h */,
-				EE68204B210537FC008D5405 /* WiiSaveStructs.h */,
-				EE1FAE9020AD027000748BE0 /* WiiSave.cpp */,
-				EE1FAE8F20AD027000748BE0 /* WiiSave.h */,
-				3E8EC6851F8434C600D79F27 /* WiimoteEmu */,
-				3E8EC6761F8434C600D79F27 /* WiimoteReal */,
-				3E8EC6151F8434A700D79F27 /* DVD */,
-				3E8EC63C1F8434A900D79F27 /* EXI */,
-				3E8EC6351F8434A900D79F27 /* GCMemcard */,
-				3E8EC61E1F8434A800D79F27 /* SI */,
-				3E8EC6311F8434A800D79F27 /* WiimoteCommon */,
 				3E3D720E1C82B0F800091C4D /* AudioInterface.cpp */,
 				3E3D720F1C82B0F800091C4D /* AudioInterface.h */,
 				3E3D72151C82B0F800091C4D /* CPU.cpp */,
 				3E3D72161C82B0F800091C4D /* CPU.h */,
+				3E3D72171C82B0F900091C4D /* DSP.cpp */,
+				3E3D72181C82B0F900091C4D /* DSP.h */,
+				3E3D72191C82B0F900091C4D /* DSPHLE */,
+				3E3D72311C82B0F900091C4D /* DSPLLE */,
+				3E8EC6151F8434A700D79F27 /* DVD */,
+				3E8EC63C1F8434A900D79F27 /* EXI */,
 				5550907A27FA9FEC00CA618C /* GBACore.cpp */,
 				5550907827FA9FEC00CA618C /* GBACore.h */,
 				5550907727FA9FEC00CA618C /* GBAPad.cpp */,
 				5550907C27FA9FED00CA618C /* GBAPad.h */,
 				5550907B27FA9FEC00CA618C /* GBAPadEmu.cpp */,
 				5550907927FA9FEC00CA618C /* GBAPadEmu.h */,
-				3E3D72171C82B0F900091C4D /* DSP.cpp */,
-				3E3D72181C82B0F900091C4D /* DSP.h */,
-				3E3D72191C82B0F900091C4D /* DSPHLE */,
-				3E3D72311C82B0F900091C4D /* DSPLLE */,
 				3E3D72571C82B0F900091C4D /* GCKeyboard.cpp */,
 				3E3D72581C82B0F900091C4D /* GCKeyboard.h */,
 				3E3D72591C82B0F900091C4D /* GCKeyboardEmu.cpp */,
 				3E3D725A1C82B0F900091C4D /* GCKeyboardEmu.h */,
+				3E8EC6351F8434A900D79F27 /* GCMemcard */,
 				3E3D72611C82B0F900091C4D /* GCPad.cpp */,
 				3E3D72621C82B0F900091C4D /* GCPad.h */,
 				3E3D72631C82B0F900091C4D /* GCPadEmu.cpp */,
@@ -4462,6 +4455,7 @@
 				3E3D726F1C82B0F900091C4D /* MMIOHandlers.h */,
 				3E3D72701C82B0F900091C4D /* ProcessorInterface.cpp */,
 				3E3D72711C82B0F900091C4D /* ProcessorInterface.h */,
+				3E8EC61E1F8434A800D79F27 /* SI */,
 				3E3D72841C82B0F900091C4D /* Sram.cpp */,
 				3E3D72851C82B0F900091C4D /* Sram.h */,
 				3E3D72861C82B0F900091C4D /* StreamADPCM.cpp */,
@@ -4474,6 +4468,12 @@
 				3E3D728D1C82B0F900091C4D /* WII_IPC.h */,
 				3E3D728E1C82B0F900091C4D /* Wiimote.cpp */,
 				3E3D728F1C82B0F900091C4D /* Wiimote.h */,
+				3E8EC6311F8434A800D79F27 /* WiimoteCommon */,
+				3E8EC6851F8434C600D79F27 /* WiimoteEmu */,
+				3E8EC6761F8434C600D79F27 /* WiimoteReal */,
+				EE1FAE9020AD027000748BE0 /* WiiSave.cpp */,
+				EE1FAE8F20AD027000748BE0 /* WiiSave.h */,
+				EE68204B210537FC008D5405 /* WiiSaveStructs.h */,
 			);
 			path = HW;
 			sourceTree = "<group>";
@@ -4569,8 +4569,6 @@
 			isa = PBXGroup;
 			children = (
 				EE8DD2AD224937E7005E1AF5 /* ExceptionUtils.h */,
-				3E3D72EB1C82B0F900091C4D /* Interpreter.cpp */,
-				3E3D72EC1C82B0F900091C4D /* Interpreter.h */,
 				3E3D72ED1C82B0F900091C4D /* Interpreter_Branch.cpp */,
 				3E3D72EE1C82B0F900091C4D /* Interpreter_FloatingPoint.cpp */,
 				3E3D72EF1C82B0F900091C4D /* Interpreter_FPUtils.h */,
@@ -4580,6 +4578,8 @@
 				3E3D72F31C82B0F900091C4D /* Interpreter_Paired.cpp */,
 				3E3D72F41C82B0F900091C4D /* Interpreter_SystemRegisters.cpp */,
 				3E3D72F51C82B0F900091C4D /* Interpreter_Tables.cpp */,
+				3E3D72EB1C82B0F900091C4D /* Interpreter.cpp */,
+				3E3D72EC1C82B0F900091C4D /* Interpreter.h */,
 			);
 			path = Interpreter;
 			sourceTree = "<group>";
@@ -4587,10 +4587,6 @@
 		3E3D72F71C82B0F900091C4D /* Jit64 */ = {
 			isa = PBXGroup;
 			children = (
-				EE8DD2A02249347C005E1AF5 /* RegCache */,
-				3E3D72F81C82B0F900091C4D /* Jit.cpp */,
-				3E3D72F91C82B0F900091C4D /* Jit.h */,
-				3E3D72FA1C82B0F900091C4D /* Jit64_Tables.cpp */,
 				3E3D72FC1C82B0F900091C4D /* Jit_Branch.cpp */,
 				3E3D72FD1C82B0F900091C4D /* Jit_FloatingPoint.cpp */,
 				3E3D72FE1C82B0F900091C4D /* Jit_Integer.cpp */,
@@ -4599,8 +4595,12 @@
 				3E3D73011C82B0F900091C4D /* Jit_LoadStorePaired.cpp */,
 				3E3D73021C82B0F900091C4D /* Jit_Paired.cpp */,
 				3E3D73031C82B0F900091C4D /* Jit_SystemRegisters.cpp */,
+				3E3D72F81C82B0F900091C4D /* Jit.cpp */,
+				3E3D72F91C82B0F900091C4D /* Jit.h */,
+				3E3D72FA1C82B0F900091C4D /* Jit64_Tables.cpp */,
 				3E3D73041C82B0F900091C4D /* JitAsm.cpp */,
 				3E3D73051C82B0F900091C4D /* JitAsm.h */,
+				EE8DD2A02249347C005E1AF5 /* RegCache */,
 			);
 			path = Jit64;
 			sourceTree = "<group>";
@@ -5002,13 +5002,13 @@
 		3E8EC6151F8434A700D79F27 /* DVD */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC6161F8434A700D79F27 /* DVDMath.h */,
-				3E8EC6171F8434A700D79F27 /* DVDInterface.h */,
 				3E8EC6181F8434A700D79F27 /* DVDInterface.cpp */,
-				3E8EC6191F8434A700D79F27 /* FileMonitor.cpp */,
+				3E8EC6171F8434A700D79F27 /* DVDInterface.h */,
 				3E8EC61A1F8434A700D79F27 /* DVDMath.cpp */,
-				3E8EC61B1F8434A700D79F27 /* DVDThread.h */,
+				3E8EC6161F8434A700D79F27 /* DVDMath.h */,
 				3E8EC61C1F8434A700D79F27 /* DVDThread.cpp */,
+				3E8EC61B1F8434A700D79F27 /* DVDThread.h */,
+				3E8EC6191F8434A700D79F27 /* FileMonitor.cpp */,
 				3E8EC61D1F8434A700D79F27 /* FileMonitor.h */,
 			);
 			path = DVD;
@@ -5017,24 +5017,24 @@
 		3E8EC61E1F8434A800D79F27 /* SI */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC61F1F8434A800D79F27 /* SI_DeviceGCSteeringWheel.cpp */,
-				3E8EC6201F8434A800D79F27 /* SI_DeviceGCAdapter.cpp */,
-				3E8EC6211F8434A800D79F27 /* SI_DeviceDanceMat.h */,
-				3E8EC6221F8434A800D79F27 /* SI_DeviceDanceMat.cpp */,
-				3E8EC6231F8434A800D79F27 /* SI_DeviceNull.cpp */,
-				3E8EC6241F8434A800D79F27 /* SI.cpp */,
-				3E8EC6251F8434A800D79F27 /* SI_DeviceGBA.cpp */,
-				3E8EC6261F8434A800D79F27 /* SI_DeviceGBA.h */,
-				3E8EC6271F8434A800D79F27 /* SI_DeviceGCController.cpp */,
-				3E8EC6281F8434A800D79F27 /* SI_DeviceKeyboard.h */,
-				3E8EC6291F8434A800D79F27 /* SI_DeviceNull.h */,
-				3E8EC62A1F8434A800D79F27 /* SI_DeviceGCSteeringWheel.h */,
-				3E8EC62B1F8434A800D79F27 /* SI_DeviceKeyboard.cpp */,
-				3E8EC62C1F8434A800D79F27 /* SI_DeviceGCController.h */,
-				3E8EC62D1F8434A800D79F27 /* SI.h */,
 				3E8EC62E1F8434A800D79F27 /* SI_Device.cpp */,
 				3E8EC62F1F8434A800D79F27 /* SI_Device.h */,
+				3E8EC6221F8434A800D79F27 /* SI_DeviceDanceMat.cpp */,
+				3E8EC6211F8434A800D79F27 /* SI_DeviceDanceMat.h */,
+				3E8EC6251F8434A800D79F27 /* SI_DeviceGBA.cpp */,
+				3E8EC6261F8434A800D79F27 /* SI_DeviceGBA.h */,
+				3E8EC6201F8434A800D79F27 /* SI_DeviceGCAdapter.cpp */,
 				3E8EC6301F8434A800D79F27 /* SI_DeviceGCAdapter.h */,
+				3E8EC6271F8434A800D79F27 /* SI_DeviceGCController.cpp */,
+				3E8EC62C1F8434A800D79F27 /* SI_DeviceGCController.h */,
+				3E8EC61F1F8434A800D79F27 /* SI_DeviceGCSteeringWheel.cpp */,
+				3E8EC62A1F8434A800D79F27 /* SI_DeviceGCSteeringWheel.h */,
+				3E8EC62B1F8434A800D79F27 /* SI_DeviceKeyboard.cpp */,
+				3E8EC6281F8434A800D79F27 /* SI_DeviceKeyboard.h */,
+				3E8EC6231F8434A800D79F27 /* SI_DeviceNull.cpp */,
+				3E8EC6291F8434A800D79F27 /* SI_DeviceNull.h */,
+				3E8EC6241F8434A800D79F27 /* SI.cpp */,
+				3E8EC62D1F8434A800D79F27 /* SI.h */,
 			);
 			path = SI;
 			sourceTree = "<group>";
@@ -5044,9 +5044,9 @@
 			children = (
 				EE8DD2B1224A79E3005E1AF5 /* DataReport.cpp */,
 				EE8DD2B2224A79E3005E1AF5 /* DataReport.h */,
-				3E8EC6321F8434A800D79F27 /* WiimoteReport.h */,
-				3E8EC6331F8434A800D79F27 /* WiimoteHid.h */,
 				3E8EC6341F8434A800D79F27 /* WiimoteConstants.h */,
+				3E8EC6331F8434A800D79F27 /* WiimoteHid.h */,
+				3E8EC6321F8434A800D79F27 /* WiimoteReport.h */,
 			);
 			path = WiimoteCommon;
 			sourceTree = "<group>";
@@ -5054,17 +5054,17 @@
 		3E8EC6351F8434A900D79F27 /* GCMemcard */ = {
 			isa = PBXGroup;
 			children = (
-				EEABFB4224EEF59700878963 /* GCMemcardBase.h */,
-				EEABFB4324EEF59700878963 /* GCMemcardUtils.cpp */,
-				EEABFB4124EEF59700878963 /* GCMemcardUtils.h */,
 				EE45F43E22B553BF00C5D0C0 /* GCIFile.cpp */,
 				EE45F43F22B553BF00C5D0C0 /* GCIFile.h */,
 				3E8EC6361F8434A900D79F27 /* GCMemcard.cpp */,
 				3E8EC6371F8434A900D79F27 /* GCMemcard.h */,
-				3E8EC6381F8434A900D79F27 /* GCMemcardRaw.cpp */,
+				EEABFB4224EEF59700878963 /* GCMemcardBase.h */,
 				3E8EC6391F8434A900D79F27 /* GCMemcardDirectory.cpp */,
 				3E8EC63A1F8434A900D79F27 /* GCMemcardDirectory.h */,
+				3E8EC6381F8434A900D79F27 /* GCMemcardRaw.cpp */,
 				3E8EC63B1F8434A900D79F27 /* GCMemcardRaw.h */,
+				EEABFB4324EEF59700878963 /* GCMemcardUtils.cpp */,
+				EEABFB4124EEF59700878963 /* GCMemcardUtils.h */,
 			);
 			path = GCMemcard;
 			sourceTree = "<group>";
@@ -5073,28 +5073,28 @@
 			isa = PBXGroup;
 			children = (
 				EE98C04424B9268400FFFDD7 /* BBA */,
-				3E8EC63D1F8434A900D79F27 /* EXI_Device.cpp */,
-				3E8EC63E1F8434A900D79F27 /* EXI_DeviceAGP.cpp */,
-				3E8EC63F1F8434A900D79F27 /* EXI_DeviceEthernet.cpp */,
-				3E8EC6401F8434A900D79F27 /* EXI_DeviceMic.cpp */,
-				3E8EC6411F8434A900D79F27 /* EXI_DeviceGecko.h */,
-				3E8EC6421F8434A900D79F27 /* EXI.h */,
-				3E8EC6431F8434A900D79F27 /* EXI_Device.h */,
 				3E8EC6441F8434A900D79F27 /* EXI_Channel.cpp */,
 				3E8EC6451F8434A900D79F27 /* EXI_Channel.h */,
-				3E8EC6461F8434A900D79F27 /* EXI_DeviceIPL.h */,
-				3E8EC6471F8434A900D79F27 /* EXI_DeviceGecko.cpp */,
+				3E8EC63D1F8434A900D79F27 /* EXI_Device.cpp */,
+				3E8EC6431F8434A900D79F27 /* EXI_Device.h */,
+				3E8EC6561F8434A900D79F27 /* EXI_DeviceAD16.cpp */,
 				3E8EC6481F8434A900D79F27 /* EXI_DeviceAD16.h */,
+				3E8EC63E1F8434A900D79F27 /* EXI_DeviceAGP.cpp */,
+				3E8EC6541F8434A900D79F27 /* EXI_DeviceAGP.h */,
+				3E8EC6571F8434A900D79F27 /* EXI_DeviceDummy.cpp */,
+				3E8EC6521F8434A900D79F27 /* EXI_DeviceDummy.h */,
+				3E8EC63F1F8434A900D79F27 /* EXI_DeviceEthernet.cpp */,
+				3E8EC6551F8434A900D79F27 /* EXI_DeviceEthernet.h */,
+				3E8EC6471F8434A900D79F27 /* EXI_DeviceGecko.cpp */,
+				3E8EC6411F8434A900D79F27 /* EXI_DeviceGecko.h */,
+				3E8EC6511F8434A900D79F27 /* EXI_DeviceIPL.cpp */,
+				3E8EC6461F8434A900D79F27 /* EXI_DeviceIPL.h */,
+				3E8EC6531F8434A900D79F27 /* EXI_DeviceMemoryCard.cpp */,
+				3E8EC64B1F8434A900D79F27 /* EXI_DeviceMemoryCard.h */,
+				3E8EC6401F8434A900D79F27 /* EXI_DeviceMic.cpp */,
 				3E8EC6491F8434A900D79F27 /* EXI_DeviceMic.h */,
 				3E8EC64A1F8434A900D79F27 /* EXI.cpp */,
-				3E8EC64B1F8434A900D79F27 /* EXI_DeviceMemoryCard.h */,
-				3E8EC6511F8434A900D79F27 /* EXI_DeviceIPL.cpp */,
-				3E8EC6521F8434A900D79F27 /* EXI_DeviceDummy.h */,
-				3E8EC6531F8434A900D79F27 /* EXI_DeviceMemoryCard.cpp */,
-				3E8EC6541F8434A900D79F27 /* EXI_DeviceAGP.h */,
-				3E8EC6551F8434A900D79F27 /* EXI_DeviceEthernet.h */,
-				3E8EC6561F8434A900D79F27 /* EXI_DeviceAD16.cpp */,
-				3E8EC6571F8434A900D79F27 /* EXI_DeviceDummy.cpp */,
+				3E8EC6421F8434A900D79F27 /* EXI.h */,
 			);
 			path = EXI;
 			sourceTree = "<group>";
@@ -5102,11 +5102,11 @@
 		3E8EC6761F8434C600D79F27 /* WiimoteReal */ = {
 			isa = PBXGroup;
 			children = (
-				3E8EC6791F8434C600D79F27 /* WiimoteReal.cpp */,
-				3E8EC67A1F8434C600D79F27 /* WiimoteReal.h */,
+				3E8EC6831F8434C600D79F27 /* IODummy.h */,
 				3E8EC67D1F8434C600D79F27 /* IOhidapi.cpp */,
 				3E8EC6821F8434C600D79F27 /* IOhidapi.h */,
-				3E8EC6831F8434C600D79F27 /* IODummy.h */,
+				3E8EC6791F8434C600D79F27 /* WiimoteReal.cpp */,
+				3E8EC67A1F8434C600D79F27 /* WiimoteReal.h */,
 			);
 			path = WiimoteReal;
 			sourceTree = "<group>";
@@ -5118,6 +5118,9 @@
 				EE8DD27D22493133005E1AF5 /* Camera.h */,
 				EE8DD28F22493134005E1AF5 /* Dynamics.cpp */,
 				EE8DD27A22493132005E1AF5 /* Dynamics.h */,
+				3E8EC6981F8434C600D79F27 /* EmuSubroutines.cpp */,
+				3E8EC6991F8434C600D79F27 /* Encryption.cpp */,
+				3E8EC6961F8434C600D79F27 /* Encryption.h */,
 				EE8DD28122493133005E1AF5 /* Extension */,
 				EE8DD27C22493133005E1AF5 /* ExtensionPort.cpp */,
 				EE8DD28E22493133005E1AF5 /* ExtensionPort.h */,
@@ -5125,13 +5128,10 @@
 				EE8DD29122493134005E1AF5 /* I2CBus.h */,
 				EE8DD28022493133005E1AF5 /* MotionPlus.cpp */,
 				EE8DD27B22493132005E1AF5 /* MotionPlus.h */,
-				EE8DD29022493134005E1AF5 /* Speaker.h */,
-				3E8EC6861F8434C600D79F27 /* WiimoteEmu.h */,
-				3E8EC6871F8434C600D79F27 /* WiimoteEmu.cpp */,
 				3E8EC6881F8434C600D79F27 /* Speaker.cpp */,
-				3E8EC6961F8434C600D79F27 /* Encryption.h */,
-				3E8EC6981F8434C600D79F27 /* EmuSubroutines.cpp */,
-				3E8EC6991F8434C600D79F27 /* Encryption.cpp */,
+				EE8DD29022493134005E1AF5 /* Speaker.h */,
+				3E8EC6871F8434C600D79F27 /* WiimoteEmu.cpp */,
+				3E8EC6861F8434C600D79F27 /* WiimoteEmu.h */,
 			);
 			path = WiimoteEmu;
 			sourceTree = "<group>";
@@ -5139,17 +5139,17 @@
 		3E8EC6AA1F8436F100D79F27 /* Interpreter */ = {
 			isa = PBXGroup;
 			children = (
-				EE68204D2105383D008D5405 /* DSPIntTables.cpp */,
-				EE68204C2105383D008D5405 /* DSPIntTables.h */,
-				3E8EC6AB1F8436F100D79F27 /* DSPIntMultiplier.cpp */,
-				3E8EC6AC1F8436F100D79F27 /* DSPInterpreter.cpp */,
-				3E8EC6AD1F8436F100D79F27 /* DSPIntExtOps.cpp */,
 				3E8EC6AE1F8436F100D79F27 /* DSPIntArithmetic.cpp */,
-				3E8EC6AF1F8436F100D79F27 /* DSPInterpreter.h */,
-				3E8EC6B01F8436F100D79F27 /* DSPIntLoadStore.cpp */,
-				3E8EC6B21F8436F100D79F27 /* DSPIntMisc.cpp */,
 				3E8EC6B31F8436F100D79F27 /* DSPIntBranch.cpp */,
 				3E8EC6B51F8436F100D79F27 /* DSPIntCCUtil.h */,
+				3E8EC6AC1F8436F100D79F27 /* DSPInterpreter.cpp */,
+				3E8EC6AF1F8436F100D79F27 /* DSPInterpreter.h */,
+				3E8EC6AD1F8436F100D79F27 /* DSPIntExtOps.cpp */,
+				3E8EC6B01F8436F100D79F27 /* DSPIntLoadStore.cpp */,
+				3E8EC6B21F8436F100D79F27 /* DSPIntMisc.cpp */,
+				3E8EC6AB1F8436F100D79F27 /* DSPIntMultiplier.cpp */,
+				EE68204D2105383D008D5405 /* DSPIntTables.cpp */,
+				EE68204C2105383D008D5405 /* DSPIntTables.h */,
 				3E8EC6B61F8436F100D79F27 /* DSPIntUtil.h */,
 			);
 			path = Interpreter;
@@ -5242,16 +5242,16 @@
 		3EFF26361F845CA500B4FD11 /* ConfigLoaders */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF26371F845CA500B4FD11 /* BaseConfigLoader.h */,
-				3EFF26381F845CA500B4FD11 /* NetPlayConfigLoader.cpp */,
-				3EFF26391F845CA500B4FD11 /* MovieConfigLoader.cpp */,
-				3EFF263A1F845CA500B4FD11 /* GameConfigLoader.cpp */,
-				3EFF263B1F845CA500B4FD11 /* NetPlayConfigLoader.h */,
 				3EFF263C1F845CA500B4FD11 /* BaseConfigLoader.cpp */,
+				3EFF26371F845CA500B4FD11 /* BaseConfigLoader.h */,
+				3EFF263A1F845CA500B4FD11 /* GameConfigLoader.cpp */,
 				3EFF263D1F845CA500B4FD11 /* GameConfigLoader.h */,
 				3EFF263E1F845CA500B4FD11 /* IsSettingSaveable.cpp */,
-				3EFF263F1F845CA500B4FD11 /* MovieConfigLoader.h */,
 				3EFF26401F845CA500B4FD11 /* IsSettingSaveable.h */,
+				3EFF26391F845CA500B4FD11 /* MovieConfigLoader.cpp */,
+				3EFF263F1F845CA500B4FD11 /* MovieConfigLoader.h */,
+				3EFF26381F845CA500B4FD11 /* NetPlayConfigLoader.cpp */,
+				3EFF263B1F845CA500B4FD11 /* NetPlayConfigLoader.h */,
 			);
 			path = ConfigLoaders;
 			sourceTree = "<group>";
@@ -5490,10 +5490,10 @@
 		3EFF26EF1F845E9F00B4FD11 /* CachedInterpreter */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF26F01F845E9F00B4FD11 /* InterpreterBlockCache.h */,
 				3EFF26F11F845E9F00B4FD11 /* CachedInterpreter.cpp */,
-				3EFF26F21F845E9F00B4FD11 /* InterpreterBlockCache.cpp */,
 				3EFF26F31F845E9F00B4FD11 /* CachedInterpreter.h */,
+				3EFF26F21F845E9F00B4FD11 /* InterpreterBlockCache.cpp */,
+				3EFF26F01F845E9F00B4FD11 /* InterpreterBlockCache.h */,
 			);
 			path = CachedInterpreter;
 			sourceTree = "<group>";
@@ -5501,14 +5501,14 @@
 		3EFF26F41F845E9F00B4FD11 /* SignatureDB */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF26F51F845E9F00B4FD11 /* MEGASignatureDB.h */,
-				3EFF26F61F845E9F00B4FD11 /* DSYSignatureDB.h */,
-				3EFF26F71F845E9F00B4FD11 /* SignatureDB.cpp */,
-				3EFF26F81F845E9F00B4FD11 /* DSYSignatureDB.cpp */,
 				3EFF26F91F845E9F00B4FD11 /* CSVSignatureDB.cpp */,
 				3EFF26FA1F845E9F00B4FD11 /* CSVSignatureDB.h */,
-				3EFF26FB1F845E9F00B4FD11 /* SignatureDB.h */,
+				3EFF26F81F845E9F00B4FD11 /* DSYSignatureDB.cpp */,
+				3EFF26F61F845E9F00B4FD11 /* DSYSignatureDB.h */,
 				3EFF26FC1F845E9F00B4FD11 /* MEGASignatureDB.cpp */,
+				3EFF26F51F845E9F00B4FD11 /* MEGASignatureDB.h */,
+				3EFF26F71F845E9F00B4FD11 /* SignatureDB.cpp */,
+				3EFF26FB1F845E9F00B4FD11 /* SignatureDB.h */,
 			);
 			path = SignatureDB;
 			sourceTree = "<group>";
@@ -5687,13 +5687,13 @@
 		3EFF28CB1F855F2E00B4FD11 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				3E44578C1FC797A600469E9F /* ConfigInfo.h */,
-				3E44578A1FC7979600469E9F /* ConfigInfo.cpp */,
-				3EFF28CC1F855F2E00B4FD11 /* Config.h */,
-				3EFF28CD1F855F2E00B4FD11 /* Layer.h */,
-				3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */,
-				3EFF28D01F855F2E00B4FD11 /* Enums.h */,
 				3EFF28D11F855F2E00B4FD11 /* Config.cpp */,
+				3EFF28CC1F855F2E00B4FD11 /* Config.h */,
+				3E44578A1FC7979600469E9F /* ConfigInfo.cpp */,
+				3E44578C1FC797A600469E9F /* ConfigInfo.h */,
+				3EFF28D01F855F2E00B4FD11 /* Enums.h */,
+				3EFF28CE1F855F2E00B4FD11 /* Layer.cpp */,
+				3EFF28CD1F855F2E00B4FD11 /* Layer.h */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -5877,14 +5877,14 @@
 		477944455F8A44F2B33F4B2F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				5550908D27FADB4800CA618C /* VideoBackends */,
-				EE8DD2B4224A7A59005E1AF5 /* platform */,
 				6F6D614B56CF4232BE01707B /* AudioCommon */,
 				5731B3A7B3FF4CC498C9C49A /* Common */,
 				7E510FEF714D4185A31ECABE /* Core */,
 				2995F1F13D544B3382E2C260 /* DiscIO */,
 				AB94A054CA154990BB4CDEE9 /* InputCommon */,
+				EE8DD2B4224A7A59005E1AF5 /* platform */,
 				C46AEAA7F3B647B8A3CC0F61 /* UICommon */,
+				5550908D27FADB4800CA618C /* VideoBackends */,
 				4548110F0199420BA5CE8956 /* VideoCommon */,
 			);
 			name = Sources;
@@ -6426,25 +6426,25 @@
 		6F6D614B56CF4232BE01707B /* AudioCommon */ = {
 			isa = PBXGroup;
 			children = (
-				EE8DD2C4224A7E19005E1AF5 /* SurroundDecoder.cpp */,
-				EE8DD2C5224A7E1A005E1AF5 /* SurroundDecoder.h */,
-				3E8EC5861F8428C200D79F27 /* OpenALStream.cpp */,
-				3E8EC5841F8428BF00D79F27 /* OpenALStream.h */,
-				3E8EC5821F84269300D79F27 /* AudioStretcher.cpp */,
-				3E8EC57F1F84269200D79F27 /* AudioStretcher.h */,
-				3E8EC5801F84269300D79F27 /* CubebStream.h */,
-				3E8EC5811F84269300D79F27 /* CubebUtils.h */,
-				3E8EC5661F841B6B00D79F27 /* CubebStream.cpp */,
-				3E8EC5671F841B6B00D79F27 /* CubebUtils.cpp */,
 				3E3D707B1C82B03600091C4D /* AudioCommon.cpp */,
 				3E3D707C1C82B03600091C4D /* AudioCommon.h */,
+				3E8EC5821F84269300D79F27 /* AudioStretcher.cpp */,
+				3E8EC57F1F84269200D79F27 /* AudioStretcher.h */,
+				3E8EC5661F841B6B00D79F27 /* CubebStream.cpp */,
+				3E8EC5801F84269300D79F27 /* CubebStream.h */,
+				3E8EC5671F841B6B00D79F27 /* CubebUtils.cpp */,
+				3E8EC5811F84269300D79F27 /* CubebUtils.h */,
 				3E3D70841C82B03600091C4D /* Mixer.cpp */,
 				3E3D70851C82B03600091C4D /* Mixer.h */,
 				3E3D70861C82B03600091C4D /* NullSoundStream.cpp */,
 				3E3D70871C82B03600091C4D /* NullSoundStream.h */,
+				3E8EC5861F8428C200D79F27 /* OpenALStream.cpp */,
+				3E8EC5841F8428BF00D79F27 /* OpenALStream.h */,
 				3E3D708A1C82B03600091C4D /* OpenSLESStream.cpp */,
 				3E3D708B1C82B03600091C4D /* OpenSLESStream.h */,
 				3E3D708E1C82B03600091C4D /* SoundStream.h */,
+				EE8DD2C4224A7E19005E1AF5 /* SurroundDecoder.cpp */,
+				EE8DD2C5224A7E1A005E1AF5 /* SurroundDecoder.h */,
 				3E3D708F1C82B03600091C4D /* WaveFile.cpp */,
 				3E3D70901C82B03600091C4D /* WaveFile.h */,
 			);
@@ -6818,20 +6818,20 @@
 		EE149B97205A270E008D5DDE /* x64 */ = {
 			isa = PBXGroup;
 			children = (
-				EE68205221053861008D5405 /* DSPJitTables.cpp */,
-				EE68205321053861008D5405 /* DSPJitTables.h */,
-				EE149B98205A270E008D5DDE /* DSPJitLoadStore.cpp */,
-				EE149B99205A270E008D5DDE /* DSPJitRegCache.h */,
-				EE149B9A205A270E008D5DDE /* DSPJitExtOps.cpp */,
+				EE149BA0205A270E008D5DDE /* DSPEmitter.cpp */,
+				EE149B9D205A270E008D5DDE /* DSPEmitter.h */,
+				EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */,
 				EE149B9B205A270E008D5DDE /* DSPJitBranch.cpp */,
 				EE149B9C205A270E008D5DDE /* DSPJitCCUtil.cpp */,
-				EE149B9D205A270E008D5DDE /* DSPEmitter.h */,
-				EE149B9E205A270E008D5DDE /* DSPJitMultiplier.cpp */,
+				EE149B9A205A270E008D5DDE /* DSPJitExtOps.cpp */,
+				EE149B98205A270E008D5DDE /* DSPJitLoadStore.cpp */,
 				EE149B9F205A270E008D5DDE /* DSPJitMisc.cpp */,
-				EE149BA0205A270E008D5DDE /* DSPEmitter.cpp */,
-				EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */,
+				EE149B9E205A270E008D5DDE /* DSPJitMultiplier.cpp */,
 				EE149BA2205A270E008D5DDE /* DSPJitRegCache.cpp */,
-				EE149BA3205A270E008D5DDE /* DSPJitArithmetic.cpp */,
+				EE149B99205A270E008D5DDE /* DSPJitRegCache.h */,
+				EE68205221053861008D5405 /* DSPJitTables.cpp */,
+				EE68205321053861008D5405 /* DSPJitTables.h */,
+				EE149BA1205A270E008D5DDE /* DSPJitUtil.cpp */,
 			);
 			path = x64;
 			sourceTree = "<group>";
@@ -7059,24 +7059,24 @@
 		EE8DD28122493133005E1AF5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				EE8DD28A22493133005E1AF5 /* Classic.cpp */,
+				EE8DD28722493133005E1AF5 /* Classic.h */,
 				EE3A463622B5F23C00031B56 /* DrawsomeTablet.cpp */,
 				EE3A463522B5F23B00031B56 /* DrawsomeTablet.h */,
+				EE8DD28C22493133005E1AF5 /* Drums.cpp */,
+				EE8DD28622493133005E1AF5 /* Drums.h */,
+				EE8DD28222493133005E1AF5 /* Extension.cpp */,
+				EE8DD28B22493133005E1AF5 /* Extension.h */,
+				EE8DD28322493133005E1AF5 /* Guitar.cpp */,
+				EE8DD28922493133005E1AF5 /* Guitar.h */,
+				EE8DD28522493133005E1AF5 /* Nunchuk.cpp */,
+				EE8DD28422493133005E1AF5 /* Nunchuk.h */,
 				EE3A463322B5F23B00031B56 /* TaTaCon.cpp */,
 				EE3A463722B5F23C00031B56 /* TaTaCon.h */,
+				EE8DD28822493133005E1AF5 /* Turntable.cpp */,
+				EE8DD28D22493133005E1AF5 /* Turntable.h */,
 				EE3A463422B5F23B00031B56 /* UDrawTablet.cpp */,
 				EE3A463222B5F23A00031B56 /* UDrawTablet.h */,
-				EE8DD28222493133005E1AF5 /* Extension.cpp */,
-				EE8DD28322493133005E1AF5 /* Guitar.cpp */,
-				EE8DD28422493133005E1AF5 /* Nunchuk.h */,
-				EE8DD28522493133005E1AF5 /* Nunchuk.cpp */,
-				EE8DD28622493133005E1AF5 /* Drums.h */,
-				EE8DD28722493133005E1AF5 /* Classic.h */,
-				EE8DD28822493133005E1AF5 /* Turntable.cpp */,
-				EE8DD28922493133005E1AF5 /* Guitar.h */,
-				EE8DD28A22493133005E1AF5 /* Classic.cpp */,
-				EE8DD28B22493133005E1AF5 /* Extension.h */,
-				EE8DD28C22493133005E1AF5 /* Drums.cpp */,
-				EE8DD28D22493133005E1AF5 /* Turntable.h */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -7084,14 +7084,14 @@
 		EE8DD2A02249347C005E1AF5 /* RegCache */ = {
 			isa = PBXGroup;
 			children = (
-				EE8DD2A12249347C005E1AF5 /* JitRegCache.h */,
-				EE8DD2A22249347C005E1AF5 /* FPURegCache.h */,
-				EE8DD2A32249347C005E1AF5 /* RCMode.h */,
 				EE8DD2A42249347C005E1AF5 /* CachedReg.h */,
 				EE8DD2A52249347C005E1AF5 /* FPURegCache.cpp */,
-				EE8DD2A62249347C005E1AF5 /* GPRRegCache.h */,
+				EE8DD2A22249347C005E1AF5 /* FPURegCache.h */,
 				EE8DD2A72249347C005E1AF5 /* GPRRegCache.cpp */,
+				EE8DD2A62249347C005E1AF5 /* GPRRegCache.h */,
 				EE8DD2A82249347C005E1AF5 /* JitRegCache.cpp */,
+				EE8DD2A12249347C005E1AF5 /* JitRegCache.h */,
+				EE8DD2A32249347C005E1AF5 /* RCMode.h */,
 			);
 			path = RegCache;
 			sourceTree = "<group>";
@@ -7524,11 +7524,11 @@
 		EE98C04424B9268400FFFDD7 /* BBA */ = {
 			isa = PBXGroup;
 			children = (
-				EE79F73625A760C200EE9AAC /* TAPServer_Apple.cpp */,
+				EE98C04724B9268400FFFDD7 /* TAP_Apple.cpp */,
 				EE98C04524B9268400FFFDD7 /* TAP_Unix.cpp */,
 				EE98C04624B9268400FFFDD7 /* TAP_Win32.cpp */,
-				EE98C04724B9268400FFFDD7 /* TAP_Apple.cpp */,
 				EE98C04824B9268400FFFDD7 /* TAP_Win32.h */,
+				EE79F73625A760C200EE9AAC /* TAPServer_Apple.cpp */,
 				EE98C04924B9268400FFFDD7 /* XLINK_KAI_BBA.cpp */,
 			);
 			path = BBA;
