@@ -998,7 +998,7 @@ void SetUserPath(unsigned int dir_index, std::string path)
   if (path.empty())
     return;
 
-  s_user_paths[dir_index] = path;
+  s_user_paths[dir_index] = path + DIR_SEP;
   RebuildUserDirectories(dir_index);
 }
 
