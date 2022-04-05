@@ -10216,36 +10216,16 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
+					"OpenEmu=1",
+					"'HAVE_HIDAPI=1'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
@@ -10327,19 +10307,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -10348,15 +10316,6 @@
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
@@ -10700,22 +10659,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
+					"$(inherited)",
 					MINIUPNPC_SET_SOCKET_TIMEOUT,
 					_BSD_SOURCE,
 					"'_POSIX_C_SOURCE=1'",
@@ -11077,22 +11021,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
+					"$(inherited)",
 					MINIUPNPC_SET_SOCKET_TIMEOUT,
 					_BSD_SOURCE,
 					"'_POSIX_C_SOURCE=1'",
@@ -11438,19 +11367,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -11458,15 +11375,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
@@ -12091,20 +11999,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"'HAVE_CONFIG_H=1'",
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -12113,15 +12009,6 @@
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -12167,20 +12054,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"'HAVE_CONFIG_H=1'",
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -12189,15 +12064,6 @@
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -12243,20 +12109,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"'HAVE_CONFIG_H=1'",
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -12265,15 +12119,6 @@
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -12319,20 +12164,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"'HAVE_CONFIG_H=1'",
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -12341,15 +12174,6 @@
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
 					"'MSG_NOSIGNAL=0'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -12919,28 +12743,9 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
 					OUTSIDE_SPEEX,
@@ -13017,28 +12822,9 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
 					OUTSIDE_SPEEX,
@@ -13117,28 +12903,9 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
 					OUTSIDE_SPEEX,
@@ -13217,28 +12984,9 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
 					"RANDOM_PREFIX=speex",
 					FLOATING_POINT,
 					OUTSIDE_SPEEX,
@@ -13316,35 +13064,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13412,35 +13131,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13510,35 +13200,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -13608,35 +13269,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/libusb,
 					$SRCROOT/dolphin/Externals/cubeb/src,
@@ -14062,6 +13694,11 @@
 					"'_M_X86_64=1'",
 					"$(inherited)",
 				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64h]" = (
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"$(inherited)",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
@@ -14182,6 +13819,11 @@
 					"$(inherited)",
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64h]" = (
 					"'_M_X86=1'",
 					"'_M_X86_64=1'",
 					"$(inherited)",
@@ -14322,36 +13964,16 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
+					"OpenEmu=1",
+					"'HAVE_HIDAPI=1'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
@@ -14960,19 +14582,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -14981,15 +14591,6 @@
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
@@ -15143,19 +14744,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -15163,15 +14752,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
@@ -15566,6 +15146,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 					HAS_OPENGL,
+					SFML_STATIC,
+					USE_UPNP,
+					__WXOSX_COCOA__,
+					"'HAVE_WX=0'",
+					__STDC_LIMIT_MACROS,
+					__STDC_CONSTANT_MACROS,
+					OpenEmu,
+					"HAS_OPENGL=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -15627,25 +15215,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"'HAVE_WX=0'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
@@ -15710,21 +15284,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -15732,7 +15292,7 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
-					HAS_OPENGL,
+					"HAS_OPENGL=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -15793,29 +15353,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"'HAVE_WX=0'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
-					HAS_OPENGL,
+					"HAS_OPENGL=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -16497,19 +16043,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -16518,15 +16052,6 @@
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
@@ -16685,19 +16210,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/dolphin/Source/PCH/pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -16706,15 +16219,6 @@
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/Input,
@@ -16864,19 +16368,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -16884,15 +16376,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
@@ -17047,19 +16530,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CSafe.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
@@ -17067,15 +16538,6 @@
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility,
@@ -17896,22 +17358,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
+					"$(inherited)",
 					MINIUPNPC_SET_SOCKET_TIMEOUT,
 					_BSD_SOURCE,
 					"'_POSIX_C_SOURCE=1'",
@@ -18370,22 +17817,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
+					"$(inherited)",
 					MINIUPNPC_SET_SOCKET_TIMEOUT,
 					_BSD_SOURCE,
 					"'_POSIX_C_SOURCE=1'",
@@ -18679,37 +18111,16 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
+					"OpenEmu=1",
+					"'HAVE_HIDAPI=1'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
-					"HAS_OPENGL=1",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
@@ -19843,35 +19254,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -19938,35 +19320,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20035,35 +19388,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20132,35 +19456,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					"RANDOM_PREFIX=speex",
-					FLOATING_POINT,
-					OUTSIDE_SPEEX,
-					"EXPORT=",
-					USE_AUDIOUNIT,
-				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/FreeSurround/include,
@@ -20401,26 +19696,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=0'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
+					"$(inherited)",
 					LZMA_API_STATIC,
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
@@ -20477,26 +19753,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=0'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
+					"$(inherited)",
 					LZMA_API_STATIC,
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
@@ -20553,6 +19810,12 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					LZMA_API_STATIC,
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
@@ -20605,6 +19868,12 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					LZMA_API_STATIC,
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/Compatibility/lzma,
 					$SRCROOT/dolphin/Externals/liblzma,
@@ -20658,29 +19927,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=0'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					LZMA_API_STATIC,
+					"$(inherited)",
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
 				);
@@ -20724,29 +19971,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=0'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-					OpenEmu,
-					LZMA_API_STATIC,
+					"$(inherited)",
 					HAVE_UNISTD_H,
 					HAVE_CONFIG_H,
 				);
@@ -20790,6 +20015,11 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -20830,6 +20060,11 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/empty.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HAVE_UNISTD_H,
+					HAVE_CONFIG_H,
+				);
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/bzip2;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -20870,29 +20105,6 @@
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
-					__STDC_LIMIT_MACROS,
-					__STDC_CONSTANT_MACROS,
-				);
 				HEADER_SEARCH_PATHS = $SRCROOT/dolphin/Externals/glslang/OGLCompilersDLL;
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -21148,25 +20360,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
@@ -21243,25 +20437,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
@@ -21340,25 +20516,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
@@ -21437,25 +20595,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
-					SFML_STATIC,
-					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
+					"$(inherited)",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					OpenEmu,
@@ -21565,6 +20705,11 @@
 					"$(inherited)",
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64h]" = (
 					"'_M_X86=1'",
 					"'_M_X86_64=1'",
 					"$(inherited)",
@@ -21710,36 +20855,16 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"'USER_DIR=\".dolphin-emu\"'",
-					"'_ARCH_64=1'",
-					"'_FILE_OFFSET_BITS=64'",
-					_LARGEFILE_SOURCE,
-					"'HAVE_ALSA=0'",
-					"'HAVE_AO=0'",
-					"'HAVE_BLUEZ=0'",
-					"'HAVE_PULSEAUDIO=0'",
-					"'HAVE_OPENAL=1'",
-					"'HAVE_LIBAV=0'",
-					"'HAVE_PORTAUDIO=0'",
-					"'HAVE_SDL=0'",
+					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
 					__WXOSX_COCOA__,
 					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
-					OpenEmu,
+					"OpenEmu=1",
+					"'HAVE_HIDAPI=1'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=arm64]" = (
-					"'_M_ARM_64=1'",
-					"$(inherited)",
-				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
-					"'_M_X86=1'",
-					"'_M_X86_64=1'",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
@@ -21851,6 +20976,11 @@
 					"$(inherited)",
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
+					"'_M_X86=1'",
+					"'_M_X86_64=1'",
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64h]" = (
 					"'_M_X86=1'",
 					"'_M_X86_64=1'",
 					"$(inherited)",
