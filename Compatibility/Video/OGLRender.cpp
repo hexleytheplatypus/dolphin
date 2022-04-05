@@ -334,10 +334,11 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
   // Create the window framebuffer.
   if (!m_main_gl_context->IsHeadless())
   {
+    //OpenEmu Framebuffer attaches here
     m_system_framebuffer = std::make_unique<OGLFramebuffer>(
         nullptr, nullptr, AbstractTextureFormat::RGBA8, AbstractTextureFormat::Undefined,
         std::max(m_main_gl_context->GetBackBufferWidth(), 1u),
-        std::max(m_main_gl_context->GetBackBufferHeight(), 1u), 1, 1, 0);
+        std::max(m_main_gl_context->GetBackBufferHeight(), 1u), 1, 1, g_Config.iRenderFBO);
     m_current_framebuffer = m_system_framebuffer.get();
   }
 
