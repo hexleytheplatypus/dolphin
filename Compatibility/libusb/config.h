@@ -1,5 +1,5 @@
 /* Default visibility */
-#define DEFAULT_VISIBILITY __attribute__((visibility("default")))
+#define DEFAULT_VISIBILITY __attribute__((visibility("hidden")))
 
 /* Start with debug message logging enabled */
 #undef ENABLE_DEBUG_LOGGING
