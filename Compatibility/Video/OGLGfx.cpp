@@ -774,6 +774,40 @@ void OGLGfx::SetAndClearFramebuffer(AbstractFramebuffer* framebuffer,
     glDepthMask(m_current_depth_state.updateenable);
 }
 
+void OGLGfx::ClearRegion(const MathUtil::Rectangle<int>& target_rc, bool colorEnable,
+                         bool alphaEnable, bool zEnable, u32 color, u32 z)
+{
+  u32 clear_mask = 0;
+  if (colorEnable || alphaEnable)
+  {
+    glColorMask(colorEnable, colorEnable, colorEnable, alphaEnable);
+    glClearColor(float((color >> 16) & 0xFF) / 255.0f, float((color >> 8) & 0xFF) / 255.0f,
+                 float((color >> 0) & 0xFF) / 255.0f, float((color >> 24) & 0xFF) / 255.0f);
+    clear_mask = GL_COLOR_BUFFER_BIT;
+  }
+  if (zEnable)
+  {
+    glDepthMask(zEnable ? GL_TRUE : GL_FALSE);
+    glClearDepthf(float(z & 0xFFFFFF) / 16777216.0f);
+    clear_mask |= GL_DEPTH_BUFFER_BIT;
+  }
+
+  // Update rect for clearing the picture
+  // glColorMask/glDepthMask/glScissor affect glClear (glViewport does not)
+  g_gfx->SetScissorRect(target_rc);
+
+  glClear(clear_mask);
+
+  // Restore color/depth mask.
+  if (colorEnable || alphaEnable)
+  {
+    glColorMask(m_current_blend_state.colorupdate, m_current_blend_state.colorupdate,
+                m_current_blend_state.colorupdate, m_current_blend_state.alphaupdate);
+  }
+  if (zEnable)
+    glDepthMask(m_current_depth_state.updateenable);
+}
+
 void OGLGfx::BindBackbuffer(const ClearColor& clear_color)
 {
   CheckForSurfaceChange();
@@ -1064,6 +1098,11 @@ std::unique_ptr<VideoCommon::AsyncShaderCompiler> OGLGfx::CreateAsyncShaderCompi
   return std::make_unique<SharedContextAsyncShaderCompiler>();
 }
 
+bool OGLGfx::IsGLES() const
+{
+  return m_main_gl_context->IsGLES();
+}
+
 void OGLGfx::BindSharedReadFramebuffer()
 {
   glBindFramebuffer(GL_READ_FRAMEBUFFER, m_shared_read_framebuffer);
@@ -1079,6 +1118,13 @@ void OGLGfx::RestoreFramebufferBinding()
   glBindFramebuffer(
       GL_FRAMEBUFFER,
       m_current_framebuffer ? static_cast<OGLFramebuffer*>(m_current_framebuffer)->GetFBO() : 0);
+}
+
+SurfaceInfo OGLGfx::GetSurfaceInfo() const
+{
+  return {std::max(m_main_gl_context->GetBackBufferWidth(), 1u),
+          std::max(m_main_gl_context->GetBackBufferHeight(), 1u), m_backbuffer_scale,
+          AbstractTextureFormat::RGBA8};
 }
 
 }  // namespace OGL
