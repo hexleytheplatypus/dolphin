@@ -834,7 +834,7 @@ std::string GetExeDirectory()
 #endif
 }
 
-std::string GetSysDirectory()
+static std::string CreateSysDirectoryPath()
 {
   std::string sysDir;
 
@@ -865,6 +865,12 @@ std::string GetSysDirectory()
 
   INFO_LOG_FMT(COMMON, "GetSysDirectory: Setting to {}:", sysDir);
   return sysDir;
+}
+
+const std::string& GetSysDirectory()
+{
+  static const std::string sys_directory = CreateSysDirectoryPath();
+  return sys_directory;
 }
 
 #ifdef ANDROID
@@ -927,7 +933,7 @@ static void RebuildUserDirectories(unsigned int dir_index)
     s_user_paths[F_ARAMDUMP_IDX] = s_user_paths[D_DUMP_IDX] + ARAM_DUMP;
     s_user_paths[F_FAKEVMEMDUMP_IDX] = s_user_paths[D_DUMP_IDX] + FAKEVMEM_DUMP;
     s_user_paths[F_GCSRAM_IDX] = s_user_paths[D_GCUSER_IDX] + GC_SRAM;
-    s_user_paths[F_WIISDCARD_IDX] = s_user_paths[D_WIIROOT_IDX] + DIR_SEP WII_SDCARD;
+    s_user_paths[F_WIISDCARDIMAGE_IDX] = s_user_paths[D_WIIROOT_IDX] + DIR_SEP WII_SD_CARD_IMAGE;
 
     s_user_paths[D_MEMORYWATCHER_IDX] = s_user_paths[D_USER_IDX] + MEMORYWATCHER_DIR DIR_SEP;
     s_user_paths[F_MEMORYWATCHERLOCATIONS_IDX] =

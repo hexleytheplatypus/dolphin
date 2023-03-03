@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "Common/CommonTypes.h"
+#include "VideoCommon/GraphicsModSystem/Config/GraphicsModGroup.h"
 #include "VideoCommon/VideoCommon.h"
 
 enum class APIType;
@@ -88,6 +89,7 @@ struct VideoConfig final
   bool bShowNetPlayMessages;
   bool bOverlayStats;
   bool bOverlayProjStats;
+  bool bOverlayScissorStats;
   bool bTexFmtOverlayEnable;
   bool bTexFmtOverlayCenter;
   bool bLogRenderTimeToFile;
@@ -110,6 +112,7 @@ struct VideoConfig final
   bool bDumpFramesAsImages;
   bool bUseFFV1;
   std::string sDumpCodec;
+  std::string sDumpPixelFormat;
   std::string sDumpEncoder;
   std::string sDumpFormat;
   std::string sDumpPath;
@@ -117,6 +120,8 @@ struct VideoConfig final
   bool bBorderlessFullscreen;
   bool bEnableGPUTextureDecoding;
   int iBitrateKbps;
+  bool bGraphicMods = false;
+  std::optional<GraphicsModGroupConfig> graphics_mod_config;
 
   // Hacks
   bool bEFBAccessEnable;
@@ -238,6 +243,7 @@ struct VideoConfig final
     bool bSupportsTextureQueryLevels = false;
     bool bSupportsLodBiasInSampler = false;
     bool bSupportsSettingObjectNames = false;
+    bool bSupportsPartialMultisampleResolve = false;
   } backend_info;
 
   // Utility

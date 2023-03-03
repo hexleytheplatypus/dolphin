@@ -29,7 +29,7 @@ namespace AudioCommon
         
         if (!g_sound_stream->Init())
         {
-            WARN_LOG(AUDIO, "Could not initialize backend");
+            WARN_LOG_FMT(AUDIO, "Could not initialize backend");
             g_sound_stream = std::make_unique<NullSound>();
         }
         
@@ -50,7 +50,7 @@ namespace AudioCommon
 
     void ShutdownSoundStream()
     {
-        INFO_LOG(AUDIO, "Shutting down sound stream");
+        INFO_LOG_FMT(AUDIO, "Shutting down sound stream");
         
         if (Config::Get(Config::MAIN_DUMP_AUDIO) && s_audio_dump_start)
             StopAudioDump();
@@ -58,7 +58,7 @@ namespace AudioCommon
         SetSoundStreamRunning(false);
         g_sound_stream.reset();
         
-        INFO_LOG(AUDIO, "Done shutting down sound stream");
+        INFO_LOG_FMT(AUDIO, "Done shutting down sound stream");
     }
     
     std::string GetDefaultSoundBackend()
@@ -118,9 +118,9 @@ DPL2Quality GetDefaultDPL2Quality()
         if (g_sound_stream->SetRunning(running))
             return;
         if (running)
-            ERROR_LOG(AUDIO, "Error starting stream.");
+            ERROR_LOG_FMT(AUDIO, "Error starting stream.");
         else
-            ERROR_LOG(AUDIO, "Error stopping stream.");
+            ERROR_LOG_FMT(AUDIO, "Error stopping stream.");
     }
     
     void SendAIBuffer(const short* samples, unsigned int num_samples)

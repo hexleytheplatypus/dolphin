@@ -265,7 +265,7 @@ bool ControllerInterface::AddDevice(std::shared_ptr<ciface::Core::Device> device
       device->SetId(id);
     }
 
-    NOTICE_LOG(SERIALINTERFACE, "Added device: %s", device->GetQualifiedName().c_str());
+    NOTICE_LOG_FMT(CONTROLLERINTERFACE, "Added device: {}", device->GetQualifiedName());
     m_devices.emplace_back(std::move(device));
   }
 
@@ -281,7 +281,7 @@ void ControllerInterface::RemoveDevice(std::function<bool(const ciface::Core::De
     auto it = std::remove_if(m_devices.begin(), m_devices.end(), [&callback](const auto& dev) {
       if (callback(dev.get()))
       {
-        NOTICE_LOG(SERIALINTERFACE, "Removed device: %s", dev->GetQualifiedName().c_str());
+        NOTICE_LOG_FMT(SERIALINTERFACE, "Removed device: {}", dev->GetQualifiedName());
         return true;
       }
       return false;
