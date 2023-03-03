@@ -11975,13 +11975,12 @@
 					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
+					HAS_VULKAN,
 				);
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/,
@@ -14008,12 +14007,11 @@
 					"$(inherited)",
 					SFML_STATIC,
 					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 					"OpenEmu=1",
 					"'HAVE_HIDAPI=1'",
+					"HAS_VULKAN=1",
 					"'AV_CODEC_FLAG_GLOBAL_HEADER=CODEC_FLAG_GLOBAL_HEADER'",
 				);
 				HEADER_SEARCH_PATHS = (
