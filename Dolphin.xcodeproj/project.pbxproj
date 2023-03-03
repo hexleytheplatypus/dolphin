@@ -227,6 +227,7 @@
 		3E3D75FC1C82B2DE00091C4D /* IndexGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75A61C82B2DD00091C4D /* IndexGenerator.cpp */; };
 		3E3D75FE1C82B2DE00091C4D /* OnScreenDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75AC1C82B2DD00091C4D /* OnScreenDisplay.cpp */; };
 		3E3D75FF1C82B2DE00091C4D /* OpcodeDecoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75AE1C82B2DD00091C4D /* OpcodeDecoding.cpp */; };
+		3E3D76001C82B2DE00091C4D /* PerfQueryBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75B01C82B2DD00091C4D /* PerfQueryBase.cpp */; };
 		3E3D76011C82B2DE00091C4D /* PixelEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75B21C82B2DD00091C4D /* PixelEngine.cpp */; };
 		3E3D76021C82B2DE00091C4D /* PixelShaderGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75B41C82B2DD00091C4D /* PixelShaderGen.cpp */; };
 		3E3D76031C82B2DE00091C4D /* PixelShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75B61C82B2DD00091C4D /* PixelShaderManager.cpp */; };
@@ -782,18 +783,6 @@
 		5547C39E29B1F769006BAEFC /* Skylander.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39D29B1F769006BAEFC /* Skylander.cpp */; };
 		5547C3A129B1F7DD006BAEFC /* CustomTextureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39F29B1F7DC006BAEFC /* CustomTextureData.cpp */; };
 		5547C3A429B1F8CA006BAEFC /* Shinkansen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3A229B1F8CA006BAEFC /* Shinkansen.cpp */; };
-		5547C3A729B28F13006BAEFC /* Widescreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3A629B28F12006BAEFC /* Widescreen.cpp */; };
-		5547C3AA29B28FDA006BAEFC /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3A829B28FDA006BAEFC /* Expression.cpp */; };
-		5547C3B129B291BF006BAEFC /* PerformanceTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3AB29B291BE006BAEFC /* PerformanceTracker.cpp */; };
-		5547C3B229B291BF006BAEFC /* PerfQueryBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3AD29B291BE006BAEFC /* PerfQueryBase.cpp */; };
-		5547C3B329B291BF006BAEFC /* PerformanceMetrics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3AF29B291BF006BAEFC /* PerformanceMetrics.cpp */; };
-		5547C3D529B2928D006BAEFC /* implot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3C929B2928C006BAEFC /* implot.cpp */; };
-		5547C3D629B2928D006BAEFC /* implot_items.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3CA29B2928C006BAEFC /* implot_items.cpp */; };
-		5547C3EA29B293CD006BAEFC /* libimplot-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5547C3C629B2922F006BAEFC /* libimplot-dol.a */; };
-		5547C3EE29B2970E006BAEFC /* OnScreenUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3ED29B2970E006BAEFC /* OnScreenUI.cpp */; };
-		5547C3F129B2995C006BAEFC /* FrameDumper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3EF29B2995B006BAEFC /* FrameDumper.cpp */; };
-		5547C3F429B29B65006BAEFC /* SWGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3F229B29B65006BAEFC /* SWGfx.cpp */; };
-		5547C3F729B29D38006BAEFC /* InputBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3F529B29D37006BAEFC /* InputBackend.cpp */; };
 		55508FC427FA45D400CA618C /* VertexLoaderARCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC327FA45D400CA618C /* VertexLoaderARCH.cpp */; };
 		55508FC627FA466100CA618C /* TextureDecoderARCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC527FA466100CA618C /* TextureDecoderARCH.cpp */; };
 		55508FC827FA498600CA618C /* CPUDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC727FA498600CA618C /* CPUDetect.cpp */; };
@@ -840,6 +829,50 @@
 		8355D4F91A653EE600E73302 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974181A643E5C00E0B28E /* IOKit.framework */; };
 		8355D4FA1A653EF200E73302 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974491A64403300E0B28E /* libiconv.dylib */; };
 		8378DED21A78665A003DA046 /* libxxhash-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378DEC51A7862DA003DA046 /* libxxhash-dol.a */; };
+		DD9C11BD29B2602D001E9015 /* resample.c in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11B929B2602D001E9015 /* resample.c */; };
+		DD9C11CE29B266D5001E9015 /* OnScreenUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11C929B266D5001E9015 /* OnScreenUI.cpp */; };
+		DD9C11CF29B266D5001E9015 /* FrameDumper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11CA29B266D5001E9015 /* FrameDumper.cpp */; };
+		DD9C11EA29B267DB001E9015 /* implot_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11DB29B2678E001E9015 /* implot_demo.cpp */; };
+		DD9C11EB29B267DD001E9015 /* implot_items.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11D329B2678E001E9015 /* implot_items.cpp */; };
+		DD9C11EC29B267DF001E9015 /* implot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11D229B2678E001E9015 /* implot.cpp */; };
+		DD9C11F029B26A16001E9015 /* SpirvIntrinsics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11EF29B26A15001E9015 /* SpirvIntrinsics.cpp */; };
+		DD9C121A29B26BA5001E9015 /* spirv_cfg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11F629B26B1D001E9015 /* spirv_cfg.cpp */; };
+		DD9C121B29B26BB7001E9015 /* spirv_cfg.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120D29B26B23001E9015 /* spirv_cfg.hpp */; };
+		DD9C121C29B26BB7001E9015 /* spirv_common.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120829B26B22001E9015 /* spirv_common.hpp */; };
+		DD9C121D29B26BB7001E9015 /* spirv_cpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11FF29B26B20001E9015 /* spirv_cpp.cpp */; };
+		DD9C121E29B26BB7001E9015 /* spirv_cpp.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120029B26B20001E9015 /* spirv_cpp.hpp */; };
+		DD9C121F29B26BB7001E9015 /* spirv_cross_c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11FD29B26B1F001E9015 /* spirv_cross_c.cpp */; };
+		DD9C122029B26BB7001E9015 /* spirv_cross_c.h in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120329B26B20001E9015 /* spirv_cross_c.h */; };
+		DD9C122129B26BB7001E9015 /* spirv_cross_containers.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11FA29B26B1E001E9015 /* spirv_cross_containers.hpp */; };
+		DD9C122229B26BB7001E9015 /* spirv_cross_error_handling.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120629B26B21001E9015 /* spirv_cross_error_handling.hpp */; };
+		DD9C122329B26BB7001E9015 /* spirv_cross_parsed_ir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11F829B26B1E001E9015 /* spirv_cross_parsed_ir.cpp */; };
+		DD9C122429B26BB7001E9015 /* spirv_cross_parsed_ir.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11F529B26B1D001E9015 /* spirv_cross_parsed_ir.hpp */; };
+		DD9C122529B26BB7001E9015 /* spirv_cross_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120529B26B21001E9015 /* spirv_cross_util.cpp */; };
+		DD9C122629B26BB7001E9015 /* spirv_cross_util.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11F929B26B1E001E9015 /* spirv_cross_util.hpp */; };
+		DD9C122729B26BB7001E9015 /* spirv_cross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120C29B26B23001E9015 /* spirv_cross.cpp */; };
+		DD9C122829B26BB7001E9015 /* spirv_cross.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11FB29B26B1F001E9015 /* spirv_cross.hpp */; };
+		DD9C122929B26BB7001E9015 /* spirv_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11FE29B26B1F001E9015 /* spirv_glsl.cpp */; };
+		DD9C122A29B26BB7001E9015 /* spirv_glsl.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120A29B26B22001E9015 /* spirv_glsl.hpp */; };
+		DD9C122B29B26BB7001E9015 /* spirv_hlsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120229B26B20001E9015 /* spirv_hlsl.cpp */; };
+		DD9C122C29B26BB7001E9015 /* spirv_hlsl.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120E29B26B23001E9015 /* spirv_hlsl.hpp */; };
+		DD9C122D29B26BB7001E9015 /* spirv_msl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120B29B26B22001E9015 /* spirv_msl.cpp */; };
+		DD9C122E29B26BB7001E9015 /* spirv_msl.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11F429B26B1D001E9015 /* spirv_msl.hpp */; };
+		DD9C122F29B26BB7001E9015 /* spirv_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120129B26B20001E9015 /* spirv_parser.cpp */; };
+		DD9C123029B26BB7001E9015 /* spirv_parser.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120429B26B21001E9015 /* spirv_parser.hpp */; };
+		DD9C123129B26BB7001E9015 /* spirv_reflect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11FC29B26B1F001E9015 /* spirv_reflect.cpp */; };
+		DD9C123229B26BB7001E9015 /* spirv_reflect.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120929B26B22001E9015 /* spirv_reflect.hpp */; };
+		DD9C123329B26BB7001E9015 /* spirv.h in Sources */ = {isa = PBXBuildFile; fileRef = DD9C120729B26B21001E9015 /* spirv.h */; };
+		DD9C123429B26BB7001E9015 /* spirv.hpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11F729B26B1E001E9015 /* spirv.hpp */; };
+		DD9C123529B26C04001E9015 /* PerformanceMetrics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11C129B266D3001E9015 /* PerformanceMetrics.cpp */; };
+		DD9C123629B26C09001E9015 /* PerformanceTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C11BE29B266D2001E9015 /* PerformanceTracker.cpp */; };
+		DD9C123B29B26CDE001E9015 /* MappingCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C123829B26CDD001E9015 /* MappingCommon.cpp */; };
+		DD9C123C29B26CDE001E9015 /* InputBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C123A29B26CDD001E9015 /* InputBackend.cpp */; };
+		DD9C123F29B26D2F001E9015 /* libimplot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD9C11E929B267AB001E9015 /* libimplot.a */; };
+		DD9C124029B26D2F001E9015 /* libSPIRV-Cross.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD9C121929B26B73001E9015 /* libSPIRV-Cross.a */; };
+		DD9C124429B27083001E9015 /* Widescreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124229B27082001E9015 /* Widescreen.cpp */; };
+		DD9C124629B27218001E9015 /* cubeb_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124529B27218001E9015 /* cubeb_utils.cpp */; };
+		DD9C124929B27265001E9015 /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124829B27265001E9015 /* Expression.cpp */; };
+		DD9C124C29B272A3001E9015 /* SWGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124B29B272A3001E9015 /* SWGfx.cpp */; };
 		EE04F45822512FFC00105B1E /* OpenEmuController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE04F45722512A8B00105B1E /* OpenEmuController.mm */; };
 		EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B882059E115008D5DDE /* OGLShader.cpp */; };
 		EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */; };
@@ -1043,7 +1076,6 @@
 		EE8DD2E9224A7F29005E1AF5 /* FreeSurroundDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD2D3224A7EE8005E1AF5 /* FreeSurroundDecoder.cpp */; };
 		EE8DD2EA224A7F29005E1AF5 /* KissFFTR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE8DD2D4224A7EE8005E1AF5 /* KissFFTR.cpp */; };
 		EE8DD2ED224A8058005E1AF5 /* libimgui-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8DD27222492AAB005E1AF5 /* libimgui-dol.a */; };
-		EE98BE0624B8E13D00FFFDD7 /* StandAlone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0124B8E13D00FFFDD7 /* StandAlone.cpp */; };
 		EE98BE0724B8E13D00FFFDD7 /* spirv-remap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0224B8E13D00FFFDD7 /* spirv-remap.cpp */; };
 		EE98BE0824B8E13D00FFFDD7 /* ResourceLimits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0424B8E13D00FFFDD7 /* ResourceLimits.cpp */; };
 		EE98BE0B24B8F43900FFFDD7 /* FreeLookCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE98BE0924B8F43800FFFDD7 /* FreeLookCamera.cpp */; };
@@ -1192,13 +1224,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5547C0D429B19FBB006BAEFC;
 			remoteInfo = videometal;
-		};
-		5547C3E829B293C3006BAEFC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5547C3BD29B2922F006BAEFC;
-			remoteInfo = implot;
 		};
 		5550902B27FA9E6A00CA618C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1451,6 +1476,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8355D4921A6538FD00E73302;
 			remoteInfo = "Dolphin-Core";
+		};
+		DD9C11ED29B267F4001E9015 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD9C11DE29B267AB001E9015;
+			remoteInfo = implot;
+		};
+		DD9C123D29B26D0F001E9015 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD9C120F29B26B73001E9015;
+			remoteInfo = "SPIRV-Cross";
 		};
 		EE09ECF125AFAC6D002C9E67 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2006,6 +2045,7 @@
 		3E3D75AD1C82B2DD00091C4D /* OnScreenDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnScreenDisplay.h; sourceTree = "<group>"; };
 		3E3D75AE1C82B2DD00091C4D /* OpcodeDecoding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpcodeDecoding.cpp; sourceTree = "<group>"; };
 		3E3D75AF1C82B2DD00091C4D /* OpcodeDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpcodeDecoding.h; sourceTree = "<group>"; };
+		3E3D75B01C82B2DD00091C4D /* PerfQueryBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerfQueryBase.cpp; sourceTree = "<group>"; };
 		3E3D75B11C82B2DD00091C4D /* PerfQueryBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfQueryBase.h; sourceTree = "<group>"; };
 		3E3D75B21C82B2DD00091C4D /* PixelEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelEngine.cpp; sourceTree = "<group>"; };
 		3E3D75B31C82B2DD00091C4D /* PixelEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelEngine.h; sourceTree = "<group>"; };
@@ -2980,29 +3020,7 @@
 		5547C3A029B1F7DD006BAEFC /* CustomTextureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextureData.h; sourceTree = "<group>"; };
 		5547C3A229B1F8CA006BAEFC /* Shinkansen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shinkansen.cpp; sourceTree = "<group>"; };
 		5547C3A329B1F8CA006BAEFC /* Shinkansen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shinkansen.h; sourceTree = "<group>"; };
-		5547C3A529B28F12006BAEFC /* Widescreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Widescreen.h; sourceTree = "<group>"; };
-		5547C3A629B28F12006BAEFC /* Widescreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Widescreen.cpp; sourceTree = "<group>"; };
-		5547C3A829B28FDA006BAEFC /* Expression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Expression.cpp; sourceTree = "<group>"; };
-		5547C3A929B28FDA006BAEFC /* Expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expression.h; sourceTree = "<group>"; };
-		5547C3AB29B291BE006BAEFC /* PerformanceTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerformanceTracker.cpp; sourceTree = "<group>"; };
-		5547C3AC29B291BE006BAEFC /* PerformanceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTracker.h; sourceTree = "<group>"; };
-		5547C3AD29B291BE006BAEFC /* PerfQueryBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerfQueryBase.cpp; sourceTree = "<group>"; };
-		5547C3AF29B291BF006BAEFC /* PerformanceMetrics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerformanceMetrics.cpp; sourceTree = "<group>"; };
-		5547C3B029B291BF006BAEFC /* PerformanceMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceMetrics.h; sourceTree = "<group>"; };
-		5547C3C629B2922F006BAEFC /* libimplot-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libimplot-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5547C3C929B2928C006BAEFC /* implot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implot.cpp; sourceTree = "<group>"; };
-		5547C3CA29B2928C006BAEFC /* implot_items.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implot_items.cpp; sourceTree = "<group>"; };
-		5547C3D329B2928C006BAEFC /* implot_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = implot_internal.h; sourceTree = "<group>"; };
-		5547C3D429B2928C006BAEFC /* implot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = implot.h; sourceTree = "<group>"; };
 		5547C3E729B29351006BAEFC /* expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = expr.h; sourceTree = "<group>"; };
-		5547C3EB29B2970D006BAEFC /* OnScreenUIKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnScreenUIKeyMap.h; sourceTree = "<group>"; };
-		5547C3EC29B2970D006BAEFC /* OnScreenUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnScreenUI.h; sourceTree = "<group>"; };
-		5547C3ED29B2970E006BAEFC /* OnScreenUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnScreenUI.cpp; sourceTree = "<group>"; };
-		5547C3EF29B2995B006BAEFC /* FrameDumper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameDumper.cpp; sourceTree = "<group>"; };
-		5547C3F029B2995B006BAEFC /* FrameDumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDumper.h; sourceTree = "<group>"; };
-		5547C3F229B29B65006BAEFC /* SWGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SWGfx.cpp; sourceTree = "<group>"; };
-		5547C3F329B29B65006BAEFC /* SWGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGfx.h; sourceTree = "<group>"; };
-		5547C3F529B29D37006BAEFC /* InputBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputBackend.cpp; sourceTree = "<group>"; };
 		5547C3F629B29D38006BAEFC /* InputBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputBackend.h; sourceTree = "<group>"; };
 		55508FC327FA45D400CA618C /* VertexLoaderARCH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexLoaderARCH.cpp; sourceTree = "<group>"; };
 		55508FC527FA466100CA618C /* TextureDecoderARCH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureDecoderARCH.cpp; sourceTree = "<group>"; };
@@ -3112,6 +3130,76 @@
 		86E3BFC78D1E4A22863D3447 /* libDiscIO-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libDiscIO-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAFBCFB3D78404A8E6EF873 /* libvideoogl-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libvideoogl-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D345B2FE38FA4436A72B869F /* liblzo2-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblzo2-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9C11B529B2602D001E9015 /* speex_config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_config_types.h; sourceTree = "<group>"; };
+		DD9C11B629B2602D001E9015 /* stack_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack_alloc.h; sourceTree = "<group>"; };
+		DD9C11B729B2602D001E9015 /* speex_resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_resampler.h; sourceTree = "<group>"; };
+		DD9C11B829B2602D001E9015 /* fixed_generic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fixed_generic.h; sourceTree = "<group>"; };
+		DD9C11B929B2602D001E9015 /* resample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = resample.c; sourceTree = "<group>"; };
+		DD9C11BA29B2602D001E9015 /* resample_neon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resample_neon.h; sourceTree = "<group>"; };
+		DD9C11BB29B2602D001E9015 /* resample_sse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resample_sse.h; sourceTree = "<group>"; };
+		DD9C11BC29B2602D001E9015 /* arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arch.h; sourceTree = "<group>"; };
+		DD9C11BE29B266D2001E9015 /* PerformanceTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerformanceTracker.cpp; sourceTree = "<group>"; };
+		DD9C11BF29B266D2001E9015 /* FrameDumpFFMpeg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameDumpFFMpeg.cpp; sourceTree = "<group>"; };
+		DD9C11C029B266D3001E9015 /* OnScreenUIKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnScreenUIKeyMap.h; sourceTree = "<group>"; };
+		DD9C11C129B266D3001E9015 /* PerformanceMetrics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerformanceMetrics.cpp; sourceTree = "<group>"; };
+		DD9C11C229B266D3001E9015 /* CPUCullImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUCullImpl.h; sourceTree = "<group>"; };
+		DD9C11C329B266D3001E9015 /* PerformanceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTracker.h; sourceTree = "<group>"; };
+		DD9C11C429B266D4001E9015 /* FrameDumpFFMpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDumpFFMpeg.h; sourceTree = "<group>"; };
+		DD9C11C529B266D4001E9015 /* PerformanceMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceMetrics.h; sourceTree = "<group>"; };
+		DD9C11C629B266D4001E9015 /* FrameDumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDumper.h; sourceTree = "<group>"; };
+		DD9C11C729B266D4001E9015 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		DD9C11C829B266D4001E9015 /* OnScreenUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnScreenUI.h; sourceTree = "<group>"; };
+		DD9C11C929B266D5001E9015 /* OnScreenUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnScreenUI.cpp; sourceTree = "<group>"; };
+		DD9C11CA29B266D5001E9015 /* FrameDumper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameDumper.cpp; sourceTree = "<group>"; };
+		DD9C11D129B2678E001E9015 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DD9C11D229B2678E001E9015 /* implot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implot.cpp; sourceTree = "<group>"; };
+		DD9C11D329B2678E001E9015 /* implot_items.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implot_items.cpp; sourceTree = "<group>"; };
+		DD9C11D429B2678E001E9015 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		DD9C11D529B2678E001E9015 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DD9C11DB29B2678E001E9015 /* implot_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implot_demo.cpp; sourceTree = "<group>"; };
+		DD9C11DC29B2678E001E9015 /* implot_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implot_internal.h; sourceTree = "<group>"; };
+		DD9C11DD29B2678E001E9015 /* implot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implot.h; sourceTree = "<group>"; };
+		DD9C11E929B267AB001E9015 /* libimplot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libimplot.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9C11EF29B26A15001E9015 /* SpirvIntrinsics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpirvIntrinsics.cpp; sourceTree = "<group>"; };
+		DD9C11F429B26B1D001E9015 /* spirv_msl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_msl.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_msl.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11F529B26B1D001E9015 /* spirv_cross_parsed_ir.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cross_parsed_ir.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_parsed_ir.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11F629B26B1D001E9015 /* spirv_cfg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_cfg.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cfg.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11F729B26B1E001E9015 /* spirv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11F829B26B1E001E9015 /* spirv_cross_parsed_ir.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_cross_parsed_ir.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_parsed_ir.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11F929B26B1E001E9015 /* spirv_cross_util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cross_util.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_util.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11FA29B26B1E001E9015 /* spirv_cross_containers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cross_containers.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_containers.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11FB29B26B1F001E9015 /* spirv_cross.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cross.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11FC29B26B1F001E9015 /* spirv_reflect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_reflect.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_reflect.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11FD29B26B1F001E9015 /* spirv_cross_c.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_cross_c.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_c.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11FE29B26B1F001E9015 /* spirv_glsl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_glsl.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_glsl.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C11FF29B26B20001E9015 /* spirv_cpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_cpp.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cpp.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120029B26B20001E9015 /* spirv_cpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cpp.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cpp.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120129B26B20001E9015 /* spirv_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_parser.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_parser.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120229B26B20001E9015 /* spirv_hlsl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_hlsl.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_hlsl.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120329B26B20001E9015 /* spirv_cross_c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spirv_cross_c.h; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_c.h"; sourceTree = SOURCE_ROOT; };
+		DD9C120429B26B21001E9015 /* spirv_parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_parser.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_parser.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120529B26B21001E9015 /* spirv_cross_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_cross_util.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_util.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120629B26B21001E9015 /* spirv_cross_error_handling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cross_error_handling.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross_error_handling.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120729B26B21001E9015 /* spirv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spirv.h; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv.h"; sourceTree = SOURCE_ROOT; };
+		DD9C120829B26B22001E9015 /* spirv_common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_common.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_common.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120929B26B22001E9015 /* spirv_reflect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_reflect.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_reflect.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120A29B26B22001E9015 /* spirv_glsl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_glsl.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_glsl.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120B29B26B22001E9015 /* spirv_msl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_msl.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_msl.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120C29B26B23001E9015 /* spirv_cross.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spirv_cross.cpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cross.cpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120D29B26B23001E9015 /* spirv_cfg.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_cfg.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_cfg.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C120E29B26B23001E9015 /* spirv_hlsl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = spirv_hlsl.hpp; path = "dolphin/Externals/spirv_cross/SPIRV-Cross/spirv_hlsl.hpp"; sourceTree = SOURCE_ROOT; };
+		DD9C121929B26B73001E9015 /* libSPIRV-Cross.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSPIRV-Cross.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9C123829B26CDD001E9015 /* MappingCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MappingCommon.cpp; sourceTree = "<group>"; };
+		DD9C123929B26CDD001E9015 /* MappingCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingCommon.h; sourceTree = "<group>"; };
+		DD9C123A29B26CDD001E9015 /* InputBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputBackend.cpp; sourceTree = "<group>"; };
+		DD9C124129B27082001E9015 /* Widescreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Widescreen.h; sourceTree = "<group>"; };
+		DD9C124229B27082001E9015 /* Widescreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Widescreen.cpp; sourceTree = "<group>"; };
+		DD9C124329B27083001E9015 /* VideoEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoEvents.h; sourceTree = "<group>"; };
+		DD9C124529B27218001E9015 /* cubeb_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_utils.cpp; sourceTree = "<group>"; };
+		DD9C124729B27265001E9015 /* Expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expression.h; sourceTree = "<group>"; };
+		DD9C124829B27265001E9015 /* Expression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Expression.cpp; sourceTree = "<group>"; };
+		DD9C124A29B272A3001E9015 /* SWGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGfx.h; sourceTree = "<group>"; };
+		DD9C124B29B272A3001E9015 /* SWGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SWGfx.cpp; sourceTree = "<group>"; };
 		EBFD62BE775146B49EDA15A7 /* libsfml-system-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-system-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE04F45722512A8B00105B1E /* OpenEmuController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenEmuController.mm; sourceTree = "<group>"; };
 		EE04F459225138BE00105B1E /* OpenEmuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEmuController.h; sourceTree = "<group>"; };
@@ -4037,18 +4125,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5547C3C229B2922F006BAEFC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8355D4901A6538FD00E73302 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5547C3EA29B293CD006BAEFC /* libimplot-dol.a in Frameworks */,
+				DD9C123F29B26D2F001E9015 /* libimplot.a in Frameworks */,
+				DD9C124029B26D2F001E9015 /* libSPIRV-Cross.a in Frameworks */,
 				5547C24329B1A6E8006BAEFC /* libresolv.tbd in Frameworks */,
 				5547C24129B1A6DE006BAEFC /* Security.framework in Frameworks */,
 				5547C0EE29B1A050006BAEFC /* libvideometal-dol.a in Frameworks */,
@@ -4104,6 +4186,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8378DED11A786655003DA046 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9C11E429B267AB001E9015 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9C121429B26B73001E9015 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4282,8 +4378,8 @@
 				3E3D76541C82B33700091C4D /* SetupUnit.h */,
 				5550901B27FA8FBA00CA618C /* SWBoundingBox.cpp */,
 				5550901C27FA8FBA00CA618C /* SWBoundingBox.h */,
-				5547C3F229B29B65006BAEFC /* SWGfx.cpp */,
-				5547C3F329B29B65006BAEFC /* SWGfx.h */,
+				DD9C124B29B272A3001E9015 /* SWGfx.cpp */,
+				DD9C124A29B272A3001E9015 /* SWGfx.h */,
 				3E3D76551C82B33700091C4D /* SWmain.cpp */,
 				3E3D76561C82B33700091C4D /* SWOGLWindow.cpp */,
 				3E3D76571C82B33700091C4D /* SWOGLWindow.h */,
@@ -4690,8 +4786,8 @@
 				EE8DD29E22493464005E1AF5 /* ConditionRegister.cpp */,
 				EE8DD29D22493464005E1AF5 /* ConditionRegister.h */,
 				3E3D72E61C82B0F900091C4D /* CPUCoreBase.h */,
-				5547C3A829B28FDA006BAEFC /* Expression.cpp */,
-				5547C3A929B28FDA006BAEFC /* Expression.h */,
+				DD9C124829B27265001E9015 /* Expression.cpp */,
+				DD9C124729B27265001E9015 /* Expression.h */,
 				3E8EC6DE1F84378D00D79F27 /* GDBStub.cpp */,
 				3E8EC6DF1F84378E00D79F27 /* GDBStub.h */,
 				3E3D72E91C82B0F900091C4D /* Gekko.h */,
@@ -5111,8 +5207,10 @@
 				EE6ABE5D239C3723005E5F7D /* CoreDevice.h */,
 				EE6ABE75239C7116005E5F7D /* DualShockUDPClient */,
 				3E8EC5E91F842CFC00D79F27 /* ForceFeedback */,
-				5547C3F529B29D37006BAEFC /* InputBackend.cpp */,
+				DD9C123A29B26CDD001E9015 /* InputBackend.cpp */,
 				5547C3F629B29D38006BAEFC /* InputBackend.h */,
+				DD9C123829B26CDD001E9015 /* MappingCommon.cpp */,
+				DD9C123929B26CDD001E9015 /* MappingCommon.h */,
 				3E8EC5DC1F842CFC00D79F27 /* OSX */,
 				3E8EC5E61F842CFC00D79F27 /* Pipes */,
 				3EFF29261F8561E900B4FD11 /* Quartz */,
@@ -5332,7 +5430,7 @@
 				EEF4EE7D224AAE650077748D /* glslang */,
 				3EFF257B1F8443D200B4FD11 /* hidapi */,
 				EE8DD25D22492A9F005E1AF5 /* imgui */,
-				5547C3C729B2928C006BAEFC /* implot */,
+				DD9C11D029B2678E001E9015 /* implot */,
 				EE98BEBA24B8FC8400FFFDD7 /* liblzma */,
 				3EFF27971F85500D00B4FD11 /* libusb */,
 				9BDC53CFB6F44C74B62E3496 /* lzo2 */,
@@ -5344,6 +5442,7 @@
 				3EFF27141F84617900B4FD11 /* pugixml */,
 				EE79F62725A7543C00EE9AAC /* rangeset */,
 				55508FD027FA53CF00CA618C /* SFML */,
+				DD9C11F329B26ADC001E9015 /* SIRV-Cross */,
 				A47A3B0F48194396A2DB8291 /* SoundTouch */,
 				EEF4EF0E224AB2870077748D /* SPIRV */,
 				5547C23C29B1A54C006BAEFC /* spng */,
@@ -5697,6 +5796,7 @@
 		3EFF271A1F84617A00B4FD11 /* cubeb */ = {
 			isa = PBXGroup;
 			children = (
+				DD9C11B329B2602D001E9015 /* subprojects */,
 				3EFF272E1F84617A00B4FD11 /* include */,
 				3EFF27341F84617A00B4FD11 /* src */,
 			);
@@ -5723,8 +5823,7 @@
 		3EFF27341F84617A00B4FD11 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				3E286ADC1F9CFAD4001524A4 /* cubeb_strings.c */,
-				3E286ADD1F9CFAD5001524A4 /* cubeb_strings.h */,
+				DD9C124529B27218001E9015 /* cubeb_utils.cpp */,
 				3EFF27581F84617A00B4FD11 /* android */,
 				3EFF274F1F84617A00B4FD11 /* cubeb_alsa.c */,
 				3EFF275F1F84617A00B4FD11 /* cubeb_array_queue.h */,
@@ -5747,6 +5846,8 @@
 				3EFF27411F84617A00B4FD11 /* cubeb_ring_array.h */,
 				3EFF27531F84617A00B4FD11 /* cubeb_ringbuffer.h */,
 				3EFF27351F84617A00B4FD11 /* cubeb_sndio.c */,
+				3E286ADC1F9CFAD4001524A4 /* cubeb_strings.c */,
+				3E286ADD1F9CFAD5001524A4 /* cubeb_strings.h */,
 				3EFF27401F84617A00B4FD11 /* cubeb_utils_unix.h */,
 				3EFF27381F84617A00B4FD11 /* cubeb_utils_win.h */,
 				3EFF275C1F84617A00B4FD11 /* cubeb_utils.h */,
@@ -5883,10 +5984,12 @@
 				3E3D758E1C82B2DD00091C4D /* CommandProcessor.cpp */,
 				3E3D758F1C82B2DD00091C4D /* CommandProcessor.h */,
 				3E3D75901C82B2DD00091C4D /* ConstantManager.h */,
+				DD9C11C729B266D4001E9015 /* Constants.h */,
 				3E3D75911C82B2DD00091C4D /* CPMemory.cpp */,
 				3E3D75921C82B2DD00091C4D /* CPMemory.h */,
 				5547C38D29B1EE0F006BAEFC /* CPUCull.cpp */,
 				5547C38E29B1EE0F006BAEFC /* CPUCull.h */,
+				DD9C11C229B266D3001E9015 /* CPUCullImpl.h */,
 				3E3D75931C82B2DD00091C4D /* DataReader.h */,
 				3E3D75961C82B2DD00091C4D /* DriverDetails.cpp */,
 				3E3D75971C82B2DD00091C4D /* DriverDetails.h */,
@@ -5896,8 +5999,10 @@
 				EE8DD27622492B87005E1AF5 /* FramebufferManager.h */,
 				EE8DD27722492B88005E1AF5 /* FramebufferShaderGen.cpp */,
 				EE8DD27422492B87005E1AF5 /* FramebufferShaderGen.h */,
-				5547C3EF29B2995B006BAEFC /* FrameDumper.cpp */,
-				5547C3F029B2995B006BAEFC /* FrameDumper.h */,
+				DD9C11CA29B266D5001E9015 /* FrameDumper.cpp */,
+				DD9C11C629B266D4001E9015 /* FrameDumper.h */,
+				DD9C11BF29B266D2001E9015 /* FrameDumpFFMpeg.cpp */,
+				DD9C11C429B266D4001E9015 /* FrameDumpFFMpeg.h */,
 				EE98BE0924B8F43800FFFDD7 /* FreeLookCamera.cpp */,
 				EE98BE0A24B8F43800FFFDD7 /* FreeLookCamera.h */,
 				3E3D759E1C82B2DD00091C4D /* GeometryShaderGen.cpp */,
@@ -5920,16 +6025,16 @@
 				EE3A463C22B5F29D00031B56 /* NetPlayGolfUI.h */,
 				3E3D75AC1C82B2DD00091C4D /* OnScreenDisplay.cpp */,
 				3E3D75AD1C82B2DD00091C4D /* OnScreenDisplay.h */,
-				5547C3ED29B2970E006BAEFC /* OnScreenUI.cpp */,
-				5547C3EC29B2970D006BAEFC /* OnScreenUI.h */,
-				5547C3EB29B2970D006BAEFC /* OnScreenUIKeyMap.h */,
+				DD9C11C929B266D5001E9015 /* OnScreenUI.cpp */,
+				DD9C11C829B266D4001E9015 /* OnScreenUI.h */,
+				DD9C11C029B266D3001E9015 /* OnScreenUIKeyMap.h */,
 				3E3D75AE1C82B2DD00091C4D /* OpcodeDecoding.cpp */,
 				3E3D75AF1C82B2DD00091C4D /* OpcodeDecoding.h */,
-				5547C3AF29B291BF006BAEFC /* PerformanceMetrics.cpp */,
-				5547C3B029B291BF006BAEFC /* PerformanceMetrics.h */,
-				5547C3AB29B291BE006BAEFC /* PerformanceTracker.cpp */,
-				5547C3AC29B291BE006BAEFC /* PerformanceTracker.h */,
-				5547C3AD29B291BE006BAEFC /* PerfQueryBase.cpp */,
+				DD9C11C129B266D3001E9015 /* PerformanceMetrics.cpp */,
+				DD9C11C529B266D4001E9015 /* PerformanceMetrics.h */,
+				DD9C11BE29B266D2001E9015 /* PerformanceTracker.cpp */,
+				DD9C11C329B266D3001E9015 /* PerformanceTracker.h */,
+				3E3D75B01C82B2DD00091C4D /* PerfQueryBase.cpp */,
 				3E3D75B11C82B2DD00091C4D /* PerfQueryBase.h */,
 				3E3D75B21C82B2DD00091C4D /* PixelEngine.cpp */,
 				3E3D75B31C82B2DD00091C4D /* PixelEngine.h */,
@@ -6006,10 +6111,11 @@
 				3E3D75E21C82B2DE00091C4D /* VideoCommon.h */,
 				3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */,
 				3E3D75E41C82B2DE00091C4D /* VideoConfig.h */,
+				DD9C124329B27083001E9015 /* VideoEvents.h */,
 				3E3D75E51C82B2DE00091C4D /* VideoState.cpp */,
 				3E3D75E61C82B2DE00091C4D /* VideoState.h */,
-				5547C3A629B28F12006BAEFC /* Widescreen.cpp */,
-				5547C3A529B28F12006BAEFC /* Widescreen.h */,
+				DD9C124229B27082001E9015 /* Widescreen.cpp */,
+				DD9C124129B27082001E9015 /* Widescreen.h */,
 				3E3D75E71C82B2DE00091C4D /* XFMemory.cpp */,
 				3E3D75E81C82B2DE00091C4D /* XFMemory.h */,
 				3E3D75E91C82B2DE00091C4D /* XFStructs.cpp */,
@@ -6360,18 +6466,6 @@
 				5547C39C29B1F769006BAEFC /* Skylander.h */,
 			);
 			path = Emulated;
-			sourceTree = "<group>";
-		};
-		5547C3C729B2928C006BAEFC /* implot */ = {
-			isa = PBXGroup;
-			children = (
-				5547C3D329B2928C006BAEFC /* implot_internal.h */,
-				5547C3CA29B2928C006BAEFC /* implot_items.cpp */,
-				5547C3C929B2928C006BAEFC /* implot.cpp */,
-				5547C3D429B2928C006BAEFC /* implot.h */,
-			);
-			name = implot;
-			path = implot/implot;
 			sourceTree = "<group>";
 		};
 		5547C3E329B29351006BAEFC /* expr */ = {
@@ -7225,7 +7319,8 @@
 				5547C0B829B197A2006BAEFC /* libFatFs-dol.a */,
 				5547C0ED29B19FBB006BAEFC /* libvideometal-dol.a */,
 				5547C37F29B1DE53006BAEFC /* libVulkMemAlloc-dol.a */,
-				5547C3C629B2922F006BAEFC /* libimplot-dol.a */,
+				DD9C11E929B267AB001E9015 /* libimplot.a */,
+				DD9C121929B26B73001E9015 /* libSPIRV-Cross.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7291,6 +7386,80 @@
 				3E3D757E1C82B2A700091C4D /* UICommon.h */,
 			);
 			path = UICommon;
+			sourceTree = "<group>";
+		};
+		DD9C11B329B2602D001E9015 /* subprojects */ = {
+			isa = PBXGroup;
+			children = (
+				DD9C11B429B2602D001E9015 /* speex */,
+			);
+			path = subprojects;
+			sourceTree = "<group>";
+		};
+		DD9C11B429B2602D001E9015 /* speex */ = {
+			isa = PBXGroup;
+			children = (
+				DD9C11B529B2602D001E9015 /* speex_config_types.h */,
+				DD9C11B629B2602D001E9015 /* stack_alloc.h */,
+				DD9C11B729B2602D001E9015 /* speex_resampler.h */,
+				DD9C11B829B2602D001E9015 /* fixed_generic.h */,
+				DD9C11B929B2602D001E9015 /* resample.c */,
+				DD9C11BA29B2602D001E9015 /* resample_neon.h */,
+				DD9C11BB29B2602D001E9015 /* resample_sse.h */,
+				DD9C11BC29B2602D001E9015 /* arch.h */,
+			);
+			path = speex;
+			sourceTree = "<group>";
+		};
+		DD9C11D029B2678E001E9015 /* implot */ = {
+			isa = PBXGroup;
+			children = (
+				DD9C11D129B2678E001E9015 /* LICENSE */,
+				DD9C11D229B2678E001E9015 /* implot.cpp */,
+				DD9C11D329B2678E001E9015 /* implot_items.cpp */,
+				DD9C11D429B2678E001E9015 /* TODO.md */,
+				DD9C11D529B2678E001E9015 /* README.md */,
+				DD9C11DB29B2678E001E9015 /* implot_demo.cpp */,
+				DD9C11DC29B2678E001E9015 /* implot_internal.h */,
+				DD9C11DD29B2678E001E9015 /* implot.h */,
+			);
+			name = implot;
+			path = implot/implot;
+			sourceTree = "<group>";
+		};
+		DD9C11F329B26ADC001E9015 /* SIRV-Cross */ = {
+			isa = PBXGroup;
+			children = (
+				DD9C11F629B26B1D001E9015 /* spirv_cfg.cpp */,
+				DD9C120D29B26B23001E9015 /* spirv_cfg.hpp */,
+				DD9C120829B26B22001E9015 /* spirv_common.hpp */,
+				DD9C11FF29B26B20001E9015 /* spirv_cpp.cpp */,
+				DD9C120029B26B20001E9015 /* spirv_cpp.hpp */,
+				DD9C11FD29B26B1F001E9015 /* spirv_cross_c.cpp */,
+				DD9C120329B26B20001E9015 /* spirv_cross_c.h */,
+				DD9C11FA29B26B1E001E9015 /* spirv_cross_containers.hpp */,
+				DD9C120629B26B21001E9015 /* spirv_cross_error_handling.hpp */,
+				DD9C11F829B26B1E001E9015 /* spirv_cross_parsed_ir.cpp */,
+				DD9C11F529B26B1D001E9015 /* spirv_cross_parsed_ir.hpp */,
+				DD9C120529B26B21001E9015 /* spirv_cross_util.cpp */,
+				DD9C11F929B26B1E001E9015 /* spirv_cross_util.hpp */,
+				DD9C120C29B26B23001E9015 /* spirv_cross.cpp */,
+				DD9C11FB29B26B1F001E9015 /* spirv_cross.hpp */,
+				DD9C11FE29B26B1F001E9015 /* spirv_glsl.cpp */,
+				DD9C120A29B26B22001E9015 /* spirv_glsl.hpp */,
+				DD9C120229B26B20001E9015 /* spirv_hlsl.cpp */,
+				DD9C120E29B26B23001E9015 /* spirv_hlsl.hpp */,
+				DD9C120B29B26B22001E9015 /* spirv_msl.cpp */,
+				DD9C11F429B26B1D001E9015 /* spirv_msl.hpp */,
+				DD9C120129B26B20001E9015 /* spirv_parser.cpp */,
+				DD9C120429B26B21001E9015 /* spirv_parser.hpp */,
+				DD9C11FC29B26B1F001E9015 /* spirv_reflect.cpp */,
+				DD9C120929B26B22001E9015 /* spirv_reflect.hpp */,
+				DD9C120729B26B21001E9015 /* spirv.h */,
+				DD9C11F729B26B1E001E9015 /* spirv.hpp */,
+			);
+			name = "SIRV-Cross";
+			path = "spirv_cross/SPIRV-Cross";
 			sourceTree = "<group>";
 		};
 		DEF8F202248D4F798242FC6B /* bdisasm */ = {
@@ -8169,6 +8338,7 @@
 		EEF4EE97224AAE650077748D /* MachineIndependent */ = {
 			isa = PBXGroup;
 			children = (
+				DD9C11EF29B26A15001E9015 /* SpirvIntrinsics.cpp */,
 				EEF4EE98224AAE650077748D /* ParseHelper.cpp */,
 				EEF4EE99224AAE650077748D /* parseVersions.h */,
 				EEF4EE9A224AAE650077748D /* gl_types.h */,
@@ -8416,6 +8586,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD9C11E529B267AB001E9015 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9C121529B26B73001E9015 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE3A465422B6874500031B56 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -8651,22 +8835,6 @@
 			productReference = 5547C37F29B1DE53006BAEFC /* libVulkMemAlloc-dol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		5547C3BD29B2922F006BAEFC /* implot */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5547C3C329B2922F006BAEFC /* Build configuration list for PBXNativeTarget "implot" */;
-			buildPhases = (
-				5547C3BE29B2922F006BAEFC /* Sources */,
-				5547C3C229B2922F006BAEFC /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = implot;
-			productName = inputcommon;
-			productReference = 5547C3C629B2922F006BAEFC /* libimplot-dol.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		75A40CDC6A8F4D759F46EA48 /* InputCommon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD98670188D94244A60CE6CC /* Build configuration list for PBXNativeTarget "InputCommon" */;
@@ -8709,7 +8877,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5547C3E929B293C3006BAEFC /* PBXTargetDependency */,
+				DD9C123E29B26D0F001E9015 /* PBXTargetDependency */,
 				5547C0F029B1A05B006BAEFC /* PBXTargetDependency */,
 				5547C0CC29B1987B006BAEFC /* PBXTargetDependency */,
 				5550902C27FA9E6A00CA618C /* PBXTargetDependency */,
@@ -8905,6 +9073,40 @@
 			productReference = 0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DD9C11DE29B267AB001E9015 /* implot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9C11E629B267AB001E9015 /* Build configuration list for PBXNativeTarget "implot" */;
+			buildPhases = (
+				DD9C11DF29B267AB001E9015 /* Sources */,
+				DD9C11E429B267AB001E9015 /* Frameworks */,
+				DD9C11E529B267AB001E9015 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = implot;
+			productName = enet;
+			productReference = DD9C11E929B267AB001E9015 /* libimplot.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DD9C120F29B26B73001E9015 /* SPIRV-Cross */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD9C121629B26B73001E9015 /* Build configuration list for PBXNativeTarget "SPIRV-Cross" */;
+			buildPhases = (
+				DD9C121029B26B73001E9015 /* Sources */,
+				DD9C121429B26B73001E9015 /* Frameworks */,
+				DD9C121529B26B73001E9015 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SPIRV-Cross";
+			productName = enet;
+			productReference = DD9C121929B26B73001E9015 /* libSPIRV-Cross.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		EE3A464922B6874500031B56 /* fmt */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE3A465522B6874500031B56 /* Build configuration list for PBXNativeTarget "fmt" */;
@@ -9088,6 +9290,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DD9C11EE29B267F4001E9015 /* PBXTargetDependency */,
 			);
 			name = videocommon;
 			productName = videocommon;
@@ -9190,7 +9393,8 @@
 				EE98C00E24B91E1700FFFDD7 /* bzip2 */,
 				5547C0AB29B197A2006BAEFC /* FatFs */,
 				5547C37629B1DE53006BAEFC /* VulkMemAlloc */,
-				5547C3BD29B2922F006BAEFC /* implot */,
+				DD9C11DE29B267AB001E9015 /* implot */,
+				DD9C120F29B26B73001E9015 /* SPIRV-Cross */,
 			);
 		};
 /* End PBXProject section */
@@ -9392,7 +9596,7 @@
 				EE6ABEAB239C787E005E5F7D /* FileSystemProxy.cpp in Sources */,
 				3E3D73761C82B0F900091C4D /* DSPTables.cpp in Sources */,
 				3E8EC6BA1F8436F100D79F27 /* DSPIntArithmetic.cpp in Sources */,
-				5547C3AA29B28FDA006BAEFC /* Expression.cpp in Sources */,
+				DD9C124929B27265001E9015 /* Expression.cpp in Sources */,
 				3E3D73F71C82B0F900091C4D /* Interpreter.cpp in Sources */,
 				3E8EC6741F8434AA00D79F27 /* EXI_DeviceAD16.cpp in Sources */,
 				EE98C04A24B926B600FFFDD7 /* TAP_Apple.cpp in Sources */,
@@ -9842,7 +10046,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EFF27891F84621200B4FD11 /* cubeb_osx_run_loop.cpp in Sources */,
+				DD9C124629B27218001E9015 /* cubeb_utils.cpp in Sources */,
 				3EFF278A1F84621200B4FD11 /* cubeb_audiounit.cpp in Sources */,
+				DD9C11BD29B2602D001E9015 /* resample.c in Sources */,
 				3EFF278B1F84621200B4FD11 /* cubeb.c in Sources */,
 				3EFF278F1F84621200B4FD11 /* cubeb_mixer.cpp in Sources */,
 				3EFF27901F84621200B4FD11 /* cubeb_resampler.cpp in Sources */,
@@ -9967,15 +10173,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5547C3BE29B2922F006BAEFC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5547C3D529B2928D006BAEFC /* implot.cpp in Sources */,
-				5547C3D629B2928D006BAEFC /* implot_items.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5C10791A79084C1D8F428633 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -9985,7 +10182,6 @@
 				EE6ABE43239C36AD005E5F7D /* ModifySettingsButton.cpp in Sources */,
 				EE79F8DD25A768BE00EE9AAC /* ImageOperations.cpp in Sources */,
 				EE6ABE3E239C36AD005E5F7D /* Triggers.cpp in Sources */,
-				5547C3F729B29D38006BAEFC /* InputBackend.cpp in Sources */,
 				5550907527FA9F8500CA618C /* DITConfiguration.cpp in Sources */,
 				EE6ABE48239C36AD005E5F7D /* Tilt.cpp in Sources */,
 				EEE07D4122C43C40006D46FD /* InputConfig.cpp in Sources */,
@@ -9998,6 +10194,7 @@
 				EE6ABE6E239C3766005E5F7D /* OSXJoystick.mm in Sources */,
 				EE6ABE49239C36AD005E5F7D /* IMUAccelerometer.cpp in Sources */,
 				3EFF25CC1F8444D200B4FD11 /* GCAdapter.cpp in Sources */,
+				DD9C123B29B26CDE001E9015 /* MappingCommon.cpp in Sources */,
 				EE6ABE3D239C36AD005E5F7D /* Force.cpp in Sources */,
 				EE6ABE45239C36AD005E5F7D /* AnalogStick.cpp in Sources */,
 				EE6ABE44239C36AD005E5F7D /* MixedTriggers.cpp in Sources */,
@@ -10018,6 +10215,7 @@
 				EEE07D4022C43C40006D46FD /* ControllerInterface.cpp in Sources */,
 				EE6ABE1D239C3679005E5F7D /* Output.cpp in Sources */,
 				EE6ABE58239C36D7005E5F7D /* ExpressionParser.cpp in Sources */,
+				DD9C123C29B26CDE001E9015 /* InputBackend.cpp in Sources */,
 				EE6ABE4A239C36AD005E5F7D /* Attachments.cpp in Sources */,
 				EE6ABE4F239C36C4005E5F7D /* StickGate.cpp in Sources */,
 				EE6ABE41239C36AD005E5F7D /* Slider.cpp in Sources */,
@@ -10115,8 +10313,6 @@
 				3E3D76051C82B2DE00091C4D /* RenderBase.cpp in Sources */,
 				3E3D75FA1C82B2DE00091C4D /* HiresTextures.cpp in Sources */,
 				5547BFC429B188D9006BAEFC /* SkipAction.cpp in Sources */,
-				5547C3B229B291BF006BAEFC /* PerfQueryBase.cpp in Sources */,
-				5547C3A729B28F13006BAEFC /* Widescreen.cpp in Sources */,
 				5547BFC529B188D9006BAEFC /* MoveAction.cpp in Sources */,
 				3EFF26251F8458E600B4FD11 /* TextureConfig.cpp in Sources */,
 				3E3D76171C82B2DE00091C4D /* VertexShaderManager.cpp in Sources */,
@@ -10139,9 +10335,9 @@
 				3EFF26231F8458E600B4FD11 /* RenderState.cpp in Sources */,
 				3E3D75ED1C82B2DE00091C4D /* BoundingBox.cpp in Sources */,
 				3E3D75F11C82B2DE00091C4D /* CommandProcessor.cpp in Sources */,
-				5547C3F129B2995C006BAEFC /* FrameDumper.cpp in Sources */,
 				3E3D761B1C82B2DE00091C4D /* XFMemory.cpp in Sources */,
 				3E98CDFA1FD70845009A9DEA /* AbstractStagingTexture.cpp in Sources */,
+				DD9C11CF29B266D5001E9015 /* FrameDumper.cpp in Sources */,
 				3EFF26261F8458E600B4FD11 /* UberShaderVertex.cpp in Sources */,
 				3E3D760A1C82B2DE00091C4D /* TextureDecoder_Generic.cpp in Sources */,
 				5547C38C29B1EDEE006BAEFC /* AbstractGfx.cpp in Sources */,
@@ -10152,6 +10348,7 @@
 				3E3D760D1C82B2DE00091C4D /* VertexLoader_Normal.cpp in Sources */,
 				3E3D76081C82B2DE00091C4D /* TextureConversionShader.cpp in Sources */,
 				3E3D75FE1C82B2DE00091C4D /* OnScreenDisplay.cpp in Sources */,
+				DD9C123529B26C04001E9015 /* PerformanceMetrics.cpp in Sources */,
 				3E3D76181C82B2DE00091C4D /* VideoBackendBase.cpp in Sources */,
 				5547C3A129B1F7DD006BAEFC /* CustomTextureData.cpp in Sources */,
 				3E3D75F91C82B2DE00091C4D /* GeometryShaderManager.cpp in Sources */,
@@ -10160,6 +10357,7 @@
 				3EFF262A1F8458E600B4FD11 /* ShaderGenCommon.cpp in Sources */,
 				3E3D76131C82B2DE00091C4D /* VertexLoaderManager.cpp in Sources */,
 				EE8DD27822492B88005E1AF5 /* FramebufferManager.cpp in Sources */,
+				DD9C123629B26C09001E9015 /* PerformanceTracker.cpp in Sources */,
 				3E3D75EB1C82B2DE00091C4D /* AsyncRequests.cpp in Sources */,
 				3EFF26281F8458E600B4FD11 /* AbstractTexture.cpp in Sources */,
 				5547BFC629B188D9006BAEFC /* ScaleAction.cpp in Sources */,
@@ -10175,21 +10373,21 @@
 				3E3D75F41C82B2DE00091C4D /* DriverDetails.cpp in Sources */,
 				3EFF262B1F8458E600B4FD11 /* UberShaderPixel.cpp in Sources */,
 				3EFF26241F8458E600B4FD11 /* LightingShaderGen.cpp in Sources */,
-				5547C3B129B291BF006BAEFC /* PerformanceTracker.cpp in Sources */,
 				3E3D76031C82B2DE00091C4D /* PixelShaderManager.cpp in Sources */,
 				5547BFC129B188D9006BAEFC /* GraphicsModManager.cpp in Sources */,
 				3E3D76011C82B2DE00091C4D /* PixelEngine.cpp in Sources */,
-				5547C3B329B291BF006BAEFC /* PerformanceMetrics.cpp in Sources */,
 				3E3D760F1C82B2DE00091C4D /* VertexLoader_TextCoord.cpp in Sources */,
 				3E3D75EE1C82B2DE00091C4D /* BPFunctions.cpp in Sources */,
 				3E3D76041C82B2DE00091C4D /* PostProcessing.cpp in Sources */,
 				5547C39229B1EE91006BAEFC /* Spirv.cpp in Sources */,
+				DD9C124429B27083001E9015 /* Widescreen.cpp in Sources */,
 				3E3D76161C82B2DE00091C4D /* VertexShaderGen.cpp in Sources */,
 				3E98CDFB1FD70845009A9DEA /* TextureConverterShaderGen.cpp in Sources */,
 				3E3D75F51C82B2DE00091C4D /* Fifo.cpp in Sources */,
 				3E3D76121C82B2DE00091C4D /* VertexLoaderBase.cpp in Sources */,
+				3E3D76001C82B2DE00091C4D /* PerfQueryBase.cpp in Sources */,
 				EE5FDAD124F4429F00DA2D43 /* TextureCacheBase.cpp in Sources */,
-				5547C3EE29B2970E006BAEFC /* OnScreenUI.cpp in Sources */,
+				DD9C11CE29B266D5001E9015 /* OnScreenUI.cpp in Sources */,
 				3E3D75F81C82B2DE00091C4D /* GeometryShaderGen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10215,7 +10413,7 @@
 				3E3D766D1C82B33700091C4D /* SWOGLWindow.cpp in Sources */,
 				3E3D76721C82B33700091C4D /* TextureSampler.cpp in Sources */,
 				3E3D76681C82B33700091C4D /* EfbCopy.cpp in Sources */,
-				5547C3F429B29B65006BAEFC /* SWGfx.cpp in Sources */,
+				DD9C124C29B272A3001E9015 /* SWGfx.cpp in Sources */,
 				3E3D76691C82B33700091C4D /* EfbInterface.cpp in Sources */,
 				5550901D27FA8FBA00CA618C /* SWBoundingBox.cpp in Sources */,
 				3E3D76731C82B33700091C4D /* TransformUnit.cpp in Sources */,
@@ -10271,6 +10469,50 @@
 				EEE07D3822C271D1006D46FD /* OpenEmuAudioStream.mm in Sources */,
 				3E3D709B1C82B03600091C4D /* Mixer.cpp in Sources */,
 				3E8EC58C1F8428E500D79F27 /* AudioStretcher.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9C11DF29B267AB001E9015 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9C11EA29B267DB001E9015 /* implot_demo.cpp in Sources */,
+				DD9C11EB29B267DD001E9015 /* implot_items.cpp in Sources */,
+				DD9C11EC29B267DF001E9015 /* implot.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD9C121029B26B73001E9015 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD9C121B29B26BB7001E9015 /* spirv_cfg.hpp in Sources */,
+				DD9C121C29B26BB7001E9015 /* spirv_common.hpp in Sources */,
+				DD9C121D29B26BB7001E9015 /* spirv_cpp.cpp in Sources */,
+				DD9C121E29B26BB7001E9015 /* spirv_cpp.hpp in Sources */,
+				DD9C121F29B26BB7001E9015 /* spirv_cross_c.cpp in Sources */,
+				DD9C122029B26BB7001E9015 /* spirv_cross_c.h in Sources */,
+				DD9C122129B26BB7001E9015 /* spirv_cross_containers.hpp in Sources */,
+				DD9C122229B26BB7001E9015 /* spirv_cross_error_handling.hpp in Sources */,
+				DD9C122329B26BB7001E9015 /* spirv_cross_parsed_ir.cpp in Sources */,
+				DD9C122429B26BB7001E9015 /* spirv_cross_parsed_ir.hpp in Sources */,
+				DD9C122529B26BB7001E9015 /* spirv_cross_util.cpp in Sources */,
+				DD9C122629B26BB7001E9015 /* spirv_cross_util.hpp in Sources */,
+				DD9C122729B26BB7001E9015 /* spirv_cross.cpp in Sources */,
+				DD9C122829B26BB7001E9015 /* spirv_cross.hpp in Sources */,
+				DD9C122929B26BB7001E9015 /* spirv_glsl.cpp in Sources */,
+				DD9C122A29B26BB7001E9015 /* spirv_glsl.hpp in Sources */,
+				DD9C122B29B26BB7001E9015 /* spirv_hlsl.cpp in Sources */,
+				DD9C122C29B26BB7001E9015 /* spirv_hlsl.hpp in Sources */,
+				DD9C122D29B26BB7001E9015 /* spirv_msl.cpp in Sources */,
+				DD9C122E29B26BB7001E9015 /* spirv_msl.hpp in Sources */,
+				DD9C122F29B26BB7001E9015 /* spirv_parser.cpp in Sources */,
+				DD9C123029B26BB7001E9015 /* spirv_parser.hpp in Sources */,
+				DD9C123129B26BB7001E9015 /* spirv_reflect.cpp in Sources */,
+				DD9C123229B26BB7001E9015 /* spirv_reflect.hpp in Sources */,
+				DD9C123329B26BB7001E9015 /* spirv.h in Sources */,
+				DD9C123429B26BB7001E9015 /* spirv.hpp in Sources */,
+				DD9C121A29B26BA5001E9015 /* spirv_cfg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10474,7 +10716,6 @@
 				EEF4EEF6224AAFB50077748D /* intermOut.cpp in Sources */,
 				EEF4EF05224AAFC00077748D /* Pp.cpp in Sources */,
 				EEF4EF0A224AAFCB0077748D /* Link.cpp in Sources */,
-				EE98BE0624B8E13D00FFFDD7 /* StandAlone.cpp in Sources */,
 				EEF4EF02224AAFB50077748D /* linkValidate.cpp in Sources */,
 				EEF4EEF4224AAFB50077748D /* parseConst.cpp in Sources */,
 				EEF4EEFE224AAFB50077748D /* reflection.cpp in Sources */,
@@ -10485,6 +10726,7 @@
 				EEF4EEF3224AAFB50077748D /* limits.cpp in Sources */,
 				EEF4EF08224AAFC00077748D /* PpScanner.cpp in Sources */,
 				EEF4EEF0224AAFB50077748D /* Scan.cpp in Sources */,
+				DD9C11F029B26A16001E9015 /* SpirvIntrinsics.cpp in Sources */,
 				EEF4EEF5224AAFB50077748D /* IntermTraverse.cpp in Sources */,
 				EE98BE0724B8E13D00FFFDD7 /* spirv-remap.cpp in Sources */,
 				EEF4EEEE224AAFB50077748D /* ParseHelper.cpp in Sources */,
@@ -10512,11 +10754,6 @@
 			isa = PBXTargetDependency;
 			target = 5547C0D429B19FBB006BAEFC /* videometal */;
 			targetProxy = 5547C0EF29B1A05B006BAEFC /* PBXContainerItemProxy */;
-		};
-		5547C3E929B293C3006BAEFC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5547C3BD29B2922F006BAEFC /* implot */;
-			targetProxy = 5547C3E829B293C3006BAEFC /* PBXContainerItemProxy */;
 		};
 		5550902C27FA9E6A00CA618C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10697,6 +10934,16 @@
 			isa = PBXTargetDependency;
 			target = 8355D4921A6538FD00E73302 /* Dolphin */;
 			targetProxy = 8355D4DF1A653AA900E73302 /* PBXContainerItemProxy */;
+		};
+		DD9C11EE29B267F4001E9015 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD9C11DE29B267AB001E9015 /* implot */;
+			targetProxy = DD9C11ED29B267F4001E9015 /* PBXContainerItemProxy */;
+		};
+		DD9C123E29B26D0F001E9015 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD9C120F29B26B73001E9015 /* SPIRV-Cross */;
+			targetProxy = DD9C123D29B26D0F001E9015 /* PBXContainerItemProxy */;
 		};
 		EE09ECF225AFAC6D002C9E67 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -11702,6 +11949,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/subprojects,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
@@ -11776,6 +12024,7 @@
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/subprojects,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
@@ -12675,134 +12924,6 @@
 			};
 			name = Release;
 		};
-		5547C3C429B2922F006BAEFC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = "";
-				HEADER_SEARCH_PATHS = (
-					$SRCROOT/Compatibility/libusb,
-					$SRCROOT/dolphin/Externals/cubeb/src,
-					$SRCROOT/dolphin/Source/Core,
-					"$(SRCROOT)/dolphin/Externals/imgui",
-					"$(SRCROOT)/dolphin/Externals/fmt/include",
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-fno-strict-aliasing",
-				);
-				"OTHER_CFLAGS[arch=x86_64]" = (
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-msse2",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-Wtype-limits",
-					"-Wsign-compare",
-					"-Wignored-qualifiers",
-					"-Wuninitialized",
-					"-Wshadow",
-					"-Winit-self",
-					"-Wmissing-declarations",
-					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
-					"-Wall",
-					"-fno-strict-aliasing",
-				);
-				"OTHER_CPLUSPLUSFLAGS[arch=x86_64]" = (
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-msse2",
-					"$(inherited)",
-				);
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		5547C3C529B2922F006BAEFC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PREFIX_HEADER = "";
-				HEADER_SEARCH_PATHS = (
-					$SRCROOT/Compatibility/libusb,
-					$SRCROOT/dolphin/Externals/cubeb/src,
-					$SRCROOT/dolphin/Source/Core,
-					"$(SRCROOT)/dolphin/Externals/imgui",
-					"$(SRCROOT)/dolphin/Externals/fmt/include",
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-					"-Wall",
-					"-fno-strict-aliasing",
-				);
-				"OTHER_CFLAGS[arch=x86_64]" = (
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-msse2",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-Wtype-limits",
-					"-Wsign-compare",
-					"-Wignored-qualifiers",
-					"-Wuninitialized",
-					"-Wshadow",
-					"-Winit-self",
-					"-Wmissing-declarations",
-					"-Wmissing-variable-declarations",
-					"-fvisibility-inlines-hidden",
-					"-DNDEBUG",
-					"-Wall",
-					"-fno-strict-aliasing",
-				);
-				"OTHER_CPLUSPLUSFLAGS[arch=x86_64]" = (
-					"-arch",
-					x86_64,
-					"-mssse3",
-					"-march=core2",
-					"-msse2",
-					"$(inherited)",
-				);
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
 		557EF7ACEE8441178F76C109 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -13345,7 +13466,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.0.16211;
+				CURRENT_PROJECT_VERSION = 5.0.18809;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)\"";
@@ -13386,6 +13507,7 @@
 					$SRCROOT/dolphin/Externals/fmt/include,
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 					$SRCROOT/dolphin/Externals/picojson,
+					$SRCROOT/Externals/expr/include,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
@@ -13416,7 +13538,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 5.0.16211;
+				CURRENT_PROJECT_VERSION = 5.0.18809;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -13454,6 +13576,7 @@
 					$SRCROOT/dolphin/Externals/fmt/include,
 					$SRCROOT/dolphin/Externals/mbedtls/include,
 					$SRCROOT/dolphin/Externals/picojson,
+					$SRCROOT/Externals/expr/include,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
@@ -14343,6 +14466,192 @@
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
 				SECTORDER_FLAGS = "";
 				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		DD9C11E729B267AB001E9015 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/dolphin",
+					"$(SRCROOT)/dolphin/Externals/implot/implot",
+					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/dolphin/Externals/fmt/include",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		DD9C11E829B267AB001E9015 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/dolphin",
+					"$(SRCROOT)/dolphin/Externals/implot/implot",
+					"$(SRCROOT)/dolphin/Source/Core",
+					"$(SRCROOT)/dolphin/Externals/fmt/include",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		DD9C121729B26B73001E9015 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/dolphin",
+					"$(SRCROOT)/dolphin/Externals/spirv-cross/SPIRV-Cross",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		DD9C121829B26B73001E9015 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/dolphin",
+					"$(SRCROOT)/dolphin/Externals/spirv-cross/SPIRV-Cross",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -15979,15 +16288,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5547C3C329B2922F006BAEFC /* Build configuration list for PBXNativeTarget "implot" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5547C3C429B2922F006BAEFC /* Debug */,
-				5547C3C529B2922F006BAEFC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		5FFFFBD71D3B46E39CD48AB2 /* Build configuration list for PBXNativeTarget "miniupnpc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -16092,6 +16392,24 @@
 			buildConfigurations = (
 				9528A9B0D3964B67B091B29C /* Debug */,
 				557EF7ACEE8441178F76C109 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD9C11E629B267AB001E9015 /* Build configuration list for PBXNativeTarget "implot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9C11E729B267AB001E9015 /* Debug */,
+				DD9C11E829B267AB001E9015 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD9C121629B26B73001E9015 /* Build configuration list for PBXNativeTarget "SPIRV-Cross" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD9C121729B26B73001E9015 /* Debug */,
+				DD9C121829B26B73001E9015 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
