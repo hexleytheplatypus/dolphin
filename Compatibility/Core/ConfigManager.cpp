@@ -16,7 +16,6 @@
 #include "AudioCommon/AudioCommon.h"
 
 #include "Common/Assert.h"
-#include "Common/CDUtils.h"
 #include "Common/CommonPaths.h"
 #include "Common/CommonTypes.h"
 #include "Common/Config/Config.h"
@@ -34,6 +33,7 @@
 #include "Core/Config/SYSCONFSettings.h"
 #include "Core/ConfigLoaders/GameConfigLoader.h"
 #include "Core/Core.h"
+#include "Core/System.h"
 #include "Core/FifoPlayer/FifoDataFile.h"
 #include "Core/HLE/HLE.h"
 #include "Core/HW/DVD/DVDInterface.h"
@@ -169,23 +169,13 @@ void SConfig::SetRunningGameMetadata(const std::string& game_id, const std::stri
   m_title_description = title_database.Describe(m_gametdb_id, language);
   NOTICE_LOG_FMT(CORE, "Active title: {}", m_title_description);
   Host_TitleChanged();
+  if (Core::IsRunning())
+  {
+    Core::UpdateTitle();
+  }
 
   Config::AddLayer(ConfigLoaders::GenerateGlobalGameConfigLoader(game_id, revision));
   Config::AddLayer(ConfigLoaders::GenerateLocalGameConfigLoader(game_id, revision));
-
-  if (Core::IsRunning())
-  {
-    // TODO: have a callback mechanism for title changes?
-    if (!g_symbolDB.IsEmpty())
-    {
-      g_symbolDB.Clear();
-      Host_NotifyMapLoaded();
-    }
-    CBoot::LoadMapFromFilename();
-    HLE::Reload();
-    PatchEngine::Reload();
-    HiresTexture::Update();
-  }
 }
 
 void SConfig::LoadDefaults()
@@ -398,7 +388,7 @@ IniFile SConfig::LoadGameIni(const std::string& id, std::optional<u16> revision)
   return game_ini;
 }
 
-void SConfig::OnNewTitleLoad()
+void SConfig::OnNewTitleLoad(const Core::CPUThreadGuard &guard)
 {
   if (!Core::IsRunning())
     return;
@@ -408,8 +398,8 @@ void SConfig::OnNewTitleLoad()
     g_symbolDB.Clear();
     Host_NotifyMapLoaded();
   }
-  CBoot::LoadMapFromFilename();
-  HLE::Reload();
+  CBoot::LoadMapFromFilename(guard);
+  HLE::Reload(Core::System::GetInstance());
   PatchEngine::Reload();
   HiresTexture::Update();
 }

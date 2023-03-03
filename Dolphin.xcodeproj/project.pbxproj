@@ -51,7 +51,6 @@
 		3E3D709E1C82B03600091C4D /* OpenSLESStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D708A1C82B03600091C4D /* OpenSLESStream.cpp */; };
 		3E3D70A01C82B03600091C4D /* WaveFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D708F1C82B03600091C4D /* WaveFile.cpp */; };
 		3E3D70A81C82B08500091C4D /* syntax.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70A71C82B08500091C4D /* syntax.cc */; };
-		3E3D71611C82B0BB00091C4D /* CDUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70B71C82B0BB00091C4D /* CDUtils.cpp */; };
 		3E3D71621C82B0BB00091C4D /* ColorUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70BC1C82B0BB00091C4D /* ColorUtil.cpp */; };
 		3E3D71631C82B0BB00091C4D /* bn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70C61C82B0BB00091C4D /* bn.cpp */; };
 		3E3D71641C82B0BB00091C4D /* ec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70C81C82B0BB00091C4D /* ec.cpp */; };
@@ -178,7 +177,6 @@
 		3E3D74601C82B11900091C4D /* CISOBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D743A1C82B11900091C4D /* CISOBlob.cpp */; };
 		3E3D74611C82B11900091C4D /* CompressedBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D743D1C82B11900091C4D /* CompressedBlob.cpp */; };
 		3E3D74621C82B11900091C4D /* DiscScrubber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74411C82B11900091C4D /* DiscScrubber.cpp */; };
-		3E3D74631C82B11900091C4D /* DriveBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74431C82B11900091C4D /* DriveBlob.cpp */; };
 		3E3D74641C82B11900091C4D /* FileBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74451C82B11900091C4D /* FileBlob.cpp */; };
 		3E3D74661C82B11900091C4D /* Filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D74491C82B11900091C4D /* Filesystem.cpp */; };
 		3E3D74671C82B11900091C4D /* FileSystemGCWii.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D744B1C82B11900091C4D /* FileSystemGCWii.cpp */; };
@@ -223,7 +221,6 @@
 		3E3D75F21C82B2DE00091C4D /* CPMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75911C82B2DD00091C4D /* CPMemory.cpp */; };
 		3E3D75F41C82B2DE00091C4D /* DriverDetails.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75961C82B2DD00091C4D /* DriverDetails.cpp */; };
 		3E3D75F51C82B2DE00091C4D /* Fifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75981C82B2DD00091C4D /* Fifo.cpp */; };
-		3E3D75F61C82B2DE00091C4D /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D759A1C82B2DD00091C4D /* FPSCounter.cpp */; };
 		3E3D75F81C82B2DE00091C4D /* GeometryShaderGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D759E1C82B2DD00091C4D /* GeometryShaderGen.cpp */; };
 		3E3D75F91C82B2DE00091C4D /* GeometryShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75A01C82B2DD00091C4D /* GeometryShaderManager.cpp */; };
 		3E3D75FA1C82B2DE00091C4D /* HiresTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75A21C82B2DD00091C4D /* HiresTextures.cpp */; };
@@ -262,7 +259,6 @@
 		3E3D76431C82B30A00091C4D /* OGLStreamBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76301C82B30A00091C4D /* OGLStreamBuffer.cpp */; };
 		3E3D76461C82B30A00091C4D /* OGLVertexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76361C82B30A00091C4D /* OGLVertexManager.cpp */; };
 		3E3D76661C82B33700091C4D /* Clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76471C82B33700091C4D /* Clipper.cpp */; };
-		3E3D76671C82B33700091C4D /* DebugUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D764A1C82B33700091C4D /* DebugUtil.cpp */; };
 		3E3D76681C82B33700091C4D /* EfbCopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D764C1C82B33700091C4D /* EfbCopy.cpp */; };
 		3E3D76691C82B33700091C4D /* EfbInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D764E1C82B33700091C4D /* EfbInterface.cpp */; };
 		3E3D766A1C82B33700091C4D /* Rasterizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76511C82B33700091C4D /* Rasterizer.cpp */; };
@@ -558,7 +554,6 @@
 		3EFF26261F8458E600B4FD11 /* UberShaderVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26171F8458E100B4FD11 /* UberShaderVertex.cpp */; };
 		3EFF26271F8458E600B4FD11 /* AsyncShaderCompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF261A1F8458E200B4FD11 /* AsyncShaderCompiler.cpp */; };
 		3EFF26281F8458E600B4FD11 /* AbstractTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF261B1F8458E200B4FD11 /* AbstractTexture.cpp */; };
-		3EFF26291F8458E600B4FD11 /* HiresTextures_DDSLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF261D1F8458E300B4FD11 /* HiresTextures_DDSLoader.cpp */; };
 		3EFF262A1F8458E600B4FD11 /* ShaderGenCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF261F1F8458E400B4FD11 /* ShaderGenCommon.cpp */; };
 		3EFF262B1F8458E600B4FD11 /* UberShaderPixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26201F8458E400B4FD11 /* UberShaderPixel.cpp */; };
 		3EFF262C1F8458E600B4FD11 /* UberShaderCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF26211F8458E500B4FD11 /* UberShaderCommon.cpp */; };
@@ -585,8 +580,6 @@
 		3EFF27891F84621200B4FD11 /* cubeb_osx_run_loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF27361F84617A00B4FD11 /* cubeb_osx_run_loop.cpp */; };
 		3EFF278A1F84621200B4FD11 /* cubeb_audiounit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF27371F84617A00B4FD11 /* cubeb_audiounit.cpp */; };
 		3EFF278B1F84621200B4FD11 /* cubeb.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF27391F84617A00B4FD11 /* cubeb.c */; };
-		3EFF278D1F84621200B4FD11 /* cubeb_panner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF27421F84617A00B4FD11 /* cubeb_panner.cpp */; };
-		3EFF278E1F84621200B4FD11 /* resample.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF27481F84617A00B4FD11 /* resample.c */; };
 		3EFF278F1F84621200B4FD11 /* cubeb_mixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF274C1F84617A00B4FD11 /* cubeb_mixer.cpp */; };
 		3EFF27901F84621200B4FD11 /* cubeb_resampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF274D1F84617A00B4FD11 /* cubeb_resampler.cpp */; };
 		3EFF27911F84621200B4FD11 /* cubeb_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF275B1F84617A00B4FD11 /* cubeb_log.cpp */; };
@@ -627,8 +620,8 @@
 		3EFF293B1F8562D000B4FD11 /* libbdisasm-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65EF8E25FB448D2BA4D3070 /* libbdisasm-dol.a */; };
 		3EFF293E1F85631300B4FD11 /* libDiscIO-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E3BFC78D1E4A22863D3447 /* libDiscIO-dol.a */; };
 		3EFF294D1F8581B000B4FD11 /* AGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70261C82AF2A00091C4D /* AGL.mm */; };
-		3EFF294F1F85830500B4FD11 /* NullRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DD1F85604F00B4FD11 /* NullRender.cpp */; };
-		3EFF29571F85A24400B4FD11 /* OGLRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4831CCE8AC600EAE7AC /* OGLRender.cpp */; };
+		3EFF294F1F85830500B4FD11 /* NullGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF28DD1F85604F00B4FD11 /* NullGfx.cpp */; };
+		3EFF29571F85A24400B4FD11 /* OGLGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E89F4831CCE8AC600EAE7AC /* OGLGfx.cpp */; };
 		3EFF295F1F85D08700B4FD11 /* libpugixml-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EFF277D1F8461BC00B4FD11 /* libpugixml-dol.a */; };
 		5547BFBB29B188D9006BAEFC /* GraphicsModGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547BF9F29B188D9006BAEFC /* GraphicsModGroup.cpp */; };
 		5547BFBC29B188D9006BAEFC /* GraphicsMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547BFA129B188D9006BAEFC /* GraphicsMod.cpp */; };
@@ -760,7 +753,7 @@
 		5547C0EE29B1A050006BAEFC /* libvideometal-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5547C0ED29B19FBB006BAEFC /* libvideometal-dol.a */; };
 		5547C10C29B1A074006BAEFC /* MTLVertexManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F229B1A073006BAEFC /* MTLVertexManager.mm */; };
 		5547C10D29B1A074006BAEFC /* MTLBoundingBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F329B1A073006BAEFC /* MTLBoundingBox.mm */; };
-		5547C10E29B1A074006BAEFC /* MTLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F629B1A073006BAEFC /* MTLRenderer.mm */; };
+		5547C10E29B1A074006BAEFC /* MTLGfx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F629B1A073006BAEFC /* MTLGfx.mm */; };
 		5547C10F29B1A074006BAEFC /* MTLTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F729B1A073006BAEFC /* MTLTexture.mm */; };
 		5547C11029B1A074006BAEFC /* MTLStateTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F929B1A073006BAEFC /* MTLStateTracker.mm */; };
 		5547C11129B1A074006BAEFC /* MTLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0FA29B1A073006BAEFC /* MTLMain.mm */; };
@@ -776,6 +769,15 @@
 		5547C24629B1A77D006BAEFC /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C24529B1A77D006BAEFC /* SHA1.cpp */; };
 		5547C24929B1A7E4006BAEFC /* AESnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C24729B1A7E4006BAEFC /* AESnd.cpp */; };
 		5547C24C29B1A89B006BAEFC /* NFSBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C24A29B1A89A006BAEFC /* NFSBlob.cpp */; };
+		5547C38029B1DEF9006BAEFC /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C36229B1DDD9006BAEFC /* Common.cpp */; };
+		5547C38129B1DF02006BAEFC /* VmaUsage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C36E29B1DDD9006BAEFC /* VmaUsage.cpp */; };
+		5547C38229B1DF0F006BAEFC /* Tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C36D29B1DDD9006BAEFC /* Tests.cpp */; };
+		5547C38329B1DF13006BAEFC /* SparseBindingTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C36929B1DDD9006BAEFC /* SparseBindingTest.cpp */; };
+		5547C38629B1E589006BAEFC /* OGLConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C38529B1E589006BAEFC /* OGLConfig.cpp */; };
+		5547C38929B1E81C006BAEFC /* Present.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C38729B1E81B006BAEFC /* Present.cpp */; };
+		5547C38C29B1EDEE006BAEFC /* AbstractGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C38B29B1EDED006BAEFC /* AbstractGfx.cpp */; };
+		5547C38F29B1EE0F006BAEFC /* CPUCull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C38D29B1EE0F006BAEFC /* CPUCull.cpp */; };
+		5547C39229B1EE91006BAEFC /* Spirv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39029B1EE91006BAEFC /* Spirv.cpp */; };
 		55508FC427FA45D400CA618C /* VertexLoaderARCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC327FA45D400CA618C /* VertexLoaderARCH.cpp */; };
 		55508FC627FA466100CA618C /* TextureDecoderARCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC527FA466100CA618C /* TextureDecoderARCH.cpp */; };
 		55508FC827FA498600CA618C /* CPUDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC727FA498600CA618C /* CPUDetect.cpp */; };
@@ -867,7 +869,7 @@
 		EE45F41022B4389200C5D0C0 /* VKMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC412224A9F5900BA7436 /* VKMain.cpp */; };
 		EE45F41122B4389200C5D0C0 /* ObjectCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC40D224A9F5800BA7436 /* ObjectCache.cpp */; };
 		EE45F41222B4389200C5D0C0 /* VKPerfQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC41A224A9F5A00BA7436 /* VKPerfQuery.cpp */; };
-		EE45F41322B4389200C5D0C0 /* VKRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC3FF224A9F5600BA7436 /* VKRenderer.cpp */; };
+		EE45F41322B4389200C5D0C0 /* VKGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC3FF224A9F5600BA7436 /* VKGfx.cpp */; };
 		EE45F41422B4389200C5D0C0 /* ShaderCompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC40C224A9F5800BA7436 /* ShaderCompiler.cpp */; };
 		EE45F41522B4389200C5D0C0 /* StagingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC3F8224A9F5500BA7436 /* StagingBuffer.cpp */; };
 		EE45F41622B4389200C5D0C0 /* StateTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE3EC413224A9F5900BA7436 /* StateTracker.cpp */; };
@@ -1535,8 +1537,6 @@
 		3E3D70B11C82B0BB00091C4D /* BitField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitField.h; sourceTree = "<group>"; };
 		3E3D70B31C82B0BB00091C4D /* BitSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitSet.h; sourceTree = "<group>"; };
 		3E3D70B41C82B0BB00091C4D /* BlockingLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockingLoop.h; sourceTree = "<group>"; };
-		3E3D70B71C82B0BB00091C4D /* CDUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDUtils.cpp; sourceTree = "<group>"; };
-		3E3D70B81C82B0BB00091C4D /* CDUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDUtils.h; sourceTree = "<group>"; };
 		3E3D70B91C82B0BB00091C4D /* ChunkFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChunkFile.h; sourceTree = "<group>"; };
 		3E3D70BA1C82B0BB00091C4D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		3E3D70BB1C82B0BB00091C4D /* CodeBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeBlock.h; sourceTree = "<group>"; };
@@ -1879,8 +1879,6 @@
 		3E3D743E1C82B11900091C4D /* CompressedBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompressedBlob.h; sourceTree = "<group>"; };
 		3E3D74411C82B11900091C4D /* DiscScrubber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DiscScrubber.cpp; sourceTree = "<group>"; };
 		3E3D74421C82B11900091C4D /* DiscScrubber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscScrubber.h; sourceTree = "<group>"; };
-		3E3D74431C82B11900091C4D /* DriveBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DriveBlob.cpp; sourceTree = "<group>"; };
-		3E3D74441C82B11900091C4D /* DriveBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriveBlob.h; sourceTree = "<group>"; };
 		3E3D74451C82B11900091C4D /* FileBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileBlob.cpp; sourceTree = "<group>"; };
 		3E3D74461C82B11900091C4D /* FileBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileBlob.h; sourceTree = "<group>"; };
 		3E3D74491C82B11900091C4D /* Filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filesystem.cpp; sourceTree = "<group>"; };
@@ -1970,8 +1968,6 @@
 		3E3D75971C82B2DD00091C4D /* DriverDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverDetails.h; sourceTree = "<group>"; };
 		3E3D75981C82B2DD00091C4D /* Fifo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fifo.cpp; sourceTree = "<group>"; };
 		3E3D75991C82B2DD00091C4D /* Fifo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fifo.h; sourceTree = "<group>"; };
-		3E3D759A1C82B2DD00091C4D /* FPSCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPSCounter.cpp; sourceTree = "<group>"; };
-		3E3D759B1C82B2DD00091C4D /* FPSCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSCounter.h; sourceTree = "<group>"; };
 		3E3D759E1C82B2DD00091C4D /* GeometryShaderGen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometryShaderGen.cpp; sourceTree = "<group>"; };
 		3E3D759F1C82B2DD00091C4D /* GeometryShaderGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryShaderGen.h; sourceTree = "<group>"; };
 		3E3D75A01C82B2DD00091C4D /* GeometryShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometryShaderManager.cpp; sourceTree = "<group>"; };
@@ -2054,8 +2050,8 @@
 		3E3D76251C82B30A00091C4D /* OGLPerfQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGLPerfQuery.h; sourceTree = "<group>"; };
 		3E3D76281C82B30A00091C4D /* ProgramShaderCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgramShaderCache.cpp; sourceTree = "<group>"; };
 		3E3D76291C82B30A00091C4D /* ProgramShaderCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramShaderCache.h; sourceTree = "<group>"; };
-		3E3D762C1C82B30A00091C4D /* OGLRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLRender.cpp; sourceTree = "<group>"; };
-		3E3D762D1C82B30A00091C4D /* OGLRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGLRender.h; sourceTree = "<group>"; };
+		3E3D762C1C82B30A00091C4D /* OGLGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLGfx.cpp; sourceTree = "<group>"; };
+		3E3D762D1C82B30A00091C4D /* OGLGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGLGfx.h; sourceTree = "<group>"; };
 		3E3D762E1C82B30A00091C4D /* SamplerCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerCache.cpp; sourceTree = "<group>"; };
 		3E3D762F1C82B30A00091C4D /* SamplerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplerCache.h; sourceTree = "<group>"; };
 		3E3D76301C82B30A00091C4D /* OGLStreamBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLStreamBuffer.cpp; sourceTree = "<group>"; };
@@ -2066,8 +2062,6 @@
 		3E3D76471C82B33700091C4D /* Clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clipper.cpp; sourceTree = "<group>"; };
 		3E3D76481C82B33700091C4D /* Clipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clipper.h; sourceTree = "<group>"; };
 		3E3D76491C82B33700091C4D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		3E3D764A1C82B33700091C4D /* DebugUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugUtil.cpp; sourceTree = "<group>"; };
-		3E3D764B1C82B33700091C4D /* DebugUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugUtil.h; sourceTree = "<group>"; };
 		3E3D764C1C82B33700091C4D /* EfbCopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EfbCopy.cpp; sourceTree = "<group>"; };
 		3E3D764D1C82B33700091C4D /* EfbCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EfbCopy.h; sourceTree = "<group>"; };
 		3E3D764E1C82B33700091C4D /* EfbInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EfbInterface.cpp; sourceTree = "<group>"; };
@@ -2184,7 +2178,7 @@
 		3E6EF0EE1C98C8C7004C6F58 /* FileUtil.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FileUtil.cpp; sourceTree = "<group>"; };
 		3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WiiSaveBanner.cpp; sourceTree = "<group>"; };
 		3E7AE8E71FB4E6750017E3D1 /* WiiSaveBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiSaveBanner.h; sourceTree = "<group>"; };
-		3E89F4831CCE8AC600EAE7AC /* OGLRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLRender.cpp; sourceTree = "<group>"; };
+		3E89F4831CCE8AC600EAE7AC /* OGLGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLGfx.cpp; sourceTree = "<group>"; };
 		3E8D25F61D21D8C80086BA59 /* Analytics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Analytics.cpp; sourceTree = "<group>"; };
 		3E8D25F81D21D8DF0086BA59 /* Analytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
 		3E8D26031D21D9A70086BA59 /* libcurl-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcurl-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2600,7 +2594,6 @@
 		3EFF261A1F8458E200B4FD11 /* AsyncShaderCompiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncShaderCompiler.cpp; sourceTree = "<group>"; };
 		3EFF261B1F8458E200B4FD11 /* AbstractTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractTexture.cpp; sourceTree = "<group>"; };
 		3EFF261C1F8458E300B4FD11 /* TextureDecoder_Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureDecoder_Util.h; sourceTree = "<group>"; };
-		3EFF261D1F8458E300B4FD11 /* HiresTextures_DDSLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HiresTextures_DDSLoader.cpp; sourceTree = "<group>"; };
 		3EFF261E1F8458E400B4FD11 /* UberShaderCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberShaderCommon.h; sourceTree = "<group>"; };
 		3EFF261F1F8458E400B4FD11 /* ShaderGenCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderGenCommon.cpp; sourceTree = "<group>"; };
 		3EFF26201F8458E400B4FD11 /* UberShaderPixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UberShaderPixel.cpp; sourceTree = "<group>"; };
@@ -2649,7 +2642,6 @@
 		3EFF27151F84617900B4FD11 /* pugiconfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugiconfig.hpp; sourceTree = "<group>"; };
 		3EFF27171F84617900B4FD11 /* pugixml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugixml.hpp; sourceTree = "<group>"; };
 		3EFF27181F84617900B4FD11 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pugixml.cpp; sourceTree = "<group>"; };
-		3EFF271D1F84617A00B4FD11 /* cubeb_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_export.h; sourceTree = "<group>"; };
 		3EFF27301F84617A00B4FD11 /* cubeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb.h; sourceTree = "<group>"; };
 		3EFF27351F84617A00B4FD11 /* cubeb_sndio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_sndio.c; sourceTree = "<group>"; };
 		3EFF27361F84617A00B4FD11 /* cubeb_osx_run_loop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_osx_run_loop.cpp; sourceTree = "<group>"; };
@@ -2657,26 +2649,15 @@
 		3EFF27381F84617A00B4FD11 /* cubeb_utils_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_utils_win.h; sourceTree = "<group>"; };
 		3EFF27391F84617A00B4FD11 /* cubeb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb.c; sourceTree = "<group>"; };
 		3EFF273A1F84617A00B4FD11 /* cubeb_winmm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_winmm.c; sourceTree = "<group>"; };
-		3EFF273C1F84617A00B4FD11 /* cubeb_panner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_panner.h; sourceTree = "<group>"; };
 		3EFF273D1F84617A00B4FD11 /* cubeb_opensl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_opensl.c; sourceTree = "<group>"; };
 		3EFF273E1F84617A00B4FD11 /* cubeb_kai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_kai.c; sourceTree = "<group>"; };
 		3EFF273F1F84617A00B4FD11 /* cubeb_mixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_mixer.h; sourceTree = "<group>"; };
 		3EFF27401F84617A00B4FD11 /* cubeb_utils_unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_utils_unix.h; sourceTree = "<group>"; };
 		3EFF27411F84617A00B4FD11 /* cubeb_ring_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_ring_array.h; sourceTree = "<group>"; };
-		3EFF27421F84617A00B4FD11 /* cubeb_panner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_panner.cpp; sourceTree = "<group>"; };
-		3EFF27441F84617A00B4FD11 /* speex_config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_config_types.h; sourceTree = "<group>"; };
-		3EFF27451F84617A00B4FD11 /* stack_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack_alloc.h; sourceTree = "<group>"; };
-		3EFF27461F84617A00B4FD11 /* speex_resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_resampler.h; sourceTree = "<group>"; };
-		3EFF27471F84617A00B4FD11 /* fixed_generic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fixed_generic.h; sourceTree = "<group>"; };
-		3EFF27481F84617A00B4FD11 /* resample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = resample.c; sourceTree = "<group>"; };
-		3EFF27491F84617A00B4FD11 /* resample_neon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resample_neon.h; sourceTree = "<group>"; };
-		3EFF274A1F84617A00B4FD11 /* resample_sse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resample_sse.h; sourceTree = "<group>"; };
-		3EFF274B1F84617A00B4FD11 /* arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arch.h; sourceTree = "<group>"; };
 		3EFF274C1F84617A00B4FD11 /* cubeb_mixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_mixer.cpp; sourceTree = "<group>"; };
 		3EFF274D1F84617A00B4FD11 /* cubeb_resampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_resampler.cpp; sourceTree = "<group>"; };
 		3EFF274E1F84617A00B4FD11 /* cubeb_jack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_jack.cpp; sourceTree = "<group>"; };
 		3EFF274F1F84617A00B4FD11 /* cubeb_alsa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_alsa.c; sourceTree = "<group>"; };
-		3EFF27501F84617A00B4FD11 /* cubeb-sles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cubeb-sles.h"; sourceTree = "<group>"; };
 		3EFF27511F84617A00B4FD11 /* cubeb-speex-resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cubeb-speex-resampler.h"; sourceTree = "<group>"; };
 		3EFF27521F84617A00B4FD11 /* cubeb_resampler_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_resampler_internal.h; sourceTree = "<group>"; };
 		3EFF27531F84617A00B4FD11 /* cubeb_ringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_ringbuffer.h; sourceTree = "<group>"; };
@@ -2730,8 +2711,8 @@
 		3EFF28D11F855F2E00B4FD11 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		3EFF28D91F85604E00B4FD11 /* NullTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullTexture.h; sourceTree = "<group>"; };
 		3EFF28DA1F85604F00B4FD11 /* VideoBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoBackend.h; sourceTree = "<group>"; };
-		3EFF28DC1F85604F00B4FD11 /* NullRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullRender.h; sourceTree = "<group>"; };
-		3EFF28DD1F85604F00B4FD11 /* NullRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullRender.cpp; sourceTree = "<group>"; };
+		3EFF28DC1F85604F00B4FD11 /* NullGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullGfx.h; sourceTree = "<group>"; };
+		3EFF28DD1F85604F00B4FD11 /* NullGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullGfx.cpp; sourceTree = "<group>"; };
 		3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullTexture.cpp; sourceTree = "<group>"; };
 		3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullBackend.cpp; sourceTree = "<group>"; };
 		3EFF28E01F85605000B4FD11 /* PerfQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfQuery.h; sourceTree = "<group>"; };
@@ -2903,14 +2884,14 @@
 		5547C0F329B1A073006BAEFC /* MTLBoundingBox.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLBoundingBox.mm; sourceTree = "<group>"; };
 		5547C0F429B1A073006BAEFC /* MTLTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLTexture.h; sourceTree = "<group>"; };
 		5547C0F529B1A073006BAEFC /* MTLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLShader.h; sourceTree = "<group>"; };
-		5547C0F629B1A073006BAEFC /* MTLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLRenderer.mm; sourceTree = "<group>"; };
+		5547C0F629B1A073006BAEFC /* MTLGfx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLGfx.mm; sourceTree = "<group>"; };
 		5547C0F729B1A073006BAEFC /* MTLTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLTexture.mm; sourceTree = "<group>"; };
 		5547C0F829B1A073006BAEFC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		5547C0F929B1A073006BAEFC /* MTLStateTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLStateTracker.mm; sourceTree = "<group>"; };
 		5547C0FA29B1A073006BAEFC /* MTLMain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLMain.mm; sourceTree = "<group>"; };
 		5547C0FB29B1A073006BAEFC /* MTLVertexFormat.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLVertexFormat.mm; sourceTree = "<group>"; };
 		5547C0FC29B1A073006BAEFC /* MTLShader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLShader.mm; sourceTree = "<group>"; };
-		5547C0FD29B1A073006BAEFC /* MTLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLRenderer.h; sourceTree = "<group>"; };
+		5547C0FD29B1A073006BAEFC /* MTLGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLGfx.h; sourceTree = "<group>"; };
 		5547C0FE29B1A073006BAEFC /* MTLPerfQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLPerfQuery.h; sourceTree = "<group>"; };
 		5547C0FF29B1A073006BAEFC /* MTLVertexFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLVertexFormat.h; sourceTree = "<group>"; };
 		5547C10029B1A073006BAEFC /* MTLBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLBoundingBox.h; sourceTree = "<group>"; };
@@ -2935,6 +2916,37 @@
 		5547C24829B1A7E4006BAEFC /* AESnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESnd.h; sourceTree = "<group>"; };
 		5547C24A29B1A89A006BAEFC /* NFSBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NFSBlob.cpp; sourceTree = "<group>"; };
 		5547C24B29B1A89B006BAEFC /* NFSBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFSBlob.h; sourceTree = "<group>"; };
+		5547C26A29B1DDD6006BAEFC /* vk_mem_alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vk_mem_alloc.h; sourceTree = "<group>"; };
+		5547C36129B1DDD9006BAEFC /* SparseBindingTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SparseBindingTest.h; sourceTree = "<group>"; };
+		5547C36229B1DDD9006BAEFC /* Common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Common.cpp; sourceTree = "<group>"; };
+		5547C36329B1DDD9006BAEFC /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		5547C36529B1DDD9006BAEFC /* install_target.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = install_target.cmake; sourceTree = "<group>"; };
+		5547C36629B1DDD9006BAEFC /* Config.cmake.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Config.cmake.in; sourceTree = "<group>"; };
+		5547C36729B1DDD9006BAEFC /* Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
+		5547C36829B1DDD9006BAEFC /* VmaUsage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VmaUsage.h; sourceTree = "<group>"; };
+		5547C36929B1DDD9006BAEFC /* SparseBindingTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SparseBindingTest.cpp; sourceTree = "<group>"; };
+		5547C36A29B1DDD9006BAEFC /* .editorconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
+		5547C36B29B1DDD9006BAEFC /* VulkanSample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VulkanSample.cpp; sourceTree = "<group>"; };
+		5547C36C29B1DDD9006BAEFC /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		5547C36D29B1DDD9006BAEFC /* Tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tests.cpp; sourceTree = "<group>"; };
+		5547C36E29B1DDD9006BAEFC /* VmaUsage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VmaUsage.cpp; sourceTree = "<group>"; };
+		5547C37029B1DDD9006BAEFC /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		5547C37129B1DDD9006BAEFC /* Shader.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.vert; sourceTree = "<group>"; };
+		5547C37229B1DDD9006BAEFC /* CompileShaders.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = CompileShaders.bat; sourceTree = "<group>"; };
+		5547C37329B1DDD9006BAEFC /* SparseBindingTest.comp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SparseBindingTest.comp; sourceTree = "<group>"; };
+		5547C37429B1DDD9006BAEFC /* Shader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.frag; sourceTree = "<group>"; };
+		5547C37529B1DDD9006BAEFC /* vk_mem_alloc.natvis */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = vk_mem_alloc.natvis; sourceTree = "<group>"; };
+		5547C37F29B1DE53006BAEFC /* libVulkMemAlloc-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libVulkMemAlloc-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5547C38429B1E588006BAEFC /* OGLConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGLConfig.h; sourceTree = "<group>"; };
+		5547C38529B1E589006BAEFC /* OGLConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLConfig.cpp; sourceTree = "<group>"; };
+		5547C38729B1E81B006BAEFC /* Present.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Present.cpp; sourceTree = "<group>"; };
+		5547C38829B1E81B006BAEFC /* Present.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Present.h; sourceTree = "<group>"; };
+		5547C38A29B1EDED006BAEFC /* AbstractGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractGfx.h; sourceTree = "<group>"; };
+		5547C38B29B1EDED006BAEFC /* AbstractGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractGfx.cpp; sourceTree = "<group>"; };
+		5547C38D29B1EE0F006BAEFC /* CPUCull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPUCull.cpp; sourceTree = "<group>"; };
+		5547C38E29B1EE0F006BAEFC /* CPUCull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUCull.h; sourceTree = "<group>"; };
+		5547C39029B1EE91006BAEFC /* Spirv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spirv.cpp; sourceTree = "<group>"; };
+		5547C39129B1EE91006BAEFC /* Spirv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spirv.h; sourceTree = "<group>"; };
 		55508FC327FA45D400CA618C /* VertexLoaderARCH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexLoaderARCH.cpp; sourceTree = "<group>"; };
 		55508FC527FA466100CA618C /* TextureDecoderARCH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureDecoderARCH.cpp; sourceTree = "<group>"; };
 		55508FC727FA498600CA618C /* CPUDetect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CPUDetect.cpp; sourceTree = "<group>"; };
@@ -3159,11 +3171,11 @@
 		EE3EC3F8224A9F5500BA7436 /* StagingBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StagingBuffer.cpp; sourceTree = "<group>"; };
 		EE3EC3F9224A9F5500BA7436 /* ObjectCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectCache.h; sourceTree = "<group>"; };
 		EE3EC3FA224A9F5500BA7436 /* VKSwapChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKSwapChain.h; sourceTree = "<group>"; };
-		EE3EC3FB224A9F5600BA7436 /* VKRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKRenderer.h; sourceTree = "<group>"; };
+		EE3EC3FB224A9F5600BA7436 /* VKGfx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKGfx.h; sourceTree = "<group>"; };
 		EE3EC3FC224A9F5600BA7436 /* VKVertexManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VKVertexManager.cpp; sourceTree = "<group>"; };
 		EE3EC3FD224A9F5600BA7436 /* StateTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateTracker.h; sourceTree = "<group>"; };
 		EE3EC3FE224A9F5600BA7436 /* VKShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKShader.h; sourceTree = "<group>"; };
-		EE3EC3FF224A9F5600BA7436 /* VKRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VKRenderer.cpp; sourceTree = "<group>"; };
+		EE3EC3FF224A9F5600BA7436 /* VKGfx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VKGfx.cpp; sourceTree = "<group>"; };
 		EE3EC400224A9F5600BA7436 /* VKPipeline.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VKPipeline.cpp; sourceTree = "<group>"; };
 		EE3EC401224A9F5700BA7436 /* VKPerfQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKPerfQuery.h; sourceTree = "<group>"; };
 		EE3EC402224A9F5700BA7436 /* VKVertexManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKVertexManager.h; sourceTree = "<group>"; };
@@ -3222,8 +3234,6 @@
 		EE68206121053A31008D5405 /* DiscordPresence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DiscordPresence.cpp; sourceTree = "<group>"; };
 		EE68206621053AFC008D5405 /* UISettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISettings.h; sourceTree = "<group>"; };
 		EE68206721053AFC008D5405 /* UISettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UISettings.cpp; sourceTree = "<group>"; };
-		EE6ABD74239C21C2005E5F7D /* FrameDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDump.h; sourceTree = "<group>"; };
-		EE6ABD75239C21C2005E5F7D /* FrameDump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameDump.cpp; sourceTree = "<group>"; };
 		EE6ABE15239C3678005E5F7D /* Control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Control.cpp; sourceTree = "<group>"; };
 		EE6ABE16239C3678005E5F7D /* Control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Control.h; sourceTree = "<group>"; };
 		EE6ABE17239C3678005E5F7D /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
@@ -3963,6 +3973,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5547C37A29B1DE53006BAEFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8355D4901A6538FD00E73302 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4084,14 +4101,16 @@
 				3EFF27041F845F0200B4FD11 /* GPUTimer.h */,
 				3E3D761D1C82B30A00091C4D /* OGLBoundingBox.cpp */,
 				3E3D761E1C82B30A00091C4D /* OGLBoundingBox.h */,
+				5547C38529B1E589006BAEFC /* OGLConfig.cpp */,
+				5547C38429B1E588006BAEFC /* OGLConfig.h */,
+				3E3D762C1C82B30A00091C4D /* OGLGfx.cpp */,
+				3E3D762D1C82B30A00091C4D /* OGLGfx.h */,
 				3E3D76221C82B30A00091C4D /* OGLMain.cpp */,
 				3E3D76231C82B30A00091C4D /* OGLNativeVertexFormat.cpp */,
 				3E3D76241C82B30A00091C4D /* OGLPerfQuery.cpp */,
 				3E3D76251C82B30A00091C4D /* OGLPerfQuery.h */,
 				EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */,
 				EE149B892059E115008D5DDE /* OGLPipeline.h */,
-				3E3D762C1C82B30A00091C4D /* OGLRender.cpp */,
-				3E3D762D1C82B30A00091C4D /* OGLRender.h */,
 				EE149B882059E115008D5DDE /* OGLShader.cpp */,
 				EE149B8A2059E115008D5DDE /* OGLShader.h */,
 				3E3D76301C82B30A00091C4D /* OGLStreamBuffer.cpp */,
@@ -4127,8 +4146,6 @@
 				3E3D74421C82B11900091C4D /* DiscScrubber.h */,
 				5550901E27FA903800CA618C /* DiscUtils.cpp */,
 				5550901F27FA903800CA618C /* DiscUtils.h */,
-				3E3D74431C82B11900091C4D /* DriveBlob.cpp */,
-				3E3D74441C82B11900091C4D /* DriveBlob.h */,
 				3E8EC56A1F84234C00D79F27 /* Enums.cpp */,
 				3E8EC56E1F84234E00D79F27 /* Enums.h */,
 				3E3D74451C82B11900091C4D /* FileBlob.cpp */,
@@ -4189,8 +4206,6 @@
 				3E3D76481C82B33700091C4D /* Clipper.h */,
 				3E3D76491C82B33700091C4D /* CMakeLists.txt */,
 				EE3CCF9B205DF87400F0D04F /* CopyRegion.h */,
-				3E3D764A1C82B33700091C4D /* DebugUtil.cpp */,
-				3E3D764B1C82B33700091C4D /* DebugUtil.h */,
 				3E3D764C1C82B33700091C4D /* EfbCopy.cpp */,
 				3E3D764D1C82B33700091C4D /* EfbCopy.h */,
 				3E3D764E1C82B33700091C4D /* EfbInterface.cpp */,
@@ -4841,7 +4856,7 @@
 		3E89F4761CCA7A0D00EAE7AC /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				3E89F4831CCE8AC600EAE7AC /* OGLRender.cpp */,
+				3E89F4831CCE8AC600EAE7AC /* OGLGfx.cpp */,
 				3E3D70261C82AF2A00091C4D /* AGL.mm */,
 			);
 			path = Video;
@@ -5234,6 +5249,7 @@
 		3EFF25201F843C7B00B4FD11 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				5547C24D29B1DDD6006BAEFC /* VulkanMemoryAllocator */,
 				DEF8F202248D4F798242FC6B /* bdisasm */,
 				EE98BFFF24B91E0D00FFFDD7 /* bzip2 */,
 				3EFF271A1F84617A00B4FD11 /* cubeb */,
@@ -5603,19 +5619,11 @@
 		3EFF271A1F84617A00B4FD11 /* cubeb */ = {
 			isa = PBXGroup;
 			children = (
-				3EFF271C1F84617A00B4FD11 /* msvc */,
 				3EFF272E1F84617A00B4FD11 /* include */,
 				3EFF27341F84617A00B4FD11 /* src */,
 			);
-			path = cubeb;
-			sourceTree = "<group>";
-		};
-		3EFF271C1F84617A00B4FD11 /* msvc */ = {
-			isa = PBXGroup;
-			children = (
-				3EFF271D1F84617A00B4FD11 /* cubeb_export.h */,
-			);
-			path = msvc;
+			name = cubeb;
+			path = cubeb/cubeb;
 			sourceTree = "<group>";
 		};
 		3EFF272E1F84617A00B4FD11 /* include */ = {
@@ -5654,8 +5662,6 @@
 				3EFF273D1F84617A00B4FD11 /* cubeb_opensl.c */,
 				3EFF27361F84617A00B4FD11 /* cubeb_osx_run_loop.cpp */,
 				3EFF27571F84617A00B4FD11 /* cubeb_osx_run_loop.h */,
-				3EFF27421F84617A00B4FD11 /* cubeb_panner.cpp */,
-				3EFF273C1F84617A00B4FD11 /* cubeb_panner.h */,
 				3EFF27551F84617A00B4FD11 /* cubeb_pulse.c */,
 				3EFF27521F84617A00B4FD11 /* cubeb_resampler_internal.h */,
 				3EFF274D1F84617A00B4FD11 /* cubeb_resampler.cpp */,
@@ -5669,27 +5675,10 @@
 				3EFF27561F84617A00B4FD11 /* cubeb_wasapi.cpp */,
 				3EFF273A1F84617A00B4FD11 /* cubeb_winmm.c */,
 				3EFF27611F84617A00B4FD11 /* cubeb-internal.h */,
-				3EFF27501F84617A00B4FD11 /* cubeb-sles.h */,
 				3EFF27511F84617A00B4FD11 /* cubeb-speex-resampler.h */,
 				3EFF27391F84617A00B4FD11 /* cubeb.c */,
-				3EFF27431F84617A00B4FD11 /* speex */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		3EFF27431F84617A00B4FD11 /* speex */ = {
-			isa = PBXGroup;
-			children = (
-				3EFF27441F84617A00B4FD11 /* speex_config_types.h */,
-				3EFF27451F84617A00B4FD11 /* stack_alloc.h */,
-				3EFF27461F84617A00B4FD11 /* speex_resampler.h */,
-				3EFF27471F84617A00B4FD11 /* fixed_generic.h */,
-				3EFF27481F84617A00B4FD11 /* resample.c */,
-				3EFF27491F84617A00B4FD11 /* resample_neon.h */,
-				3EFF274A1F84617A00B4FD11 /* resample_sse.h */,
-				3EFF274B1F84617A00B4FD11 /* arch.h */,
-			);
-			path = speex;
 			sourceTree = "<group>";
 		};
 		3EFF27581F84617A00B4FD11 /* android */ = {
@@ -5764,8 +5753,8 @@
 			isa = PBXGroup;
 			children = (
 				3EFF28DF1F85605000B4FD11 /* NullBackend.cpp */,
-				3EFF28DD1F85604F00B4FD11 /* NullRender.cpp */,
-				3EFF28DC1F85604F00B4FD11 /* NullRender.h */,
+				3EFF28DD1F85604F00B4FD11 /* NullGfx.cpp */,
+				3EFF28DC1F85604F00B4FD11 /* NullGfx.h */,
 				3EFF28DE1F85605000B4FD11 /* NullTexture.cpp */,
 				3EFF28D91F85604E00B4FD11 /* NullTexture.h */,
 				3EFF28E41F85605100B4FD11 /* NullVertexManager.cpp */,
@@ -5793,6 +5782,8 @@
 			children = (
 				EE149B902059E190008D5DDE /* AbstractFramebuffer.cpp */,
 				EE149B922059E191008D5DDE /* AbstractFramebuffer.h */,
+				5547C38B29B1EDED006BAEFC /* AbstractGfx.cpp */,
+				5547C38A29B1EDED006BAEFC /* AbstractGfx.h */,
 				EE149B8F2059E190008D5DDE /* AbstractPipeline.h */,
 				EE149B942059E192008D5DDE /* AbstractShader.h */,
 				3E98CDF71FD70844009A9DEA /* AbstractStagingTexture.cpp */,
@@ -5816,19 +5807,17 @@
 				3E3D75901C82B2DD00091C4D /* ConstantManager.h */,
 				3E3D75911C82B2DD00091C4D /* CPMemory.cpp */,
 				3E3D75921C82B2DD00091C4D /* CPMemory.h */,
+				5547C38D29B1EE0F006BAEFC /* CPUCull.cpp */,
+				5547C38E29B1EE0F006BAEFC /* CPUCull.h */,
 				3E3D75931C82B2DD00091C4D /* DataReader.h */,
 				3E3D75961C82B2DD00091C4D /* DriverDetails.cpp */,
 				3E3D75971C82B2DD00091C4D /* DriverDetails.h */,
 				3E3D75981C82B2DD00091C4D /* Fifo.cpp */,
 				3E3D75991C82B2DD00091C4D /* Fifo.h */,
-				3E3D759A1C82B2DD00091C4D /* FPSCounter.cpp */,
-				3E3D759B1C82B2DD00091C4D /* FPSCounter.h */,
 				EE8DD27522492B87005E1AF5 /* FramebufferManager.cpp */,
 				EE8DD27622492B87005E1AF5 /* FramebufferManager.h */,
 				EE8DD27722492B88005E1AF5 /* FramebufferShaderGen.cpp */,
 				EE8DD27422492B87005E1AF5 /* FramebufferShaderGen.h */,
-				EE6ABD75239C21C2005E5F7D /* FrameDump.cpp */,
-				EE6ABD74239C21C2005E5F7D /* FrameDump.h */,
 				EE98BE0924B8F43800FFFDD7 /* FreeLookCamera.cpp */,
 				EE98BE0A24B8F43800FFFDD7 /* FreeLookCamera.h */,
 				3E3D759E1C82B2DD00091C4D /* GeometryShaderGen.cpp */,
@@ -5837,7 +5826,6 @@
 				3E3D75A11C82B2DD00091C4D /* GeometryShaderManager.h */,
 				5547BF9D29B188D9006BAEFC /* GraphicsModSystem */,
 				EE149B912059E191008D5DDE /* GXPipelineTypes.h */,
-				3EFF261D1F8458E300B4FD11 /* HiresTextures_DDSLoader.cpp */,
 				3E3D75A21C82B2DD00091C4D /* HiresTextures.cpp */,
 				3E3D75A31C82B2DD00091C4D /* HiresTextures.h */,
 				3E3D75A61C82B2DD00091C4D /* IndexGenerator.cpp */,
@@ -5864,12 +5852,16 @@
 				3E3D75B71C82B2DD00091C4D /* PixelShaderManager.h */,
 				3E3D75B81C82B2DD00091C4D /* PostProcessing.cpp */,
 				3E3D75B91C82B2DD00091C4D /* PostProcessing.h */,
+				5547C38729B1E81B006BAEFC /* Present.cpp */,
+				5547C38829B1E81B006BAEFC /* Present.h */,
 				3E3D75BA1C82B2DE00091C4D /* RenderBase.cpp */,
 				3E3D75BB1C82B2DE00091C4D /* RenderBase.h */,
 				3EFF26111F8458DE00B4FD11 /* RenderState.cpp */,
 				3EFF26181F8458E100B4FD11 /* RenderState.h */,
 				EE149B8E2059E190008D5DDE /* ShaderCache.cpp */,
 				EE149B932059E192008D5DDE /* ShaderCache.h */,
+				5547C39029B1EE91006BAEFC /* Spirv.cpp */,
+				5547C39129B1EE91006BAEFC /* Spirv.h */,
 				3EFF261F1F8458E400B4FD11 /* ShaderGenCommon.cpp */,
 				3E3D75BC1C82B2DE00091C4D /* ShaderGenCommon.h */,
 				3E3D75BD1C82B2DE00091C4D /* Statistics.cpp */,
@@ -6166,14 +6158,14 @@
 				5547C0F329B1A073006BAEFC /* MTLBoundingBox.mm */,
 				5547C0F429B1A073006BAEFC /* MTLTexture.h */,
 				5547C0F529B1A073006BAEFC /* MTLShader.h */,
-				5547C0F629B1A073006BAEFC /* MTLRenderer.mm */,
+				5547C0F629B1A073006BAEFC /* MTLGfx.mm */,
 				5547C0F729B1A073006BAEFC /* MTLTexture.mm */,
 				5547C0F829B1A073006BAEFC /* CMakeLists.txt */,
 				5547C0F929B1A073006BAEFC /* MTLStateTracker.mm */,
 				5547C0FA29B1A073006BAEFC /* MTLMain.mm */,
 				5547C0FB29B1A073006BAEFC /* MTLVertexFormat.mm */,
 				5547C0FC29B1A073006BAEFC /* MTLShader.mm */,
-				5547C0FD29B1A073006BAEFC /* MTLRenderer.h */,
+				5547C0FD29B1A073006BAEFC /* MTLGfx.h */,
 				5547C0FE29B1A073006BAEFC /* MTLPerfQuery.h */,
 				5547C0FF29B1A073006BAEFC /* MTLVertexFormat.h */,
 				5547C10029B1A073006BAEFC /* MTLBoundingBox.h */,
@@ -6200,6 +6192,65 @@
 			);
 			name = spng;
 			path = libspng/libspng/spng;
+			sourceTree = "<group>";
+		};
+		5547C24D29B1DDD6006BAEFC /* VulkanMemoryAllocator */ = {
+			isa = PBXGroup;
+			children = (
+				5547C26929B1DDD6006BAEFC /* include */,
+				5547C36029B1DDD9006BAEFC /* src */,
+			);
+			path = VulkanMemoryAllocator;
+			sourceTree = "<group>";
+		};
+		5547C26929B1DDD6006BAEFC /* include */ = {
+			isa = PBXGroup;
+			children = (
+				5547C26A29B1DDD6006BAEFC /* vk_mem_alloc.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		5547C36029B1DDD9006BAEFC /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5547C36A29B1DDD9006BAEFC /* .editorconfig */,
+				5547C36429B1DDD9006BAEFC /* cmake */,
+				5547C36329B1DDD9006BAEFC /* CMakeLists.txt */,
+				5547C36229B1DDD9006BAEFC /* Common.cpp */,
+				5547C36C29B1DDD9006BAEFC /* Common.h */,
+				5547C36F29B1DDD9006BAEFC /* Shaders */,
+				5547C36929B1DDD9006BAEFC /* SparseBindingTest.cpp */,
+				5547C36129B1DDD9006BAEFC /* SparseBindingTest.h */,
+				5547C36D29B1DDD9006BAEFC /* Tests.cpp */,
+				5547C36729B1DDD9006BAEFC /* Tests.h */,
+				5547C37529B1DDD9006BAEFC /* vk_mem_alloc.natvis */,
+				5547C36E29B1DDD9006BAEFC /* VmaUsage.cpp */,
+				5547C36829B1DDD9006BAEFC /* VmaUsage.h */,
+				5547C36B29B1DDD9006BAEFC /* VulkanSample.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		5547C36429B1DDD9006BAEFC /* cmake */ = {
+			isa = PBXGroup;
+			children = (
+				5547C36529B1DDD9006BAEFC /* install_target.cmake */,
+				5547C36629B1DDD9006BAEFC /* Config.cmake.in */,
+			);
+			path = cmake;
+			sourceTree = "<group>";
+		};
+		5547C36F29B1DDD9006BAEFC /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				5547C37029B1DDD9006BAEFC /* CMakeLists.txt */,
+				5547C37129B1DDD9006BAEFC /* Shader.vert */,
+				5547C37229B1DDD9006BAEFC /* CompileShaders.bat */,
+				5547C37329B1DDD9006BAEFC /* SparseBindingTest.comp */,
+				5547C37429B1DDD9006BAEFC /* Shader.frag */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 		55508FCF27FA522200CA618C /* lib */ = {
@@ -6577,8 +6628,6 @@
 				3E3D70B31C82B0BB00091C4D /* BitSet.h */,
 				3EFF25F11F8455D000B4FD11 /* BitUtils.h */,
 				3E3D70B41C82B0BB00091C4D /* BlockingLoop.h */,
-				3E3D70B71C82B0BB00091C4D /* CDUtils.cpp */,
-				3E3D70B81C82B0BB00091C4D /* CDUtils.h */,
 				3E3D70B91C82B0BB00091C4D /* ChunkFile.h */,
 				3E3D70BA1C82B0BB00091C4D /* CMakeLists.txt */,
 				3E3D70BB1C82B0BB00091C4D /* CodeBlock.h */,
@@ -7038,6 +7087,7 @@
 				EE98C02E24B91E1700FFFDD7 /* libbzip2.a */,
 				5547C0B829B197A2006BAEFC /* libFatFs-dol.a */,
 				5547C0ED29B19FBB006BAEFC /* libvideometal-dol.a */,
+				5547C37F29B1DE53006BAEFC /* libVulkMemAlloc-dol.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7271,8 +7321,8 @@
 				EE3EC401224A9F5700BA7436 /* VKPerfQuery.h */,
 				EE3EC400224A9F5600BA7436 /* VKPipeline.cpp */,
 				EE3EC40E224A9F5900BA7436 /* VKPipeline.h */,
-				EE3EC3FF224A9F5600BA7436 /* VKRenderer.cpp */,
-				EE3EC3FB224A9F5600BA7436 /* VKRenderer.h */,
+				EE3EC3FF224A9F5600BA7436 /* VKGfx.cpp */,
+				EE3EC3FB224A9F5600BA7436 /* VKGfx.h */,
 				EE3EC403224A9F5700BA7436 /* VKShader.cpp */,
 				EE3EC3FE224A9F5600BA7436 /* VKShader.h */,
 				EE3EC418224A9F5A00BA7436 /* VKStreamBuffer.cpp */,
@@ -8219,6 +8269,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5547C37B29B1DE53006BAEFC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE3A465422B6874500031B56 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -8435,6 +8492,23 @@
 			name = videometal;
 			productName = videoogl;
 			productReference = 5547C0ED29B19FBB006BAEFC /* libvideometal-dol.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5547C37629B1DE53006BAEFC /* VulkMemAlloc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5547C37C29B1DE53006BAEFC /* Build configuration list for PBXNativeTarget "VulkMemAlloc" */;
+			buildPhases = (
+				5547C37729B1DE53006BAEFC /* Sources */,
+				5547C37A29B1DE53006BAEFC /* Frameworks */,
+				5547C37B29B1DE53006BAEFC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VulkMemAlloc;
+			productName = enet;
+			productReference = 5547C37F29B1DE53006BAEFC /* libVulkMemAlloc-dol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		75A40CDC6A8F4D759F46EA48 /* InputCommon */ = {
@@ -8958,6 +9032,7 @@
 				EE98BE9A24B8FC5600FFFDD7 /* lzma */,
 				EE98C00E24B91E1700FFFDD7 /* bzip2 */,
 				5547C0AB29B197A2006BAEFC /* FatFs */,
+				5547C37629B1DE53006BAEFC /* VulkMemAlloc */,
 			);
 		};
 /* End PBXProject section */
@@ -9298,7 +9373,6 @@
 				5547C24629B1A77D006BAEFC /* SHA1.cpp in Sources */,
 				3EFF260A1F84560100B4FD11 /* CommonFuncs.cpp in Sources */,
 				EE3A462122B5DCBB00031B56 /* DynamicLibrary.cpp in Sources */,
-				3E3D71611C82B0BB00091C4D /* CDUtils.cpp in Sources */,
 				3E3D71941C82B0BB00091C4D /* x64Emitter.cpp in Sources */,
 				EEABFB4024EEEF9800878963 /* FileUtil.cpp in Sources */,
 				3E8D25F71D21D8C80086BA59 /* Analytics.cpp in Sources */,
@@ -9607,8 +9681,6 @@
 				3EFF27891F84621200B4FD11 /* cubeb_osx_run_loop.cpp in Sources */,
 				3EFF278A1F84621200B4FD11 /* cubeb_audiounit.cpp in Sources */,
 				3EFF278B1F84621200B4FD11 /* cubeb.c in Sources */,
-				3EFF278D1F84621200B4FD11 /* cubeb_panner.cpp in Sources */,
-				3EFF278E1F84621200B4FD11 /* resample.c in Sources */,
 				3EFF278F1F84621200B4FD11 /* cubeb_mixer.cpp in Sources */,
 				3EFF27901F84621200B4FD11 /* cubeb_resampler.cpp in Sources */,
 				3EFF27911F84621200B4FD11 /* cubeb_log.cpp in Sources */,
@@ -9638,7 +9710,7 @@
 				3EFF291F1F8560BA00B4FD11 /* NullVertexManager.cpp in Sources */,
 				3EFF291C1F8560BA00B4FD11 /* NullTexture.cpp in Sources */,
 				3EFF291B1F8560BA00B4FD11 /* NullBackend.cpp in Sources */,
-				3EFF294F1F85830500B4FD11 /* NullRender.cpp in Sources */,
+				3EFF294F1F85830500B4FD11 /* NullGfx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9662,7 +9734,6 @@
 				EE98BE1E24B8F4A400FFFDD7 /* WIACompression.cpp in Sources */,
 				5547C24C29B1A89B006BAEFC /* NFSBlob.cpp in Sources */,
 				3E8EC5771F84235200D79F27 /* Enums.cpp in Sources */,
-				3E3D74631C82B11900091C4D /* DriveBlob.cpp in Sources */,
 				5550901727FA8D9400CA618C /* RiivolutionParser.cpp in Sources */,
 				3E7AE8E81FB4E6900017E3D1 /* WiiSaveBanner.cpp in Sources */,
 				3E8EC5791F84235200D79F27 /* NANDImporter.cpp in Sources */,
@@ -9710,7 +9781,7 @@
 				5547C11629B1A074006BAEFC /* MTLPerfQuery.mm in Sources */,
 				5547C11329B1A074006BAEFC /* MTLShader.mm in Sources */,
 				5547C11129B1A074006BAEFC /* MTLMain.mm in Sources */,
-				5547C10E29B1A074006BAEFC /* MTLRenderer.mm in Sources */,
+				5547C10E29B1A074006BAEFC /* MTLGfx.mm in Sources */,
 				5547C11429B1A074006BAEFC /* MTLObjectCache.mm in Sources */,
 				5547C11729B1A074006BAEFC /* MTLPipeline.mm in Sources */,
 				5547C10C29B1A074006BAEFC /* MTLVertexManager.mm in Sources */,
@@ -9719,6 +9790,17 @@
 				5547C10F29B1A074006BAEFC /* MTLTexture.mm in Sources */,
 				5547C11229B1A074006BAEFC /* MTLVertexFormat.mm in Sources */,
 				5547C11529B1A074006BAEFC /* MTLUtil.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5547C37729B1DE53006BAEFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5547C38229B1DF0F006BAEFC /* Tests.cpp in Sources */,
+				5547C38129B1DF02006BAEFC /* VmaUsage.cpp in Sources */,
+				5547C38029B1DEF9006BAEFC /* Common.cpp in Sources */,
+				5547C38329B1DF13006BAEFC /* SparseBindingTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9852,6 +9934,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5547BFC029B188D9006BAEFC /* GraphicsModActionFactory.cpp in Sources */,
+				5547C38929B1E81C006BAEFC /* Present.cpp in Sources */,
 				5550902A27FA98F700CA618C /* TextureInfo.cpp in Sources */,
 				3E0A56EE1FAF7EDC00D755B8 /* VideoConfig.cpp in Sources */,
 				3E3D75EF1C82B2DE00091C4D /* BPMemory.cpp in Sources */,
@@ -9885,6 +9968,7 @@
 				3E98CDFA1FD70845009A9DEA /* AbstractStagingTexture.cpp in Sources */,
 				3EFF26261F8458E600B4FD11 /* UberShaderVertex.cpp in Sources */,
 				3E3D760A1C82B2DE00091C4D /* TextureDecoder_Generic.cpp in Sources */,
+				5547C38C29B1EDEE006BAEFC /* AbstractGfx.cpp in Sources */,
 				EE3EC3F1224A827B00BA7436 /* NetPlayChatUI.cpp in Sources */,
 				3E3D761A1C82B2DE00091C4D /* VideoState.cpp in Sources */,
 				EE149B962059E192008D5DDE /* AbstractFramebuffer.cpp in Sources */,
@@ -9903,12 +9987,12 @@
 				3EFF26281F8458E600B4FD11 /* AbstractTexture.cpp in Sources */,
 				5547BFC629B188D9006BAEFC /* ScaleAction.cpp in Sources */,
 				EE149B952059E192008D5DDE /* ShaderCache.cpp in Sources */,
+				5547C38F29B1EE0F006BAEFC /* CPUCull.cpp in Sources */,
 				55508FC627FA466100CA618C /* TextureDecoderARCH.cpp in Sources */,
 				EE98BE0B24B8F43900FFFDD7 /* FreeLookCamera.cpp in Sources */,
 				5550901127FA8CD800CA618C /* TMEM.cpp in Sources */,
 				3E3D75F01C82B2DE00091C4D /* BPStructs.cpp in Sources */,
 				5547BFBD29B188D9006BAEFC /* GraphicsTargetGroup.cpp in Sources */,
-				3E3D75F61C82B2DE00091C4D /* FPSCounter.cpp in Sources */,
 				5547BFC329B188D9006BAEFC /* PrintAction.cpp in Sources */,
 				EE8DD27922492B88005E1AF5 /* FramebufferShaderGen.cpp in Sources */,
 				3E3D75F41C82B2DE00091C4D /* DriverDetails.cpp in Sources */,
@@ -9920,13 +10004,13 @@
 				3E3D760F1C82B2DE00091C4D /* VertexLoader_TextCoord.cpp in Sources */,
 				3E3D75EE1C82B2DE00091C4D /* BPFunctions.cpp in Sources */,
 				3E3D76041C82B2DE00091C4D /* PostProcessing.cpp in Sources */,
+				5547C39229B1EE91006BAEFC /* Spirv.cpp in Sources */,
 				3E3D76161C82B2DE00091C4D /* VertexShaderGen.cpp in Sources */,
 				3E98CDFB1FD70845009A9DEA /* TextureConverterShaderGen.cpp in Sources */,
 				3E3D75F51C82B2DE00091C4D /* Fifo.cpp in Sources */,
 				3E3D76121C82B2DE00091C4D /* VertexLoaderBase.cpp in Sources */,
 				3E3D76001C82B2DE00091C4D /* PerfQueryBase.cpp in Sources */,
 				EE5FDAD124F4429F00DA2D43 /* TextureCacheBase.cpp in Sources */,
-				3EFF26291F8458E600B4FD11 /* HiresTextures_DDSLoader.cpp in Sources */,
 				3E3D75F81C82B2DE00091C4D /* GeometryShaderGen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9952,7 +10036,6 @@
 				3E3D766D1C82B33700091C4D /* SWOGLWindow.cpp in Sources */,
 				3E3D76721C82B33700091C4D /* TextureSampler.cpp in Sources */,
 				3E3D76681C82B33700091C4D /* EfbCopy.cpp in Sources */,
-				3E3D76671C82B33700091C4D /* DebugUtil.cpp in Sources */,
 				3E3D76691C82B33700091C4D /* EfbInterface.cpp in Sources */,
 				5550901D27FA8FBA00CA618C /* SWBoundingBox.cpp in Sources */,
 				3E3D76731C82B33700091C4D /* TransformUnit.cpp in Sources */,
@@ -10026,7 +10109,7 @@
 			files = (
 				EE45F43222B43AC100C5D0C0 /* VKBoundingBox.cpp in Sources */,
 				EE45F41D22B4389200C5D0C0 /* VKTexture.cpp in Sources */,
-				EE45F41322B4389200C5D0C0 /* VKRenderer.cpp in Sources */,
+				EE45F41322B4389200C5D0C0 /* VKGfx.cpp in Sources */,
 				EE45F41722B4389200C5D0C0 /* VKStreamBuffer.cpp in Sources */,
 				EE45F41822B4389200C5D0C0 /* VKSwapChain.cpp in Sources */,
 				EE45F41522B4389200C5D0C0 /* StagingBuffer.cpp in Sources */,
@@ -10069,11 +10152,12 @@
 				3E3D76391C82B30A00091C4D /* OGLBoundingBox.cpp in Sources */,
 				3E3D763C1C82B30A00091C4D /* OGLNativeVertexFormat.cpp in Sources */,
 				EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */,
+				5547C38629B1E589006BAEFC /* OGLConfig.cpp in Sources */,
 				EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */,
 				3E3D763D1C82B30A00091C4D /* OGLPerfQuery.cpp in Sources */,
 				3E3D76461C82B30A00091C4D /* OGLVertexManager.cpp in Sources */,
 				3E3D763B1C82B30A00091C4D /* OGLMain.cpp in Sources */,
-				3EFF29571F85A24400B4FD11 /* OGLRender.cpp in Sources */,
+				3EFF29571F85A24400B4FD11 /* OGLGfx.cpp in Sources */,
 				3E79CEC11F89390B003D1BD9 /* ProgramShaderCache.cpp in Sources */,
 				3EFF27061F845F0300B4FD11 /* OGLTexture.cpp in Sources */,
 				3E3D76421C82B30A00091C4D /* SamplerCache.cpp in Sources */,
@@ -10450,7 +10534,6 @@
 		15FA53E6E93B41BBAED4E9D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -10534,7 +10617,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10549,7 +10631,7 @@
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
-					$SRCROOT/dolphin/Externals/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
 					$SRCROOT/dolphin/Externals/fmt/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
@@ -10606,7 +10688,6 @@
 		317BF5D950F8415BAB5C0A6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10727,7 +10808,6 @@
 		3BA7B981243B4320AB679F9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -10758,6 +10838,7 @@
 					$SRCROOT/dolphin/Externals/libspng/libspng/spng,
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					"$(SRCROOT)/dolphin/Externals/picojson",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -10805,7 +10886,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10852,7 +10932,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10894,7 +10973,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10942,7 +11020,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -10985,7 +11062,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11033,7 +11109,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11076,7 +11151,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11133,7 +11207,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11187,7 +11260,6 @@
 		3EFF25761F84437500B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11249,7 +11321,6 @@
 		3EFF25771F84437500B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11313,7 +11384,6 @@
 		3EFF27791F8461BC00B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11370,7 +11440,6 @@
 		3EFF277A1F8461BC00B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11429,7 +11498,6 @@
 		3EFF27821F8461CA00B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11448,7 +11516,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
@@ -11504,7 +11572,6 @@
 		3EFF27831F8461CA00B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11523,7 +11590,7 @@
 				HEADER_SEARCH_PATHS = (
 					$SRCROOT/dolphin/Externals/cubeb/src,
 					$SRCROOT/dolphin/Source/Core,
-					$SRCROOT/dolphin/Externals/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
 					$SRCROOT/dolphin/Externals,
@@ -11581,7 +11648,6 @@
 		3EFF28711F85514300B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11648,7 +11714,6 @@
 		3EFF28721F85514300B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11717,7 +11782,6 @@
 		3EFF29161F85606C00B4FD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -11781,7 +11845,6 @@
 		3EFF29171F85606C00B4FD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -11848,7 +11911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -11901,7 +11964,7 @@
 					"$(SRCROOT)/dolphin",
 				);
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = macosx;
 				STRIP_STYLE = debugging;
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/dolphin;
@@ -11965,7 +12028,6 @@
 		525CBF637C2B418390686DFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -11999,6 +12061,7 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/fmt/include,
 					"$(SRCROOT)/dolphin/Externals/picojson",
+					"$(SRCROOT)/dolphin/Externals/glslang/**",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -12051,7 +12114,6 @@
 		5547C0B629B197A2006BAEFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12113,7 +12175,6 @@
 		5547C0B729B197A2006BAEFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12177,7 +12238,6 @@
 		5547C0EB29B19FBB006BAEFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12218,6 +12278,7 @@
 					$SRCROOT/dolphin/Externals/glslang,
 					"$(SRCROOT)/dolphin/Externals/picojson",
 					"$(SRCROOT)/dolphin/Externals/spirv_cross/SPIRV-Cross",
+					"$(SRCROOT)/dolphin/Externals/glslang/glslang/Public",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12269,7 +12330,6 @@
 		5547C0EC29B19FBB006BAEFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12287,6 +12347,7 @@
 					$SRCROOT/dolphin/Externals/glslang,
 					"$(SRCROOT)/dolphin/Externals/picojson",
 					"$(SRCROOT)/dolphin/Externals/spirv_cross/SPIRV-Cross",
+					"$(SRCROOT)/dolphin/Externals/glslang/glslang/Public",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12337,10 +12398,100 @@
 			};
 			name = Release;
 		};
+		5547C37D29B1DE53006BAEFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/dolphin",
+					$SRCROOT/dolphin/Externals/fmt/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)-dol";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		5547C37E29B1DE53006BAEFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/dolphin",
+					$SRCROOT/dolphin/Externals/fmt/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)-dol";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
 		557EF7ACEE8441178F76C109 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12521,7 +12672,6 @@
 		734DA293A12F4BF49E0302B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -12547,7 +12697,7 @@
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Externals/pugixml,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
-					$SRCROOT/dolphin/Externals/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
 					$SRCROOT/dolphin/Externals/Bochs_disasm,
@@ -12673,7 +12823,6 @@
 		73C0A223F64C448F97CDA857 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12704,6 +12853,7 @@
 					$SRCROOT/dolphin/Externals/libspng/libspng/spng,
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Externals/fmt/include,
+					"$(SRCROOT)/dolphin/Externals/picojson",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12748,7 +12898,6 @@
 		7507BABEF5044674979D7E12 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12801,7 +12950,6 @@
 		7979D13279224D33A118E4D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -12869,7 +13017,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -12941,7 +13088,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -13027,7 +13173,6 @@
 		8378DEC11A7862DA003DA046 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -13108,7 +13253,6 @@
 		8378DEC21A7862DA003DA046 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -13168,7 +13312,6 @@
 		87E6FC0AC4E54581878556F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -13298,7 +13441,6 @@
 		92293AACE1F64C17A580A2C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -13324,7 +13466,7 @@
 					$SRCROOT/dolphin/Externals/SFML/include,
 					$SRCROOT/dolphin/Externals/pugixml,
 					$SRCROOT/dolphin/Externals/hidapi/hidapi,
-					$SRCROOT/dolphin/Externals/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
 					$SRCROOT/dolphin/Externals/Bochs_disasm,
@@ -13390,7 +13532,6 @@
 		9528A9B0D3964B67B091B29C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13510,7 +13651,6 @@
 		A63110C819D34F00AA752A86 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13579,7 +13719,6 @@
 		B7BD9FDF6EFD4E989E69B64C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13645,7 +13784,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13660,7 +13798,7 @@
 					$SRCROOT/Compatibility,
 					$SRCROOT/dolphin/Source/Core,
 					$SRCROOT/dolphin/Source/Core/Common/Compat,
-					$SRCROOT/dolphin/Externals/cubeb/include,
+					$SRCROOT/dolphin/Externals/cubeb/cubeb/include,
 					$SRCROOT/dolphin/Externals/fmt/include,
 					$SRCROOT/dolphin/Externals/cubeb/msvc,
 					$SRCROOT/dolphin/Externals,
@@ -13719,7 +13857,6 @@
 		C8168A83F3A04FDE954055A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13842,7 +13979,6 @@
 		CDD6955DC1184656A98FC154 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13933,7 +14069,6 @@
 		E8D5D0D212324F67A9699452 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -13998,7 +14133,6 @@
 		EA2599831FF7477E8C2E5704 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14032,6 +14166,7 @@
 					$SRCROOT/dolphin/Externals/enet/include,
 					$SRCROOT/dolphin/Externals/fmt/include,
 					"$(SRCROOT)/dolphin/Externals/picojson",
+					"$(SRCROOT)/dolphin/Externals/glslang/**",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -14087,7 +14222,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -14136,7 +14270,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -14179,7 +14312,6 @@
 		EE3EC431224AA01500BA7436 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14203,8 +14335,6 @@
 					"'HAVE_SDL=0'",
 					SFML_STATIC,
 					USE_UPNP,
-					__WXOSX_COCOA__,
-					"'HAVE_WX=1'",
 					__STDC_LIMIT_MACROS,
 					__STDC_CONSTANT_MACROS,
 				);
@@ -14219,6 +14349,8 @@
 					$SRCROOT/dolphin/Externals/fmt/include,
 					$SRCROOT/dolphin/Externals/glslang,
 					"$(SRCROOT)/dolphin/Externals/picojson",
+					"$(SRCROOT)/dolphin/Externals/VulkanMemoryAllocator/include",
+					"$(SRCROOT)/dolphin/Externals/glslang/glslang/Public",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14270,7 +14402,6 @@
 		EE3EC432224AA01500BA7436 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14287,6 +14418,8 @@
 					$SRCROOT/dolphin/Externals/fmt/include,
 					$SRCROOT/dolphin/Externals/glslang,
 					"$(SRCROOT)/dolphin/Externals/picojson",
+					"$(SRCROOT)/dolphin/Externals/VulkanMemoryAllocator/include",
+					"$(SRCROOT)/dolphin/Externals/glslang/glslang/Public",
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -14340,7 +14473,6 @@
 		EE475768224AB2F30027BA05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14424,7 +14556,6 @@
 		EE475769224AB2F30027BA05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14487,7 +14618,6 @@
 		EE8DD26E22492AAB005E1AF5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14549,7 +14679,6 @@
 		EE8DD26F22492AAB005E1AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14613,7 +14742,6 @@
 		EE8DD2E2224A7F04005E1AF5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -14670,7 +14798,6 @@
 		EE8DD2E3224A7F04005E1AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15006,7 +15133,6 @@
 		EEC94A5E224ABFDC00F85ABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15064,7 +15190,6 @@
 		EEC94A5F224ABFDC00F85ABA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15124,7 +15249,6 @@
 		EEF4EEE8224AAF5D0077748D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15197,7 +15321,6 @@
 		EEF4EEE9224AAF5D0077748D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				FRAMEWORK_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks;
@@ -15314,7 +15437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -15366,7 +15489,7 @@
 					"$(SRCROOT)/dolphin",
 				);
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				STRIP_STYLE = debugging;
@@ -15526,6 +15649,15 @@
 			buildConfigurations = (
 				5547C0EB29B19FBB006BAEFC /* Debug */,
 				5547C0EC29B19FBB006BAEFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5547C37C29B1DE53006BAEFC /* Build configuration list for PBXNativeTarget "VulkMemAlloc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5547C37D29B1DE53006BAEFC /* Debug */,
+				5547C37E29B1DE53006BAEFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

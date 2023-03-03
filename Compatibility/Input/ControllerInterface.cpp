@@ -82,7 +82,7 @@ void ControllerInterface::Initialize(const WindowSystemInfo& wsi)
 // nothing needed
 #endif
 #ifdef CIFACE_USE_DUALSHOCKUDPCLIENT
-  ciface::DualShockUDPClient::Init();
+  m_input_backends.emplace_back(ciface::DualShockUDPClient::CreateInputBackend(this));
 #endif
 
     //OpenEmu initalize OpenEmu Input
@@ -173,9 +173,6 @@ void ControllerInterface::RefreshDevices(RefreshReason reason)
 #ifdef CIFACE_USE_PIPES
   ciface::Pipes::PopulateDevices();
 #endif
-#ifdef CIFACE_USE_DUALSHOCKUDPCLIENT
-  ciface::DualShockUDPClient::PopulateDevices();
-#endif
 
   WiimoteReal::ProcessWiimotePool();
 
@@ -227,9 +224,6 @@ void ControllerInterface::Shutdown()
 #endif
 #ifdef CIFACE_USE_EVDEV
   ciface::evdev::Shutdown();
-#endif
-#ifdef CIFACE_USE_DUALSHOCKUDPCLIENT
-  ciface::DualShockUDPClient::DeInit();
 #endif
 }
 

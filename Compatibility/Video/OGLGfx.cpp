@@ -2,7 +2,7 @@
 // Licensed under GPLv2+
 // Refer to the license.txt file included.
 
-#include "VideoBackends/OGL/OGLRender.h"
+#include "VideoBackends/OGL/OGLGfx.h"
 
 #include <algorithm>
 #include <cinttypes>
@@ -21,6 +21,7 @@
 
 #include "Core/Config/GraphicsSettings.h"
 
+#include "VideoBackends/OGL/OGLConfig.h"
 #include "VideoBackends/OGL/OGLBoundingBox.h"
 #include "VideoBackends/OGL/OGLPipeline.h"
 #include "VideoBackends/OGL/OGLShader.h"
@@ -36,6 +37,7 @@
 #include "VideoCommon/PostProcessing.h"
 #include "VideoCommon/RenderState.h"
 #include "VideoCommon/VideoCommon.h"
+#include "VideoCommon/Present.h"
 #include "VideoCommon/VideoConfig.h"
 
 namespace OGL
@@ -131,205 +133,13 @@ static void APIENTRY ClearDepthf(GLfloat depthval)
   glClearDepth(depthval);
 }
 
-static void InitDriverInfo()
-{
-  const std::string_view svendor(g_ogl_config.gl_vendor);
-  const std::string_view srenderer(g_ogl_config.gl_renderer);
-  const std::string_view sversion(g_ogl_config.gl_version);
-  DriverDetails::Vendor vendor = DriverDetails::VENDOR_UNKNOWN;
-  DriverDetails::Driver driver = DriverDetails::DRIVER_UNKNOWN;
-  DriverDetails::Family family = DriverDetails::Family::UNKNOWN;
-  double version = 0.0;
-
-  // Get the vendor first
-  if (svendor == "NVIDIA Corporation")
-  {
-    if (srenderer != "NVIDIA Tegra")
-    {
-      vendor = DriverDetails::VENDOR_NVIDIA;
-    }
-    else
-    {
-      vendor = DriverDetails::VENDOR_TEGRA;
-    }
-  }
-  else if (svendor == "ATI Technologies Inc." || svendor == "Advanced Micro Devices, Inc.")
-  {
-    vendor = DriverDetails::VENDOR_ATI;
-  }
-  else if (sversion.find("Mesa") != std::string::npos)
-  {
-    vendor = DriverDetails::VENDOR_MESA;
-  }
-  else if (svendor.find("Intel") != std::string::npos)
-  {
-    vendor = DriverDetails::VENDOR_INTEL;
-  }
-  else if (svendor == "ARM")
-  {
-    vendor = DriverDetails::VENDOR_ARM;
-  }
-  else if (svendor == "http://limadriver.org/")
-  {
-    vendor = DriverDetails::VENDOR_ARM;
-    driver = DriverDetails::DRIVER_LIMA;
-  }
-  else if (svendor == "Qualcomm")
-  {
-    vendor = DriverDetails::VENDOR_QUALCOMM;
-  }
-  else if (svendor == "Imagination Technologies")
-  {
-    vendor = DriverDetails::VENDOR_IMGTEC;
-  }
-  else if (svendor == "Vivante Corporation")
-  {
-    vendor = DriverDetails::VENDOR_VIVANTE;
-  }
-
-  // Get device family and driver version...if we care about it
-  switch (vendor)
-  {
-  case DriverDetails::VENDOR_QUALCOMM:
-  {
-    driver = DriverDetails::DRIVER_QUALCOMM;
-    double glVersion;
-    sscanf(g_ogl_config.gl_version, "OpenGL ES %lg V@%lg", &glVersion, &version);
-  }
-  break;
-  case DriverDetails::VENDOR_ARM:
-    // Currently the Mali-T line has two families in it.
-    // Mali-T6xx and Mali-T7xx
-    // These two families are similar enough that they share bugs in their drivers.
-    //
-    // Mali drivers provide no way to explicitly find out what video driver is running.
-    // This is similar to how we can't find the Nvidia driver version in Windows.
-    // Good thing is that ARM introduces a new video driver about once every two years so we can
-    // find the driver version by the features it exposes.
-    // r2p0 - No OpenGL ES 3.0 support (We don't support this)
-    // r3p0 - OpenGL ES 3.0 support
-    // r4p0 - Supports 'GL_EXT_shader_pixel_local_storage' extension.
-
-    driver = DriverDetails::DRIVER_ARM;
-    if (GLExtensions::Supports("GL_EXT_shader_pixel_local_storage"))
-      version = 400;
-    else
-      version = 300;
-    break;
-  case DriverDetails::VENDOR_MESA:
-  {
-    if (svendor == "nouveau")
-    {
-      driver = DriverDetails::DRIVER_NOUVEAU;
-    }
-    else if (svendor == "Intel Open Source Technology Center")
-    {
-      driver = DriverDetails::DRIVER_I965;
-      if (srenderer.find("Sandybridge") != std::string::npos)
-        family = DriverDetails::Family::INTEL_SANDY;
-      else if (srenderer.find("Ivybridge") != std::string::npos)
-        family = DriverDetails::Family::INTEL_IVY;
-    }
-    else if (srenderer.find("AMD") != std::string::npos ||
-             srenderer.find("ATI") != std::string::npos)
-    {
-      driver = DriverDetails::DRIVER_R600;
-    }
-
-    int major = 0;
-    int minor = 0;
-    int release = 0;
-    sscanf(g_ogl_config.gl_version, "%*s (Core Profile) Mesa %d.%d.%d", &major, &minor, &release);
-    version = 100 * major + 10 * minor + release;
-  }
-  break;
-  case DriverDetails::VENDOR_INTEL:  // Happens in OS X/Windows
-  {
-    u32 market_name;
-    sscanf(g_ogl_config.gl_renderer, "Intel HD Graphics %d", &market_name);
-    switch (market_name)
-    {
-    case 2000:
-    case 3000:
-      family = DriverDetails::Family::INTEL_SANDY;
-      break;
-    case 2500:
-    case 4000:
-      family = DriverDetails::Family::INTEL_IVY;
-      break;
-    default:
-      family = DriverDetails::Family::UNKNOWN;
-      break;
-    };
-#ifdef _WIN32
-    int glmajor = 0;
-    int glminor = 0;
-    int major = 0;
-    int minor = 0;
-    int release = 0;
-    int revision = 0;
-    // Example version string: '4.3.0 - Build 10.18.10.3907'
-    sscanf(g_ogl_config.gl_version, "%d.%d.0 - Build %d.%d.%d.%d", &glmajor, &glminor, &major,
-           &minor, &release, &revision);
-    version = 100000000 * major + 1000000 * minor + 10000 * release + revision;
-    version /= 10000;
-#endif
-  }
-  break;
-  case DriverDetails::VENDOR_NVIDIA:
-  {
-    int glmajor = 0;
-    int glminor = 0;
-    int glrelease = 0;
-    int major = 0;
-    int minor = 0;
-    // TODO: this is known to be broken on Windows
-    // Nvidia seems to have removed their driver version from this string, so we can't get it.
-    // hopefully we'll never have to workaround Nvidia bugs
-    sscanf(g_ogl_config.gl_version, "%d.%d.%d NVIDIA %d.%d", &glmajor, &glminor, &glrelease, &major,
-           &minor);
-    version = 100 * major + minor;
-  }
-  break;
-  case DriverDetails::VENDOR_IMGTEC:
-  {
-    // Example version string:
-    // "OpenGL ES 3.2 build 1.9@4850625"
-    // Ends up as "109.4850625" - "1.9" being the branch, "4850625" being the build's change ID
-    // The change ID only makes sense to compare within a branch
-    driver = DriverDetails::DRIVER_IMGTEC;
-    double gl_version;
-    int major, minor, change;
-    constexpr double change_scale = 10000000;
-    sscanf(g_ogl_config.gl_version, "OpenGL ES %lg build %d.%d@%d", &gl_version, &major, &minor,
-           &change);
-    version = 100 * major + minor;
-    if (change >= change_scale)
-    {
-      ERROR_LOG_FMT(VIDEO, "Version changeID overflow - change:{} scale:{}", change, change_scale);
-    }
-    else
-    {
-      version += static_cast<double>(change) / change_scale;
-    }
-  }
-  break;
-  // We don't care about these
-  default:
-    break;
-  }
-  DriverDetails::Init(DriverDetails::API_OPENGL, vendor, driver, version, family);
-}
-
 // Init functions
-Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_scale)
-    : ::Renderer(static_cast<int>(std::max(main_gl_context->GetBackBufferWidth(), 1u)),
-                 static_cast<int>(std::max(main_gl_context->GetBackBufferHeight(), 1u)),
-                 backbuffer_scale, AbstractTextureFormat::RGBA8),
-      m_main_gl_context(std::move(main_gl_context)),
+OGLGfx::OGLGfx(std::unique_ptr<GLContext> main_gl_context, float backbuffer_scale)
+    : m_main_gl_context(std::move(main_gl_context)),
       m_current_rasterization_state(RenderState::GetInvalidRasterizationState()),
       m_current_depth_state(RenderState::GetInvalidDepthState()),
-      m_current_blend_state(RenderState::GetInvalidBlendingState())
+      m_current_blend_state(RenderState::GetInvalidBlendingState()),
+      m_backbuffer_scale(backbuffer_scale)
 {
   // Create the window framebuffer.
   if (!m_main_gl_context->IsHeadless())
@@ -344,10 +154,6 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
 
   bool bSuccess = true;
   bool supports_glsl_cache = false;
-
-  g_ogl_config.gl_vendor = (const char*)glGetString(GL_VENDOR);
-  g_ogl_config.gl_renderer = (const char*)glGetString(GL_RENDERER);
-  g_ogl_config.gl_version = (const char*)glGetString(GL_VERSION);
 
   InitDriverInfo();
 
@@ -670,8 +476,8 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
   if (g_ogl_config.max_samples < 1 || !g_ogl_config.bSupportsMSAA)
     g_ogl_config.max_samples = 1;
 
-  g_ogl_config.bSupportsShaderThreadShuffleNV =
-      GLExtensions::Supports("GL_NV_shader_thread_shuffle");
+//  g_ogl_config.bSupportsShaderThreadShuffleNV =
+//      GLExtensions::Supports("GL_NV_shader_thread_shuffle");
 
   // We require texel buffers, image load store, and compute shaders to enable GPU texture decoding.
   // If the driver doesn't expose the extensions, but supports GL4.3/GLES3.1, it will still be
@@ -797,80 +603,63 @@ Renderer::Renderer(std::unique_ptr<GLContext> main_gl_context, float backbuffer_
   UpdateActiveConfig();
 }
 
-Renderer::~Renderer() = default;
-
-bool Renderer::IsHeadless() const
+OGLGfx::~OGLGfx()
 {
-  return m_main_gl_context->IsHeadless();
-}
-
-bool Renderer::Initialize()
-{
-  if (!::Renderer::Initialize())
-    return false;
-
-  return true;
-}
-
-void Renderer::Shutdown()
-{
-  ::Renderer::Shutdown();
-
   glDeleteFramebuffers(1, &m_shared_draw_framebuffer);
   glDeleteFramebuffers(1, &m_shared_read_framebuffer);
 }
 
-std::unique_ptr<AbstractTexture> Renderer::CreateTexture(const TextureConfig& config,
+bool OGLGfx::IsHeadless() const
+{
+  return m_main_gl_context->IsHeadless();
+}
+
+std::unique_ptr<AbstractTexture> OGLGfx::CreateTexture(const TextureConfig& config,
                                                          std::string_view name)
 {
   return std::make_unique<OGLTexture>(config, name);
 }
 
-std::unique_ptr<AbstractStagingTexture> Renderer::CreateStagingTexture(StagingTextureType type,
+std::unique_ptr<AbstractStagingTexture> OGLGfx::CreateStagingTexture(StagingTextureType type,
                                                                        const TextureConfig& config)
 {
   return OGLStagingTexture::Create(type, config);
 }
 
-std::unique_ptr<AbstractFramebuffer> Renderer::CreateFramebuffer(AbstractTexture* color_attachment,
+std::unique_ptr<AbstractFramebuffer> OGLGfx::CreateFramebuffer(AbstractTexture* color_attachment,
                                                                  AbstractTexture* depth_attachment)
 {
   return OGLFramebuffer::Create(static_cast<OGLTexture*>(color_attachment),
                                 static_cast<OGLTexture*>(depth_attachment));
 }
 
-std::unique_ptr<AbstractShader> Renderer::CreateShaderFromSource(ShaderStage stage,
+std::unique_ptr<AbstractShader> OGLGfx::CreateShaderFromSource(ShaderStage stage,
                                                                  std::string_view source,
                                                                  std::string_view name)
 {
   return OGLShader::CreateFromSource(stage, source, name);
 }
 
-std::unique_ptr<AbstractShader> Renderer::CreateShaderFromBinary(ShaderStage stage,
+std::unique_ptr<AbstractShader> OGLGfx::CreateShaderFromBinary(ShaderStage stage,
                                                                  const void* data, size_t length,
                                                                  std::string_view name)
 {
   return nullptr;
 }
 
-std::unique_ptr<AbstractPipeline> Renderer::CreatePipeline(const AbstractPipelineConfig& config,
+std::unique_ptr<AbstractPipeline> OGLGfx::CreatePipeline(const AbstractPipelineConfig& config,
                                                            const void* cache_data,
                                                            size_t cache_data_length)
 {
   return OGLPipeline::Create(config, cache_data, cache_data_length);
 }
 
-void Renderer::SetScissorRect(const MathUtil::Rectangle<int>& rc)
+void OGLGfx::SetScissorRect(const MathUtil::Rectangle<int>& rc)
 {
   glScissor(rc.left, rc.top, rc.GetWidth(), rc.GetHeight());
 }
 
-std::unique_ptr<::BoundingBox> Renderer::CreateBoundingBox() const
-{
-  return std::make_unique<OGLBoundingBox>();
-}
-
-void Renderer::SetViewport(float x, float y, float width, float height, float near_depth,
+void OGLGfx::SetViewport(float x, float y, float width, float height, float near_depth,
                            float far_depth)
 {
   if (g_ogl_config.bSupportViewportFloat)
@@ -886,13 +675,13 @@ void Renderer::SetViewport(float x, float y, float width, float height, float ne
   glDepthRangef(near_depth, far_depth);
 }
 
-void Renderer::Draw(u32 base_vertex, u32 num_vertices)
+void OGLGfx::Draw(u32 base_vertex, u32 num_vertices)
 {
   glDrawArrays(static_cast<const OGLPipeline*>(m_current_pipeline)->GetGLPrimitive(), base_vertex,
                num_vertices);
 }
 
-void Renderer::DrawIndexed(u32 base_index, u32 num_indices, u32 base_vertex)
+void OGLGfx::DrawIndexed(u32 base_index, u32 num_indices, u32 base_vertex)
 {
   if (g_ogl_config.bSupportsGLBaseVertex)
   {
@@ -907,7 +696,7 @@ void Renderer::DrawIndexed(u32 base_index, u32 num_indices, u32 base_vertex)
   }
 }
 
-void Renderer::DispatchComputeShader(const AbstractShader* shader, u32 groupsize_x, u32 groupsize_y,
+void OGLGfx::DispatchComputeShader(const AbstractShader* shader, u32 groupsize_x, u32 groupsize_y,
                                      u32 groupsize_z, u32 groups_x, u32 groups_y, u32 groups_z)
 {
   glUseProgram(static_cast<const OGLShader*>(shader)->GetGLComputeProgramID());
@@ -923,66 +712,22 @@ void Renderer::DispatchComputeShader(const AbstractShader* shader, u32 groupsize
     glMemoryBarrier(GL_TEXTURE_UPDATE_BARRIER_BIT);
 }
 
-void Renderer::ClearScreen(const MathUtil::Rectangle<int>& rc, bool colorEnable, bool alphaEnable,
-                           bool zEnable, u32 color, u32 z)
+void OGLGfx::SelectLeftBuffer()
 {
-  g_framebuffer_manager->FlushEFBPokes();
-  g_framebuffer_manager->FlagPeekCacheAsOutOfDate();
-
-  u32 clear_mask = 0;
-  if (colorEnable || alphaEnable)
-  {
-    glColorMask(colorEnable, colorEnable, colorEnable, alphaEnable);
-    glClearColor(float((color >> 16) & 0xFF) / 255.0f, float((color >> 8) & 0xFF) / 255.0f,
-                 float((color >> 0) & 0xFF) / 255.0f, float((color >> 24) & 0xFF) / 255.0f);
-    clear_mask = GL_COLOR_BUFFER_BIT;
-  }
-  if (zEnable)
-  {
-    glDepthMask(zEnable ? GL_TRUE : GL_FALSE);
-    glClearDepthf(float(z & 0xFFFFFF) / 16777216.0f);
-    clear_mask |= GL_DEPTH_BUFFER_BIT;
-  }
-
-  // Update rect for clearing the picture
-  // glColorMask/glDepthMask/glScissor affect glClear (glViewport does not)
-  const auto converted_target_rc =
-      ConvertFramebufferRectangle(ConvertEFBRectangle(rc), m_current_framebuffer);
-  SetScissorRect(converted_target_rc);
-
-  glClear(clear_mask);
-
-  // Restore color/depth mask.
-  if (colorEnable || alphaEnable)
-  {
-    glColorMask(m_current_blend_state.colorupdate, m_current_blend_state.colorupdate,
-                m_current_blend_state.colorupdate, m_current_blend_state.alphaupdate);
-  }
-  if (zEnable)
-    glDepthMask(m_current_depth_state.updateenable);
-
-  // Scissor rect must be restored.
-  BPFunctions::SetScissorAndViewport();
+  glDrawBuffer(GL_BACK_LEFT);
 }
 
-void Renderer::RenderXFBToScreen(const MathUtil::Rectangle<int>& target_rc,
-                                 const AbstractTexture* source_texture,
-                                 const MathUtil::Rectangle<int>& source_rc)
+void OGLGfx::SelectRightBuffer()
 {
-  // Quad-buffered stereo is annoying on GL.
-  if (g_ActiveConfig.stereo_mode != StereoMode::QuadBuffer)
-    return ::Renderer::RenderXFBToScreen(target_rc, source_texture, source_rc);
-
-  glDrawBuffer(GL_BACK_LEFT);
-  m_post_processor->BlitFromTexture(target_rc, source_rc, source_texture, 0);
-
   glDrawBuffer(GL_BACK_RIGHT);
-  m_post_processor->BlitFromTexture(target_rc, source_rc, source_texture, 1);
+}
 
+void OGLGfx::SelectMainBuffer()
+{
   glDrawBuffer(GL_BACK);
 }
 
-void Renderer::SetFramebuffer(AbstractFramebuffer* framebuffer)
+void OGLGfx::SetFramebuffer(AbstractFramebuffer* framebuffer)
 {
   if (m_current_framebuffer == framebuffer)
     return;
@@ -991,13 +736,13 @@ void Renderer::SetFramebuffer(AbstractFramebuffer* framebuffer)
   m_current_framebuffer = framebuffer;
 }
 
-void Renderer::SetAndDiscardFramebuffer(AbstractFramebuffer* framebuffer)
+void OGLGfx::SetAndDiscardFramebuffer(AbstractFramebuffer* framebuffer)
 {
   // EXT_discard_framebuffer could be used here to save bandwidth on tilers.
   SetFramebuffer(framebuffer);
 }
 
-void Renderer::SetAndClearFramebuffer(AbstractFramebuffer* framebuffer,
+void OGLGfx::SetAndClearFramebuffer(AbstractFramebuffer* framebuffer,
                                       const ClearColor& color_value, float depth_value)
 {
   SetFramebuffer(framebuffer);
@@ -1029,14 +774,14 @@ void Renderer::SetAndClearFramebuffer(AbstractFramebuffer* framebuffer,
     glDepthMask(m_current_depth_state.updateenable);
 }
 
-void Renderer::BindBackbuffer(const ClearColor& clear_color)
+void OGLGfx::BindBackbuffer(const ClearColor& clear_color)
 {
   CheckForSurfaceChange();
   CheckForSurfaceResize();
   SetAndClearFramebuffer(m_system_framebuffer.get(), clear_color);
 }
 
-void Renderer::PresentBackbuffer()
+void OGLGfx::PresentBackbuffer()
 {
   if (g_ogl_config.bSupportsDebug)
   {
@@ -1055,7 +800,7 @@ void Renderer::PresentBackbuffer()
   m_main_gl_context->Swap();
 }
 
-void Renderer::OnConfigChanged(u32 bits)
+void OGLGfx::OnConfigChanged(u32 bits)
 {
   if (bits & CONFIG_CHANGE_BIT_VSYNC && !DriverDetails::HasBug(DriverDetails::BUG_BROKEN_VSYNC))
     m_main_gl_context->SwapInterval(g_ActiveConfig.bVSyncActive);
@@ -1064,46 +809,48 @@ void Renderer::OnConfigChanged(u32 bits)
     g_sampler_cache->Clear();
 }
 
-void Renderer::Flush()
+void OGLGfx::Flush()
 {
   // ensure all commands are sent to the GPU.
   // Otherwise the driver could batch several frames together.
   glFlush();
 }
 
-void Renderer::WaitForGPUIdle()
+void OGLGfx::WaitForGPUIdle()
 {
   glFinish();
 }
 
-void Renderer::CheckForSurfaceChange()
+void OGLGfx::CheckForSurfaceChange()
 {
-  if (!m_surface_changed.TestAndClear())
+  if (!g_presenter->SurfaceChangedTestAndClear())
     return;
 
-  m_main_gl_context->UpdateSurface(m_new_surface_handle);
-  m_new_surface_handle = nullptr;
+  m_main_gl_context->UpdateSurface(g_presenter->GetNewSurfaceHandle());
+
+  u32 width = m_main_gl_context->GetBackBufferWidth();
+  u32 height = m_main_gl_context->GetBackBufferHeight();
 
   // With a surface change, the window likely has new dimensions.
-  m_backbuffer_width = m_main_gl_context->GetBackBufferWidth();
-  m_backbuffer_height = m_main_gl_context->GetBackBufferHeight();
-  m_system_framebuffer->UpdateDimensions(m_backbuffer_width, m_backbuffer_height);
+  g_presenter->SetBackbuffer(width, height);
+  m_system_framebuffer->UpdateDimensions(width, height);
 }
 
-void Renderer::CheckForSurfaceResize()
+void OGLGfx::CheckForSurfaceResize()
 {
-  if (!m_surface_resized.TestAndClear())
+  if (!g_presenter->SurfaceResizedTestAndClear())
     return;
 
   m_main_gl_context->Update();
-  m_backbuffer_width = m_main_gl_context->GetBackBufferWidth();
-  m_backbuffer_height = m_main_gl_context->GetBackBufferHeight();
-  m_system_framebuffer->UpdateDimensions(m_backbuffer_width, m_backbuffer_height);
+  u32 width = m_main_gl_context->GetBackBufferWidth();
+  u32 height = m_main_gl_context->GetBackBufferHeight();
+  g_presenter->SetBackbuffer(width, height);
+  m_system_framebuffer->UpdateDimensions(width, height);
 }
 
-void Renderer::BeginUtilityDrawing()
+void OGLGfx::BeginUtilityDrawing()
 {
-  ::Renderer::BeginUtilityDrawing();
+  AbstractGfx::BeginUtilityDrawing();
   if (g_ActiveConfig.backend_info.bSupportsDepthClamp)
   {
     glDisable(GL_CLIP_DISTANCE0);
@@ -1111,9 +858,9 @@ void Renderer::BeginUtilityDrawing()
   }
 }
 
-void Renderer::EndUtilityDrawing()
+void OGLGfx::EndUtilityDrawing()
 {
-  ::Renderer::EndUtilityDrawing();
+  AbstractGfx::EndUtilityDrawing();
   if (g_ActiveConfig.backend_info.bSupportsDepthClamp)
   {
     glEnable(GL_CLIP_DISTANCE0);
@@ -1121,7 +868,7 @@ void Renderer::EndUtilityDrawing()
   }
 }
 
-void Renderer::ApplyRasterizationState(const RasterizationState state)
+void OGLGfx::ApplyRasterizationState(const RasterizationState state)
 {
   if (m_current_rasterization_state == state)
     return;
@@ -1141,7 +888,7 @@ void Renderer::ApplyRasterizationState(const RasterizationState state)
   m_current_rasterization_state = state;
 }
 
-void Renderer::ApplyDepthState(const DepthState state)
+void OGLGfx::ApplyDepthState(const DepthState state)
 {
   if (m_current_depth_state == state)
     return;
@@ -1167,7 +914,7 @@ void Renderer::ApplyDepthState(const DepthState state)
   m_current_depth_state = state;
 }
 
-void Renderer::ApplyBlendingState(const BlendingState state)
+void OGLGfx::ApplyBlendingState(const BlendingState state)
 {
   if (m_current_blend_state == state)
     return;
@@ -1233,7 +980,7 @@ void Renderer::ApplyBlendingState(const BlendingState state)
   m_current_blend_state = state;
 }
 
-void Renderer::SetPipeline(const AbstractPipeline* pipeline)
+void OGLGfx::SetPipeline(const AbstractPipeline* pipeline)
 {
   if (m_current_pipeline == pipeline)
     return;
@@ -1255,7 +1002,7 @@ void Renderer::SetPipeline(const AbstractPipeline* pipeline)
   m_current_pipeline = pipeline;
 }
 
-void Renderer::SetTexture(u32 index, const AbstractTexture* texture)
+void OGLGfx::SetTexture(u32 index, const AbstractTexture* texture)
 {
   const OGLTexture* gl_texture = static_cast<const OGLTexture*>(texture);
   if (m_bound_textures[index] == gl_texture)
@@ -1269,12 +1016,12 @@ void Renderer::SetTexture(u32 index, const AbstractTexture* texture)
   m_bound_textures[index] = gl_texture;
 }
 
-void Renderer::SetSamplerState(u32 index, const SamplerState& state)
+void OGLGfx::SetSamplerState(u32 index, const SamplerState& state)
 {
   g_sampler_cache->SetSamplerState(index, state);
 }
 
-void Renderer::SetComputeImageTexture(AbstractTexture* texture, bool read, bool write)
+void OGLGfx::SetComputeImageTexture(AbstractTexture* texture, bool read, bool write)
 {
   if (m_bound_image_texture == texture)
     return;
@@ -1293,7 +1040,7 @@ void Renderer::SetComputeImageTexture(AbstractTexture* texture, bool read, bool 
   m_bound_image_texture = texture;
 }
 
-void Renderer::UnbindTexture(const AbstractTexture* texture)
+void OGLGfx::UnbindTexture(const AbstractTexture* texture)
 {
   for (size_t i = 0; i < m_bound_textures.size(); i++)
   {
@@ -1312,22 +1059,22 @@ void Renderer::UnbindTexture(const AbstractTexture* texture)
   }
 }
 
-std::unique_ptr<VideoCommon::AsyncShaderCompiler> Renderer::CreateAsyncShaderCompiler()
+std::unique_ptr<VideoCommon::AsyncShaderCompiler> OGLGfx::CreateAsyncShaderCompiler()
 {
   return std::make_unique<SharedContextAsyncShaderCompiler>();
 }
 
-void Renderer::BindSharedReadFramebuffer()
+void OGLGfx::BindSharedReadFramebuffer()
 {
   glBindFramebuffer(GL_READ_FRAMEBUFFER, m_shared_read_framebuffer);
 }
 
-void Renderer::BindSharedDrawFramebuffer()
+void OGLGfx::BindSharedDrawFramebuffer()
 {
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_shared_draw_framebuffer);
 }
 
-void Renderer::RestoreFramebufferBinding()
+void OGLGfx::RestoreFramebufferBinding()
 {
   glBindFramebuffer(
       GL_FRAMEBUFFER,

@@ -13,6 +13,7 @@
 #include "Core/ConfigManager.h"
 
 // This shouldn't be a global, at least not here.
+extern std::unique_ptr<SoundStream> g_sound_stream;
 std::unique_ptr<SoundStream> g_sound_stream;
 
 static bool s_audio_dump_start = false;
@@ -23,7 +24,7 @@ namespace AudioCommon
     static const int AUDIO_VOLUME_MIN = 0;
     static const int AUDIO_VOLUME_MAX = 100;
     
-    void InitSoundStream()
+    void InitSoundStream(Core::System& system)
     {
         g_sound_stream = std::make_unique<OpenEmuAudioStream>();
         
@@ -33,29 +34,29 @@ namespace AudioCommon
             g_sound_stream = std::make_unique<NullSound>();
         }
         
-        UpdateSoundStream();
-        SetSoundStreamRunning(true);
+        UpdateSoundStream(system);
+        SetSoundStreamRunning(system, true);
     }
     
-    void PostInitSoundStream()
+    void PostInitSoundStream(Core::System& system)
     {
         // This needs to be called after AudioInterface::Init and SerialInterface::Init (for GBA devices)
         // where input sample rates are set
-        UpdateSoundStream();
-        SetSoundStreamRunning(true);
+        UpdateSoundStream(system);
+        SetSoundStreamRunning(system, true);
         
         if (Config::Get(Config::MAIN_DUMP_AUDIO) && !s_audio_dump_start)
-            StartAudioDump();
+            StartAudioDump(system);
     }
 
-    void ShutdownSoundStream()
+    void ShutdownSoundStream(Core::System& system)
     {
         INFO_LOG_FMT(AUDIO, "Shutting down sound stream");
         
         if (Config::Get(Config::MAIN_DUMP_AUDIO) && s_audio_dump_start)
-            StopAudioDump();
+            StopAudioDump(system);
         
-        SetSoundStreamRunning(false);
+        SetSoundStreamRunning(system, false);
         g_sound_stream.reset();
         
         INFO_LOG_FMT(AUDIO, "Done shutting down sound stream");
@@ -97,7 +98,7 @@ DPL2Quality GetDefaultDPL2Quality()
         return false;
     }
     
-    void UpdateSoundStream()
+    void UpdateSoundStream(Core::System& system)
     {
         if (g_sound_stream)
         {
@@ -106,7 +107,7 @@ DPL2Quality GetDefaultDPL2Quality()
         }
     }
     
-    void SetSoundStreamRunning(bool running)
+    void SetSoundStreamRunning(Core::System& system, bool running)
     {
         if (!g_sound_stream)
             return;
@@ -123,15 +124,15 @@ DPL2Quality GetDefaultDPL2Quality()
             ERROR_LOG_FMT(AUDIO, "Error stopping stream.");
     }
     
-    void SendAIBuffer(const short* samples, unsigned int num_samples)
+    void SendAIBuffer(Core::System& system, const short* samples, unsigned int num_samples)
     {
         if (!g_sound_stream)
             return;
         
         if (Config::Get(Config::MAIN_DUMP_AUDIO) && !s_audio_dump_start)
-            StartAudioDump();
+            StartAudioDump(system);
         else if (!Config::Get(Config::MAIN_DUMP_AUDIO) && s_audio_dump_start)
-            StopAudioDump();
+            StopAudioDump(system);
         
         Mixer* pMixer = g_sound_stream->GetMixer();
         
@@ -141,7 +142,7 @@ DPL2Quality GetDefaultDPL2Quality()
         }
     }
     
-    void StartAudioDump()
+    void StartAudioDump(Core::System& system)
     {
         std::string audio_file_name_dtk = File::GetUserPath(D_DUMPAUDIO_IDX) + "dtkdump.wav";
         std::string audio_file_name_dsp = File::GetUserPath(D_DUMPAUDIO_IDX) + "dspdump.wav";
@@ -152,7 +153,7 @@ DPL2Quality GetDefaultDPL2Quality()
         s_audio_dump_start = true;
     }
     
-    void StopAudioDump()
+    void StopAudioDump(Core::System& system)
     {
         if (!g_sound_stream)
             return;
@@ -161,7 +162,7 @@ DPL2Quality GetDefaultDPL2Quality()
         s_audio_dump_start = false;
     }
     
-    void IncreaseVolume(unsigned short offset)
+    void IncreaseVolume(Core::System& system, unsigned short offset)
     {
         Config::SetBaseOrCurrent(Config::MAIN_AUDIO_MUTED, false);
         int currentVolume = Config::Get(Config::MAIN_AUDIO_VOLUME);
@@ -169,10 +170,10 @@ DPL2Quality GetDefaultDPL2Quality()
         if (currentVolume > AUDIO_VOLUME_MAX)
             currentVolume = AUDIO_VOLUME_MAX;
         Config::SetBaseOrCurrent(Config::MAIN_AUDIO_VOLUME, currentVolume);
-        UpdateSoundStream();
+        UpdateSoundStream(system);
     }
     
-    void DecreaseVolume(unsigned short offset)
+    void DecreaseVolume(Core::System& system, unsigned short offset)
     {
         Config::SetBaseOrCurrent(Config::MAIN_AUDIO_MUTED, false);
         int currentVolume = Config::Get(Config::MAIN_AUDIO_VOLUME);
@@ -180,13 +181,13 @@ DPL2Quality GetDefaultDPL2Quality()
         if (currentVolume < AUDIO_VOLUME_MIN)
             currentVolume = AUDIO_VOLUME_MIN;
         Config::SetBaseOrCurrent(Config::MAIN_AUDIO_VOLUME, currentVolume);
-        UpdateSoundStream();
+        UpdateSoundStream(system);
     }
     
-    void ToggleMuteVolume()
+    void ToggleMuteVolume(Core::System& system)
     {
           bool isMuted = Config::Get(Config::MAIN_AUDIO_MUTED);
           Config::SetBaseOrCurrent(Config::MAIN_AUDIO_MUTED, !isMuted);
-          UpdateSoundStream();
+          UpdateSoundStream(system);
     }
 }  // namespace AudioCommon

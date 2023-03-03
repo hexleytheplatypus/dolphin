@@ -51,6 +51,7 @@
 #include "Core/Config/WiimoteSettings.h"
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
+#include "Core/System.h"
 #include "Core/Host.h"
 #include "Core/HW/CPU.h"
 #include "Core/HW/Wiimote.h"
@@ -249,7 +250,7 @@ void DolHost::Pause(bool flag)
 void DolHost::RequestStop()
 {
     Core::SetState(Core::State::Running);
-    ProcessorInterface::PowerButton_Tap();
+    Core::System::GetInstance().GetProcessorInterface().PowerButton_Tap();
     
     Core::Stop();
     while (CPU::GetState() != CPU::State::PowerDown)
@@ -261,7 +262,7 @@ void DolHost::RequestStop()
 
 void DolHost::Reset()
 {
-    ProcessorInterface::ResetButton_Tap();
+    Core::System::GetInstance().GetProcessorInterface().ResetButton_Tap();
 }
 
 void DolHost::UpdateFrame()
@@ -296,7 +297,7 @@ void DolHost::SetBackBufferSize(int width, int height) {
 void DolHost::SetVolume(float value)
 {
     Config::SetBaseOrCurrent(Config::MAIN_AUDIO_VOLUME, value * 100);
-    AudioCommon::UpdateSoundStream();
+    AudioCommon::UpdateSoundStream(Core::System::GetInstance());
 }
 
 # pragma mark - Save states
@@ -460,7 +461,9 @@ void DolHost::SetCheat(std::string code, std::string type, bool enabled)
     if(!exists)
         arcodes.push_back(arcode);
     
-    ActionReplay::RunAllActive();
+    // TODO: move to a better place
+    Core::CPUThreadGuard guard;
+    ActionReplay::RunAllActive(guard);
 }
 
 # pragma mark - Controls
