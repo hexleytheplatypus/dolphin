@@ -778,6 +778,11 @@
 		5547C38C29B1EDEE006BAEFC /* AbstractGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C38B29B1EDED006BAEFC /* AbstractGfx.cpp */; };
 		5547C38F29B1EE0F006BAEFC /* CPUCull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C38D29B1EE0F006BAEFC /* CPUCull.cpp */; };
 		5547C39229B1EE91006BAEFC /* Spirv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39029B1EE91006BAEFC /* Spirv.cpp */; };
+		5547C39929B1F71C006BAEFC /* VFFUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39529B1F71C006BAEFC /* VFFUtil.cpp */; };
+		5547C39A29B1F71C006BAEFC /* NWC24DL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39829B1F71C006BAEFC /* NWC24DL.cpp */; };
+		5547C39E29B1F769006BAEFC /* Skylander.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39D29B1F769006BAEFC /* Skylander.cpp */; };
+		5547C3A129B1F7DD006BAEFC /* CustomTextureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C39F29B1F7DC006BAEFC /* CustomTextureData.cpp */; };
+		5547C3A429B1F8CA006BAEFC /* Shinkansen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5547C3A229B1F8CA006BAEFC /* Shinkansen.cpp */; };
 		55508FC427FA45D400CA618C /* VertexLoaderARCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC327FA45D400CA618C /* VertexLoaderARCH.cpp */; };
 		55508FC627FA466100CA618C /* TextureDecoderARCH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC527FA466100CA618C /* TextureDecoderARCH.cpp */; };
 		55508FC827FA498600CA618C /* CPUDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55508FC727FA498600CA618C /* CPUDetect.cpp */; };
@@ -2947,6 +2952,17 @@
 		5547C38E29B1EE0F006BAEFC /* CPUCull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUCull.h; sourceTree = "<group>"; };
 		5547C39029B1EE91006BAEFC /* Spirv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spirv.cpp; sourceTree = "<group>"; };
 		5547C39129B1EE91006BAEFC /* Spirv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spirv.h; sourceTree = "<group>"; };
+		5547C39329B1F71C006BAEFC /* WC24File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WC24File.h; sourceTree = "<group>"; };
+		5547C39529B1F71C006BAEFC /* VFFUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VFFUtil.cpp; sourceTree = "<group>"; };
+		5547C39629B1F71C006BAEFC /* VFFUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VFFUtil.h; sourceTree = "<group>"; };
+		5547C39729B1F71C006BAEFC /* NWC24DL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWC24DL.h; sourceTree = "<group>"; };
+		5547C39829B1F71C006BAEFC /* NWC24DL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NWC24DL.cpp; sourceTree = "<group>"; };
+		5547C39C29B1F769006BAEFC /* Skylander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skylander.h; sourceTree = "<group>"; };
+		5547C39D29B1F769006BAEFC /* Skylander.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skylander.cpp; sourceTree = "<group>"; };
+		5547C39F29B1F7DC006BAEFC /* CustomTextureData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomTextureData.cpp; sourceTree = "<group>"; };
+		5547C3A029B1F7DD006BAEFC /* CustomTextureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextureData.h; sourceTree = "<group>"; };
+		5547C3A229B1F8CA006BAEFC /* Shinkansen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shinkansen.cpp; sourceTree = "<group>"; };
+		5547C3A329B1F8CA006BAEFC /* Shinkansen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shinkansen.h; sourceTree = "<group>"; };
 		55508FC327FA45D400CA618C /* VertexLoaderARCH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexLoaderARCH.cpp; sourceTree = "<group>"; };
 		55508FC527FA466100CA618C /* TextureDecoderARCH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureDecoderARCH.cpp; sourceTree = "<group>"; };
 		55508FC727FA498600CA618C /* CPUDetect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CPUDetect.cpp; sourceTree = "<group>"; };
@@ -5427,6 +5443,10 @@
 				EE6ABEE9239C79E5005E5F7D /* NetKDTime.h */,
 				EE6ABEE5239C79E5005E5F7D /* NWC24Config.cpp */,
 				EE6ABEE8239C79E5005E5F7D /* NWC24Config.h */,
+				5547C39829B1F71C006BAEFC /* NWC24DL.cpp */,
+				5547C39729B1F71C006BAEFC /* NWC24DL.h */,
+				5547C39429B1F71C006BAEFC /* VFF */,
+				5547C39329B1F71C006BAEFC /* WC24File.h */,
 			);
 			path = KD;
 			sourceTree = "<group>";
@@ -5464,6 +5484,7 @@
 				3EFF268A1F845CB700B4FD11 /* Bluetooth */,
 				EE6ABECA239C78CF005E5F7D /* Common.cpp */,
 				EE6ABECF239C78D0005E5F7D /* Common.h */,
+				5547C39B29B1F769006BAEFC /* Emulated */,
 				EE6ABED2239C78D0005E5F7D /* Host.cpp */,
 				EE6ABECE239C78D0005E5F7D /* Host.h */,
 				3EFF26841F845CB700B4FD11 /* OH0 */,
@@ -5976,14 +5997,16 @@
 		5547BFA929B188D9006BAEFC /* Runtime */ = {
 			isa = PBXGroup;
 			children = (
-				5547BFAA29B188D9006BAEFC /* FBInfo.h */,
-				5547BFAB29B188D9006BAEFC /* GraphicsModActionFactory.cpp */,
-				5547BFAC29B188D9006BAEFC /* GraphicsModManager.cpp */,
-				5547BFAD29B188D9006BAEFC /* FBInfo.cpp */,
-				5547BFAE29B188D9006BAEFC /* GraphicsModManager.h */,
 				5547BFAF29B188D9006BAEFC /* Actions */,
-				5547BFB829B188D9006BAEFC /* GraphicsModActionFactory.h */,
+				5547C39F29B1F7DC006BAEFC /* CustomTextureData.cpp */,
+				5547C3A029B1F7DD006BAEFC /* CustomTextureData.h */,
+				5547BFAD29B188D9006BAEFC /* FBInfo.cpp */,
+				5547BFAA29B188D9006BAEFC /* FBInfo.h */,
 				5547BFB929B188D9006BAEFC /* GraphicsModAction.h */,
+				5547BFAB29B188D9006BAEFC /* GraphicsModActionFactory.cpp */,
+				5547BFB829B188D9006BAEFC /* GraphicsModActionFactory.h */,
+				5547BFAC29B188D9006BAEFC /* GraphicsModManager.cpp */,
+				5547BFAE29B188D9006BAEFC /* GraphicsModManager.h */,
 			);
 			path = Runtime;
 			sourceTree = "<group>";
@@ -5991,14 +6014,14 @@
 		5547BFAF29B188D9006BAEFC /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				5547BFB029B188D9006BAEFC /* PrintAction.h */,
-				5547BFB129B188D9006BAEFC /* PrintAction.cpp */,
-				5547BFB229B188D9006BAEFC /* SkipAction.h */,
-				5547BFB329B188D9006BAEFC /* SkipAction.cpp */,
 				5547BFB429B188D9006BAEFC /* MoveAction.cpp */,
-				5547BFB529B188D9006BAEFC /* ScaleAction.h */,
 				5547BFB629B188D9006BAEFC /* MoveAction.h */,
+				5547BFB129B188D9006BAEFC /* PrintAction.cpp */,
+				5547BFB029B188D9006BAEFC /* PrintAction.h */,
 				5547BFB729B188D9006BAEFC /* ScaleAction.cpp */,
+				5547BFB529B188D9006BAEFC /* ScaleAction.h */,
+				5547BFB329B188D9006BAEFC /* SkipAction.cpp */,
+				5547BFB229B188D9006BAEFC /* SkipAction.h */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -6251,6 +6274,24 @@
 				5547C37429B1DDD9006BAEFC /* Shader.frag */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		5547C39429B1F71C006BAEFC /* VFF */ = {
+			isa = PBXGroup;
+			children = (
+				5547C39529B1F71C006BAEFC /* VFFUtil.cpp */,
+				5547C39629B1F71C006BAEFC /* VFFUtil.h */,
+			);
+			path = VFF;
+			sourceTree = "<group>";
+		};
+		5547C39B29B1F769006BAEFC /* Emulated */ = {
+			isa = PBXGroup;
+			children = (
+				5547C39D29B1F769006BAEFC /* Skylander.cpp */,
+				5547C39C29B1F769006BAEFC /* Skylander.h */,
+			);
+			path = Emulated;
 			sourceTree = "<group>";
 		};
 		55508FCF27FA522200CA618C /* lib */ = {
@@ -7428,6 +7469,8 @@
 				EE8DD28922493133005E1AF5 /* Guitar.h */,
 				EE8DD28522493133005E1AF5 /* Nunchuk.cpp */,
 				EE8DD28422493133005E1AF5 /* Nunchuk.h */,
+				5547C3A229B1F8CA006BAEFC /* Shinkansen.cpp */,
+				5547C3A329B1F8CA006BAEFC /* Shinkansen.h */,
 				EE3A463322B5F23B00031B56 /* TaTaCon.cpp */,
 				EE3A463722B5F23C00031B56 /* TaTaCon.h */,
 				EE8DD28822493133005E1AF5 /* Turntable.cpp */,
@@ -9172,6 +9215,7 @@
 				3E3D73801C82B0F900091C4D /* LabelMap.cpp in Sources */,
 				3E3D73F21C82B0F900091C4D /* NetPlayClient.cpp in Sources */,
 				3E8EC6721F8434AA00D79F27 /* EXI_DeviceIPL.cpp in Sources */,
+				5547C3A429B1F8CA006BAEFC /* Shinkansen.cpp in Sources */,
 				3EFF26491F845CA500B4FD11 /* IsSettingSaveable.cpp in Sources */,
 				3E3D73BB1C82B0F900091C4D /* Memmap.cpp in Sources */,
 				EE6ABEF0239C79F7005E5F7D /* Command.cpp in Sources */,
@@ -9253,6 +9297,7 @@
 				EE3A463922B5F23C00031B56 /* UDrawTablet.cpp in Sources */,
 				EE6ABE8D239C782A005E5F7D /* MIOS.cpp in Sources */,
 				EE6ABE8B239C782A005E5F7D /* IOSC.cpp in Sources */,
+				5547C39A29B1F71C006BAEFC /* NWC24DL.cpp in Sources */,
 				EE6ABF13239C7A59005E5F7D /* BTBase.cpp in Sources */,
 				3E8EC6A81F8434C700D79F27 /* EmuSubroutines.cpp in Sources */,
 				3E3D73811C82B0F900091C4D /* DSPEmulator.cpp in Sources */,
@@ -9286,6 +9331,7 @@
 				5547BFDA29B19572006BAEFC /* BuiltIn.cpp in Sources */,
 				3E8EC65A1F8434AA00D79F27 /* DVDMath.cpp in Sources */,
 				3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */,
+				5547C39929B1F71C006BAEFC /* VFFUtil.cpp in Sources */,
 				EEABFB4424EEF5A500878963 /* GCMemcardUtils.cpp in Sources */,
 				EE9C007020A4FA8C00312609 /* SysConf.cpp in Sources */,
 				3E3D73881C82B0F900091C4D /* FifoRecorder.cpp in Sources */,
@@ -9342,6 +9388,7 @@
 				EE1FAE9120AD027000748BE0 /* WiiSave.cpp in Sources */,
 				EE8DD29C22493134005E1AF5 /* Dynamics.cpp in Sources */,
 				3E8EC6BC1F8436F100D79F27 /* DSPIntMisc.cpp in Sources */,
+				5547C39E29B1F769006BAEFC /* Skylander.cpp in Sources */,
 				EE6ABE9D239C7858005E5F7D /* SSL.cpp in Sources */,
 				3E8EC66B1F8434AA00D79F27 /* EXI_DeviceMic.cpp in Sources */,
 				EE6ABF16239C7A6D005E5F7D /* VEN.cpp in Sources */,
@@ -9977,6 +10024,7 @@
 				3E3D76081C82B2DE00091C4D /* TextureConversionShader.cpp in Sources */,
 				3E3D75FE1C82B2DE00091C4D /* OnScreenDisplay.cpp in Sources */,
 				3E3D76181C82B2DE00091C4D /* VideoBackendBase.cpp in Sources */,
+				5547C3A129B1F7DD006BAEFC /* CustomTextureData.cpp in Sources */,
 				3E3D75F91C82B2DE00091C4D /* GeometryShaderManager.cpp in Sources */,
 				3E3D76021C82B2DE00091C4D /* PixelShaderGen.cpp in Sources */,
 				5547BFBC29B188D9006BAEFC /* GraphicsMod.cpp in Sources */,
