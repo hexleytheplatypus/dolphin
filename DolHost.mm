@@ -133,7 +133,7 @@ void DolHost::Init(std::string supportDirectoryPath, std::string cpath)
     Config::SetBase(Config::MAIN_SHOW_FRAME_COUNT, false);
     
     //Video
-    Config::SetBase(Config::MAIN_GFX_BACKEND, "OGL");
+    Config::SetBase(Config::MAIN_GFX_BACKEND, "MTL");
     VideoBackendBase::ActivateBackend(Config::Get(Config::MAIN_GFX_BACKEND));
     
     //Set the Sound

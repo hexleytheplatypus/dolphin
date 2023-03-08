@@ -182,7 +182,7 @@ extern std::unique_ptr<SoundStream> g_sound_stream;
 # pragma mark - Video
 - (OEGameCoreRendering)gameCoreRendering
 {
-    return OEGameCoreRenderingOpenGL3Video;
+    return OEGameCoreRenderingMetal2Video;
 }
 
 - (BOOL)hasAlternateRenderingThread
@@ -226,7 +226,7 @@ extern std::unique_ptr<SoundStream> g_sound_stream;
 
 - (GLenum)pixelType
 {
-    return GL_UNSIGNED_BYTE;
+    return GL_UNSIGNED_INT_8_8_8_8_REV;
 }
 
 - (GLenum)internalPixelFormat

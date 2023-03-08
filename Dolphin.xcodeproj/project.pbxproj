@@ -753,10 +753,8 @@
 		5547C0EE29B1A050006BAEFC /* libvideometal-dol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5547C0ED29B19FBB006BAEFC /* libvideometal-dol.a */; };
 		5547C10C29B1A074006BAEFC /* MTLVertexManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F229B1A073006BAEFC /* MTLVertexManager.mm */; };
 		5547C10D29B1A074006BAEFC /* MTLBoundingBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F329B1A073006BAEFC /* MTLBoundingBox.mm */; };
-		5547C10E29B1A074006BAEFC /* MTLGfx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F629B1A073006BAEFC /* MTLGfx.mm */; };
 		5547C10F29B1A074006BAEFC /* MTLTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F729B1A073006BAEFC /* MTLTexture.mm */; };
 		5547C11029B1A074006BAEFC /* MTLStateTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0F929B1A073006BAEFC /* MTLStateTracker.mm */; };
-		5547C11129B1A074006BAEFC /* MTLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0FA29B1A073006BAEFC /* MTLMain.mm */; };
 		5547C11229B1A074006BAEFC /* MTLVertexFormat.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0FB29B1A073006BAEFC /* MTLVertexFormat.mm */; };
 		5547C11329B1A074006BAEFC /* MTLShader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C0FC29B1A073006BAEFC /* MTLShader.mm */; };
 		5547C11429B1A074006BAEFC /* MTLObjectCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5547C10229B1A073006BAEFC /* MTLObjectCache.mm */; };
@@ -873,6 +871,8 @@
 		DD9C124629B27218001E9015 /* cubeb_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124529B27218001E9015 /* cubeb_utils.cpp */; };
 		DD9C124929B27265001E9015 /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124829B27265001E9015 /* Expression.cpp */; };
 		DD9C124C29B272A3001E9015 /* SWGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9C124B29B272A3001E9015 /* SWGfx.cpp */; };
+		DDA144C429B7CD0B00B17265 /* MTLGfx.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDA144C329B7CD0B00B17265 /* MTLGfx.mm */; };
+		DDA144C629B7D81700B17265 /* MTLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDA144C529B7D81600B17265 /* MTLMain.mm */; };
 		EE04F45822512FFC00105B1E /* OpenEmuController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE04F45722512A8B00105B1E /* OpenEmuController.mm */; };
 		EE149B8C2059E116008D5DDE /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B882059E115008D5DDE /* OGLShader.cpp */; };
 		EE149B8D2059E116008D5DDE /* OGLPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE149B8B2059E116008D5DDE /* OGLPipeline.cpp */; };
@@ -3200,6 +3200,8 @@
 		DD9C124829B27265001E9015 /* Expression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Expression.cpp; sourceTree = "<group>"; };
 		DD9C124A29B272A3001E9015 /* SWGfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGfx.h; sourceTree = "<group>"; };
 		DD9C124B29B272A3001E9015 /* SWGfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SWGfx.cpp; sourceTree = "<group>"; };
+		DDA144C329B7CD0B00B17265 /* MTLGfx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLGfx.mm; sourceTree = "<group>"; };
+		DDA144C529B7D81600B17265 /* MTLMain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MTLMain.mm; sourceTree = "<group>"; };
 		EBFD62BE775146B49EDA15A7 /* libsfml-system-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libsfml-system-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE04F45722512A8B00105B1E /* OpenEmuController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenEmuController.mm; sourceTree = "<group>"; };
 		EE04F459225138BE00105B1E /* OpenEmuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEmuController.h; sourceTree = "<group>"; };
@@ -5021,6 +5023,8 @@
 		3E89F4761CCA7A0D00EAE7AC /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				DDA144C529B7D81600B17265 /* MTLMain.mm */,
+				DDA144C329B7CD0B00B17265 /* MTLGfx.mm */,
 				3E89F4831CCE8AC600EAE7AC /* OGLGfx.cpp */,
 				3E3D70261C82AF2A00091C4D /* AGL.mm */,
 			);
@@ -10149,12 +10153,12 @@
 			files = (
 				5547C11629B1A074006BAEFC /* MTLPerfQuery.mm in Sources */,
 				5547C11329B1A074006BAEFC /* MTLShader.mm in Sources */,
-				5547C11129B1A074006BAEFC /* MTLMain.mm in Sources */,
-				5547C10E29B1A074006BAEFC /* MTLGfx.mm in Sources */,
+				DDA144C629B7D81700B17265 /* MTLMain.mm in Sources */,
 				5547C11429B1A074006BAEFC /* MTLObjectCache.mm in Sources */,
 				5547C11729B1A074006BAEFC /* MTLPipeline.mm in Sources */,
 				5547C10C29B1A074006BAEFC /* MTLVertexManager.mm in Sources */,
 				5547C10D29B1A074006BAEFC /* MTLBoundingBox.mm in Sources */,
+				DDA144C429B7CD0B00B17265 /* MTLGfx.mm in Sources */,
 				5547C11029B1A074006BAEFC /* MTLStateTracker.mm in Sources */,
 				5547C10F29B1A074006BAEFC /* MTLTexture.mm in Sources */,
 				5547C11229B1A074006BAEFC /* MTLVertexFormat.mm in Sources */,
@@ -12714,6 +12718,7 @@
 					"$(SRCROOT)/dolphin/Externals/picojson",
 					"$(SRCROOT)/dolphin/Externals/spirv_cross/SPIRV-Cross",
 					"$(SRCROOT)/dolphin/Externals/glslang/glslang/Public",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -12783,6 +12788,7 @@
 					"$(SRCROOT)/dolphin/Externals/picojson",
 					"$(SRCROOT)/dolphin/Externals/spirv_cross/SPIRV-Cross",
 					"$(SRCROOT)/dolphin/Externals/glslang/glslang/Public",
+					$SRCROOT/../OpenEmu/SystemPlugins/GameCube,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
