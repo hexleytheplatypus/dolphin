@@ -14,7 +14,6 @@
 				8355D4E11A653AAB00E73302 /* ShellScript */,
 			);
 			dependencies = (
-				EE09ECF225AFAC6D002C9E67 /* PBXTargetDependency */,
 				8355D4E01A653AA900E73302 /* PBXTargetDependency */,
 			);
 			name = "Build & Install Dolphin";
@@ -25,12 +24,6 @@
 /* Begin PBXBuildFile section */
 		3E0A56EE1FAF7EDC00D755B8 /* VideoConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D75E31C82B2DE00091C4D /* VideoConfig.cpp */; };
 		3E0BD1281F8E89D30037C92D /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D71AA1C82B0F800091C4D /* Core.cpp */; };
-		3E1DDEC81D74AC1E00BB8009 /* OEWiiSystemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22178A1D74A83E00C55942 /* OEWiiSystemController.m */; };
-		3E1DDEC91D74AC1E00BB8009 /* OEWiiSystemResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22178C1D74A83E00C55942 /* OEWiiSystemResponder.m */; };
-		3E1DDECA1D74AC2E00BB8009 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834974241A643EBC00E0B28E /* Cocoa.framework */; };
-		3E1DDECD1D74AC4600BB8009 /* Controller-Mappings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E22178F1D74A87400C55942 /* Controller-Mappings.plist */; };
-		3E1DDECE1D74AC4600BB8009 /* Controller-Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E2217901D74A87400C55942 /* Controller-Preferences.plist */; };
-		3E1DDECF1D74AC4600BB8009 /* Keyboard-Mappings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E2217911D74A87400C55942 /* Keyboard-Mappings.plist */; };
 		3E3D70351C82AF7000091C4D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70321C82AF7000091C4D /* xxhash.c */; };
 		3E3D70361C82AF7000091C4D /* xxhsum.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D70341C82AF7000091C4D /* xxhsum.c */; };
 		3E3D70591C82B00400091C4D /* connecthostport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D703B1C82B00400091C4D /* connecthostport.c */; };
@@ -373,11 +366,9 @@
 		3E3D775F1C840C8B00091C4D /* dis_groups.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D775D1C840C8B00091C4D /* dis_groups.cc */; };
 		3E3D77621C840CFC00091C4D /* resolve.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77601C840CFC00091C4D /* resolve.cc */; };
 		3E3D77631C840CFC00091C4D /* stdafx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D77611C840CFC00091C4D /* stdafx.cc */; };
-		3E3DA54E1F8BDD080005FB1B /* OpenEmuSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3DA54F1F8BDD080005FB1B /* OpenEmuSystem.framework */; };
 		3E44578D1FC797AB00469E9F /* ConfigInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44578A1FC7979600469E9F /* ConfigInfo.cpp */; };
 		3E79CEC11F89390B003D1BD9 /* ProgramShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D76281C82B30A00091C4D /* ProgramShaderCache.cpp */; };
 		3E7AE8E81FB4E6900017E3D1 /* WiiSaveBanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AE8E61FB4E6750017E3D1 /* WiiSaveBanner.cpp */; };
-		3E7AE8EB1FB4E9FC0017E3D1 /* Wii.oesystemplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E2217971D74AB3300C55942 /* Wii.oesystemplugin */; };
 		3E89F47D1CCAB4FC00EAE7AC /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D73521C82B0F900091C4D /* State.cpp */; };
 		3E8D25F71D21D8C80086BA59 /* Analytics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E8D25F61D21D8C80086BA59 /* Analytics.cpp */; };
 		3E8D2A421D21E54B0086BA59 /* asyn-ares.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E8D29C61D21E54B0086BA59 /* asyn-ares.c */; };
@@ -1289,13 +1280,6 @@
 			remoteGlobalIDString = 8355D4921A6538FD00E73302;
 			remoteInfo = "Dolphin-Core";
 		};
-		EE09ECF125AFAC6D002C9E67 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3E2217961D74AB3300C55942;
-			remoteInfo = Wii;
-		};
 		EEC94A64224AC08500F85ABA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AE37EB7920C4C86939DE6E9 /* Project object */;
@@ -1312,33 +1296,10 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		3E7AE8EA1FB4E9BC0017E3D1 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = OpenEmu.app/Contents/PlugIns/Systems;
-			dstSubfolderSpec = 16;
-			files = (
-				3E7AE8EB1FB4E9FC0017E3D1 /* Wii.oesystemplugin in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		0AB74F25F8044E96B632EF77 /* libvideosoftware-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libvideosoftware-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		125948FD17D5434DA13C8293 /* libUICommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libUICommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB9EC0F64AC4815A7E27952 /* libvideocommon-dol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libvideocommon-dol.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E2217891D74A83E00C55942 /* OEWiiSystemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OEWiiSystemController.h; sourceTree = "<group>"; };
-		3E22178A1D74A83E00C55942 /* OEWiiSystemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OEWiiSystemController.m; sourceTree = "<group>"; };
-		3E22178B1D74A83E00C55942 /* OEWiiSystemResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OEWiiSystemResponder.h; sourceTree = "<group>"; };
-		3E22178C1D74A83E00C55942 /* OEWiiSystemResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OEWiiSystemResponder.m; sourceTree = "<group>"; };
-		3E22178D1D74A83E00C55942 /* OEWiiSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OEWiiSystemResponderClient.h; sourceTree = "<group>"; };
-		3E22178F1D74A87400C55942 /* Controller-Mappings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Controller-Mappings.plist"; sourceTree = "<group>"; };
-		3E2217901D74A87400C55942 /* Controller-Preferences.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Controller-Preferences.plist"; sourceTree = "<group>"; };
-		3E2217911D74A87400C55942 /* Keyboard-Mappings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Keyboard-Mappings.plist"; sourceTree = "<group>"; };
-		3E2217921D74A87400C55942 /* WII-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WII-info.plist"; sourceTree = "<group>"; };
-		3E2217971D74AB3300C55942 /* Wii.oesystemplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wii.oesystemplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E286ADC1F9CFAD4001524A4 /* cubeb_strings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_strings.c; sourceTree = "<group>"; };
 		3E286ADD1F9CFAD5001524A4 /* cubeb_strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_strings.h; sourceTree = "<group>"; };
 		3E3D70261C82AF2A00091C4D /* AGL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AGL.mm; sourceTree = "<group>"; };
@@ -3594,15 +3555,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3E2217941D74AB3300C55942 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E3DA54E1F8BDD080005FB1B /* OpenEmuSystem.framework in Frameworks */,
-				3E1DDECA1D74AC2E00BB8009 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3E3D767E1C839B2E00091C4D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3945,31 +3897,6 @@
 				3E3D76651C82B33700091C4D /* VideoBackend.h */,
 			);
 			path = Software;
-			sourceTree = "<group>";
-		};
-		3E2217881D74A81600C55942 /* Wii Plugin */ = {
-			isa = PBXGroup;
-			children = (
-				3E22178E1D74A84300C55942 /* Supporting Files */,
-				3E2217891D74A83E00C55942 /* OEWiiSystemController.h */,
-				3E22178A1D74A83E00C55942 /* OEWiiSystemController.m */,
-				3E22178B1D74A83E00C55942 /* OEWiiSystemResponder.h */,
-				3E22178C1D74A83E00C55942 /* OEWiiSystemResponder.m */,
-				3E22178D1D74A83E00C55942 /* OEWiiSystemResponderClient.h */,
-			);
-			name = "Wii Plugin";
-			path = Wii;
-			sourceTree = "<group>";
-		};
-		3E22178E1D74A84300C55942 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3E22178F1D74A87400C55942 /* Controller-Mappings.plist */,
-				3E2217901D74A87400C55942 /* Controller-Preferences.plist */,
-				3E2217911D74A87400C55942 /* Keyboard-Mappings.plist */,
-				3E2217921D74A87400C55942 /* WII-info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3E3D70241C82AF0600091C4D /* Compatibilty */ = {
@@ -6397,7 +6324,6 @@
 		8355D4941A6538FD00E73302 /* Dolphin-Core */ = {
 			isa = PBXGroup;
 			children = (
-				3E2217881D74A81600C55942 /* Wii Plugin */,
 				3E3D70241C82AF0600091C4D /* Compatibilty */,
 				3E3D76741C83477F00091C4D /* DolHost.h */,
 				8355D4E21A653B6600E73302 /* DolphinGameCore.h */,
@@ -6500,7 +6426,6 @@
 				3E3D76811C839B2E00091C4D /* libenet-dol.a */,
 				3E3D76A41C839C5400091C4D /* libmbedtls-dol.a */,
 				3E8D26031D21D9A70086BA59 /* libcurl-dol.a */,
-				3E2217971D74AB3300C55942 /* Wii.oesystemplugin */,
 				3EFF257A1F84437500B4FD11 /* libhidapi-dol.a */,
 				3EFF277D1F8461BC00B4FD11 /* libpugixml-dol.a */,
 				3EFF27861F8461CA00B4FD11 /* libcubeb-dol.a */,
@@ -7607,24 +7532,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3E2217961D74AB3300C55942 /* Wii */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3E22179A1D74AB3300C55942 /* Build configuration list for PBXNativeTarget "Wii" */;
-			buildPhases = (
-				3E2217931D74AB3300C55942 /* Sources */,
-				3E2217941D74AB3300C55942 /* Frameworks */,
-				3E2217951D74AB3300C55942 /* Resources */,
-				3E7AE8EA1FB4E9BC0017E3D1 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Wii;
-			productName = Wii;
-			productReference = 3E2217971D74AB3300C55942 /* Wii.oesystemplugin */;
-			productType = "com.apple.product-type.bundle";
-		};
 		3E3D76801C839B2E00091C4D /* enet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E3D76891C839B2E00091C4D /* Build configuration list for PBXNativeTarget "enet" */;
@@ -8230,9 +8137,6 @@
 			isa = PBXProject;
 			attributes = {
 				TargetAttributes = {
-					3E2217961D74AB3300C55942 = {
-						CreatedOnToolsVersion = 7.3.1;
-					};
 					3E3D76801C839B2E00091C4D = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -8264,7 +8168,6 @@
 			targets = (
 				8355D4921A6538FD00E73302 /* Dolphin */,
 				8355D4D91A653A9D00E73302 /* Build & Install Dolphin */,
-				3E2217961D74AB3300C55942 /* Wii */,
 				79836D15F4E048CFBA06C188 /* bdisasm */,
 				B25C5C437ED44D7A82B1AAEE /* lzo2 */,
 				F4243CD8A395409DB8AF7197 /* png */,
@@ -8305,16 +8208,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3E2217951D74AB3300C55942 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E1DDECD1D74AC4600BB8009 /* Controller-Mappings.plist in Resources */,
-				3E1DDECE1D74AC4600BB8009 /* Controller-Preferences.plist in Resources */,
-				3E1DDECF1D74AC4600BB8009 /* Keyboard-Mappings.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8355D4911A6538FD00E73302 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -8679,15 +8572,6 @@
 				5550900527FA8B8500CA618C /* Arm64Emitter.cpp in Sources */,
 				3E3D71651C82B0BB00091C4D /* ENetUtil.cpp in Sources */,
 				3EFF28A81F855C3100B4FD11 /* AES.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E2217931D74AB3300C55942 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E1DDEC81D74AC1E00BB8009 /* OEWiiSystemController.m in Sources */,
-				3E1DDEC91D74AC1E00BB8009 /* OEWiiSystemResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9728,11 +9612,6 @@
 			target = 8355D4921A6538FD00E73302 /* Dolphin */;
 			targetProxy = 8355D4DF1A653AA900E73302 /* PBXContainerItemProxy */;
 		};
-		EE09ECF225AFAC6D002C9E67 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3E2217961D74AB3300C55942 /* Wii */;
-			targetProxy = EE09ECF125AFAC6D002C9E67 /* PBXContainerItemProxy */;
-		};
 		EEC94A65224AC08500F85ABA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EEC94A52224ABFDC00F85ABA /* OGLCompilersDLL */;
@@ -10099,95 +9978,6 @@
 			};
 			name = Release;
 		};
-		3E22179B1D74AB3300C55942 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Wii/WII-Info.plist";
-				INSTALL_PATH = "\"$USER_LIBRARY_DIR/Application Support/OpenEmu/Systems\"";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.Wii;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = oesystemplugin;
-			};
-			name = Debug;
-		};
-		3E22179C1D74AB3300C55942 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Wii/WII-Info.plist";
-				INSTALL_PATH = "\"$USER_LIBRARY_DIR/Application Support/OpenEmu/Systems\"";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.Wii;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = oesystemplugin;
-			};
-			name = Release;
-		};
 		3E3D768A1C839B2E00091C4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -10232,7 +10022,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -10275,7 +10064,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -10323,7 +10111,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -10366,7 +10153,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -10423,7 +10209,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -10478,7 +10263,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -11135,6 +10919,7 @@
 		43E825BCFF8841F4A0E1578B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -11188,11 +10973,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/dolphin",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14.4;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				SDKROOT = auto;
 				STRIP_STYLE = debugging;
+				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/dolphin;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -11926,7 +11717,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
@@ -11994,7 +11784,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
@@ -12005,7 +11794,6 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -12014,7 +11802,6 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -12088,7 +11875,6 @@
 				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = (
@@ -12148,7 +11934,6 @@
 				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = (
@@ -13115,7 +12900,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -13159,7 +12943,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)-dol";
-				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
@@ -14299,6 +14082,7 @@
 		FAA6947016D14BA59DA6F022 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -14351,12 +14135,18 @@
 					"$(inherited)",
 					"$(SRCROOT)/dolphin",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14.4;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = auto;
 				STRIP_STYLE = debugging;
+				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/dolphin;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -14386,15 +14176,6 @@
 			buildConfigurations = (
 				6161DFF1019841FFAE429E24 /* Debug */,
 				1A0EAAE8AC9F4BF7BDF9FC8C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3E22179A1D74AB3300C55942 /* Build configuration list for PBXNativeTarget "Wii" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3E22179B1D74AB3300C55942 /* Debug */,
-				3E22179C1D74AB3300C55942 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
